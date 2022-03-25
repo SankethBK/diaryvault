@@ -1,3 +1,4 @@
+import 'package:dairy_app/core/errors/validation_exceptions.dart';
 import 'package:dairy_app/core/validators/EmailValidator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -23,18 +24,30 @@ void main() {
     });
 
     test("invalid emails", () {
-      expect(emailValidator("plainaddress"), false);
-      expect(emailValidator("#@%^%#\$@#\$@#.com"), false);
-      expect(emailValidator("Joe Smith <email@example.com>"), false);
-      expect(emailValidator("email.example.com"), false);
-      expect(emailValidator(".email@example.com"), false);
-      expect(emailValidator("email.@example.com"), false);
-      expect(emailValidator("email..email@example.com"), false);
-      expect(emailValidator("email@example.com (Joe Smith)"), false);
-      expect(emailValidator("email@example"), false);
-      expect(emailValidator("email@111.222.333.44444"), false);
-      expect(emailValidator("email@example..com"), false);
-      expect(emailValidator("Abc..123@example.com"), false);
+      expect(() => emailValidator("plainaddress"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("#@%^%#\$@#\$@#.com"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("Joe Smith <email@example.com>"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("email.example.com"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator(".email@example.com"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("email.@example.com"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("email..email@example.com"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("email@example.com (Joe Smith)"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("email@example"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("email@111.222.333.44444"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("email@example..com"),
+          throwsA(isA<InvalidEmailException>()));
+      expect(() => emailValidator("Abc..123@example.com"),
+          throwsA(isA<InvalidEmailException>()));
     });
   });
 }
