@@ -9,22 +9,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'sign_up_with_email_and_password.mocks.dart';
+import 'sign_up_with_email_and_password_test.mocks.dart';
 
 @GenerateMocks([EmailValidator, PasswordValidator, IAuthenticationRepository])
 void main() {
   late MockEmailValidator emailValidator;
   late MockPasswordValidator passwordValidator;
-  late MockAuthenticationRepository authenticationRepository;
-  late SignupWithEmailAndPassword usecase;
+  late MockIAuthenticationRepository authenticationRepository;
+  late SignUpWithEmailAndPassword usecase;
   const String testEmail = "test@email";
   const String testPassword = "testpassword";
 
   setUp(() {
     emailValidator = MockEmailValidator();
     passwordValidator = MockPasswordValidator();
-    authenticationRepository = MockAuthenticationRepository();
-    usecase = SignupWithEmailAndPassword(
+    authenticationRepository = MockIAuthenticationRepository();
+    usecase = SignUpWithEmailAndPassword(
       emailValidator: emailValidator,
       passwordValidator: passwordValidator,
       authenticationRepository: authenticationRepository,

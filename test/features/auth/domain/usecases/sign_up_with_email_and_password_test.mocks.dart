@@ -65,12 +65,22 @@ class MockIAuthenticationRepository extends _i1.Mock
 
   @override
   _i6.Future<_i2.Either<_i7.SignUpFailure, _i8.LoggedInUser>>
-      signUpWIthEmailAndPassword({String? email, String? password}) =>
+      signUpWithEmailAndPassword({String? email, String? password}) =>
           (super.noSuchMethod(
-              Invocation.method(#signUpWIthEmailAndPassword, [],
+              Invocation.method(#signUpWithEmailAndPassword, [],
                   {#email: email, #password: password}),
               returnValue:
                   Future<_i2.Either<_i7.SignUpFailure, _i8.LoggedInUser>>.value(
                       _FakeEither_0<_i7.SignUpFailure, _i8.LoggedInUser>())) as _i6
               .Future<_i2.Either<_i7.SignUpFailure, _i8.LoggedInUser>>);
+  @override
+  _i6.Future<_i2.Either<_i7.SignInFailure, _i8.LoggedInUser>>
+      signInWithEmailAndPassword({String? email, String? password}) =>
+          (super.noSuchMethod(
+              Invocation.method(#signInWithEmailAndPassword, [],
+                  {#email: email, #password: password}),
+              returnValue:
+                  Future<_i2.Either<_i7.SignInFailure, _i8.LoggedInUser>>.value(
+                      _FakeEither_0<_i7.SignInFailure, _i8.LoggedInUser>())) as _i6
+              .Future<_i2.Either<_i7.SignInFailure, _i8.LoggedInUser>>);
 }

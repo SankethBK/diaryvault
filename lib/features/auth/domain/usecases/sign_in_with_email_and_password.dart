@@ -6,30 +6,24 @@ import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class SignUpWithEmailAndPassword implements UseCase<LoggedInUser, Params> {
+class SignInWithEmailAndPassword implements UseCase<LoggedInUser, Params> {
   final Validator emailValidator;
-  final Validator passwordValidator;
   final IAuthenticationRepository authenticationRepository;
 
-  SignUpWithEmailAndPassword(
-      {required this.emailValidator,
-      required this.passwordValidator,
-      required this.authenticationRepository});
+  SignInWithEmailAndPassword(
+      {required this.emailValidator, required this.authenticationRepository});
 
-  /// Validates [email] and [password] and continues sign up process by calling repository's
+  /// Validates [email]  and continues sign in process by calling repository's
   /// signUpWithEmailAndPassword method
   @override
-  Future<Either<SignUpFailure, LoggedInUser>> call(Params params) {
+  Future<Either<SignInFailure, LoggedInUser>> call(Params params) {
     try {
       emailValidator(params.email);
-      passwordValidator(params.password);
     } on InvalidEmailException {
-      return Future.value(Left(SignUpFailure.invalidEmail()));
-    } on InvalidPasswordException catch (e) {
-      return Future.value(Left(SignUpFailure.invalidPassword(e.message)));
+      return Future.value(Left(SignInFailure.invalidEmail()));
     }
 
-    return authenticationRepository.signUpWithEmailAndPassword(
+    return authenticationRepository.signInWithEmailAndPassword(
         email: params.email, password: params.password);
   }
 }

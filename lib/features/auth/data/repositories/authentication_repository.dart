@@ -56,4 +56,55 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
     return Left(SignUpFailure.noInternetConnection());
   }
+
+  /// helper method used by [signInWithEmailAndPassword] to prevent nested code
+  Future<Either<SignInFailure, LoggedInUser>> _remoteLogin(
+      {required String email, required String password}) async {
+    late LoggedInUser user;
+
+    if (await networkInfo.isConnected) {
+      try {
+        user = await remoteDataSource.signInUser(
+          email: email,
+          password: password,
+        );
+        return Right(user);
+      } on FirebaseAuthException catch (e) {
+        switch (e.code) {
+          case 'invalid-email':
+            return Left(SignInFailure.invalidEmail());
+          case 'user-disabled':
+            return Left(SignInFailure.userDisabled());
+          case 'user-not-found':
+            return Left(SignInFailure.emailDoesNotExists());
+          case 'wrong-password':
+            return Left(SignInFailure.wrongPassword());
+          default:
+            return Left(SignInFailure.unknownError());
+        }
+      }
+    }
+    return Left(SignInFailure.noInternetConnection());
+  }
+
+  @override
+  Future<Either<SignInFailure, LoggedInUser>> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    late LoggedInUser user;
+    try {
+      user = await localDataSource.signInUser(email: email, password: password);
+      return Right(user);
+    } on SignInFailure catch (e) {
+      switch (e.code) {
+        case SignInFailure.WRONG_PASSWORD:
+          return Left(SignInFailure.wrongPassword());
+        case SignInFailure.EMAIL_DOES_NOT_EXISTS:
+          return _remoteLogin(email: email, password: password);
+        default:
+          return Left(SignInFailure.unknownError());
+      }
+    } on DatabaseQueryException {
+      return Left(SignInFailure.unknownError());
+    }
+  }
 }

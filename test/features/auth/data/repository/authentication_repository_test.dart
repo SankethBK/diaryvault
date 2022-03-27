@@ -1,11 +1,11 @@
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/core/network/network_info.dart';
+import 'package:dairy_app/core/usecase/usecase_template.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
-import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -154,6 +154,278 @@ void main() {
           ),
         );
         expect(result, Left(SignUpFailure.unknownError()));
+      },
+    );
+  });
+
+  group("Testing of signin with email and password method in auth repository",
+      () {
+    test(
+      'should return SignInFailure.passwordDoesNotExists when local data source throws same failure',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(SignInFailure.wrongPassword());
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        expect(result, Left(SignInFailure.wrongPassword()));
+      },
+    );
+
+    test(
+      'should return Suser when local login succeeds',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenAnswer((_) async => user);
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        expect(result, Right(user));
+      },
+    );
+
+    test(
+      'should return SignInFailure.noInternetConnection when local database returns SignInFailure.emailDoesNotExists() and internet is off',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(SignInFailure.emailDoesNotExists());
+
+        when(networkInfo.isConnected).thenAnswer((_) async => false);
+
+        when(remoteDataSource.signInUser(
+                email: anyNamed("email"), password: anyNamed("password")))
+            .thenAnswer((_) async => user);
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+        verify(networkInfo.isConnected);
+
+        verifyZeroInteractions(
+          remoteDataSource,
+        );
+
+        expect(result, Left(SignInFailure.noInternetConnection()));
+      },
+    );
+
+    test(
+      'should make a call to remote login when local database returns SignInFailure.emailDoesNotExists() and internet is on',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(SignInFailure.emailDoesNotExists());
+
+        when(networkInfo.isConnected).thenAnswer((_) async => true);
+
+        when(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenAnswer((_) async => user);
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        verify(networkInfo.isConnected);
+
+        verify(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        expect(result, Right(user));
+      },
+    );
+
+    test(
+      'should return SignInFailure.invalidEmail() when remote error code is invalid-email',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(SignInFailure.emailDoesNotExists());
+
+        when(networkInfo.isConnected).thenAnswer((_) async => true);
+
+        when(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(FirebaseAuthException(code: 'invalid-email'));
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        verify(networkInfo.isConnected);
+
+        verify(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        expect(result, Left(SignInFailure.invalidEmail()));
+      },
+    );
+
+    test(
+      'should return SignInFailure.userDisabled() when remote error code is user-disabled',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(SignInFailure.emailDoesNotExists());
+
+        when(networkInfo.isConnected).thenAnswer((_) async => true);
+
+        when(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(FirebaseAuthException(code: 'user-disabled'));
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        verify(networkInfo.isConnected);
+
+        verify(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        expect(result, Left(SignInFailure.userDisabled()));
+      },
+    );
+
+    test(
+      'should return SignInFailure.emailDoesNotExists() when remote error code is user-not-found',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(SignInFailure.emailDoesNotExists());
+
+        when(networkInfo.isConnected).thenAnswer((_) async => true);
+
+        when(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(FirebaseAuthException(code: 'user-not-found'));
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        verify(networkInfo.isConnected);
+
+        verify(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        expect(result, Left(SignInFailure.emailDoesNotExists()));
+      },
+    );
+
+    test(
+      'should return SignInFailure.wrongPassword() when remote error code is wrong-password',
+      () async {
+        // arrange
+        when(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(SignInFailure.emailDoesNotExists());
+
+        when(networkInfo.isConnected).thenAnswer((_) async => true);
+
+        when(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(FirebaseAuthException(code: 'wrong-password'));
+
+        // act
+        var result = await authenticationRepository.signInWithEmailAndPassword(
+            email: testEmail, password: testPassword);
+
+        // assert
+
+        verify(
+          localDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        verify(networkInfo.isConnected);
+
+        verify(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        );
+
+        expect(result, Left(SignInFailure.wrongPassword()));
       },
     );
   });

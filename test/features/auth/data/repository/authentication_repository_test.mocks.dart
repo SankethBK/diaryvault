@@ -43,6 +43,15 @@ class MockILocalDataSource extends _i1.Mock implements _i3.ILocalDataSource {
           returnValue: Future<_i2.LoggedInUserModel>.value(
               _FakeLoggedInUserModel_0())) as _i4
           .Future<_i2.LoggedInUserModel>);
+  @override
+  _i4.Future<_i2.LoggedInUserModel> signInUser(
+          {String? email, String? password}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #signInUser, [], {#email: email, #password: password}),
+              returnValue: Future<_i2.LoggedInUserModel>.value(
+                  _FakeLoggedInUserModel_0()))
+          as _i4.Future<_i2.LoggedInUserModel>);
 }
 
 /// A class which mocks [IRemoteDataSource].
@@ -59,6 +68,15 @@ class MockIRemoteDataSource extends _i1.Mock implements _i5.IRemoteDataSource {
       (super.noSuchMethod(
               Invocation.method(
                   #signUpUser, [], {#email: email, #password: password}),
+              returnValue: Future<_i2.LoggedInUserModel>.value(
+                  _FakeLoggedInUserModel_0()))
+          as _i4.Future<_i2.LoggedInUserModel>);
+  @override
+  _i4.Future<_i2.LoggedInUserModel> signInUser(
+          {String? email, String? password}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #signInUser, [], {#email: email, #password: password}),
               returnValue: Future<_i2.LoggedInUserModel>.value(
                   _FakeLoggedInUserModel_0()))
           as _i4.Future<_i2.LoggedInUserModel>);

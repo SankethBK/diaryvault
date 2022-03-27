@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dairy_app/core/databases/db_schemas.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -25,10 +26,11 @@ class DBProvider {
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         await db.execute(
-          "CREATE TABLE Users ("
-          "id TEXT PRIMARY KEY,"
-          "EMAIL TEXT"
-          ")",
+          """CREATE TABLE ${Users.TABLE_NAME} (
+          "${Users.ID} TEXT PRIMARY KEY,
+          "${Users.EMAIL} TEXT,
+          "${Users.PASSWORD} TEXT
+          )""",
         );
       },
     );

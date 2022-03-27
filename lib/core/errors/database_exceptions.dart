@@ -7,3 +7,11 @@ class DatabaseInsertionException extends CustomException {
           message: "something went wrong, could not sign up user",
         );
 }
+
+class DatabaseQueryException extends CustomException {
+  const DatabaseQueryException()
+      : super(
+          code: -1,
+          message: "something went wrong, could not sign up user",
+        );
+}

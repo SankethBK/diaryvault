@@ -10,4 +10,12 @@ class RemoteDataSource implements IRemoteDataSource {
         .createUserWithEmailAndPassword(email: email, password: password);
     return LoggedInUserModel(id: credential.user?.uid as String, email: email);
   }
+
+  @override
+  Future<LoggedInUserModel> signInUser(
+      {required String email, required String password}) async {
+    var credential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+    return LoggedInUserModel(id: credential.user?.uid as String, email: email);
+  }
 }
