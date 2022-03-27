@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart';
 class SignupWithEmailAndPassword implements UseCase<LoggedInUser, Params> {
   final Validator emailValidator;
   final Validator passwordValidator;
-  final AuthenticationRepository authenticationRepository;
+  final IAuthenticationRepository authenticationRepository;
 
   SignupWithEmailAndPassword(
       {required this.emailValidator,
@@ -27,7 +27,7 @@ class SignupWithEmailAndPassword implements UseCase<LoggedInUser, Params> {
       return Future.value(Left(SignUpFailure.invalidPassword(e.message)));
     }
 
-    return authenticationRepository.signUpWIthEmailAndPassword(
+    return authenticationRepository.signUpWithEmailAndPassword(
         email: params.email, password: params.password);
   }
 }

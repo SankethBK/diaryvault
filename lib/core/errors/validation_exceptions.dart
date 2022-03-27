@@ -1,4 +1,4 @@
-import 'package:dairy_app/core/errors/custom_exception_templdate.dart';
+import 'package:dairy_app/core/errors/custom_exception_template.dart';
 
 class InvalidEmailException extends CustomException {
   static const INVALID_EMAIL = 0;
