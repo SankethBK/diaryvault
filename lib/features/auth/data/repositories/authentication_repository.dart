@@ -8,7 +8,7 @@ import 'package:dairy_app/features/auth/domain/repositories/authentication_repos
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthenticationRepository implements IAuthenticationRepository {
+class AuthenticationRepository extends IAuthenticationRepository {
   final NetworkInfo networkInfo;
   final IRemoteDataSource remoteDataSource;
   final ILocalDataSource localDataSource;
