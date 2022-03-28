@@ -1,6 +1,6 @@
 import 'package:dairy_app/core/errors/validation_exceptions.dart';
-import 'package:dairy_app/core/validators/email_validator.dart';
-import 'package:dairy_app/core/validators/password_validator.dart';
+import 'package:dairy_app/features/auth/core/validators/email_validator.dart';
+import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';

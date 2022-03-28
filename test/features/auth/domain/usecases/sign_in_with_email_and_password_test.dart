@@ -1,5 +1,5 @@
 import 'package:dairy_app/core/errors/validation_exceptions.dart';
-import 'package:dairy_app/core/validators/email_validator.dart';
+import 'package:dairy_app/features/auth/core/validators/email_validator.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';

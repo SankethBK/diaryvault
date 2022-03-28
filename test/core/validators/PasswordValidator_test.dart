@@ -1,5 +1,5 @@
 import 'package:dairy_app/core/errors/validation_exceptions.dart';
-import 'package:dairy_app/core/validators/password_validator.dart';
+import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

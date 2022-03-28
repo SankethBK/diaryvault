@@ -34,11 +34,13 @@ dependencies:
   firebase_core: ^1.13.1
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.0.1
   internet_connection_checker: ^0.0.1+3
   path_provider: ^2.0.9
   sqflite: ^2.0.2
 
 dev_dependencies:
+  bloc_test: ^9.0.3
   build_runner: ^2.1.7
   flutter_lints: ^1.0.0
   flutter_test:

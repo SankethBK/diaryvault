@@ -6,3 +6,13 @@ abstract class AuthSessionEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class AppLostFocus extends AuthSessionEvent {}
+
+class UserLoggedIn extends AuthSessionEvent {
+  final LoggedInUser user;
+
+  const UserLoggedIn({required this.user});
+}
+
+class UserLoggedOut extends AuthSessionEvent {}

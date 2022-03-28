@@ -9,4 +9,8 @@ abstract class AuthSessionState extends Equatable {
 
 class Unauthenticated extends AuthSessionState {}
 
-class Authenticated extends AuthSessionState {}
+class Authenticated extends AuthSessionState {
+  final LoggedInUser user;
+
+  const Authenticated({required this.user});
+}

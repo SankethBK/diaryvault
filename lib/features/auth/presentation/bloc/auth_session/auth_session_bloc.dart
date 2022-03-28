@@ -8,25 +8,14 @@ part 'auth_session_event.dart';
 part 'auth_session_state.dart';
 
 class AuthSessionBloc extends Bloc<AuthSessionEvent, AuthSessionState> {
-  final IAuthenticationRepository _authenticationRepository;
-  late StreamSubscription<LoggedInUser?> _authenticationStatusSubscription;
-
-  AuthSessionBloc({required IAuthenticationRepository authenticationRepository})
-      : _authenticationRepository = authenticationRepository,
-        super(Unauthenticated()) {
-    _authenticationStatusSubscription =
-        _authenticationRepository.authStateStream.listen((user) {});
-
+  AuthSessionBloc() : super(Unauthenticated()) {
     on<AuthSessionEvent>(
-      (event, emit) {},
+      (event, emit) {
+        on<UserLoggedIn>(
+            (event, emit) => emit(Authenticated(user: event.user)));
+        on<UserLoggedOut>((event, emit) => emit(Unauthenticated()));
+        on<AppLostFocus>(((event, emit) => Unauthenticated()));
+      },
     );
-
-    @override
-    // ignore: unused_element
-    Future<void> close() {
-      _authenticationStatusSubscription.cancel();
-      _authenticationRepository.dispose();
-      return super.close();
-    }
   }
 }
