@@ -4,9 +4,9 @@
 
 import 'dart:async' as _i5;
 
+import 'package:dairy_app/features/auth/core/failures/failures.dart' as _i6;
 import 'package:dairy_app/features/auth/core/validators/email_validator.dart'
     as _i3;
-import 'package:dairy_app/features/auth/core/failures/failures.dart' as _i6;
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart'
     as _i7;
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart'
