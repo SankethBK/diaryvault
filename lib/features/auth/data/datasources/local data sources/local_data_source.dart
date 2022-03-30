@@ -6,10 +6,10 @@ import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:dairy_app/core/databases/db_schemas.dart';
 
-class LocalDataSource implements ILocalDataSource {
+class AuthLocalDataSource implements IAuthLocalDataSource {
   late Database database;
 
-  LocalDataSource() {
+  AuthLocalDataSource() {
     DBProvider.instance.database.then((db) {
       database = db;
     });

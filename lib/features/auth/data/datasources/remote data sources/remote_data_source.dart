@@ -2,7 +2,7 @@ import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class RemoteDataSource implements IRemoteDataSource {
+class AuthRemoteDataSource implements IAuthRemoteDataSource {
   @override
   Future<LoggedInUserModel> signUpUser(
       {required String email, required String password}) async {

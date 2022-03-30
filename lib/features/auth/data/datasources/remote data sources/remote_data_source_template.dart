@@ -1,6 +1,6 @@
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
 
-abstract class IRemoteDataSource {
+abstract class IAuthRemoteDataSource {
   /// Tried to register user on a remote server
   ///
   /// Throws [FirebaseAuthException] with suitable error codes if something goes wwrong.

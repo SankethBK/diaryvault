@@ -9,9 +9,9 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationRepository implements IAuthenticationRepository {
-  final NetworkInfo networkInfo;
-  final IRemoteDataSource remoteDataSource;
-  final ILocalDataSource localDataSource;
+  final INetworkInfo networkInfo;
+  final IAuthRemoteDataSource remoteDataSource;
+  final IAuthLocalDataSource localDataSource;
 
   AuthenticationRepository(
       {required this.remoteDataSource,

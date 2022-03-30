@@ -27,9 +27,9 @@ class DBProvider {
       onCreate: (Database db, int version) async {
         await db.execute(
           """CREATE TABLE ${Users.TABLE_NAME} (
-          "${Users.ID} TEXT PRIMARY KEY,
-          "${Users.EMAIL} TEXT,
-          "${Users.PASSWORD} TEXT
+          ${Users.ID} TEXT PRIMARY KEY,
+          ${Users.EMAIL} TEXT,
+          ${Users.PASSWORD} TEXT
           )""",
         );
       },
