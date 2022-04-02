@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
+import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
+import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -10,14 +13,11 @@ part 'auth_form_state.dart';
 /// [AuthFormBloc] handles both sign up and sign in flow, as both involve same fields
 /// It updates [AuthSession]
 class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
-  final AuthenticationRepository _authenticationRepository;
   final AuthSessionBloc _authSessionBloc;
 
   AuthFormBloc({
-    required AuthenticationRepository authenticationRepository,
     required AuthSessionBloc authSessionBloc,
-  })  : _authenticationRepository = authenticationRepository,
-        _authSessionBloc = authSessionBloc,
+  })  : _authSessionBloc = authSessionBloc,
         super(const AuthFormInitial(email: '', password: '')) {
     on<AuthFormInputsChangedEvent>(
       ((event, emit) {
@@ -32,10 +32,11 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
       emit(AuthFormSubmissionLoading(
           email: state.email, password: state.password));
 
-      var result = await _authenticationRepository.signUpWithEmailAndPassword(
-          email: state.email, password: state.password);
+      var result = await sl<SignUpWithEmailAndPassword>()(
+          SignUpParams(email: state.email, password: state.password));
 
       result.fold((error) {
+        print("error = $error");
         Map<String, List> errorMap = {};
 
         if (error.code == SignUpFailure.UNKNOWN_ERROR) {
@@ -54,6 +55,8 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
           errorMap["general"] = [error.message];
         }
 
+        print(errorMap);
+
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));
       }, (user) {
@@ -67,10 +70,11 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
       emit(AuthFormSubmissionLoading(
           email: state.email, password: state.password));
 
-      var result = await _authenticationRepository.signInWithEmailAndPassword(
-          email: state.email, password: state.password);
+      var result = await sl<SignInWithEmailAndPassword>()(
+          SignInParams(email: state.email, password: state.password));
 
       result.fold((error) {
+        print("error : $error");
         Map<String, List> errorMap = {};
 
         if (error.code == SignInFailure.UNKNOWN_ERROR) {
@@ -85,9 +89,14 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         if (error.code == SignInFailure.WRONG_PASSWORD) {
           errorMap["password"] = [error.message];
         }
+        if (error.code == SignInFailure.NO_INTERNET_CONNECTION) {
+          errorMap["general"] = [error.message];
+        }
         if (error.code == SignInFailure.USER_DISABLED) {
           errorMap["general"] = [error.message];
         }
+
+        print(errorMap);
 
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));

@@ -33,13 +33,13 @@ import 'package:mockito/mockito.dart' as _i1;
 class _FakeAuthSessionState_0 extends _i1.Fake implements _i2.AuthSessionState {
 }
 
-class _FakeNetworkInfo_1 extends _i1.Fake implements _i3.NetworkInfo {}
+class _FakeINetworkInfo_1 extends _i1.Fake implements _i3.INetworkInfo {}
 
-class _FakeIRemoteDataSource_2 extends _i1.Fake
-    implements _i4.IRemoteDataSource {}
+class _FakeIAuthRemoteDataSource_2 extends _i1.Fake
+    implements _i4.IAuthRemoteDataSource {}
 
-class _FakeILocalDataSource_3 extends _i1.Fake implements _i5.ILocalDataSource {
-}
+class _FakeIAuthLocalDataSource_3 extends _i1.Fake
+    implements _i5.IAuthLocalDataSource {}
 
 class _FakeEither_4<L, R> extends _i1.Fake implements _i6.Either<L, R> {}
 
@@ -117,17 +117,18 @@ class MockAuthenticationRepository extends _i1.Mock
   }
 
   @override
-  _i3.NetworkInfo get networkInfo =>
+  _i3.INetworkInfo get networkInfo =>
       (super.noSuchMethod(Invocation.getter(#networkInfo),
-          returnValue: _FakeNetworkInfo_1()) as _i3.NetworkInfo);
+          returnValue: _FakeINetworkInfo_1()) as _i3.INetworkInfo);
   @override
-  _i4.IRemoteDataSource get remoteDataSource =>
+  _i4.IAuthRemoteDataSource get remoteDataSource =>
       (super.noSuchMethod(Invocation.getter(#remoteDataSource),
-          returnValue: _FakeIRemoteDataSource_2()) as _i4.IRemoteDataSource);
+              returnValue: _FakeIAuthRemoteDataSource_2())
+          as _i4.IAuthRemoteDataSource);
   @override
-  _i5.ILocalDataSource get localDataSource =>
-      (super.noSuchMethod(Invocation.getter(#localDataSource),
-          returnValue: _FakeILocalDataSource_3()) as _i5.ILocalDataSource);
+  _i5.IAuthLocalDataSource get localDataSource => (super.noSuchMethod(
+      Invocation.getter(#localDataSource),
+      returnValue: _FakeIAuthLocalDataSource_3()) as _i5.IAuthLocalDataSource);
   @override
   _i7.Future<_i6.Either<_i10.SignUpFailure, _i11.LoggedInUser>>
       signUpWithEmailAndPassword({String? email, String? password}) =>

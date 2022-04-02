@@ -40,8 +40,8 @@ void main() {
             .thenThrow(InvalidEmailException.invalidEmail());
 
         // act
-        final result =
-            await usecase(Params(email: testEmail, password: testPassword));
+        final result = await usecase(
+            SignInParams(email: testEmail, password: testPassword));
 
         // assert
         verify(emailValidator(any));
@@ -60,8 +60,8 @@ void main() {
         ).thenAnswer((_) async => Right(user));
 
         // act
-        var result =
-            await usecase(Params(email: testEmail, password: testPassword));
+        var result = await usecase(
+            SignInParams(email: testEmail, password: testPassword));
 
         // assert
         verify(emailValidator(any));

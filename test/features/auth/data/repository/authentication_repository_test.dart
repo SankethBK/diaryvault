@@ -14,11 +14,11 @@ import 'package:mockito/mockito.dart';
 
 import 'authentication_repository_test.mocks.dart';
 
-@GenerateMocks([ILocalDataSource, IRemoteDataSource, NetworkInfo])
+@GenerateMocks([IAuthLocalDataSource, IAuthRemoteDataSource, INetworkInfo])
 void main() {
-  late MockNetworkInfo networkInfo;
-  late MockIRemoteDataSource remoteDataSource;
-  late MockILocalDataSource localDataSource;
+  late MockINetworkInfo networkInfo;
+  late MockIAuthRemoteDataSource remoteDataSource;
+  late MockIAuthLocalDataSource localDataSource;
   late AuthenticationRepository authenticationRepository;
   const String testEmail = "test@email.com";
   const String testPassword = "testpassword";
@@ -27,9 +27,9 @@ void main() {
       LoggedInUserModel(email: testEmail, id: testId);
 
   setUp(() {
-    networkInfo = MockNetworkInfo();
-    localDataSource = MockILocalDataSource();
-    remoteDataSource = MockIRemoteDataSource();
+    networkInfo = MockINetworkInfo();
+    localDataSource = MockIAuthLocalDataSource();
+    remoteDataSource = MockIAuthRemoteDataSource();
     authenticationRepository = AuthenticationRepository(
         remoteDataSource: remoteDataSource,
         localDataSource: localDataSource,
@@ -256,6 +256,12 @@ void main() {
               email: anyNamed("email"), password: anyNamed("password")),
         ).thenAnswer((_) async => user);
 
+        when(localDataSource.cacheUser(
+          id: anyNamed("id"),
+          email: anyNamed("email"),
+          password: anyNamed("password"),
+        ));
+
         // act
         var result = await authenticationRepository.signInWithEmailAndPassword(
             email: testEmail, password: testPassword);
@@ -272,6 +278,12 @@ void main() {
           remoteDataSource.signInUser(
               email: anyNamed("email"), password: anyNamed("password")),
         );
+
+        verify(localDataSource.cacheUser(
+          id: anyNamed("id"),
+          email: anyNamed("email"),
+          password: anyNamed("password"),
+        ));
 
         expect(result, Right(user));
       },

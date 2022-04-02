@@ -25,8 +25,8 @@ void main() {
     authenticationRepository = MockAuthenticationRepository();
     authSessionBloc = MockAuthSessionBloc();
     authFormBloc = AuthFormBloc(
-      authenticationRepository: authenticationRepository,
       authSessionBloc: authSessionBloc,
+      
     );
   });
 

@@ -11,7 +11,7 @@ class CustomPrinter extends LogPrinter {
     final emoji = PrettyPrinter.levelEmojis[event.level];
     final message = event.message;
 
-    return [color!('$emoji $className: $message')];
+    return [color!('$emoji ${className ?? ''}: $message')];
   }
 }
 

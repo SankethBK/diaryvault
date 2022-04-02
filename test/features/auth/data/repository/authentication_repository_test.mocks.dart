@@ -26,11 +26,12 @@ import 'package:mockito/mockito.dart' as _i1;
 class _FakeLoggedInUserModel_0 extends _i1.Fake
     implements _i2.LoggedInUserModel {}
 
-/// A class which mocks [ILocalDataSource].
+/// A class which mocks [IAuthLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockILocalDataSource extends _i1.Mock implements _i3.ILocalDataSource {
-  MockILocalDataSource() {
+class MockIAuthLocalDataSource extends _i1.Mock
+    implements _i3.IAuthLocalDataSource {
+  MockIAuthLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -52,13 +53,21 @@ class MockILocalDataSource extends _i1.Mock implements _i3.ILocalDataSource {
               returnValue: Future<_i2.LoggedInUserModel>.value(
                   _FakeLoggedInUserModel_0()))
           as _i4.Future<_i2.LoggedInUserModel>);
+  @override
+  _i4.Future<void> cacheUser({dynamic id, String? email, String? password}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #cacheUser, [], {#id: id, #email: email, #password: password}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
 }
 
-/// A class which mocks [IRemoteDataSource].
+/// A class which mocks [IAuthRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIRemoteDataSource extends _i1.Mock implements _i5.IRemoteDataSource {
-  MockIRemoteDataSource() {
+class MockIAuthRemoteDataSource extends _i1.Mock
+    implements _i5.IAuthRemoteDataSource {
+  MockIAuthRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -82,11 +91,11 @@ class MockIRemoteDataSource extends _i1.Mock implements _i5.IRemoteDataSource {
           as _i4.Future<_i2.LoggedInUserModel>);
 }
 
-/// A class which mocks [NetworkInfo].
+/// A class which mocks [INetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
-  MockNetworkInfo() {
+class MockINetworkInfo extends _i1.Mock implements _i6.INetworkInfo {
+  MockINetworkInfo() {
     _i1.throwOnMissingStub(this);
   }
 

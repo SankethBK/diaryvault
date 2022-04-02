@@ -33,4 +33,9 @@ class AuthFormSubmissionFailed extends AuthFormState {
   const AuthFormSubmissionFailed(
       {required String email, required String password, required this.errors})
       : super(email: email, password: password);
+
+  @override
+  String toString() {
+    return "AuthFormSubmissionFailed(email: $email, password: $password, errors: $errors)";
+  }
 }

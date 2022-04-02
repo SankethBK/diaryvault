@@ -36,7 +36,7 @@ Future<void> init() async {
   sl.registerSingleton<IAuthRemoteDataSource>(AuthRemoteDataSource());
 
   //* Repository
-  sl.registerSingleton<AuthenticationRepository>(AuthenticationRepository(
+  sl.registerSingleton<IAuthenticationRepository>(AuthenticationRepository(
     remoteDataSource: sl(),
     localDataSource: sl(),
     networkInfo: sl(),
@@ -44,8 +44,8 @@ Future<void> init() async {
 
   //* Blocs
   sl.registerSingleton<AuthSessionBloc>(AuthSessionBloc());
-  sl.registerLazySingleton<AuthFormBloc>(() =>
-      AuthFormBloc(authenticationRepository: sl(), authSessionBloc: sl()));
+  sl.registerLazySingleton<AuthFormBloc>(
+      () => AuthFormBloc(authSessionBloc: sl()));
 
   //* Usecases
   sl.registerLazySingleton<SignUpWithEmailAndPassword>(

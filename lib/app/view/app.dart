@@ -34,7 +34,13 @@ class AppView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My dairy',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.purple,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Color.fromARGB(255, 164, 30, 217).withOpacity(0.5),
+          ),
+        )),
       ),
       builder: (BuildContext context, child) {
         return BlocListener<AuthSessionBloc, AuthSessionState>(
