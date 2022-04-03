@@ -60,7 +60,7 @@ class SignInForm extends StatelessWidget {
                   sigmaY: 40.0,
                 ),
                 child: Container(
-                  height: 450,
+                  height: 400,
                   width: 300,
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.3),
@@ -86,10 +86,11 @@ class SignInForm extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          "log in",
+                          "Log in",
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
+                            // fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(
@@ -210,8 +211,16 @@ class SignInForm extends StatelessWidget {
                                 color: Colors.white.withOpacity(0.7),
                               ),
                             ),
-                            ElevatedButton(
-                                onPressed: flipCard, child: Text("Sign up"))
+                            GestureDetector(
+                              onTap: flipCard,
+                              child: Text(
+                                " Sign up",
+                                style: TextStyle(
+                                  color: Colors.pink[300],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
                           ],
                         )
                       ],
