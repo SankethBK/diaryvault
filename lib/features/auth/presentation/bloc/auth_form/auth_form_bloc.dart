@@ -36,7 +36,6 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
           SignUpParams(email: state.email, password: state.password));
 
       result.fold((error) {
-        print("error = $error");
         Map<String, List> errorMap = {};
 
         if (error.code == SignUpFailure.UNKNOWN_ERROR) {
@@ -55,8 +54,6 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
           errorMap["general"] = [error.message];
         }
 
-        print(errorMap);
-
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));
       }, (user) {
@@ -74,7 +71,6 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
           SignInParams(email: state.email, password: state.password));
 
       result.fold((error) {
-        print("error : $error");
         Map<String, List> errorMap = {};
 
         if (error.code == SignInFailure.UNKNOWN_ERROR) {
@@ -95,8 +91,6 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         if (error.code == SignInFailure.USER_DISABLED) {
           errorMap["general"] = [error.message];
         }
-
-        print(errorMap);
 
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));

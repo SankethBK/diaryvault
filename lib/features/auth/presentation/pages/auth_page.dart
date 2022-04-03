@@ -21,19 +21,23 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                "assets/digital-art-neon-bubbles.jpg",
-              ),
-              fit: BoxFit.cover,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              "assets/digital-art-neon-bubbles.jpg",
             ),
+            fit: BoxFit.cover,
           ),
-          child: FlipCardAnimation(frontWidget: (void Function() flipCard) {
+        ),
+        child: FlipCardAnimation(
+          frontWidget: (void Function() flipCard) {
             return SignUpForm(flipCard: flipCard);
-          }, rearWidget: (void Function() flipCard) {
+          },
+          rearWidget: (void Function() flipCard) {
             return SignInForm(flipCard: flipCard);
-          })),
+          },
+        ),
+      ),
     );
   }
 }

@@ -60,7 +60,6 @@ class _FlipCardAnimationState extends State<FlipCardAnimation>
   Widget __transitionBuilder(Widget widget, Animation<double> animation) {
     final rotateAnim = Tween(begin: pi, end: 0.0).animate(animation);
 
-    print(widget);
     return AnimatedBuilder(
         animation: rotateAnim,
         builder: (context, child) {
