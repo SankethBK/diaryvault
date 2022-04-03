@@ -11,37 +11,38 @@ class AuthEmailInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80,
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: "email",
-          prefixIcon: Icon(
-            Icons.email,
-            color: Colors.black.withOpacity(0.5),
-          ),
-          fillColor: Colors.white.withOpacity(0.3),
-          filled: true,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(
-              color: Colors.black.withOpacity(0.6),
-              width: 1,
+    return Stack(
+      children: [
+        TextField(
+          decoration: InputDecoration(
+            hintText: "email",
+            prefixIcon: Icon(
+              Icons.email,
+              color: Colors.black.withOpacity(0.5),
             ),
-          ),
-          errorText: getEmailErrors(),
-          errorStyle: TextStyle(
-            color: Colors.pink[200],
-            fontWeight: FontWeight.bold,
-          ),
-          border: OutlineInputBorder(
+            fillColor: Colors.white.withOpacity(0.3),
+            filled: true,
+            focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide.none),
+              borderSide: BorderSide(
+                color: Colors.black.withOpacity(0.6),
+                width: 1,
+              ),
+            ),
+            errorText: getEmailErrors(),
+            errorStyle: TextStyle(
+              color: Colors.pink[200],
+              fontWeight: FontWeight.bold,
+            ),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+          ),
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.emailAddress,
+          onChanged: onEmailChanged,
         ),
-        textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.emailAddress,
-        onChanged: onEmailChanged,
-      ),
+      ],
     );
   }
 }
