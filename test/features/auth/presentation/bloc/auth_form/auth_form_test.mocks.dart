@@ -2,19 +2,29 @@
 // in dairy_app/test/features/auth/presentation/bloc/auth_form/auth_form_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i10;
 
-import 'package:bloc/bloc.dart' as _i8;
+import 'package:bloc/bloc.dart' as _i11;
 import 'package:dairy_app/core/network/network_info.dart' as _i3;
-import 'package:dairy_app/features/auth/core/failures/failures.dart' as _i10;
+import 'package:dairy_app/features/auth/core/failures/failures.dart' as _i13;
+import 'package:dairy_app/features/auth/core/validators/email_validator.dart'
+    as _i7;
+import 'package:dairy_app/features/auth/core/validators/password_validator.dart'
+    as _i8;
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart'
     as _i5;
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart'
     as _i4;
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart'
-    as _i9;
+    as _i12;
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart'
-    as _i11;
+    as _i14;
+import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart'
+    as _i9;
+import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart'
+    as _i16;
+import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart'
+    as _i15;
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart'
     as _i2;
 import 'package:dartz/dartz.dart' as _i6;
@@ -43,6 +53,14 @@ class _FakeIAuthLocalDataSource_3 extends _i1.Fake
 
 class _FakeEither_4<L, R> extends _i1.Fake implements _i6.Either<L, R> {}
 
+class _FakeEmailValidator_5 extends _i1.Fake implements _i7.EmailValidator {}
+
+class _FakePasswordValidator_6 extends _i1.Fake
+    implements _i8.PasswordValidator {}
+
+class _FakeIAuthenticationRepository_7 extends _i1.Fake
+    implements _i9.IAuthenticationRepository {}
+
 /// A class which mocks [AuthSessionBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -56,10 +74,10 @@ class MockAuthSessionBloc extends _i1.Mock implements _i2.AuthSessionBloc {
       (super.noSuchMethod(Invocation.getter(#state),
           returnValue: _FakeAuthSessionState_0()) as _i2.AuthSessionState);
   @override
-  _i7.Stream<_i2.AuthSessionState> get stream =>
+  _i10.Stream<_i2.AuthSessionState> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
               returnValue: Stream<_i2.AuthSessionState>.empty())
-          as _i7.Stream<_i2.AuthSessionState>);
+          as _i10.Stream<_i2.AuthSessionState>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
@@ -78,23 +96,24 @@ class MockAuthSessionBloc extends _i1.Mock implements _i2.AuthSessionBloc {
           returnValueForMissingStub: null);
   @override
   void on<E extends _i2.AuthSessionEvent>(
-          _i8.EventHandler<E, _i2.AuthSessionState>? handler,
-          {_i8.EventTransformer<E>? transformer}) =>
+          _i11.EventHandler<E, _i2.AuthSessionState>? handler,
+          {_i11.EventTransformer<E>? transformer}) =>
       super.noSuchMethod(
           Invocation.method(#on, [handler], {#transformer: transformer}),
           returnValueForMissingStub: null);
   @override
   void onTransition(
-          _i8.Transition<_i2.AuthSessionEvent, _i2.AuthSessionState>?
+          _i11.Transition<_i2.AuthSessionEvent, _i2.AuthSessionState>?
               transition) =>
       super.noSuchMethod(Invocation.method(#onTransition, [transition]),
           returnValueForMissingStub: null);
   @override
-  _i7.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+  _i10.Future<void> close() => (super.noSuchMethod(
+      Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
   @override
-  void onChange(_i8.Change<_i2.AuthSessionState>? change) =>
+  void onChange(_i11.Change<_i2.AuthSessionState>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
@@ -111,7 +130,7 @@ class MockAuthSessionBloc extends _i1.Mock implements _i2.AuthSessionBloc {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthenticationRepository extends _i1.Mock
-    implements _i9.AuthenticationRepository {
+    implements _i12.AuthenticationRepository {
   MockAuthenticationRepository() {
     _i1.throwOnMissingStub(this);
   }
@@ -130,23 +149,83 @@ class MockAuthenticationRepository extends _i1.Mock
       Invocation.getter(#localDataSource),
       returnValue: _FakeIAuthLocalDataSource_3()) as _i5.IAuthLocalDataSource);
   @override
-  _i7.Future<_i6.Either<_i10.SignUpFailure, _i11.LoggedInUser>>
-      signUpWithEmailAndPassword({String? email, String? password}) =>
-          (super.noSuchMethod(
-              Invocation.method(#signUpWithEmailAndPassword, [],
-                  {#email: email, #password: password}),
-              returnValue:
-                  Future<_i6.Either<_i10.SignUpFailure, _i11.LoggedInUser>>.value(
-                      _FakeEither_4<_i10.SignUpFailure, _i11.LoggedInUser>())) as _i7
-              .Future<_i6.Either<_i10.SignUpFailure, _i11.LoggedInUser>>);
+  _i10.Future<_i6.Either<_i13.SignUpFailure, _i14.LoggedInUser>>
+      signUpWithEmailAndPassword({String? email, String? password}) => (super
+              .noSuchMethod(
+                  Invocation.method(#signUpWithEmailAndPassword, [],
+                      {#email: email, #password: password}),
+                  returnValue:
+                      Future<_i6.Either<_i13.SignUpFailure, _i14.LoggedInUser>>.value(
+                          _FakeEither_4<_i13.SignUpFailure, _i14.LoggedInUser>()))
+          as _i10.Future<_i6.Either<_i13.SignUpFailure, _i14.LoggedInUser>>);
   @override
-  _i7.Future<_i6.Either<_i10.SignInFailure, _i11.LoggedInUser>>
-      signInWithEmailAndPassword({String? email, String? password}) =>
-          (super.noSuchMethod(
-              Invocation.method(#signInWithEmailAndPassword, [],
-                  {#email: email, #password: password}),
-              returnValue:
-                  Future<_i6.Either<_i10.SignInFailure, _i11.LoggedInUser>>.value(
-                      _FakeEither_4<_i10.SignInFailure, _i11.LoggedInUser>())) as _i7
-              .Future<_i6.Either<_i10.SignInFailure, _i11.LoggedInUser>>);
+  _i10.Future<_i6.Either<_i13.SignInFailure, _i14.LoggedInUser>>
+      signInWithEmailAndPassword({String? email, String? password}) => (super
+              .noSuchMethod(
+                  Invocation.method(#signInWithEmailAndPassword, [],
+                      {#email: email, #password: password}),
+                  returnValue:
+                      Future<_i6.Either<_i13.SignInFailure, _i14.LoggedInUser>>.value(
+                          _FakeEither_4<_i13.SignInFailure, _i14.LoggedInUser>()))
+          as _i10.Future<_i6.Either<_i13.SignInFailure, _i14.LoggedInUser>>);
+}
+
+/// A class which mocks [SignUpWithEmailAndPassword].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignUpWithEmailAndPassword extends _i1.Mock
+    implements _i15.SignUpWithEmailAndPassword {
+  MockSignUpWithEmailAndPassword() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.EmailValidator get emailValidator =>
+      (super.noSuchMethod(Invocation.getter(#emailValidator),
+          returnValue: _FakeEmailValidator_5()) as _i7.EmailValidator);
+  @override
+  _i8.PasswordValidator get passwordValidator =>
+      (super.noSuchMethod(Invocation.getter(#passwordValidator),
+          returnValue: _FakePasswordValidator_6()) as _i8.PasswordValidator);
+  @override
+  _i9.IAuthenticationRepository get authenticationRepository =>
+      (super.noSuchMethod(Invocation.getter(#authenticationRepository),
+              returnValue: _FakeIAuthenticationRepository_7())
+          as _i9.IAuthenticationRepository);
+  @override
+  _i10.Future<_i6.Either<_i13.SignUpFailure, _i14.LoggedInUser>> call(
+          _i15.SignUpParams? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue: Future<
+                      _i6.Either<_i13.SignUpFailure, _i14.LoggedInUser>>.value(
+                  _FakeEither_4<_i13.SignUpFailure, _i14.LoggedInUser>()))
+          as _i10.Future<_i6.Either<_i13.SignUpFailure, _i14.LoggedInUser>>);
+}
+
+/// A class which mocks [SignInWithEmailAndPassword].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignInWithEmailAndPassword extends _i1.Mock
+    implements _i16.SignInWithEmailAndPassword {
+  MockSignInWithEmailAndPassword() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.EmailValidator get emailValidator =>
+      (super.noSuchMethod(Invocation.getter(#emailValidator),
+          returnValue: _FakeEmailValidator_5()) as _i7.EmailValidator);
+  @override
+  _i9.IAuthenticationRepository get authenticationRepository =>
+      (super.noSuchMethod(Invocation.getter(#authenticationRepository),
+              returnValue: _FakeIAuthenticationRepository_7())
+          as _i9.IAuthenticationRepository);
+  @override
+  _i10.Future<_i6.Either<_i13.SignInFailure, _i14.LoggedInUser>> call(
+          _i16.SignInParams? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue: Future<
+                      _i6.Either<_i13.SignInFailure, _i14.LoggedInUser>>.value(
+                  _FakeEither_4<_i13.SignInFailure, _i14.LoggedInUser>()))
+          as _i10.Future<_i6.Either<_i13.SignInFailure, _i14.LoggedInUser>>);
 }

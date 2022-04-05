@@ -2,7 +2,6 @@ import 'package:dairy_app/core/errors/validation_exceptions.dart';
 
 import '../../../../core/validators/validtor_template.dart';
 
-
 class EmailValidator implements Validator<String> {
   @override
   bool call(String email) {

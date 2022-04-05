@@ -2,6 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
+import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
+import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -11,10 +13,18 @@ import 'package:mockito/mockito.dart';
 
 import 'auth_form_test.mocks.dart';
 
-@GenerateMocks([AuthSessionBloc, AuthenticationRepository])
+@GenerateMocks([
+  AuthSessionBloc,
+  AuthenticationRepository,
+  SignUpWithEmailAndPassword,
+  SignInWithEmailAndPassword
+])
 void main() {
   late MockAuthenticationRepository authenticationRepository;
   late MockAuthSessionBloc authSessionBloc;
+  late MockSignUpWithEmailAndPassword signUpWithEmailAndPassword;
+  late MockSignInWithEmailAndPassword signInWithEmailAndPassword;
+
   late AuthFormBloc authFormBloc;
   const String testEmail = "test@email";
   const String testPassword = "testpassword";
@@ -24,9 +34,12 @@ void main() {
   setUp(() {
     authenticationRepository = MockAuthenticationRepository();
     authSessionBloc = MockAuthSessionBloc();
+    signUpWithEmailAndPassword = MockSignUpWithEmailAndPassword();
+    signInWithEmailAndPassword = MockSignInWithEmailAndPassword();
     authFormBloc = AuthFormBloc(
       authSessionBloc: authSessionBloc,
-      
+      signInWithEmailAndPassword: signInWithEmailAndPassword,
+      signUpWithEmailAndPassword: signUpWithEmailAndPassword,
     );
   });
 
@@ -48,12 +61,32 @@ void main() {
       ],
     );
 
+    blocTest<AuthFormBloc, AuthFormState>(
+      'emits [AuthFormSubmissionSuccessful] when AuthFormInputsChangedEvent is added.',
+      build: () {
+        when(signUpWithEmailAndPassword(
+                const SignUpParams(email: testEmail, password: testPassword)))
+            .thenAnswer((_) async => const Right(user));
+        return authFormBloc;
+      },
+      act: (bloc) {
+        bloc.add(const AuthFormInputsChangedEvent(
+            email: testEmail, password: testPassword));
+        bloc.add(AuthFormSignUpSubmitted());
+      },
+      expect: () => const <AuthFormState>[
+        AuthFormInitial(email: testEmail, password: testPassword),
+        AuthFormSubmissionLoading(email: testEmail, password: testPassword),
+        AuthFormSubmissionSuccessful(email: testEmail, password: testPassword)
+      ],
+    );
+
     group("Testing signUpWithEmailAndPassword", () {
       blocTest<AuthFormBloc, AuthFormState>(
         'emits [AuthFormSubmissionSuccessful] when AuthFormInputsChangedEvent is added.',
         build: () {
-          when(authenticationRepository.signUpWithEmailAndPassword(
-                  email: testEmail, password: testPassword))
+          when(signUpWithEmailAndPassword(
+                  const SignUpParams(email: testEmail, password: testPassword)))
               .thenAnswer((_) async => const Right(user));
           return authFormBloc;
         },
@@ -72,10 +105,11 @@ void main() {
       blocTest<AuthFormBloc, AuthFormState>(
         'emits [AuthFormSubmissionFailed(1)] when AuthFormSignUpSubmitted is added.',
         build: () {
-          when(authenticationRepository.signUpWithEmailAndPassword(
-                  email: testEmail, password: testPassword))
+          when(signUpWithEmailAndPassword(
+                  const SignUpParams(email: testEmail, password: testPassword)))
               .thenAnswer(
-                  (_) async => Left(SignUpFailure.noInternetConnection()));
+            (_) async => Left(SignUpFailure.noInternetConnection()),
+          );
           return authFormBloc;
         },
         act: (bloc) {
@@ -99,8 +133,8 @@ void main() {
       blocTest<AuthFormBloc, AuthFormState>(
         'emits [AuthFormSubmissionFailed(2)] when AuthFormSignUpSubmitted is added.',
         build: () {
-          when(authenticationRepository.signUpWithEmailAndPassword(
-                  email: testEmail, password: testPassword))
+          when(signUpWithEmailAndPassword(
+                  const SignUpParams(email: testEmail, password: testPassword)))
               .thenAnswer((_) async => Left(SignUpFailure.invalidEmail()));
           return authFormBloc;
         },
@@ -127,8 +161,8 @@ void main() {
       blocTest<AuthFormBloc, AuthFormState>(
         'emits [AuthFormSubmissionSuccessful] when AuthFormSignInSubmitted is added.',
         build: () {
-          when(authenticationRepository.signInWithEmailAndPassword(
-                  email: testEmail, password: testPassword))
+          when(signInWithEmailAndPassword(
+                  const SignInParams(email: testEmail, password: testPassword)))
               .thenAnswer((_) async => const Right(user));
           return authFormBloc;
         },
@@ -147,8 +181,8 @@ void main() {
       blocTest<AuthFormBloc, AuthFormState>(
         'emits [AuthFormSubmissionFailed(1)] when AuthFormSignInSubmitted is added.',
         build: () {
-          when(authenticationRepository.signInWithEmailAndPassword(
-                  email: testEmail, password: testPassword))
+          when(signInWithEmailAndPassword(
+                  const SignInParams(email: testEmail, password: testPassword)))
               .thenAnswer(
                   (_) async => Left(SignInFailure.noInternetConnection()));
           return authFormBloc;
@@ -174,8 +208,8 @@ void main() {
       blocTest<AuthFormBloc, AuthFormState>(
         'emits [AuthFormSubmissionFailed(2)] when AuthFormSignInSubmitted is added.',
         build: () {
-          when(authenticationRepository.signInWithEmailAndPassword(
-                  email: testEmail, password: testPassword))
+          when(signInWithEmailAndPassword(
+                  const SignInParams(email: testEmail, password: testPassword)))
               .thenAnswer(
                   (_) async => Left(SignInFailure.emailDoesNotExists()));
           return authFormBloc;

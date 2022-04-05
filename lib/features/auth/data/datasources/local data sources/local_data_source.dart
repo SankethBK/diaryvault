@@ -42,7 +42,7 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
         whereArgs: [email],
       );
     } catch (e) {
-      log.e("Local database query failed ${e}");
+      log.e("Local database query failed $e");
       throw const DatabaseQueryException();
     }
 

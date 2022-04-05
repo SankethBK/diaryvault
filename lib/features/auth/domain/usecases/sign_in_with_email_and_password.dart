@@ -7,6 +7,7 @@ import 'package:dairy_app/features/auth/core/validators/email_validator.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 
 final log = printer("AuthSignInUseCase");
 
@@ -37,14 +38,17 @@ class SignInWithEmailAndPassword
   }
 }
 
-class SignInParams {
+class SignInParams extends Equatable {
   final String email;
   final String password;
 
-  SignInParams({required this.email, required this.password});
+  const SignInParams({required this.email, required this.password});
 
   @override
   String toString() {
     return "$email, $password";
   }
+
+  @override
+  List<Object?> get props => [email, password];
 }

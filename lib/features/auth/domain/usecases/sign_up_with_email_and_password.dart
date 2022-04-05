@@ -8,8 +8,9 @@ import 'package:dairy_app/features/auth/core/validators/password_validator.dart'
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 
-final log = printer("AuthSIgnupUseCase");
+final log = printer("AuthSignupUseCase");
 
 class SignUpWithEmailAndPassword
     implements UseCase<LoggedInUser, SignUpParams> {
@@ -44,14 +45,17 @@ class SignUpWithEmailAndPassword
   }
 }
 
-class SignUpParams {
+class SignUpParams extends Equatable {
   final String email;
   final String password;
 
-  SignUpParams({required this.email, required this.password});
+  const SignUpParams({required this.email, required this.password});
 
   @override
   String toString() {
     return "$email, $password";
   }
+
+  @override
+  List<Object?> get props => [email, password];
 }

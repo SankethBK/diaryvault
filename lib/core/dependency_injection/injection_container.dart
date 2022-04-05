@@ -45,7 +45,12 @@ Future<void> init() async {
   //* Blocs
   sl.registerSingleton<AuthSessionBloc>(AuthSessionBloc());
   sl.registerLazySingleton<AuthFormBloc>(
-      () => AuthFormBloc(authSessionBloc: sl()));
+    () => AuthFormBloc(
+      authSessionBloc: sl(),
+      signUpWithEmailAndPassword: sl(),
+      signInWithEmailAndPassword: sl(),
+    ),
+  );
 
   //* Usecases
   sl.registerLazySingleton<SignUpWithEmailAndPassword>(
