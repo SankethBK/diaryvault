@@ -8,6 +8,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/submit_button.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'auth_change_page.dart';
 import 'password_input_field.dart';
 
 class SignInForm extends StatefulWidget {
@@ -24,16 +25,6 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  bool _passwordVisibility = false;
-
-  void _showPassword() => setState(() {
-        _passwordVisibility = true;
-      });
-
-  void _hidePassword() => setState(() {
-        _passwordVisibility = false;
-      });
-
   @override
   Widget build(BuildContext context) {
     AuthFormBloc bloc = sl<AuthFormBloc>();
@@ -110,26 +101,11 @@ class _SignInFormState extends State<SignInForm> {
                   )
                 ],
               ),
-              Wrap(
-                children: [
-                  Text(
-                    "Don't have an account?",
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: widget.flipCard,
-                    child: Text(
-                      " Sign up",
-                      style: TextStyle(
-                        color: Colors.pink[300],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                ],
-              )
+              AuthChangePage(
+                infoText: "Don't have an account?",
+                flipPageText: "Sign up",
+                flipCard: widget.flipCard,
+              ),
             ],
           ),
         ));

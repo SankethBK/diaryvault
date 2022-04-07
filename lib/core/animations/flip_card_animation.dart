@@ -17,7 +17,7 @@ class _FlipCardAnimationState extends State<FlipCardAnimation>
     with SingleTickerProviderStateMixin {
   Widget _buildFront() {
     return Container(
-      key: ValueKey(true),
+      key: const ValueKey(true),
       child: widget.frontWidget(flipCard),
     );
   }
@@ -28,7 +28,7 @@ class _FlipCardAnimationState extends State<FlipCardAnimation>
 
   Widget _buildRear() {
     return Container(
-      key: ValueKey(false),
+      key: const ValueKey(false),
       child: widget.rearWidget(flipCard),
     );
   }
@@ -50,7 +50,7 @@ class _FlipCardAnimationState extends State<FlipCardAnimation>
       ),
       transitionBuilder: (Widget widget, Animation<double> animation) =>
           __transitionBuilder(widget, animation),
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 500),
       child: _showFrontSide ? _buildFront() : _buildRear(),
       switchInCurve: Curves.easeInBack,
       switchOutCurve: Curves.easeInBack.flipped,
@@ -66,8 +66,9 @@ class _FlipCardAnimationState extends State<FlipCardAnimation>
           final isUnder = (ValueKey(_showFrontSide) != widget.key);
           var tilt = ((animation.value - 0.5).abs() - 0.5) * 0.003;
           tilt *= isUnder ? -1.0 : 1.0;
-          final value =
-              isUnder ? min(rotateAnim.value, pi / 2) : rotateAnim.value;
+          final value = isUnder
+              ? min(rotateAnim.value, pi / 2)
+              : min(pi / 2, rotateAnim.value);
 
           return Transform(
             transform: Matrix4.rotationY(value)..setEntry(3, 0, tilt),

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'auth_change_page.dart';
 import 'email_input_field.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -71,7 +72,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
+                    const Text(
                       "Sign up",
                       style: TextStyle(
                         fontSize: 25,
@@ -101,25 +102,10 @@ class _SignUpFormState extends State<SignUpForm> {
                         )
                       ],
                     ),
-                    Wrap(
-                      children: [
-                        Text(
-                          "Already have an account?",
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: widget.flipCard,
-                          child: Text(
-                            " Log in",
-                            style: TextStyle(
-                              color: Colors.pink[300],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      ],
+                    AuthChangePage(
+                      infoText: "Already have an account?",
+                      flipPageText: "Log in",
+                      flipCard: widget.flipCard,
                     )
                   ],
                 ),
