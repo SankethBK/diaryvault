@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'auth_change_page.dart';
+import 'auth_change.dart';
 import 'email_input_field.dart';
 
 class SignUpForm extends StatefulWidget {

@@ -8,7 +8,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/submit_button.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'auth_change_page.dart';
+import 'auth_change.dart';
 import 'password_input_field.dart';
 
 class SignInForm extends StatefulWidget {
