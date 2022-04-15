@@ -31,8 +31,7 @@ class GlassFormCover extends StatelessWidget {
             child: Container(
               height: deviceWidth * 0.8 + 50,
               width: deviceWidth * 0.8,
-              constraints: BoxConstraints(
-                // minHeight: 350,
+              constraints: const BoxConstraints(
                 maxWidth: 500,
                 maxHeight: 500,
               ),
