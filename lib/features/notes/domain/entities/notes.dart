@@ -6,7 +6,7 @@ class Notes extends Equatable {
   final String title;
   final String body;
 
-  Notes({
+  const Notes({
     required this.id,
     required this.createdAt,
     required this.title,

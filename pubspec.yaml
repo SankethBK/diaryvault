@@ -42,6 +42,8 @@ dependencies:
   logger: ^1.1.0
   path_provider: ^2.0.9
   sqflite: ^2.0.2
+  zefyr: ^1.0.0-rc.5
+  zefyrka: ^1.1.1
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -61,7 +63,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:zefyrka/zefyrka.dart';
 
 class RichTextEditor extends StatelessWidget {
   RichTextEditor({Key? key}) : super(key: key);
@@ -22,11 +23,26 @@ class RichTextEditor extends StatelessWidget {
         defaultToolbarButtons: [
           // StyleButtons(),
           // FontSettingButtons(),
-          FontButtons(),
-          ColorButtons(),
-          ListButtons(),
-          ParagraphButtons(),
-          InsertButtons(),
+          FontButtons(
+            bold: true,
+            italic: true,
+            underline: true,
+            clearAll: false,
+            strikethrough: false,
+            subscript: false,
+            superscript: false,
+          ),
+          // ColorButtons(),
+          // ListButtons(),
+          // ParagraphButtons(),
+          InsertButtons(
+            picture: true,
+            video: true,
+            link: true,
+            hr: true,
+            audio: false,
+            otherFile: false,
+          ),
           OtherButtons(),
         ],
         customToolbarButtons: [
