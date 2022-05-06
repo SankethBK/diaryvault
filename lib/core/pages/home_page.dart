@@ -60,6 +60,24 @@ var notes = [
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
+  Notes(
+    id: "10",
+    createdAt: DateTime.now(),
+    title: "This is test title",
+    body: "This is test body, this is test body, this is test body",
+  ),
+  Notes(
+    id: "11",
+    createdAt: DateTime.now(),
+    title: "This is test title",
+    body: "This is test body, this is test body, this is test body",
+  ),
+  Notes(
+    id: "12",
+    createdAt: DateTime.now(),
+    title: "This is test title",
+    body: "This is test body, this is test body, this is test body",
+  ),
 ];
 
 class HomePage extends StatelessWidget {
@@ -76,13 +94,17 @@ class HomePage extends StatelessWidget {
           actions: [
             Icon(Icons.search),
           ],
-          flexibleSpace: Image.asset(
-            "assets/images/digital-art-neon-bubbles.jpg",
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
+          backgroundColor: Colors.pink[100],
+          flexibleSpace: FlexibleSpaceBar(
+            background: Image.asset(
+              "assets/images/digital-art-neon-bubbles.jpg",
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
-          expandedHeight: 300,
+          expandedHeight: 200,
+          pinned: true,
         ),
         SliverList(
           delegate:
@@ -91,7 +113,7 @@ class HomePage extends StatelessWidget {
               title: Text(notes[index].title + " $index"),
               subtitle: Text(notes[index].body),
             );
-          }, childCount: notes.length),
+          }, childCount: 12),
         )
       ]),
       floatingActionButton: FloatingActionButton(

@@ -40,7 +40,9 @@ class NoteCreatePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              RichTextEditor(),
+              Container(
+                  height: 200,
+                  child: SingleChildScrollView(child: RichTextEditor())),
             ],
           ),
         ));

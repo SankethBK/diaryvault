@@ -39,11 +39,12 @@ class AppView extends StatelessWidget {
         // accentColor: Color.fromARGB(255, 249, 60, 255),
         accentColor: Colors.pinkAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-            Color.fromARGB(255, 164, 30, 217).withOpacity(0.5),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromARGB(255, 164, 30, 217).withOpacity(0.5),
+            ),
           ),
-        )),
+        ),
       ),
       builder: (BuildContext context, child) {
         final log = printer("App");
