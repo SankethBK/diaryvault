@@ -231,9 +231,15 @@ class RichTextEditor2 extends StatefulWidget {
 
 class _RichTextEditor2State extends State<RichTextEditor2> {
   @override
-  Widget build(BuildContext context) {
-    QuillController _controller = QuillController.basic();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
+  QuillController _controller = QuillController.basic();
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         QuillToolbar.basic(

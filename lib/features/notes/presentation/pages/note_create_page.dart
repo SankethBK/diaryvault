@@ -17,7 +17,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   @override
   Widget build(BuildContext context) {
     // print(MediaQuery.of(context).size.height);
-    // print(MediaQuery.of(context).viewInsets.bottom);
+    print(MediaQuery.of(context).viewInsets.bottom);
     return Scaffold(
       // backgroundColor: Colors.pinkAccent,
       resizeToAvoidBottomInset: false,
@@ -31,6 +31,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
           top: 15.0,
           left: 10.0,
           right: 10.0,
+          // bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -52,9 +53,9 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
               // ),
               // const SizedBox(height: 10),
               RichTextEditor2(),
-              // SizedBox(
-              //   height: MediaQuery.of(context).viewInsets.bottom,
-              // )
+              SizedBox(
+                height: MediaQuery.of(context).viewInsets.bottom,
+              )
             ],
           ),
         ),
