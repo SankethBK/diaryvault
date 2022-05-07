@@ -60,7 +60,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
     var quillEditor = QuillEditor(
         controller: _controller!,
         scrollController: ScrollController(),
-        scrollable: false,
+        scrollable: true,
         focusNode: _focusNode,
         autoFocus: false,
         readOnly: false,
@@ -89,7 +89,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
       onImagePickCallback: _onImagePickCallback,
       onVideoPickCallback: _onVideoPickCallback,
       // uncomment to provide a custom "pick from" dialog.
-      // mediaPickSettingSelector: _selectMediaPickSetting,
+      mediaPickSettingSelector: _selectMediaPickSetting,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
       toolbarIconAlignment: WrapAlignment.center,
@@ -217,6 +217,35 @@ class _RichTextEditorState extends State<RichTextEditor> {
           indent: size.width * 0.1,
           endIndent: size.width * 0.1,
         ),
+      ],
+    );
+  }
+}
+
+class RichTextEditor2 extends StatefulWidget {
+  const RichTextEditor2({Key? key}) : super(key: key);
+
+  @override
+  State<RichTextEditor2> createState() => _RichTextEditor2State();
+}
+
+class _RichTextEditor2State extends State<RichTextEditor2> {
+  @override
+  Widget build(BuildContext context) {
+    QuillController _controller = QuillController.basic();
+
+    return Column(
+      children: [
+        QuillToolbar.basic(
+          controller: _controller,
+        ),
+        Container(
+          child: QuillEditor.basic(
+            controller: _controller,
+
+            readOnly: false, // true for view only mode
+          ),
+        )
       ],
     );
   }
