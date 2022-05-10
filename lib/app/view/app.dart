@@ -13,7 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<AuthSessionBloc>(
       create: (context) => sl<AuthSessionBloc>(),
       child: AppView(),
     );
