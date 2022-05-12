@@ -17,7 +17,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   @override
   Widget build(BuildContext context) {
     // print(MediaQuery.of(context).size.height);
-    print(MediaQuery.of(context).viewInsets.bottom);
+    // print(MediaQuery.of(context).viewInsets.bottom);
     return Scaffold(
       // backgroundColor: Colors.pinkAccent,
       resizeToAvoidBottomInset: false,
@@ -33,31 +33,29 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
           right: 10.0,
           // bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              NoteTitleInputField(),
-              // const SizedBox(height: 10),
-              // Row(
-              //   children: const [
-              //     Flexible(
-              //       flex: 4,
-              //       child: DateInputField(),
-              //     ),
-              //     SizedBox(width: 7),
-              //     Flexible(
-              //       flex: 3,
-              //       child: TimeInputField(),
-              //     )
-              //   ],
-              // ),
-              // const SizedBox(height: 10),
-              RichTextEditor2(),
-              SizedBox(
-                height: MediaQuery.of(context).viewInsets.bottom,
-              )
-            ],
-          ),
+        child: Column(
+          children: [
+            NoteTitleInputField(),
+            // const SizedBox(height: 10),
+            // Row(
+            //   children: const [
+            //     Flexible(
+            //       flex: 4,
+            //       child: DateInputField(),
+            //     ),
+            //     SizedBox(width: 7),
+            //     Flexible(
+            //       flex: 3,
+            //       child: TimeInputField(),
+            //     )
+            //   ],
+            // ),
+            // const SizedBox(height: 10),
+            RichTextEditor(),
+            SizedBox(
+              height: MediaQuery.of(context).viewInsets.bottom,
+            )
+          ],
         ),
       ),
     );

@@ -56,7 +56,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
   }
 
   Widget _buildWelcomeEditor(BuildContext context) {
-    print(_controller!.document.toDelta().toJson());
+    // print(_controller!.document.toDelta().toJson());
     var quillEditor = QuillEditor(
         controller: _controller!,
         scrollController: ScrollController(),
@@ -90,6 +90,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
       onVideoPickCallback: _onVideoPickCallback,
       // uncomment to provide a custom "pick from" dialog.
       mediaPickSettingSelector: _selectMediaPickSetting,
+      showFontSize: false,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
       toolbarIconAlignment: WrapAlignment.center,
@@ -123,6 +124,28 @@ class _RichTextEditorState extends State<RichTextEditor> {
       showVideoButton: true,
       showCameraButton: true,
       showDirection: false,
+    );
+
+    return Expanded(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Container(
+          color: Colors.amber,
+          child: toolbar,
+        ),
+        Expanded(
+          child: Container(
+            // height: MediaQuery.of(context).size.height,
+            padding:
+                const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+            margin: const EdgeInsets.symmetric(vertical: 15),
+            decoration: BoxDecoration(
+              color: Colors.pink.shade100,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: quillEditor,
+          ),
+        )
+      ]),
     );
 
     return SafeArea(
@@ -188,71 +211,4 @@ class _RichTextEditorState extends State<RichTextEditor> {
           ),
         ),
       );
-
-  Widget _buildMenuBar(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    const itemStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-    );
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Divider(
-          thickness: 2,
-          color: Colors.white,
-          indent: size.width * 0.1,
-          endIndent: size.width * 0.1,
-        ),
-        ListTile(
-          title: const Center(child: Text('Read only demo', style: itemStyle)),
-          dense: true,
-          visualDensity: VisualDensity.compact,
-          onTap: () {},
-        ),
-        Divider(
-          thickness: 2,
-          color: Colors.white,
-          indent: size.width * 0.1,
-          endIndent: size.width * 0.1,
-        ),
-      ],
-    );
-  }
-}
-
-class RichTextEditor2 extends StatefulWidget {
-  const RichTextEditor2({Key? key}) : super(key: key);
-
-  @override
-  State<RichTextEditor2> createState() => _RichTextEditor2State();
-}
-
-class _RichTextEditor2State extends State<RichTextEditor2> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  QuillController _controller = QuillController.basic();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        QuillToolbar.basic(
-          controller: _controller,
-        ),
-        Container(
-          child: QuillEditor.basic(
-            controller: _controller,
-
-            readOnly: false, // true for view only mode
-          ),
-        )
-      ],
-    );
-  }
 }

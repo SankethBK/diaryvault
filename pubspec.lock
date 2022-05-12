@@ -416,8 +416,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
-      resolved-ref: af8146ad45f1f085513136b44a3d0b303ebddab5
+      ref: bb3ac1949005992e7ad1842f3591eb1c73e56f4c
+      resolved-ref: bb3ac1949005992e7ad1842f3591eb1c73e56f4c
       url: "https://github.com/SankethBK/flutter-quill"
     source: git
     version: "4.1.8"

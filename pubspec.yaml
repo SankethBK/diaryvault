@@ -43,7 +43,7 @@ dependencies:
   flutter_quill:
     git:
       url: https://github.com/SankethBK/flutter-quill
-      ref: master
+      ref: bb3ac1949005992e7ad1842f3591eb1c73e56f4c
   file_picker: ^4.5.1
   get_it: ^7.2.0
 
