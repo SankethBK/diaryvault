@@ -8,8 +8,12 @@ import 'package:flutter/material.dart';
 class GlassMorphismCover extends StatelessWidget {
   final Widget child;
   final BorderRadius borderRadius;
+  final bool displayShadow;
   const GlassMorphismCover(
-      {Key? key, required this.child, required this.borderRadius})
+      {Key? key,
+      required this.child,
+      required this.borderRadius,
+      this.displayShadow = true})
       : super(key: key);
 
   @override
@@ -20,7 +24,7 @@ class GlassMorphismCover extends StatelessWidget {
           BoxShadow(
             blurRadius: 24,
             spreadRadius: 16,
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withOpacity(displayShadow ? 0.1 : 0.0),
           )
         ]),
         child: ClipRRect(

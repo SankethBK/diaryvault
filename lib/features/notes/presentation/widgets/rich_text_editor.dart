@@ -39,7 +39,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
             document: doc, selection: const TextSelection.collapsed(offset: 0));
       });
     } catch (error) {
-      final doc = Document()..insert(0, 'Empty asset');
+      final doc = Document()..insert(0, '');
       setState(() {
         _controller = QuillController(
             document: doc, selection: const TextSelection.collapsed(offset: 0));
@@ -84,7 +84,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
         focusNode: _focusNode,
         autoFocus: false,
         readOnly: false,
-        placeholder: 'Add content',
+        placeholder: 'Write something here...',
         expands: false,
         padding: EdgeInsets.zero,
         customStyles: DefaultStyles(
@@ -150,13 +150,13 @@ class _RichTextEditorState extends State<RichTextEditor> {
     return Expanded(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         GlassMorphismCover(
+          displayShadow: false,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16.0),
             topRight: Radius.circular(16.0),
           ),
           child: Container(
-            // child: toolbar,
-            height: 50,
+            child: toolbar,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16.0),
@@ -164,8 +164,8 @@ class _RichTextEditorState extends State<RichTextEditor> {
               ),
               gradient: LinearGradient(
                 colors: [
-                  Colors.red.withOpacity(0.0),
-                  Colors.red.withOpacity(0.0),
+                  Colors.white.withOpacity(0.8),
+                  Colors.white.withOpacity(0.7),
                 ],
                 begin: AlignmentDirectional.topCenter,
                 end: AlignmentDirectional.bottomCenter,
@@ -173,13 +173,11 @@ class _RichTextEditorState extends State<RichTextEditor> {
             ),
           ),
         ),
-        // const SizedBox(
-        //   height: 10,
-        // ),
         Expanded(
           child: Container(
             margin: const EdgeInsets.only(bottom: 10),
             child: GlassMorphismCover(
+              displayShadow: false,
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(16.0),
                 bottomRight: Radius.circular(16.0),
@@ -196,16 +194,12 @@ class _RichTextEditorState extends State<RichTextEditor> {
                   ),
                   gradient: LinearGradient(
                     colors: [
-                      Colors.red.withOpacity(0.0),
-                      Colors.blue.withOpacity(0.0),
+                      Colors.white.withOpacity(0.7),
+                      Colors.white.withOpacity(0.5),
                     ],
                     begin: AlignmentDirectional.topStart,
                     end: AlignmentDirectional.bottomEnd,
                   ),
-                  // border: Border.all(
-                  //   width: 1.5,
-                  //   color: Colors.white.withOpacity(0.2),
-                  // ),
                 ),
                 child: quillEditor,
               ),
