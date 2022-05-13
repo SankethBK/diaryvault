@@ -5,6 +5,7 @@ class GlassMorphism extends StatelessWidget {
   final Widget child;
   final double start;
   final double end;
+
   const GlassMorphism({
     Key? key,
     required this.child,
