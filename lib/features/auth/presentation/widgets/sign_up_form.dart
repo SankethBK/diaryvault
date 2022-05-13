@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/glass_form_cover.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
         void _onSubmitted() => bloc.add(AuthFormSignUpSubmitted());
 
-        return GlassFormCover(
+        return GlassMorphismCover(
           borderRadius: BorderRadius.circular(16.0),
           child: FormDimensions(
             child: Padding(

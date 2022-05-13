@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dairy_app/features/auth/presentation/widgets/glass_form_cover.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:file_picker/file_picker.dart';
 // import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -58,6 +58,25 @@ class _RichTextEditorState extends State<RichTextEditor> {
 
   Widget _buildWelcomeEditor(BuildContext context) {
     // print(_controller!.document.toDelta().toJson());
+
+    //    class QuillIconTheme {
+    // const QuillIconTheme(
+    //     {this.iconSelectedColor,
+    //     this.iconUnselectedColor,
+    //     this.iconSelectedFillColor,
+    //     this.iconUnselectedFillColor,
+    //     this.disabledIconColor,
+    //     this.disabledIconFillColor,
+    //     this.borderRadius});
+
+    QuillIconTheme quillIconTheme = QuillIconTheme(
+        iconSelectedColor: Colors.white,
+        iconUnselectedColor: Colors.pink.shade300,
+        iconSelectedFillColor: Colors.pink.shade300,
+        iconUnselectedFillColor: Colors.transparent,
+        disabledIconColor: Colors.cyan,
+        borderRadius: 5.0);
+
     var quillEditor = QuillEditor(
         controller: _controller!,
         scrollController: ScrollController(),
@@ -125,18 +144,42 @@ class _RichTextEditorState extends State<RichTextEditor> {
       showVideoButton: true,
       showCameraButton: true,
       showDirection: false,
+      iconTheme: quillIconTheme,
     );
 
     return Expanded(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Container(
-          color: Colors.amber,
-          child: toolbar,
+        GlassMorphismCover(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+          child: Container(
+            // child: toolbar,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.red.withOpacity(0.0),
+                  Colors.red.withOpacity(0.0),
+                ],
+                begin: AlignmentDirectional.topCenter,
+                end: AlignmentDirectional.bottomCenter,
+              ),
+            ),
+          ),
         ),
+        // const SizedBox(
+        //   height: 10,
+        // ),
         Expanded(
           child: Container(
             margin: const EdgeInsets.only(bottom: 10),
-            child: GlassFormCover(
+            child: GlassMorphismCover(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(16.0),
                 bottomRight: Radius.circular(16.0),
@@ -153,8 +196,8 @@ class _RichTextEditorState extends State<RichTextEditor> {
                   ),
                   gradient: LinearGradient(
                     colors: [
-                      Colors.white.withOpacity(0.8),
-                      Colors.white.withOpacity(0.6),
+                      Colors.red.withOpacity(0.0),
+                      Colors.blue.withOpacity(0.0),
                     ],
                     begin: AlignmentDirectional.topStart,
                     end: AlignmentDirectional.bottomEnd,

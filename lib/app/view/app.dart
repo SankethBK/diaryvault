@@ -37,6 +37,7 @@ class AppView extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         // accentColor: Color.fromARGB(255, 249, 60, 255),
+        canvasColor: Colors.transparent,
         accentColor: Colors.pinkAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(

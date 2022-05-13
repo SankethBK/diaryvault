@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 /// A widget that provides glass effect for a [child],
 /// Since color and dimensions of Container have to be in same Container, the childWIdget
 /// has to specify gradient and borders by itself
-class GlassFormCover extends StatelessWidget {
+class GlassMorphismCover extends StatelessWidget {
   final Widget child;
   final BorderRadius borderRadius;
-  const GlassFormCover(
+  const GlassMorphismCover(
       {Key? key, required this.child, required this.borderRadius})
       : super(key: key);
 

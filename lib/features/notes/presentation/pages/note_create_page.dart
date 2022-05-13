@@ -1,9 +1,11 @@
-import 'package:dairy_app/features/auth/presentation/widgets/glass_form_cover.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/date_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/time_input_field.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/note_create_title.dart';
 
 class NoteCreatePage extends StatefulWidget {
   static String get route => '/note-create';
@@ -44,53 +46,11 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         ),
         child: Column(
           children: [
-            GlassFormCover(
+            GlassMorphismCover(
               borderRadius: BorderRadius.circular(10.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "title",
-                  // prefixIcon: Icon(
-                  //   Icons.email,
-                  //   color: Colors.black.withOpacity(0.5),
-                  // ),
-                  fillColor: Colors.white.withOpacity(0.7),
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      color: Colors.black.withOpacity(0.6),
-                      width: 1,
-                    ),
-                  ),
-                  // errorText: getEmailErrors(),
-                  errorStyle: TextStyle(
-                    color: Colors.pink[200],
-                    fontWeight: FontWeight.bold,
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none),
-                ),
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.emailAddress,
-                // onChanged: onEmailChanged,
-              ),
+              child: NoteCreateTitle(),
             ),
             const SizedBox(height: 10),
-            // Row(
-            //   children: const [
-            //     Flexible(
-            //       flex: 4,
-            //       child: DateInputField(),
-            //     ),
-            //     SizedBox(width: 7),
-            //     Flexible(
-            //       flex: 3,
-            //       child: TimeInputField(),
-            //     )
-            //   ],
-            // ),
-            // const SizedBox(height: 10),
             RichTextEditor(),
             SizedBox(
               height: MediaQuery.of(context).viewInsets.bottom,
