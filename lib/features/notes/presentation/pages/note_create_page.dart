@@ -1,3 +1,4 @@
+import 'package:dairy_app/features/auth/presentation/widgets/glass_form_cover.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/date_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
@@ -26,8 +27,16 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       ),
       body: Container(
         // height: MediaQuery.of(context).size.height,
-        // color: Colors.red,
-        padding: EdgeInsets.only(
+        decoration: const BoxDecoration(
+          // color: Colors.red,r
+          image: DecorationImage(
+            image: AssetImage(
+              "assets/images/digital-art-neon-bubbles.jpg",
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+        padding: const EdgeInsets.only(
           top: 15.0,
           left: 10.0,
           right: 10.0,
@@ -35,8 +44,39 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         ),
         child: Column(
           children: [
-            NoteTitleInputField(),
-            // const SizedBox(height: 10),
+            GlassFormCover(
+              borderRadius: BorderRadius.circular(10.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "title",
+                  // prefixIcon: Icon(
+                  //   Icons.email,
+                  //   color: Colors.black.withOpacity(0.5),
+                  // ),
+                  fillColor: Colors.white.withOpacity(0.7),
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Colors.black.withOpacity(0.6),
+                      width: 1,
+                    ),
+                  ),
+                  // errorText: getEmailErrors(),
+                  errorStyle: TextStyle(
+                    color: Colors.pink[200],
+                    fontWeight: FontWeight.bold,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none),
+                ),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.emailAddress,
+                // onChanged: onEmailChanged,
+              ),
+            ),
+            const SizedBox(height: 10),
             // Row(
             //   children: const [
             //     Flexible(

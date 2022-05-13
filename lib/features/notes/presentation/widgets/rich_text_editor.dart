@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dairy_app/features/auth/presentation/widgets/glass_form_cover.dart';
 import 'package:file_picker/file_picker.dart';
 // import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -134,35 +135,41 @@ class _RichTextEditorState extends State<RichTextEditor> {
         ),
         Expanded(
           child: Container(
-            // height: MediaQuery.of(context).size.height,
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
-            margin: const EdgeInsets.symmetric(vertical: 15),
-            decoration: BoxDecoration(
-              color: Colors.pink.shade100,
-              borderRadius: BorderRadius.circular(10),
+            margin: const EdgeInsets.only(bottom: 10),
+            child: GlassFormCover(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(16.0),
+                bottomRight: Radius.circular(16.0),
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 10, bottom: 5),
+                // margin: const EdgeInsets.symmetric(vertical: 15),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(16.0),
+                    bottomRight: Radius.circular(16.0),
+                  ),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white.withOpacity(0.8),
+                      Colors.white.withOpacity(0.6),
+                    ],
+                    begin: AlignmentDirectional.topStart,
+                    end: AlignmentDirectional.bottomEnd,
+                  ),
+                  // border: Border.all(
+                  //   width: 1.5,
+                  //   color: Colors.white.withOpacity(0.2),
+                  // ),
+                ),
+                child: quillEditor,
+              ),
             ),
-            child: quillEditor,
           ),
         )
       ]),
-    );
-
-    return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(child: toolbar),
-          Expanded(
-            // flex: 15,
-            child: Container(
-              color: Colors.white,
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: quillEditor,
-            ),
-          ),
-        ],
-      ),
     );
   }
 

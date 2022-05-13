@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 /// has to specify gradient and borders by itself
 class GlassFormCover extends StatelessWidget {
   final Widget child;
-  const GlassFormCover({Key? key, required this.child}) : super(key: key);
+  final BorderRadius borderRadius;
+  const GlassFormCover(
+      {Key? key, required this.child, required this.borderRadius})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class GlassFormCover extends StatelessWidget {
           )
         ]),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: borderRadius,
           child: BackdropFilter(
             filter: ImageFilter.blur(
               sigmaX: 40.0,

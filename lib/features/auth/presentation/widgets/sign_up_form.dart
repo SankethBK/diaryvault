@@ -65,6 +65,7 @@ class _SignUpFormState extends State<SignUpForm> {
         void _onSubmitted() => bloc.add(AuthFormSignUpSubmitted());
 
         return GlassFormCover(
+          borderRadius: BorderRadius.circular(16.0),
           child: FormDimensions(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
