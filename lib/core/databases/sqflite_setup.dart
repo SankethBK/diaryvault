@@ -26,12 +26,33 @@ class DBProvider {
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         await db.execute(
-          """CREATE TABLE ${Users.TABLE_NAME} (
-          ${Users.ID} TEXT PRIMARY KEY,
-          ${Users.EMAIL} TEXT,
-          ${Users.PASSWORD} TEXT
-          )""",
+          """
+          CREATE TABLE ${Users.TABLE_NAME} (
+            ${Users.ID} TEXT PRIMARY KEY,
+            ${Users.EMAIL} TEXT,
+            ${Users.PASSWORD} TEXT
+          )
+          """,
         );
+
+        await db.execute("""
+          CREATE TABLE ${Notes.TABLE_NAME} (
+            ${Notes.ID} TEXT PRIMARY KEY, 
+            ${Notes.CREATED_AT} DATETIME,
+            ${Notes.TITLE} TEXT,
+            ${Notes.BODY} TEXT, 
+            ${Notes.LAST_MODIFIED} DATETIME, 
+            ${Notes.PLAIN_TEXT} TEXT
+          )
+          """);
+
+        await db.execute("""
+            CREATE TABLE ${NoteDependencies.TABLE_NAME} (
+              ${NoteDependencies.ID} TEXT PRIMARY KEY,
+              ${NoteDependencies.ASSET_TYPE} TEXT, 
+              ${NoteDependencies.ASSET_PATH} TEXT
+            )
+            """);
       },
     );
   }
