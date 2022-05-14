@@ -13,7 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<AuthSessionBloc>(
       create: (context) => sl<AuthSessionBloc>(),
       child: AppView(),
     );
@@ -37,13 +37,15 @@ class AppView extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         // accentColor: Color.fromARGB(255, 249, 60, 255),
+        canvasColor: Colors.transparent,
         accentColor: Colors.pinkAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-            Color.fromARGB(255, 164, 30, 217).withOpacity(0.5),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromARGB(255, 164, 30, 217).withOpacity(0.5),
+            ),
           ),
-        )),
+        ),
       ),
       builder: (BuildContext context, child) {
         final log = printer("App");

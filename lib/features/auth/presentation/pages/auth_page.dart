@@ -16,7 +16,7 @@ class AuthPage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              "assets/digital-art-neon-bubbles.jpg",
+              "assets/images/digital-art-neon-bubbles.jpg",
             ),
             fit: BoxFit.cover,
           ),

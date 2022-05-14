@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/glass_form_cover.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,50 +66,54 @@ class _SignInFormState extends State<SignInForm> {
 
         void _onSubmitted() => bloc.add(AuthFormSignInSubmitted());
 
-        return GlassFormCover(
-            childWidget: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "Log In",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
+        return GlassMorphismCover(
+          borderRadius: BorderRadius.circular(16.0),
+          child: FormDimensions(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  AuthEmailInput(
-                    getEmailErrors: _getEmailErrors,
-                    onEmailChanged: _onEmailChanged,
+                  const Text(
+                    "Log In",
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                    ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AuthEmailInput(
+                        getEmailErrors: _getEmailErrors,
+                        onEmailChanged: _onEmailChanged,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      AuthPasswordInput(
+                        getPasswordErrors: _getPasswordErrors,
+                        onPasswordChanged: _onPasswordChanged,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      AuthSubmitButton(
+                        isLoading: (state is AuthFormSubmissionLoading),
+                        onSubmitted: _onSubmitted,
+                      )
+                    ],
                   ),
-                  AuthPasswordInput(
-                    getPasswordErrors: _getPasswordErrors,
-                    onPasswordChanged: _onPasswordChanged,
+                  AuthChangePage(
+                    infoText: "Don't have an account?",
+                    flipPageText: "Sign up",
+                    flipCard: widget.flipCard,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  AuthSubmitButton(
-                    isLoading: (state is AuthFormSubmissionLoading),
-                    onSubmitted: _onSubmitted,
-                  )
                 ],
               ),
-              AuthChangePage(
-                infoText: "Don't have an account?",
-                flipPageText: "Sign up",
-                flipCard: widget.flipCard,
-              ),
-            ],
+            ),
           ),
-        ));
+        );
       },
     );
   }

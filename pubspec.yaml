@@ -35,11 +35,17 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  get_it: ^7.2.0
   internet_connection_checker: ^0.0.1+3
   logger: ^1.1.0
   path_provider: ^2.0.9
   sqflite: ^2.0.2
+  filesystem_picker: ^2.0.0-nullsafety.0
+  flutter_quill:
+    git:
+      url: https://github.com/SankethBK/flutter-quill
+      ref: bb3ac1949005992e7ad1842f3591eb1c73e56f4c
+  file_picker: ^4.5.1
+  get_it: ^7.2.0
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -48,6 +54,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.1.0
+
+dependency_overrides:
+  analyzer:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -59,7 +68,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
