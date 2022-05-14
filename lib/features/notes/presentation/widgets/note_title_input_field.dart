@@ -1,3 +1,4 @@
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:flutter/material.dart';
 
 class NoteTitleInputField extends StatelessWidget {
@@ -11,38 +12,35 @@ class NoteTitleInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "title",
-        // prefixIcon: Icon(
-        //   Icons.email,
-        //   color: Colors.black.withOpacity(0.5),
-        // ),
-        fillColor: Colors.white,
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          borderSide: BorderSide(
-            color: Colors.black.withOpacity(1),
-            width: 1,
+    final textInputBorderRadius = BorderRadius.circular(15.0);
+    return GlassMorphismCover(
+      borderRadius: textInputBorderRadius,
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: "title",
+          fillColor: Colors.white.withOpacity(0.7),
+          filled: true,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: textInputBorderRadius,
+            borderSide: BorderSide(
+              color: Colors.white.withOpacity(1),
+              width: 1,
+            ),
           ),
-        ),
-        // errorText: getEmailErrors(),
-        errorStyle: TextStyle(
-          color: Colors.pink[200],
-          fontWeight: FontWeight.bold,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.6),
-            width: 1,
+          // errorText: getEmailErrors(),
+          errorStyle: TextStyle(
+            color: Colors.pink[200],
+            fontWeight: FontWeight.bold,
           ),
-        ),
+          border: OutlineInputBorder(
+            borderRadius: textInputBorderRadius,
+            borderSide: BorderSide(
+              color: Colors.white.withOpacity(1),
+              width: 3,
+            ),
+          ),
+        ), // onChanged: onEmailChanged,
       ),
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.emailAddress,
-      // onChanged: onEmailChanged,
     );
   }
 }
