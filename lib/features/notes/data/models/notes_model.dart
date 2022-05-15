@@ -31,11 +31,11 @@ class NoteModel extends Note {
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {
     return NoteModel(
       id: jsonMap["id"],
-      createdAt: jsonMap["created_at"],
+      createdAt: DateTime.tryParse(jsonMap["created_at"])!,
       title: jsonMap["title"],
       body: jsonMap["body"],
       hash: jsonMap["hash"],
-      lastModified: jsonMap["last_modified"],
+      lastModified: DateTime.tryParse(jsonMap["last_modified"])!,
       plainText: jsonMap["plain_text"],
       assetDependencies: jsonMap["asset_dependencies"]
           .map(
@@ -48,13 +48,14 @@ class NoteModel extends Note {
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-      "created_at": createdAt,
+      "created_at": createdAt.millisecondsSinceEpoch,
       "title": title,
       "body": body,
       "hash": hash,
-      "last_modified": lastModified,
+      "last_modified": lastModified.millisecondsSinceEpoch,
       "plain_text": plainText,
       "delelted": deleted,
+      "asset_dependencies": assetDependencies.map((noteAsset) => noteAsset.toJson()).toList();
     };
   }
 }

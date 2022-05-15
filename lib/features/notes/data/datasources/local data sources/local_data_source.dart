@@ -127,12 +127,12 @@ class NotesLocalDataSource implements INotesLocalDataSource {
           "plain_text": null,
           "created_at": null,
           "hash": null,
-          "last_modified": DateTime.now()
+          "last_modified": DateTime.now().millisecondsSinceEpoch,
         },
         where: "${Notes.ID} = ?",
         whereArgs: [id]);
 
-    if (count != files.length) {
+    if (count != 1) {
       log.e("notes deletion unsuccessful for note id: $id");
       throw const DatabaseDeleteException();
     }
@@ -153,8 +153,14 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
   @override
   Future<void> updateNote(NoteModel note) async {
-    var count = await database.update(Notes.TABLE_NAME, note.toJson(),
-        where: "${Notes.ID} = ?", whereArgs: [note.id]);
+    var count = await database.update(
+        Notes.TABLE_NAME,
+        {
+          ...note.toJson(),
+          "last_modified": DateTime.now().millisecondsSinceEpoch
+        },
+        where: "${Notes.ID} = ?",
+        whereArgs: [note.id]);
 
     if (count != 1) {
       log.e("note updation failed for id: ${note.id}");
