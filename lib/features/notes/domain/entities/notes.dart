@@ -8,7 +8,8 @@ class Note extends Equatable {
   final String hash;
   final DateTime lastModified;
   final String plainText;
-  final List<Map<String, String>> assetDependencies;
+  final List<NoteAsset> assetDependencies;
+  final bool deleted;
 
   const Note({
     required this.id,
@@ -19,6 +20,39 @@ class Note extends Equatable {
     required this.lastModified,
     required this.plainText,
     required this.assetDependencies,
+    this.deleted = false,
+  });
+
+  @override
+  List<Object?> get props => [id];
+}
+
+class NoteAsset extends Equatable {
+  final String noteId;
+  final String assetType;
+  final String assetPath;
+
+  NoteAsset({
+    required this.noteId,
+    required this.assetType,
+    required this.assetPath,
+  });
+
+  @override
+  List<Object?> get props => [noteId, assetType, assetPath];
+}
+
+class NotePreview extends Equatable {
+  final String id;
+  final DateTime createdAt;
+  final String title;
+  final String plainText;
+
+  const NotePreview({
+    required this.id,
+    required this.createdAt,
+    required this.title,
+    required this.plainText,
   });
 
   @override

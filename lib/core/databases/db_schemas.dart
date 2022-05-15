@@ -17,13 +17,14 @@ class Notes {
   static const BODY = "body";
   static const LAST_MODIFIED = "last_modified";
   static const PLAIN_TEXT = "plain_text";
+  static const DELETED = "deleted";
 }
 
 class NoteDependencies {
   static const TABLE_NAME = "Note_depencies";
 
   // Columns
-  static const ID = "id";
+  static const NOTE_ID = "note_id";
   static const ASSET_TYPE = "asset_type";
   static const ASSET_PATH = "asset_path";
 }

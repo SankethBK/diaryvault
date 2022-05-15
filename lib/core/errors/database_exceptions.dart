@@ -1,7 +1,7 @@
 import 'package:dairy_app/core/errors/custom_exception_template.dart';
 
 class DatabaseInsertionException extends CustomException {
-  const DatabaseInsertionException(String? message)
+  const DatabaseInsertionException([String? message])
       : super(
           code: -1,
           message: message ?? "something went wrong",
@@ -9,7 +9,7 @@ class DatabaseInsertionException extends CustomException {
 }
 
 class DatabaseQueryException extends CustomException {
-  const DatabaseQueryException(String? message)
+  const DatabaseQueryException([String? message])
       : super(
           code: 0,
           message: message ?? "something went wrong",
@@ -17,11 +17,11 @@ class DatabaseQueryException extends CustomException {
 }
 
 class DatabaseUpdateException extends CustomException {
-  const DatabaseUpdateException(String? message)
+  const DatabaseUpdateException([String? message])
       : super(code: 1, message: message ?? "something went wrong");
 }
 
 class DatabaseDeleteException extends CustomException {
-  const DatabaseDeleteException(String? message)
+  const DatabaseDeleteException([String? message])
       : super(code: 1, message: message ?? "something went wrong");
 }

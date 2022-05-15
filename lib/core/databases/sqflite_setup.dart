@@ -42,13 +42,14 @@ class DBProvider {
             ${Notes.TITLE} TEXT,
             ${Notes.BODY} TEXT, 
             ${Notes.LAST_MODIFIED} DATETIME, 
-            ${Notes.PLAIN_TEXT} TEXT
+            ${Notes.PLAIN_TEXT} TEXT, 
+            ${Notes.DELETED} INTEGER
           )
           """);
 
         await db.execute("""
             CREATE TABLE ${NoteDependencies.TABLE_NAME} (
-              ${NoteDependencies.ID} TEXT PRIMARY KEY,
+              ${NoteDependencies.NOTE_ID} TEXT PRIMARY KEY,
               ${NoteDependencies.ASSET_TYPE} TEXT, 
               ${NoteDependencies.ASSET_PATH} TEXT
             )

@@ -4,7 +4,7 @@ abstract class INotesLocalDataSource {
   /// Saves notes as new record in database
   ///
   /// Throws [DatabaseInsertionException] if something goes wrong
-  Future<NoteModel> saveNote(NoteModel note);
+  Future<void> saveNote(NoteModel note);
 
   /// Fetches all notes
   ///
@@ -12,6 +12,9 @@ abstract class INotesLocalDataSource {
   ///
   /// TODO: add support for pagination
   Future<List<NoteModel>> fetchNotes();
+
+  // Fetch all notes with only columns required to display the preview
+  Future<List<NotePreviewModel>> fetchNotesPreview();
 
   /// Fetches the note with given id
   ///
