@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Notes extends Equatable {
+class Note extends Equatable {
   final String id;
   final DateTime createdAt;
   final String title;
@@ -10,7 +10,7 @@ class Notes extends Equatable {
   final String plainText;
   final List<Map<String, String>> assetDependencies;
 
-  const Notes({
+  const Note({
     required this.id,
     required this.createdAt,
     required this.title,

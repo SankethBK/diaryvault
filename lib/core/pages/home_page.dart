@@ -6,73 +6,73 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 var notes = [
-  Notes(
+  Note(
     id: "1",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "2",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "3",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "4",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "5",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "6",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "7",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "8",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "9",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "10",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "11",
     createdAt: DateTime.now(),
     title: "This is test title",
     body: "This is test body, this is test body, this is test body",
   ),
-  Notes(
+  Note(
     id: "12",
     createdAt: DateTime.now(),
     title: "This is test title",
