@@ -23,12 +23,14 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
   })  : _authSessionBloc = authSessionBloc,
         super(const AuthFormInitial(email: '', password: '')) {
     on<AuthFormInputsChangedEvent>(
-      ((event, emit) {
-        emit(AuthFormInitial(
-          email: event.email ?? state.email,
-          password: event.password ?? state.password,
-        ));
-      }),
+      (event, emit) {
+        emit(
+          AuthFormInitial(
+            email: event.email ?? state.email,
+            password: event.password ?? state.password,
+          ),
+        );
+      },
     );
 
     on<AuthFormSignUpSubmitted>(((event, emit) async {

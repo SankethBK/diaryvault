@@ -23,6 +23,32 @@ class Note extends Equatable {
     this.deleted = false,
   });
 
+  factory Note.createDummy() {
+    return Note(
+      id: "",
+      createdAt: DateTime.now(),
+      title: "",
+      body: "",
+      hash: "",
+      lastModified: DateTime.now(),
+      plainText: "",
+      assetDependencies: [],
+    );
+  }
+
+  factory Note.initializeWithId(String id) {
+    return Note(
+      id: id,
+      createdAt: DateTime.now(),
+      title: "",
+      body: "",
+      hash: "",
+      lastModified: DateTime.now(),
+      plainText: "",
+      assetDependencies: [],
+    );
+  }
+
   @override
   List<Object?> get props => [id];
 }
