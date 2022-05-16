@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class Note extends Equatable {
-  final String id;
-  final DateTime createdAt;
-  final String title;
-  final String body;
-  final String hash;
-  final DateTime lastModified;
-  final String plainText;
-  final List<NoteAsset> assetDependencies;
-  final bool deleted;
+  String id;
+  DateTime createdAt;
+  String title;
+  String body;
+  String hash;
+  DateTime lastModified;
+  String plainText;
+  List<NoteAsset> assetDependencies;
+  bool deleted;
 
-  const Note({
+  Note({
     required this.id,
     required this.createdAt,
     required this.title,
@@ -36,17 +36,9 @@ class Note extends Equatable {
     );
   }
 
-  factory Note.initializeWithId(String id) {
-    return Note(
-      id: id,
-      createdAt: DateTime.now(),
-      title: "",
-      body: "",
-      hash: "",
-      lastModified: DateTime.now(),
-      plainText: "",
-      assetDependencies: [],
-    );
+  String getHashingString() {
+    // assetDependencies is included in body itself
+    return title + createdAt.toString() + body;
   }
 
   @override

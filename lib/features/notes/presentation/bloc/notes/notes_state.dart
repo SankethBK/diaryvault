@@ -26,3 +26,18 @@ class NoteFetchLoading extends NotesState {
   const NoteFetchLoading({required bool newNote, required Note note})
       : super(newNote: newNote, note: note);
 }
+
+class NoteSaveLoading extends NotesState {
+  const NoteSaveLoading({required bool newNote, required Note note})
+      : super(newNote: newNote, note: note);
+}
+
+class NoteSavedSuccesfully extends NotesState {
+  const NoteSavedSuccesfully({required bool newNote, required Note note})
+      : super(newNote: newNote, note: note);
+}
+
+class NotesSavingFailed extends NotesState {
+  const NotesSavingFailed({required bool newNote, required Note note})
+      : super(newNote: newNote, note: note);
+}

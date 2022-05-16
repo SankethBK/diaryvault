@@ -8,7 +8,7 @@ class NoteModel extends Note {
   @override
   // ignore: overridden_fields
   final List<NoteAssetModel> assetDependencies;
-  const NoteModel({
+  NoteModel({
     required String id,
     required DateTime createdAt,
     required String title,
