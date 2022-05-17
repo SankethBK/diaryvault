@@ -1,43 +1,146 @@
 part of 'notes_bloc.dart';
 
 abstract class NotesState extends Equatable {
-  final bool newNote;
-  final Note note;
+  final bool? newNote;
+  final String id;
+  final String? title;
+  final QuillController? controller;
+  final DateTime? createdAt;
 
-  const NotesState({required this.newNote, required this.note});
+  // required fields must be initalized only once, while creating new state copy the values for these
+  // from old state only
+  const NotesState({
+    this.title,
+    this.createdAt,
+    this.controller,
+    this.newNote,
+    required this.id,
+  });
 
   @override
-  List<Object> get props => [newNote, note];
+  List<Object> get props => [id];
+}
+
+/// Initally DummyState will be emitted, then UI (can be both read or edit page) has to deicde
+/// whether to load an existing note, or create a new note
+class NoteDummyState extends NotesState {
+  const NoteDummyState({required String id}) : super(id: id);
 }
 
 /// Initial state, when a new note is getting created, or an existing note is opened
+/// It means a new note has been initialized, or an existing note has been loaded but they aren't edited yet
+/// Useful for shpwing tick mark for saving in edit screen after the editing begind
 class NoteInitialState extends NotesState {
-  const NoteInitialState({required bool newNote, required Note note})
-      : super(newNote: newNote, note: note);
+  const NoteInitialState(
+      {required bool newNote,
+      required QuillController controller,
+      required DateTime createdAt,
+      required String title,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+        );
 }
 
 /// once the user starts editing, [NoteInitialState] changes to [NoteUpdatedState]
 class NoteUpdatedState extends NotesState {
-  const NoteUpdatedState({required bool newNote, required Note note})
-      : super(newNote: newNote, note: note);
+  const NoteUpdatedState(
+      {required bool newNote,
+      required QuillController controller,
+      required DateTime createdAt,
+      required String title,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+        );
 }
 
+// Loading state while fetching an existing note
 class NoteFetchLoading extends NotesState {
-  const NoteFetchLoading({required bool newNote, required Note note})
-      : super(newNote: newNote, note: note);
+  const NoteFetchLoading(
+      {bool? newNote,
+      QuillController? controller,
+      DateTime? createdAt,
+      String? title,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+        );
 }
 
+class NoteFetchFailed extends NotesState {
+  const NoteFetchFailed(
+      {bool? newNote,
+      QuillController? controller,
+      DateTime? createdAt,
+      String? title,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+        );
+}
+
+//* Notes saving
 class NoteSaveLoading extends NotesState {
-  const NoteSaveLoading({required bool newNote, required Note note})
-      : super(newNote: newNote, note: note);
+  const NoteSaveLoading(
+      {required bool newNote,
+      required QuillController controller,
+      required DateTime createdAt,
+      required String title,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+        );
 }
 
 class NoteSavedSuccesfully extends NotesState {
-  const NoteSavedSuccesfully({required bool newNote, required Note note})
-      : super(newNote: newNote, note: note);
+  const NoteSavedSuccesfully(
+      {required bool newNote,
+      required QuillController controller,
+      required DateTime createdAt,
+      required String title,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+        );
 }
 
 class NotesSavingFailed extends NotesState {
-  const NotesSavingFailed({required bool newNote, required Note note})
-      : super(newNote: newNote, note: note);
+  const NotesSavingFailed(
+      {required bool newNote,
+      required QuillController controller,
+      required DateTime createdAt,
+      required String title,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+        );
 }
