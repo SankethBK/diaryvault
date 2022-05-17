@@ -21,7 +21,7 @@ class UpdateNote extends NotesEvent {
   final String? body;
   final NoteAsset? noteAsset;
 
-  const UpdateNote([this.createdAt, this.title, this.body, this.noteAsset]);
+  const UpdateNote({this.createdAt, this.title, this.body, this.noteAsset});
 }
 
 /// if newNote is true, then create a new note, otherwise update the existing note
