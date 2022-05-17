@@ -4,6 +4,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +14,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthSessionBloc>(
-      create: (context) => sl<AuthSessionBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthSessionBloc>(
+          create: (context) => sl<AuthSessionBloc>(),
+        ),
+        BlocProvider<NotesBloc>(
+          create: (context) => sl<NotesBloc>(),
+        )
+      ],
       child: AppView(),
     );
   }

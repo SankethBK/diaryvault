@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
               title: Text(notes[index].title + " $index"),
               subtitle: Text(notes[index].body),
             );
-          }, childCount: 12),
+          }, childCount: 0),
         )
       ]),
       floatingActionButton: FloatingActionButton(
