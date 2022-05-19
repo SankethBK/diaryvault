@@ -43,9 +43,10 @@ class NotesRepository implements INotesRepository {
   }
 
   @override
-  Future<Either<NotesFailure, void>> saveNote(NoteModel note) async {
+  Future<Either<NotesFailure, void>> saveNote(
+      Map<String, dynamic> noteMap) async {
     try {
-      await notesLocalDataSource.saveNote(note);
+      await notesLocalDataSource.saveNote(noteMap);
       return const Right(null);
     } catch (e) {
       return Left(NotesFailure.unknownError());

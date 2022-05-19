@@ -27,7 +27,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: GlassAppBar(),
+        resizeToAvoidBottomInset: false,
+        appBar: GlassAppBar(bloc),
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -50,6 +51,9 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
               ),
               BlocBuilder<NotesBloc, NotesState>(
                 bloc: bloc,
+                buildWhen: (previousState, state) {
+                  return previousState.title != state.title;
+                },
                 builder: (context, state) {
                   void _onTitleChanged(String title) {
                     bloc.add(UpdateNote(title: title));
@@ -66,7 +70,20 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                 },
               ),
               const SizedBox(height: 10),
-              RichTextEditor(),
+              BlocBuilder<NotesBloc, NotesState>(
+                bloc: bloc,
+                buildWhen: (previousState, state) {
+                  return previousState is NoteDummyState;
+                },
+                builder: (context, state) {
+                  if (state is NoteDummyState) {
+                    return Container();
+                  }
+                  return RichTextEditor(
+                    controller: state.controller!,
+                  );
+                },
+              ),
               SizedBox(
                 height: MediaQuery.of(context).viewInsets.bottom,
               )
@@ -77,14 +94,75 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
     );
   }
 
-  AppBar GlassAppBar() {
+  AppBar GlassAppBar(NotesBloc bloc) {
     return AppBar(
       backgroundColor: Colors.transparent,
-      actions: const [
-        Padding(
-          padding: EdgeInsets.only(right: 8.0),
+      actions: [
+        BlocBuilder<NotesBloc, NotesState>(
+          bloc: bloc,
+          builder: (context, state) {
+            if (state is NoteUpdatedState) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 13.0),
+                child: IconButton(
+                  icon: const Icon(Icons.check),
+                  onPressed: () => bloc.add(SaveNote()),
+                ),
+              );
+            }
+
+            if (state is NoteSaveLoading) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 13.0),
+                child: IconButton(
+                  icon: const SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () => bloc.add(SaveNote()),
+                ),
+              );
+            }
+
+            return const SizedBox.shrink();
+          },
+        ),
+        BlocBuilder<NotesBloc, NotesState>(
+          bloc: bloc,
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 13.0),
+              child: IconButton(
+                icon: const Icon(Icons.calendar_month_outlined),
+                onPressed: () async {
+                  final DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: state.createdAt!,
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(3000),
+                  );
+
+                  final TimeOfDay? timeOfDay = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(state.createdAt!),
+                    initialEntryMode: TimePickerEntryMode.dial,
+                  );
+
+                  final createdAt = DateTime(pickedDate!.year, pickedDate.month,
+                      pickedDate.day, timeOfDay!.hour, timeOfDay.minute);
+                  bloc.add(UpdateNote(createdAt: createdAt));
+                },
+              ),
+            );
+          },
+        ),
+        const Padding(
+          padding: EdgeInsets.only(right: 13.0),
           child: Icon(Icons.visibility),
-        )
+        ),
       ],
       flexibleSpace: GlassMorphismCover(
         borderRadius: BorderRadius.circular(0.0),

@@ -24,7 +24,13 @@ abstract class NotesState extends Equatable {
 /// Initally DummyState will be emitted, then UI (can be both read or edit page) has to deicde
 /// whether to load an existing note, or create a new note
 class NoteDummyState extends NotesState {
-  const NoteDummyState({required String id}) : super(id: id);
+  const NoteDummyState({required String id, required DateTime createdAt})
+      : super(id: id, createdAt: createdAt);
+
+  @override
+  String toString() {
+    return "NoteDummyState(id: ${this.id})";
+  }
 }
 
 /// Initial state, when a new note is getting created, or an existing note is opened
@@ -44,6 +50,11 @@ class NoteInitialState extends NotesState {
           title: title,
           createdAt: createdAt,
         );
+
+  @override
+  String toString() {
+    return "NoteInitialState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()})";
+  }
 }
 
 /// once the user starts editing, [NoteInitialState] changes to [NoteUpdatedState]
@@ -61,6 +72,14 @@ class NoteUpdatedState extends NotesState {
           title: title,
           createdAt: createdAt,
         );
+
+  @override
+  List<Object> get props => [id, title!, createdAt!];
+
+  @override
+  String toString() {
+    return "NoteUpdatedState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()})";
+  }
 }
 
 // Loading state while fetching an existing note

@@ -21,27 +21,43 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<void> saveNote(NoteModel note) async {
-    // Insert notes
-    var res = await database.insert(Notes.TABLE_NAME, note.toJson());
+  Future<void> saveNote(Map<String, dynamic> noteMap) async {
+    // extract asset dependecies and remove it from the map
 
-    if (res == -1) {
-      throw const DatabaseInsertionException("Note insertion failed");
+    var assetDependencies = noteMap["asset_dependencies"];
+    noteMap.remove("asset_dependencies");
+
+    // Insert notes
+    try {
+      var res = await database.insert(Notes.TABLE_NAME, noteMap);
+
+      if (res == -1) {
+        log.e("database insertion for ${noteMap["id"]} unsuccessful");
+        throw const DatabaseInsertionException("Note insertion failed");
+      }
+    } catch (e) {
+      log.e(e);
+      rethrow;
     }
 
-    log.i("note ${note.id} inserted into db");
+    log.i("note ${noteMap["id"]} inserted into db");
 
     // insert notte dependecies
-    for (var asset in note.assetDependencies) {
-      res = await database.insert(
-          NoteDependencies.TABLE_NAME, {"note_id": note.id, ...asset.toJson()});
-      if (res == -1) {
-        log.e("Insertion of ${asset.assetPath} faied");
-        throw const DatabaseInsertionException();
+    for (var asset in assetDependencies) {
+      try {
+        var res = await database.insert(NoteDependencies.TABLE_NAME,
+            {"note_id": noteMap["id"], ...noteMap["asset"]});
+        if (res == -1) {
+          log.e("Insertion of ${asset["assetPath"]} faied");
+          throw const DatabaseInsertionException();
+        }
+      } catch (e) {
+        log.e(e);
+        rethrow;
       }
     }
 
-    log.i("Note assets successfully saved id: ${note.id}");
+    log.i("Note assets successfully saved id: ${noteMap["id"]}");
   }
 
   @override

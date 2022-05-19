@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dairy_app/features/notes/core/failures/failure.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
@@ -18,7 +20,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   final INotesRepository notesRepository;
 
   NotesBloc({required this.notesRepository})
-      : super(const NoteDummyState(id: "")) {
+      : super(NoteDummyState(id: "", createdAt: DateTime.now())) {
     on<InitializeNote>((event, emit) async {
       // if id is present, create a new note else fetch the existing note from database
 
@@ -58,7 +60,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             id: event.id!,
             newNote: false,
             title: "",
-            createdAt: DateTime.now(),
+            createdAt: state.createdAt!,
             controller: _controller,
           ));
         },
@@ -67,6 +69,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
     on<UpdateNote>((event, emit) {
       // we don't want to update when something is getting saved or deleted
+
       if (state is NoteInitialState || state is NoteUpdatedState) {
         // TODO: need to handle asset dependecies more clearly, there is no callback for asset removal
         // so we need to process the body afterwards to get current list of assets, and suitably delete removed ones
@@ -75,7 +78,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           id: state.id,
           title: event.title ?? state.title!,
           controller: state.controller!,
-          createdAt: state.createdAt!,
+          createdAt: event.createdAt ?? state.createdAt!,
         ));
       }
     });
@@ -96,25 +99,29 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       var _hash =
           _generateHash(state.title! + state.createdAt.toString() + _body);
 
-      var note = Note(
-        id: state.id,
-        createdAt: state.createdAt!,
-        title: state.title!,
-        body: _body,
-        hash: _hash,
-        lastModified: DateTime.now(),
-        plainText: _plainText,
-        assetDependencies: [],
-        deleted: false,
-      );
+      var noteMap = {
+        "id": state.id,
+        "created_at": state.createdAt!.millisecondsSinceEpoch,
+        "title": state.title!,
+        "body": _body,
+        "hash": _hash,
+        "last_modified": DateTime.now().millisecondsSinceEpoch,
+        "plain_text": _plainText,
+        "asset_dependencies": [],
+        "deleted": 0,
+      };
 
       Either<NotesFailure, void> result;
 
-      if (state.newNote!) {
-        result = await notesRepository.saveNote(note as NoteModel);
-      } else {
-        result = await notesRepository.updateNote(note as NoteModel);
-      }
+      result = await notesRepository.saveNote(noteMap);
+
+      // For smooth UX, it displays CIrcularProgressindicator till then
+      await Future.delayed(const Duration(seconds: 3));
+
+      // if (state.newNote!) {
+      // } else {
+      //   result = await noteMapsRepository.updateNote(noteMap);
+      // }
       result.fold((error) {
         emit(NotesSavingFailed(
           newNote: state.newNote!,

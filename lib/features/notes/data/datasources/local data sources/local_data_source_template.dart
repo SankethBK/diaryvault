@@ -4,7 +4,7 @@ abstract class INotesLocalDataSource {
   /// Saves notes as new record in database
   ///
   /// Throws [DatabaseInsertionException] if something goes wrong
-  Future<void> saveNote(NoteModel note);
+  Future<void> saveNote(Map<String, dynamic> noteMap);
 
   /// Fetches all notes
   ///
