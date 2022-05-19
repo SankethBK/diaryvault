@@ -26,7 +26,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      // resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       appBar: GlassAppBar(bloc),
       body: Container(
         decoration: const BoxDecoration(
