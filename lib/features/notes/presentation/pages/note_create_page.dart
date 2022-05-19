@@ -24,71 +24,69 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       bloc.add(const InitializeNote());
     }
 
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        resizeToAvoidBottomInset: false,
-        appBar: GlassAppBar(bloc),
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                "assets/images/digital-art-neon-bubbles.jpg",
-              ),
-              fit: BoxFit.cover,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      // resizeToAvoidBottomInset: false,
+      appBar: GlassAppBar(bloc),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              "assets/images/digital-art-neon-bubbles.jpg",
             ),
+            fit: BoxFit.cover,
           ),
-          padding: const EdgeInsets.only(
-            top: 15.0,
-            left: 10.0,
-            right: 10.0,
-            // bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: AppBar().preferredSize.height,
-              ),
-              BlocBuilder<NotesBloc, NotesState>(
-                bloc: bloc,
-                buildWhen: (previousState, state) {
-                  return previousState.title != state.title;
-                },
-                builder: (context, state) {
-                  void _onTitleChanged(String title) {
-                    bloc.add(UpdateNote(title: title));
-                  }
+        ),
+        padding: const EdgeInsets.only(
+          top: 60.0,
+          left: 10.0,
+          right: 10.0,
+          // bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: AppBar().preferredSize.height,
+            ),
+            BlocBuilder<NotesBloc, NotesState>(
+              bloc: bloc,
+              buildWhen: (previousState, state) {
+                return previousState.title != state.title;
+              },
+              builder: (context, state) {
+                void _onTitleChanged(String title) {
+                  bloc.add(UpdateNote(title: title));
+                }
 
-                  if (state is NoteDummyState) {
-                    return NoteTitleInputField(
-                        initialValue: "", onTitleChanged: _onTitleChanged);
-                  }
+                if (state is NoteDummyState) {
                   return NoteTitleInputField(
-                    initialValue: state.title!,
-                    onTitleChanged: _onTitleChanged,
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              BlocBuilder<NotesBloc, NotesState>(
-                bloc: bloc,
-                buildWhen: (previousState, state) {
-                  return previousState is NoteDummyState;
-                },
-                builder: (context, state) {
-                  if (state is NoteDummyState) {
-                    return Container();
-                  }
-                  return RichTextEditor(
-                    controller: state.controller!,
-                  );
-                },
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).viewInsets.bottom,
-              )
-            ],
-          ),
+                      initialValue: "", onTitleChanged: _onTitleChanged);
+                }
+                return NoteTitleInputField(
+                  initialValue: state.title!,
+                  onTitleChanged: _onTitleChanged,
+                );
+              },
+            ),
+            const SizedBox(height: 10),
+            BlocBuilder<NotesBloc, NotesState>(
+              bloc: bloc,
+              buildWhen: (previousState, state) {
+                return previousState is NoteDummyState;
+              },
+              builder: (context, state) {
+                if (state is NoteDummyState) {
+                  return Container();
+                }
+                return RichTextEditor(
+                  controller: state.controller!,
+                );
+              },
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).viewInsets.bottom,
+            )
+          ],
         ),
       ),
     );
