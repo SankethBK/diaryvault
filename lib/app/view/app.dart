@@ -43,10 +43,6 @@ class AppView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My dairy',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        // accentColor: Color.fromARGB(255, 249, 60, 255),
-        canvasColor: Colors.transparent,
-        accentColor: Colors.pinkAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
@@ -54,6 +50,8 @@ class AppView extends StatelessWidget {
             ),
           ),
         ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+            .copyWith(secondary: Colors.pinkAccent),
       ),
       builder: (BuildContext context, child) {
         final log = printer("App");

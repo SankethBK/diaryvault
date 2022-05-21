@@ -24,7 +24,7 @@ abstract class INotesLocalDataSource {
   /// Updates the note using its id present in model
   ///
   /// Throws [DatabaseUpdateException] if something goes wrong
-  Future<void> updateNote(NoteModel note);
+  Future<void> updateNote(Map<String, dynamic> noteMap);
 
   /// Deletes the note from id
   ///

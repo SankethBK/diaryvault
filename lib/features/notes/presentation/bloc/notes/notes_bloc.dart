@@ -19,11 +19,9 @@ part 'notes_state.dart';
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   final INotesRepository notesRepository;
 
-  NotesBloc({required this.notesRepository})
-      : super(NoteDummyState(id: "", createdAt: DateTime.now())) {
+  NotesBloc({required this.notesRepository}) : super(NoteDummyState(id: "")) {
     on<InitializeNote>((event, emit) async {
       // if id is present, create a new note else fetch the existing note from database
-
       if (event.id == null) {
         var _id = _generateUniqueId();
         QuillController _controller = QuillController(
@@ -57,10 +55,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           );
 
           emit(NoteInitialState(
-            id: event.id!,
+            id: note.id,
             newNote: false,
-            title: "",
-            createdAt: state.createdAt!,
+            title: note.title,
+            createdAt: note.createdAt,
             controller: _controller,
           ));
         },
@@ -93,7 +91,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         createdAt: state.createdAt!,
       ));
 
-      var _body = state.controller!.document.toDelta().toJson().toString();
+      var _body = jsonEncode(state.controller!.document.toDelta().toJson());
+
       var _plainText = state.controller!.document.toPlainText();
 
       var _hash =
@@ -113,15 +112,14 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
       Either<NotesFailure, void> result;
 
-      result = await notesRepository.saveNote(noteMap);
-
       // For smooth UX, it displays CIrcularProgressindicator till then
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 1));
 
-      // if (state.newNote!) {
-      // } else {
-      //   result = await noteMapsRepository.updateNote(noteMap);
-      // }
+      if (state.newNote!) {
+        result = await notesRepository.saveNote(noteMap);
+      } else {
+        result = await notesRepository.updateNote(noteMap);
+      }
       result.fold((error) {
         emit(NotesSavingFailed(
           newNote: state.newNote!,
@@ -139,6 +137,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           createdAt: state.createdAt!,
         ));
       });
+    });
+
+    on<RefreshNote>((event, emit) {
+      emit(const NoteDummyState(id: ""));
     });
   }
 

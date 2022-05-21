@@ -6,6 +6,8 @@ abstract class NotesState extends Equatable {
   final String? title;
   final QuillController? controller;
   final DateTime? createdAt;
+  // tells if it is safe to access the properties of this state
+  final bool safe;
 
   // required fields must be initalized only once, while creating new state copy the values for these
   // from old state only
@@ -15,6 +17,7 @@ abstract class NotesState extends Equatable {
     this.controller,
     this.newNote,
     required this.id,
+    required this.safe,
   });
 
   @override
@@ -24,8 +27,7 @@ abstract class NotesState extends Equatable {
 /// Initally DummyState will be emitted, then UI (can be both read or edit page) has to deicde
 /// whether to load an existing note, or create a new note
 class NoteDummyState extends NotesState {
-  const NoteDummyState({required String id, required DateTime createdAt})
-      : super(id: id, createdAt: createdAt);
+  const NoteDummyState({required String id}) : super(id: id, safe: false);
 
   @override
   String toString() {
@@ -49,6 +51,7 @@ class NoteInitialState extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
+          safe: true,
         );
 
   @override
@@ -71,6 +74,7 @@ class NoteUpdatedState extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
+          safe: true,
         );
 
   @override
@@ -96,6 +100,7 @@ class NoteFetchLoading extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
+          safe: false,
         );
 }
 
@@ -112,6 +117,7 @@ class NoteFetchFailed extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
+          safe: false,
         );
 }
 
@@ -129,6 +135,7 @@ class NoteSaveLoading extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
+          safe: true,
         );
 }
 
@@ -145,6 +152,7 @@ class NoteSavedSuccesfully extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
+          safe: true,
         );
 }
 
@@ -161,5 +169,6 @@ class NotesSavingFailed extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
+          safe: true,
         );
 }

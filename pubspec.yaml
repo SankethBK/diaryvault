@@ -41,9 +41,11 @@ dependencies:
   flutter_quill:
     git:
       url: https://github.com/SankethBK/flutter-quill
-      ref: bb3ac1949005992e7ad1842f3591eb1c73e56f4c
+      ref: 6cceed0fdb2b557ab69a148e15f6143406f41c8e
+  fluttertoast: ^8.0.9
   get_it: ^7.2.0
   internet_connection_checker: ^0.0.1+3
+  intl: ^0.17.0
   logger: ^1.1.0
   path_provider: ^2.0.9
   sqflite: ^2.0.2

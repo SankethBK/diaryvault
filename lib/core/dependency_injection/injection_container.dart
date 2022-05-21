@@ -16,6 +16,7 @@ import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources
 import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -76,7 +77,8 @@ Future<void> init() async {
   //* FEATURE: notes
 
   //* Data sources
-  sl.registerSingleton<INotesLocalDataSource>(NotesLocalDataSource());
+  sl.registerSingleton<INotesLocalDataSource>(
+      await NotesLocalDataSource.create());
 
   //* Repository
   sl.registerSingleton<INotesRepository>(
@@ -84,4 +86,6 @@ Future<void> init() async {
 
   //* Blocs
   sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));
+  sl.registerLazySingleton(
+      () => NotesFetchCubit(notesRepository: sl(), notesBloc: sl()));
 }

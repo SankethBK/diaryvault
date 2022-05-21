@@ -18,9 +18,11 @@ class NoteTitleInputField extends StatelessWidget {
     return GlassMorphismCover(
       borderRadius: textInputBorderRadius,
       child: TextFormField(
+        style: const TextStyle(fontWeight: FontWeight.bold),
         initialValue: initialValue,
         decoration: InputDecoration(
           hintText: "title",
+          hintStyle: const TextStyle(fontWeight: FontWeight.normal),
           fillColor: Colors.white.withOpacity(0.7),
           filled: true,
           focusedBorder: OutlineInputBorder(

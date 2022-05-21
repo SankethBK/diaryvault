@@ -11,7 +11,9 @@ abstract class INotesRepository {
 
   Future<Either<NotesFailure, NoteModel>> getNote(String id);
 
-  Future<Either<NotesFailure, void>> updateNote(NoteModel note);
+  Future<Either<NotesFailure, void>> updateNote(Map<String, dynamic> noteMap);
 
   Future<Either<NotesFailure, void>> deleteNote(String id);
+
+  Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview();
 }

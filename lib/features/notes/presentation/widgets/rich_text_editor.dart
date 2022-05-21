@@ -1,13 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:file_picker/file_picker.dart';
-// import 'package:filesystem_picker/filesystem_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -160,6 +155,7 @@ class Toolbar extends StatelessWidget {
       onVideoPickCallback: _onVideoPickCallback,
       // uncomment to provide a custom "pick from" dialog.
       mediaPickSettingSelector: _selectMediaPickSetting,
+      color: Colors.transparent,
       showFontSize: false,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,

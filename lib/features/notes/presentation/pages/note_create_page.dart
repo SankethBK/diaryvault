@@ -1,12 +1,20 @@
+import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NoteCreatePage extends StatefulWidget {
-  static String get route => '/note-create';
+  // display page growing animation
+  static String get routeThroughHome => '/note-create-though-home';
+
+  // display fade transition animaiton
+  static String get routeThroughNoteReadOnly =>
+      '/note-create-through-note-read-only';
 
   const NoteCreatePage({Key? key}) : super(key: key);
 
@@ -17,17 +25,17 @@ class NoteCreatePage extends StatefulWidget {
 class _NoteCreatePageState extends State<NoteCreatePage> {
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<NotesBloc>(context);
+    final notesBloc = BlocProvider.of<NotesBloc>(context);
 
     // it is definetely a new note if we reached this page and the state is still NoteDummyState
-    if (bloc.state is NoteDummyState) {
-      bloc.add(const InitializeNote());
+    if (notesBloc.state is NoteDummyState) {
+      notesBloc.add(const InitializeNote());
     }
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      appBar: GlassAppBar(bloc),
+      appBar: GlassAppBar(notesBloc),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -43,63 +51,137 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
           right: 10.0,
           // bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: AppBar().preferredSize.height,
-            ),
-            BlocBuilder<NotesBloc, NotesState>(
-              bloc: bloc,
-              buildWhen: (previousState, state) {
-                return previousState.title != state.title;
-              },
-              builder: (context, state) {
-                void _onTitleChanged(String title) {
-                  bloc.add(UpdateNote(title: title));
-                }
+        child: BlocListener<NotesBloc, NotesState>(
+          bloc: notesBloc,
+          listener: (context, state) {
+            if (state is NoteFetchFailed) {
+              _showToast("feiled to fetch note");
+            } else if (state is NotesSavingFailed) {
+              _showToast("Failed to save note");
+            } else if (state is NoteSavedSuccesfully) {
+              _showToast(state.newNote!
+                  ? "Note saved successfully"
+                  : "Note updated successfully");
+              _routeToHome(notesBloc, context);
+            }
+          },
+          child: Column(
+            children: [
+              SizedBox(
+                height: AppBar().preferredSize.height,
+              ),
+              BlocBuilder<NotesBloc, NotesState>(
+                bloc: notesBloc,
+                buildWhen: (previousState, state) {
+                  return previousState.title != state.title;
+                },
+                builder: (context, state) {
+                  void _onTitleChanged(String title) {
+                    notesBloc.add(UpdateNote(title: title));
+                  }
 
-                if (state is NoteDummyState) {
+                  if (!state.safe) {
+                    return NoteTitleInputField(
+                        initialValue: "", onTitleChanged: _onTitleChanged);
+                  }
                   return NoteTitleInputField(
-                      initialValue: "", onTitleChanged: _onTitleChanged);
-                }
-                return NoteTitleInputField(
-                  initialValue: state.title!,
-                  onTitleChanged: _onTitleChanged,
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            BlocBuilder<NotesBloc, NotesState>(
-              bloc: bloc,
-              buildWhen: (previousState, state) {
-                return previousState is NoteDummyState;
-              },
-              builder: (context, state) {
-                if (state is NoteDummyState) {
-                  return Container();
-                }
-                return RichTextEditor(
-                  controller: state.controller!,
-                );
-              },
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).viewInsets.bottom,
-            )
-          ],
+                    initialValue: state.title!,
+                    onTitleChanged: _onTitleChanged,
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
+              BlocBuilder<NotesBloc, NotesState>(
+                bloc: notesBloc,
+                buildWhen: (previousState, state) {
+                  return previousState is NoteDummyState;
+                },
+                builder: (context, state) {
+                  return RichTextEditor(
+                    controller: state.controller,
+                  );
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).viewInsets.bottom,
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
+  void _routeToHome(NotesBloc notesBloc, BuildContext context) {
+    notesBloc.add(RefreshNote());
+    Navigator.of(context).pop();
+  }
+
   AppBar GlassAppBar(NotesBloc bloc) {
     return AppBar(
+      automaticallyImplyLeading: false,
+      leading: BlocBuilder<NotesBloc, NotesState>(
+        bloc: bloc,
+        builder: (context, state) {
+          // We want to show this button when notes in edited
+          if (state.safe) {
+            return IconButton(
+              icon: const Icon(
+                Icons.close,
+                size: 25,
+              ),
+              onPressed: () async {
+                bool? result = await showDialog<bool>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("You have unsaved changes"),
+                        actions: [
+                          TextButton(
+                            child: const Text('LEAVE'),
+                            onPressed: () {
+                              Navigator.pop(context, true);
+                            },
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context, false);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.purple,
+                              onPrimary: Colors.purple[200],
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(16),
+                                ),
+                              ),
+                              elevation: 4,
+                              side: BorderSide(
+                                color: Colors.white.withOpacity(0.5),
+                                width: 1,
+                              ),
+                            ),
+                            child: const Text("STAY",
+                                style: TextStyle(color: Colors.white)),
+                          )
+                        ],
+                      );
+                    });
+                if (result != null && result == true) {
+                  _routeToHome(bloc, context);
+                }
+              },
+            );
+          }
+          return Container();
+        },
+      ),
       backgroundColor: Colors.transparent,
       actions: [
         BlocBuilder<NotesBloc, NotesState>(
           bloc: bloc,
           builder: (context, state) {
-            if (state is NoteUpdatedState) {
+            if (state.safe) {
               return Padding(
                 padding: const EdgeInsets.only(right: 13.0),
                 child: IconButton(
@@ -157,9 +239,13 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
             );
           },
         ),
-        const Padding(
-          padding: EdgeInsets.only(right: 13.0),
-          child: Icon(Icons.visibility),
+        Padding(
+          padding: const EdgeInsets.only(right: 13.0),
+          child: IconButton(
+            icon: const Icon(Icons.visibility),
+            onPressed: () => Navigator.of(context)
+                .popAndPushNamed(NotesReadOnlyPage.routeThoughNotesCreate),
+          ),
         ),
       ],
       flexibleSpace: GlassMorphismCover(
@@ -178,5 +264,16 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         ),
       ),
     );
+  }
+
+  void _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.pinkAccent,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }

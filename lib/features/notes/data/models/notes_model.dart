@@ -30,19 +30,21 @@ class NoteModel extends Note {
 
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {
     return NoteModel(
-      id: jsonMap["id"],
-      createdAt: DateTime.tryParse(jsonMap["created_at"])!,
-      title: jsonMap["title"],
-      body: jsonMap["body"],
-      hash: jsonMap["hash"],
-      lastModified: DateTime.tryParse(jsonMap["last_modified"])!,
-      plainText: jsonMap["plain_text"],
-      assetDependencies: jsonMap["asset_dependencies"]
-          .map(
-            (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
-          )
-          .toList(),
-    );
+        id: jsonMap["id"],
+        createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
+        title: jsonMap["title"],
+        body: jsonMap["body"],
+        hash: jsonMap["hash"],
+        lastModified:
+            DateTime.fromMillisecondsSinceEpoch(jsonMap["last_modified"]),
+        plainText: jsonMap["plain_text"],
+        assetDependencies: []
+        //  jsonMap["asset_dependencies"]
+        //     .map(
+        //       (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
+        //     )
+        //     .toList(),
+        );
   }
 
   Map<String, dynamic> toJson() {
@@ -96,7 +98,7 @@ class NotePreviewModel extends NotePreview {
   factory NotePreviewModel.fromJson(Map<String, dynamic> jsonMap) {
     return NotePreviewModel(
       id: jsonMap["id"],
-      createdAt: jsonMap["created_at"],
+      createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
       title: jsonMap["title"],
       plainText: jsonMap["plain_text"],
     );
