@@ -38,15 +38,19 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       appBar: GlassAppBar(notesBloc),
       body: Container(
         decoration: const BoxDecoration(
+          color: Color.fromARGB(225, 234, 94, 141),
           image: DecorationImage(
             image: AssetImage(
               "assets/images/digital-art-neon-bubbles.jpg",
             ),
             fit: BoxFit.cover,
+            alignment: Alignment(0.725, 0.1),
           ),
         ),
-        padding: const EdgeInsets.only(
-          top: 60.0,
+
+        // TODO: this creates new instance of appbar everytime, find a workaround for this
+        padding: EdgeInsets.only(
+          top: AppBar().preferredSize.height + 4.0,
           left: 10.0,
           right: 10.0,
           // bottom: MediaQuery.of(context).viewInsets.bottom,

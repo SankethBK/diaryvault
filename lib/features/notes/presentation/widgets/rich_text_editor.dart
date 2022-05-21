@@ -67,8 +67,8 @@ class RichTextEditor extends StatelessWidget {
               ),
               gradient: LinearGradient(
                 colors: [
-                  Colors.white.withOpacity(0.8),
-                  Colors.white.withOpacity(0.7),
+                  Colors.white.withOpacity(0.75),
+                  Colors.white.withOpacity(0.75),
                 ],
                 begin: AlignmentDirectional.topCenter,
                 end: AlignmentDirectional.bottomCenter,

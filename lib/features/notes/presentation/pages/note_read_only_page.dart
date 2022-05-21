@@ -38,11 +38,11 @@ class NotesReadOnlyPage extends StatelessWidget {
             bottom: 10.0),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              "assets/images/digital-art-neon-bubbles.jpg",
-            ),
-            fit: BoxFit.cover,
-          ),
+              image: AssetImage(
+                "assets/images/digital-art-neon-bubbles.jpg",
+              ),
+              fit: BoxFit.cover,
+              alignment: Alignment(0.725, 0.1)),
         ),
         child: BlocListener<NotesBloc, NotesState>(
           bloc: notesBloc,

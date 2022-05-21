@@ -17,6 +17,7 @@ import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -88,4 +89,5 @@ Future<void> init() async {
   sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));
   sl.registerLazySingleton(
       () => NotesFetchCubit(notesRepository: sl(), notesBloc: sl()));
+  sl.registerLazySingleton(() => SelectableListCubit());
 }
