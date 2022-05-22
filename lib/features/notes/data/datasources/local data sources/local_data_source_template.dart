@@ -30,4 +30,7 @@ abstract class INotesLocalDataSource {
   ///
   /// Throws [DatabaseDeleteException] if something goes wrong
   Future<void> deleteNote(String id);
+
+  /// Deletes the file with given filePath
+  Future<void> deleteFile(String filePath);
 }

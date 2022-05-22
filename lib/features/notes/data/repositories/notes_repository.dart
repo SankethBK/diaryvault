@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
@@ -50,6 +52,15 @@ class NotesRepository implements INotesRepository {
   Future<Either<NotesFailure, void>> saveNote(
       Map<String, dynamic> noteMap) async {
     try {
+      List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
+      List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
+
+      for (var noteAsset in allNoteAssets) {
+        if (!usedNoteAssets.contains(noteAsset.assetPath)) {
+          notesLocalDataSource.deleteFile(noteAsset.assetPath);
+        }
+      }
+
       await notesLocalDataSource.saveNote(noteMap);
       return const Right(null);
     } catch (e) {
@@ -62,6 +73,15 @@ class NotesRepository implements INotesRepository {
   Future<Either<NotesFailure, void>> updateNote(
       Map<String, dynamic> noteMap) async {
     try {
+      List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
+      List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
+
+      for (var noteAsset in allNoteAssets) {
+        if (!usedNoteAssets.contains(noteAsset.assetPath)) {
+          notesLocalDataSource.deleteFile(noteAsset.assetPath);
+        }
+      }
+
       await notesLocalDataSource.updateNote(noteMap);
       return const Right(null);
     } catch (e) {
@@ -79,5 +99,24 @@ class NotesRepository implements INotesRepository {
       log.e(e);
       return Left(NotesFailure.unknownError());
     }
+  }
+
+  // utility functions
+
+  List<String> _parseAssets(String noteBody) {
+    var noteBodyMap = jsonDecode(noteBody);
+    List<String> noteAssets = [];
+
+    // TODO: currently trats web images and videos also as assets, put a way to distinguish them
+    for (var noteElement in noteBodyMap) {
+      if (noteElement.containsKey("insert") &&
+          noteElement["insert"].runtimeType != String) {
+        var assetMap = noteElement["insert"];
+        String assetType = assetMap.containsKey("image") ? "image" : "video";
+        noteAssets.add(assetMap[assetType]);
+      }
+    }
+
+    return noteAssets;
   }
 }

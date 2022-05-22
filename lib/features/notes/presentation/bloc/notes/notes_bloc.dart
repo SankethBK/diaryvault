@@ -37,7 +37,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             title: "",
             createdAt: DateTime.now(),
             controller: _controller,
-            noteAssets: [],
+            allNoteAssets: [],
           ),
         );
         return;
@@ -50,11 +50,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         (error) {
           emit(const NoteFetchFailed(id: ""));
         },
-        (note) async {
-          print(note.body);
-          // const result =
-          //     '[{"insert":"Hett\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker6900039974025442164.jpg"}},{"insert":"\n"}]';
-          // final doc = Document.fromJson(jsonDecode(result));
+        (note) {
           final _doc = Document.fromJson(jsonDecode(note.body));
           QuillController _controller = QuillController(
             document: _doc,
@@ -67,7 +63,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             title: note.title,
             createdAt: note.createdAt,
             controller: _controller,
-            noteAssets: [],
+            allNoteAssets: [],
           ));
         },
       );
@@ -85,9 +81,9 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           title: event.title ?? state.title!,
           controller: state.controller!,
           createdAt: event.createdAt ?? state.createdAt!,
-          noteAssets: event.noteAsset != null
-              ? [...state.noteAssets!, event.noteAsset!]
-              : state.noteAssets!,
+          allNoteAssets: event.noteAsset != null
+              ? [...state.allNoteAssets!, event.noteAsset!]
+              : state.allNoteAssets!,
         ));
       }
     });
@@ -100,7 +96,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         title: state.title!,
         controller: state.controller!,
         createdAt: state.createdAt!,
-        noteAssets: state.noteAssets!,
+        noteAssets: state.allNoteAssets!,
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
@@ -118,7 +114,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "hash": _hash,
         "last_modified": DateTime.now().millisecondsSinceEpoch,
         "plain_text": _plainText,
-        "asset_dependencies": state.noteAssets,
+        "asset_dependencies": state.allNoteAssets,
         "deleted": 0,
       };
 
@@ -139,7 +135,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           title: state.title!,
           controller: state.controller!,
           createdAt: state.createdAt!,
-          noteAssets: state.noteAssets!,
+          noteAssets: state.allNoteAssets!,
         ));
       }, (_) {
         emit(NoteSavedSuccesfully(
@@ -148,7 +144,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           title: state.title!,
           controller: state.controller!,
           createdAt: state.createdAt!,
-          noteAssets: state.noteAssets!,
+          noteAssets: state.allNoteAssets!,
         ));
       });
     });

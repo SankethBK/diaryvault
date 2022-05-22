@@ -277,3 +277,12 @@ class NotesReadOnlyPage extends StatelessWidget {
 //  [{"insert":"Hett\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker6900039974025442164.jpg"}},{"insert":"\n"}]
 
 //  [{"insert":"Fgt\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker8779980758292679059.jpg"}},{"insert":"\n"}]
+
+/*
+[{insert: Dndn}, {insert: dndnd, attributes: {underline: true}}, {insert: dndnd, attributes: {underline: true, italic: true}}, {insert: dndnd, attributes: {underline: true, italic: true, bold: true}}, {insert: 
+DD}, {insert: dd, attributes: {bold: true}}, {insert: dnnd, attributes: {italic: true}}, {insert: 
+
+
+}]
+
+*/

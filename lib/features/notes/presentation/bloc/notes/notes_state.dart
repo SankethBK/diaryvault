@@ -6,7 +6,7 @@ abstract class NotesState extends Equatable {
   final String? title;
   final QuillController? controller;
   final DateTime? createdAt;
-  final List<NoteAsset>? noteAssets;
+  final List<NoteAsset>? allNoteAssets;
   // tells if it is safe to access the properties of this state
   final bool safe;
 
@@ -17,7 +17,7 @@ abstract class NotesState extends Equatable {
     this.createdAt,
     this.controller,
     this.newNote,
-    this.noteAssets,
+    this.allNoteAssets,
     required this.id,
     required this.safe,
   });
@@ -46,7 +46,7 @@ class NoteInitialState extends NotesState {
       required QuillController controller,
       required DateTime createdAt,
       required String title,
-      required List<NoteAsset> noteAssets,
+      required List<NoteAsset> allNoteAssets,
       required String id})
       : super(
           newNote: newNote,
@@ -54,7 +54,7 @@ class NoteInitialState extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
-          noteAssets: noteAssets,
+          allNoteAssets: allNoteAssets,
           safe: true,
         );
 
@@ -71,7 +71,7 @@ class NoteUpdatedState extends NotesState {
       required QuillController controller,
       required DateTime createdAt,
       required String title,
-      required List<NoteAsset> noteAssets,
+      required List<NoteAsset> allNoteAssets,
       required String id})
       : super(
           newNote: newNote,
@@ -79,7 +79,7 @@ class NoteUpdatedState extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
-          noteAssets: noteAssets,
+          allNoteAssets: allNoteAssets,
           safe: true,
         );
 
@@ -142,7 +142,7 @@ class NoteSaveLoading extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
-          noteAssets: noteAssets,
+          allNoteAssets: noteAssets,
           safe: true,
         );
 }
@@ -161,7 +161,7 @@ class NoteSavedSuccesfully extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
-          noteAssets: noteAssets,
+          allNoteAssets: noteAssets,
           safe: true,
         );
 }
@@ -180,7 +180,7 @@ class NotesSavingFailed extends NotesState {
           id: id,
           title: title,
           createdAt: createdAt,
-          noteAssets: noteAssets,
+          allNoteAssets: noteAssets,
           safe: true,
         );
 }

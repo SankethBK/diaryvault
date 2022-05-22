@@ -1,14 +1,12 @@
 import 'dart:convert';
 
-import 'package:dairy_app/core/databases/db_schemas.dart';
-
 import '../../domain/entities/notes.dart';
 
 class NoteModel extends Note {
   @override
   // ignore: overridden_fields
   final List<NoteAssetModel> assetDependencies;
-  NoteModel({
+  const NoteModel({
     required String id,
     required DateTime createdAt,
     required String title,
@@ -30,21 +28,20 @@ class NoteModel extends Note {
 
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {
     return NoteModel(
-        id: jsonMap["id"],
-        createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
-        title: jsonMap["title"],
-        body: jsonMap["body"],
-        hash: jsonMap["hash"],
-        lastModified:
-            DateTime.fromMillisecondsSinceEpoch(jsonMap["last_modified"]),
-        plainText: jsonMap["plain_text"],
-        assetDependencies: []
-        //  jsonMap["asset_dependencies"]
-        //     .map(
-        //       (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
-        //     )
-        //     .toList(),
-        );
+      id: jsonMap["id"],
+      createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
+      title: jsonMap["title"],
+      body: jsonMap["body"],
+      hash: jsonMap["hash"],
+      lastModified:
+          DateTime.fromMillisecondsSinceEpoch(jsonMap["last_modified"]),
+      plainText: jsonMap["plain_text"],
+      assetDependencies: jsonMap["asset_dependencies"]
+          .map(
+            (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
+          )
+          .toList(),
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -64,7 +61,7 @@ class NoteModel extends Note {
 }
 
 class NoteAssetModel extends NoteAsset {
-  NoteAssetModel({
+  const NoteAssetModel({
     required String noteId,
     required String assetType,
     required String assetPath,

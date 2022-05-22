@@ -6,6 +6,7 @@ import 'package:dairy_app/core/databases/sqflite_setup.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
+import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../core/logger/logger.dart';
@@ -113,7 +114,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     try {
       for (var file in files) {
-        await _deleteFile(file["asset_path"] as String);
+        await deleteFile(file["asset_path"] as String);
       }
     } catch (e) {
       // not a criticial exception, so don't throw error
@@ -165,6 +166,13 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       throw const DatabaseQueryException();
     }
     log.i("get note successful, note id: $id");
+
+    // Get asset dependencies for that note
+
+    var assetDependencies = await database.query(NoteDependencies.TABLE_NAME,
+        where: "${NoteDependencies.NOTE_ID} = ?", whereArgs: [id]);
+
+    result[0]["asset_dependencies"] = assetDependencies;
     return NoteModel.fromJson(result[0]);
   }
 
@@ -190,7 +198,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     log.i("update note successful for id: $id");
   }
 
-  Future<void> _deleteFile(String filePath) async {
+  @override
+  Future<void> deleteFile(String filePath) async {
     final file = File(filePath);
     await file.delete();
     log.i("file $filePath deleted successfully");
