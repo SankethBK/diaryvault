@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class Note extends Equatable {
-  String id;
-  DateTime createdAt;
-  String title;
-  String body;
-  String hash;
-  DateTime lastModified;
-  String plainText;
-  List<NoteAsset> assetDependencies;
-  bool deleted;
+  final String id;
+  final DateTime createdAt;
+  final String title;
+  final String body;
+  final String hash;
+  final DateTime lastModified;
+  final String plainText;
+  final List<NoteAsset> assetDependencies;
+  final bool deleted;
 
-  Note({
+  const Note({
     required this.id,
     required this.createdAt,
     required this.title,
@@ -42,7 +42,24 @@ class Note extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id];
+  List<Object> get props {
+    return [
+      id,
+      createdAt,
+      title,
+      body,
+      hash,
+      lastModified,
+      plainText,
+      assetDependencies,
+      deleted,
+    ];
+  }
+
+  @override
+  String toString() {
+    return 'Note(id: $id, createdAt: $createdAt, title: $title, body: $body, hash: $hash, lastModified: $lastModified, plainText: $plainText, assetDependencies: $assetDependencies, deleted: $deleted)';
+  }
 }
 
 class NoteAsset extends Equatable {
@@ -50,7 +67,7 @@ class NoteAsset extends Equatable {
   final String assetType;
   final String assetPath;
 
-  NoteAsset({
+  const NoteAsset({
     required this.noteId,
     required this.assetType,
     required this.assetPath,

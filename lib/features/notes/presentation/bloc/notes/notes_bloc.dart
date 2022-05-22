@@ -7,6 +7,7 @@ import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:uuid/uuid.dart';
@@ -19,7 +20,8 @@ part 'notes_state.dart';
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   final INotesRepository notesRepository;
 
-  NotesBloc({required this.notesRepository}) : super(NoteDummyState(id: "")) {
+  NotesBloc({required this.notesRepository})
+      : super(const NoteDummyState(id: "")) {
     on<InitializeNote>((event, emit) async {
       // if id is present, create a new note else fetch the existing note from database
       if (event.id == null) {
@@ -48,7 +50,11 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         (error) {
           emit(const NoteFetchFailed(id: ""));
         },
-        (note) {
+        (note) async {
+          print(note.body);
+          // const result =
+          //     '[{"insert":"Hett\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker6900039974025442164.jpg"}},{"insert":"\n"}]';
+          // final doc = Document.fromJson(jsonDecode(result));
           final _doc = Document.fromJson(jsonDecode(note.body));
           QuillController _controller = QuillController(
             document: _doc,
@@ -112,7 +118,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "hash": _hash,
         "last_modified": DateTime.now().millisecondsSinceEpoch,
         "plain_text": _plainText,
-        "asset_dependencies": [],
+        "asset_dependencies": state.noteAssets,
         "deleted": 0,
       };
 
