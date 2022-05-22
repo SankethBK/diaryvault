@@ -35,6 +35,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             title: "",
             createdAt: DateTime.now(),
             controller: _controller,
+            noteAssets: [],
           ),
         );
         return;
@@ -60,6 +61,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             title: note.title,
             createdAt: note.createdAt,
             controller: _controller,
+            noteAssets: [],
           ));
         },
       );
@@ -77,6 +79,9 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           title: event.title ?? state.title!,
           controller: state.controller!,
           createdAt: event.createdAt ?? state.createdAt!,
+          noteAssets: event.noteAsset != null
+              ? [...state.noteAssets!, event.noteAsset!]
+              : state.noteAssets!,
         ));
       }
     });
@@ -89,10 +94,11 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         title: state.title!,
         controller: state.controller!,
         createdAt: state.createdAt!,
+        noteAssets: state.noteAssets!,
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
-
+      print(_body);
       var _plainText = state.controller!.document.toPlainText();
 
       var _hash =
@@ -127,6 +133,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           title: state.title!,
           controller: state.controller!,
           createdAt: state.createdAt!,
+          noteAssets: state.noteAssets!,
         ));
       }, (_) {
         emit(NoteSavedSuccesfully(
@@ -135,6 +142,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           title: state.title!,
           controller: state.controller!,
           createdAt: state.createdAt!,
+          noteAssets: state.noteAssets!,
         ));
       });
     });

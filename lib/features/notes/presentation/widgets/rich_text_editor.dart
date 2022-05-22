@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/features/notes/domain/entities/notes.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -49,7 +52,8 @@ class RichTextEditor extends StatelessWidget {
               null),
           sizeSmall: const TextStyle(fontSize: 9),
         ));
-
+    // acquiring bloc to send it to toolbar
+    final notesBloc = BlocProvider.of<NotesBloc>(context);
     return Expanded(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         GlassMorphismCover(
@@ -59,7 +63,10 @@ class RichTextEditor extends StatelessWidget {
             topRight: Radius.circular(16.0),
           ),
           child: Container(
-            child: Toolbar(controller: controller!),
+            child: Toolbar(
+              controller: controller!,
+              notesBloc: notesBloc,
+            ),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16.0),
@@ -86,28 +93,49 @@ class RichTextEditor extends StatelessWidget {
 
 class Toolbar extends StatelessWidget {
   final QuillController controller;
-  const Toolbar({Key? key, required this.controller}) : super(key: key);
+  final NotesBloc notesBloc;
+  const Toolbar({Key? key, required this.controller, required this.notesBloc})
+      : super(key: key);
 
   // Renders the image picked by imagePicker from local file storage
   // You can also upload the picked image to any server (eg : AWS s3
   // or Firebase) and then return the uploaded image URL.
   Future<String> _onImagePickCallback(File file) async {
     // Copies the picked file from temporary cache to applications directory
+    var noteId = notesBloc.state.id;
     final appDocDir = await getApplicationDocumentsDirectory();
+
+    // store the note assets under the folder of its id
     final copiedFile =
         await file.copy('${appDocDir.path}/${basename(file.path)}');
-    return copiedFile.path.toString();
+    var filepath = copiedFile.path.toString();
+
+    // we want to record all assets to later delete unused ones
+    notesBloc.add(UpdateNote(
+        noteAsset: NoteAsset(
+            noteId: noteId, assetType: "image", assetPath: filepath)));
+    return filepath;
   }
 
   // Renders the video picked by imagePicker from local file storage
   // You can also upload the picked video to any server (eg : AWS s3
   // or Firebase) and then return the uploaded video URL.
   Future<String> _onVideoPickCallback(File file) async {
-    // Copies the picked file from temporary cache to applications directory
+    var noteId = notesBloc.state.id;
+
     final appDocDir = await getApplicationDocumentsDirectory();
+
+    // store the note assets under the folder of its id
     final copiedFile =
-        await file.copy('${appDocDir.path}/${basename(file.path)}');
-    return copiedFile.path.toString();
+        await file.copy('${appDocDir.path}/$noteId/${basename(file.path)}');
+
+    var filepath = copiedFile.path.toString();
+
+    // we want to record all assets to later delete unused ones
+    notesBloc.add(UpdateNote(
+        noteAsset: NoteAsset(
+            noteId: noteId, assetType: "video", assetPath: filepath)));
+    return filepath;
   }
 
   // ignore: unused_element
