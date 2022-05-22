@@ -32,7 +32,9 @@ class NotesReadOnlyPage extends StatelessWidget {
       appBar: GlassAppBar(context, notesBloc),
       body: Container(
         padding: EdgeInsets.only(
-            top: 60.0 + AppBar().preferredSize.height,
+            top: AppBar().preferredSize.height +
+                MediaQuery.of(context).padding.top +
+                10.0,
             left: 10.0,
             right: 10.0,
             bottom: 10.0),

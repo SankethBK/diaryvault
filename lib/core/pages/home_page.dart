@@ -39,7 +39,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             padding: EdgeInsets.only(
-              top: 47.0 + AppBar().preferredSize.height,
+              top: MediaQuery.of(context).padding.top +
+                  AppBar().preferredSize.height,
               left: 5.0,
               right: 5.0,
             ),

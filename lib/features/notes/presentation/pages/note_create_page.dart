@@ -50,7 +50,9 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
         // TODO: this creates new instance of appbar everytime, find a workaround for this
         padding: EdgeInsets.only(
-          top: AppBar().preferredSize.height + 4.0,
+          top: AppBar().preferredSize.height +
+              MediaQuery.of(context).padding.top +
+              10.0,
           left: 10.0,
           right: 10.0,
           // bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -71,9 +73,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
           },
           child: Column(
             children: [
-              SizedBox(
-                height: AppBar().preferredSize.height,
-              ),
               BlocBuilder<NotesBloc, NotesState>(
                 bloc: notesBloc,
                 buildWhen: (previousState, state) {
