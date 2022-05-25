@@ -63,7 +63,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             title: note.title,
             createdAt: note.createdAt,
             controller: _controller,
-            allNoteAssets: [],
+            allNoteAssets: note.assetDependencies,
           ));
         },
       );
@@ -117,6 +117,9 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "asset_dependencies": state.allNoteAssets,
         "deleted": 0,
       };
+
+      print("notemap = ");
+      print(noteMap);
 
       Either<NotesFailure, void> result;
 

@@ -37,7 +37,7 @@ class NoteModel extends Note {
           DateTime.fromMillisecondsSinceEpoch(jsonMap["last_modified"]),
       plainText: jsonMap["plain_text"],
       assetDependencies: jsonMap["asset_dependencies"]
-          .map(
+          .map<NoteAssetModel>(
             (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
           )
           .toList(),
@@ -67,7 +67,7 @@ class NoteAssetModel extends NoteAsset {
     required String assetPath,
   }) : super(noteId: noteId, assetType: assetType, assetPath: assetPath);
 
-  factory NoteAssetModel.fromJson(Map<String, String> jsonMap) {
+  factory NoteAssetModel.fromJson(Map<String, dynamic> jsonMap) {
     return NoteAssetModel(
       noteId: jsonMap["note_id"]!,
       assetType: jsonMap["asset_type"]!,

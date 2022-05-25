@@ -6,7 +6,7 @@ abstract class NotesState extends Equatable {
   final String? title;
   final QuillController? controller;
   final DateTime? createdAt;
-  final List<NoteAsset>? allNoteAssets;
+  final List<NoteAssetModel>? allNoteAssets;
   // tells if it is safe to access the properties of this state
   final bool safe;
 
@@ -46,7 +46,7 @@ class NoteInitialState extends NotesState {
       required QuillController controller,
       required DateTime createdAt,
       required String title,
-      required List<NoteAsset> allNoteAssets,
+      required List<NoteAssetModel> allNoteAssets,
       required String id})
       : super(
           newNote: newNote,
@@ -71,7 +71,7 @@ class NoteUpdatedState extends NotesState {
       required QuillController controller,
       required DateTime createdAt,
       required String title,
-      required List<NoteAsset> allNoteAssets,
+      required List<NoteAssetModel> allNoteAssets,
       required String id})
       : super(
           newNote: newNote,
@@ -84,11 +84,11 @@ class NoteUpdatedState extends NotesState {
         );
 
   @override
-  List<Object> get props => [id, title!, createdAt!];
+  List<Object> get props => [id, title!, createdAt!, allNoteAssets!];
 
   @override
   String toString() {
-    return "NoteUpdatedState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()})";
+    return "NoteUpdatedState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()}, allNoteAssets: $allNoteAssets)";
   }
 }
 
@@ -134,7 +134,7 @@ class NoteSaveLoading extends NotesState {
       required QuillController controller,
       required DateTime createdAt,
       required String title,
-      required List<NoteAsset> noteAssets,
+      required List<NoteAssetModel> noteAssets,
       required String id})
       : super(
           newNote: newNote,
@@ -153,7 +153,7 @@ class NoteSavedSuccesfully extends NotesState {
       required QuillController controller,
       required DateTime createdAt,
       required String title,
-      required List<NoteAsset> noteAssets,
+      required List<NoteAssetModel> noteAssets,
       required String id})
       : super(
           newNote: newNote,
@@ -172,7 +172,7 @@ class NotesSavingFailed extends NotesState {
       required QuillController controller,
       required DateTime createdAt,
       required String title,
-      required List<NoteAsset> noteAssets,
+      required List<NoteAssetModel> noteAssets,
       required String id})
       : super(
           newNote: newNote,

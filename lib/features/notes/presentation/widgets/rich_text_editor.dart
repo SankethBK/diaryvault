@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,7 @@ class Toolbar extends StatelessWidget {
 
     // we want to record all assets to later delete unused ones
     notesBloc.add(UpdateNote(
-        noteAsset: NoteAsset(
+        noteAsset: NoteAssetModel(
             noteId: noteId, assetType: "image", assetPath: filepath)));
     return filepath;
   }
@@ -133,7 +134,7 @@ class Toolbar extends StatelessWidget {
 
     // we want to record all assets to later delete unused ones
     notesBloc.add(UpdateNote(
-        noteAsset: NoteAsset(
+        noteAsset: NoteAssetModel(
             noteId: noteId, assetType: "video", assetPath: filepath)));
     return filepath;
   }

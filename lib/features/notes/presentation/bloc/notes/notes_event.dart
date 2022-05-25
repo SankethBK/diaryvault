@@ -19,7 +19,7 @@ class UpdateNote extends NotesEvent {
   final DateTime? createdAt;
   final String? title;
   final String? body;
-  final NoteAsset? noteAsset;
+  final NoteAssetModel? noteAsset;
 
   const UpdateNote({this.createdAt, this.title, this.body, this.noteAsset});
 }

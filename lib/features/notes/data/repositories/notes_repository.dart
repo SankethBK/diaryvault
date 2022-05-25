@@ -55,12 +55,17 @@ class NotesRepository implements INotesRepository {
       List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
       List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
 
+      print("all assets = $allNoteAssets");
+      print("used assets = $usedNoteAssets");
+
       for (var noteAsset in allNoteAssets) {
         if (!usedNoteAssets.contains(noteAsset.assetPath)) {
           notesLocalDataSource.deleteFile(noteAsset.assetPath);
         }
       }
 
+      noteMap["asset_dependencies"].removeWhere(
+          (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
       await notesLocalDataSource.saveNote(noteMap);
       return const Right(null);
     } catch (e) {

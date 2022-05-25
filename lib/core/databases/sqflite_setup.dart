@@ -54,7 +54,7 @@ class DBProvider {
 
           await db.execute("""
             CREATE TABLE ${NoteDependencies.TABLE_NAME} (
-              ${NoteDependencies.NOTE_ID} TEXT PRIMARY KEY,
+              ${NoteDependencies.NOTE_ID} TEXT,
               ${NoteDependencies.ASSET_TYPE} TEXT, 
               ${NoteDependencies.ASSET_PATH} TEXT
             )

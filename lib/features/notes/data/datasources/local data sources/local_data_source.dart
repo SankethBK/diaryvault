@@ -46,12 +46,13 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     log.i("note ${noteMap["id"]} inserted into db");
 
     // insert notte dependecies
-    for (var asset in assetDependencies) {
+    for (NoteAssetModel asset in assetDependencies) {
+      print("asset = $asset");
       try {
-        var res = await database.insert(NoteDependencies.TABLE_NAME,
-            {"note_id": noteMap["id"], ...noteMap["asset"]});
+        var res =
+            await database.insert(NoteDependencies.TABLE_NAME, asset.toJson());
         if (res == -1) {
-          log.e("Insertion of ${asset["assetPath"]} faied");
+          log.e("Insertion of ${asset.assetPath}} faied");
           throw const DatabaseInsertionException();
         }
       } catch (e) {
@@ -169,11 +170,14 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     // Get asset dependencies for that note
 
-    var assetDependencies = await database.query(NoteDependencies.TABLE_NAME,
+    var _assetDependencies = await database.query(NoteDependencies.TABLE_NAME,
         where: "${NoteDependencies.NOTE_ID} = ?", whereArgs: [id]);
 
-    result[0]["asset_dependencies"] = assetDependencies;
-    return NoteModel.fromJson(result[0]);
+    var finalNote = makeModifiableResults(result).map((note) {
+      return {"asset_dependencies": _assetDependencies, ...note};
+    }).toList()[0];
+
+    return NoteModel.fromJson(finalNote);
   }
 
   @override
@@ -203,5 +207,14 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     final file = File(filePath);
     await file.delete();
     log.i("file $filePath deleted successfully");
+  }
+
+  /// Generate a modifiable result set
+  List<Map<String, dynamic>> makeModifiableResults(
+      List<Map<String, dynamic>> results) {
+    // Generate modifiable
+    return List<Map<String, dynamic>>.generate(
+        results.length, (index) => Map<String, dynamic>.from(results[index]),
+        growable: true);
   }
 }
