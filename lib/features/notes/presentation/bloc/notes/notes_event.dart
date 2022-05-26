@@ -27,7 +27,11 @@ class UpdateNote extends NotesEvent {
 /// if newNote is true, then create a new note, otherwise update the existing note
 class SaveNote extends NotesEvent {}
 
-class DeleteNote extends NotesEvent {}
+class DeleteNote extends NotesEvent {
+  final List<String> noteList;
+
+  const DeleteNote({required this.noteList});
+}
 
 /// Even if user discards the note, we have to delete all the saved assets
 /// If newNote is true, then delete all assets, else delete only new assets

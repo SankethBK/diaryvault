@@ -51,6 +51,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           emit(const NoteFetchFailed(id: ""));
         },
         (note) {
+          print("fethced note");
+          print("note assets = ${note.assetDependencies}");
           final _doc = Document.fromJson(jsonDecode(note.body));
           QuillController _controller = QuillController(
             document: _doc,
@@ -118,9 +120,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "deleted": 0,
       };
 
-      print("notemap = ");
-      print(noteMap);
-
       Either<NotesFailure, void> result;
 
       // For smooth UX, it displays CIrcularProgressindicator till then
@@ -149,6 +148,17 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
         ));
+      });
+    });
+
+    on<DeleteNote>((event, emit) async {
+      emit(const NoteDeleteLoading(id: ""));
+      var result = await notesRepository.deleteNotes(event.noteList);
+
+      result.fold((e) {
+        emit(const NoteDeletionFailed(id: ""));
+      }, (_) {
+        emit(const NoteDeletionSuccesful(id: ""));
       });
     });
 

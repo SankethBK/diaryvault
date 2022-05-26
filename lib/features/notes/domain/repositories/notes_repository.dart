@@ -13,7 +13,7 @@ abstract class INotesRepository {
 
   Future<Either<NotesFailure, void>> updateNote(Map<String, dynamic> noteMap);
 
-  Future<Either<NotesFailure, void>> deleteNote(String id);
-
   Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview();
+
+  Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList);
 }

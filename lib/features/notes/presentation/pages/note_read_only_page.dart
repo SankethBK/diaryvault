@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
-class NotesReadOnlyPage extends StatelessWidget {
+class NotesReadOnlyPage extends StatefulWidget {
   // display open container animation
   static String get routeThroughHome => '/note-read-page-through-home';
   final String? id;
@@ -20,16 +20,33 @@ class NotesReadOnlyPage extends StatelessWidget {
   const NotesReadOnlyPage({Key? key, required this.id}) : super(key: key);
 
   @override
+  State<NotesReadOnlyPage> createState() => _NotesReadOnlyPageState();
+}
+
+class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
+  late final bool _isInitialized = false;
+  late final NotesBloc notesBloc;
+
+  @override
+  void didChangeDependencies() {
+    if (!_isInitialized) {
+      notesBloc = BlocProvider.of<NotesBloc>(context);
+      if (notesBloc.state is NoteDummyState) {
+        notesBloc.add(InitializeNote(id: widget.id));
+      }
+    }
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final notesBloc = BlocProvider.of<NotesBloc>(context);
-    if (notesBloc.state is NoteDummyState) {
-      notesBloc.add(InitializeNote(id: id));
-    }
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      appBar: GlassAppBar(context, notesBloc),
+      appBar: glassAppBar(),
       body: Container(
         padding: EdgeInsets.only(
             top: AppBar().preferredSize.height +
@@ -57,7 +74,7 @@ class NotesReadOnlyPage extends StatelessWidget {
               _showToast(state.newNote!
                   ? "Note saved successfully"
                   : "Note updated successfully");
-              _routeToHome(notesBloc, context);
+              _routeToHome();
             }
           },
           child: GlassMorphismCover(
@@ -137,16 +154,16 @@ class NotesReadOnlyPage extends StatelessWidget {
     );
   }
 
-  void _routeToHome(NotesBloc notesBloc, BuildContext context) {
+  void _routeToHome() {
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
   }
 
-  AppBar GlassAppBar(BuildContext context, NotesBloc bloc) {
+  AppBar glassAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
       leading: BlocBuilder<NotesBloc, NotesState>(
-        bloc: bloc,
+        bloc: notesBloc,
         builder: (context, state) {
           // We want to show this button when notes in edited
           if (state.safe) {
@@ -193,7 +210,7 @@ class NotesReadOnlyPage extends StatelessWidget {
                       );
                     });
                 if (result != null && result == true) {
-                  _routeToHome(bloc, context);
+                  _routeToHome();
                 }
               },
             );
@@ -204,14 +221,14 @@ class NotesReadOnlyPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       actions: [
         BlocBuilder<NotesBloc, NotesState>(
-          bloc: bloc,
+          bloc: notesBloc,
           builder: (context, state) {
             if (state is NoteUpdatedState) {
               return Padding(
                 padding: const EdgeInsets.only(right: 13.0),
                 child: IconButton(
                   icon: const Icon(Icons.check),
-                  onPressed: () => bloc.add(SaveNote()),
+                  onPressed: () => notesBloc.add(SaveNote()),
                 ),
               );
             }
@@ -227,7 +244,7 @@ class NotesReadOnlyPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () => bloc.add(SaveNote()),
+                  onPressed: () => notesBloc.add(SaveNote()),
                 ),
               );
             }

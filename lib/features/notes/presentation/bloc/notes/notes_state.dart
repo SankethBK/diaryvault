@@ -184,3 +184,16 @@ class NotesSavingFailed extends NotesState {
           safe: true,
         );
 }
+
+class NoteDeleteLoading extends NotesState {
+  const NoteDeleteLoading({required String id}) : super(id: id, safe: false);
+}
+
+class NoteDeletionSuccesful extends NotesState {
+  const NoteDeletionSuccesful({required String id})
+      : super(id: id, safe: false);
+}
+
+class NoteDeletionFailed extends NotesState {
+  const NoteDeletionFailed({required String id}) : super(id: id, safe: false);
+}

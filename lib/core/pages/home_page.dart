@@ -3,6 +3,7 @@
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
@@ -10,24 +11,48 @@ import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static String get route => '/';
 
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final notesFetchCubit = sl<NotesFetchCubit>();
-    final selectableListCubit = sl<SelectableListCubit>();
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  late final NotesFetchCubit notesFetchCubit;
+  late final SelectableListCubit selectableListCubit;
+
+  @override
+  void initState() {
+    notesFetchCubit = sl<NotesFetchCubit>();
+    selectableListCubit = sl<SelectableListCubit>();
+    super.initState();
+  }
+
+  void showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.pinkAccent,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<SelectableListCubit, SelectableListState>(
       bloc: selectableListCubit,
       builder: (context, state) {
         return Scaffold(
           extendBodyBehindAppBar: true,
           resizeToAvoidBottomInset: false,
-          appBar: GlassAppBar(selectableListCubit),
+          appBar: _GlassAppBar(context, selectableListCubit),
           body: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -97,7 +122,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  AppBar GlassAppBar(SelectableListCubit selectableListCubit) {
+  AppBar _GlassAppBar(
+      BuildContext context, SelectableListCubit selectableListCubit) {
     if (selectableListCubit.state is SelectableListEnabled) {
       return AppBar(
         backgroundColor: Colors.transparent,
@@ -121,13 +147,47 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.only(right: 13.0),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                    ),
-                    onPressed: () {},
-                  )),
+                padding: const EdgeInsets.only(right: 13.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                  ),
+                  onPressed: () async {
+                    if (selectableListCubit.state.selectedItems.isEmpty) {
+                      selectableListCubit.disableSelectableList();
+                      return;
+                    }
+                    int numberOfSelectedItems =
+                        selectableListCubit.state.selectedItems.length;
+                    bool? result = await showDialog<bool?>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                                "You are about to delete ${selectableListCubit.state.selectedItems.length}  item${selectableListCubit.state.selectedItems.length > 1 ? "s" : ""}"),
+                            actions: [
+                              _CancelButton(),
+                              _DeleteButton(
+                                deleteCount: numberOfSelectedItems,
+                                selectableListCubit: selectableListCubit,
+                              ),
+                            ],
+                          );
+                        });
+                    selectableListCubit.disableSelectableList();
+
+                    showToast("deletion failed");
+                    if (result != null) {
+                      if (result == true) {
+                        showToast(
+                            "$numberOfSelectedItems item${numberOfSelectedItems > 1 ? "s" : ""} deleted");
+                      } else {
+                        showToast("deletion failed");
+                      }\
+                    }
+                  },
+                ),
+              ),
             ],
           )
         ],
@@ -175,6 +235,92 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DeleteButton extends StatelessWidget {
+  final int deleteCount;
+  final SelectableListCubit selectableListCubit;
+  const _DeleteButton(
+      {Key? key, required this.deleteCount, required this.selectableListCubit})
+      : super(key: key);
+
+  void showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.pinkAccent,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotesBloc, NotesState>(
+      builder: (context, state) {
+        NotesBloc notesBloc = BlocProvider.of<NotesBloc>(context);
+        if (state is NoteDeletionFailed) {
+          notesBloc.add(RefreshNote());
+          Navigator.pop(context, false);
+        } else if (state is NoteDeletionSuccesful) {
+          notesBloc.add(RefreshNote());
+          Navigator.pop(context, true);
+        }
+
+        return ElevatedButton(
+          onPressed: () {
+            if (state is NoteDeleteLoading) {
+              return;
+            }
+            if (state is NoteDummyState) {
+              final notesBloc = BlocProvider.of<NotesBloc>(context);
+              notesBloc.add(DeleteNote(
+                  noteList: selectableListCubit.state.selectedItems));
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.purple,
+            onPrimary: Colors.purple[200],
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16),
+              ),
+            ),
+            elevation: 4,
+            side: BorderSide(
+              color: Colors.white.withOpacity(0.5),
+              width: 1,
+            ),
+          ),
+          child: const Text("Delete", style: TextStyle(color: Colors.white)),
+        );
+      },
+    );
+  }
+}
+
+class _CancelButton extends StatelessWidget {
+  const _CancelButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotesBloc, NotesState>(
+      builder: (context, state) {
+        return TextButton(
+          child: const Text('Cancel'),
+          onPressed: () {
+            if (state is NoteDeleteLoading) {
+              return;
+            }
+            Navigator.pop(context, null);
+          },
+        );
+      },
     );
   }
 }

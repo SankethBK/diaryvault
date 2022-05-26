@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:dairy_app/core/logger/logger.dart';
 import 'package:equatable/equatable.dart';
 
 part 'selectable_list_state.dart';
+
+final log = printer("NotesRepository");
 
 class SelectableListCubit extends Cubit<SelectableListState> {
   SelectableListCubit()
@@ -29,6 +32,6 @@ class SelectableListCubit extends Cubit<SelectableListState> {
   @override
   void onChange(Change<SelectableListState> change) {
     super.onChange(change);
-    print(change);
+    log.i(change);
   }
 }

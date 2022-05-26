@@ -20,6 +20,9 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
       if (state is NoteSavedSuccesfully) {
         fetchNotes();
       }
+      if (state is NoteDeletionSuccesful) {
+        fetchNotes();
+      }
     });
   }
 

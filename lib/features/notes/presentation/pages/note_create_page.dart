@@ -23,19 +23,29 @@ class NoteCreatePage extends StatefulWidget {
 }
 
 class _NoteCreatePageState extends State<NoteCreatePage> {
-  @override
-  Widget build(BuildContext context) {
-    final notesBloc = BlocProvider.of<NotesBloc>(context);
+  late final bool _isInitialized = false;
+  late final NotesBloc notesBloc;
 
-    // it is definetely a new note if we reached this page and the state is still NoteDummyState
-    if (notesBloc.state is NoteDummyState) {
-      notesBloc.add(const InitializeNote());
+  @override
+  void didChangeDependencies() {
+    if (!_isInitialized) {
+      notesBloc = BlocProvider.of<NotesBloc>(context);
+
+      // it is definetely a new note if we reached this page and the state is still NoteDummyState
+      if (notesBloc.state is NoteDummyState) {
+        notesBloc.add(const InitializeNote());
+      }
     }
 
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      appBar: GlassAppBar(notesBloc),
+      appBar: glassAppBar(),
       body: Container(
         decoration: const BoxDecoration(
           color: Color.fromARGB(225, 234, 94, 141),
@@ -68,7 +78,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
               _showToast(state.newNote!
                   ? "Note saved successfully"
                   : "Note updated successfully");
-              _routeToHome(notesBloc, context);
+              _routeToHome();
             }
           },
           child: Column(
@@ -115,16 +125,16 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
     );
   }
 
-  void _routeToHome(NotesBloc notesBloc, BuildContext context) {
+  void _routeToHome() {
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
   }
 
-  AppBar GlassAppBar(NotesBloc bloc) {
+  AppBar glassAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
       leading: BlocBuilder<NotesBloc, NotesState>(
-        bloc: bloc,
+        bloc: notesBloc,
         builder: (context, state) {
           // We want to show this button when notes in edited
           if (state.safe) {
@@ -171,7 +181,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                       );
                     });
                 if (result != null && result == true) {
-                  _routeToHome(bloc, context);
+                  _routeToHome();
                 }
               },
             );
@@ -182,14 +192,14 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       backgroundColor: Colors.transparent,
       actions: [
         BlocBuilder<NotesBloc, NotesState>(
-          bloc: bloc,
+          bloc: notesBloc,
           builder: (context, state) {
             if (state.safe) {
               return Padding(
                 padding: const EdgeInsets.only(right: 13.0),
                 child: IconButton(
                   icon: const Icon(Icons.check),
-                  onPressed: () => bloc.add(SaveNote()),
+                  onPressed: () => notesBloc.add(SaveNote()),
                 ),
               );
             }
@@ -205,7 +215,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () => bloc.add(SaveNote()),
+                  onPressed: () => notesBloc.add(SaveNote()),
                 ),
               );
             }
@@ -214,7 +224,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
           },
         ),
         BlocBuilder<NotesBloc, NotesState>(
-          bloc: bloc,
+          bloc: notesBloc,
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.only(right: 13.0),
@@ -236,7 +246,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
                   final createdAt = DateTime(pickedDate!.year, pickedDate.month,
                       pickedDate.day, timeOfDay!.hour, timeOfDay.minute);
-                  bloc.add(UpdateNote(createdAt: createdAt));
+                  notesBloc.add(UpdateNote(createdAt: createdAt));
                 },
               ),
             );

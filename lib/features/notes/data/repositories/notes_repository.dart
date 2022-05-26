@@ -16,17 +16,6 @@ class NotesRepository implements INotesRepository {
   NotesRepository({required this.notesLocalDataSource});
 
   @override
-  Future<Either<NotesFailure, void>> deleteNote(String id) async {
-    try {
-      await notesLocalDataSource.deleteNote(id);
-      return const Right(null);
-    } catch (e) {
-      log.e(e);
-      return Left(NotesFailure.unknownError());
-    }
-  }
-
-  @override
   Future<Either<NotesFailure, List<NoteModel>>> fetchNotes() async {
     try {
       var notesList = await notesLocalDataSource.fetchNotes();
@@ -81,11 +70,18 @@ class NotesRepository implements INotesRepository {
       List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
       List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
 
+      print("UPdating note");
+      print("all note assets = $allNoteAssets");
+      print("used assets = $usedNoteAssets");
+
       for (var noteAsset in allNoteAssets) {
         if (!usedNoteAssets.contains(noteAsset.assetPath)) {
           notesLocalDataSource.deleteFile(noteAsset.assetPath);
         }
       }
+
+      noteMap["asset_dependencies"].removeWhere(
+          (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
 
       await notesLocalDataSource.updateNote(noteMap);
       return const Right(null);
@@ -106,13 +102,26 @@ class NotesRepository implements INotesRepository {
     }
   }
 
+  @override
+  Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList) async {
+    try {
+      for (var noteId in noteList) {
+        await notesLocalDataSource.deleteNote(noteId);
+      }
+      return const Right(null);
+    } catch (e) {
+      log.e(e);
+      return Left(NotesFailure.unknownError());
+    }
+  }
+
   // utility functions
 
   List<String> _parseAssets(String noteBody) {
     var noteBodyMap = jsonDecode(noteBody);
     List<String> noteAssets = [];
 
-    // TODO: currently trats web images and videos also as assets, put a way to distinguish them
+    // TODO: currently treats web images and videos also as assets, put a way to distinguish them
     for (var noteElement in noteBodyMap) {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
