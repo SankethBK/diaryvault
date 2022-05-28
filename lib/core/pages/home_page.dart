@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
           appBar: _GlassAppBar(context, selectableListCubit),
           body: Container(
             decoration: const BoxDecoration(
+              // color: Colors.black,
               image: DecorationImage(
                 image: AssetImage(
                   "assets/images/digital-art-neon-bubbles.jpg",
@@ -83,6 +84,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.all(0.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(0.0),
+                        border: Border.all(width: 1.0, color: Colors.white),
                         gradient: LinearGradient(
                           colors: [
                             Colors.white.withOpacity(0.8),
@@ -98,6 +100,8 @@ class _HomePageState extends State<HomePage> {
                           final note = state.notePreviewList[index];
 
                           return NotePreviewCard(
+                              first: index == 0,
+                              last: index == state.notePreviewList.length - 1,
                               note: note,
                               selectableListCubit: selectableListCubit);
                         },
@@ -183,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                             "$numberOfSelectedItems item${numberOfSelectedItems > 1 ? "s" : ""} deleted");
                       } else {
                         showToast("deletion failed");
-                      }\
+                      }
                     }
                   },
                 ),
