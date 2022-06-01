@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:file_picker/file_picker.dart';
-// import 'package:filesystem_picker/filesystem_picker.dart';
-import 'package:flutter/foundation.dart';
+import 'package:dairy_app/features/notes/data/models/notes_model.dart';
+import 'package:dairy_app/features/notes/domain/entities/notes.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,70 +14,24 @@ import 'package:tuple/tuple.dart';
 
 // import 'read_only_page.dart';
 
-class RichTextEditor extends StatefulWidget {
-  @override
-  _RichTextEditorState createState() => _RichTextEditorState();
-}
-
-class _RichTextEditorState extends State<RichTextEditor> {
-  QuillController? _controller;
+class RichTextEditor extends StatelessWidget {
   final FocusNode _focusNode = FocusNode();
+  QuillController? controller;
 
-  @override
-  void initState() {
-    super.initState();
-    _loadFromAssets();
-  }
-
-  Future<void> _loadFromAssets() async {
-    try {
-      final result = await rootBundle.loadString('assets/sample_data.json');
-      final doc = Document.fromJson(jsonDecode(result));
-      setState(() {
-        _controller = QuillController(
-            document: doc, selection: const TextSelection.collapsed(offset: 0));
-      });
-    } catch (error) {
-      final doc = Document()..insert(0, '');
-      setState(() {
-        _controller = QuillController(
-            document: doc, selection: const TextSelection.collapsed(offset: 0));
-      });
-    }
-  }
+  RichTextEditor({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (_controller == null) {
-      return const Center(child: Text('Loading...'));
+    if (controller == null) {
+      return Expanded(child: GlassPaneForEditor(quillEditor: Container()));
     }
 
     return _buildWelcomeEditor(context);
   }
 
   Widget _buildWelcomeEditor(BuildContext context) {
-    // print(_controller!.document.toDelta().toJson());
-
-    //    class QuillIconTheme {
-    // const QuillIconTheme(
-    //     {this.iconSelectedColor,
-    //     this.iconUnselectedColor,
-    //     this.iconSelectedFillColor,
-    //     this.iconUnselectedFillColor,
-    //     this.disabledIconColor,
-    //     this.disabledIconFillColor,
-    //     this.borderRadius});
-
-    QuillIconTheme quillIconTheme = QuillIconTheme(
-        iconSelectedColor: Colors.white,
-        iconUnselectedColor: Colors.pink.shade300,
-        iconSelectedFillColor: Colors.pink.shade300,
-        iconUnselectedFillColor: Colors.transparent,
-        disabledIconColor: Colors.cyan,
-        borderRadius: 5.0);
-
     var quillEditor = QuillEditor(
-        controller: _controller!,
+        controller: controller!,
         scrollController: ScrollController(),
         scrollable: true,
         focusNode: _focusNode,
@@ -100,9 +53,130 @@ class _RichTextEditorState extends State<RichTextEditor> {
               null),
           sizeSmall: const TextStyle(fontSize: 9),
         ));
+    // acquiring bloc to send it to toolbar
+    final notesBloc = BlocProvider.of<NotesBloc>(context);
+    return Expanded(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        GlassMorphismCover(
+          displayShadow: false,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+          child: Container(
+            child: Toolbar(
+              controller: controller!,
+              notesBloc: notesBloc,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.75),
+                  Colors.white.withOpacity(0.75),
+                ],
+                begin: AlignmentDirectional.topCenter,
+                end: AlignmentDirectional.bottomCenter,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: GlassPaneForEditor(quillEditor: quillEditor),
+        )
+      ]),
+    );
+  }
+}
 
-    var toolbar = QuillToolbar.basic(
-      controller: _controller!,
+class Toolbar extends StatelessWidget {
+  final QuillController controller;
+  final NotesBloc notesBloc;
+  const Toolbar({Key? key, required this.controller, required this.notesBloc})
+      : super(key: key);
+
+  // Renders the image picked by imagePicker from local file storage
+  // You can also upload the picked image to any server (eg : AWS s3
+  // or Firebase) and then return the uploaded image URL.
+  Future<String> _onImagePickCallback(File file) async {
+    // Copies the picked file from temporary cache to applications directory
+    var noteId = notesBloc.state.id;
+    final appDocDir = await getApplicationDocumentsDirectory();
+
+    // store the note assets under the folder of its id
+    final copiedFile =
+        await file.copy('${appDocDir.path}/${basename(file.path)}');
+    var filepath = copiedFile.path.toString();
+
+    // we want to record all assets to later delete unused ones
+    notesBloc.add(UpdateNote(
+        noteAsset: NoteAssetModel(
+            noteId: noteId, assetType: "image", assetPath: filepath)));
+    return filepath;
+  }
+
+  // Renders the video picked by imagePicker from local file storage
+  // You can also upload the picked video to any server (eg : AWS s3
+  // or Firebase) and then return the uploaded video URL.
+  Future<String> _onVideoPickCallback(File file) async {
+    var noteId = notesBloc.state.id;
+
+    final appDocDir = await getApplicationDocumentsDirectory();
+
+    // store the note assets under the folder of its id
+    final copiedFile =
+        await file.copy('${appDocDir.path}/$noteId/${basename(file.path)}');
+
+    var filepath = copiedFile.path.toString();
+
+    // we want to record all assets to later delete unused ones
+    notesBloc.add(UpdateNote(
+        noteAsset: NoteAssetModel(
+            noteId: noteId, assetType: "video", assetPath: filepath)));
+    return filepath;
+  }
+
+  // ignore: unused_element
+  Future<MediaPickSetting?> _selectMediaPickSetting(BuildContext context) {
+    return showDialog<MediaPickSetting>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextButton.icon(
+              icon: const Icon(Icons.collections),
+              label: const Text('Gallery'),
+              onPressed: () => Navigator.pop(ctx, MediaPickSetting.Gallery),
+            ),
+            TextButton.icon(
+              icon: const Icon(Icons.link),
+              label: const Text('Link'),
+              onPressed: () => Navigator.pop(ctx, MediaPickSetting.Link),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    QuillIconTheme quillIconTheme = QuillIconTheme(
+      iconSelectedColor: Colors.white,
+      iconUnselectedColor: Colors.pink.shade300,
+      iconSelectedFillColor: Colors.pink.shade300,
+      iconUnselectedFillColor: Colors.transparent,
+      disabledIconColor: Colors.cyan,
+      borderRadius: 5.0,
+    );
+
+    return QuillToolbar.basic(
+      controller: controller,
       // provide a callback to enable picking images from device.
       // if omit, "image" button only allows adding images from url.
       // same goes for videos.
@@ -110,6 +184,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
       onVideoPickCallback: _onVideoPickCallback,
       // uncomment to provide a custom "pick from" dialog.
       mediaPickSettingSelector: _selectMediaPickSetting,
+      color: Colors.transparent,
       showFontSize: false,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
@@ -146,113 +221,49 @@ class _RichTextEditorState extends State<RichTextEditor> {
       showDirection: false,
       iconTheme: quillIconTheme,
     );
+  }
+}
 
-    return Expanded(
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        GlassMorphismCover(
-          displayShadow: false,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-          child: Container(
-            child: toolbar,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(16.0),
-              ),
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white.withOpacity(0.8),
-                  Colors.white.withOpacity(0.7),
-                ],
-                begin: AlignmentDirectional.topCenter,
-                end: AlignmentDirectional.bottomCenter,
-              ),
-            ),
-          ),
+class GlassPaneForEditor extends StatelessWidget {
+  const GlassPaneForEditor({
+    Key? key,
+    required this.quillEditor,
+  }) : super(key: key);
+
+  final Widget quillEditor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: GlassMorphismCover(
+        displayShadow: false,
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(16.0),
+          bottomRight: Radius.circular(16.0),
         ),
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            child: GlassMorphismCover(
-              displayShadow: false,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 10, bottom: 5),
-                // margin: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(16.0),
-                    bottomRight: Radius.circular(16.0),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withOpacity(0.7),
-                      Colors.white.withOpacity(0.5),
-                    ],
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                  ),
-                ),
-                child: quillEditor,
-              ),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 5),
+          // margin: const EdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(16.0),
+              bottomRight: Radius.circular(16.0),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Colors.white.withOpacity(0.7),
+                Colors.white.withOpacity(0.5),
+              ],
+              begin: AlignmentDirectional.topStart,
+              end: AlignmentDirectional.bottomEnd,
             ),
           ),
-        )
-      ]),
+          child: quillEditor,
+        ),
+      ),
     );
   }
-
-  // Renders the image picked by imagePicker from local file storage
-  // You can also upload the picked image to any server (eg : AWS s3
-  // or Firebase) and then return the uploaded image URL.
-  Future<String> _onImagePickCallback(File file) async {
-    // Copies the picked file from temporary cache to applications directory
-    final appDocDir = await getApplicationDocumentsDirectory();
-    final copiedFile =
-        await file.copy('${appDocDir.path}/${basename(file.path)}');
-    return copiedFile.path.toString();
-  }
-
-  // Renders the video picked by imagePicker from local file storage
-  // You can also upload the picked video to any server (eg : AWS s3
-  // or Firebase) and then return the uploaded video URL.
-  Future<String> _onVideoPickCallback(File file) async {
-    // Copies the picked file from temporary cache to applications directory
-    final appDocDir = await getApplicationDocumentsDirectory();
-    final copiedFile =
-        await file.copy('${appDocDir.path}/${basename(file.path)}');
-    return copiedFile.path.toString();
-  }
-
-  // ignore: unused_element
-  Future<MediaPickSetting?> _selectMediaPickSetting(BuildContext context) =>
-      showDialog<MediaPickSetting>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton.icon(
-                icon: const Icon(Icons.collections),
-                label: const Text('Gallery'),
-                onPressed: () => Navigator.pop(ctx, MediaPickSetting.Gallery),
-              ),
-              TextButton.icon(
-                icon: const Icon(Icons.link),
-                label: const Text('Link'),
-                onPressed: () => Navigator.pop(ctx, MediaPickSetting.Link),
-              )
-            ],
-          ),
-        ),
-      );
 }

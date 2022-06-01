@@ -27,25 +27,29 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   equatable: ^2.0.3
+  file_picker: ^4.5.1
+  filesystem_picker: ^2.0.0-nullsafety.0
   firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  internet_connection_checker: ^0.0.1+3
-  logger: ^1.1.0
-  path_provider: ^2.0.9
-  sqflite: ^2.0.2
-  filesystem_picker: ^2.0.0-nullsafety.0
   flutter_quill:
     git:
       url: https://github.com/SankethBK/flutter-quill
-      ref: bb3ac1949005992e7ad1842f3591eb1c73e56f4c
-  file_picker: ^4.5.1
+      ref: 6cceed0fdb2b557ab69a148e15f6143406f41c8e
+  fluttertoast: ^8.0.9
   get_it: ^7.2.0
+  internet_connection_checker: ^0.0.1+3
+  intl: ^0.17.0
+  logger: ^1.1.0
+  path_provider: ^2.0.9
+  sqflite: ^2.0.2
+  uuid: ^3.0.6
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -68,7 +72,9 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/sample.json
     - assets/images/
+
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

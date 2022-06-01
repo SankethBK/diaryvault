@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:dairy_app/core/databases/db_schemas.dart';
-
 import '../../domain/entities/notes.dart';
 
 class NoteModel extends Note {
@@ -31,14 +29,15 @@ class NoteModel extends Note {
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {
     return NoteModel(
       id: jsonMap["id"],
-      createdAt: DateTime.tryParse(jsonMap["created_at"])!,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
       title: jsonMap["title"],
       body: jsonMap["body"],
       hash: jsonMap["hash"],
-      lastModified: DateTime.tryParse(jsonMap["last_modified"])!,
+      lastModified:
+          DateTime.fromMillisecondsSinceEpoch(jsonMap["last_modified"]),
       plainText: jsonMap["plain_text"],
       assetDependencies: jsonMap["asset_dependencies"]
-          .map(
+          .map<NoteAssetModel>(
             (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
           )
           .toList(),
@@ -55,19 +54,20 @@ class NoteModel extends Note {
       "last_modified": lastModified.millisecondsSinceEpoch,
       "plain_text": plainText,
       "delelted": deleted,
-      "asset_dependencies": assetDependencies.map((noteAsset) => noteAsset.toJson()).toList();
+      "asset_dependencies":
+          assetDependencies.map((noteAsset) => noteAsset.toJson()).toList(),
     };
   }
 }
 
 class NoteAssetModel extends NoteAsset {
-  NoteAssetModel({
+  const NoteAssetModel({
     required String noteId,
     required String assetType,
     required String assetPath,
   }) : super(noteId: noteId, assetType: assetType, assetPath: assetPath);
 
-  factory NoteAssetModel.fromJson(Map<String, String> jsonMap) {
+  factory NoteAssetModel.fromJson(Map<String, dynamic> jsonMap) {
     return NoteAssetModel(
       noteId: jsonMap["note_id"]!,
       assetType: jsonMap["asset_type"]!,
@@ -95,7 +95,7 @@ class NotePreviewModel extends NotePreview {
   factory NotePreviewModel.fromJson(Map<String, dynamic> jsonMap) {
     return NotePreviewModel(
       id: jsonMap["id"],
-      createdAt: jsonMap["created_at"],
+      createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
       title: jsonMap["title"],
       plainText: jsonMap["plain_text"],
     );

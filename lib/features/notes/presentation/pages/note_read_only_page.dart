@@ -1,28 +1,29 @@
 import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
+import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
-class NoteCreatePage extends StatefulWidget {
-  // display page growing animation
-  static String get routeThroughHome => '/note-create-though-home';
+class NotesReadOnlyPage extends StatefulWidget {
+  // display open container animation
+  static String get routeThroughHome => '/note-read-page-through-home';
+  final String? id;
 
   // display fade transition animaiton
-  static String get routeThroughNoteReadOnly =>
-      '/note-create-through-note-read-only';
+  static String get routeThoughNotesCreate =>
+      '/note-read-page-though-note-create-page';
 
-  const NoteCreatePage({Key? key}) : super(key: key);
+  const NotesReadOnlyPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<NoteCreatePage> createState() => _NoteCreatePageState();
+  State<NotesReadOnlyPage> createState() => _NotesReadOnlyPageState();
 }
 
-class _NoteCreatePageState extends State<NoteCreatePage> {
+class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   late final bool _isInitialized = false;
   late final NotesBloc notesBloc;
 
@@ -30,10 +31,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   void didChangeDependencies() {
     if (!_isInitialized) {
       notesBloc = BlocProvider.of<NotesBloc>(context);
-
-      // it is definetely a new note if we reached this page and the state is still NoteDummyState
       if (notesBloc.state is NoteDummyState) {
-        notesBloc.add(const InitializeNote());
+        notesBloc.add(InitializeNote(id: widget.id));
       }
     }
 
@@ -42,30 +41,27 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final notesBloc = BlocProvider.of<NotesBloc>(context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       appBar: glassAppBar(),
       body: Container(
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(225, 234, 94, 141),
-          image: DecorationImage(
-            image: AssetImage(
-              "assets/images/digital-art-neon-bubbles.jpg",
-            ),
-            fit: BoxFit.cover,
-            alignment: Alignment(0.725, 0.1),
-          ),
-        ),
-
-        // TODO: this creates new instance of appbar everytime, find a workaround for this
         padding: EdgeInsets.only(
-          top: AppBar().preferredSize.height +
-              MediaQuery.of(context).padding.top +
-              10.0,
-          left: 10.0,
-          right: 10.0,
-          // bottom: MediaQuery.of(context).viewInsets.bottom,
+            top: AppBar().preferredSize.height +
+                MediaQuery.of(context).padding.top +
+                10.0,
+            left: 10.0,
+            right: 10.0,
+            bottom: 10.0),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                "assets/images/digital-art-neon-bubbles.jpg",
+              ),
+              fit: BoxFit.cover,
+              alignment: Alignment(0.725, 0.1)),
         ),
         child: BlocListener<NotesBloc, NotesState>(
           bloc: notesBloc,
@@ -81,44 +77,77 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
               _routeToHome();
             }
           },
-          child: Column(
-            children: [
-              BlocBuilder<NotesBloc, NotesState>(
+          child: GlassMorphismCover(
+            displayShadow: false,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, top: 10, bottom: 5),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(16.0),
+                  bottomRight: Radius.circular(16.0),
+                ),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.7),
+                    Colors.white.withOpacity(0.5),
+                  ],
+                  begin: AlignmentDirectional.topStart,
+                  end: AlignmentDirectional.bottomEnd,
+                ),
+              ),
+              child: BlocBuilder<NotesBloc, NotesState>(
                 bloc: notesBloc,
-                buildWhen: (previousState, state) {
-                  return previousState.title != state.title;
-                },
                 builder: (context, state) {
-                  void _onTitleChanged(String title) {
-                    notesBloc.add(UpdateNote(title: title));
+                  if (state.safe) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(notesBloc.state.title!,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0)),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              DateFormat.yMMMEd()
+                                  .format(notesBloc.state.createdAt!),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 103, 101, 101),
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              DateFormat.jm()
+                                  .format(notesBloc.state.createdAt!),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 103, 101, 101),
+                                fontStyle: FontStyle.italic,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ReadOnlyEditor(controller: notesBloc.state.controller)
+                      ],
+                    );
                   }
-
-                  if (!state.safe) {
-                    return NoteTitleInputField(
-                        initialValue: "", onTitleChanged: _onTitleChanged);
-                  }
-                  return NoteTitleInputField(
-                    initialValue: state.title!,
-                    onTitleChanged: _onTitleChanged,
-                  );
+                  return Container();
                 },
               ),
-              const SizedBox(height: 10),
-              BlocBuilder<NotesBloc, NotesState>(
-                bloc: notesBloc,
-                buildWhen: (previousState, state) {
-                  return previousState is NoteDummyState;
-                },
-                builder: (context, state) {
-                  return RichTextEditor(
-                    controller: state.controller,
-                  );
-                },
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).viewInsets.bottom,
-              )
-            ],
+            ),
           ),
         ),
       ),
@@ -170,7 +199,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                               ),
                               elevation: 4,
                               side: BorderSide(
-                                color: Colors.white.withOpacity(0.5),
+                                color: Colors.black.withOpacity(0.5),
                                 width: 1,
                               ),
                             ),
@@ -194,7 +223,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         BlocBuilder<NotesBloc, NotesState>(
           bloc: notesBloc,
           builder: (context, state) {
-            if (state.safe) {
+            if (state is NoteUpdatedState) {
               return Padding(
                 padding: const EdgeInsets.only(right: 13.0),
                 child: IconButton(
@@ -223,41 +252,12 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
             return const SizedBox.shrink();
           },
         ),
-        BlocBuilder<NotesBloc, NotesState>(
-          bloc: notesBloc,
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 13.0),
-              child: IconButton(
-                icon: const Icon(Icons.calendar_month_outlined),
-                onPressed: () async {
-                  final DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: state.createdAt!,
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime(3000),
-                  );
-
-                  final TimeOfDay? timeOfDay = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.fromDateTime(state.createdAt!),
-                    initialEntryMode: TimePickerEntryMode.dial,
-                  );
-
-                  final createdAt = DateTime(pickedDate!.year, pickedDate.month,
-                      pickedDate.day, timeOfDay!.hour, timeOfDay.minute);
-                  notesBloc.add(UpdateNote(createdAt: createdAt));
-                },
-              ),
-            );
-          },
-        ),
         Padding(
           padding: const EdgeInsets.only(right: 13.0),
           child: IconButton(
-            icon: const Icon(Icons.visibility),
+            icon: const Icon(Icons.edit),
             onPressed: () => Navigator.of(context)
-                .popAndPushNamed(NotesReadOnlyPage.routeThoughNotesCreate),
+                .popAndPushNamed(NoteCreatePage.routeThroughNoteReadOnly),
           ),
         ),
       ],
@@ -290,3 +290,16 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         fontSize: 16.0);
   }
 }
+
+//  [{"insert":"Hett\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker6900039974025442164.jpg"}},{"insert":"\n"}]
+
+//  [{"insert":"Fgt\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker8779980758292679059.jpg"}},{"insert":"\n"}]
+
+/*
+[{insert: Dndn}, {insert: dndnd, attributes: {underline: true}}, {insert: dndnd, attributes: {underline: true, italic: true}}, {insert: dndnd, attributes: {underline: true, italic: true, bold: true}}, {insert: 
+DD}, {insert: dd, attributes: {bold: true}}, {insert: dnnd, attributes: {italic: true}}, {insert: 
+
+
+}]
+
+*/

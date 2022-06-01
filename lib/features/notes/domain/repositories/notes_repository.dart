@@ -5,13 +5,15 @@ import 'package:dartz/dartz.dart';
 import '../../data/models/notes_model.dart';
 
 abstract class INotesRepository {
-  Future<Either<NotesFailure, void>> saveNote(NoteModel note);
+  Future<Either<NotesFailure, void>> saveNote(Map<String, dynamic> noteMap);
 
   Future<Either<NotesFailure, List<NoteModel>>> fetchNotes();
 
   Future<Either<NotesFailure, NoteModel>> getNote(String id);
 
-  Future<Either<NotesFailure, void>> updateNote(NoteModel note);
+  Future<Either<NotesFailure, void>> updateNote(Map<String, dynamic> noteMap);
 
-  Future<Either<NotesFailure, void>> deleteNote(String id);
+  Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview();
+
+  Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList);
 }

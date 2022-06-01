@@ -4,7 +4,7 @@ abstract class INotesLocalDataSource {
   /// Saves notes as new record in database
   ///
   /// Throws [DatabaseInsertionException] if something goes wrong
-  Future<void> saveNote(NoteModel note);
+  Future<void> saveNote(Map<String, dynamic> noteMap);
 
   /// Fetches all notes
   ///
@@ -24,10 +24,13 @@ abstract class INotesLocalDataSource {
   /// Updates the note using its id present in model
   ///
   /// Throws [DatabaseUpdateException] if something goes wrong
-  Future<void> updateNote(NoteModel note);
+  Future<void> updateNote(Map<String, dynamic> noteMap);
 
   /// Deletes the note from id
   ///
   /// Throws [DatabaseDeleteException] if something goes wrong
   Future<void> deleteNote(String id);
+
+  /// Deletes the file with given filePath
+  Future<void> deleteFile(String filePath);
 }

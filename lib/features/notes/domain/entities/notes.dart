@@ -23,8 +23,43 @@ class Note extends Equatable {
     this.deleted = false,
   });
 
+  factory Note.createDummy() {
+    return Note(
+      id: "",
+      createdAt: DateTime.now(),
+      title: "",
+      body: "",
+      hash: "",
+      lastModified: DateTime.now(),
+      plainText: "",
+      assetDependencies: [],
+    );
+  }
+
+  String getHashingString() {
+    // assetDependencies is included in body itself
+    return title + createdAt.toString() + body;
+  }
+
   @override
-  List<Object?> get props => [id];
+  List<Object> get props {
+    return [
+      id,
+      createdAt,
+      title,
+      body,
+      hash,
+      lastModified,
+      plainText,
+      assetDependencies,
+      deleted,
+    ];
+  }
+
+  @override
+  String toString() {
+    return 'Note(id: $id, createdAt: $createdAt, title: $title, body: $body, hash: $hash, lastModified: $lastModified, plainText: $plainText, assetDependencies: $assetDependencies, deleted: $deleted)';
+  }
 }
 
 class NoteAsset extends Equatable {
@@ -32,7 +67,7 @@ class NoteAsset extends Equatable {
   final String assetType;
   final String assetPath;
 
-  NoteAsset({
+  const NoteAsset({
     required this.noteId,
     required this.assetType,
     required this.assetPath,

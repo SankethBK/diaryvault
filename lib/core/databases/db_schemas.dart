@@ -18,6 +18,7 @@ class Notes {
   static const LAST_MODIFIED = "last_modified";
   static const PLAIN_TEXT = "plain_text";
   static const DELETED = "deleted";
+  static const HASH = "hash";
 }
 
 class NoteDependencies {

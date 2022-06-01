@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 
 class NoteTitleInputField extends StatelessWidget {
   // final String? Function() getEmailErrors;
-  // final void Function(String email) onEmailChanged;
+  final void Function(String email) onTitleChanged;
+  final String initialValue;
   const NoteTitleInputField({
     Key? key,
     // required this.getEmailErrors,
-    // required this.onEmailChanged,
+    required this.initialValue,
+    required this.onTitleChanged,
   }) : super(key: key);
 
   @override
@@ -15,9 +17,12 @@ class NoteTitleInputField extends StatelessWidget {
     final textInputBorderRadius = BorderRadius.circular(15.0);
     return GlassMorphismCover(
       borderRadius: textInputBorderRadius,
-      child: TextField(
+      child: TextFormField(
+        style: const TextStyle(fontWeight: FontWeight.bold),
+        initialValue: initialValue,
         decoration: InputDecoration(
           hintText: "title",
+          hintStyle: const TextStyle(fontWeight: FontWeight.normal),
           fillColor: Colors.white.withOpacity(0.7),
           filled: true,
           focusedBorder: OutlineInputBorder(
@@ -39,7 +44,8 @@ class NoteTitleInputField extends StatelessWidget {
               width: 3,
             ),
           ),
-        ), // onChanged: onEmailChanged,
+        ),
+        onChanged: onTitleChanged,
       ),
     );
   }

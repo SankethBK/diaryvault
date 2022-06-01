@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/databases/db_schemas.dart';
@@ -5,6 +6,7 @@ import 'package:dairy_app/core/databases/sqflite_setup.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
+import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../core/logger/logger.dart';
@@ -12,36 +14,53 @@ import '../../../../../core/logger/logger.dart';
 final log = printer("NotesLocalDataSource");
 
 class NotesLocalDataSource implements INotesLocalDataSource {
-  late Database database;
+  static late Database database;
 
-  NotesLocalDataSource() {
-    DBProvider.instance.database.then((db) {
-      database = db;
-    });
+  NotesLocalDataSource._() {}
+
+  static create() async {
+    database = await DBProvider.instance.database;
+    return NotesLocalDataSource._();
   }
 
   @override
-  Future<void> saveNote(NoteModel note) async {
-    // Insert notes
-    var res = await database.insert(Notes.TABLE_NAME, note.toJson());
+  Future<void> saveNote(Map<String, dynamic> noteMap) async {
+    // extract asset dependecies and remove it from the map
 
-    if (res == -1) {
-      throw const DatabaseInsertionException("Note insertion failed");
+    var assetDependencies = noteMap["asset_dependencies"];
+    noteMap.remove("asset_dependencies");
+
+    // Insert notes
+    try {
+      var res = await database.insert(Notes.TABLE_NAME, noteMap);
+
+      if (res == -1) {
+        log.e("database insertion for ${noteMap["id"]} unsuccessful");
+        throw const DatabaseInsertionException("Note insertion failed");
+      }
+    } catch (e) {
+      log.e(e);
+      rethrow;
     }
 
-    log.i("note ${note.id} inserted into db");
+    log.i("note ${noteMap["id"]} inserted into db");
 
     // insert notte dependecies
-    for (var asset in note.assetDependencies) {
-      res = await database.insert(
-          NoteDependencies.TABLE_NAME, {"note_id": note.id, ...asset.toJson()});
-      if (res == -1) {
-        log.e("Insertion of ${asset.assetPath} faied");
-        throw const DatabaseInsertionException();
+    for (NoteAssetModel asset in assetDependencies) {
+      try {
+        var res =
+            await database.insert(NoteDependencies.TABLE_NAME, asset.toJson());
+        if (res == -1) {
+          log.e("Insertion of ${asset.assetPath}} faied");
+          throw const DatabaseInsertionException();
+        }
+      } catch (e) {
+        log.e(e);
+        rethrow;
       }
     }
 
-    log.i("Note assets successfully saved id: ${note.id}");
+    log.i("Note assets successfully saved id: ${noteMap["id"]}");
   }
 
   @override
@@ -49,10 +68,10 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     // Only columns required for notes preview
     List<Map<String, Object?>> result;
     try {
-      result = await database.query(
-        Notes.TABLE_NAME,
-        columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
-      );
+      result = await database.query(Notes.TABLE_NAME,
+          columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
+          where: "${Notes.DELETED} != 1",
+          orderBy: "${Notes.CREATED_AT} DESC");
     } catch (e) {
       log.e("Local database query for fetching notes preview failed $e");
       throw const DatabaseQueryException();
@@ -68,6 +87,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     try {
       result = await database.query(
         Notes.TABLE_NAME,
+        where: "${Notes.DELETED} != 1",
       );
     } catch (e) {
       log.e("Local database query for fetching notes failed $e");
@@ -96,7 +116,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     try {
       for (var file in files) {
-        await _deleteFile(file["asset_path"] as String);
+        await deleteFile(file["asset_path"] as String);
       }
     } catch (e) {
       // not a criticial exception, so don't throw error
@@ -128,6 +148,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
           "created_at": null,
           "hash": null,
           "last_modified": DateTime.now().millisecondsSinceEpoch,
+          "deleted": 1,
         },
         where: "${Notes.ID} = ?",
         whereArgs: [id]);
@@ -148,31 +169,54 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       throw const DatabaseQueryException();
     }
     log.i("get note successful, note id: $id");
-    return NoteModel.fromJson(result[0]);
+
+    // Get asset dependencies for that note
+
+    var _assetDependencies = await database.query(NoteDependencies.TABLE_NAME,
+        where: "${NoteDependencies.NOTE_ID} = ?", whereArgs: [id]);
+
+    var finalNote = makeModifiableResults(result).map((note) {
+      return {"asset_dependencies": _assetDependencies, ...note};
+    }).toList()[0];
+
+    return NoteModel.fromJson(finalNote);
   }
 
   @override
-  Future<void> updateNote(NoteModel note) async {
-    var count = await database.update(
-        Notes.TABLE_NAME,
-        {
-          ...note.toJson(),
-          "last_modified": DateTime.now().millisecondsSinceEpoch
-        },
-        where: "${Notes.ID} = ?",
-        whereArgs: [note.id]);
+  Future<void> updateNote(Map<String, dynamic> noteMap) async {
+    // store the asset dependencies to update later
+    var assetDependencies = noteMap["asset_dependencies"];
+    noteMap.remove("asset_dependencies");
+
+    // store id
+    var id = noteMap["id"];
+    noteMap.remove("id");
+
+    var count = await database.update(Notes.TABLE_NAME,
+        {...noteMap, "last_modified": DateTime.now().millisecondsSinceEpoch},
+        where: "${Notes.ID} = ?", whereArgs: [id]);
 
     if (count != 1) {
-      log.e("note updation failed for id: ${note.id}");
+      log.e("note updation failed for id: $id");
       throw const DatabaseUpdateException();
     }
 
-    log.i("update note successful for id: ${note.id}");
+    log.i("update note successful for id: $id");
   }
 
-  Future<void> _deleteFile(String filePath) async {
+  @override
+  Future<void> deleteFile(String filePath) async {
     final file = File(filePath);
     await file.delete();
     log.i("file $filePath deleted successfully");
+  }
+
+  /// Generate a modifiable result set
+  List<Map<String, dynamic>> makeModifiableResults(
+      List<Map<String, dynamic>> results) {
+    // Generate modifiable
+    return List<Map<String, dynamic>>.generate(
+        results.length, (index) => Map<String, dynamic>.from(results[index]),
+        growable: true);
   }
 }
