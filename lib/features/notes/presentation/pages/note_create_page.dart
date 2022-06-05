@@ -40,6 +40,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(const InitializeNote());
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a01081 (fixed isInitialized bug)
       _isInitialized = true;
     }
 
@@ -48,6 +52,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("view padding = ${MediaQuery.of(context).viewInsets.bottom}");
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,

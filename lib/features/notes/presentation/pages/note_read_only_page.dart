@@ -42,6 +42,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
 
       _isInitialized = true;
     }
+    _isInitialized = true;
 
     super.didChangeDependencies();
   }
