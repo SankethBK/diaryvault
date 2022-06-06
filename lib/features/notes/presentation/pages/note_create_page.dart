@@ -1,4 +1,3 @@
-import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
 
@@ -151,35 +151,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       backgroundColor: Colors.transparent,
       actions: [
         const NoteSaveButton(),
-        BlocBuilder<NotesBloc, NotesState>(
-          bloc: notesBloc,
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 13.0),
-              child: IconButton(
-                icon: const Icon(Icons.calendar_month_outlined),
-                onPressed: () async {
-                  final DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: state.createdAt!,
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime(3000),
-                  );
-
-                  final TimeOfDay? timeOfDay = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.fromDateTime(state.createdAt!),
-                    initialEntryMode: TimePickerEntryMode.dial,
-                  );
-
-                  final createdAt = DateTime(pickedDate!.year, pickedDate.month,
-                      pickedDate.day, timeOfDay!.hour, timeOfDay.minute);
-                  notesBloc.add(UpdateNote(createdAt: createdAt));
-                },
-              ),
-            );
-          },
-        ),
+        DateTimePicker(),
         Padding(
           padding: const EdgeInsets.only(right: 13.0),
           child: IconButton(
