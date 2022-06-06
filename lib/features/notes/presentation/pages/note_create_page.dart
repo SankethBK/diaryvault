@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
 
 class NoteCreatePage extends StatefulWidget {
@@ -149,38 +150,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       ),
       backgroundColor: Colors.transparent,
       actions: [
-        BlocBuilder<NotesBloc, NotesState>(
-          bloc: notesBloc,
-          builder: (context, state) {
-            if (state.safe) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 13.0),
-                child: IconButton(
-                  icon: const Icon(Icons.check),
-                  onPressed: () => notesBloc.add(SaveNote()),
-                ),
-              );
-            }
-
-            if (state is NoteSaveLoading) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 13.0),
-                child: IconButton(
-                  icon: const SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () => notesBloc.add(SaveNote()),
-                ),
-              );
-            }
-
-            return const SizedBox.shrink();
-          },
-        ),
+        const NoteSaveButton(),
         BlocBuilder<NotesBloc, NotesState>(
           bloc: notesBloc,
           builder: (context, state) {

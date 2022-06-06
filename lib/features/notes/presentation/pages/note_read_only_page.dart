@@ -2,6 +2,7 @@ import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,38 +180,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
       ),
       backgroundColor: Colors.transparent,
       actions: [
-        BlocBuilder<NotesBloc, NotesState>(
-          bloc: notesBloc,
-          builder: (context, state) {
-            if (state is NoteUpdatedState) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 13.0),
-                child: IconButton(
-                  icon: const Icon(Icons.check),
-                  onPressed: () => notesBloc.add(SaveNote()),
-                ),
-              );
-            }
-
-            if (state is NoteSaveLoading) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 13.0),
-                child: IconButton(
-                  icon: const SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () => notesBloc.add(SaveNote()),
-                ),
-              );
-            }
-
-            return const SizedBox.shrink();
-          },
-        ),
+        const NoteSaveButton(),
         Padding(
           padding: const EdgeInsets.only(right: 13.0),
           child: IconButton(
