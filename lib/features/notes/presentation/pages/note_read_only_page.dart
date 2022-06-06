@@ -4,6 +4,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -179,16 +180,9 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
         },
       ),
       backgroundColor: Colors.transparent,
-      actions: [
-        const NoteSaveButton(),
-        Padding(
-          padding: const EdgeInsets.only(right: 13.0),
-          child: IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () => Navigator.of(context)
-                .popAndPushNamed(NoteCreatePage.routeThroughNoteReadOnly),
-          ),
-        ),
+      actions: const [
+        NoteSaveButton(),
+        ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage)
       ],
       flexibleSpace: GlassMorphismCover(
         borderRadius: BorderRadius.circular(0.0),
@@ -219,16 +213,3 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
         fontSize: 16.0);
   }
 }
-
-//  [{"insert":"Hett\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker6900039974025442164.jpg"}},{"insert":"\n"}]
-
-//  [{"insert":"Fgt\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker8779980758292679059.jpg"}},{"insert":"\n"}]
-
-/*
-[{insert: Dndn}, {insert: dndnd, attributes: {underline: true}}, {insert: dndnd, attributes: {underline: true, italic: true}}, {insert: dndnd, attributes: {underline: true, italic: true, bold: true}}, {insert: 
-DD}, {insert: dd, attributes: {bold: true}}, {insert: dnnd, attributes: {italic: true}}, {insert: 
-
-
-}]
-
-*/

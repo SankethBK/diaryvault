@@ -3,6 +3,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -149,17 +150,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         },
       ),
       backgroundColor: Colors.transparent,
-      actions: [
-        const NoteSaveButton(),
+      actions: const [
+        NoteSaveButton(),
         DateTimePicker(),
-        Padding(
-          padding: const EdgeInsets.only(right: 13.0),
-          child: IconButton(
-            icon: const Icon(Icons.visibility),
-            onPressed: () => Navigator.of(context)
-                .popAndPushNamed(NotesReadOnlyPage.routeThoughNotesCreate),
-          ),
-        ),
+        ToggleReadWriteButton(pageName: PageName.NoteCreatePage)
       ],
       flexibleSpace: GlassMorphismCover(
         borderRadius: BorderRadius.circular(0.0),
