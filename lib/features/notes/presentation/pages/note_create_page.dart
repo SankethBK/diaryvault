@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../widgets/notes_close_button.dart';
+
 class NoteCreatePage extends StatefulWidget {
   // display page growing animation
   static String get routeThroughHome => '/note-create-though-home';
@@ -136,55 +138,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       leading: BlocBuilder<NotesBloc, NotesState>(
         bloc: notesBloc,
         builder: (context, state) {
-          // We want to show this button when notes in edited
+          // We want to show this button only after notes is initialized
+
           if (state.safe) {
-            return IconButton(
-              icon: const Icon(
-                Icons.close,
-                size: 25,
-              ),
-              onPressed: () async {
-                bool? result = await showDialog<bool>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("You have unsaved changes"),
-                        actions: [
-                          TextButton(
-                            child: const Text('LEAVE'),
-                            onPressed: () {
-                              Navigator.pop(context, true);
-                            },
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context, false);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.purple,
-                              onPrimary: Colors.purple[200],
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16),
-                                ),
-                              ),
-                              elevation: 4,
-                              side: BorderSide(
-                                color: Colors.white.withOpacity(0.5),
-                                width: 1,
-                              ),
-                            ),
-                            child: const Text("STAY",
-                                style: TextStyle(color: Colors.white)),
-                          )
-                        ],
-                      );
-                    });
-                if (result != null && result == true) {
-                  _routeToHome();
-                }
-              },
-            );
+            return NotesCloseButton(onNotesClosed: _routeToHome);
           }
           return Container();
         },
