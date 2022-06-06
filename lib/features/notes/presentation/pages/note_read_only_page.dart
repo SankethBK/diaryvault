@@ -1,4 +1,5 @@
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
@@ -52,7 +53,14 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      appBar: glassAppBar(),
+      appBar: GlassAppBar(
+        automaticallyImplyLeading: false,
+        actions: const [
+          NoteSaveButton(),
+          ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage)
+        ],
+        leading: NotesCloseButton(onNotesClosed: _routeToHome),
+      ),
       body: Container(
         padding: EdgeInsets.only(
             top: AppBar().preferredSize.height +
@@ -163,33 +171,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   void _routeToHome() {
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
-  }
-
-  AppBar glassAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      leading: NotesCloseButton(onNotesClosed: _routeToHome),
-      backgroundColor: Colors.transparent,
-      actions: const [
-        NoteSaveButton(),
-        ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage)
-      ],
-      flexibleSpace: GlassMorphismCover(
-        borderRadius: BorderRadius.circular(0.0),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.white.withOpacity(0.3),
-                Colors.white.withOpacity(0.2),
-              ],
-              begin: AlignmentDirectional.topCenter,
-              end: AlignmentDirectional.bottomCenter,
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   void _showToast(String message) {
