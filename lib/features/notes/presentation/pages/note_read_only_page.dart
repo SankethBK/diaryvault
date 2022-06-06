@@ -24,7 +24,7 @@ class NotesReadOnlyPage extends StatefulWidget {
 }
 
 class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
-  late final bool _isInitialized = false;
+  late bool _isInitialized = false;
   late final NotesBloc notesBloc;
 
   @override
@@ -34,6 +34,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(InitializeNote(id: widget.id));
       }
+
+      _isInitialized = true;
     }
 
     super.didChangeDependencies();

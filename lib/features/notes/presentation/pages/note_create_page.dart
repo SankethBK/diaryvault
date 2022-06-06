@@ -23,7 +23,7 @@ class NoteCreatePage extends StatefulWidget {
 }
 
 class _NoteCreatePageState extends State<NoteCreatePage> {
-  late final bool _isInitialized = false;
+  late bool _isInitialized = false;
   late final NotesBloc notesBloc;
 
   @override
@@ -35,6 +35,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(const InitializeNote());
       }
+      _isInitialized = true;
     }
 
     super.didChangeDependencies();
