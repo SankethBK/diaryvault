@@ -168,17 +168,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   AppBar glassAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: BlocBuilder<NotesBloc, NotesState>(
-        bloc: notesBloc,
-        builder: (context, state) {
-          // We want to show this button only after notes is initialized
-
-          if (state.safe) {
-            return NotesCloseButton(onNotesClosed: _routeToHome);
-          }
-          return Container();
-        },
-      ),
+      leading: NotesCloseButton(onNotesClosed: _routeToHome),
       backgroundColor: Colors.transparent,
       actions: const [
         NoteSaveButton(),
