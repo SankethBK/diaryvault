@@ -146,6 +146,10 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(right: 13.0),
           child: Icon(Icons.search),
         ),
+        const Padding(
+          padding: EdgeInsets.only(right: 13.0),
+          child: Icon(Icons.sync),
+        )
       ],
     );
   }
