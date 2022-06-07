@@ -22,7 +22,6 @@ class NotePreviewCard extends StatelessWidget {
   }
 
   final NotePreview note;
-  final Color BorderColor = Colors.white.withOpacity(0.6);
 
   @override
   Widget build(BuildContext context) {
@@ -46,33 +45,25 @@ class NotePreviewCard extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        // height: 50,
         padding: const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(5.0),
-          // color: isSelected
-          //     ? Color.fromARGB(255, 255, 215, 0).withOpacity(0.3)
-          //     : Colors.transparent,
           border: last
               ? Border(
-                  bottom: BorderSide(width: 1.3, color: BorderColor),
-                  top: BorderSide(width: 1.3, color: BorderColor),
-                  // color: Colors.white.withOpacity(1.0),
-                  // width: 1,
+                  bottom: BorderSide(
+                      width: 1.3, color: Colors.white.withOpacity(0.6)),
+                  top: BorderSide(
+                      width: 1.3, color: Colors.white.withOpacity(0.6)),
                 )
               : Border(
-                  top: BorderSide(width: 1.3, color: BorderColor),
-                  // color: Colors.white.withOpacity(1.0),
-                  // width: 1,
+                  top: BorderSide(
+                      width: 1.3, color: Colors.white.withOpacity(0.6)),
                 ),
           gradient: LinearGradient(
             colors: [
-              // Color.fromARGB(255, 164, 157, 159).withOpacity(0.3),
-              // Color.fromARGB(255, 230, 159, 179).withOpacity(0.3),
               isSelected
-                  ? Color.fromARGB(255, 210, 161, 238).withOpacity(0.5)
+                  ? const Color.fromARGB(255, 210, 161, 238).withOpacity(0.5)
                   : Colors.transparent,
-              Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
+              const Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
             ],
             begin: AlignmentDirectional.topStart,
             end: AlignmentDirectional.bottomEnd,
@@ -176,48 +167,40 @@ class DisplayDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // width: double.infinity,
-      // color: Colors.greenAccent,
-      child: Container(
-        // color: Colors.yellow,
-        // width: 100,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          DateFormat.EEEE().format(note.createdAt),
+          textAlign: TextAlign.end,
+          style: TextStyle(
+            color: Colors.black.withOpacity(0.8),
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              DateFormat.EEEE().format(note.createdAt),
+              DateFormat.MMMd().format(note.createdAt) + ",",
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                color: Colors.black.withOpacity(1.0),
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            Text(
+              " " + DateFormat.y().format(note.createdAt),
               textAlign: TextAlign.end,
               style: TextStyle(
                 color: Colors.black.withOpacity(0.8),
                 fontStyle: FontStyle.italic,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  DateFormat.MMMd().format(note.createdAt) + ",",
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                    color: Colors.black.withOpacity(1.0),
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                Text(
-                  " " + DateFormat.y().format(note.createdAt),
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                    color: Colors.black.withOpacity(0.8),
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
-      ),
+      ],
     );
   }
 }
