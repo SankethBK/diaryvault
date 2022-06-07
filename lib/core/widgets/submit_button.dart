@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AuthSubmitButton extends StatelessWidget {
+class SubmitButton extends StatelessWidget {
   final bool isLoading;
   final Function() onSubmitted;
-  const AuthSubmitButton(
-      {Key? key, required this.isLoading, required this.onSubmitted})
-      : super(key: key);
+  final String buttonText;
+  const SubmitButton({
+    Key? key,
+    required this.isLoading,
+    required this.onSubmitted,
+    required this.buttonText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +24,9 @@ class AuthSubmitButton extends StatelessWidget {
             )
           : const SizedBox.shrink(),
       onPressed: isLoading ? null : onSubmitted,
-      label: const Text(
-        "Submit",
-        style: TextStyle(
+      label: Text(
+        buttonText,
+        style: const TextStyle(
           fontSize: 16,
           color: Colors.white,
         ),

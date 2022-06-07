@@ -1,12 +1,17 @@
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+
+import '../widgets/notes_close_button.dart';
 
 class NotesReadOnlyPage extends StatefulWidget {
   // display open container animation
@@ -48,7 +53,14 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      appBar: glassAppBar(),
+      appBar: GlassAppBar(
+        automaticallyImplyLeading: false,
+        actions: const [
+          NoteSaveButton(),
+          ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage)
+        ],
+        leading: NotesCloseButton(onNotesClosed: _routeToHome),
+      ),
       body: Container(
         padding: EdgeInsets.only(
             top: AppBar().preferredSize.height +
@@ -161,126 +173,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
     Navigator.of(context).pop();
   }
 
-  AppBar glassAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      leading: BlocBuilder<NotesBloc, NotesState>(
-        bloc: notesBloc,
-        builder: (context, state) {
-          // We want to show this button when notes in edited
-          if (state.safe) {
-            return IconButton(
-              icon: const Icon(
-                Icons.close,
-                size: 25,
-              ),
-              onPressed: () async {
-                bool? result = await showDialog<bool>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("You have unsaved changes"),
-                        actions: [
-                          TextButton(
-                            child: const Text('LEAVE'),
-                            onPressed: () {
-                              Navigator.pop(context, true);
-                            },
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context, false);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.purple,
-                              onPrimary: Colors.purple[200],
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16),
-                                ),
-                              ),
-                              elevation: 4,
-                              side: BorderSide(
-                                color: Colors.black.withOpacity(0.5),
-                                width: 1,
-                              ),
-                            ),
-                            child: const Text("STAY",
-                                style: TextStyle(color: Colors.white)),
-                          )
-                        ],
-                      );
-                    });
-                if (result != null && result == true) {
-                  _routeToHome();
-                }
-              },
-            );
-          }
-          return Container();
-        },
-      ),
-      backgroundColor: Colors.transparent,
-      actions: [
-        BlocBuilder<NotesBloc, NotesState>(
-          bloc: notesBloc,
-          builder: (context, state) {
-            if (state is NoteUpdatedState) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 13.0),
-                child: IconButton(
-                  icon: const Icon(Icons.check),
-                  onPressed: () => notesBloc.add(SaveNote()),
-                ),
-              );
-            }
-
-            if (state is NoteSaveLoading) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 13.0),
-                child: IconButton(
-                  icon: const SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () => notesBloc.add(SaveNote()),
-                ),
-              );
-            }
-
-            return const SizedBox.shrink();
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 13.0),
-          child: IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () => Navigator.of(context)
-                .popAndPushNamed(NoteCreatePage.routeThroughNoteReadOnly),
-          ),
-        ),
-      ],
-      flexibleSpace: GlassMorphismCover(
-        borderRadius: BorderRadius.circular(0.0),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.white.withOpacity(0.3),
-                Colors.white.withOpacity(0.2),
-              ],
-              begin: AlignmentDirectional.topCenter,
-              end: AlignmentDirectional.bottomCenter,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   void _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -292,16 +184,3 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
         fontSize: 16.0);
   }
 }
-
-//  [{"insert":"Hett\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker6900039974025442164.jpg"}},{"insert":"\n"}]
-
-//  [{"insert":"Fgt\n"},{"insert":{"image":"/data/user/0/com.example.dairy_app/app_flutter/image_picker8779980758292679059.jpg"}},{"insert":"\n"}]
-
-/*
-[{insert: Dndn}, {insert: dndnd, attributes: {underline: true}}, {insert: dndnd, attributes: {underline: true, italic: true}}, {insert: dndnd, attributes: {underline: true, italic: true, bold: true}}, {insert: 
-DD}, {insert: dd, attributes: {bold: true}}, {insert: dnnd, attributes: {italic: true}}, {insert: 
-
-
-}]
-
-*/
