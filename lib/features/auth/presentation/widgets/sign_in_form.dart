@@ -5,7 +5,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bl
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/submit_button.dart';
+import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -98,9 +98,10 @@ class _SignInFormState extends State<SignInForm> {
                       const SizedBox(
                         height: 30,
                       ),
-                      AuthSubmitButton(
+                      SubmitButton(
                         isLoading: (state is AuthFormSubmissionLoading),
                         onSubmitted: _onSubmitted,
+                        buttonText: "Submit",
                       )
                     ],
                   ),

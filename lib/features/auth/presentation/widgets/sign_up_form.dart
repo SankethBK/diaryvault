@@ -4,7 +4,7 @@ import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/submit_button.dart';
+import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,9 +96,10 @@ class _SignUpFormState extends State<SignUpForm> {
                       const SizedBox(
                         height: 30,
                       ),
-                      AuthSubmitButton(
+                      SubmitButton(
                         isLoading: (state is AuthFormSubmissionLoading),
                         onSubmitted: _onSubmitted,
+                        buttonText: "Submit",
                       )
                     ],
                   ),

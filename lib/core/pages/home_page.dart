@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -168,33 +170,19 @@ class _DeleteButton extends StatelessWidget {
           Navigator.pop(context, true);
         }
 
-        return ElevatedButton(
-          onPressed: () {
-            if (state is NoteDeleteLoading) {
-              return;
-            }
-            if (state is NoteDummyState) {
-              final notesBloc = BlocProvider.of<NotesBloc>(context);
-              notesBloc.add(DeleteNote(
-                  noteList: selectableListCubit.state.selectedItems));
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.purple,
-            onPrimary: Colors.purple[200],
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(16),
-              ),
-            ),
-            elevation: 4,
-            side: BorderSide(
-              color: Colors.white.withOpacity(0.5),
-              width: 1,
-            ),
-          ),
-          child: const Text("Delete", style: TextStyle(color: Colors.white)),
-        );
+        return SubmitButton(
+            isLoading: false,
+            onSubmitted: () {
+              if (state is NoteDeleteLoading) {
+                return;
+              }
+              if (state is NoteDummyState) {
+                final notesBloc = BlocProvider.of<NotesBloc>(context);
+                notesBloc.add(DeleteNote(
+                    noteList: selectableListCubit.state.selectedItems));
+              }
+            },
+            buttonText: "Delete");
       },
     );
   }
@@ -209,8 +197,8 @@ class _CancelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
-        return TextButton(
-          child: const Text('Cancel'),
+        return CancelButton(
+          buttonText: "Cancel",
           onPressed: () {
             if (state is NoteDeleteLoading) {
               return;

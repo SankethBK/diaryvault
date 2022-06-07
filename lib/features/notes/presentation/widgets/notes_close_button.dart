@@ -1,3 +1,5 @@
+import 'package:dairy_app/core/widgets/cancel_button.dart';
+import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,33 +27,17 @@ class NotesCloseButton extends StatelessWidget {
                     return AlertDialog(
                       title: const Text("You have unsaved changes"),
                       actions: [
-                        TextButton(
-                          child: const Text('leave'),
+                        CancelButton(
+                          buttonText: "Leave",
                           onPressed: () {
                             Navigator.pop(context, true);
                           },
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context, false);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.purple,
-                            onPrimary: Colors.purple[200],
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(16),
-                              ),
-                            ),
-                            elevation: 4,
-                            side: BorderSide(
-                              color: Colors.black.withOpacity(0.5),
-                              width: 1,
-                            ),
-                          ),
-                          child: const Text("stay",
-                              style: TextStyle(color: Colors.white)),
-                        )
+                        SubmitButton(
+                          isLoading: false,
+                          onSubmitted: () => Navigator.pop(context, false),
+                          buttonText: "Stay",
+                        ),
                       ],
                     );
                   });
