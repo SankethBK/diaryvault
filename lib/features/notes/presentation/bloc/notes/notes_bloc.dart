@@ -102,7 +102,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
-      print(_body);
+
       var _plainText = state.controller!.document.toPlainText();
 
       var _hash =

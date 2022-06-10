@@ -115,7 +115,18 @@ class NotesRepository implements INotesRepository {
     }
   }
 
-  // utility functions
+  @override
+  Future<Either<NotesFailure, List<String>>> getAllNoteIds() async {
+    try {
+      var noteIdList = await notesLocalDataSource.getAllNoteIds();
+      return Right(noteIdList);
+    } catch (e) {
+      log.e(e);
+      return Left(NotesFailure.unknownError());
+    }
+  }
+
+  //* utility functions
 
   List<String> _parseAssets(String noteBody) {
     var noteBodyMap = jsonDecode(noteBody);

@@ -33,4 +33,7 @@ abstract class INotesLocalDataSource {
 
   /// Deletes the file with given filePath
   Future<void> deleteFile(String filePath);
+
+  /// Returns all note ID's
+  Future<List<String>> getAllNoteIds();
 }

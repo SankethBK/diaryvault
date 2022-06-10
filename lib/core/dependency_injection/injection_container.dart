@@ -18,6 +18,11 @@ import 'package:dairy_app/features/notes/domain/repositories/notes_repository.da
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
+import 'package:dairy_app/features/sync/data/datasources/oauth_data_source.dart';
+import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_key_data_source_template.dart';
+import 'package:dairy_app/features/sync/data/repositories/oauth_repository.dart';
+import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
+import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -90,4 +95,16 @@ Future<void> init() async {
   sl.registerLazySingleton(
       () => NotesFetchCubit(notesRepository: sl(), notesBloc: sl()));
   sl.registerLazySingleton(() => SelectableListCubit());
+
+  //* FEATURE: sync
+
+  //* Data sources
+  sl.registerSingleton<IOAuthKeyDataSource>(await OAuthKeyDataSource.create());
+
+  //* Repository
+  sl.registerSingleton<IOAuthRepository>(
+      OAuthRepository(notesRepository: sl()));
+
+  //* Cubit
+  sl.registerLazySingleton(() => NoteSyncCubit(oAuthRepository: sl()));
 }

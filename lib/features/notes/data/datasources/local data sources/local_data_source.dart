@@ -16,7 +16,7 @@ final log = printer("NotesLocalDataSource");
 class NotesLocalDataSource implements INotesLocalDataSource {
   static late Database database;
 
-  NotesLocalDataSource._() {}
+  NotesLocalDataSource._();
 
   static create() async {
     database = await DBProvider.instance.database;
@@ -138,7 +138,6 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     }
 
     // update table by setting all fields of note to null, except id, last modified
-    // TODO: sending flutter datetime objectes to sql might be wrong, look into it
     count = await database.update(
         Notes.TABLE_NAME,
         {
@@ -218,5 +217,15 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     return List<Map<String, dynamic>>.generate(
         results.length, (index) => Map<String, dynamic>.from(results[index]),
         growable: true);
+  }
+
+  @override
+  Future<List<String>> getAllNoteIds() async {
+    var result = await database.query(Notes.TABLE_NAME,
+        columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
+        where: "${Notes.DELETED} != 1",
+        orderBy: "${Notes.CREATED_AT} DESC");
+
+    return result.map((noteMap) => noteMap["id"] as String).toList();
   }
 }

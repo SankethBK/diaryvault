@@ -10,6 +10,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fet
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
+import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -146,9 +147,15 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(right: 13.0),
           child: Icon(Icons.search),
         ),
-        const Padding(
-          padding: EdgeInsets.only(right: 13.0),
-          child: Icon(Icons.sync),
+        Padding(
+          padding: const EdgeInsets.only(right: 13.0),
+          child: IconButton(
+            icon: Icon(Icons.sync),
+            onPressed: () {
+              final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
+              noteSyncCubit.startNoteSync();
+            },
+          ),
         )
       ],
     );

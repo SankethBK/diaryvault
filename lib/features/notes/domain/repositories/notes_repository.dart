@@ -16,4 +16,6 @@ abstract class INotesRepository {
   Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview();
 
   Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList);
+
+  Future<Either<NotesFailure, List<String>>> getAllNoteIds();
 }
