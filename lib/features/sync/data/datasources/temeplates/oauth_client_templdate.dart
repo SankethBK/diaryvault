@@ -5,7 +5,7 @@ abstract class IOAuthClient {
 
   Future<bool> isFilePresent(String fileName, {bool folder = false});
 
-  Future<bool> createFolder(String folderName);
+  Future<bool> createFolder(String folderName, {String? parentFolder});
 
   Future<bool> deleteFile(String fileName, {bool folder = false});
 

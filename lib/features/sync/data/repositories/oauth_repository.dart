@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
@@ -113,12 +114,29 @@ class OAuthRepository implements IOAuthRepository {
         log.e(e);
         return false;
       }, (note) async {
-        // TODO: change the parent folder after
+        // Create the parent folder for post
+        bool isPostParentFolderCreated = await oAuthClient.createFolder(note.id,
+            parentFolder: appFolderName);
+        if (!isPostParentFolderCreated) {
+          log.e("failed to create parent folder for note id ${note.id}");
+          return false;
+        }
+
         await oAuthClient.uploadFile(
             fileContent: jsonEncode(note.toJson()),
-            fileName: note.id,
+            fileName: "post-body",
             fileExtension: "json",
-            parentFolder: appFolderName);
+            parentFolder: note.id);
+
+        // upload all the note assets
+        for (var asset in note.assetDependencies) {
+          bool isAssetUploaded = await oAuthClient.uploadFile(
+              file: File(asset.assetPath), parentFolder: note.id);
+          if (!isAssetUploaded) {
+            log.e("Could not upload the asset");
+            return false;
+          }
+        }
         return true;
       });
     } catch (e) {

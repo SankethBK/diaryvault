@@ -86,14 +86,26 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
-  Future<bool> createFolder(String folderName) async {
+  Future<bool> createFolder(String folderName, {String? parentFolder}) async {
     try {
+      String? parentFolderId;
+      if (parentFolder != null) {
+        parentFolderId = await _getFileIdIfPresent(parentFolder, folder: true);
+        if (parentFolderId == null) {
+          return false;
+        }
+      }
+
       log.i("Creating folder $folderName");
       const mimeType = "application/vnd.google-apps.folder";
 
       var folder = drive.File();
       folder.name = folderName;
       folder.mimeType = mimeType;
+
+      if (parentFolderId != null) {
+        folder.parents = [parentFolderId];
+      }
 
       await driveApi.files.create(folder);
       return true;
