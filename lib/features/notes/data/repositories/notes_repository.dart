@@ -44,9 +44,6 @@ class NotesRepository implements INotesRepository {
       List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
       List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
 
-      print("all assets = $allNoteAssets");
-      print("used assets = $usedNoteAssets");
-
       for (var noteAsset in allNoteAssets) {
         if (!usedNoteAssets.contains(noteAsset.assetPath)) {
           notesLocalDataSource.deleteFile(noteAsset.assetPath);
@@ -69,10 +66,6 @@ class NotesRepository implements INotesRepository {
     try {
       List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
       List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
-
-      print("UPdating note");
-      print("all note assets = $allNoteAssets");
-      print("used assets = $usedNoteAssets");
 
       for (var noteAsset in allNoteAssets) {
         if (!usedNoteAssets.contains(noteAsset.assetPath)) {
@@ -120,6 +113,18 @@ class NotesRepository implements INotesRepository {
     try {
       var noteIdList = await notesLocalDataSource.getAllNoteIds();
       return Right(noteIdList);
+    } catch (e) {
+      log.e(e);
+      return Left(NotesFailure.unknownError());
+    }
+  }
+
+  @override
+  Future<Either<NotesFailure, List<Map<String, dynamic>>>>
+      generateNotesIndex() async {
+    try {
+      var notesIndex = await notesLocalDataSource.getNotesIndex();
+      return Right(notesIndex);
     } catch (e) {
       log.e(e);
       return Left(NotesFailure.unknownError());

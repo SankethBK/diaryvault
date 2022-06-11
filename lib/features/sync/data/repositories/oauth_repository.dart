@@ -12,6 +12,7 @@ import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_tem
 final log = printer("OAuthRepository");
 
 const appFolderName = "my dairy";
+const indexFileName = "index";
 
 class OAuthRepository implements IOAuthRepository {
   final INotesRepository notesRepository;
@@ -51,7 +52,8 @@ class OAuthRepository implements IOAuthRepository {
         await bulkUploadEverything();
       }
 
-      bool isIndexFolderPresent = await oAuthClient.isFilePresent("index");
+      bool isIndexFolderPresent =
+          await oAuthClient.isFilePresent(indexFileName);
       if (!isIndexFolderPresent) {
         log.i("Index file is not present, starting bulk upload");
         await bulkUploadEverything();
@@ -92,13 +94,35 @@ class OAuthRepository implements IOAuthRepository {
         return false;
       }, (data) async {
         for (var noteId in data) {
+          // upload all notes and their assets
           bool isNoteUploaded = await uploAdSingleNote(noteId);
           if (!isNoteUploaded) {
             log.e("failed to upload note with id $noteId");
             return false;
           }
         }
-        return true;
+
+        // upload index
+        var result = await notesRepository.generateNotesIndex();
+
+        return result.fold((e) {
+          log.e("fetching of notes index failed");
+          return false;
+        }, (notesIndex) async {
+          bool isIndexFileUploaded = await oAuthClient.uploadFile(
+            fileContent: jsonEncode(notesIndex),
+            fileName: indexFileName,
+            fileExtension: "json",
+            parentFolder: appFolderName,
+          );
+          if (!isIndexFileUploaded) {
+            return false;
+          }
+
+          log.i("Bulk initialization complete");
+
+          return true;
+        });
       });
     } catch (e) {
       log.e(e);

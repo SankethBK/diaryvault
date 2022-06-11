@@ -18,4 +18,6 @@ abstract class INotesRepository {
   Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList);
 
   Future<Either<NotesFailure, List<String>>> getAllNoteIds();
+
+  Future<Either<NotesFailure, List<Map<String, dynamic>>>> generateNotesIndex();
 }

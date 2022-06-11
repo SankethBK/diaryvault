@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/databases/db_schemas.dart';
@@ -6,7 +5,6 @@ import 'package:dairy_app/core/databases/sqflite_setup.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../core/logger/logger.dart';
@@ -46,6 +44,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     log.i("note ${noteMap["id"]} inserted into db");
 
     // insert notte dependecies
+    log.i("saving asset dependencies = $assetDependencies");
+
     for (NoteAssetModel asset in assetDependencies) {
       try {
         var res =
@@ -174,6 +174,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     var _assetDependencies = await database.query(NoteDependencies.TABLE_NAME,
         where: "${NoteDependencies.NOTE_ID} = ?", whereArgs: [id]);
 
+    log.i("Retrieved asset depencies = $_assetDependencies");
+
     var finalNote = makeModifiableResults(result).map((note) {
       return {"asset_dependencies": _assetDependencies, ...note};
     }).toList()[0];
@@ -184,7 +186,6 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   @override
   Future<void> updateNote(Map<String, dynamic> noteMap) async {
     // store the asset dependencies to update later
-    var assetDependencies = noteMap["asset_dependencies"];
     noteMap.remove("asset_dependencies");
 
     // store id
@@ -210,6 +211,29 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     log.i("file $filePath deleted successfully");
   }
 
+  @override
+  Future<List<String>> getAllNoteIds() async {
+    var result = await database.query(Notes.TABLE_NAME,
+        columns: [Notes.ID],
+        where: "${Notes.DELETED} != 1",
+        orderBy: "${Notes.CREATED_AT} DESC");
+
+    return result.map((noteMap) => noteMap["id"] as String).toList();
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getNotesIndex() async {
+    var allNotesIndex = await database.query(Notes.TABLE_NAME,
+        columns: [Notes.ID, Notes.LAST_MODIFIED, Notes.HASH, Notes.DELETED],
+        orderBy: "${Notes.CREATED_AT} DESC");
+
+    return makeModifiableResults(allNotesIndex).map((note) {
+      return {"inconsistent": false, ...note};
+    }).toList();
+  }
+
+  //* Utils
+
   /// Generate a modifiable result set
   List<Map<String, dynamic>> makeModifiableResults(
       List<Map<String, dynamic>> results) {
@@ -217,15 +241,5 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     return List<Map<String, dynamic>>.generate(
         results.length, (index) => Map<String, dynamic>.from(results[index]),
         growable: true);
-  }
-
-  @override
-  Future<List<String>> getAllNoteIds() async {
-    var result = await database.query(Notes.TABLE_NAME,
-        columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
-        where: "${Notes.DELETED} != 1",
-        orderBy: "${Notes.CREATED_AT} DESC");
-
-    return result.map((noteMap) => noteMap["id"] as String).toList();
   }
 }

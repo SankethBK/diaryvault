@@ -76,6 +76,7 @@ class GoogleOAuthClient implements IOAuthClient {
 
       final String searchQuery =
           "mimeType = '$mimeType' and name = '$fileName'";
+
       const String fields = "files(id, name)";
 
       return _isFilePresent(searchQuery, fields);
@@ -153,15 +154,17 @@ class GoogleOAuthClient implements IOAuthClient {
 
       if (fileContent != null) {
         // convert file conetent to stream
+        List<int> byteList = utf8.encode(fileContent);
         final Stream<List<int>> mediaStream =
-            Future.value(fileContent.codeUnits).asStream().asBroadcastStream();
-        var media = drive.Media(mediaStream, fileContent.length);
+            Future.value(byteList).asStream().asBroadcastStream();
+        var media = drive.Media(mediaStream, byteList.length);
 
         // set file meta data
         var driveFile = drive.File();
         driveFile.name = "$fileName.$fileExtension";
         driveFile.modifiedTime = DateTime.now().toUtc();
         driveFile.parents = [parentFolderId];
+        driveFile.mimeType = "application/vnd.google-apps.file";
 
         final response =
             await driveApi.files.create(driveFile, uploadMedia: media);
@@ -172,6 +175,8 @@ class GoogleOAuthClient implements IOAuthClient {
         var driveFile = drive.File();
         driveFile.parents = [parentFolderId];
         driveFile.name = p.basename(file.absolute.path);
+        // driveFile.mimeType = "application/vnd.google-apps.file";
+
         var response = await driveApi.files.create(
           driveFile,
           uploadMedia: drive.Media(file.openRead(), file.lengthSync()),
