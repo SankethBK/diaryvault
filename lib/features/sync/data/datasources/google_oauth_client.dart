@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'temeplates/oauth_key_data_source_template.dart';
 
 final log = printer("GoogleOAuthClient");
@@ -67,15 +69,15 @@ class GoogleOAuthClient implements IOAuthClient {
 
   @override
   Future<bool> isFilePresent(String fileName, {bool folder = false}) async {
-    final mimeType = folder
-        ? "application/vnd.google-apps.folder"
-        : "application/vnd.google-apps.file";
+    final mimeType = folder ? "application/vnd.google-apps.folder" : null;
 
     try {
       log.i("Searching for $fileName file");
 
-      final String searchQuery =
-          "mimeType = '$mimeType' and name = '$fileName'";
+      // skipping mimeTypes for files as of now, as it is causing some issues
+      final String searchQuery = mimeType != null
+          ? "mimeType = '$mimeType' and name = '$fileName'"
+          : "name = '$fileName'";
 
       const String fields = "files(id, name)";
 
@@ -164,7 +166,7 @@ class GoogleOAuthClient implements IOAuthClient {
         driveFile.name = "$fileName.$fileExtension";
         driveFile.modifiedTime = DateTime.now().toUtc();
         driveFile.parents = [parentFolderId];
-        driveFile.mimeType = "application/vnd.google-apps.file";
+        // driveFile.mimeType = "application/vnd.google-apps.file";
 
         final response =
             await driveApi.files.create(driveFile, uploadMedia: media);
@@ -192,9 +194,28 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
-  Future<File> downloadFile() {
-    // TODO: implement downloadFile
-    throw UnimplementedError();
+  Future<Either<String, String>> downloadFile(String fileName,
+      {bool outputAsFile = false}) async {
+    var fileId = await _getFileIdIfPresent(fileName);
+    drive.Media file = await driveApi.files.get(fileId!,
+        downloadOptions: drive.DownloadOptions.fullMedia) as drive.Media;
+
+    // return the content as string
+    if (!outputAsFile) {
+      String result = await utf8.decodeStream(file.stream);
+      return Left(result);
+    }
+
+    List<int> dataStore = [];
+    await for (var data in file.stream) {
+      dataStore.insertAll(dataStore.length, data);
+    }
+    // save the file, and return the file's path
+    final appDocDir = await getApplicationDocumentsDirectory();
+
+    final copiedFile = File('${appDocDir.path}/${p.basename(fileName)}');
+    copiedFile.writeAsBytes(dataStore);
+    return Right(copiedFile.path.toString());
   }
 
   //* Private util methods
@@ -218,11 +239,13 @@ class GoogleOAuthClient implements IOAuthClient {
 
   Future<String?> _getFileIdIfPresent(String fileName,
       {bool folder = false}) async {
-    final mimeType = folder
-        ? "application/vnd.google-apps.folder"
-        : "application/vnd.google-apps.file";
+    final mimeType = folder ? "application/vnd.google-apps.folder" : null;
 
-    final String searchQuery = "mimeType = '$mimeType' and name = '$fileName'";
+    final String searchQuery = mimeType != null
+        ? "mimeType = '$mimeType' and name = '$fileName'"
+        : "name = '$fileName'";
+
+    print(searchQuery);
     const String fields = "files(id, name)";
 
     final found = await driveApi.files.list(

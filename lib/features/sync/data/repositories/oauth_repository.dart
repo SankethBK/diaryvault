@@ -49,14 +49,20 @@ class OAuthRepository implements IOAuthRepository {
           await oAuthClient.isFilePresent(appFolderName, folder: true);
       if (!isAppFolderPresent) {
         log.i("app folder is not present, starting bulk upload");
-        await bulkUploadEverything();
+        return await bulkUploadEverything();
       }
 
       bool isIndexFolderPresent =
-          await oAuthClient.isFilePresent(indexFileName);
+          await oAuthClient.isFilePresent(indexFileName + ".json");
       if (!isIndexFolderPresent) {
         log.i("Index file is not present, starting bulk upload");
-        await bulkUploadEverything();
+        return await bulkUploadEverything();
+      }
+
+      bool isNotesSynced = await diffEachNoteAndSync();
+      if (!isNotesSynced) {
+        log.w("Could not sync notes");
+        return false;
       }
 
       return true;
@@ -165,6 +171,17 @@ class OAuthRepository implements IOAuthRepository {
       });
     } catch (e) {
       log.e(e);
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> diffEachNoteAndSync() async {
+    try {
+      // Download the index file
+      await oAuthClient.downloadFile("index.json");
+      return true;
+    } catch (e) {
       return false;
     }
   }

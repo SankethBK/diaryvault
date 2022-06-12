@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dartz/dartz.dart';
+
 abstract class IOAuthClient {
   Future<bool> initialieClient();
 
@@ -18,5 +20,8 @@ abstract class IOAuthClient {
     required String parentFolder,
   });
 
-  Future<File> downloadFile();
+  /// if [outputAsFile] is true, saves the received media in a file and returns the file's location in Right of Either
+  /// else returns the content as String in Left of Either
+  Future<Either<String, String>> downloadFile(String fileName,
+      {bool outputAsFile = false});
 }
