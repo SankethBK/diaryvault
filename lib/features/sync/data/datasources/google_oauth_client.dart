@@ -194,7 +194,7 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
-  Future<Either<String, String>> downloadFile(String fileName,
+  Future<String> downloadFile(String fileName,
       {bool outputAsFile = false}) async {
     var fileId = await _getFileIdIfPresent(fileName);
     drive.Media file = await driveApi.files.get(fileId!,
@@ -203,7 +203,7 @@ class GoogleOAuthClient implements IOAuthClient {
     // return the content as string
     if (!outputAsFile) {
       String result = await utf8.decodeStream(file.stream);
-      return Left(result);
+      return result;
     }
 
     List<int> dataStore = [];
@@ -215,7 +215,34 @@ class GoogleOAuthClient implements IOAuthClient {
 
     final copiedFile = File('${appDocDir.path}/${p.basename(fileName)}');
     copiedFile.writeAsBytes(dataStore);
-    return Right(copiedFile.path.toString());
+    return copiedFile.path.toString();
+  }
+
+  @override
+  Future<bool> updateFile(String fileName, String fileContent) async {
+    log.i("updating file $fileName");
+    try {
+      String? fileId = await _getFileIdIfPresent(fileName);
+      if (fileId == null) {
+        return false;
+      }
+
+      List<int> byteList = utf8.encode(fileContent);
+      final Stream<List<int>> mediaStream =
+          Future.value(byteList).asStream().asBroadcastStream();
+      var media = drive.Media(mediaStream, byteList.length);
+
+      var driveFile = drive.File();
+      driveFile.name = fileName;
+
+      await driveApi.files.update(driveFile, fileId, uploadMedia: media);
+      log.i("$fileName updated successfully");
+
+      return true;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
   }
 
   //* Private util methods
@@ -245,7 +272,6 @@ class GoogleOAuthClient implements IOAuthClient {
         ? "mimeType = '$mimeType' and name = '$fileName'"
         : "name = '$fileName'";
 
-    print(searchQuery);
     const String fields = "files(id, name)";
 
     final found = await driveApi.files.list(
