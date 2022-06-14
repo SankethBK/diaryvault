@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' as io;
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
@@ -8,7 +8,7 @@ import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dar
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_key_data_source_template.dart';
 import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
-import 'package:googleapis/dfareporting/v3_5.dart';
+import 'package:path/path.dart' as p;
 
 final log = printer("OAuthRepository");
 
@@ -102,7 +102,7 @@ class OAuthRepository implements IOAuthRepository {
       }, (data) async {
         for (var noteId in data) {
           // upload all notes and their assets
-          await uploadSingleNote(noteId);
+          await _uploadSingleNote(noteId);
         }
 
         // upload index
@@ -114,8 +114,7 @@ class OAuthRepository implements IOAuthRepository {
         }, (notesIndex) async {
           bool isIndexFileUploaded = await oAuthClient.uploadFile(
             fileContent: jsonEncode(notesIndex),
-            fileName: indexFileName,
-            fileExtension: "json",
+            fileName: indexFileName + ".json",
             parentFolder: appFolderName,
           );
           if (!isIndexFileUploaded) {
@@ -138,8 +137,13 @@ class OAuthRepository implements IOAuthRepository {
     try {
       // Download the index file
       log.i("Started diffEachNoteAndSync");
-      var globalNotesIndex =
+      var _globalNotesIndex =
           jsonDecode(await oAuthClient.downloadFile("index.json"));
+
+      List<Map<String, dynamic>> globalNotesIndex = [];
+      for (var noteIndex in _globalNotesIndex) {
+        globalNotesIndex.add(noteIndex);
+      }
 
       var result = await notesRepository.generateNotesIndex();
       List<Map<String, dynamic>> localNotesIndex = [];
@@ -151,48 +155,60 @@ class OAuthRepository implements IOAuthRepository {
         localNotesIndex = notesIndex;
       });
 
-      // log.d("global notes index = $globalNotesIndex");
+      log.d("global notes index = $globalNotesIndex");
       // log.d("local notes index = $localNotesIndex");
 
       // Copy of global notes index, as we have to update index for each diff and we cannot store
       // updated index in globalNotesIndex as we should not change array while iterating it
-      var globalNotesIndexCopy =
-          globalNotesIndex.map((e) => {...(e as Map<String, dynamic>)});
-      // log.d("global notes index copy $globalNotesIndexCopy");
+      var globalNotesIndexCopy = globalNotesIndex.map((e) => {...e}).toList();
 
       // first iterate through the global notes map and sort out and all the stuff with
       // corresponding local notes index, then deal with the remaining notes in local notes index
       for (var globalNote in globalNotesIndex) {
         var localNote = _findNoteWithGivenId(localNotesIndex, globalNote["id"]);
 
+        log.d("globalNote = $globalNote");
+        log.d("localNote = $localNote");
+
+        // remove the global note id from allLocalNoteId's to identify the note to be inserted
+        localNotesIndex
+            .removeWhere((noteIndex) => noteIndex["id"] == globalNote["id"]);
+
         // global note is deleted
         if (globalNote["deleted"] == 1) {
-          // local note also does not exists or already deleted, so no change
+          log.i("global note is deleted");
+
           if (localNote == null || localNote["deleted"] == 1) {
+            log.i(
+                "local note also does not exists or already deleted, so no change");
             continue;
           }
 
           // local note exists, tie break based on last modified
           if (localNote["last_modified"] < globalNote["last_modified"]) {
-            // delete the local note
+            log.i("delete the local note");
             await notesRepository.deleteNotes([localNote["id"]]);
-          }
-
-          // upload the note to global
-          else {
-            globalNotesIndexCopy = await uploadSingleNoteAndUpdateIndex(
-                localNote, globalNotesIndexCopy);
+          } else {
+            // hard delete + new upload to cloud
+            log.i("modifying the note in cloud");
+            globalNotesIndexCopy =
+                await deleteNoteInCloud(globalNote["id"], globalNotesIndexCopy);
+            globalNotesIndexCopy = await createNoteInCloud(
+                noteIndex: localNote, globalIndex: globalNotesIndexCopy);
           }
         }
         // global note is not deleted
         else {
+          log.i("global note is not deleted");
           // local note does not exists
           if (localNote == null) {
-            // insert the local note
+            log.i("downloading and inserting the local note locally");
+            await downloadAndInsertNote(globalNote["id"]);
           }
 
           // both have same hash, ignore
           else if (localNote["hash"] == globalNote["hash"]) {
+            log.i("hashes are same, so no change");
             continue;
           }
 
@@ -200,10 +216,20 @@ class OAuthRepository implements IOAuthRepository {
           else if (localNote["deleted"] == 1) {
             // tiebraker based on last modified
             if (localNote["last_modified"] > globalNote["last_modified"]) {
-              // soft delete global note
+              log.i("soft delete global note");
+
+              globalNotesIndexCopy = await deleteNoteInCloud(
+                  globalNote["id"], globalNotesIndexCopy);
             } else {
               // hard delete local note and insert a new copy from global (because we don't have
               // function to update) soft deleted notes
+              log.i(
+                  "updating notes on local by hard deletion and new insertion");
+
+              await notesRepository
+                  .deleteNotes([localNote["id"]], hardDeletion: true);
+
+              await downloadAndInsertNote(localNote["id"]);
             }
           }
 
@@ -211,24 +237,39 @@ class OAuthRepository implements IOAuthRepository {
           else if (localNote["hash"] != globalNote["hash"]) {
             if (localNote["last_modified"] > globalNote["last_modified"]) {
               // update the global note by hard deletion followed by insertion
+
+              log.i(
+                  "updating the global notes by hard deletion and new insertion");
+              globalNotesIndexCopy = await deleteNoteInCloud(
+                  globalNote["id"], globalNotesIndexCopy,
+                  hardDeletion: true);
+
+              globalNotesIndexCopy = await createNoteInCloud(
+                  noteIndex: localNote, globalIndex: globalNotesIndexCopy);
             } else {
               // update the local note by hard deletion followed by insertion
+              log.i(
+                  "updating notes on local by hard deletion and new insertion");
+
+              await notesRepository
+                  .deleteNotes([localNote["id"]], hardDeletion: true);
+
+              await downloadAndInsertNote(localNote["id"]);
             }
           }
         }
-
-        if (localNote != null) {
-          // 1. local note is present, and its hash is equal to hash of global note, so no change
-          if (localNote["hash"] == globalNote["hash"]) {
-            continue;
-          }
-
-          // 2. local note is present, but its deleted
-          else if (localNote["deleted"] == 1) {
-            if (localNote["last_modified"] > 3) {}
-          }
-        } else {}
       }
+
+      log.i("processing of global notes finished\n\n");
+
+      // upload the new notes to cloud
+      for (var noteIndex in localNotesIndex) {
+        log.i("fresh upload of ${noteIndex["id"]} to cloud");
+        globalNotesIndexCopy = await createNoteInCloud(
+            noteIndex: noteIndex, globalIndex: globalNotesIndexCopy);
+      }
+
+      log.i("global notes index at end = \n $globalNotesIndexCopy");
 
       return true;
     } catch (e) {
@@ -237,7 +278,7 @@ class OAuthRepository implements IOAuthRepository {
     }
   }
 
-  Future<void> uploadSingleNote(String noteId) async {
+  Future<void> _uploadSingleNote(String noteId) async {
     try {
       // fetch the note from repository
       var result = await notesRepository.getNote(noteId);
@@ -253,14 +294,13 @@ class OAuthRepository implements IOAuthRepository {
 
         await oAuthClient.uploadFile(
             fileContent: jsonEncode(note.toJson()),
-            fileName: "post-body",
-            fileExtension: "json",
+            fileName: noteId + ".json",
             parentFolder: note.id);
 
         // upload all the note assets
         for (var asset in note.assetDependencies) {
           bool isAssetUploaded = await oAuthClient.uploadFile(
-            file: File(asset.assetPath),
+            file: io.File(asset.assetPath),
             parentFolder: note.id,
           );
           if (!isAssetUploaded) {
@@ -276,19 +316,87 @@ class OAuthRepository implements IOAuthRepository {
 
   /// Updates the note, adds the noteIndex map to global index and writes global index into index.json
   @override
-  Future<List<Map<String, dynamic>>> uploadSingleNoteAndUpdateIndex(
-    Map<String, dynamic> noteIndex,
-    List<Map<String, dynamic>> globalIndex,
-  ) async {
+  Future<List<Map<String, dynamic>>> createNoteInCloud({
+    required Map<String, dynamic> noteIndex,
+    required List<Map<String, dynamic>> globalIndex,
+  }) async {
+    log.i("uploading ${noteIndex["id"]} to cloud");
     try {
       // upload note and assets
-      await uploadSingleNote(noteIndex["id"]);
+      await _uploadSingleNote(noteIndex["id"]);
 
       // update global index and update the file in cloud
       globalIndex.add(noteIndex);
-      await oAuthClient.updateFile("index.json", jsonEncode(globalIndex));
 
+      await oAuthClient.updateFile(
+          fileName: "index.json", fileContent: jsonEncode(globalIndex));
+
+      log.i("uploading ${noteIndex["id"]} to cloud successful");
       // return the updated global index array
+      return globalIndex;
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
+  }
+
+  /// Download note with given iD and its assets and insert it locally
+  @override
+  Future<void> downloadAndInsertNote(String noteId) async {
+    try {
+      // download the note body which was stored as JSON
+
+      log.i("Downloading $noteId from cloud");
+      Map<String, dynamic> newNoteBody =
+          jsonDecode(await oAuthClient.downloadFile(noteId + ".json"));
+
+      // download all assets
+      for (var noteAsset in newNoteBody["asset_dependencies"]) {
+        await oAuthClient.downloadFile(
+          p.basename(noteAsset["asset_dependencies"]),
+          outputAsFile: true,
+        );
+      }
+
+      // save the notes into database
+      await notesRepository.saveNote(newNoteBody,
+          dontModifyAnyParameters: true);
+
+      log.i("Downloading of note $noteId successful");
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> deleteNoteInCloud(
+    String noteId,
+    List<Map<String, dynamic>> globalIndex, {
+    bool hardDeletion = false,
+  }) async {
+    try {
+      log.i("Deleting $noteId on cloud");
+      // update the index first and then delete the actual dolfer to avoid inconsisteny
+      if (hardDeletion) {
+        globalIndex.removeWhere((noteIndex) => noteIndex["id"] == noteId);
+      } else {
+        globalIndex = globalIndex
+            .map((Map<String, dynamic> noteIndex) => noteIndex["id"] != noteId
+                ? noteIndex
+                : {...noteIndex, "deleted": 1})
+            .toList();
+      }
+
+      await oAuthClient.updateFile(
+        fileName: "index.json",
+        fileContent: jsonEncode(globalIndex),
+      );
+
+      // delete the note folder
+      await oAuthClient.deleteFile(noteId, folder: true);
+
+      log.i("Deletion of $noteId successful");
       return globalIndex;
     } catch (e) {
       log.e(e);

@@ -5,8 +5,15 @@ abstract class IOAuthRepository {
 
   Future<bool> diffEachNoteAndSync();
 
-  Future<List<Map<String, dynamic>>> uploadSingleNoteAndUpdateIndex(
-    Map<String, dynamic> noteIndex,
+  Future<List<Map<String, dynamic>>> createNoteInCloud({
+    required Map<String, dynamic> noteIndex,
+    required List<Map<String, dynamic>> globalIndex,
+  });
+
+  Future<void> downloadAndInsertNote(String noteId);
+
+  Future<List<Map<String, dynamic>>> deleteNoteInCloud(
+    String noteId,
     List<Map<String, dynamic>> globalIndex,
   );
 }

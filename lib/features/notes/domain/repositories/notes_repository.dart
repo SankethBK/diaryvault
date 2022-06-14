@@ -5,7 +5,13 @@ import 'package:dartz/dartz.dart';
 import '../../data/models/notes_model.dart';
 
 abstract class INotesRepository {
-  Future<Either<NotesFailure, void>> saveNote(Map<String, dynamic> noteMap);
+  /// Saves the note into local database, it involves some computation on [noteMap]
+  /// If [dontModifyAnyParameters] is true, then it skips all the computation and saves the note directly
+  /// This is useful for saving notes downloaded from cloud as we should not change some parameters like lastModifieds
+  Future<Either<NotesFailure, void>> saveNote(
+    Map<String, dynamic> noteMap, {
+    bool dontModifyAnyParameters = false,
+  });
 
   Future<Either<NotesFailure, List<NoteModel>>> fetchNotes();
 
@@ -15,7 +21,9 @@ abstract class INotesRepository {
 
   Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview();
 
-  Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList);
+  /// By default it does soft deletion, if hardDeletion = true, it does hard deletion
+  Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList,
+      {bool hardDeletion = false});
 
   Future<Either<NotesFailure, List<String>>> getAllNoteIds();
 

@@ -53,7 +53,7 @@ class NoteModel extends Note {
       "hash": hash,
       "last_modified": lastModified.millisecondsSinceEpoch,
       "plain_text": plainText,
-      "delelted": deleted,
+      "deleted": deleted ? 1 : 0,
       "asset_dependencies":
           assetDependencies.map((noteAsset) => noteAsset.toJson()).toList(),
     };

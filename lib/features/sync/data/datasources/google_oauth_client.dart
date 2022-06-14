@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -141,7 +140,6 @@ class GoogleOAuthClient implements IOAuthClient {
   Future<bool> uploadFile({
     String? fileContent,
     String? fileName,
-    String? fileExtension,
     File? file,
     required String parentFolder,
   }) async {
@@ -163,7 +161,7 @@ class GoogleOAuthClient implements IOAuthClient {
 
         // set file meta data
         var driveFile = drive.File();
-        driveFile.name = "$fileName.$fileExtension";
+        driveFile.name = "$fileName";
         driveFile.modifiedTime = DateTime.now().toUtc();
         driveFile.parents = [parentFolderId];
         // driveFile.mimeType = "application/vnd.google-apps.file";
@@ -219,7 +217,8 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
-  Future<bool> updateFile(String fileName, String fileContent) async {
+  Future<bool> updateFile(
+      {required String fileName, required String fileContent}) async {
     log.i("updating file $fileName");
     try {
       String? fileId = await _getFileIdIfPresent(fileName);

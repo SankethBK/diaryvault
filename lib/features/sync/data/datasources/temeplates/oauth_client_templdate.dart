@@ -15,7 +15,6 @@ abstract class IOAuthClient {
   Future<bool> uploadFile({
     String? fileContent,
     String? fileName,
-    String? fileExtension,
     File? file,
     required String parentFolder,
   });
@@ -24,5 +23,6 @@ abstract class IOAuthClient {
   /// else returns the content as String in Left of Either
   Future<String> downloadFile(String fileName, {bool outputAsFile = false});
 
-  Future<bool> updateFile(String fileName, String fileContent);
+  Future<bool> updateFile(
+      {required String fileName, required String fileContent});
 }

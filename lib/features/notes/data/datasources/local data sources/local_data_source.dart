@@ -98,7 +98,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<void> deleteNote(String id) async {
+  Future<void> deleteNote(String id, {bool hardDeletion = false}) async {
     List<Map<String, Object?>> files;
 
     // First delete all files
@@ -137,26 +137,39 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       throw const DatabaseDeleteException();
     }
 
-    // update table by setting all fields of note to null, except id, last modified
-    count = await database.update(
-        Notes.TABLE_NAME,
-        {
-          "title": null,
-          "body": null,
-          "plain_text": null,
-          "created_at": null,
-          "hash": null,
-          "last_modified": DateTime.now().millisecondsSinceEpoch,
-          "deleted": 1,
-        },
-        where: "${Notes.ID} = ?",
-        whereArgs: [id]);
+    // hard delete the note
+    if (hardDeletion == true) {
+      count = await database
+          .delete(Notes.TABLE_NAME, where: "${Notes.ID} = ?", whereArgs: [id]);
+      if (count != 1) {
+        log.e("notes (hard) deletion unsuccessful for note id: $id");
+        throw const DatabaseDeleteException();
+      }
 
-    if (count != 1) {
-      log.e("notes deletion unsuccessful for note id: $id");
-      throw const DatabaseDeleteException();
+      log.i("notes (hard) deletion successful for note id: $id");
+    } else {
+      // update table by setting all fields of note to null, except id, last modified
+      count = await database.update(
+          Notes.TABLE_NAME,
+          {
+            "title": null,
+            "body": null,
+            "plain_text": null,
+            "created_at": null,
+            "hash": null,
+            "last_modified": DateTime.now().millisecondsSinceEpoch,
+            "deleted": 1,
+          },
+          where: "${Notes.ID} = ?",
+          whereArgs: [id]);
+
+      if (count != 1) {
+        log.e("notes (soft) deletion unsuccessful for note id: $id");
+        throw const DatabaseDeleteException();
+      }
+
+      log.i("notes (soft) deletion successful for note id: $id");
     }
-    log.i("deletion successful for note id: $id");
   }
 
   @override
@@ -228,7 +241,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         orderBy: "${Notes.CREATED_AT} DESC");
 
     return makeModifiableResults(allNotesIndex).map((note) {
-      return {"inconsistent": false, ...note};
+      return note;
     }).toList();
   }
 

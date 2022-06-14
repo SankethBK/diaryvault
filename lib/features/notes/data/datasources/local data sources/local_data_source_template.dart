@@ -29,7 +29,7 @@ abstract class INotesLocalDataSource {
   /// Deletes the note from id
   ///
   /// Throws [DatabaseDeleteException] if something goes wrong
-  Future<void> deleteNote(String id);
+  Future<void> deleteNote(String id, {bool hardDeletion = false});
 
   /// Deletes the file with given filePath
   Future<void> deleteFile(String filePath);

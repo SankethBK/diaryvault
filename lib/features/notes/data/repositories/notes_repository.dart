@@ -39,19 +39,24 @@ class NotesRepository implements INotesRepository {
 
   @override
   Future<Either<NotesFailure, void>> saveNote(
-      Map<String, dynamic> noteMap) async {
+    Map<String, dynamic> noteMap, {
+    bool dontModifyAnyParameters = false,
+  }) async {
     try {
-      List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
-      List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
+      if (dontModifyAnyParameters == false) {
+        List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
+        List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
 
-      for (var noteAsset in allNoteAssets) {
-        if (!usedNoteAssets.contains(noteAsset.assetPath)) {
-          notesLocalDataSource.deleteFile(noteAsset.assetPath);
+        for (var noteAsset in allNoteAssets) {
+          if (!usedNoteAssets.contains(noteAsset.assetPath)) {
+            notesLocalDataSource.deleteFile(noteAsset.assetPath);
+          }
         }
+
+        noteMap["asset_dependencies"].removeWhere(
+            (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
       }
 
-      noteMap["asset_dependencies"].removeWhere(
-          (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
       await notesLocalDataSource.saveNote(noteMap);
       return const Right(null);
     } catch (e) {
@@ -96,10 +101,12 @@ class NotesRepository implements INotesRepository {
   }
 
   @override
-  Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList) async {
+  Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList,
+      {bool hardDeletion = false}) async {
     try {
       for (var noteId in noteList) {
-        await notesLocalDataSource.deleteNote(noteId);
+        await notesLocalDataSource.deleteNote(noteId,
+            hardDeletion: hardDeletion);
       }
       return const Right(null);
     } catch (e) {
