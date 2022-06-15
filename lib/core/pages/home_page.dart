@@ -147,14 +147,23 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(right: 13.0),
           child: Icon(Icons.search),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 13.0),
-          child: IconButton(
-            icon: Icon(Icons.sync),
-            onPressed: () {
-              final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
-              noteSyncCubit.startNoteSync();
-            },
+        BlocListener<NoteSyncCubit, NoteSyncState>(
+          listener: (context, state) {
+            if (state is NoteSyncSuccessful) {
+              showToast("notes sync successful");
+            } else if (state is NoteSyncFailed) {
+              showToast("notes sync failed");
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 13.0),
+            child: IconButton(
+              icon: Icon(Icons.sync),
+              onPressed: () {
+                final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
+                noteSyncCubit.startNoteSync();
+              },
+            ),
           ),
         )
       ],

@@ -28,36 +28,30 @@ class GoogleOAuthClient implements IOAuthClient {
   @override
   Future<bool> initialieClient() async {
     try {
-      // check if credentials exist in local storage
-      final value = await oAuthKeyDataSource.getOAuthKey(key);
-      // if (value != null) {
-      //   log.i("auth headers retrieved from local storage $value");
+      Map<String, String> headers;
 
-      //   final client =
-      //       GoogleAuthHTTPClient(Map<String, String>.from(jsonDecode(value)));
-      //   driveApi = drive.DriveApi(client);
+      // try to login silently, it will be successful if we already have the permission
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signInSilently();
 
-      //   log.i("drive api created successfully from local auth headers");
-      //   return true;
-      // }
+      if (googleSignInAccount != null) {
+        log.i("silent login successful");
+        headers = await googleSignInAccount.authHeaders;
+      } else {
+        log.i("prompting new google sign in");
 
-      log.i("local headers not found, making a new signin call");
-
-      final googleUser = await googleSignIn.signIn();
-      final headers = await googleUser?.authHeaders;
-      if (headers == null) {
-        log.w("user cancelled the sign in");
-        return false;
+        final googleUser = await googleSignIn.signIn();
+        if (googleUser != null) {
+          log.i("prompted login successful");
+          headers = await googleUser.authHeaders;
+        } else {
+          return false;
+        }
       }
-
-      log.i("headers retrieved from sign in $headers");
 
       final client = GoogleAuthHTTPClient(headers);
       driveApi = drive.DriveApi(client);
       log.i("drive api created successfully from live auth headers");
-
-      // store the headers for next session
-      oAuthKeyDataSource.setOAuthKey(key, jsonEncode(headers));
 
       return true;
     } catch (e) {

@@ -191,8 +191,11 @@ class OAuthRepository implements IOAuthRepository {
           } else {
             // hard delete + new upload to cloud
             log.i("modifying the note in cloud");
-            globalNotesIndexCopy =
-                await deleteNoteInCloud(globalNote["id"], globalNotesIndexCopy);
+            globalNotesIndexCopy = await deleteNoteInCloud(
+              globalNote["id"],
+              globalNotesIndexCopy,
+              hardDeletion: true,
+            );
             globalNotesIndexCopy = await createNoteInCloud(
                 noteIndex: localNote, globalIndex: globalNotesIndexCopy);
           }
@@ -219,7 +222,8 @@ class OAuthRepository implements IOAuthRepository {
               log.i("soft delete global note");
 
               globalNotesIndexCopy = await deleteNoteInCloud(
-                  globalNote["id"], globalNotesIndexCopy);
+                  globalNote["id"], globalNotesIndexCopy,
+                  lastModified: localNote["last_modified"]);
             } else {
               // hard delete local note and insert a new copy from global (because we don't have
               // function to update) soft deleted notes
@@ -264,9 +268,12 @@ class OAuthRepository implements IOAuthRepository {
 
       // upload the new notes to cloud
       for (var noteIndex in localNotesIndex) {
-        log.i("fresh upload of ${noteIndex["id"]} to cloud");
-        globalNotesIndexCopy = await createNoteInCloud(
-            noteIndex: noteIndex, globalIndex: globalNotesIndexCopy);
+        // upload it only if it's not deleted locally
+        if (noteIndex["deleted"] == 0) {
+          log.i("fresh upload of ${noteIndex["id"]} to cloud");
+          globalNotesIndexCopy = await createNoteInCloud(
+              noteIndex: noteIndex, globalIndex: globalNotesIndexCopy);
+        }
       }
 
       log.i("global notes index at end = \n $globalNotesIndexCopy");
@@ -374,6 +381,7 @@ class OAuthRepository implements IOAuthRepository {
     String noteId,
     List<Map<String, dynamic>> globalIndex, {
     bool hardDeletion = false,
+    int? lastModified,
   }) async {
     try {
       log.i("Deleting $noteId on cloud");
@@ -384,7 +392,7 @@ class OAuthRepository implements IOAuthRepository {
         globalIndex = globalIndex
             .map((Map<String, dynamic> noteIndex) => noteIndex["id"] != noteId
                 ? noteIndex
-                : {...noteIndex, "deleted": 1})
+                : {...noteIndex, "deleted": 1, "last_modified": lastModified!})
             .toList();
       }
 
