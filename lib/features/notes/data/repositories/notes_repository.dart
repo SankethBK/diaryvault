@@ -7,6 +7,8 @@ import 'package:dairy_app/features/notes/core/failures/failure.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:path/path.dart' as p;
+import 'package:crypto/crypto.dart';
 
 final log = printer("NotesRepository");
 
@@ -55,6 +57,16 @@ class NotesRepository implements INotesRepository {
 
         noteMap["asset_dependencies"].removeWhere(
             (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
+
+        // calculate note hash
+        String noteBodyWithAssetPathsRemoved =
+            _replaceAssetPathsByAssetNames(noteMap["body"]);
+
+        var _hash = _generateHash(noteMap["title"] +
+            noteMap["created_at"] +
+            noteBodyWithAssetPathsRemoved);
+
+        noteMap["hash"] = _hash;
       }
 
       await notesLocalDataSource.saveNote(noteMap);
@@ -80,6 +92,16 @@ class NotesRepository implements INotesRepository {
 
       noteMap["asset_dependencies"].removeWhere(
           (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
+
+      // calculate note hash
+      String noteBodyWithAssetPathsRemoved =
+          _replaceAssetPathsByAssetNames(noteMap["body"]);
+
+      var _hash = _generateHash(noteMap["title"] +
+          noteMap["created_at"] +
+          noteBodyWithAssetPathsRemoved);
+
+      noteMap["hash"] = _hash;
 
       await notesLocalDataSource.updateNote(noteMap);
       return const Right(null);
@@ -138,8 +160,31 @@ class NotesRepository implements INotesRepository {
     }
   }
 
+  @override
+  String replaceOldAssetPathsWithNewAssetPaths(
+      String noteBody, Map<String, dynamic> assetPathMap) {
+    var noteBodyMap = jsonDecode(noteBody);
+
+    for (var noteElement in noteBodyMap) {
+      if (noteElement.containsKey("insert") &&
+          noteElement["insert"].runtimeType != String) {
+        // replace paths from assetPathMap for image and video
+        if (noteElement["insert"].containsKey("image")) {
+          noteElement["insert"]["image"] =
+              assetPathMap[p.basename(noteElement["insert"]["image"])];
+        } else if (noteElement["insert"].containsKey("video")) {
+          noteElement["insert"]["video"] =
+              assetPathMap[p.basename(noteElement["insert"]["video"])];
+        }
+      }
+    }
+
+    return jsonEncode(noteBodyMap);
+  }
+
   //* utility functions
 
+  /// Used to extract assets from note body
   List<String> _parseAssets(String noteBody) {
     var noteBodyMap = jsonDecode(noteBody);
     List<String> noteAssets = [];
@@ -155,5 +200,33 @@ class NotesRepository implements INotesRepository {
     }
 
     return noteAssets;
+  }
+
+  /// used to replace absolute paths of assets by their asset names, so that hash values
+  /// are same in all devices
+  String _replaceAssetPathsByAssetNames(String noteBody) {
+    var noteBodyMap = jsonDecode(noteBody);
+
+    for (Map<String, dynamic> noteElement in noteBodyMap) {
+      if (noteElement.containsKey("insert") &&
+          noteElement["insert"].runtimeType != String) {
+        // check for image and video types and replace their absolute paths with file names
+        if (noteElement["insert"].containsKey("image")) {
+          noteElement["insert"]["image"] =
+              p.basename(noteElement["insert"]["image"]);
+        } else if (noteElement["insert"].containsKey("video")) {
+          noteElement["insert"]["video"] =
+              p.basename(noteElement["insert"]["video"]);
+        }
+      }
+    }
+
+    return jsonEncode(noteBodyMap);
+  }
+
+  String _generateHash(String text) {
+    var bytes = utf8.encode(text);
+    var digest = sha1.convert(bytes);
+    return digest.toString();
   }
 }

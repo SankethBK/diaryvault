@@ -188,9 +188,13 @@ class GoogleOAuthClient implements IOAuthClient {
   @override
   Future<String> downloadFile(String fileName,
       {bool outputAsFile = false}) async {
+    log.i(
+        "Downloading file $fileName returning  ${outputAsFile ? "file content" : "file path"}");
     var fileId = await _getFileIdIfPresent(fileName);
     drive.Media file = await driveApi.files.get(fileId!,
         downloadOptions: drive.DownloadOptions.fullMedia) as drive.Media;
+
+    log.i("DOwnload successful");
 
     // return the content as string
     if (!outputAsFile) {

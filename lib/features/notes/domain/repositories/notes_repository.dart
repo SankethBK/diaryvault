@@ -28,4 +28,7 @@ abstract class INotesRepository {
   Future<Either<NotesFailure, List<String>>> getAllNoteIds();
 
   Future<Either<NotesFailure, List<Map<String, dynamic>>>> generateNotesIndex();
+
+  String replaceOldAssetPathsWithNewAssetPaths(
+      String noteBody, Map<String, dynamic> assetPathMap);
 }

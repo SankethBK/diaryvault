@@ -3,6 +3,7 @@ import 'dart:io' as io;
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
@@ -354,20 +355,37 @@ class OAuthRepository implements IOAuthRepository {
       // download the note body which was stored as JSON
 
       log.i("Downloading $noteId from cloud");
-      Map<String, dynamic> newNoteBody =
+      Map<String, dynamic> newNote =
           jsonDecode(await oAuthClient.downloadFile(noteId + ".json"));
 
-      // download all assets
-      for (var noteAsset in newNoteBody["asset_dependencies"]) {
-        await oAuthClient.downloadFile(
-          p.basename(noteAsset["asset_dependencies"]),
+      // download all assets and record the paths in a map
+      // new asset paths will replace old asset paths
+
+      Map<String, String> assetPathMap = {};
+
+      for (var noteAsset in newNote["asset_dependencies"]) {
+        String assetName = p.basename(noteAsset["asset_path"]);
+        assetPathMap[assetName] = await oAuthClient.downloadFile(
+          assetName,
           outputAsFile: true,
         );
       }
 
+      log.i("downloaded note assets = $assetPathMap");
+
+      String newNoteBody = notesRepository
+          .replaceOldAssetPathsWithNewAssetPaths(newNote["body"], assetPathMap);
+
+      log.d("new note body = \n $newNoteBody");
+      newNote["body"] = newNoteBody;
+
+      // note assets needs to be converted to their respective models
+      newNote["asset_dependencies"] = newNote["asset_dependencies"]
+          .map((noteAsset) => NoteAssetModel.fromJson(noteAsset))
+          .toList();
+
       // save the notes into database
-      await notesRepository.saveNote(newNoteBody,
-          dontModifyAnyParameters: true);
+      await notesRepository.saveNote(newNote, dontModifyAnyParameters: true);
 
       log.i("Downloading of note $noteId successful");
     } catch (e) {
