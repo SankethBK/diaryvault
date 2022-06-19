@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+
 import '../../domain/entities/notes.dart';
 
 class NoteModel extends Note {

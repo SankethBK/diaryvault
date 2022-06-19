@@ -7,7 +7,7 @@ import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_key_data_source_template.dart';
+import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
 import 'package:path/path.dart' as p;
 
@@ -434,9 +434,7 @@ class OAuthRepository implements IOAuthRepository {
 
   /// Chooses the appropriate OAuthClient as per user choice and initializes it
   void _initializeOAuthClient() {
-    oAuthClient = GoogleOAuthClient(
-      oAuthKeyDataSource: sl<IOAuthKeyDataSource>(),
-    );
+    oAuthClient = GoogleOAuthClient();
   }
 
   Map<String, dynamic>? _findNoteWithGivenId(

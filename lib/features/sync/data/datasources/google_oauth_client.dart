@@ -7,19 +7,16 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'temeplates/oauth_key_data_source_template.dart';
 
 final log = printer("GoogleOAuthClient");
 
 class GoogleOAuthClient implements IOAuthClient {
-  final IOAuthKeyDataSource oAuthKeyDataSource;
-
   late GoogleSignIn googleSignIn;
   late drive.DriveApi driveApi;
 
   final key = "google.auth";
 
-  GoogleOAuthClient({required this.oAuthKeyDataSource}) {
+  GoogleOAuthClient() {
     googleSignIn = GoogleSignIn.standard(scopes: [
       drive.DriveApi.driveFileScope,
     ]);
@@ -236,6 +233,38 @@ class GoogleOAuthClient implements IOAuthClient {
       log.i("$fileName updated successfully");
 
       return true;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    await googleSignIn.signOut();
+    log.i("sign out successful");
+  }
+
+  @override
+  Future<String?> getSignedInUserInfo() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signInSilently();
+
+      return googleSignInAccount?.email;
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> isSignedIn() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signInSilently();
+
+      return googleSignInAccount != null;
     } catch (e) {
       log.e(e);
       return false;

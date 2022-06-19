@@ -25,4 +25,10 @@ abstract class IOAuthClient {
 
   Future<bool> updateFile(
       {required String fileName, required String fileContent});
+
+  Future<void> signOut();
+
+  Future<bool> isSignedIn();
+
+  Future<String?> getSignedInUserInfo();
 }

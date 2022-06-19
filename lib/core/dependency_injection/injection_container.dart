@@ -18,8 +18,9 @@ import 'package:dairy_app/features/notes/domain/repositories/notes_repository.da
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
-import 'package:dairy_app/features/sync/data/datasources/oauth_data_source.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_key_data_source_template.dart';
+import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
+import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/repositories/oauth_repository.dart';
 import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
@@ -99,7 +100,10 @@ Future<void> init() async {
   //* FEATURE: sync
 
   //* Data sources
-  sl.registerSingleton<IOAuthKeyDataSource>(await OAuthKeyDataSource.create());
+  sl.registerSingleton<IKeyValueDataSource>(await KeyValueDataSource.create());
+
+  sl.registerSingleton<GoogleOAuthClient>(
+      GoogleOAuthClient(oAuthKeyDataSource: sl()));
 
   //* Repository
   sl.registerSingleton<IOAuthRepository>(

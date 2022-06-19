@@ -13,6 +13,10 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
   NoteSyncCubit({required this.oAuthRepository}) : super(NoteSyncInitial());
 
   void startNoteSync() async {
+    // Don't start a new sync, if it is already going on
+    if (state is NoteSyncOnGoing) {
+      return;
+    }
     emit(NoteSyncOnGoing());
 
     // Initialize notes sync repository

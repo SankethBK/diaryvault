@@ -49,7 +49,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    print("view padding = ${MediaQuery.of(context).viewInsets.bottom}");
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,

@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-final log = printer("NotesLocalDataSource");
+final log = printer("SQLTableSetup");
 
 class DBProvider {
   DBProvider._();
@@ -59,6 +59,8 @@ class DBProvider {
               ${NoteDependencies.ASSET_PATH} TEXT
             )
             """);
+
+          log.i("All create queries executed successfully");
         } catch (e) {
           log.e(e);
           rethrow;

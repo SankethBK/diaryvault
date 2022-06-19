@@ -63,7 +63,7 @@ class NotesRepository implements INotesRepository {
             _replaceAssetPathsByAssetNames(noteMap["body"]);
 
         var _hash = _generateHash(noteMap["title"] +
-            noteMap["created_at"] +
+            noteMap["created_at"].toString() +
             noteBodyWithAssetPathsRemoved);
 
         noteMap["hash"] = _hash;
