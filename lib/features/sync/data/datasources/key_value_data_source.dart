@@ -1,27 +1,27 @@
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'temeplates/oauth_key_data_source_template.dart';
+import 'temeplates/key_value_data_source_template.dart';
 
-final log = printer("OAuthKeyDataSource");
+final log = printer("KeyValueDataSource");
 
-class OAuthKeyDataSource implements IOAuthKeyDataSource {
+class KeyValueDataSource implements IKeyValueDataSource {
   static late SharedPreferences prefs;
 
-  OAuthKeyDataSource._();
+  KeyValueDataSource._();
 
   static create() async {
     prefs = await SharedPreferences.getInstance();
-    return OAuthKeyDataSource._();
+    return KeyValueDataSource._();
   }
 
   @override
-  Future<String?> getOAuthKey(String key) async {
+  String? getValue(String key) {
     log.i("searching for key $key");
     return prefs.getString(key);
   }
 
   @override
-  Future<void> setOAuthKey(String key, String value) async {
+  Future<void> setValue(String key, String value) async {
     log.i("setting the value $value for $key");
     await prefs.setString(key, value);
   }
