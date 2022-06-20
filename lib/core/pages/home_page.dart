@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   bool _isInitialized = false;
   late final NotesFetchCubit notesFetchCubit;
   late final SelectableListCubit selectableListCubit;
-  bool isSearchEnabled = false;
 
   @override
   void initState() {
@@ -41,28 +40,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void openSearchAppBar() {
-    setState(() {
-      isSearchEnabled = true;
-    });
-  }
-
-  void closeSearchAppBar() {
-    setState(() {
-      isSearchEnabled = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      appBar: HomePageAppBar(
-        isSearchEnabled: isSearchEnabled,
-        openSearchAppBar: openSearchAppBar,
-        closeSearchAppBar: closeSearchAppBar,
-      ),
+      appBar: HomePageAppBar(),
       body: Container(
         decoration: const BoxDecoration(
           // color: Colors.black,

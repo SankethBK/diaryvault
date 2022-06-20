@@ -10,20 +10,32 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final bool isSearchEnabled;
-  final Function() openSearchAppBar;
-  final Function() closeSearchAppBar;
+class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const HomePageAppBar({
+    Key? key,
+  }) : super(key: key);
 
-  const HomePageAppBar(
-      {Key? key,
-      required this.isSearchEnabled,
-      required this.openSearchAppBar,
-      required this.closeSearchAppBar})
-      : super(key: key);
+  @override
+  State<HomePageAppBar> createState() => _HomePageAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _HomePageAppBarState extends State<HomePageAppBar> {
+  bool isSearchEnabled = false;
+
+  void openSearchAppBar() {
+    setState(() {
+      isSearchEnabled = true;
+    });
+  }
+
+  void closeSearchAppBar() {
+    setState(() {
+      isSearchEnabled = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +82,9 @@ class LeadingIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 3000),
-      child: BlocBuilder<SelectableListCubit, SelectableListState>(
-        builder: (context, state) {
+    return BlocBuilder<SelectableListCubit, SelectableListState>(
+      builder: (context, state) {
+        Widget getSuitableWidget() {
           if (isSearchEnabled) {
             return Icon(
               Icons.search,
@@ -92,8 +103,13 @@ class LeadingIcon extends StatelessWidget {
               },
             );
           }
-        },
-      ),
+        }
+
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: getSuitableWidget(),
+        );
+      },
     );
   }
 }
@@ -118,9 +134,11 @@ class Action extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
     return BlocBuilder<SelectableListCubit, SelectableListState>(
-      builder: (context, state) {
+        builder: (context, state) {
+      Widget getSuitableWidget() {
         if (isSearchEnabled) {
           return Padding(
+            key: const ValueKey("close icon"),
             padding: const EdgeInsets.only(right: 13.0),
             child: IconButton(
               icon: const Icon(Icons.close),
@@ -142,6 +160,7 @@ class Action extends StatelessWidget {
           );
         } else {
           return Padding(
+            key: const ValueKey("search icon"),
             padding: const EdgeInsets.only(right: 13.0),
             child: IconButton(
               icon: const Icon(Icons.search),
@@ -149,8 +168,13 @@ class Action extends StatelessWidget {
             ),
           );
         }
-      },
-    );
+      }
+
+      return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: getSuitableWidget(),
+      );
+    });
   }
 }
 
@@ -166,19 +190,27 @@ class Title extends StatelessWidget {
   Widget build(BuildContext context) {
     final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
 
-    return isSearchEnabled
-        ? TextField(
-            autofocus: true,
-            style: TextStyle(color: Colors.white.withOpacity(0.8)),
-            decoration: InputDecoration(
-              hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-              border: InputBorder.none,
-            ),
-            onChanged: (String value) {
-              notesFetchCubit.fetchNotes(searchText: value);
-            },
-          )
-        : const SizedBox();
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      child: isSearchEnabled
+          ? TextField(
+              autofocus: true,
+              style: TextStyle(color: Colors.white.withOpacity(0.8)),
+              decoration: InputDecoration(
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
+                  border: InputBorder.none,
+                  suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.calendar_month,
+                        color: Colors.white,
+                      ))),
+              onChanged: (String value) {
+                notesFetchCubit.fetchNotes(searchText: value);
+              },
+            )
+          : const SizedBox(),
+    );
   }
 }
 
