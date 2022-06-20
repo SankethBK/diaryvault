@@ -10,15 +10,16 @@ class UserConfigModel extends Equatable {
   final DateTime? lastDropboxSync;
   final String? googleDriveUserInfo;
   final String? dropBoxUserInfo;
+  final bool? isAutoSyncEnabled;
 
-  const UserConfigModel({
-    required this.userId,
-    this.preferredSyncOption,
-    this.lastGoogleDriveSync,
-    this.lastDropboxSync,
-    this.googleDriveUserInfo,
-    this.dropBoxUserInfo,
-  });
+  const UserConfigModel(
+      {required this.userId,
+      this.preferredSyncOption,
+      this.lastGoogleDriveSync,
+      this.lastDropboxSync,
+      this.googleDriveUserInfo,
+      this.dropBoxUserInfo,
+      this.isAutoSyncEnabled});
 
   @override
   List<Object?> get props => [
@@ -27,28 +28,40 @@ class UserConfigModel extends Equatable {
         lastGoogleDriveSync,
         lastDropboxSync,
         googleDriveUserInfo,
-        dropBoxUserInfo
+        dropBoxUserInfo,
+        isAutoSyncEnabled
       ];
 
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
     return UserConfigModel(
-      userId: jsonMap[UserConfidConstants.userId],
-      preferredSyncOption: jsonMap[UserConfidConstants.preferredSyncOption],
-      lastGoogleDriveSync: jsonMap[UserConfidConstants.lastGoogleDriveSync],
-      lastDropboxSync: jsonMap[UserConfidConstants.lastDropboxSync],
-      googleDriveUserInfo: jsonMap[UserConfidConstants.googleDriveUserInfo],
-      dropBoxUserInfo: jsonMap[UserConfidConstants.dropBoxUserInfo],
+      userId: jsonMap[UserConfigConstants.userId],
+      preferredSyncOption: jsonMap[UserConfigConstants.preferredSyncOption],
+      lastGoogleDriveSync:
+          jsonMap[UserConfigConstants.lastGoogleDriveSync] != null
+              ? DateTime.fromMillisecondsSinceEpoch(
+                  jsonMap[UserConfigConstants.lastGoogleDriveSync])
+              : null,
+      lastDropboxSync: jsonMap[UserConfigConstants.lastDropboxSync] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              jsonMap[UserConfigConstants.lastDropboxSync])
+          : null,
+      googleDriveUserInfo: jsonMap[UserConfigConstants.googleDriveUserInfo],
+      dropBoxUserInfo: jsonMap[UserConfigConstants.dropBoxUserInfo],
+      isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      UserConfidConstants.userId: userId,
-      UserConfidConstants.preferredSyncOption: preferredSyncOption,
-      UserConfidConstants.lastGoogleDriveSync: lastGoogleDriveSync,
-      UserConfidConstants.lastDropboxSync: lastDropboxSync,
-      UserConfidConstants.googleDriveUserInfo: googleDriveUserInfo,
-      UserConfidConstants.dropBoxUserInfo: dropBoxUserInfo,
+      UserConfigConstants.userId: userId,
+      UserConfigConstants.preferredSyncOption: preferredSyncOption,
+      UserConfigConstants.lastGoogleDriveSync:
+          lastGoogleDriveSync?.millisecondsSinceEpoch,
+      UserConfigConstants.lastDropboxSync:
+          lastDropboxSync?.millisecondsSinceEpoch,
+      UserConfigConstants.googleDriveUserInfo: googleDriveUserInfo,
+      UserConfigConstants.dropBoxUserInfo: dropBoxUserInfo,
+      UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
     };
   }
 }

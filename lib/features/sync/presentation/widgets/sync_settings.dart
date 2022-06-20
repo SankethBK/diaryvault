@@ -1,8 +1,12 @@
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/cloud_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SyncSettings extends StatelessWidget {
   const SyncSettings({Key? key}) : super(key: key);
@@ -24,14 +28,28 @@ class SyncSettings extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SwitchListTile(
-            activeColor: Colors.pinkAccent,
-            contentPadding: const EdgeInsets.all(0),
-            title: const Text("Auto sync"),
-            subtitle: const Text(
-                "Automatically donwloads and uploads data from cloud"),
-            value: true,
-            onChanged: (_) {},
+          BlocBuilder<UserConfigCubit, UserConfigState>(
+            builder: (context, state) {
+              final hasChoosenCloudSource =
+                  state.userConfigModel?.preferredSyncOption != null;
+              return SwitchListTile(
+                activeColor: Colors.pinkAccent,
+                contentPadding: const EdgeInsets.all(0),
+                title: const Text("Auto sync"),
+                subtitle: const Text(
+                    "Automatically donwloads and uploads data from cloud"),
+                value: hasChoosenCloudSource &&
+                    state.userConfigModel?.isAutoSyncEnabled == true,
+                onChanged: hasChoosenCloudSource
+                    ? (bool val) {
+                        final userConfigCubit =
+                            BlocProvider.of<UserConfigCubit>(context);
+                        userConfigCubit.setUserConfig(
+                            UserConfigConstants.isAutoSyncEnabled, val);
+                      }
+                    : null,
+              );
+            },
           ),
           const SizedBox(height: 10),
           Row(

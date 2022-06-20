@@ -49,8 +49,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           emit(const NoteFetchFailed(id: ""));
         },
         (note) {
-          print("fethced note");
-          print("note assets = ${note.assetDependencies}");
           final _doc = Document.fromJson(jsonDecode(note.body));
           QuillController _controller = QuillController(
             document: _doc,

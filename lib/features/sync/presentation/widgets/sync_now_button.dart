@@ -13,7 +13,6 @@ class SyncNowButton extends StatefulWidget {
 class _SyncNowButtonState extends State<SyncNowButton>
     with TickerProviderStateMixin {
   late AnimationController _rotationAnimationController;
-  late AnimationController _scaleAnimationController;
 
   @override
   void initState() {
@@ -22,10 +21,6 @@ class _SyncNowButtonState extends State<SyncNowButton>
       vsync: this,
     );
 
-    _scaleAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 3000),
-      vsync: this,
-    );
     super.initState();
   }
 
@@ -64,7 +59,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.1),
               border: Border.all(
-                color: Colors.pink.withOpacity(0.6),
+                color: Colors.pinkAccent,
               ),
               borderRadius: BorderRadius.circular(5.0),
             ),
@@ -76,7 +71,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
                       .animate(_rotationAnimationController),
                   child: const Icon(
                     Icons.sync,
-                    color: Colors.pink,
+                    color: Colors.pinkAccent,
                   ),
                 ),
                 (state is NoteSyncOnGoing)

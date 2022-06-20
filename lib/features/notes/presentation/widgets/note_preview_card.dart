@@ -139,7 +139,7 @@ class TitleAndDescription extends StatelessWidget {
             Text(
               note.title,
               style:
-                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+                  const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

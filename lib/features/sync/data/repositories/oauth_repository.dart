@@ -3,6 +3,7 @@ import 'dart:io' as io;
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
@@ -279,6 +280,7 @@ class OAuthRepository implements IOAuthRepository {
 
       log.i("global notes index at end = \n $globalNotesIndexCopy");
 
+      await oAuthClient.updateLastSynced();
       return true;
     } catch (e) {
       log.e(e);
@@ -434,7 +436,7 @@ class OAuthRepository implements IOAuthRepository {
 
   /// Chooses the appropriate OAuthClient as per user choice and initializes it
   void _initializeOAuthClient() {
-    oAuthClient = GoogleOAuthClient();
+    oAuthClient = GoogleOAuthClient(userConfigCubit: sl<UserConfigCubit>());
   }
 
   Map<String, dynamic>? _findNoteWithGivenId(

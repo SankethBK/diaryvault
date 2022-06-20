@@ -124,7 +124,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                       children: [
                         Text(notesBloc.state.title!,
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20.0)),
+                                fontWeight: FontWeight.w500, fontSize: 20.0)),
                         const SizedBox(
                           height: 10,
                         ),

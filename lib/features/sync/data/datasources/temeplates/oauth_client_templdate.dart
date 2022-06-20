@@ -31,4 +31,6 @@ abstract class IOAuthClient {
   Future<bool> isSignedIn();
 
   Future<String?> getSignedInUserInfo();
+
+  Future<void> updateLastSynced();
 }

@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:http/http.dart' as http;
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,9 +17,8 @@ class GoogleOAuthClient implements IOAuthClient {
   late GoogleSignIn googleSignIn;
   late drive.DriveApi driveApi;
 
-  final key = "google.auth";
-
-  GoogleOAuthClient() {
+  final UserConfigCubit userConfigCubit;
+  GoogleOAuthClient({required this.userConfigCubit}) {
     googleSignIn = GoogleSignIn.standard(scopes: [
       drive.DriveApi.driveFileScope,
     ]);
@@ -28,7 +30,7 @@ class GoogleOAuthClient implements IOAuthClient {
       Map<String, String> headers;
 
       // try to login silently, it will be successful if we already have the permission
-      final GoogleSignInAccount? googleSignInAccount =
+      GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signInSilently();
 
       if (googleSignInAccount != null) {
@@ -37,14 +39,17 @@ class GoogleOAuthClient implements IOAuthClient {
       } else {
         log.i("prompting new google sign in");
 
-        final googleUser = await googleSignIn.signIn();
-        if (googleUser != null) {
+        googleSignInAccount = await googleSignIn.signIn();
+        if (googleSignInAccount != null) {
           log.i("prompted login successful");
-          headers = await googleUser.authHeaders;
+          headers = await googleSignInAccount.authHeaders;
         } else {
           return false;
         }
       }
+
+      userConfigCubit.setUserConfig(
+          UserConfigConstants.googleDriveUserInfo, googleSignInAccount.email);
 
       final client = GoogleAuthHTTPClient(headers);
       driveApi = drive.DriveApi(client);
@@ -242,6 +247,8 @@ class GoogleOAuthClient implements IOAuthClient {
   @override
   Future<void> signOut() async {
     await googleSignIn.signOut();
+    userConfigCubit.setUserConfig(
+        UserConfigConstants.googleDriveUserInfo, null);
     log.i("sign out successful");
   }
 
@@ -268,6 +275,18 @@ class GoogleOAuthClient implements IOAuthClient {
     } catch (e) {
       log.e(e);
       return false;
+    }
+  }
+
+  @override
+  Future<void> updateLastSynced() async {
+    log.i("Updating last sync time");
+    try {
+      userConfigCubit.setUserConfig(UserConfigConstants.lastGoogleDriveSync,
+          DateTime.now().millisecondsSinceEpoch);
+    } catch (e) {
+      log.e(e);
+      rethrow;
     }
   }
 

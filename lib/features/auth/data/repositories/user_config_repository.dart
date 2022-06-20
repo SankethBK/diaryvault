@@ -4,7 +4,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 
-final log = printer("KeyValueDataSource");
+final log = printer("UserConfigRepository");
 
 /// deals with storing and retrieiving values for UserCOnfig model
 class UserConfigRepository {
@@ -33,7 +33,7 @@ class UserConfigRepository {
 
   /// Set the key-value pair for particular user
   Future<UserConfigModel> setValue(
-      String userId, String key, String value) async {
+      String userId, String key, dynamic value) async {
     await setDefaultIdNotPresent(userId);
 
     var userConfigMap = jsonDecode(keyValueDataSource.getValue(userId)!);

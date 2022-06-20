@@ -6,11 +6,13 @@ import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
+import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart';
@@ -31,6 +33,9 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //* --- core ---
+
+  //* data sources
+  sl.registerSingleton<IKeyValueDataSource>(await KeyValueDataSource.create());
 
   //* network
   final InternetConnectionChecker connectionChecker =
@@ -54,6 +59,8 @@ Future<void> init() async {
     localDataSource: sl(),
     networkInfo: sl(),
   ));
+  sl.registerSingleton<UserConfigRepository>(
+      UserConfigRepository(keyValueDataSource: sl()));
 
   //* Blocs
   sl.registerSingleton<AuthSessionBloc>(AuthSessionBloc());
@@ -64,6 +71,8 @@ Future<void> init() async {
       signInWithEmailAndPassword: sl(),
     ),
   );
+  sl.registerSingleton<UserConfigCubit>(
+      UserConfigCubit(userConfigRepository: sl(), authSessionBloc: sl()));
 
   //* Usecases
   sl.registerLazySingleton<SignUpWithEmailAndPassword>(
@@ -100,10 +109,8 @@ Future<void> init() async {
   //* FEATURE: sync
 
   //* Data sources
-  sl.registerSingleton<IKeyValueDataSource>(await KeyValueDataSource.create());
-
   sl.registerSingleton<GoogleOAuthClient>(
-      GoogleOAuthClient(oAuthKeyDataSource: sl()));
+      GoogleOAuthClient(userConfigCubit: sl()));
 
   //* Repository
   sl.registerSingleton<IOAuthRepository>(

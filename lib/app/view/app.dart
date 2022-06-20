@@ -2,6 +2,7 @@ import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<NoteSyncCubit>(
           create: (context) => sl<NoteSyncCubit>(),
+        ),
+        BlocProvider<UserConfigCubit>(
+          create: (context) => sl<UserConfigCubit>(),
         )
       ],
       child: AppView(),
@@ -54,12 +58,14 @@ class AppView extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-              Color.fromARGB(255, 164, 30, 217).withOpacity(0.5),
+              Colors.pinkAccent.withOpacity(0.5),
             ),
           ),
         ),
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
-            .copyWith(secondary: Colors.pinkAccent),
+        colorScheme:
+            ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+          secondary: Colors.pinkAccent,
+        ),
       ),
       builder: (BuildContext context, child) {
         final log = printer("App");
@@ -80,7 +86,7 @@ class AppView extends StatelessWidget {
           child: child,
         );
       },
-      initialRoute: HomePage.route,
+      initialRoute: AuthPage.route,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
