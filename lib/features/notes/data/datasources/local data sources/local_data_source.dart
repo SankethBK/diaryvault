@@ -245,6 +245,33 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     }).toList();
   }
 
+  @override
+  Future<List<NotePreviewModel>> searchNotes(
+      {String? searchText, DateTime? startDate, DateTime? endDate}) async {
+    log.i("Searching for notes");
+    List<Map<String, Object?>> result;
+    try {
+      String searchQuery = "";
+
+      searchQuery +=
+          "${Notes.TITLE} LIKE '%${searchText ?? ''}%' OR ${Notes.PLAIN_TEXT} LIKE '%${searchText ?? ''}%'";
+
+      log.i("searchquery = $searchQuery");
+
+      result = await database.query(
+        Notes.TABLE_NAME,
+        columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
+        where: "${Notes.DELETED} != 1 AND ($searchQuery)",
+        orderBy: "${Notes.CREATED_AT} DESC",
+      );
+    } catch (e) {
+      log.e("Local database query for searching notes failed $e");
+      throw const DatabaseQueryException();
+    }
+
+    return result.map((noteMap) => NotePreviewModel.fromJson(noteMap)).toList();
+  }
+
   //* Utils
 
   /// Generate a modifiable result set

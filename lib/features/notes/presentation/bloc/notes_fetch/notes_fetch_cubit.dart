@@ -38,10 +38,15 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
     });
   }
 
-  void fetchNotes() async {
+  void fetchNotes(
+      {String? searchText, DateTime? startDate, DateTime? endDate}) async {
     emit(const NotesFetchLoadingState());
 
-    var result = await notesRepository.fetchNotesPreview();
+    var result = await notesRepository.fetchNotesPreview(
+      searchText: searchText,
+      startDate: startDate,
+      endDate: endDate,
+    );
     result.fold((error) {
       emit(const NotesFetchFailed());
     }, (data) {

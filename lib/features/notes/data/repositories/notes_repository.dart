@@ -112,8 +112,17 @@ class NotesRepository implements INotesRepository {
   }
 
   @override
-  Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview() async {
+  Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview(
+      {String? searchText, DateTime? startDate, DateTime? endDate}) async {
     try {
+      if (searchText != null || startDate != null || endDate != null) {
+        var notesList = await notesLocalDataSource.searchNotes(
+          searchText: searchText,
+          startDate: startDate,
+          endDate: endDate,
+        );
+        return Right(notesList);
+      }
       var notesList = await notesLocalDataSource.fetchNotesPreview();
       return Right(notesList);
     } catch (e) {
