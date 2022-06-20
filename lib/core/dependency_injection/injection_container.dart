@@ -6,11 +6,13 @@ import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
+import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart';
@@ -18,6 +20,12 @@ import 'package:dairy_app/features/notes/domain/repositories/notes_repository.da
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
+import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
+import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
+import 'package:dairy_app/features/sync/data/repositories/oauth_repository.dart';
+import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
+import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -25,6 +33,9 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //* --- core ---
+
+  //* data sources
+  sl.registerSingleton<IKeyValueDataSource>(await KeyValueDataSource.create());
 
   //* network
   final InternetConnectionChecker connectionChecker =
@@ -48,6 +59,8 @@ Future<void> init() async {
     localDataSource: sl(),
     networkInfo: sl(),
   ));
+  sl.registerSingleton<UserConfigRepository>(
+      UserConfigRepository(keyValueDataSource: sl()));
 
   //* Blocs
   sl.registerSingleton<AuthSessionBloc>(AuthSessionBloc());
@@ -58,6 +71,8 @@ Future<void> init() async {
       signInWithEmailAndPassword: sl(),
     ),
   );
+  sl.registerSingleton<UserConfigCubit>(
+      UserConfigCubit(userConfigRepository: sl(), authSessionBloc: sl()));
 
   //* Usecases
   sl.registerLazySingleton<SignUpWithEmailAndPassword>(
@@ -87,7 +102,20 @@ Future<void> init() async {
 
   //* Blocs
   sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));
-  sl.registerLazySingleton(
-      () => NotesFetchCubit(notesRepository: sl(), notesBloc: sl()));
+  sl.registerLazySingleton(() => NotesFetchCubit(
+      notesRepository: sl(), notesBloc: sl(), noteSyncCubit: sl()));
   sl.registerLazySingleton(() => SelectableListCubit());
+
+  //* FEATURE: sync
+
+  //* Data sources
+  sl.registerSingleton<GoogleOAuthClient>(
+      GoogleOAuthClient(userConfigCubit: sl()));
+
+  //* Repository
+  sl.registerSingleton<IOAuthRepository>(
+      OAuthRepository(notesRepository: sl()));
+
+  //* Cubit
+  sl.registerLazySingleton(() => NoteSyncCubit(oAuthRepository: sl()));
 }

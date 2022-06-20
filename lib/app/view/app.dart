@@ -2,10 +2,12 @@ import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
+import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +27,12 @@ class App extends StatelessWidget {
         ),
         BlocProvider<SelectableListCubit>(
           create: (context) => sl<SelectableListCubit>(),
+        ),
+        BlocProvider<NoteSyncCubit>(
+          create: (context) => sl<NoteSyncCubit>(),
+        ),
+        BlocProvider<UserConfigCubit>(
+          create: (context) => sl<UserConfigCubit>(),
         )
       ],
       child: AppView(),
@@ -50,12 +58,14 @@ class AppView extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-              Color.fromARGB(255, 164, 30, 217).withOpacity(0.5),
+              Colors.pinkAccent.withOpacity(0.5),
             ),
           ),
         ),
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
-            .copyWith(secondary: Colors.pinkAccent),
+        colorScheme:
+            ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+          secondary: Colors.pinkAccent,
+        ),
       ),
       builder: (BuildContext context, child) {
         final log = printer("App");
@@ -76,7 +86,7 @@ class AppView extends StatelessWidget {
           child: child,
         );
       },
-      initialRoute: HomePage.route,
+      initialRoute: AuthPage.route,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

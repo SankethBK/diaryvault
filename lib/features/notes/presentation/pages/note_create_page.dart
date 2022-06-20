@@ -1,3 +1,4 @@
+import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -85,11 +86,11 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
           bloc: notesBloc,
           listener: (context, state) {
             if (state is NoteFetchFailed) {
-              _showToast("feiled to fetch note");
+              showToast("feiled to fetch note");
             } else if (state is NotesSavingFailed) {
-              _showToast("Failed to save note");
+              showToast("Failed to save note");
             } else if (state is NoteSavedSuccesfully) {
-              _showToast(state.newNote!
+              showToast(state.newNote!
                   ? "Note saved successfully"
                   : "Note updated successfully");
               _routeToHome();
@@ -142,16 +143,5 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   void _routeToHome() {
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
-  }
-
-  void _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.pinkAccent,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 }

@@ -29,8 +29,14 @@ abstract class INotesLocalDataSource {
   /// Deletes the note from id
   ///
   /// Throws [DatabaseDeleteException] if something goes wrong
-  Future<void> deleteNote(String id);
+  Future<void> deleteNote(String id, {bool hardDeletion = false});
 
   /// Deletes the file with given filePath
   Future<void> deleteFile(String filePath);
+
+  /// Returns all note ID's
+  Future<List<String>> getAllNoteIds();
+
+  /// Generates notes index for all notes, used for syncing to cloud
+  Future<List<Map<String, dynamic>>> getNotesIndex();
 }

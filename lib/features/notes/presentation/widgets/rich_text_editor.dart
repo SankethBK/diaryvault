@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +15,7 @@ import 'package:tuple/tuple.dart';
 
 class RichTextEditor extends StatelessWidget {
   final FocusNode _focusNode = FocusNode();
-  QuillController? controller;
+  final QuillController? controller;
 
   RichTextEditor({Key? key, required this.controller}) : super(key: key);
 
@@ -128,7 +127,7 @@ class Toolbar extends StatelessWidget {
 
     // store the note assets under the folder of its id
     final copiedFile =
-        await file.copy('${appDocDir.path}/$noteId/${basename(file.path)}');
+        await file.copy('${appDocDir.path}/${basename(file.path)}');
 
     var filepath = copiedFile.path.toString();
 

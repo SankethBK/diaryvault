@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/databases/db_schemas.dart';
@@ -6,7 +5,6 @@ import 'package:dairy_app/core/databases/sqflite_setup.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../core/logger/logger.dart';
@@ -16,7 +14,7 @@ final log = printer("NotesLocalDataSource");
 class NotesLocalDataSource implements INotesLocalDataSource {
   static late Database database;
 
-  NotesLocalDataSource._() {}
+  NotesLocalDataSource._();
 
   static create() async {
     database = await DBProvider.instance.database;
@@ -46,6 +44,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     log.i("note ${noteMap["id"]} inserted into db");
 
     // insert notte dependecies
+    log.i("saving asset dependencies = $assetDependencies");
+
     for (NoteAssetModel asset in assetDependencies) {
       try {
         var res =
@@ -98,7 +98,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<void> deleteNote(String id) async {
+  Future<void> deleteNote(String id, {bool hardDeletion = false}) async {
     List<Map<String, Object?>> files;
 
     // First delete all files
@@ -137,27 +137,39 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       throw const DatabaseDeleteException();
     }
 
-    // update table by setting all fields of note to null, except id, last modified
-    // TODO: sending flutter datetime objectes to sql might be wrong, look into it
-    count = await database.update(
-        Notes.TABLE_NAME,
-        {
-          "title": null,
-          "body": null,
-          "plain_text": null,
-          "created_at": null,
-          "hash": null,
-          "last_modified": DateTime.now().millisecondsSinceEpoch,
-          "deleted": 1,
-        },
-        where: "${Notes.ID} = ?",
-        whereArgs: [id]);
+    // hard delete the note
+    if (hardDeletion == true) {
+      count = await database
+          .delete(Notes.TABLE_NAME, where: "${Notes.ID} = ?", whereArgs: [id]);
+      if (count != 1) {
+        log.e("notes (hard) deletion unsuccessful for note id: $id");
+        throw const DatabaseDeleteException();
+      }
 
-    if (count != 1) {
-      log.e("notes deletion unsuccessful for note id: $id");
-      throw const DatabaseDeleteException();
+      log.i("notes (hard) deletion successful for note id: $id");
+    } else {
+      // update table by setting all fields of note to null, except id, last modified
+      count = await database.update(
+          Notes.TABLE_NAME,
+          {
+            "title": null,
+            "body": null,
+            "plain_text": null,
+            "created_at": null,
+            "hash": null,
+            "last_modified": DateTime.now().millisecondsSinceEpoch,
+            "deleted": 1,
+          },
+          where: "${Notes.ID} = ?",
+          whereArgs: [id]);
+
+      if (count != 1) {
+        log.e("notes (soft) deletion unsuccessful for note id: $id");
+        throw const DatabaseDeleteException();
+      }
+
+      log.i("notes (soft) deletion successful for note id: $id");
     }
-    log.i("deletion successful for note id: $id");
   }
 
   @override
@@ -175,6 +187,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     var _assetDependencies = await database.query(NoteDependencies.TABLE_NAME,
         where: "${NoteDependencies.NOTE_ID} = ?", whereArgs: [id]);
 
+    log.i("Retrieved asset depencies = $_assetDependencies");
+
     var finalNote = makeModifiableResults(result).map((note) {
       return {"asset_dependencies": _assetDependencies, ...note};
     }).toList()[0];
@@ -185,7 +199,6 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   @override
   Future<void> updateNote(Map<String, dynamic> noteMap) async {
     // store the asset dependencies to update later
-    var assetDependencies = noteMap["asset_dependencies"];
     noteMap.remove("asset_dependencies");
 
     // store id
@@ -210,6 +223,29 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     await file.delete();
     log.i("file $filePath deleted successfully");
   }
+
+  @override
+  Future<List<String>> getAllNoteIds() async {
+    var result = await database.query(Notes.TABLE_NAME,
+        columns: [Notes.ID],
+        where: "${Notes.DELETED} != 1",
+        orderBy: "${Notes.CREATED_AT} DESC");
+
+    return result.map((noteMap) => noteMap["id"] as String).toList();
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getNotesIndex() async {
+    var allNotesIndex = await database.query(Notes.TABLE_NAME,
+        columns: [Notes.ID, Notes.LAST_MODIFIED, Notes.HASH, Notes.DELETED],
+        orderBy: "${Notes.CREATED_AT} DESC");
+
+    return makeModifiableResults(allNotesIndex).map((note) {
+      return note;
+    }).toList();
+  }
+
+  //* Utils
 
   /// Generate a modifiable result set
   List<Map<String, dynamic>> makeModifiableResults(

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+
 import '../../domain/entities/notes.dart';
 
 class NoteModel extends Note {
@@ -53,7 +55,7 @@ class NoteModel extends Note {
       "hash": hash,
       "last_modified": lastModified.millisecondsSinceEpoch,
       "plain_text": plainText,
-      "delelted": deleted,
+      "deleted": deleted ? 1 : 0,
       "asset_dependencies":
           assetDependencies.map((noteAsset) => noteAsset.toJson()).toList(),
     };

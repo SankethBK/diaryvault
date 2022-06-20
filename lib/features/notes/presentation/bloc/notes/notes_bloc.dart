@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dairy_app/features/notes/core/failures/failure.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:uuid/uuid.dart';
-import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
 part 'notes_event.dart';
@@ -51,8 +49,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           emit(const NoteFetchFailed(id: ""));
         },
         (note) {
-          print("fethced note");
-          print("note assets = ${note.assetDependencies}");
           final _doc = Document.fromJson(jsonDecode(note.body));
           QuillController _controller = QuillController(
             document: _doc,
@@ -102,18 +98,14 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
-      print(_body);
-      var _plainText = state.controller!.document.toPlainText();
 
-      var _hash =
-          _generateHash(state.title! + state.createdAt.toString() + _body);
+      var _plainText = state.controller!.document.toPlainText();
 
       var noteMap = {
         "id": state.id,
         "created_at": state.createdAt!.millisecondsSinceEpoch,
         "title": state.title!,
         "body": _body,
-        "hash": _hash,
         "last_modified": DateTime.now().millisecondsSinceEpoch,
         "plain_text": _plainText,
         "asset_dependencies": state.allNoteAssets,
@@ -171,11 +163,5 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   String _generateUniqueId() {
     var uuid = const Uuid();
     return uuid.v1();
-  }
-
-  String _generateHash(String text) {
-    var bytes = utf8.encode(text);
-    var digest = sha1.convert(bytes);
-    return digest.toString();
   }
 }

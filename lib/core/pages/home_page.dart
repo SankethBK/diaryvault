@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
+import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -10,6 +12,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fet
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
+import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,6 +65,7 @@ class _HomePageState extends State<HomePage> {
                   "assets/images/digital-art-neon-bubbles.jpg",
                 ),
                 fit: BoxFit.cover,
+                alignment: Alignment(0.725, 0.1),
                 // alignment: Alignment(0.725, 0.1)
               ),
             ),
@@ -139,13 +143,34 @@ class _HomePageState extends State<HomePage> {
       automaticallyImplyLeading: false,
       leading: IconButton(
         icon: Icon(Icons.settings),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(SettingsPage.route);
+        },
       ),
       actions: [
         const Padding(
           padding: EdgeInsets.only(right: 13.0),
           child: Icon(Icons.search),
         ),
+        BlocListener<NoteSyncCubit, NoteSyncState>(
+          listener: (context, state) {
+            if (state is NoteSyncSuccessful) {
+              showToast("notes sync successful");
+            } else if (state is NoteSyncFailed) {
+              showToast("notes sync failed");
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 13.0),
+            child: IconButton(
+              icon: Icon(Icons.sync),
+              onPressed: () {
+                final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
+                noteSyncCubit.startNoteSync();
+              },
+            ),
+          ),
+        )
       ],
     );
   }
@@ -256,20 +281,36 @@ class DeleteIcon extends StatelessWidget {
             return;
           }
 
-          bool? result = await showDialog<bool?>(
+          bool? result = await showCustomDialog(
               context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text(
-                      "You are about to delete $deletionCount  item${deletionCount > 1 ? "s" : ""}"),
-                  actions: [
-                    _CancelButton(),
-                    _DeleteButton(
-                      deleteCount: deletionCount,
-                    ),
-                  ],
-                );
-              });
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                height: 110,
+                width: 350,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "You are about to delete $deletionCount  item${deletionCount > 1 ? "s" : ""}",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          _CancelButton(),
+                          const SizedBox(width: 10),
+                          _DeleteButton(
+                            deleteCount: deletionCount,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ));
+
           disableSelectedList();
 
           if (result != null) {
