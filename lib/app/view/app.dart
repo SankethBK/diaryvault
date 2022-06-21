@@ -6,9 +6,9 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +24,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<NotesBloc>(
           create: (context) => sl<NotesBloc>(),
+        ),
+        BlocProvider<NotesFetchCubit>(
+          create: (context) => sl<NotesFetchCubit>(),
         ),
         BlocProvider<SelectableListCubit>(
           create: (context) => sl<SelectableListCubit>(),
@@ -63,7 +66,7 @@ class AppView extends StatelessWidget {
           ),
         ),
         colorScheme:
-            ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+            ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
           secondary: Colors.pinkAccent,
         ),
       ),
@@ -86,7 +89,7 @@ class AppView extends StatelessWidget {
           child: child,
         );
       },
-      initialRoute: AuthPage.route,
+      initialRoute: HomePage.route,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:http/http.dart' as http;
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';

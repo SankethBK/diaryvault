@@ -39,4 +39,8 @@ abstract class INotesLocalDataSource {
 
   /// Generates notes index for all notes, used for syncing to cloud
   Future<List<Map<String, dynamic>>> getNotesIndex();
+
+  /// Search notes based on searchText, startDate and endDate
+  Future<List<NotePreviewModel>> searchNotes(
+      {String? searchText, DateTime? startDate, DateTime? endDate});
 }

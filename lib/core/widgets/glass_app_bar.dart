@@ -5,14 +5,14 @@ import 'glassmorphism_cover.dart';
 class GlassAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool automaticallyImplyLeading;
   final List<Widget> actions;
-  final Widget leading;
-  final Widget title;
+  final Widget? leading;
+  final Widget? title;
   const GlassAppBar(
       {Key? key,
       this.automaticallyImplyLeading = true,
       this.actions = const [],
-      this.leading = const SizedBox.shrink(),
-      this.title = const SizedBox.shrink()})
+      this.leading,
+      this.title})
       : super(key: key);
 
   @override

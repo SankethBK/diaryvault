@@ -1,22 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/core/pages/settings_page.dart';
-import 'package:dairy_app/core/widgets/cancel_button.dart';
-import 'package:dairy_app/core/widgets/glass_app_bar.dart';
-import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
-import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../utils/utils.dart';
 
 class HomePage extends StatefulWidget {
   static String get route => '/';
@@ -50,30 +42,43 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SelectableListCubit, SelectableListState>(
-      bloc: selectableListCubit,
-      builder: (context, state) {
-        return Scaffold(
-          extendBodyBehindAppBar: true,
-          resizeToAvoidBottomInset: false,
-          appBar: glassAppBar(context, selectableListCubit),
-          body: Container(
-            decoration: const BoxDecoration(
-              // color: Colors.black,
-              image: DecorationImage(
-                image: AssetImage(
-                  "assets/images/digital-art-neon-bubbles.jpg",
-                ),
-                fit: BoxFit.cover,
-                alignment: Alignment(0.725, 0.1),
-                // alignment: Alignment(0.725, 0.1)
-              ),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
+      appBar: HomePageAppBar(),
+      body: Container(
+        decoration: const BoxDecoration(
+          // color: Colors.black,
+          image: DecorationImage(
+            image: AssetImage(
+              "assets/images/digital-art-neon-bubbles.jpg",
             ),
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top +
-                  AppBar().preferredSize.height,
-              left: 5.0,
-              right: 5.0,
+            fit: BoxFit.cover,
+            alignment: Alignment(0.725, 0.1),
+            // alignment: Alignment(0.725, 0.1)
+          ),
+        ),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top +
+              AppBar().preferredSize.height,
+          left: 5.0,
+          right: 5.0,
+        ),
+        child: GlassMorphismCover(
+          borderRadius: BorderRadius.circular(0.0),
+          child: Container(
+            padding: const EdgeInsets.all(0.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(0.0),
+              border: Border.all(width: 1.0, color: Colors.white),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.8),
+                  Colors.white.withOpacity(0.6),
+                ],
+                begin: AlignmentDirectional.topStart,
+                end: AlignmentDirectional.bottomEnd,
+              ),
             ),
             child: BlocBuilder<NotesFetchCubit, NotesFetchState>(
               bloc: notesFetchCubit,
@@ -82,284 +87,32 @@ class _HomePageState extends State<HomePage> {
                   notesFetchCubit.fetchNotes();
                   return Center(child: CircularProgressIndicator());
                 } else if (state is NotesFetchSuccessful) {
-                  return GlassMorphismCover(
-                    borderRadius: BorderRadius.circular(0.0),
-                    child: Container(
-                      padding: const EdgeInsets.all(0.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(0.0),
-                        border: Border.all(width: 1.0, color: Colors.white),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white.withOpacity(0.8),
-                            Colors.white.withOpacity(0.6),
-                          ],
-                          begin: AlignmentDirectional.topStart,
-                          end: AlignmentDirectional.bottomEnd,
-                        ),
-                      ),
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) {
-                          final note = state.notePreviewList[index];
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      final note = state.notePreviewList[index];
 
-                          return NotePreviewCard(
-                              first: index == 0,
-                              last: index == state.notePreviewList.length - 1,
-                              note: note,
-                              selectableListCubit: selectableListCubit);
-                        },
-                        itemCount: state.notePreviewList.length,
-                      ),
-                    ),
+                      return NotePreviewCard(
+                        first: index == 0,
+                        last: index == state.notePreviewList.length - 1,
+                        note: note,
+                      );
+                    },
+                    itemCount: state.notePreviewList.length,
                   );
                 }
-
                 return Container();
               },
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  GlassAppBar glassAppBar(
-      BuildContext context, SelectableListCubit selectableListCubit) {
-    if (selectableListCubit.state is SelectableListEnabled) {
-      return notesDeletionAppBar(selectableListCubit);
-    }
-    return homePageAppBar();
-  }
-
-  GlassAppBar homePageAppBar() {
-    return GlassAppBar(
-      automaticallyImplyLeading: false,
-      leading: IconButton(
-        icon: Icon(Icons.settings),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).pushNamed(SettingsPage.route);
+          Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
         },
       ),
-      actions: [
-        const Padding(
-          padding: EdgeInsets.only(right: 13.0),
-          child: Icon(Icons.search),
-        ),
-        BlocListener<NoteSyncCubit, NoteSyncState>(
-          listener: (context, state) {
-            if (state is NoteSyncSuccessful) {
-              showToast("notes sync successful");
-            } else if (state is NoteSyncFailed) {
-              showToast("notes sync failed");
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 13.0),
-            child: IconButton(
-              icon: Icon(Icons.sync),
-              onPressed: () {
-                final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
-                noteSyncCubit.startNoteSync();
-              },
-            ),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class _DeleteButton extends StatelessWidget {
-  final int deleteCount;
-  late SelectableListCubit selectableListCubit;
-  _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
-    return BlocBuilder<NotesBloc, NotesState>(
-      builder: (context, state) {
-        NotesBloc notesBloc = BlocProvider.of<NotesBloc>(context);
-        if (state is NoteDeletionFailed) {
-          notesBloc.add(RefreshNote());
-          Navigator.pop(context, false);
-        } else if (state is NoteDeletionSuccesful) {
-          notesBloc.add(RefreshNote());
-          Navigator.pop(context, true);
-        }
-
-        return SubmitButton(
-            isLoading: false,
-            onSubmitted: () {
-              if (state is NoteDeleteLoading) {
-                return;
-              }
-              if (state is NoteDummyState) {
-                final notesBloc = BlocProvider.of<NotesBloc>(context);
-                notesBloc.add(DeleteNote(
-                    noteList: selectableListCubit.state.selectedItems));
-              }
-            },
-            buttonText: "Delete");
-      },
-    );
-  }
-}
-
-class _CancelButton extends StatelessWidget {
-  const _CancelButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<NotesBloc, NotesState>(
-      builder: (context, state) {
-        return CancelButton(
-          buttonText: "Cancel",
-          onPressed: () {
-            if (state is NoteDeleteLoading) {
-              return;
-            }
-            Navigator.pop(context, null);
-          },
-        );
-      },
-    );
-  }
-}
-
-GlassAppBar notesDeletionAppBar(SelectableListCubit selectableListCubit) {
-  return GlassAppBar(
-    automaticallyImplyLeading: false,
-    leading: CancelDeletion(
-        onDeletionCancelled: () => selectableListCubit.disableSelectableList()),
-    actions: [
-      Row(
-        children: [
-          DeletionCount(
-            deletionCount: selectableListCubit.state.selectedItems.length,
-          ),
-          DeleteIcon(
-            deletionCount: selectableListCubit.state.selectedItems.length,
-            disableSelectedList: selectableListCubit.disableSelectableList,
-          ),
-        ],
-      )
-    ],
-  );
-}
-
-class DeleteIcon extends StatelessWidget {
-  final int deletionCount;
-  final Function() disableSelectedList;
-
-  const DeleteIcon(
-      {Key? key,
-      required this.deletionCount,
-      required this.disableSelectedList})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 13.0),
-      child: IconButton(
-        icon: Icon(
-          Icons.delete,
-        ),
-        onPressed: () async {
-          if (deletionCount == 0) {
-            disableSelectedList();
-            return;
-          }
-
-          bool? result = await showCustomDialog(
-              context: context,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                height: 110,
-                width: 350,
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "You are about to delete $deletionCount  item${deletionCount > 1 ? "s" : ""}",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          _CancelButton(),
-                          const SizedBox(width: 10),
-                          _DeleteButton(
-                            deleteCount: deletionCount,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ));
-
-          disableSelectedList();
-
-          if (result != null) {
-            if (result == true) {
-              showToast(
-                  "$deletionCount item${deletionCount > 1 ? "s" : ""} deleted");
-            } else {
-              showToast("deletion failed");
-            }
-          }
-        },
-      ),
-    );
-  }
-}
-
-class DeletionCount extends StatelessWidget {
-  final int deletionCount;
-  const DeletionCount({Key? key, required this.deletionCount})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 13.0),
-      child: Text(
-        "$deletionCount",
-        style: TextStyle(fontSize: 22.0),
-      ),
-    );
-  }
-}
-
-class CancelDeletion extends StatelessWidget {
-  const CancelDeletion({
-    Key? key,
-    required this.onDeletionCancelled,
-  }) : super(key: key);
-
-  final Function() onDeletionCancelled;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(
-        Icons.close,
-        size: 25,
-      ),
-      onPressed: onDeletionCancelled,
     );
   }
 }
