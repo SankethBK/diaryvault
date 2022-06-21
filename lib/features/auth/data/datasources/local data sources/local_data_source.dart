@@ -65,10 +65,49 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
   @override
   Future<void> cacheUser(
       {required id, required String email, required String password}) async {
-    var res = await database.insert(Users.TABLE_NAME,
-        {Users.ID: id, Users.EMAIL: email, Users.PASSWORD: password});
-    if (res == -1) {
-      throw const DatabaseInsertionException();
+    log.i("Caching the new user $email, $password");
+    // If we already have an entry with that email just change the password
+    var result = await database.query(
+      Users.TABLE_NAME,
+      columns: [Users.ID, Users.EMAIL, Users.PASSWORD],
+      where: "${Users.EMAIL} = ?",
+      whereArgs: [email],
+    );
+
+    if (result.isEmpty) {
+      log.i("Inserting a new record");
+      var res = await database.insert(Users.TABLE_NAME,
+          {Users.ID: id, Users.EMAIL: email, Users.PASSWORD: password});
+      if (res == -1) {
+        log.e("Could not insert new record");
+        throw const DatabaseInsertionException();
+      }
+      return;
+    } else {
+      log.i("Updating the existing record");
+      var count = await database.update(
+        Users.TABLE_NAME,
+        {...result[0], "password": password},
+        where: "${Users.EMAIL} = ?",
+        whereArgs: [email],
+      );
+
+      if (count != 1) {
+        log.e("Failed to update entry");
+        throw const DatabaseUpdateException();
+      }
     }
+  }
+
+  @override
+  Future<bool> verifyPassword(String userId, String password) async {
+    var result = await database.query(
+      Users.TABLE_NAME,
+      columns: [Users.ID, Users.EMAIL, Users.PASSWORD],
+      where: "${Users.ID} = ? AND ${Users.PASSWORD} = ?",
+      whereArgs: [userId, password],
+    );
+
+    return result.isNotEmpty;
   }
 }

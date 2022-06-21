@@ -31,6 +31,8 @@ class UserConfigCubit extends Cubit<UserConfigState> {
         log.i("user logged out");
         userId = null;
       }
+
+      getUserConfig();
     });
   }
 

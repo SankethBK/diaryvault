@@ -89,7 +89,7 @@ class AppView extends StatelessWidget {
           child: child,
         );
       },
-      initialRoute: HomePage.route,
+      initialRoute: AuthPage.route,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

@@ -128,7 +128,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
       log.e("sign in failed because of incorrect credentails $e.code");
       switch (e.code) {
         case SignInFailure.WRONG_PASSWORD:
-          return Left(SignInFailure.wrongPassword());
+          return _remoteLogin(email: email, password: password);
         case SignInFailure.EMAIL_DOES_NOT_EXISTS:
           return _remoteLogin(email: email, password: password);
         default:
@@ -138,6 +138,15 @@ class AuthenticationRepository implements IAuthenticationRepository {
       log.e("sign in failed because of local database exception");
 
       return Left(SignInFailure.unknownError());
+    }
+  }
+
+  @override
+  Future<bool> verifyPassword(String userId, String password) async {
+    try {
+      return localDataSource.verifyPassword(userId, password);
+    } catch (e) {
+      return false;
     }
   }
 }

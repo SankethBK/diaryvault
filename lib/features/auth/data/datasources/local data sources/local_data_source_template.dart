@@ -21,4 +21,7 @@ abstract class IAuthLocalDataSource {
   /// Throws [DatabaseInsertionException] if something related to database goes wrong
   Future<void> cacheUser(
       {required id, required String email, required String password});
+
+  /// Used to verify password, email is not avialable at that place, so userId is used.
+  Future<bool> verifyPassword(String userId, String password);
 }

@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class AuthPasswordInput extends StatefulWidget {
   final String? Function() getPasswordErrors;
   final void Function(String password) onPasswordChanged;
-  const AuthPasswordInput(
-      {Key? key,
-      required this.getPasswordErrors,
-      required this.onPasswordChanged})
-      : super(key: key);
+  final bool autoFocus;
+  final String hintText;
+  const AuthPasswordInput({
+    Key? key,
+    required this.getPasswordErrors,
+    required this.onPasswordChanged,
+    this.autoFocus = false,
+    this.hintText = "password",
+  }) : super(key: key);
 
   @override
   State<AuthPasswordInput> createState() => _AuthPasswordInputState();
@@ -25,8 +29,9 @@ class _AuthPasswordInputState extends State<AuthPasswordInput> {
     return Stack(
       children: [
         TextField(
+          autofocus: widget.autoFocus,
           decoration: InputDecoration(
-            hintText: "password",
+            hintText: widget.hintText,
             prefixIcon: Icon(
               Icons.lock,
               color: Colors.black.withOpacity(0.5),

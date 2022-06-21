@@ -56,7 +56,7 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
           final lastSynced = (widget.cloudSourceName == "google_drive" &&
               state.userConfigModel?.lastGoogleDriveSync != null);
           final hasChoosenThisCloudSource =
-              state.userConfigModel?.preferredSyncOption !=
+              state.userConfigModel?.preferredSyncOption ==
                   widget.cloudSourceName;
 
           return (state.userConfigModel == null)
@@ -115,7 +115,7 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                       SwitchListTile(
                         contentPadding: const EdgeInsets.all(0.0),
                         title: const Text("Select as sync source"),
-                        value: hasChoosenThisCloudSource,
+                        value: isSignedIn ? hasChoosenThisCloudSource : false,
                         activeColor: Colors.pinkAccent,
                         onChanged: isSignedIn
                             ? (bool val) {
@@ -138,7 +138,14 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                                     "${DateFormat.yMd().format(state.userConfigModel!.lastGoogleDriveSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastGoogleDriveSync!)}"),
                               ],
                             )
-                          : const Text("Last synced: not available")),
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text("Last synced: "),
+                                SizedBox(width: 5),
+                                Text("not available")
+                              ],
+                            )),
                     ],
                   ),
                 );

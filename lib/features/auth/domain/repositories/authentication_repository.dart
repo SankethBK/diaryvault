@@ -1,6 +1,7 @@
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dartz/dartz.dart';
+import 'package:googleapis/androidmanagement/v1.dart';
 
 abstract class IAuthenticationRepository {
   /// If connected to internet, registers the user remotely, and then registers the
@@ -20,4 +21,9 @@ abstract class IAuthenticationRepository {
   /// and stores the [email] and [password] in local database for subsequent logins.
   Future<Either<SignInFailure, LoggedInUser>> signInWithEmailAndPassword(
       {required String email, required String password});
+
+  /// Used to verify password, email is not avialable at that place, so userId is used.
+  Future<bool> verifyPassword(String userId, String password);
+
+  /// update password in both rmeote and local
 }
