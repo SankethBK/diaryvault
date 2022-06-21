@@ -1,6 +1,7 @@
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
+import 'package:dairy_app/core/widgets/date_input_field.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
@@ -184,30 +185,138 @@ class Action extends StatelessWidget {
 class Title extends StatelessWidget {
   final bool isSearchEnabled;
 
-  const Title({Key? key, required this.isSearchEnabled}) : super(key: key);
+  String? searchText;
+  DateTime? startDate;
+  DateTime? endDate;
+
+  Title({Key? key, required this.isSearchEnabled}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+
+    void assignStartDate(DateTime date) {
+      startDate = date;
+      notesFetchCubit.fetchNotes(
+        searchText: searchText,
+        startDate: startDate,
+        endDate: endDate,
+      );
+    }
+
+    void assignEndDate(DateTime date) {
+      endDate = date;
+      notesFetchCubit.fetchNotes(
+        searchText: searchText,
+        startDate: startDate,
+        endDate: endDate,
+      );
+    }
+
+    void assignSearchText(String val) {
+      searchText = val;
+      notesFetchCubit.fetchNotes(
+        searchText: searchText,
+        startDate: startDate,
+        endDate: endDate,
+      );
+    }
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: isSearchEnabled
           ? TextField(
               autofocus: true,
+              cursorColor: Colors.white,
               style: TextStyle(color: Colors.white.withOpacity(0.8)),
               decoration: InputDecoration(
-                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
+                  hintStyle: const TextStyle(color: Colors.white),
                   border: InputBorder.none,
                   suffixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showCustomDialog(
+                            context: context,
+                            child: Container(
+                              height: 250,
+                              width: 290,
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
+                                left: 20,
+                                right: 15,
+                              ),
+                              child: Column(children: [
+                                const Text(
+                                  "Date Filter",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Flexible(
+                                      flex: 2,
+                                      child: Text(
+                                        "From",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 3,
+                                      child: DateInputField(
+                                        displayDate: startDate,
+                                        assignDate: assignStartDate,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Flexible(
+                                      flex: 2,
+                                      child: Text(
+                                        "To",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 3,
+                                      child: DateInputField(
+                                        displayDate: endDate,
+                                        assignDate: assignEndDate,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                SubmitButton(
+                                  isLoading: false,
+                                  onSubmitted: () =>
+                                      Navigator.of(context).pop(),
+                                  buttonText: "Done",
+                                )
+                              ]),
+                            ));
+                      },
                       icon: const Icon(
                         Icons.calendar_month,
                         color: Colors.white,
                       ))),
-              onChanged: (String value) {
-                notesFetchCubit.fetchNotes(searchText: value);
-              },
+              onChanged: assignSearchText,
             )
           : const SizedBox(),
     );

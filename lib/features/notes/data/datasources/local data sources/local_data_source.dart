@@ -5,6 +5,7 @@ import 'package:dairy_app/core/databases/sqflite_setup.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../core/logger/logger.dart';
@@ -250,18 +251,30 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       {String? searchText, DateTime? startDate, DateTime? endDate}) async {
     log.i("Searching for notes");
     List<Map<String, Object?>> result;
+
     try {
       String searchQuery = "";
 
       searchQuery +=
-          "${Notes.TITLE} LIKE '%${searchText ?? ''}%' OR ${Notes.PLAIN_TEXT} LIKE '%${searchText ?? ''}%'";
+          "(${Notes.TITLE} LIKE '%${searchText ?? ''}%' OR ${Notes.PLAIN_TEXT} LIKE '%${searchText ?? ''}%')";
+
+      if (startDate != null) {
+        String startDateStr = startDate.millisecondsSinceEpoch.toString();
+
+        searchQuery += " AND (${Notes.CREATED_AT} >= '$startDateStr')";
+      }
+      if (endDate != null) {
+        String endDateStr = endDate.millisecondsSinceEpoch.toString();
+
+        searchQuery += " AND (${Notes.CREATED_AT} <= '$endDateStr')";
+      }
 
       log.i("searchquery = $searchQuery");
 
       result = await database.query(
         Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
-        where: "${Notes.DELETED} != 1 AND ($searchQuery)",
+        where: "${Notes.DELETED} != 1 AND $searchQuery",
         orderBy: "${Notes.CREATED_AT} DESC",
       );
     } catch (e) {
