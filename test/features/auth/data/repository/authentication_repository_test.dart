@@ -1,6 +1,7 @@
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/core/network/network_info.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
@@ -30,9 +31,11 @@ void main() {
     localDataSource = MockIAuthLocalDataSource();
     remoteDataSource = MockIAuthRemoteDataSource();
     authenticationRepository = AuthenticationRepository(
-        remoteDataSource: remoteDataSource,
-        localDataSource: localDataSource,
-        networkInfo: networkInfo);
+      remoteDataSource: remoteDataSource,
+      localDataSource: localDataSource,
+      networkInfo: networkInfo,
+      passwordValidator: PasswordValidator(),
+    );
   });
 
   group("Testing of signup with email and password method in auth repository",

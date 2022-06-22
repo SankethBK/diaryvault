@@ -1,8 +1,7 @@
 import 'package:dairy_app/core/errors/validation_exceptions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/core/validators/validtor_template.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/core/usecase/usecase_template.dart';
+import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/core/validators/email_validator.dart';
 import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';

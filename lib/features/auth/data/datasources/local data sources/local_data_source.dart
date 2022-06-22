@@ -110,4 +110,34 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
 
     return result.isNotEmpty;
   }
+
+  @override
+  Future<void> updatePassword({
+    required String email,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    // 1. Retrieve the record
+    var result = await database.query(
+      Users.TABLE_NAME,
+      columns: [Users.ID, Users.EMAIL, Users.PASSWORD],
+      where: "${Users.EMAIL} = ?",
+      whereArgs: [email],
+    );
+
+    if (result.isEmpty) {
+      throw const DatabaseQueryException();
+    }
+
+    var count = await database.update(
+      Users.TABLE_NAME,
+      {...result[0], "password": newPassword},
+      where: "${Users.EMAIL} = ? AND ${Users.PASSWORD} = ?",
+      whereArgs: [email, oldPassword],
+    );
+
+    if (count != 1) {
+      throw const DatabaseUpdateException();
+    }
+  }
 }

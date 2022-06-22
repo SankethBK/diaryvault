@@ -32,14 +32,18 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
     });
   }
 
-  void closeSearchAppBar() {
-    setState(() {
-      isSearchEnabled = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+
+    void closeSearchAppBar() {
+      setState(() {
+        isSearchEnabled = false;
+      });
+
+      notesFetchCubit.fetchNotes();
+    }
+
     return AppBar(
       automaticallyImplyLeading: false,
       leading: LeadingIcon(isSearchEnabled: isSearchEnabled),

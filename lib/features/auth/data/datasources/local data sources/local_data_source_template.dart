@@ -24,4 +24,11 @@ abstract class IAuthLocalDataSource {
 
   /// Used to verify password, email is not avialable at that place, so userId is used.
   Future<bool> verifyPassword(String userId, String password);
+
+  /// updates password in local
+  Future<void> updatePassword({
+    required String email,
+    required String oldPassword,
+    required String newPassword,
+  });
 }

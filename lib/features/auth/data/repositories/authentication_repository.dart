@@ -1,7 +1,9 @@
 import 'package:dairy_app/core/errors/database_exceptions.dart';
+import 'package:dairy_app/core/errors/validation_exceptions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/network/network_info.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
@@ -15,11 +17,14 @@ class AuthenticationRepository implements IAuthenticationRepository {
   final INetworkInfo networkInfo;
   final IAuthRemoteDataSource remoteDataSource;
   final IAuthLocalDataSource localDataSource;
+  final PasswordValidator passwordValidator;
 
-  AuthenticationRepository(
-      {required this.remoteDataSource,
-      required this.localDataSource,
-      required this.networkInfo});
+  AuthenticationRepository({
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.networkInfo,
+    required this.passwordValidator,
+  });
 
   @override
   Future<Either<SignUpFailure, LoggedInUser>> signUpWithEmailAndPassword({
@@ -148,5 +153,38 @@ class AuthenticationRepository implements IAuthenticationRepository {
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<Either<SignUpFailure, bool>> updatePassword(
+      String email, String oldPassword, String newPassword) async {
+    // step 1: validation
+
+    try {
+      passwordValidator(newPassword);
+    } on InvalidPasswordException catch (e) {
+      return Left(SignUpFailure.invalidPassword(e.message));
+    }
+
+    try {
+      // step 2. Update the password in remote
+      await remoteDataSource.updatePassword(
+        email: email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+
+      // step 3: Reset the password in local
+      await localDataSource.updatePassword(
+        email: email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+    } catch (e) {
+      log.e(e);
+      return Left(SignUpFailure.unknownError());
+    }
+
+    return const Right(true);
   }
 }

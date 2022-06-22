@@ -58,6 +58,7 @@ Future<void> init() async {
     remoteDataSource: sl(),
     localDataSource: sl(),
     networkInfo: sl(),
+    passwordValidator: sl(),
   ));
   sl.registerSingleton<UserConfigRepository>(
       UserConfigRepository(keyValueDataSource: sl()));

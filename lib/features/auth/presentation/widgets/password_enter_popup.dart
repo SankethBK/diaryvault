@@ -18,7 +18,8 @@ Future<dynamic> passwordLoginPopup(
       showToast("Incorrect password");
     } else {
       showToast("Password verified");
-      Navigator.of(context).pop(true);
+      await Future.delayed(const Duration(milliseconds: 300));
+      Navigator.of(context).pop(password);
     }
   }
 

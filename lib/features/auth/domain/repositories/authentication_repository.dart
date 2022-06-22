@@ -26,4 +26,6 @@ abstract class IAuthenticationRepository {
   Future<bool> verifyPassword(String userId, String password);
 
   /// update password in both rmeote and local
+  Future<Either<SignUpFailure, bool>> updatePassword(
+      String email, String oldPassword, String newPassword);
 }

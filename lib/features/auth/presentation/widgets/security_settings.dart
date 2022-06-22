@@ -1,5 +1,8 @@
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
@@ -15,7 +18,7 @@ class SecuritySettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
+    final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
     return Container(
       padding: const EdgeInsets.only(top: 5.0),
       width: double.infinity,
@@ -39,14 +42,23 @@ class SecuritySettings extends StatelessWidget {
                 title: const Text("Change password"),
                 onTap: () async {
                   //! accessing userId like this is bad, but since it is assured that userId will be always present if user is logged in we are doing it
-                  bool? result = await passwordLoginPopup(
+                  String? result = await passwordLoginPopup(
                     context: context,
-                    submitPassword: (password) => authenticationRepository
-                        .verifyPassword(userConfigCubit.userId!, password),
+                    submitPassword: (password) =>
+                        authenticationRepository.verifyPassword(
+                            authSessionBloc.state.user!.id, password),
                   );
 
-                  if (result == true) {
-                    passwordResetPopup(context: context, submitPassword: () {});
+                  // old password will be retrieved from previous dialog
+                  if (result != null) {
+                    passwordResetPopup(
+                        context: context,
+                        submitPassword: (newPassword) =>
+                            authenticationRepository.updatePassword(
+                              authSessionBloc.state.user!.email,
+                              result,
+                              newPassword,
+                            ));
                   }
                 },
               ),
