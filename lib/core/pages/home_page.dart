@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:animations/animations.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
@@ -107,10 +108,30 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
+      floatingActionButton: OpenContainer(
+        closedColor: Colors.pinkAccent,
+        closedShape: CircleBorder(),
+        closedElevation: 3.0,
+        transitionDuration: const Duration(seconds: 1),
+        closedBuilder: (BuildContext context, void Function() openContainer) {
+          return InkWell(
+            child: SizedBox(
+              height: 56,
+              width: 56,
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+            onTap: () {
+              openContainer();
+              // Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
+            },
+          );
+        },
+        openBuilder: (BuildContext context,
+            void Function({Object? returnValue}) closeContainer) {
+          return NoteCreatePage();
         },
       ),
     );
