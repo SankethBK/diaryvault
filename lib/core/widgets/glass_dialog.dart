@@ -10,35 +10,24 @@ Future<dynamic> showCustomDialog(
     barrierColor: Colors.black.withOpacity(0.5),
     transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: (context, anim1, anim2) {
-      return Center(
-        child: Container(
-          decoration: BoxDecoration(
-            // color: Colors.green,
+      return GlassMorphismCover(
+        borderRadius: BorderRadius.circular(40),
+        child: Material(
+          color: Colors.transparent,
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40),
           ),
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          child: GlassMorphismCover(
-            borderRadius: BorderRadius.circular(40),
-            child: Card(
-              margin: EdgeInsets.zero,
-              color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: Container(
-                child: child,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withOpacity(0.8),
-                      Colors.white.withOpacity(0.6),
-                    ],
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                  ),
-                ),
+          child: Container(
+            child: child,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.8),
+                  Colors.white.withOpacity(0.6),
+                ],
+                begin: AlignmentDirectional.topStart,
+                end: AlignmentDirectional.bottomEnd,
               ),
             ),
           ),
