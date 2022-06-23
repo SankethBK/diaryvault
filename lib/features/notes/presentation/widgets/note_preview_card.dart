@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
@@ -26,68 +27,103 @@ class NotePreviewCard extends StatelessWidget {
             BlocProvider.of<SelectableListCubit>(context);
         isSelected = selectableListCubit.state.selectedItems.contains(note.id);
 
-        return GestureDetector(
-          onLongPress: () {
-            if (selectableListCubit.state is SelectableListDisabled) {
-              selectableListCubit.enableSelectableList(note.id);
-            }
-          },
-          onTap: () {
-            if (selectableListCubit.state is SelectableListEnabled) {
-              isSelected
-                  ? selectableListCubit.removeItemFromSelection(note.id)
-                  : selectableListCubit.addItemToSelection(note.id);
-            } else {
-              Navigator.of(context).pushNamed(
-                NotesReadOnlyPage.routeThroughHome,
-                arguments: note.id,
-              );
-            }
-          },
-          child: Container(
-            width: double.infinity,
-            padding:
-                const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
-            decoration: BoxDecoration(
-              border: last
-                  ? Border(
-                      bottom: BorderSide(
-                          width: 1.3, color: Colors.white.withOpacity(0.6)),
-                      top: BorderSide(
-                          width: 1.3, color: Colors.white.withOpacity(0.6)),
-                    )
-                  : Border(
-                      top: BorderSide(
-                          width: 1.3, color: Colors.white.withOpacity(0.6)),
-                    ),
-              gradient: LinearGradient(
-                colors: [
-                  isSelected
-                      ? const Color.fromARGB(255, 210, 161, 238)
-                          .withOpacity(0.5)
-                      : Colors.transparent,
-                  const Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
+        return Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              padding:
+                  const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
+              decoration: BoxDecoration(
+                color: Colors.pinkAccent,
+                border: last
+                    ? Border(
+                        bottom: BorderSide(
+                            width: 1.3, color: Colors.white.withOpacity(0.6)),
+                        top: BorderSide(
+                            width: 1.3, color: Colors.white.withOpacity(0.6)),
+                      )
+                    : Border(
+                        top: BorderSide(
+                            width: 1.3, color: Colors.white.withOpacity(0.6)),
+                      ),
+                gradient: LinearGradient(
+                  colors: [
+                    isSelected
+                        ? const Color.fromARGB(255, 210, 161, 238)
+                            .withOpacity(0.5)
+                        : Colors.transparent,
+                    const Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
+                  ],
+                  begin: AlignmentDirectional.topStart,
+                  end: AlignmentDirectional.bottomEnd,
+                ),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (selectableListCubit.state is SelectableListEnabled)
+                    SelectBox(
+                        isSelected: isSelected,
+                        selectableListCubit: selectableListCubit,
+                        note: note),
+                  TitleAndDescription(
+                      note: note,
+                      selectModeEnabled:
+                          (selectableListCubit.state is SelectableListEnabled)),
+                  DisplayDate(note: note),
                 ],
-                begin: AlignmentDirectional.topStart,
-                end: AlignmentDirectional.bottomEnd,
               ),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (selectableListCubit.state is SelectableListEnabled)
-                  SelectBox(
-                      isSelected: isSelected,
-                      selectableListCubit: selectableListCubit,
-                      note: note),
-                TitleAndDescription(
-                    note: note,
-                    selectModeEnabled:
-                        (selectableListCubit.state is SelectableListEnabled)),
-                DisplayDate(note: note),
-              ],
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              child: Opacity(
+                opacity: 0.0,
+                child: OpenContainer(
+                  transitionDuration: const Duration(seconds: 3),
+                  openBuilder:
+                      (BuildContext context, void Function() closeContainer) {
+                    return NotesReadOnlyPage(id: note.id);
+                  },
+                  closedColor: Colors.white.withOpacity(0.3),
+                  middleColor: Colors.deepPurpleAccent,
+                  closedBuilder:
+                      (BuildContext context, void Function() openContainer) {
+                    return GestureDetector(
+                      onLongPress: () {
+                        if (selectableListCubit.state
+                            is SelectableListDisabled) {
+                          selectableListCubit.enableSelectableList(note.id);
+                        }
+                      },
+                      onTap: () {
+                        if (selectableListCubit.state
+                            is SelectableListEnabled) {
+                          isSelected
+                              ? selectableListCubit
+                                  .removeItemFromSelection(note.id)
+                              : selectableListCubit.addItemToSelection(note.id);
+                        } else {
+                          // Navigator.of(context).pushNamed(
+                          //   NotesReadOnlyPage.routeThroughHome,
+                          //   arguments: note.id,
+                          // );
+                          openContainer();
+                        }
+                      },
+                      child: Container(
+                        height: 10,
+                        width: 50,
+                        // color: Colors.pink.withOpacity(0.1),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
+          ],
         );
       },
     );

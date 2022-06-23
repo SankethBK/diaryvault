@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animations: ^2.0.2
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
