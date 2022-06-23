@@ -1,11 +1,10 @@
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
-import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:flutter/material.dart';
-import 'package:googleapis/calendar/v3.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -22,10 +21,27 @@ class RouteGenerator {
     } else if (settings.name == NoteCreatePage.routeThroughHome) {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());
     } else if (settings.name == NoteCreatePage.routeThroughNoteReadOnly) {
-      return MaterialPageRoute(builder: (_) => const NoteCreatePage());
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const NoteCreatePage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      );
     } else if (settings.name == NotesReadOnlyPage.routeThroughHome) {
-      return MaterialPageRoute(
-          builder: (_) => NotesReadOnlyPage(id: settings.arguments as String));
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            NotesReadOnlyPage(id: settings.arguments as String),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      );
     } else if (settings.name == NotesReadOnlyPage.routeThoughNotesCreate) {
       return MaterialPageRoute(
           builder: (_) => const NotesReadOnlyPage(id: null));
