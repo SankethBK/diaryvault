@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
         closedColor: Colors.pinkAccent,
         closedShape: CircleBorder(),
         closedElevation: 3.0,
-        transitionDuration: const Duration(seconds: 1),
+        transitionDuration: const Duration(milliseconds: 400),
         closedBuilder: (BuildContext context, void Function() openContainer) {
           return InkWell(
             child: SizedBox(

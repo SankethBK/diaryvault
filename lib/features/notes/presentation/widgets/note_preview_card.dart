@@ -28,7 +28,7 @@ class NotePreviewCard extends StatelessWidget {
         isSelected = selectableListCubit.state.selectedItems.contains(note.id);
 
         return OpenContainer(
-          transitionDuration: const Duration(seconds: 1),
+          transitionDuration: const Duration(milliseconds: 350),
           openBuilder: (BuildContext context, void Function() closeContainer) {
             return NotesReadOnlyPage(id: note.id);
           },

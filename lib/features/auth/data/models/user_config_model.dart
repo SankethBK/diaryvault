@@ -11,6 +11,7 @@ class UserConfigModel extends Equatable {
   final String? googleDriveUserInfo;
   final String? dropBoxUserInfo;
   final bool? isAutoSyncEnabled;
+  final bool? isFingerPrintloginEnabled;
 
   const UserConfigModel(
       {required this.userId,
@@ -19,7 +20,8 @@ class UserConfigModel extends Equatable {
       this.lastDropboxSync,
       this.googleDriveUserInfo,
       this.dropBoxUserInfo,
-      this.isAutoSyncEnabled});
+      this.isAutoSyncEnabled,
+      this.isFingerPrintloginEnabled});
 
   @override
   List<Object?> get props => [
@@ -29,7 +31,8 @@ class UserConfigModel extends Equatable {
         lastDropboxSync,
         googleDriveUserInfo,
         dropBoxUserInfo,
-        isAutoSyncEnabled
+        isAutoSyncEnabled,
+        isFingerPrintloginEnabled,
       ];
 
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
@@ -48,6 +51,8 @@ class UserConfigModel extends Equatable {
       googleDriveUserInfo: jsonMap[UserConfigConstants.googleDriveUserInfo],
       dropBoxUserInfo: jsonMap[UserConfigConstants.dropBoxUserInfo],
       isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
+      isFingerPrintloginEnabled:
+          jsonMap[UserConfigConstants.isFingerPrintloginEnabled],
     );
   }
 
@@ -62,6 +67,7 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.googleDriveUserInfo: googleDriveUserInfo,
       UserConfigConstants.dropBoxUserInfo: dropBoxUserInfo,
       UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
+      UserConfigConstants.isFingerPrintloginEnabled: isFingerPrintloginEnabled,
     };
   }
 }

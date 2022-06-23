@@ -11,6 +11,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:googleapis/servicecontrol/v2.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -89,7 +90,7 @@ class AppView extends StatelessWidget {
           child: child,
         );
       },
-      initialRoute: HomePage.route,
+      initialRoute: AuthPage.route,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
