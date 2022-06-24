@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
@@ -21,6 +22,9 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider<AuthSessionBloc>(
           create: (context) => sl<AuthSessionBloc>(),
+        ),
+        BlocProvider<AuthFormBloc>(
+          create: (context) => sl<AuthFormBloc>(),
         ),
         BlocProvider<NotesBloc>(
           create: (context) => sl<NotesBloc>(),
@@ -78,18 +82,18 @@ class AppView extends StatelessWidget {
             log.d("state is $state");
             if (state is Unauthenticated) {
               _navigator.pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => AuthPage()),
+                  MaterialPageRoute(builder: (_) => const AuthPage()),
                   (route) => false);
             } else if (state is Authenticated) {
               _navigator.pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => HomePage()),
+                  MaterialPageRoute(builder: (_) => const HomePage()),
                   (route) => false);
             }
           },
           child: child,
         );
       },
-      initialRoute: HomePage.route,
+      initialRoute: AuthPage.route,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

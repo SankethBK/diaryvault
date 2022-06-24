@@ -70,6 +70,8 @@ Future<void> init() async {
       authSessionBloc: sl(),
       signUpWithEmailAndPassword: sl(),
       signInWithEmailAndPassword: sl(),
+      authenticationRepository: sl(),
+      keyValueDataSource: sl(),
     ),
   );
   sl.registerSingleton<UserConfigCubit>(

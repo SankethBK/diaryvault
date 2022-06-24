@@ -38,4 +38,7 @@ class AuthFormSubmissionFailed extends AuthFormState {
   String toString() {
     return "AuthFormSubmissionFailed(email: $email, password: $password, errors: $errors)";
   }
+
+  @override
+  List<Object> get props => [email, password, errors];
 }

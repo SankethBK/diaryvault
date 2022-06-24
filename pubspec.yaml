@@ -38,6 +38,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_local_auth_invisible: ^2.2.0
   flutter_quill:
     git:
       url: https://github.com/SankethBK/flutter-quill

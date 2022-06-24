@@ -412,6 +412,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_local_auth_invisible:
+    dependency: "direct main"
+    description:
+      name: flutter_local_auth_invisible
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

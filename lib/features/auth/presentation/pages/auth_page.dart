@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:dairy_app/core/animations/flip_card_animation.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/sign_in_form.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -11,6 +13,8 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthFormBloc bloc = BlocProvider.of<AuthFormBloc>(context);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -21,13 +25,25 @@ class AuthPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: FlipCardAnimation(
-          frontWidget: (void Function() flipCard) {
-            return SignUpForm(flipCard: flipCard);
-          },
-          rearWidget: (void Function() flipCard) {
-            return SignInForm(flipCard: flipCard);
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FlipCardAnimation(
+              frontWidget: (void Function() flipCard) {
+                return SignUpForm(flipCard: flipCard);
+              },
+              rearWidget: (void Function() flipCard) {
+                return SignInForm(flipCard: flipCard);
+              },
+            ),
+            const SizedBox(height: 40),
+            if (bloc.shouldActivateFingerPrint())
+              Icon(
+                Icons.fingerprint,
+                size: 50,
+                color: Colors.white.withOpacity(0.5),
+              )
+          ],
         ),
       ),
     );

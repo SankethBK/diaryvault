@@ -10,6 +10,8 @@ import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_auth_invisible/flutter_local_auth_invisible.dart';
 
 final log = printer("AuthenticationRepository");
 
@@ -186,5 +188,47 @@ class AuthenticationRepository implements IAuthenticationRepository {
     }
 
     return const Right(true);
+  }
+
+  @override
+  Future<bool> isFingerprintAuthPossible() async {
+    try {
+      bool hasBiometrics = await LocalAuthentication.canCheckBiometrics;
+      log.i("hasBIometrics = $hasBiometrics");
+      if (hasBiometrics == false) return hasBiometrics;
+
+      var availableBiometrics =
+          await LocalAuthentication.getAvailableBiometrics();
+      log.i("available biometrics = $availableBiometrics");
+
+      return availableBiometrics.contains(BiometricType.fingerprint);
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
+  }
+
+  @override
+  Stream<bool?> processFingerPrintAuth() async* {
+    log.i("Started processing fingerprint auth");
+
+    try {
+      while (true) {
+        log.d("Loop running");
+        var authenticationResult = await LocalAuthentication.authenticate(
+          localizedReason: 'Scan Fingerprint to Authenticate',
+          useErrorDialogs: true,
+          stickyAuth: true,
+        );
+        log.i("authentication result = $authenticationResult");
+        yield authenticationResult;
+
+        // need to free the thread for other tasks
+        await Future.delayed(const Duration(milliseconds: 500));
+      }
+    } on PlatformException catch (e) {
+      log.e(e);
+      yield null;
+    }
   }
 }

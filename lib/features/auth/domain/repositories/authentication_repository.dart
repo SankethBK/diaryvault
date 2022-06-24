@@ -28,4 +28,12 @@ abstract class IAuthenticationRepository {
   /// update password in both rmeote and local
   Future<Either<SignUpFailure, bool>> updatePassword(
       String email, String oldPassword, String newPassword);
+
+  /// based on device configuration, returns if fingerprint auth is possible
+  /// fingerprint auth should be both available and set
+  Future<bool> isFingerprintAuthPossible();
+
+  /// Listens for fingerprint events, and returns a stream of bool values
+  /// null inidcates some error occured while doing so
+  Stream<bool?> processFingerPrintAuth();
 }
