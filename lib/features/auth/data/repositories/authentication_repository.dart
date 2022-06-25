@@ -214,8 +214,8 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
     int wrongAttempts = 0;
 
-    try {
-      while (true) {
+    while (true) {
+      try {
         var authenticationResult = await LocalAuthentication.authenticate(
           localizedReason: 'Scan Fingerprint to Authenticate',
           useErrorDialogs: true,
@@ -226,22 +226,22 @@ class AuthenticationRepository implements IAuthenticationRepository {
           wrongAttempts += 1;
           yield FingerPrintAuthState.fail;
         } else if (authenticationResult == true) {
-          LocalAuthentication.stopAuthentication();
+          await LocalAuthentication.stopAuthentication();
           yield FingerPrintAuthState.success;
         }
 
         if (wrongAttempts == 5) {
-          LocalAuthentication.stopAuthentication();
+          await LocalAuthentication.stopAuthentication();
           yield FingerPrintAuthState.attemptsExceeded;
           break;
         }
 
         // need to free the thread for other tasks
         await Future.delayed(const Duration(milliseconds: 500));
+      } on PlatformException catch (e) {
+        log.e(e);
+        LocalAuthentication.stopAuthentication();
       }
-    } on PlatformException catch (e) {
-      log.e(e);
-      yield FingerPrintAuthState.platformError;
     }
   }
 

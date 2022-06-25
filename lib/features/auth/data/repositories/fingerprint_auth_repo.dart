@@ -114,6 +114,7 @@ class FingerPrintAuthRepository {
   }
 
   void cancel() {
+    log.i("Cancelling fingerprint auth stream");
     fingerPrintAuthStreamSubscription?.cancel();
   }
 }

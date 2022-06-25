@@ -79,11 +79,11 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         // update the last logged in user
         await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
 
-        emit(AuthFormSubmissionSuccessful(
-            email: state.email, password: state.password));
-
         // Cancel the fingerprint auth, in case it's running
         fingerPrintAuthRepository.cancel();
+
+        emit(AuthFormSubmissionSuccessful(
+            email: state.email, password: state.password));
       });
     }));
 
@@ -118,12 +118,12 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
 
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));
-
-        // Cancel the fingerprint auth, in case it's running
-        fingerPrintAuthRepository.cancel();
       }, (user) async {
         emit(AuthFormSubmissionSuccessful(
             email: state.email, password: state.password));
+
+        // Cancel the fingerprint auth, in case it's running
+        fingerPrintAuthRepository.cancel();
 
         // if current logged in user's id == last logeed in user's is, then freshlogin is false
         _authSessionBloc.add(
