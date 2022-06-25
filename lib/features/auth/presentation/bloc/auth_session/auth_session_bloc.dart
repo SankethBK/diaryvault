@@ -11,8 +11,14 @@ class AuthSessionBloc extends Bloc<AuthSessionEvent, AuthSessionState> {
     final log = printer("Router");
     log.d("AuthSessionBloc recreated");
 
-    on<UserLoggedIn>((event, emit) => emit(Authenticated(user: event.user)));
+    on<UserLoggedIn>((event, emit) =>
+        emit(Authenticated(user: event.user, freshLogin: event.freshLogin)));
     on<UserLoggedOut>((event, emit) => emit(const Unauthenticated()));
-    on<AppLostFocus>(((event, emit) => emit(const Unauthenticated())));
+
+    // navigation will be handled differently for session timeout logouts
+    on<AppLostFocus>(((event, emit) =>
+        emit(const Unauthenticated(sessionTimeoutLogout: true))));
+    on<AppSessionTimeout>(((event, emit) =>
+        emit(const Unauthenticated(sessionTimeoutLogout: true))));
   }
 }

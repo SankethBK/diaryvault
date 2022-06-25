@@ -28,6 +28,8 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
   final IAuthenticationRepository authenticationRepository;
   final IKeyValueDataSource keyValueDataSource;
 
+  bool fingerPrintAuthRunning = false;
+
   AuthFormBloc({
     required this.signInWithEmailAndPassword,
     required this.signUpWithEmailAndPassword,
@@ -36,9 +38,98 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
     required AuthSessionBloc authSessionBloc,
   })  : _authSessionBloc = authSessionBloc,
         super(const AuthFormInitial(email: '', password: '')) {
-    if (shouldActivateFingerPrint()) {
-      startFingerPrintAuth();
-    }
+    on<StartFingerPrintAuthIfPossible>((event, emit) {
+      if (shouldActivateFingerPrint() && !fingerPrintAuthRunning) {
+        fingerPrintAuthRunning = true;
+        Stream<FingerPrintAuthState> fingerPrintAuthStream =
+            authenticationRepository.processFingerPrintAuth();
+
+        late StreamSubscription<FingerPrintAuthState?>
+            fingerPrintAuthStreamSubscription;
+        fingerPrintAuthStreamSubscription =
+            fingerPrintAuthStream.listen((value) async {
+          log.d("FingerPrintAuthState stream value = $value");
+
+          if (value == FingerPrintAuthState.success) {
+            fingerPrintAuthStreamSubscription.cancel();
+            fingerPrintAuthRunning = false;
+
+            // Fingerprint auth successful, starting passwordless sign in
+
+            String? lastLoggedInUser =
+                keyValueDataSource.getValue(Global.lastLoggedInUser);
+            if (lastLoggedInUser != null) {
+              var result = await authenticationRepository.signInDirectly(
+                  userId: lastLoggedInUser);
+
+              result.fold((e) {
+                log.e(e);
+                emit(
+                  AuthFormSubmissionFailed(
+                    email: state.email,
+                    password: state.password,
+                    errors: {
+                      "general": const ["fingerprint login failed"],
+                      "random": [Random().nextInt(100)]
+                    },
+                  ),
+                );
+              }, (user) {
+                // for fingerprint login, it's never fresh login
+                _authSessionBloc
+                    .add(UserLoggedIn(user: user, freshLogin: false));
+
+                // no need to update lastLoggedInUser as it was already present and we used sa,e
+              });
+            } else {
+              log.e("lastLoginUser not found");
+              emit(
+                AuthFormSubmissionFailed(
+                  email: state.email,
+                  password: state.password,
+                  errors: {
+                    "general": const ["fingerprint login failed"],
+                    "random": [Random().nextInt(100)]
+                  },
+                ),
+              );
+            }
+          } else if (value == FingerPrintAuthState.platformError) {
+            fingerPrintAuthStreamSubscription.cancel();
+            fingerPrintAuthRunning = false;
+          } else if (value == FingerPrintAuthState.attemptsExceeded) {
+            fingerPrintAuthStreamSubscription.cancel();
+
+            emit(
+              AuthFormSubmissionFailed(
+                email: state.email,
+                password: state.password,
+                errors: {
+                  "general": const [
+                    "Too many wrong attempts, please login with password"
+                  ],
+                  "random": [Random().nextInt(100)]
+                },
+              ),
+            );
+
+            fingerPrintAuthRunning = false;
+          } else if (value == FingerPrintAuthState.fail) {
+            emit(
+              AuthFormSubmissionFailed(
+                email: state.email,
+                password: state.password,
+                errors: {
+                  "general": const ["fingerprint not recognized"],
+                  "random": [Random().nextInt(100)]
+                },
+              ),
+            );
+          }
+        });
+      }
+    });
+
     on<AuthFormInputsChangedEvent>(
       (event, emit) {
         emit(
@@ -124,106 +215,19 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         emit(AuthFormSubmissionSuccessful(
             email: state.email, password: state.password));
 
-        _authSessionBloc.add(UserLoggedIn(user: user));
+        // if current logged in user's id == last logeed in user's is, then freshlogin is false
+        _authSessionBloc.add(
+          UserLoggedIn(
+            user: user,
+            freshLogin: (event.lastLoggedInUserId != null &&
+                event.lastLoggedInUserId != user.id),
+          ),
+        );
 
         // update the last logged in user
         await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
       });
     }));
-  }
-
-  Future<void> startFingerPrintAuth() async {
-    Stream<FingerPrintAuthState> fingerPrintAuthStream =
-        authenticationRepository.processFingerPrintAuth();
-
-    late StreamSubscription<FingerPrintAuthState?>
-        fingerPrintAuthStreamSubscription;
-    fingerPrintAuthStreamSubscription =
-        fingerPrintAuthStream.listen((value) async {
-      log.d("FingerPrintAuthState stream value = $value");
-
-      if (value == FingerPrintAuthState.success) {
-        fingerPrintAuthStreamSubscription.cancel();
-
-        // Fingerprint auth successful, starting passwordless sign in
-
-        String? lastLoggedInUser =
-            keyValueDataSource.getValue(Global.lastLoggedInUser);
-        if (lastLoggedInUser != null) {
-          var result = await authenticationRepository.signInDirectly(
-              userId: lastLoggedInUser);
-
-          result.fold((e) {
-            log.e(e);
-            emit(
-              AuthFormSubmissionFailed(
-                email: state.email,
-                password: state.password,
-                errors: {
-                  "general": const ["fingerprint login failed"],
-                  "random": [Random().nextInt(100)]
-                },
-              ),
-            );
-          }, (user) {
-            _authSessionBloc.add(UserLoggedIn(user: user));
-
-            // no need to update lastLoggedInUser as it was already present and we used sa,e
-          });
-        } else {
-          log.e("lastLoginUser not found");
-          emit(
-            AuthFormSubmissionFailed(
-              email: state.email,
-              password: state.password,
-              errors: {
-                "general": const ["fingerprint login failed"],
-                "random": [Random().nextInt(100)]
-              },
-            ),
-          );
-        }
-      } else if (value == FingerPrintAuthState.platformError) {
-        fingerPrintAuthStreamSubscription.cancel();
-
-        emit(
-          AuthFormSubmissionFailed(
-            email: state.email,
-            password: state.password,
-            errors: {
-              "general": const ["fingerprint "],
-              "random": [Random().nextInt(100)]
-            },
-          ),
-        );
-      } else if (value == FingerPrintAuthState.attemptsExceeded) {
-        fingerPrintAuthStreamSubscription.cancel();
-
-        emit(
-          AuthFormSubmissionFailed(
-            email: state.email,
-            password: state.password,
-            errors: {
-              "general": const [
-                "Too many wrong attempts, please login with password"
-              ],
-              "random": [Random().nextInt(100)]
-            },
-          ),
-        );
-      } else if (value == FingerPrintAuthState.fail) {
-        emit(
-          AuthFormSubmissionFailed(
-            email: state.email,
-            password: state.password,
-            errors: {
-              "general": const ["fingerprint not recognized"],
-              "random": [Random().nextInt(100)]
-            },
-          ),
-        );
-      }
-    });
   }
 
   //* Utils

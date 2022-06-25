@@ -10,9 +10,13 @@ abstract class AuthSessionState extends Equatable {
 }
 
 class Unauthenticated extends AuthSessionState {
-  const Unauthenticated() : super(user: null);
+  final bool sessionTimeoutLogout;
+  const Unauthenticated({this.sessionTimeoutLogout = false})
+      : super(user: null);
 }
 
 class Authenticated extends AuthSessionState {
-  const Authenticated({required LoggedInUser user}) : super(user: user);
+  final bool freshLogin;
+  const Authenticated({required LoggedInUser user, this.freshLogin = true})
+      : super(user: user);
 }

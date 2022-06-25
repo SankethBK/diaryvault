@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({Key? key}) : super(key: key);
+  // user id of last logged in user to determine if it is a fresh login or not
+  final String? lastLoggedInUserId;
+
+  const AuthPage({Key? key, this.lastLoggedInUserId}) : super(key: key);
   static String get route => '/auth';
 
   @override
@@ -33,7 +36,8 @@ class AuthPage extends StatelessWidget {
                 return SignUpForm(flipCard: flipCard);
               },
               rearWidget: (void Function() flipCard) {
-                return SignInForm(flipCard: flipCard);
+                return SignInForm(
+                    flipCard: flipCard, lastLoggedInUserId: lastLoggedInUserId);
               },
             ),
             const SizedBox(height: 40),
