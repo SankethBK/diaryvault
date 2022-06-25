@@ -16,9 +16,16 @@ class AuthSessionBloc extends Bloc<AuthSessionEvent, AuthSessionState> {
     on<UserLoggedOut>((event, emit) => emit(const Unauthenticated()));
 
     // navigation will be handled differently for session timeout logouts
-    on<AppLostFocus>(((event, emit) =>
-        emit(const Unauthenticated(sessionTimeoutLogout: true))));
-    on<AppSessionTimeout>(((event, emit) =>
-        emit(const Unauthenticated(sessionTimeoutLogout: true))));
+    on<AppLostFocus>((event, emit) {
+      if (state is Authenticated) {
+        emit(const Unauthenticated(sessionTimeoutLogout: true));
+      }
+    });
+
+    on<AppSessionTimeout>((event, emit) {
+      if (state is Authenticated) {
+        emit(const Unauthenticated(sessionTimeoutLogout: true));
+      }
+    });
   }
 }
