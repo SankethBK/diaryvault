@@ -36,7 +36,7 @@ class _SignInFormState extends State<SignInForm> {
 
     if (!inItialized) {
       bloc = BlocProvider.of<AuthFormBloc>(context);
-      bloc.add(StartFingerPrintAuthIfPossible());
+      // bloc.add(StartFingerPrintAuthIfPossible());
       inItialized = true;
     }
   }

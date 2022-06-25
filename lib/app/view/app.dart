@@ -102,7 +102,7 @@ class AppView extends StatelessWidget {
                   _navigator.pushNamed(AuthPage.route);
                 } else {
                   _navigator.pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => const AuthPage()),
+                      MaterialPageRoute(builder: (_) => AuthPage()),
                       (route) => false);
                 }
               } else if (state is Authenticated) {

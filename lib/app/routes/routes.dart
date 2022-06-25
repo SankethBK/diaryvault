@@ -17,7 +17,7 @@ class RouteGenerator {
     if (settings.name == HomePage.route) {
       return MaterialPageRoute(builder: (_) => const HomePage());
     } else if (settings.name == AuthPage.route) {
-      return MaterialPageRoute(builder: (_) => const AuthPage());
+      return MaterialPageRoute(builder: (_) => AuthPage());
     } else if (settings.name == NoteCreatePage.routeThroughHome) {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());
     } else if (settings.name == NoteCreatePage.routeThroughNoteReadOnly) {

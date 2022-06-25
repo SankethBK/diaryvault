@@ -1,12 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
-import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
@@ -27,109 +23,17 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
   final SignInWithEmailAndPassword signInWithEmailAndPassword;
   final IAuthenticationRepository authenticationRepository;
   final IKeyValueDataSource keyValueDataSource;
-
-  bool fingerPrintAuthRunning = false;
+  final FingerPrintAuthRepository fingerPrintAuthRepository;
 
   AuthFormBloc({
     required this.signInWithEmailAndPassword,
     required this.signUpWithEmailAndPassword,
     required this.authenticationRepository,
     required this.keyValueDataSource,
+    required this.fingerPrintAuthRepository,
     required AuthSessionBloc authSessionBloc,
   })  : _authSessionBloc = authSessionBloc,
         super(const AuthFormInitial(email: '', password: '')) {
-    on<StartFingerPrintAuthIfPossible>((event, emit) {
-      if (shouldActivateFingerPrint() && !fingerPrintAuthRunning) {
-        fingerPrintAuthRunning = true;
-        Stream<FingerPrintAuthState> fingerPrintAuthStream =
-            authenticationRepository.processFingerPrintAuth();
-
-        late StreamSubscription<FingerPrintAuthState?>
-            fingerPrintAuthStreamSubscription;
-        fingerPrintAuthStreamSubscription =
-            fingerPrintAuthStream.listen((value) async {
-          log.d("FingerPrintAuthState stream value = $value");
-
-          if (value == FingerPrintAuthState.success) {
-            fingerPrintAuthStreamSubscription.cancel();
-            fingerPrintAuthRunning = false;
-
-            // Fingerprint auth successful, starting passwordless sign in
-
-            String? lastLoggedInUser =
-                keyValueDataSource.getValue(Global.lastLoggedInUser);
-            if (lastLoggedInUser != null) {
-              var result = await authenticationRepository.signInDirectly(
-                  userId: lastLoggedInUser);
-
-              result.fold((e) {
-                log.e(e);
-                emit(
-                  AuthFormSubmissionFailed(
-                    email: state.email,
-                    password: state.password,
-                    errors: {
-                      "general": const ["fingerprint login failed"],
-                      "random": [Random().nextInt(100)]
-                    },
-                  ),
-                );
-              }, (user) {
-                // for fingerprint login, it's never fresh login
-                _authSessionBloc
-                    .add(UserLoggedIn(user: user, freshLogin: false));
-
-                // no need to update lastLoggedInUser as it was already present and we used sa,e
-              });
-            } else {
-              log.e("lastLoginUser not found");
-              emit(
-                AuthFormSubmissionFailed(
-                  email: state.email,
-                  password: state.password,
-                  errors: {
-                    "general": const ["fingerprint login failed"],
-                    "random": [Random().nextInt(100)]
-                  },
-                ),
-              );
-            }
-          } else if (value == FingerPrintAuthState.platformError) {
-            fingerPrintAuthStreamSubscription.cancel();
-            fingerPrintAuthRunning = false;
-          } else if (value == FingerPrintAuthState.attemptsExceeded) {
-            fingerPrintAuthStreamSubscription.cancel();
-
-            emit(
-              AuthFormSubmissionFailed(
-                email: state.email,
-                password: state.password,
-                errors: {
-                  "general": const [
-                    "Too many wrong attempts, please login with password"
-                  ],
-                  "random": [Random().nextInt(100)]
-                },
-              ),
-            );
-
-            fingerPrintAuthRunning = false;
-          } else if (value == FingerPrintAuthState.fail) {
-            emit(
-              AuthFormSubmissionFailed(
-                email: state.email,
-                password: state.password,
-                errors: {
-                  "general": const ["fingerprint not recognized"],
-                  "random": [Random().nextInt(100)]
-                },
-              ),
-            );
-          }
-        });
-      }
-    });
-
     on<AuthFormInputsChangedEvent>(
       (event, emit) {
         emit(
@@ -177,6 +81,9 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
 
         emit(AuthFormSubmissionSuccessful(
             email: state.email, password: state.password));
+
+        // Cancel the fingerprint auth, in case it's running
+        fingerPrintAuthRepository.cancel();
       });
     }));
 
@@ -211,6 +118,9 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
 
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));
+
+        // Cancel the fingerprint auth, in case it's running
+        fingerPrintAuthRepository.cancel();
       }, (user) async {
         emit(AuthFormSubmissionSuccessful(
             email: state.email, password: state.password));
@@ -228,40 +138,5 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
       });
     }));
-  }
-
-  //* Utils
-
-  /// Checks if UI can use fingerprint auth, based on last logged in user's preferences (if available)
-  bool shouldActivateFingerPrint() {
-    try {
-      log.i("Checking for activating fingerprints");
-      // see if lastLoggedInUser is present
-      String? lastLoggedInUser =
-          keyValueDataSource.getValue(Global.lastLoggedInUser);
-
-      log.d("lastLoggedInUser = $lastLoggedInUser");
-
-      if (lastLoggedInUser == null) {
-        return false;
-      }
-
-      // See if userConfig is present for last logged in user
-      String? userConfigData = keyValueDataSource.getValue(lastLoggedInUser);
-
-      log.d("userConfig = $userConfigData");
-
-      if (userConfigData == null) {
-        return false;
-      }
-
-      var userConfig = UserConfigModel.fromJson(jsonDecode(userConfigData));
-
-      return userConfig.isFingerPrintAuthPossible == true &&
-          userConfig.isFingerPrintLoginEnabled == true;
-    } catch (e) {
-      log.e(e);
-      return false;
-    }
   }
 }

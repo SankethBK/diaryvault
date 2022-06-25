@@ -21,5 +21,3 @@ class AuthFormSignInSubmitted extends AuthFormEvent {
 
   const AuthFormSignInSubmitted({this.lastLoggedInUserId});
 }
-
-class StartFingerPrintAuthIfPossible extends AuthFormEvent {}
