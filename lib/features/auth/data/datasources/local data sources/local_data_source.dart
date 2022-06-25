@@ -4,6 +4,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:dairy_app/core/databases/db_schemas.dart';
 
@@ -138,6 +139,29 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
 
     if (count != 1) {
       throw const DatabaseUpdateException();
+    }
+  }
+
+  @override
+  Future<LoggedInUserModel> signInDirectly({required String userId}) async {
+    List<Map<String, Object?>> result;
+    log.i("Starting passwordless sign in");
+
+    try {
+      result = await database.query(
+        Users.TABLE_NAME,
+        columns: [Users.ID, Users.EMAIL],
+        where: "${Users.ID} = ?",
+        whereArgs: [userId],
+      );
+
+      return LoggedInUserModel.fromJson({
+        "id": result[0][Users.ID] as String,
+        "email": result[0][Users.EMAIL] as String
+      });
+    } catch (e) {
+      log.e("Local database query failed $e");
+      throw const DatabaseQueryException();
     }
   }
 }

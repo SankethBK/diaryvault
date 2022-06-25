@@ -209,26 +209,52 @@ class AuthenticationRepository implements IAuthenticationRepository {
   }
 
   @override
-  Stream<bool?> processFingerPrintAuth() async* {
+  Stream<FingerPrintAuthState> processFingerPrintAuth() async* {
     log.i("Started processing fingerprint auth");
+
+    int wrongAttempts = 0;
 
     try {
       while (true) {
-        log.d("Loop running");
         var authenticationResult = await LocalAuthentication.authenticate(
           localizedReason: 'Scan Fingerprint to Authenticate',
           useErrorDialogs: true,
           stickyAuth: true,
         );
-        log.i("authentication result = $authenticationResult");
-        yield authenticationResult;
+
+        if (authenticationResult == false) {
+          wrongAttempts += 1;
+          yield FingerPrintAuthState.fail;
+        } else if (authenticationResult == true) {
+          LocalAuthentication.stopAuthentication();
+          yield FingerPrintAuthState.success;
+        }
+
+        if (wrongAttempts == 5) {
+          LocalAuthentication.stopAuthentication();
+          yield FingerPrintAuthState.attemptsExceeded;
+          break;
+        }
 
         // need to free the thread for other tasks
         await Future.delayed(const Duration(milliseconds: 500));
       }
     } on PlatformException catch (e) {
       log.e(e);
-      yield null;
+      yield FingerPrintAuthState.platformError;
+    }
+  }
+
+  @override
+  Future<Either<SignInFailure, LoggedInUser>> signInDirectly(
+      {required String userId}) async {
+    try {
+      log.i("Starting passwordless sign in");
+      LoggedInUser user = await localDataSource.signInDirectly(userId: userId);
+      return Right(user);
+    } catch (e) {
+      log.e(e);
+      return Left(SignInFailure.unknownError());
     }
   }
 }

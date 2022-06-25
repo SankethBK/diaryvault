@@ -31,4 +31,7 @@ abstract class IAuthLocalDataSource {
     required String oldPassword,
     required String newPassword,
   });
+
+  /// passwordless sign in
+  Future<LoggedInUserModel> signInDirectly({required String userId});
 }

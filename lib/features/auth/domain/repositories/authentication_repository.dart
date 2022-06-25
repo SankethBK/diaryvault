@@ -1,7 +1,13 @@
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dartz/dartz.dart';
-import 'package:googleapis/androidmanagement/v1.dart';
+
+enum FingerPrintAuthState {
+  success,
+  fail,
+  platformError,
+  attemptsExceeded,
+}
 
 abstract class IAuthenticationRepository {
   /// If connected to internet, registers the user remotely, and then registers the
@@ -35,5 +41,9 @@ abstract class IAuthenticationRepository {
 
   /// Listens for fingerprint events, and returns a stream of bool values
   /// null inidcates some error occured while doing so
-  Stream<bool?> processFingerPrintAuth();
+  Stream<FingerPrintAuthState> processFingerPrintAuth();
+
+  /// Login without password (authentication will be carried out by fingerprint)
+  Future<Either<SignInFailure, LoggedInUser>> signInDirectly(
+      {required String userId});
 }

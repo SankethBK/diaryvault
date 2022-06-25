@@ -121,57 +121,103 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));
       }, (user) async {
+        emit(AuthFormSubmissionSuccessful(
+            email: state.email, password: state.password));
+
         _authSessionBloc.add(UserLoggedIn(user: user));
 
         // update the last logged in user
         await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
-
-        emit(AuthFormSubmissionSuccessful(
-            email: state.email, password: state.password));
       });
     }));
   }
 
-  void startFingerPrintAuth() {
-    Stream<bool?> fingerPrintAuthStream =
+  Future<void> startFingerPrintAuth() async {
+    Stream<FingerPrintAuthState> fingerPrintAuthStream =
         authenticationRepository.processFingerPrintAuth();
 
-    late StreamSubscription<bool?> s;
-    s = fingerPrintAuthStream.listen((value) {
-      if (value == true) {
-        log.i("FINGERPRINT AUTH SUCCESSFUL");
-        s.cancel();
+    late StreamSubscription<FingerPrintAuthState?>
+        fingerPrintAuthStreamSubscription;
+    fingerPrintAuthStreamSubscription =
+        fingerPrintAuthStream.listen((value) async {
+      log.d("FingerPrintAuthState stream value = $value");
+
+      if (value == FingerPrintAuthState.success) {
+        fingerPrintAuthStreamSubscription.cancel();
+
+        // Fingerprint auth successful, starting passwordless sign in
+
+        String? lastLoggedInUser =
+            keyValueDataSource.getValue(Global.lastLoggedInUser);
+        if (lastLoggedInUser != null) {
+          var result = await authenticationRepository.signInDirectly(
+              userId: lastLoggedInUser);
+
+          result.fold((e) {
+            log.e(e);
+            emit(
+              AuthFormSubmissionFailed(
+                email: state.email,
+                password: state.password,
+                errors: {
+                  "general": const ["fingerprint login failed"],
+                  "random": [Random().nextInt(100)]
+                },
+              ),
+            );
+          }, (user) {
+            _authSessionBloc.add(UserLoggedIn(user: user));
+
+            // no need to update lastLoggedInUser as it was already present and we used sa,e
+          });
+        } else {
+          log.e("lastLoginUser not found");
+          emit(
+            AuthFormSubmissionFailed(
+              email: state.email,
+              password: state.password,
+              errors: {
+                "general": const ["fingerprint login failed"],
+                "random": [Random().nextInt(100)]
+              },
+            ),
+          );
+        }
+      } else if (value == FingerPrintAuthState.platformError) {
+        fingerPrintAuthStreamSubscription.cancel();
+
         emit(
           AuthFormSubmissionFailed(
             email: state.email,
             password: state.password,
             errors: {
-              "general": ["fingerprint auth successful"],
+              "general": const ["fingerprint "],
               "random": [Random().nextInt(100)]
             },
           ),
         );
-      } else if (value == null) {
-        log.i("FINGERPRINT AUTH FAILED with error");
-        s.cancel();
+      } else if (value == FingerPrintAuthState.attemptsExceeded) {
+        fingerPrintAuthStreamSubscription.cancel();
+
         emit(
           AuthFormSubmissionFailed(
             email: state.email,
             password: state.password,
             errors: {
-              "general": ["fingerprint scalling failed with error"],
+              "general": const [
+                "Too many wrong attempts, please login with password"
+              ],
               "random": [Random().nextInt(100)]
             },
           ),
         );
-      } else if (value == false) {
-        log.i("FINGERPRINT NOT RECOGNIZED");
+      } else if (value == FingerPrintAuthState.fail) {
         emit(
           AuthFormSubmissionFailed(
             email: state.email,
             password: state.password,
             errors: {
-              "general": ["fingerprint not recognized"],
+              "general": const ["fingerprint not recognized"],
               "random": [Random().nextInt(100)]
             },
           ),
