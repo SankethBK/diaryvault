@@ -7,7 +7,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/sign_in_form.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   // user id of last logged in user to determine if it is a fresh login or not
   final String? lastLoggedInUserId;
   late FingerPrintAuthRepository fingerPrintAuthRepository;
@@ -17,6 +17,25 @@ class AuthPage extends StatelessWidget {
     fingerPrintAuthRepository.startFingerPrintAuthIfNeeded();
   }
   static String get route => '/auth';
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  late Image neonImage;
+
+  @override
+  void initState() {
+    super.initState();
+    neonImage = Image.asset("assets/images/digital-art-neon-bubbles.jpg");
+  }
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(neonImage.image, context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +58,12 @@ class AuthPage extends StatelessWidget {
               },
               rearWidget: (void Function() flipCard) {
                 return SignInForm(
-                    flipCard: flipCard, lastLoggedInUserId: lastLoggedInUserId);
+                    flipCard: flipCard,
+                    lastLoggedInUserId: widget.lastLoggedInUserId);
               },
             ),
             const SizedBox(height: 40),
-            if (fingerPrintAuthRepository.shouldActivateFingerPrint())
+            if (widget.fingerPrintAuthRepository.shouldActivateFingerPrint())
               Icon(
                 Icons.fingerprint,
                 size: 50,
