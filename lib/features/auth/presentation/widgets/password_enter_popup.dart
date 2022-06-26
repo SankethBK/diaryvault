@@ -24,11 +24,13 @@ Future<dynamic> passwordLoginPopup(
   }
 
   return showCustomDialog(
-      context: context,
-      child: Container(
-        height: 230,
-        padding: const EdgeInsets.all(20.0),
-        child: Column(children: [
+    context: context,
+    child: Container(
+      width: 300,
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
           const Text("Enter current password",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           const SizedBox(height: 25),
@@ -42,6 +44,8 @@ Future<dynamic> passwordLoginPopup(
               isLoading: false,
               onSubmitted: verifyPassword,
               buttonText: "Submit")
-        ]),
-      ));
+        ],
+      ),
+    ),
+  );
 }

@@ -35,11 +35,13 @@ Future<dynamic> passwordResetPopup(
   }
 
   return showCustomDialog(
-      context: context,
-      child: Container(
-        height: 300,
-        padding: const EdgeInsets.all(20.0),
-        child: Column(children: [
+    context: context,
+    child: Container(
+      width: 300,
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
           const Text("Reset password",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           const SizedBox(height: 25),
@@ -60,6 +62,8 @@ Future<dynamic> passwordResetPopup(
               isLoading: false,
               onSubmitted: startResetPasswordProcess,
               buttonText: "Submit")
-        ]),
-      ));
+        ],
+      ),
+    ),
+  );
 }

@@ -241,79 +241,80 @@ class Title extends StatelessWidget {
                         showCustomDialog(
                             context: context,
                             child: Container(
-                              height: 250,
                               width: 290,
                               padding: const EdgeInsets.only(
-                                top: 10,
-                                bottom: 10,
+                                top: 13,
+                                bottom: 13,
                                 left: 20,
                                 right: 15,
                               ),
-                              child: Column(children: [
-                                const Text(
-                                  "Date Filter",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Flexible(
-                                      flex: 2,
-                                      child: Text(
-                                        "From",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w500),
+                                    const Text(
+                                      "Date Filter",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Flexible(
-                                      flex: 3,
-                                      child: DateInputField(
-                                        displayDate: startDate,
-                                        assignDate: assignStartDate,
-                                      ),
+                                    const SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Flexible(
+                                          flex: 2,
+                                          child: Text(
+                                            "From",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                        Flexible(
+                                          flex: 4,
+                                          child: DateInputField(
+                                            displayDate: startDate,
+                                            assignDate: assignStartDate,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Flexible(
-                                      flex: 2,
-                                      child: Text(
-                                        "To",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w500),
-                                      ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Flexible(
+                                          flex: 2,
+                                          child: Text(
+                                            "To",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                        Flexible(
+                                          flex: 4,
+                                          child: DateInputField(
+                                            displayDate: endDate,
+                                            assignDate: assignEndDate,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Flexible(
-                                      flex: 3,
-                                      child: DateInputField(
-                                        displayDate: endDate,
-                                        assignDate: assignEndDate,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                SubmitButton(
-                                  isLoading: false,
-                                  onSubmitted: () =>
-                                      Navigator.of(context).pop(),
-                                  buttonText: "Done",
-                                )
-                              ]),
+                                    const SizedBox(height: 20),
+                                    SubmitButton(
+                                      isLoading: false,
+                                      onSubmitted: () =>
+                                          Navigator.of(context).pop(),
+                                      buttonText: "Done",
+                                    )
+                                  ]),
                             ));
                       },
                       icon: const Icon(
