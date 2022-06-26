@@ -16,4 +16,8 @@ class AuthFormInputsChangedEvent extends AuthFormEvent {
 
 class AuthFormSignUpSubmitted extends AuthFormEvent {}
 
-class AuthFormSignInSubmitted extends AuthFormEvent {}
+class AuthFormSignInSubmitted extends AuthFormEvent {
+  final String? lastLoggedInUserId;
+
+  const AuthFormSignInSubmitted({this.lastLoggedInUserId});
+}

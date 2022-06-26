@@ -30,13 +30,16 @@ class SyncSettings extends StatelessWidget {
             builder: (context, state) {
               final hasChoosenCloudSource =
                   state.userConfigModel?.preferredSyncOption != null;
+              final isSignedIn =
+                  (state.userConfigModel?.googleDriveUserInfo != null);
               return SwitchListTile(
                 activeColor: Colors.pinkAccent,
                 contentPadding: const EdgeInsets.all(0),
-                title: const Text("Auto sync"),
+                title:
+                    const Text("Auto sync", style: TextStyle(fontSize: 16.0)),
                 subtitle: const Text(
                     "Automatically donwloads and uploads data from cloud"),
-                value: hasChoosenCloudSource &&
+                value: (isSignedIn && hasChoosenCloudSource) &&
                     state.userConfigModel?.isAutoSyncEnabled == true,
                 onChanged: hasChoosenCloudSource
                     ? (bool val) {
@@ -52,16 +55,15 @@ class SyncSettings extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: const [
-              Text("Sync now"),
+              Text("Sync now", style: TextStyle(fontSize: 16.0)),
               Spacer(),
               SyncNowButton(),
               SizedBox(width: 8.0),
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            "Available platforms for sync",
-          ),
+          const Text("Available platforms for sync",
+              style: TextStyle(fontSize: 16.0)),
           const SizedBox(height: 10.0),
           Row(
             children: [

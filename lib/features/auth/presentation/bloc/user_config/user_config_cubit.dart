@@ -5,8 +5,6 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 part 'user_config_state.dart';
 
@@ -21,16 +19,18 @@ class UserConfigCubit extends Cubit<UserConfigState> {
   UserConfigCubit(
       {required this.userConfigRepository, required this.authSessionBloc})
       : super(const UserConfigDataState()) {
-    log.d("initialized");
     authSessionBlocSubscription = authSessionBloc.stream.listen((state) {
       log.d("state received $state");
       if (state is Authenticated) {
-        userId = (state).user.id;
+        userId = state.user!.id;
         log.i("userId obtained = $userId");
       } else if (state is Unauthenticated) {
         log.i("user logged out");
         userId = null;
       }
+
+      // to trigger the first user fetch, as it is null initially
+      getUserConfig();
     });
   }
 

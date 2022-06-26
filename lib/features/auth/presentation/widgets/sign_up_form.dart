@@ -1,12 +1,10 @@
-import 'dart:ui';
-
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
+import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:flutter/material.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'auth_change.dart';
@@ -14,29 +12,43 @@ import 'email_input_field.dart';
 
 class SignUpForm extends StatefulWidget {
   static String get route => '/auth';
+
   final void Function() flipCard;
 
-  const SignUpForm({Key? key, required this.flipCard}) : super(key: key);
+  const SignUpForm({
+    Key? key,
+    required this.flipCard,
+  }) : super(key: key);
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  bool isInitialized = false;
+  late AuthFormBloc bloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!isInitialized) {
+      bloc = BlocProvider.of<AuthFormBloc>(context);
+      // bloc.add(StartFingerPrintAuthIfPossible());
+      isInitialized = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    AuthFormBloc bloc = sl<AuthFormBloc>();
+    AuthFormBloc bloc = BlocProvider.of<AuthFormBloc>(context);
 
     return BlocConsumer<AuthFormBloc, AuthFormState>(
       bloc: bloc,
       listener: (context, state) {
         if (state is AuthFormSubmissionFailed &&
             state.errors.containsKey("general")) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errors["general"]![0]),
-            ),
-          );
+          showToast(state.errors["general"]![0]);
         }
       },
       builder: (context, state) {

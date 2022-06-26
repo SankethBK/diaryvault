@@ -1,13 +1,17 @@
 import 'package:dairy_app/core/errors/database_exceptions.dart';
+import 'package:dairy_app/core/errors/validation_exceptions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/network/network_info.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_auth_invisible/flutter_local_auth_invisible.dart';
 
 final log = printer("AuthenticationRepository");
 
@@ -15,11 +19,14 @@ class AuthenticationRepository implements IAuthenticationRepository {
   final INetworkInfo networkInfo;
   final IAuthRemoteDataSource remoteDataSource;
   final IAuthLocalDataSource localDataSource;
+  final PasswordValidator passwordValidator;
 
-  AuthenticationRepository(
-      {required this.remoteDataSource,
-      required this.localDataSource,
-      required this.networkInfo});
+  AuthenticationRepository({
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.networkInfo,
+    required this.passwordValidator,
+  });
 
   @override
   Future<Either<SignUpFailure, LoggedInUser>> signUpWithEmailAndPassword({
@@ -128,7 +135,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
       log.e("sign in failed because of incorrect credentails $e.code");
       switch (e.code) {
         case SignInFailure.WRONG_PASSWORD:
-          return Left(SignInFailure.wrongPassword());
+          return _remoteLogin(email: email, password: password);
         case SignInFailure.EMAIL_DOES_NOT_EXISTS:
           return _remoteLogin(email: email, password: password);
         default:
@@ -137,6 +144,115 @@ class AuthenticationRepository implements IAuthenticationRepository {
     } on DatabaseQueryException {
       log.e("sign in failed because of local database exception");
 
+      return Left(SignInFailure.unknownError());
+    }
+  }
+
+  @override
+  Future<bool> verifyPassword(String userId, String password) async {
+    try {
+      return localDataSource.verifyPassword(userId, password);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<Either<SignUpFailure, bool>> updatePassword(
+      String email, String oldPassword, String newPassword) async {
+    // step 1: validation
+
+    try {
+      passwordValidator(newPassword);
+    } on InvalidPasswordException catch (e) {
+      return Left(SignUpFailure.invalidPassword(e.message));
+    }
+
+    try {
+      // step 2. Update the password in remote
+      await remoteDataSource.updatePassword(
+        email: email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+
+      // step 3: Reset the password in local
+      await localDataSource.updatePassword(
+        email: email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+    } catch (e) {
+      log.e(e);
+      return Left(SignUpFailure.unknownError());
+    }
+
+    return const Right(true);
+  }
+
+  @override
+  Future<void> isFingerprintAuthPossible() async {
+    bool hasBiometrics = await LocalAuthentication.canCheckBiometrics;
+    log.i("hasBIometrics = $hasBiometrics");
+    if (hasBiometrics == false) {
+      throw Exception("device doesn't support fingerprint");
+    }
+
+    var availableBiometrics =
+        await LocalAuthentication.getAvailableBiometrics();
+    log.i("available biometrics = $availableBiometrics");
+
+    if (!availableBiometrics.contains(BiometricType.fingerprint)) {
+      throw Exception("please setup fingerprint in device settings");
+    }
+  }
+
+  @override
+  Stream<FingerPrintAuthState> processFingerPrintAuth() async* {
+    log.i("Started processing fingerprint auth");
+
+    int wrongAttempts = 0;
+
+    while (true) {
+      try {
+        var authenticationResult = await LocalAuthentication.authenticate(
+          localizedReason: 'Scan Fingerprint to Authenticate',
+          useErrorDialogs: true,
+          stickyAuth: true,
+        );
+
+        if (authenticationResult == false) {
+          wrongAttempts += 1;
+          yield FingerPrintAuthState.fail;
+        } else if (authenticationResult == true) {
+          await LocalAuthentication.stopAuthentication();
+          yield FingerPrintAuthState.success;
+        }
+
+        if (wrongAttempts == 5) {
+          await LocalAuthentication.stopAuthentication();
+          yield FingerPrintAuthState.attemptsExceeded;
+          break;
+        }
+
+        // need to free the thread for other tasks
+        await Future.delayed(const Duration(milliseconds: 500));
+      } on PlatformException catch (e) {
+        log.e(e);
+        LocalAuthentication.stopAuthentication();
+      }
+    }
+  }
+
+  @override
+  Future<Either<SignInFailure, LoggedInUser>> signInDirectly(
+      {required String userId}) async {
+    try {
+      log.i("Starting passwordless sign in");
+      LoggedInUser user = await localDataSource.signInDirectly(userId: userId);
+      return Right(user);
+    } catch (e) {
+      log.e(e);
       return Left(SignInFailure.unknownError());
     }
   }

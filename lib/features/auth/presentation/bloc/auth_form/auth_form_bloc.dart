@@ -1,13 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
+import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:equatable/equatable.dart';
 
 part 'auth_form_event.dart';
 part 'auth_form_state.dart';
+
+final log = printer("AuthFormBloc");
 
 /// [AuthFormBloc] handles both sign up and sign in flow, as both involve same fields
 /// It updates [AuthSession]
@@ -15,10 +21,16 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
   final AuthSessionBloc _authSessionBloc;
   final SignUpWithEmailAndPassword signUpWithEmailAndPassword;
   final SignInWithEmailAndPassword signInWithEmailAndPassword;
+  final IAuthenticationRepository authenticationRepository;
+  final IKeyValueDataSource keyValueDataSource;
+  final FingerPrintAuthRepository fingerPrintAuthRepository;
 
   AuthFormBloc({
     required this.signInWithEmailAndPassword,
     required this.signUpWithEmailAndPassword,
+    required this.authenticationRepository,
+    required this.keyValueDataSource,
+    required this.fingerPrintAuthRepository,
     required AuthSessionBloc authSessionBloc,
   })  : _authSessionBloc = authSessionBloc,
         super(const AuthFormInitial(email: '', password: '')) {
@@ -61,8 +73,15 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
 
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));
-      }, (user) {
+      }, (user) async {
         _authSessionBloc.add(UserLoggedIn(user: user));
+
+        // update the last logged in user
+        await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
+
+        // Cancel the fingerprint auth, in case it's running
+        fingerPrintAuthRepository.cancel();
+
         emit(AuthFormSubmissionSuccessful(
             email: state.email, password: state.password));
       });
@@ -99,10 +118,24 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
 
         emit(AuthFormSubmissionFailed(
             email: state.email, password: state.password, errors: errorMap));
-      }, (user) {
-        _authSessionBloc.add(UserLoggedIn(user: user));
+      }, (user) async {
         emit(AuthFormSubmissionSuccessful(
             email: state.email, password: state.password));
+
+        // Cancel the fingerprint auth, in case it's running
+        fingerPrintAuthRepository.cancel();
+
+        // if current logged in user's id == last logeed in user's is, then freshlogin is false
+        _authSessionBloc.add(
+          UserLoggedIn(
+            user: user,
+            freshLogin: (event.lastLoggedInUserId != null &&
+                event.lastLoggedInUserId != user.id),
+          ),
+        );
+
+        // update the last logged in user
+        await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
       });
     }));
   }

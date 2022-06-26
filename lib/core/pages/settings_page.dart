@@ -1,5 +1,6 @@
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,11 @@ class SettingsPage extends StatelessWidget {
                 end: AlignmentDirectional.bottomEnd,
               ),
             ),
-            child: Column(children: const [SyncSettings()]),
+            child: Column(children: [
+              const SyncSettings(),
+              const SizedBox(height: 25.0),
+              SecuritySettings()
+            ]),
           ),
         ),
       ),

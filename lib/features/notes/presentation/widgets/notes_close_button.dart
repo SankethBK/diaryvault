@@ -25,37 +25,38 @@ class NotesCloseButton extends StatelessWidget {
               bool? result = await showCustomDialog(
                 context: context,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  height: 120,
-                  width: 300,
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          "You have unsaved changes",
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CancelButton(
-                              buttonText: "Leave",
-                              onPressed: () {
-                                Navigator.pop(context, true);
-                              },
-                            ),
-                            const SizedBox(width: 10),
-                            SubmitButton(
-                              isLoading: false,
-                              onSubmitted: () => Navigator.pop(context, false),
-                              buttonText: "Stay",
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                  // height: 120,
+                  // width: 300,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        "You have unsaved changes",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CancelButton(
+                            buttonText: "Leave",
+                            onPressed: () {
+                              Navigator.pop(context, true);
+                            },
+                          ),
+                          const SizedBox(width: 10),
+                          SubmitButton(
+                            isLoading: false,
+                            onSubmitted: () => Navigator.pop(context, false),
+                            buttonText: "Stay",
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               );

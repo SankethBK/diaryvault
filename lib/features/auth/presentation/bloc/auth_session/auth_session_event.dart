@@ -11,8 +11,11 @@ class AppLostFocus extends AuthSessionEvent {}
 
 class UserLoggedIn extends AuthSessionEvent {
   final LoggedInUser user;
+  final bool freshLogin;
 
-  const UserLoggedIn({required this.user});
+  const UserLoggedIn({required this.user, this.freshLogin = true});
 }
 
 class UserLoggedOut extends AuthSessionEvent {}
+
+class AppSessionTimeout extends AuthSessionEvent {}

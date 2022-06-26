@@ -12,4 +12,10 @@ abstract class IAuthRemoteDataSource {
   /// Throws [SignInFailure] with suitable error code if something foes wrong
   Future<LoggedInUserModel> signInUser(
       {required String email, required String password});
+
+  // Update the password in remote
+  Future<void> updatePassword(
+      {required String email,
+      required String oldPassword,
+      required String newPassword});
 }

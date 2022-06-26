@@ -1,11 +1,9 @@
-import 'dart:ui';
-
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/utils/utils.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,10 +13,12 @@ import 'password_input_field.dart';
 class SignInForm extends StatefulWidget {
   static String get route => '/auth';
   final void Function() flipCard;
+  final String? lastLoggedInUserId;
 
   const SignInForm({
     Key? key,
     required this.flipCard,
+    this.lastLoggedInUserId,
   }) : super(key: key);
 
   @override
@@ -26,18 +26,30 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
+  bool inItialized = false;
+
+  late AuthFormBloc bloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!inItialized) {
+      bloc = BlocProvider.of<AuthFormBloc>(context);
+      // bloc.add(StartFingerPrintAuthIfPossible());
+      inItialized = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    AuthFormBloc bloc = sl<AuthFormBloc>();
     return BlocConsumer<AuthFormBloc, AuthFormState>(
       bloc: bloc,
       listener: (context, state) {
         if (state is AuthFormSubmissionFailed &&
             state.errors.containsKey("general")) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errors["general"]![0]),
-            ),
+          showToast(
+            state.errors["general"]![0],
           );
         }
       },
@@ -64,7 +76,8 @@ class _SignInFormState extends State<SignInForm> {
         void _onPasswordChanged(String password) =>
             bloc.add(AuthFormInputsChangedEvent(password: password));
 
-        void _onSubmitted() => bloc.add(AuthFormSignInSubmitted());
+        void _onSubmitted() => bloc.add(AuthFormSignInSubmitted(
+            lastLoggedInUserId: widget.lastLoggedInUserId));
 
         return GlassMorphismCover(
           borderRadius: BorderRadius.circular(16.0),

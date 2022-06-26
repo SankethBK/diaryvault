@@ -32,14 +32,18 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
     });
   }
 
-  void closeSearchAppBar() {
-    setState(() {
-      isSearchEnabled = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+
+    void closeSearchAppBar() {
+      setState(() {
+        isSearchEnabled = false;
+      });
+
+      notesFetchCubit.fetchNotes();
+    }
+
     return AppBar(
       automaticallyImplyLeading: false,
       leading: LeadingIcon(isSearchEnabled: isSearchEnabled),
@@ -408,22 +412,28 @@ class DeleteIcon extends StatelessWidget {
           }
 
           bool? result = await showCustomDialog(
-              context: context,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                height: 110,
-                width: 350,
-                child: Center(
+            context: context,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                log.d(constraints.isTight);
+                return Container(
+                  color: Colors.transparent,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                  // height: 110,
+                  // width: 350,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         "You are about to delete $deletionCount  item${deletionCount > 1 ? "s" : ""}",
                         style: const TextStyle(fontSize: 18.0),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           const _CancelButton(),
                           const SizedBox(width: 10),
@@ -434,8 +444,10 @@ class DeleteIcon extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-              ));
+                );
+              },
+            ),
+          );
 
           disableSelectedList();
 
