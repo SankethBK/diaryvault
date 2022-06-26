@@ -11,19 +11,18 @@ class UserConfigModel extends Equatable {
   final String? googleDriveUserInfo;
   final String? dropBoxUserInfo;
   final bool? isAutoSyncEnabled;
-  final bool? isFingerPrintAuthPossible;
   final bool? isFingerPrintLoginEnabled;
 
-  const UserConfigModel(
-      {required this.userId,
-      this.preferredSyncOption,
-      this.lastGoogleDriveSync,
-      this.lastDropboxSync,
-      this.googleDriveUserInfo,
-      this.dropBoxUserInfo,
-      this.isAutoSyncEnabled,
-      this.isFingerPrintLoginEnabled,
-      this.isFingerPrintAuthPossible});
+  const UserConfigModel({
+    required this.userId,
+    this.preferredSyncOption,
+    this.lastGoogleDriveSync,
+    this.lastDropboxSync,
+    this.googleDriveUserInfo,
+    this.dropBoxUserInfo,
+    this.isAutoSyncEnabled,
+    this.isFingerPrintLoginEnabled,
+  });
 
   @override
   List<Object?> get props => [
@@ -34,7 +33,6 @@ class UserConfigModel extends Equatable {
         googleDriveUserInfo,
         dropBoxUserInfo,
         isAutoSyncEnabled,
-        isFingerPrintAuthPossible,
         isFingerPrintLoginEnabled,
       ];
 
@@ -54,8 +52,6 @@ class UserConfigModel extends Equatable {
       googleDriveUserInfo: jsonMap[UserConfigConstants.googleDriveUserInfo],
       dropBoxUserInfo: jsonMap[UserConfigConstants.dropBoxUserInfo],
       isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
-      isFingerPrintAuthPossible:
-          jsonMap[UserConfigConstants.isFingerPrintAuthPossible],
       isFingerPrintLoginEnabled:
           jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
     );
@@ -72,7 +68,6 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.googleDriveUserInfo: googleDriveUserInfo,
       UserConfigConstants.dropBoxUserInfo: dropBoxUserInfo,
       UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
-      UserConfigConstants.isFingerPrintAuthPossible: isFingerPrintAuthPossible,
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
     };
   }

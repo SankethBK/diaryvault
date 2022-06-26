@@ -51,8 +51,7 @@ class FingerPrintAuthRepository {
 
       var userConfig = UserConfigModel.fromJson(jsonDecode(userConfigData));
 
-      return userConfig.isFingerPrintAuthPossible == true &&
-          userConfig.isFingerPrintLoginEnabled == true;
+      return userConfig.isFingerPrintLoginEnabled == true;
     } catch (e) {
       log.e(e);
       return false;

@@ -1,4 +1,5 @@
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
@@ -19,6 +20,8 @@ class SecuritySettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
+    final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
+
     return Container(
       padding: const EdgeInsets.only(top: 5.0),
       width: double.infinity,
@@ -71,22 +74,6 @@ class SecuritySettings extends StatelessWidget {
           const SizedBox(height: 10),
           BlocBuilder<UserConfigCubit, UserConfigState>(
             builder: (context, state) {
-              final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
-
-              // if the value for config is not set yet, then set it
-              if (userConfigCubit
-                      .state.userConfigModel!.isFingerPrintAuthPossible ==
-                  null) {
-                authenticationRepository.isFingerprintAuthPossible().then(
-                  (value) {
-                    userConfigCubit.setUserConfig(
-                        UserConfigConstants.isFingerPrintAuthPossible, value);
-                  },
-                );
-              }
-
-              var isFingerPrintAuthPossible =
-                  state.userConfigModel!.isFingerPrintAuthPossible;
               var isFingerPrintLoginEnabledValue =
                   state.userConfigModel!.isFingerPrintLoginEnabled;
               return SwitchListTile(
@@ -96,15 +83,17 @@ class SecuritySettings extends StatelessWidget {
                 subtitle: const Text(
                     "Fingerprint auth should be enabled in device settings"),
                 value: isFingerPrintLoginEnabledValue ?? false,
-                onChanged: (isFingerPrintAuthPossible == null ||
-                        isFingerPrintAuthPossible == false)
-                    ? null
-                    : (value) {
-                        userConfigCubit.setUserConfig(
-                          UserConfigConstants.isFingerPrintLoginEnabled,
-                          value,
-                        );
-                      },
+                onChanged: (value) async {
+                  try {
+                    await authenticationRepository.isFingerprintAuthPossible();
+                    userConfigCubit.setUserConfig(
+                      UserConfigConstants.isFingerPrintLoginEnabled,
+                      value,
+                    );
+                  } on Exception catch (e) {
+                    showToast(e.toString().replaceAll("Exception: ", ""));
+                  }
+                },
               );
             },
           ),

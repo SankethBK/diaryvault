@@ -191,20 +191,19 @@ class AuthenticationRepository implements IAuthenticationRepository {
   }
 
   @override
-  Future<bool> isFingerprintAuthPossible() async {
-    try {
-      bool hasBiometrics = await LocalAuthentication.canCheckBiometrics;
-      log.i("hasBIometrics = $hasBiometrics");
-      if (hasBiometrics == false) return hasBiometrics;
+  Future<void> isFingerprintAuthPossible() async {
+    bool hasBiometrics = await LocalAuthentication.canCheckBiometrics;
+    log.i("hasBIometrics = $hasBiometrics");
+    if (hasBiometrics == false) {
+      throw Exception("device doesn't support fingerprint");
+    }
 
-      var availableBiometrics =
-          await LocalAuthentication.getAvailableBiometrics();
-      log.i("available biometrics = $availableBiometrics");
+    var availableBiometrics =
+        await LocalAuthentication.getAvailableBiometrics();
+    log.i("available biometrics = $availableBiometrics");
 
-      return availableBiometrics.contains(BiometricType.fingerprint);
-    } catch (e) {
-      log.e(e);
-      return false;
+    if (!availableBiometrics.contains(BiometricType.fingerprint)) {
+      throw Exception("please setup fingerprint in device settings");
     }
   }
 

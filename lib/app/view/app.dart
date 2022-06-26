@@ -63,13 +63,13 @@ class AppView extends StatelessWidget {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
 
     final sessionConfig = SessionConfig(
-      invalidateSessionForAppLostFocus: const Duration(seconds: 1),
-      invalidateSessionForUserInactiviity: const Duration(minutes: 5),
+      invalidateSessionForAppLostFocus: const Duration(seconds: 5),
+      invalidateSessionForUserInactiviity: null,
     );
     sessionConfig.stream.listen((SessionTimeoutState timeoutEvent) {
-      if (timeoutEvent == SessionTimeoutState.userInactivityTimeout) {
-        authSessionBloc.add(AppSessionTimeout());
-      } else if (timeoutEvent == SessionTimeoutState.appFocusTimeout) {
+      log.d("Session timeout stream value: $timeoutEvent");
+
+      if (timeoutEvent == SessionTimeoutState.appFocusTimeout) {
         authSessionBloc.add(AppLostFocus());
       }
     });
