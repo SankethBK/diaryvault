@@ -74,53 +74,50 @@ class AppView extends StatelessWidget {
       }
     });
 
-    return SessionTimeoutManager(
-      sessionConfig: sessionConfig,
-      child: MaterialApp(
-        navigatorKey: _navigatorKey,
-        debugShowCheckedModeBanner: false,
-        title: 'My dairy',
-        theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                Colors.pinkAccent.withOpacity(0.5),
-              ),
+    return MaterialApp(
+      navigatorKey: _navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'My dairy',
+      theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Colors.pinkAccent.withOpacity(0.5),
             ),
           ),
-          colorScheme:
-              ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
-            secondary: Colors.pinkAccent,
-          ),
         ),
-        builder: (BuildContext context, child) {
-          return BlocListener<AuthSessionBloc, AuthSessionState>(
-            listener: (context, state) {
-              log.d("Auth session state is $state");
-              if (state is Unauthenticated) {
-                if (state.sessionTimeoutLogout == true) {
-                  _navigator.pushNamed(AuthPage.route);
-                } else {
-                  _navigator.pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => AuthPage()),
-                      (route) => false);
-                }
-              } else if (state is Authenticated) {
-                if (state.freshLogin == true) {
-                  _navigator.pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => const HomePage()),
-                      (route) => false);
-                } else {
-                  _navigator.pop();
-                }
-              }
-            },
-            child: child,
-          );
-        },
-        initialRoute: HomePage.route,
-        onGenerateRoute: RouteGenerator.generateRoute,
+        colorScheme:
+            ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
+          secondary: Colors.pinkAccent,
+        ),
       ),
+      builder: (BuildContext context, child) {
+        return BlocListener<AuthSessionBloc, AuthSessionState>(
+          listener: (context, state) {
+            log.d("Auth session state is $state");
+            if (state is Unauthenticated) {
+              if (state.sessionTimeoutLogout == true) {
+                _navigator.pushNamed(AuthPage.route);
+              } else {
+                _navigator.pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => AuthPage()),
+                    (route) => false);
+              }
+            } else if (state is Authenticated) {
+              if (state.freshLogin == true) {
+                _navigator.pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const HomePage()),
+                    (route) => false);
+              } else {
+                _navigator.pop();
+              }
+            }
+          },
+          child: child,
+        );
+      },
+      initialRoute: HomePage.route,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

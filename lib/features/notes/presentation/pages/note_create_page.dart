@@ -1,15 +1,12 @@
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';

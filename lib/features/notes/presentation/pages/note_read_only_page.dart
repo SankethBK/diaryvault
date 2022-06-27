@@ -158,7 +158,11 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                           const SizedBox(
                             height: 20,
                           ),
-                          ReadOnlyEditor(controller: notesBloc.state.controller)
+                          Expanded(
+                            child: ReadOnlyEditor(
+                              controller: notesBloc.state.controller,
+                            ),
+                          )
                         ],
                       );
                     }
