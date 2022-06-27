@@ -429,11 +429,9 @@ packages:
   flutter_quill:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "6cceed0fdb2b557ab69a148e15f6143406f41c8e"
-      resolved-ref: "6cceed0fdb2b557ab69a148e15f6143406f41c8e"
-      url: "https://github.com/SankethBK/flutter-quill"
-    source: git
+      path: "/Users/sanketh.bk/my_projects/flutter-quill"
+      relative: false
+    source: path
     version: "4.1.8"
   flutter_test:
     dependency: "direct dev"

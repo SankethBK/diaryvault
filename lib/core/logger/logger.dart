@@ -16,5 +16,7 @@ class CustomPrinter extends LogPrinter {
 }
 
 Logger printer([String? className]) {
-  return Logger(printer: CustomPrinter(className));
+  return Logger(
+    printer: CustomPrinter(className),
+  );
 }
