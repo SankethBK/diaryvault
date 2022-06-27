@@ -118,7 +118,7 @@ class SettingsPage extends StatelessWidget {
                 end: AlignmentDirectional.bottomEnd,
               ),
             ),
-            child: Column(children: [
+            child: ListView(padding: const EdgeInsets.all(0.0), children: [
               const SyncSettings(),
               const SizedBox(height: 25.0),
               SecuritySettings()

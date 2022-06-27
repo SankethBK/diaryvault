@@ -234,93 +234,94 @@ class Title extends StatelessWidget {
               cursorColor: Colors.white,
               style: TextStyle(color: Colors.white.withOpacity(0.8)),
               decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.white),
-                  border: InputBorder.none,
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        showCustomDialog(
-                            context: context,
-                            child: Container(
-                              width: 290,
-                              padding: const EdgeInsets.only(
-                                top: 13,
-                                bottom: 13,
-                                left: 20,
-                                right: 15,
+                hintStyle: const TextStyle(color: Colors.white),
+                border: InputBorder.none,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    showCustomDialog(
+                      context: context,
+                      child: Container(
+                        width: 290,
+                        padding: const EdgeInsets.only(
+                          top: 13,
+                          bottom: 13,
+                          left: 20,
+                          right: 15,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              "Date Filter",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
                               ),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Text(
-                                      "Date Filter",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Flexible(
-                                          flex: 2,
-                                          child: Text(
-                                            "From",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          flex: 4,
-                                          child: DateInputField(
-                                            displayDate: startDate,
-                                            assignDate: assignStartDate,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Flexible(
-                                          flex: 2,
-                                          child: Text(
-                                            "To",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          flex: 4,
-                                          child: DateInputField(
-                                            displayDate: endDate,
-                                            assignDate: assignEndDate,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20),
-                                    SubmitButton(
-                                      isLoading: false,
-                                      onSubmitted: () =>
-                                          Navigator.of(context).pop(),
-                                      buttonText: "Done",
-                                    )
-                                  ]),
-                            ));
-                      },
-                      icon: const Icon(
-                        Icons.calendar_month,
-                        color: Colors.white,
-                      ))),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Flexible(
+                                  flex: 2,
+                                  child: Text(
+                                    "From",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 4,
+                                  child: DateInputField(
+                                    displayDate: startDate,
+                                    assignDate: assignStartDate,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Flexible(
+                                  flex: 2,
+                                  child: Text(
+                                    "To",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 4,
+                                  child: DateInputField(
+                                    displayDate: endDate,
+                                    assignDate: assignEndDate,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            SubmitButton(
+                              isLoading: false,
+                              onSubmitted: () => Navigator.of(context).pop(),
+                              buttonText: "Done",
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.calendar_month,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               onChanged: assignSearchText,
             )
           : const SizedBox(),

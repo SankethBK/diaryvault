@@ -13,8 +13,8 @@ class FormDimensions extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     return Container(
-      height: deviceWidth * 0.8 + 50,
-      width: deviceWidth * 0.8,
+      height: 362.0,
+      width: 312.0,
       constraints: const BoxConstraints(
         maxWidth: 500,
         maxHeight: 500,
