@@ -421,8 +421,6 @@ class DeleteIcon extends StatelessWidget {
                   color: Colors.transparent,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-                  // height: 110,
-                  // width: 350,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,

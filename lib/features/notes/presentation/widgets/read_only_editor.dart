@@ -18,28 +18,29 @@ class ReadOnlyEditor extends StatelessWidget {
 
   Widget _buildWelcomeEditor(BuildContext context) {
     var quillEditor = QuillEditor(
-        controller: controller!,
-        scrollController: ScrollController(),
-        scrollable: true,
-        focusNode: _focusNode,
-        autoFocus: false,
-        readOnly: false,
-        placeholder: 'Write something here...',
-        expands: false,
-        padding: EdgeInsets.zero,
-        customStyles: DefaultStyles(
-          h1: DefaultTextBlockStyle(
-              const TextStyle(
-                fontSize: 32,
-                color: Colors.black,
-                height: 1.15,
-                fontWeight: FontWeight.w300,
-              ),
-              const Tuple2(16, 0),
-              const Tuple2(0, 0),
-              null),
-          sizeSmall: const TextStyle(fontSize: 9),
-        ));
+      controller: controller!,
+      scrollController: ScrollController(),
+      scrollable: true,
+      focusNode: _focusNode,
+      autoFocus: false,
+      readOnly: true,
+      placeholder: '',
+      expands: false,
+      padding: EdgeInsets.zero,
+      customStyles: DefaultStyles(
+        h1: DefaultTextBlockStyle(
+            const TextStyle(
+              fontSize: 32,
+              color: Colors.black,
+              height: 1.15,
+              fontWeight: FontWeight.w300,
+            ),
+            const Tuple2(16, 0),
+            const Tuple2(0, 0),
+            null),
+        sizeSmall: const TextStyle(fontSize: 9),
+      ),
+    );
 
     return quillEditor;
   }
