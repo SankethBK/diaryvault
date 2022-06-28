@@ -4,7 +4,6 @@ import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
 import 'package:flutter/material.dart';

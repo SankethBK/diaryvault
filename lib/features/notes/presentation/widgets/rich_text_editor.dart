@@ -30,6 +30,7 @@ class RichTextEditor extends StatelessWidget {
 
   Widget _buildWelcomeEditor(BuildContext context) {
     var quillEditor = QuillEditor(
+      // scrollPhysics: const BouncingScrollPhysics(),
       controller: controller!,
       scrollController: ScrollController(),
       scrollable: true,
@@ -52,10 +53,16 @@ class RichTextEditor extends StatelessWidget {
             null),
         sizeSmall: const TextStyle(fontSize: 9),
       ),
-      scrollBottomInset: 0,
+      scrollBottomInset: 50,
     );
     // acquiring bloc to send it to toolbar
     final notesBloc = BlocProvider.of<NotesBloc>(context);
+
+    // controller!.changes.listen((e) {
+    //   // if image is inserted
+    //   controller!.document.insert(controller!.document.length, "yoy");
+    // });
+
     return Expanded(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         GlassMorphismCover(
@@ -105,6 +112,7 @@ class Toolbar extends StatelessWidget {
   Future<String> _onImagePickCallback(File file) async {
     // Copies the picked file from temporary cache to applications directory
     var noteId = notesBloc.state.id;
+
     final appDocDir = await getApplicationDocumentsDirectory();
 
     // store the note assets under the folder of its id
@@ -246,7 +254,7 @@ class GlassPaneForEditor extends StatelessWidget {
         child: Container(
           height: MediaQuery.of(context).size.height,
           padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 5),
+              const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
           // margin: const EdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(

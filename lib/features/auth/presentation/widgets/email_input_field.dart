@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class AuthEmailInput extends StatelessWidget {
   final String? Function() getEmailErrors;
   final void Function(String email) onEmailChanged;
+  final bool autoFocus;
   const AuthEmailInput({
     Key? key,
     required this.getEmailErrors,
     required this.onEmailChanged,
+    this.autoFocus = false,
   }) : super(key: key);
 
   @override
@@ -14,6 +16,7 @@ class AuthEmailInput extends StatelessWidget {
     return Stack(
       children: [
         TextField(
+          autofocus: autoFocus,
           decoration: InputDecoration(
             hintText: "email",
             prefixIcon: Icon(
@@ -26,7 +29,7 @@ class AuthEmailInput extends StatelessWidget {
               borderRadius: BorderRadius.circular(30.0),
               borderSide: BorderSide(
                 color: Colors.black.withOpacity(0.6),
-                width: 1,
+                width: 0.7,
               ),
             ),
             errorText: getEmailErrors(),

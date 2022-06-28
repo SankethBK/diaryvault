@@ -41,7 +41,7 @@ class SettingsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           const Text(
-                            "Are you sure about logging out?R",
+                            "Are you sure about logging out?",
                             style: TextStyle(fontSize: 18.0),
                           ),
                           const SizedBox(height: 15),

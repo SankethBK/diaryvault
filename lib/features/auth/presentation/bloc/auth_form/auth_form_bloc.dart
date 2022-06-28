@@ -8,6 +8,7 @@ import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_p
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 part 'auth_form_event.dart';
@@ -125,18 +126,28 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         // Cancel the fingerprint auth, in case it's running
         fingerPrintAuthRepository.cancel();
 
+        log.d(
+            "last logged in user id = ${event.lastLoggedInUserId}, current user id = ${user.id}");
+
+        // update the last logged in user
+        await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
+
         // if current logged in user's id == last logeed in user's is, then freshlogin is false
         _authSessionBloc.add(
           UserLoggedIn(
             user: user,
-            freshLogin: (event.lastLoggedInUserId != null &&
-                event.lastLoggedInUserId != user.id),
+            freshLogin: event.lastLoggedInUserId != user.id,
           ),
         );
-
-        // update the last logged in user
-        await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
       });
     }));
+  }
+
+  //* Utils
+
+  Future<Either<ForgotPasswordFailure, bool>> submitForgotPasswordEmail(
+      String forgotPasswordEmail) async {
+    return await authenticationRepository
+        .submitForgotPasswordEmail(forgotPasswordEmail);
   }
 }

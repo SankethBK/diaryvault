@@ -55,12 +55,15 @@ Future<void> init() async {
   sl.registerSingleton<IAuthRemoteDataSource>(AuthRemoteDataSource());
 
   //* Repository
-  sl.registerSingleton<IAuthenticationRepository>(AuthenticationRepository(
-    remoteDataSource: sl(),
-    localDataSource: sl(),
-    networkInfo: sl(),
-    passwordValidator: sl(),
-  ));
+  sl.registerSingleton<IAuthenticationRepository>(
+    AuthenticationRepository(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+      networkInfo: sl(),
+      passwordValidator: sl(),
+      emailValidator: sl(),
+    ),
+  );
   sl.registerSingleton<UserConfigRepository>(
       UserConfigRepository(keyValueDataSource: sl()));
 

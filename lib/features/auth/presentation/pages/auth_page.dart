@@ -41,6 +41,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
@@ -49,27 +50,33 @@ class _AuthPageState extends State<AuthPage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FlipCardAnimation(
-              frontWidget: (void Function() flipCard) {
-                return SignUpForm(flipCard: flipCard);
-              },
-              rearWidget: (void Function() flipCard) {
-                return SignInForm(
-                    flipCard: flipCard,
-                    lastLoggedInUserId: widget.lastLoggedInUserId);
-              },
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlipCardAnimation(
+                  frontWidget: (void Function() flipCard) {
+                    return SignUpForm(flipCard: flipCard);
+                  },
+                  rearWidget: (void Function() flipCard) {
+                    return SignInForm(
+                        flipCard: flipCard,
+                        lastLoggedInUserId: widget.lastLoggedInUserId);
+                  },
+                ),
+                const SizedBox(height: 40),
+                if (widget.fingerPrintAuthRepository
+                        .shouldActivateFingerPrint() &&
+                    MediaQuery.of(context).viewInsets.bottom == 0)
+                  Icon(
+                    Icons.fingerprint,
+                    size: 50,
+                    color: Colors.white.withOpacity(0.5),
+                  )
+              ],
             ),
-            const SizedBox(height: 40),
-            if (widget.fingerPrintAuthRepository.shouldActivateFingerPrint())
-              Icon(
-                Icons.fingerprint,
-                size: 50,
-                color: Colors.white.withOpacity(0.5),
-              )
-          ],
+          ),
         ),
       ),
     );

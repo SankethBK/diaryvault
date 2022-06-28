@@ -50,7 +50,7 @@ class _AuthPasswordInputState extends State<AuthPasswordInput> {
               borderRadius: BorderRadius.circular(30.0),
               borderSide: BorderSide(
                 color: Colors.black.withOpacity(0.6),
-                width: 1.5,
+                width: 0.7,
               ),
             ),
             errorText: widget.getPasswordErrors(),

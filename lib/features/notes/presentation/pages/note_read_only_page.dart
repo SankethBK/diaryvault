@@ -104,7 +104,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 10, bottom: 5),
+                    left: 10, right: 10, top: 10, bottom: 5),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(16.0),

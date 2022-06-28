@@ -46,4 +46,8 @@ abstract class IAuthenticationRepository {
   /// Login without password (authentication will be carried out by fingerprint)
   Future<Either<SignInFailure, LoggedInUser>> signInDirectly(
       {required String userId});
+
+  /// Send forgot password email
+  Future<Either<ForgotPasswordFailure, bool>> submitForgotPasswordEmail(
+      String forgotPasswordEmail);
 }

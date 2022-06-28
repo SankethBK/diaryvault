@@ -89,7 +89,8 @@ class FingerPrintAuthRepository {
               showToast("fingerprint login failed");
             }, (user) {
               // for fingerprint login, it's never fresh login
-              authSessionBloc.add(UserLoggedIn(user: user, freshLogin: false));
+              //! since a feature is removed, freshlogin is true to avoid breaking changes
+              authSessionBloc.add(UserLoggedIn(user: user, freshLogin: true));
 
               // no need to update lastLoggedInUser as it was already present and we used sa,e
             });
