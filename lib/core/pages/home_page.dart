@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     notesFetchCubit = sl<NotesFetchCubit>();
+    notesFetchCubit.fetchNotes();
     super.initState();
   }
 

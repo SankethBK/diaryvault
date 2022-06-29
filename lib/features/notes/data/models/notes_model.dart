@@ -16,6 +16,7 @@ class NoteModel extends Note {
     required String hash,
     required DateTime lastModified,
     required String plainText,
+    String? authorId,
     required this.assetDependencies,
   }) : super(
           id: id,
@@ -26,6 +27,7 @@ class NoteModel extends Note {
           lastModified: lastModified,
           plainText: plainText,
           assetDependencies: assetDependencies,
+          authorId: authorId,
         );
 
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {

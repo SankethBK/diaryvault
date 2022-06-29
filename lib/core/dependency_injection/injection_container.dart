@@ -111,7 +111,7 @@ Future<void> init() async {
 
   //* Repository
   sl.registerSingleton<INotesRepository>(
-      NotesRepository(notesLocalDataSource: sl()));
+      NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
 
   //* Blocs
   sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));

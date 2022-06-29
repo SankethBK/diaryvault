@@ -11,36 +11,37 @@ abstract class INotesLocalDataSource {
   /// Throws [DatabaseQueryException] if something goes wrong
   ///
   /// TODO: add support for pagination
-  Future<List<NoteModel>> fetchNotes();
+  Future<List<NoteModel>> fetchNotes(String authorId);
 
-  // Fetch all notes with only columns required to display the preview
-  Future<List<NotePreviewModel>> fetchNotesPreview();
+  // Fetch all notes with only columns required to diplay the preview
+  Future<List<NotePreviewModel>> fetchNotesPreview(String authorId);
 
   /// Fetches the note with given id
   ///
   /// DatabaseDeleteException
-  Future<NoteModel> getNote(String id);
+  Future<NoteModel> getNote(String id, String authorId);
 
   /// Updates the note using its id present in model
   ///
   /// Throws [DatabaseUpdateException] if something goes wrong
-  Future<void> updateNote(Map<String, dynamic> noteMap);
+  Future<void> updateNote(Map<String, dynamic> noteMap, String authorId);
 
   /// Deletes the note from id
   ///
   /// Throws [DatabaseDeleteException] if something goes wrong
-  Future<void> deleteNote(String id, {bool hardDeletion = false});
+  Future<void> deleteNote(String id, String authorId,
+      {bool hardDeletion = false});
 
   /// Deletes the file with given filePath
   Future<void> deleteFile(String filePath);
 
   /// Returns all note ID's
-  Future<List<String>> getAllNoteIds();
+  Future<List<String>> getAllNoteIds(String authorId);
 
   /// Generates notes index for all notes, used for syncing to cloud
-  Future<List<Map<String, dynamic>>> getNotesIndex();
+  Future<List<Map<String, dynamic>>> getNotesIndex(String authorId);
 
   /// Search notes based on searchText, startDate and endDate
-  Future<List<NotePreviewModel>> searchNotes(
+  Future<List<NotePreviewModel>> searchNotes(String authorId,
       {String? searchText, DateTime? startDate, DateTime? endDate});
 }

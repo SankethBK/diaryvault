@@ -55,6 +55,8 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
     }
 
     emit(NoteSyncSuccessful());
+    await Future.delayed(const Duration(milliseconds: 100));
+    emit(NoteSyncInitial());
   }
 
   void cancelNoteSync() {}

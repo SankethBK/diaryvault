@@ -10,6 +10,7 @@ class Note extends Equatable {
   final String plainText;
   final List<NoteAsset> assetDependencies;
   final bool deleted;
+  final String? authorId;
 
   const Note({
     required this.id,
@@ -21,20 +22,8 @@ class Note extends Equatable {
     required this.plainText,
     required this.assetDependencies,
     this.deleted = false,
+    this.authorId,
   });
-
-  factory Note.createDummy() {
-    return Note(
-      id: "",
-      createdAt: DateTime.now(),
-      title: "",
-      body: "",
-      hash: "",
-      lastModified: DateTime.now(),
-      plainText: "",
-      assetDependencies: [],
-    );
-  }
 
   String getHashingString() {
     // assetDependencies is included in body itself
@@ -58,7 +47,7 @@ class Note extends Equatable {
 
   @override
   String toString() {
-    return 'Note(id: $id, createdAt: $createdAt, title: $title, body: $body, hash: $hash, lastModified: $lastModified, plainText: $plainText, assetDependencies: $assetDependencies, deleted: $deleted)';
+    return 'Note(id: $id, createdAt: $createdAt, title: $title, body: $body, hash: $hash, lastModified: $lastModified, plainText: $plainText, assetDependencies: $assetDependencies, deleted: $deleted, authorId: $authorId)';
   }
 }
 
