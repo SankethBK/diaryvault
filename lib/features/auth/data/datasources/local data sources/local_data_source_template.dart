@@ -34,4 +34,9 @@ abstract class IAuthLocalDataSource {
 
   /// passwordless sign in
   Future<LoggedInUserModel> signInDirectly({required String userId});
+
+  Future<void> updateEmail(
+      {required String oldEmail,
+      required String password,
+      required String newEmail});
 }

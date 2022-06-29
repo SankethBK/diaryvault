@@ -254,7 +254,7 @@ class GlassPaneForEditor extends StatelessWidget {
         child: Container(
           height: MediaQuery.of(context).size.height,
           padding:
-              const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
+              const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 15),
           // margin: const EdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(

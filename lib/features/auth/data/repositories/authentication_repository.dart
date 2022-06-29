@@ -286,4 +286,47 @@ class AuthenticationRepository implements IAuthenticationRepository {
       return Left(ForgotPasswordFailure.unknownError());
     }
   }
+
+  @override
+  Future<Either<SignUpFailure, bool>> updateEmail(
+      {required String oldEmail,
+      required String password,
+      required String newEmail}) async {
+    // step 1: validation
+
+    try {
+      emailValidator(newEmail);
+    } on InvalidEmailException catch (e) {
+      return Left(SignUpFailure.invalidEmail(e.message));
+    }
+
+    try {
+      // step 2. Update the email in remote
+      await remoteDataSource.updateEmail(
+        oldEmail: oldEmail,
+        password: password,
+        newEmail: newEmail,
+      );
+
+      // step 3: Reset the password in local
+      await localDataSource.updateEmail(
+        oldEmail: oldEmail,
+        password: password,
+        newEmail: newEmail,
+      );
+    } on FirebaseAuthException catch (e) {
+      log.e(e);
+
+      if (e.code == "email-already-in-use") {
+        return Left(SignUpFailure.emailAlreadyExists());
+      }
+
+      return Left(SignUpFailure.unknownError());
+    } catch (e) {
+      log.e(e);
+      return Left(SignUpFailure.unknownError());
+    }
+
+    return const Right(true);
+  }
 }
