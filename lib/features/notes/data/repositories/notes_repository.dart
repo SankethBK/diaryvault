@@ -98,8 +98,12 @@ class NotesRepository implements INotesRepository {
         }
       }
 
+      log.w("note assets before processing = $allNoteAssets");
+
       noteMap["asset_dependencies"].removeWhere(
           (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
+
+      log.w("note assets after processing = ${noteMap["asset_dependencies"]}}");
 
       // calculate note hash
       String noteBodyWithAssetPathsRemoved =

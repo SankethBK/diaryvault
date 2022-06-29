@@ -43,7 +43,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     log.i("note ${noteMap["id"]} inserted into db");
 
-    // insert notte dependecies
+    // insert note dependecies
     log.i("saving asset dependencies = $assetDependencies");
 
     for (NoteAssetModel asset in assetDependencies) {
@@ -201,12 +201,69 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
   @override
   Future<void> updateNote(Map<String, dynamic> noteMap, String authorId) async {
-    // store the asset dependencies to update later
-    noteMap.remove("asset_dependencies");
-
     // store id
     var id = noteMap["id"];
     noteMap.remove("id");
+
+    // Remove all asset dependencies and insert all of them again
+
+    List<Map<String, Object?>> files;
+
+    // First delete all files
+    try {
+      files = await database.query(
+        NoteDependencies.TABLE_NAME,
+        columns: [NoteDependencies.NOTE_ID, NoteDependencies.ASSET_PATH],
+        where: "${NoteDependencies.NOTE_ID} = ?",
+        whereArgs: [id],
+      );
+    } catch (e) {
+      log.e("Querying of assets failed for note id: $id");
+      throw const DatabaseQueryException();
+    }
+
+    try {
+      for (var file in files) {
+        await deleteFile(file["asset_path"] as String);
+      }
+    } catch (e) {
+      // not a criticial exception, so don't throw error
+      log.e("file deletion failed for note id:$id $e");
+    }
+
+    // delete all records of assets
+
+    var res = await database.delete(
+      NoteDependencies.TABLE_NAME,
+      where: "${NoteDependencies.NOTE_ID} = ?",
+      whereArgs: [id],
+    );
+
+    // if number of deleted rows != number of assets present, throw exception
+    if (res != files.length) {
+      log.e("assets deletion unsuccessful for note id: $id");
+      throw const DatabaseDeleteException();
+    }
+
+    // Insert the new ones
+
+    log.i("saving asset dependencies = ${noteMap["asset_dependencies"]}");
+
+    for (NoteAssetModel asset in noteMap["asset_dependencies"]) {
+      try {
+        var res =
+            await database.insert(NoteDependencies.TABLE_NAME, asset.toJson());
+        if (res == -1) {
+          log.e("Insertion of ${asset.assetPath}} faied");
+          throw const DatabaseInsertionException();
+        }
+      } catch (e) {
+        log.e(e);
+        rethrow;
+      }
+    }
+
+    noteMap.remove("asset_dependencies");
 
     var count = await database.update(Notes.TABLE_NAME,
         {...noteMap, "last_modified": DateTime.now().millisecondsSinceEpoch},
