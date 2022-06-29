@@ -55,9 +55,6 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
               state.userConfigModel?.googleDriveUserInfo != null);
           final lastSynced = (widget.cloudSourceName == "google_drive" &&
               state.userConfigModel?.lastGoogleDriveSync != null);
-          final hasChoosenThisCloudSource =
-              state.userConfigModel?.preferredSyncOption ==
-                  widget.cloudSourceName;
 
           return (state.userConfigModel == null)
               ? const Center(child: CircularProgressIndicator())
@@ -88,10 +85,10 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 13),
                       if (isSignedIn)
                         Text(
-                          "signed in as ${state.userConfigModel!.googleDriveUserInfo}",
+                          "Signed in as ${state.userConfigModel!.googleDriveUserInfo}",
                           style: const TextStyle(
                             fontSize: 14.0,
                           ),
@@ -132,22 +129,6 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                               buttonText: "Sign in",
                             )),
                       const SizedBox(height: 10),
-                      SwitchListTile(
-                        contentPadding: const EdgeInsets.all(0.0),
-                        title: const Text("Select as sync source"),
-                        value: isSignedIn ? hasChoosenThisCloudSource : false,
-                        activeColor: Colors.pinkAccent,
-                        onChanged: isSignedIn
-                            ? (bool val) {
-                                final userConfigCubit =
-                                    BlocProvider.of<UserConfigCubit>(context);
-                                userConfigCubit.setUserConfig(
-                                    UserConfigConstants.preferredSyncOption,
-                                    val ? widget.cloudSourceName : null);
-                              }
-                            : null,
-                      ),
-                      const SizedBox(height: 10.0),
                     ],
                   ),
                 );

@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,8 +13,22 @@ final log = printer("NoteSyncCubit");
 
 class NoteSyncCubit extends Cubit<NoteSyncState> {
   final IOAuthRepository oAuthRepository;
+  final NotesBloc notesBloc;
+  final UserConfigCubit userConfigCubit;
+  late StreamSubscription<NotesState> noteBLocSubscription;
 
-  NoteSyncCubit({required this.oAuthRepository}) : super(NoteSyncInitial());
+  NoteSyncCubit(
+      {required this.oAuthRepository,
+      required this.notesBloc,
+      required this.userConfigCubit})
+      : super(NoteSyncInitial()) {
+    noteBLocSubscription = notesBloc.stream.listen((state) {
+      if (userConfigCubit.state.userConfigModel?.isAutoSyncEnabled == true &&
+          (state is NoteSavedSuccesfully || state is NoteDeletionSuccesful)) {
+        startNoteSync();
+      }
+    });
+  }
 
   void startNoteSync() async {
     // Don't start a new sync, if it is already going on

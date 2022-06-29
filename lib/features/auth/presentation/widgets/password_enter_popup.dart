@@ -12,16 +12,7 @@ Future<dynamic> passwordLoginPopup(
     password = val;
   }
 
-  void verifyPassword() async {
-    bool result = await submitPassword(password);
-    if (result == false) {
-      showToast("Incorrect password");
-    } else {
-      showToast("Password verified");
-      await Future.delayed(const Duration(milliseconds: 300));
-      Navigator.of(context).pop(password);
-    }
-  }
+  bool isLoading = false;
 
   return showCustomDialog(
     context: context,
@@ -40,10 +31,31 @@ Future<dynamic> passwordLoginPopup(
             autoFocus: true,
           ),
           const SizedBox(height: 25),
-          SubmitButton(
-              isLoading: false,
-              onSubmitted: verifyPassword,
-              buttonText: "Submit")
+          StatefulBuilder(builder: (context, setState) {
+            return SubmitButton(
+              isLoading: isLoading,
+              onSubmitted: () async {
+                setState(() {
+                  isLoading = true;
+                });
+                bool result = await submitPassword(password);
+                if (result == false) {
+                  setState(() {
+                    isLoading = false;
+                  });
+                  showToast("Incorrect password");
+                } else {
+                  setState(() {
+                    isLoading = false;
+                  });
+                  showToast("Password verified");
+                  await Future.delayed(const Duration(milliseconds: 300));
+                  Navigator.of(context).pop(password);
+                }
+              },
+              buttonText: "Submit",
+            );
+          })
         ],
       ),
     ),

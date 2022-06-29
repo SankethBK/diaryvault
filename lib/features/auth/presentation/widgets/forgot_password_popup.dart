@@ -9,16 +9,7 @@ Future<void> forgotPasswordPopup(
     BuildContext context, Function(String) submitForgotPassword) {
   String forgotPasswordEmail = "";
 
-  void submitForgotPasswordEmail() async {
-    var result = await submitForgotPassword(forgotPasswordEmail);
-
-    result.fold((ForgotPasswordFailure e) {
-      showToast(e.message);
-    }, (_) {
-      showToast("password reset email sent");
-      Navigator.of(context).pop();
-    });
-  }
+  bool isLoading = false;
 
   return showCustomDialog(
     context: context,
@@ -39,11 +30,32 @@ Future<void> forgotPasswordPopup(
             },
           ),
           const SizedBox(height: 25),
-          SubmitButton(
-            isLoading: false,
-            onSubmitted: submitForgotPasswordEmail,
-            buttonText: "Submit",
-          )
+          StatefulBuilder(builder: (context, setState) {
+            return SubmitButton(
+              isLoading: isLoading,
+              onSubmitted: () async {
+                setState(() {
+                  isLoading = true;
+                });
+
+                var result = await submitForgotPassword(forgotPasswordEmail);
+
+                result.fold((ForgotPasswordFailure e) {
+                  setState(() {
+                    isLoading = false;
+                  });
+                  showToast(e.message);
+                }, (_) {
+                  setState(() {
+                    isLoading = false;
+                  });
+                  showToast("password reset email sent");
+                  Navigator.of(context).pop();
+                });
+              },
+              buttonText: "Submit",
+            );
+          })
         ],
       ),
     ),

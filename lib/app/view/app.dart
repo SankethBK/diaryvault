@@ -67,7 +67,7 @@ class AppView extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
-              Colors.pinkAccent.withOpacity(0.5),
+              Colors.purple.withOpacity(0.5),
             ),
           ),
         ),

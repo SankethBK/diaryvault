@@ -19,20 +19,7 @@ Future<dynamic> passwordResetPopup(
     confirmNewPassword = val;
   }
 
-  void startResetPasswordProcess() async {
-    if (newPassword != confirmNewPassword) {
-      showToast("Passwords don't match");
-      return;
-    }
-
-    var result = await submitPassword(newPassword);
-
-    result.fold((SignUpFailure e) {
-      showToast(e.message);
-    }, (_) {
-      showToast("password reset successful");
-    });
-  }
+  bool isLoading = false;
 
   return showCustomDialog(
     context: context,
@@ -58,10 +45,34 @@ Future<dynamic> passwordResetPopup(
             hintText: "Confirm new password",
           ),
           const SizedBox(height: 25),
-          SubmitButton(
-              isLoading: false,
-              onSubmitted: startResetPasswordProcess,
-              buttonText: "Submit")
+          StatefulBuilder(builder: (context, setState) {
+            return SubmitButton(
+                isLoading: isLoading,
+                onSubmitted: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  if (newPassword != confirmNewPassword) {
+                    showToast("Passwords don't match");
+                    return;
+                  }
+
+                  var result = await submitPassword(newPassword);
+
+                  result.fold((SignUpFailure e) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                    showToast(e.message);
+                  }, (_) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                    showToast("password reset successful");
+                  });
+                },
+                buttonText: "Submit");
+          })
         ],
       ),
     ),

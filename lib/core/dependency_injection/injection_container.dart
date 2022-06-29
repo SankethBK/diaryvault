@@ -130,5 +130,6 @@ Future<void> init() async {
       OAuthRepository(notesRepository: sl()));
 
   //* Cubit
-  sl.registerLazySingleton(() => NoteSyncCubit(oAuthRepository: sl()));
+  sl.registerLazySingleton(() => NoteSyncCubit(
+      oAuthRepository: sl(), notesBloc: sl(), userConfigCubit: sl()));
 }
