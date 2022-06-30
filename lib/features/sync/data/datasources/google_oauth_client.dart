@@ -289,6 +289,11 @@ class GoogleOAuthClient implements IOAuthClient {
     }
   }
 
+  @override
+  Future<void> getNoteCreatedTime(String fileName) async {
+    String? fileId = await _getFileIdIfPresent(fileName);
+  }
+
   //* Private util methods
 
   Future<bool> _isFilePresent(String searchQuery, String fields) async {

@@ -1,5 +1,8 @@
+import 'package:dairy_app/features/sync/core/failures.dart';
+import 'package:dartz/dartz.dart';
+
 abstract class IOAuthRepository {
-  Future<bool> initializeOAuthRepository();
+  Future<Either<SyncFailure, bool>> initializeOAuthRepository();
 
   Future<bool> initializeNewFolderStructure();
 
@@ -19,4 +22,7 @@ abstract class IOAuthRepository {
     bool hardDeletion = false,
     int? lastModified,
   });
+
+  /// Check if lockfile is present, or expired
+  Future<bool> isFolderLocked();
 }

@@ -17,8 +17,10 @@ class NotesRepository implements INotesRepository {
   final INotesLocalDataSource notesLocalDataSource;
   final AuthSessionBloc authSessionBloc;
 
-  NotesRepository(
-      {required this.notesLocalDataSource, required this.authSessionBloc});
+  NotesRepository({
+    required this.notesLocalDataSource,
+    required this.authSessionBloc,
+  });
 
   @override
   Future<Either<NotesFailure, List<NoteModel>>> fetchNotes() async {

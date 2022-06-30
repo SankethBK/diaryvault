@@ -3,38 +3,50 @@ import 'dart:io' as io;
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/core/network/network_info.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
 import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
+import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
 
 final log = printer("OAuthRepository");
 
 const appFolderName = "my dairy";
 const indexFileName = "index";
+const lockFileName = "lockfile";
 
 class OAuthRepository implements IOAuthRepository {
   final INotesRepository notesRepository;
   late IOAuthClient oAuthClient;
+  final INetworkInfo networkInfo;
 
-  OAuthRepository({required this.notesRepository});
+  OAuthRepository({
+    required this.notesRepository,
+    required this.networkInfo,
+  });
 
   @override
-  Future<bool> initializeOAuthRepository() async {
+  Future<Either<SyncFailure, bool>> initializeOAuthRepository() async {
     try {
+      if (!await networkInfo.isConnected) {
+        return Left(SyncFailure.noInternetConnection());
+      }
+
       _initializeOAuthClient();
       log.i("successfully initalized oauth client");
 
       await oAuthClient.initialieClient();
       log.i("successfully initalized oauth client dependencies");
 
-      return true;
+      return const Right(true);
     } catch (e) {
       log.e(e);
-      return false;
+      return Left(SyncFailure.connectionFailed());
     }
   }
 
@@ -428,6 +440,24 @@ class OAuthRepository implements IOAuthRepository {
     } catch (e) {
       log.e(e);
       rethrow;
+    }
+  }
+
+  @override
+  Future<bool> isFolderLocked() async {
+    try {
+      log.i("Starting lockfile check");
+
+      bool isLockfilePresent = await oAuthClient.isFilePresent(lockFileName);
+      if (!isLockfilePresent) {
+        return true;
+      }
+
+      // check if it is expired, expiration time: 5 min
+
+    } catch (e) {
+      log.e(e);
+      return false;
     }
   }
 
