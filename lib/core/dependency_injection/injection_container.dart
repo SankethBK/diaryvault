@@ -127,7 +127,7 @@ Future<void> init() async {
 
   //* Repository
   sl.registerSingleton<IOAuthRepository>(
-      OAuthRepository(notesRepository: sl()));
+      OAuthRepository(notesRepository: sl(), networkInfo: sl()));
 
   //* Cubit
   sl.registerLazySingleton(() => NoteSyncCubit(
