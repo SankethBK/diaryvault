@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:dairy_app/features/notes/core/failures/failure.dart';
@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:uuid/uuid.dart';
-import 'dart:convert';
 
 part 'notes_event.dart';
 part 'notes_state.dart';
