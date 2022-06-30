@@ -52,7 +52,13 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
 
     return WillPopScope(
       onWillPop: () async {
-        return await showCloseDialog(context);
+        bool? result = await showCloseDialog(context);
+
+        if (result == true) {
+          notesBloc.add(RefreshNote());
+          return true;
+        }
+        return false;
       },
       child: Scaffold(
         extendBodyBehindAppBar: true,

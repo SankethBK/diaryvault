@@ -49,7 +49,13 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return await showCloseDialog(context);
+        bool? result = await showCloseDialog(context);
+
+        if (result == true) {
+          notesBloc.add(RefreshNote());
+          return true;
+        }
+        return false;
       },
       child: Scaffold(
         extendBodyBehindAppBar: true,
