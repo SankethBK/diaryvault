@@ -115,14 +115,14 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       throw const DatabaseQueryException();
     }
 
-    try {
-      for (var file in files) {
-        await deleteFile(file["asset_path"] as String);
-      }
-    } catch (e) {
-      // not a criticial exception, so don't throw error
-      log.e("file deletion failed for note id:$id $e");
-    }
+    // try {
+    //   for (var file in files) {
+    //     await deleteFile(file["asset_path"] as String);
+    //   }
+    // } catch (e) {
+    //   // not a criticial exception, so don't throw error
+    //   log.e("file deletion failed for note id:$id $e");
+    // }
 
     // delete all records of assets
 
