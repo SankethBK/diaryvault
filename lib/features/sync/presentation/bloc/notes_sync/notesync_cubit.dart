@@ -41,21 +41,27 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
     var res = await oAuthRepository.initializeOAuthRepository();
 
     // do nothing on success
-    res.fold((e) {
+    res.fold((e) async {
       log.w("Could not initialize notes sync repository");
       emit(NoteSyncFailed(e.message));
-    }, (_) async {
-      bool isAppFolderInitialized =
-          await oAuthRepository.initializeNewFolderStructure();
-      if (!isAppFolderInitialized) {
-        log.w("App folder could not be initialized");
-        emit(const NoteSyncFailed("Could not create folder"));
-        return;
-      }
 
-      emit(NoteSyncSuccessful());
       await Future.delayed(const Duration(milliseconds: 100));
       emit(NoteSyncInitial());
+    }, (_) async {
+      var res2 = await oAuthRepository.initializeNewFolderStructure();
+
+      res2.fold((e) async {
+        log.w("App folder could not be initialized");
+        emit(NoteSyncFailed(e.message));
+
+        await Future.delayed(const Duration(milliseconds: 100));
+        emit(NoteSyncInitial());
+        return;
+      }, (_) async {
+        emit(NoteSyncSuccessful());
+        await Future.delayed(const Duration(milliseconds: 100));
+        emit(NoteSyncInitial());
+      });
     });
   }
 

@@ -40,7 +40,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
           showToast("notes sync successful");
           _rotationAnimationController.reset();
         } else if (state is NoteSyncFailed) {
-          showToast("notes sync failed");
+          showToast(state.errorMessage);
           _rotationAnimationController.reset();
         } else if (state is NoteSyncOnGoing) {
           _rotationAnimationController.repeat();
@@ -60,7 +60,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
               borderRadius: BorderRadius.circular(5.0),
             ),
             child: RotationTransition(
-              turns: Tween(begin: 0.0, end: 1.0)
+              turns: Tween(begin: 1.0, end: 0.0)
                   .animate(_rotationAnimationController),
               child: const Icon(
                 Icons.sync,

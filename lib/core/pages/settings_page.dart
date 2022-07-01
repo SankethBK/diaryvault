@@ -8,6 +8,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/security_settings.d
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SettingsPage extends StatelessWidget {
   static String get route => '/settings';
@@ -40,9 +41,9 @@ class SettingsPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Text(
+                          Text(
                             "Are you sure about logging out?",
-                            style: TextStyle(fontSize: 18.0),
+                            style: GoogleFonts.lobster(),
                           ),
                           const SizedBox(height: 15),
                           Row(

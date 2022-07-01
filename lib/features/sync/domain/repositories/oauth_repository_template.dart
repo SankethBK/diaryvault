@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 abstract class IOAuthRepository {
   Future<Either<SyncFailure, bool>> initializeOAuthRepository();
 
-  Future<bool> initializeNewFolderStructure();
+  Future<Either<SyncFailure, bool>> initializeNewFolderStructure();
 
   Future<bool> diffEachNoteAndSync();
 
@@ -24,5 +24,6 @@ abstract class IOAuthRepository {
   });
 
   /// Check if lockfile is present, or expired
+  /// Returns true if the folder is locked, else false
   Future<bool> isFolderLocked();
 }

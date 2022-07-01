@@ -21,3 +21,5 @@ class AuthFormSignInSubmitted extends AuthFormEvent {
 
   const AuthFormSignInSubmitted({this.lastLoggedInUserId});
 }
+
+class ResetAuthForm extends AuthFormEvent {}

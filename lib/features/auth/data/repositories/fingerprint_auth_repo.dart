@@ -107,7 +107,7 @@ class FingerPrintAuthRepository {
 
           showToast("Too many wrong attempts, please login with password");
         } else if (value == FingerPrintAuthState.fail) {
-          showToast("fingerprint not recognized");
+          // showToast("fingerprint not recognized");
         }
       });
     }

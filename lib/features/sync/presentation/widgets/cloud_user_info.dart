@@ -87,13 +87,23 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                       ),
                       const SizedBox(height: 13),
                       if (isSignedIn)
-                        Text(
-                          "Signed in as ${state.userConfigModel!.googleDriveUserInfo}",
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                          ),
+                        Column(
+                          children: [
+                            const Text(
+                              "Signed in as",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              userConfigCubit
+                                  .state.userConfigModel!.googleDriveUserInfo!,
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
                         ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 13),
                       (lastSynced
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +119,7 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                               children: const [
                                 Text("Last synced: "),
                                 SizedBox(width: 5),
-                                Text("not available")
+                                Text("NSot available")
                               ],
                             )),
                       const SizedBox(height: 12),

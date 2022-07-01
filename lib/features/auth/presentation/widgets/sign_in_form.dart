@@ -44,6 +44,7 @@ class _SignInFormState extends State<SignInForm> {
 
     if (!inItialized) {
       bloc = BlocProvider.of<AuthFormBloc>(context);
+      bloc.add(ResetAuthForm());
       inItialized = true;
     }
   }
