@@ -489,7 +489,7 @@ class OAuthRepository implements IOAuthRepository {
           await oAuthClient.getNoteCreatedTime(lockFileName);
 
       if (lockedFileCreatedTime == null ||
-          lockedFileCreatedTime.difference(DateTime.now()).inMinutes > 5) {
+          DateTime.now().difference(lockedFileCreatedTime).inMinutes > 5) {
         // delete lockfile
         await oAuthClient.deleteFile(lockFileName);
         return false;
