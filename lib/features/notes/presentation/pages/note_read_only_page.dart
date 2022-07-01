@@ -129,9 +129,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                   bloc: notesBloc,
                   builder: (context, state) {
                     if (state.safe) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      return ListView(
+                        padding: const EdgeInsets.all(0),
                         children: [
                           Text(notesBloc.state.title!,
                               style: const TextStyle(
@@ -164,10 +163,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Expanded(
-                            child: ReadOnlyEditor(
-                              controller: notesBloc.state.controller,
-                            ),
+                          ReadOnlyEditor(
+                            controller: notesBloc.state.controller,
                           )
                         ],
                       );
