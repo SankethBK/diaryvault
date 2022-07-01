@@ -40,7 +40,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
           showToast("notes sync successful");
           _rotationAnimationController.reset();
         } else if (state is NoteSyncFailed) {
-          showToast("notes sync failed");
+          showToast(state.errorMessage);
           _rotationAnimationController.reset();
         } else if (state is NoteSyncOnGoing) {
           _rotationAnimationController.repeat();

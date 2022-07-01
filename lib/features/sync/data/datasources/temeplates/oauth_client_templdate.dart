@@ -32,5 +32,5 @@ abstract class IOAuthClient {
 
   Future<void> updateLastSynced();
 
-  Future<void> getNoteCreatedTime(String fileName);
+  Future<DateTime?> getNoteCreatedTime(String fileName);
 }

@@ -57,32 +57,47 @@ class OAuthRepository implements IOAuthRepository {
   ///
   /// returns true if everything works, false if somethign goes wrong
   @override
-  Future<bool> initializeNewFolderStructure() async {
+  Future<Either<SyncFailure, bool>> initializeNewFolderStructure() async {
     try {
       bool isAppFolderPresent =
           await oAuthClient.isFilePresent(appFolderName, folder: true);
       if (!isAppFolderPresent) {
         log.i("app folder is not present, starting bulk upload");
-        return await bulkUploadEverything();
+        return Right(await bulkUploadEverything());
       }
 
       bool isIndexFolderPresent =
           await oAuthClient.isFilePresent(indexFileName + ".json");
       if (!isIndexFolderPresent) {
         log.i("Index file is not present, starting bulk upload");
-        return await bulkUploadEverything();
+        return Right(await bulkUploadEverything());
       }
+
+      // if the folder is locked
+      bool isAppFolderLocked = await isFolderLocked();
+      if (isAppFolderLocked) {
+        log.w("Folder is locked, aborting sync");
+        return Left(SyncFailure.anotherDeviceIsSyncing());
+      }
+
+      log.i("uploading lockfile for diff and sync");
+      await oAuthClient.uploadFile(
+          fileContent: "", fileName: lockFileName, parentFolder: appFolderName);
 
       bool isNotesSynced = await diffEachNoteAndSync();
+
+      log.i("Removing lockfile for diff and sync");
+      await oAuthClient.deleteFile(lockFileName);
+
       if (!isNotesSynced) {
         log.w("Could not sync notes");
-        return false;
+        return Left(SyncFailure.unknownError());
       }
 
-      return true;
+      return const Right(true);
     } catch (e) {
       log.e(e);
-      return false;
+      return Left(SyncFailure.unknownError());
     }
   }
 
@@ -106,6 +121,11 @@ class OAuthRepository implements IOAuthRepository {
         return false;
       }
 
+      //* upload lockfile
+      log.i("uploading lockfile");
+      await oAuthClient.uploadFile(
+          fileContent: "", fileName: lockFileName, parentFolder: appFolderName);
+
       var result = await notesRepository.getAllNoteIds();
 
       return result.fold((e) {
@@ -121,8 +141,14 @@ class OAuthRepository implements IOAuthRepository {
         // upload index
         var result = await notesRepository.generateNotesIndex();
 
-        return result.fold((e) {
+        //* Remove the lockfile, despite of the process is success or failure
+
+        return result.fold((e) async {
           log.e("fetching of notes index failed");
+
+          await oAuthClient.deleteFile(lockFileName);
+          log.i("removing lockfile");
+
           return false;
         }, (notesIndex) async {
           bool isIndexFileUploaded = await oAuthClient.uploadFile(
@@ -130,6 +156,10 @@ class OAuthRepository implements IOAuthRepository {
             fileName: indexFileName + ".json",
             parentFolder: appFolderName,
           );
+
+          log.i("removing lockfile");
+          await oAuthClient.deleteFile(lockFileName);
+
           if (!isIndexFileUploaded) {
             return false;
           }
@@ -450,11 +480,22 @@ class OAuthRepository implements IOAuthRepository {
 
       bool isLockfilePresent = await oAuthClient.isFilePresent(lockFileName);
       if (!isLockfilePresent) {
-        return true;
+        return false;
+      }
+      // check if it is expired, expiration time: 5 min
+      // if createdTime is null, we assume it is expired and delete it
+
+      DateTime? lockedFileCreatedTime =
+          await oAuthClient.getNoteCreatedTime(lockFileName);
+
+      if (lockedFileCreatedTime == null ||
+          lockedFileCreatedTime.difference(DateTime.now()).inMinutes > 5) {
+        // delete lockfile
+        await oAuthClient.deleteFile(lockFileName);
+        return false;
       }
 
-      // check if it is expired, expiration time: 5 min
-
+      return true;
     } catch (e) {
       log.e(e);
       return false;

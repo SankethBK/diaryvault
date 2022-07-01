@@ -210,6 +210,7 @@ class Title extends StatelessWidget {
 
     void assignEndDate(DateTime date) {
       endDate = date;
+      endDate!.add(const Duration(hours: 23, minutes: 59));
       notesFetchCubit.fetchNotes(
         searchText: searchText,
         startDate: startDate,
