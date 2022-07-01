@@ -40,7 +40,9 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_local_auth_invisible: ^2.2.0
   flutter_quill:
-    path: /Users/sanketh.bk/my_projects/flutter-quill
+    git:
+      url: https://github.com/SankethBK/flutter-quill.git
+      ref: 0d8bde4a70acf5d4e2d75299491cb5a1b4c8f887
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^3.0.1
