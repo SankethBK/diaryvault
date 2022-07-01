@@ -330,8 +330,6 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         searchQuery += " AND (${Notes.CREATED_AT} <= '$endDateStr')";
       }
 
-      log.i("searchquery = $searchQuery");
-
       result = await database.query(
         Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
