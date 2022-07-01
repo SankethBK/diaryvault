@@ -119,7 +119,7 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                               children: const [
                                 Text("Last synced: "),
                                 SizedBox(width: 5),
-                                Text("NSot available")
+                                Text("Not available")
                               ],
                             )),
                       const SizedBox(height: 12),
