@@ -194,10 +194,13 @@ class NotesRepository implements INotesRepository {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
         // replace paths from assetPathMap for image and video
-        if (noteElement["insert"].containsKey("image")) {
+
+        if (noteElement["insert"].containsKey("image") &&
+            !(noteElement["insert"]["image"] as String).startsWith("http")) {
           noteElement["insert"]["image"] =
               assetPathMap[p.basename(noteElement["insert"]["image"])];
-        } else if (noteElement["insert"].containsKey("video")) {
+        } else if (noteElement["insert"].containsKey("video") &&
+            !(noteElement["insert"]["video"] as String).startsWith("http")) {
           noteElement["insert"]["video"] =
               assetPathMap[p.basename(noteElement["insert"]["video"])];
         }
@@ -214,7 +217,10 @@ class NotesRepository implements INotesRepository {
     var noteBodyMap = jsonDecode(noteBody);
     List<String> noteAssets = [];
 
-    // TODO: currently treats web images and videos also as assets, put a way to distinguish them
+    //! currently treats web images and videos also as assets, put a way to distinguish them
+    //! Luckily parsed assets are only used to subtract from allAssets, since web images are not recorded in allAssets
+    //! We don't need extra check for web images and videos
+
     for (var noteElement in noteBodyMap) {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
@@ -236,10 +242,14 @@ class NotesRepository implements INotesRepository {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
         // check for image and video types and replace their absolute paths with file names
-        if (noteElement["insert"].containsKey("image")) {
+        // Assuming all web images and videos start with http (even https starts with http)
+
+        if (noteElement["insert"].containsKey("image") &&
+            !(noteElement["insert"]["image"] as String).startsWith("http")) {
           noteElement["insert"]["image"] =
               p.basename(noteElement["insert"]["image"]);
-        } else if (noteElement["insert"].containsKey("video")) {
+        } else if (noteElement["insert"].containsKey("video") &&
+            !(noteElement["insert"]["video"] as String).startsWith("http")) {
           noteElement["insert"]["video"] =
               p.basename(noteElement["insert"]["video"]);
         }
