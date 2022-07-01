@@ -23,7 +23,7 @@ class ReadOnlyEditor extends StatelessWidget {
       scrollable: true,
       focusNode: _focusNode,
       autoFocus: false,
-      readOnly: false,
+      readOnly: true,
       placeholder: '',
       expands: false,
       padding: EdgeInsets.zero,
