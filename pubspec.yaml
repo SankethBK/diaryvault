@@ -43,6 +43,7 @@ dependencies:
     path: /Users/sanketh.bk/my_projects/flutter-quill
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
+  google_fonts: ^3.0.1
   google_sign_in: ^5.3.3
   googleapis: ^9.0.0
   internet_connection_checker: ^0.0.1+3

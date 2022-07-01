@@ -27,6 +27,7 @@ class _DateInputFieldState extends State<DateInputField> {
       readOnly: true,
       onTap: () => _selectDate(context),
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.all(0),
         hintText: selectedDate != null
             ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
             : "Select",
@@ -34,13 +35,13 @@ class _DateInputFieldState extends State<DateInputField> {
           Icons.calendar_month,
           color: Colors.black.withOpacity(0.6),
         ),
-        fillColor: Colors.white.withOpacity(0.8),
+        fillColor: Colors.white.withOpacity(0.6),
         filled: true,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(1),
-            width: 1,
+            color: Colors.black.withOpacity(0.5),
+            width: 0.4,
           ),
         ),
         errorStyle: TextStyle(
@@ -50,8 +51,15 @@ class _DateInputFieldState extends State<DateInputField> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.6),
-            width: 1,
+            color: Colors.black.withOpacity(0.5),
+            width: 0.4,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: BorderSide(
+            color: Colors.black.withOpacity(0.5),
+            width: 0.4,
           ),
         ),
       ),

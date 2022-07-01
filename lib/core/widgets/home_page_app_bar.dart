@@ -234,10 +234,28 @@ class Title extends StatelessWidget {
           ? TextField(
               autofocus: true,
               cursorColor: Colors.white,
-              style: TextStyle(color: Colors.white.withOpacity(0.8)),
+              style:
+                  TextStyle(color: Colors.white.withOpacity(1), fontSize: 16.0),
               decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                 hintStyle: const TextStyle(color: Colors.white),
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  borderSide: BorderSide(
+                    color: Colors.black.withOpacity(0.0),
+                    width: 0.1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17.0),
+                  borderSide: BorderSide(
+                    color: Colors.black.withOpacity(0.0),
+                    width: 0.1,
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.05),
                 suffixIcon: IconButton(
                   onPressed: () {
                     showCustomDialog(
