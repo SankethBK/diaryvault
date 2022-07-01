@@ -141,6 +141,10 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         );
       });
     }));
+
+    on<ResetAuthForm>((event, emit) {
+      emit(const AuthFormInitial(email: "", password: ""));
+    });
   }
 
   //* Utils

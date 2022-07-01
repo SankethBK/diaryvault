@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -58,7 +55,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
-        appBar: HomePageAppBar(),
+        appBar: const HomePageAppBar(),
         body: Container(
           decoration: const BoxDecoration(
             // color: Colors.black,
@@ -98,7 +95,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 builder: (context, state) {
                   if (state is NotesFetchDummyState) {
                     notesFetchCubit.fetchNotes();
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (state is NotesFetchSuccessful) {
                     return ListView.builder(
                       padding: EdgeInsets.zero,
@@ -121,7 +118,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
           },
