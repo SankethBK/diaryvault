@@ -9,6 +9,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popu
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class SecuritySettings extends StatelessWidget {
@@ -29,11 +30,12 @@ class SecuritySettings extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Security",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                fontSize: 20,
+              ),
             ),
           ),
           const SizedBox(height: 15.0),

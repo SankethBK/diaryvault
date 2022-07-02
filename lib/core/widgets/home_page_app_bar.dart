@@ -276,7 +276,7 @@ class Title extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
+                                // fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -289,8 +289,8 @@ class Title extends StatelessWidget {
                                     "From",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.w500),
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                 ),
                                 Flexible(
@@ -312,8 +312,8 @@ class Title extends StatelessWidget {
                                     "To",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.w500),
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                 ),
                                 Flexible(

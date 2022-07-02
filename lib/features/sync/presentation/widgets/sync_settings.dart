@@ -6,6 +6,7 @@ import 'package:dairy_app/features/sync/presentation/widgets/cloud_user_info.dar
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SyncSettings extends StatelessWidget {
   const SyncSettings({Key? key}) : super(key: key);
@@ -19,11 +20,12 @@ class SyncSettings extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Sync",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                fontSize: 20,
+              ),
             ),
           ),
           const SizedBox(height: 12),
