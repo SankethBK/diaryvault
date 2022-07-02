@@ -32,7 +32,7 @@ class SettingsPage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
                 onPressed: () async {
-                  bool result = await showCustomDialog(
+                  bool? result = await showCustomDialog(
                     context: context,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -41,9 +41,9 @@ class SettingsPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
+                          const Text(
                             "Are you sure about logging out?",
-                            style: GoogleFonts.lobster(),
+                            style: TextStyle(fontSize: 16.0),
                           ),
                           const SizedBox(height: 15),
                           Row(
