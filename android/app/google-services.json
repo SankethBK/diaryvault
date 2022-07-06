@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:630089514479:android:fdd0947f61493bfa3f0a1a",
         "android_client_info": {
-          "package_name": "com.example.dairy_app"
+          "package_name": "me.sankethbk.dairy_app"
         }
       },
       "oauth_client": [
