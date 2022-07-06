@@ -68,7 +68,7 @@ dev_dependencies:
 flutter_icons:
   android: 'launcher_icon'
   ios: true
-  image_path: 'assets/images/dairy-logo-3.png'
+  image_path: 'assets/images/dairy-logo-4.png'
 
 dependency_overrides:
   analyzer:
