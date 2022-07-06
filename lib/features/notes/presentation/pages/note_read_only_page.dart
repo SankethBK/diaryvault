@@ -30,6 +30,13 @@ class NotesReadOnlyPage extends StatefulWidget {
 class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
+  late Image neonImage;
+
+  @override
+  void initState() {
+    super.initState();
+    neonImage = Image.asset("assets/images/digital-art-neon-bubbles.jpg");
+  }
 
   @override
   void didChangeDependencies() {
@@ -38,6 +45,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(InitializeNote(id: widget.id));
       }
+      precacheImage(neonImage.image, context);
 
       _isInitialized = true;
     }

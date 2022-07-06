@@ -29,6 +29,13 @@ class NoteCreatePage extends StatefulWidget {
 class _NoteCreatePageState extends State<NoteCreatePage> {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
+  late Image neonImage;
+
+  @override
+  void initState() {
+    super.initState();
+    neonImage = Image.asset("assets/images/digital-art-neon-bubbles.jpg");
+  }
 
   @override
   void didChangeDependencies() {
@@ -39,6 +46,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(const InitializeNote());
       }
+      precacheImage(neonImage.image, context);
+
       _isInitialized = true;
     }
 

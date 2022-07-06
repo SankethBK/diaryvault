@@ -9,10 +9,29 @@ import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   static String get route => '/settings';
 
   const SettingsPage({Key? key}) : super(key: key);
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  late Image neonImage;
+
+  @override
+  void initState() {
+    super.initState();
+    neonImage = Image.asset("assets/images/digital-art-neon-bubbles.jpg");
+  }
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(neonImage.image, context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
