@@ -13,6 +13,7 @@ class AuthSessionBloc extends Bloc<AuthSessionEvent, AuthSessionState> {
 
     on<UserLoggedIn>((event, emit) =>
         emit(Authenticated(user: event.user, freshLogin: event.freshLogin)));
+
     on<UserLoggedOut>((event, emit) => emit(const Unauthenticated()));
 
     // navigation will be handled differently for session timeout logouts

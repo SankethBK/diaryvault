@@ -14,15 +14,7 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      icon: isLoading
-          ? SizedBox(
-              child: CircularProgressIndicator(
-                color: Colors.white.withOpacity(0.5),
-              ),
-              width: 20,
-              height: 20,
-            )
-          : const SizedBox.shrink(),
+      icon: const SizedBox.shrink(),
       onPressed: isLoading ? null : onSubmitted,
       label: Text(
         buttonText,
@@ -33,7 +25,7 @@ class SubmitButton extends StatelessWidget {
       ),
       style: ElevatedButton.styleFrom(
         primary: Colors.purple,
-        onPrimary: Colors.purple[200],
+        onPrimary: Colors.pink[300],
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(16),

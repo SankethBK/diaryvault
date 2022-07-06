@@ -19,27 +19,16 @@ Future<dynamic> passwordResetPopup(
     confirmNewPassword = val;
   }
 
-  void startResetPasswordProcess() async {
-    if (newPassword != confirmNewPassword) {
-      showToast("Passwords don't match");
-      return;
-    }
-
-    var result = await submitPassword(newPassword);
-
-    result.fold((SignUpFailure e) {
-      showToast(e.message);
-    }, (_) {
-      showToast("password reset successful");
-    });
-  }
+  bool isLoading = false;
 
   return showCustomDialog(
-      context: context,
-      child: Container(
-        height: 300,
-        padding: const EdgeInsets.all(20.0),
-        child: Column(children: [
+    context: context,
+    child: Container(
+      width: 300,
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
           const Text("Reset password",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           const SizedBox(height: 25),
@@ -56,10 +45,36 @@ Future<dynamic> passwordResetPopup(
             hintText: "Confirm new password",
           ),
           const SizedBox(height: 25),
-          SubmitButton(
-              isLoading: false,
-              onSubmitted: startResetPasswordProcess,
-              buttonText: "Submit")
-        ]),
-      ));
+          StatefulBuilder(builder: (context, setState) {
+            return SubmitButton(
+                isLoading: isLoading,
+                onSubmitted: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  if (newPassword != confirmNewPassword) {
+                    showToast("Passwords don't match");
+                    return;
+                  }
+
+                  var result = await submitPassword(newPassword);
+
+                  result.fold((SignUpFailure e) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                    showToast(e.message);
+                  }, (_) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                    showToast("password reset successful");
+                  });
+                },
+                buttonText: "Submit");
+          })
+        ],
+      ),
+    ),
+  );
 }

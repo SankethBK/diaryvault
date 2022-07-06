@@ -56,4 +56,31 @@ class AuthRemoteDataSource implements IAuthRemoteDataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<void> submitForgotPasswordEmail(String forgotPasswordEmail) async {
+    log.i("Sending forgot password email");
+
+    await FirebaseAuth.instance
+        .sendPasswordResetEmail(email: forgotPasswordEmail);
+  }
+
+  @override
+  Future<void> updateEmail({
+    required String oldEmail,
+    required String password,
+    required String newEmail,
+  }) async {
+    log.i("updating email in remote");
+
+    try {
+      var credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: oldEmail, password: password);
+
+      await credential.user!.updateEmail(newEmail);
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
+  }
 }

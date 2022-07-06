@@ -46,7 +46,7 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 240,
+      // height: 240,
       width: 330,
       child: BlocConsumer<UserConfigCubit, UserConfigState>(
         listener: (context, state) {},
@@ -55,9 +55,6 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
               state.userConfigModel?.googleDriveUserInfo != null);
           final lastSynced = (widget.cloudSourceName == "google_drive" &&
               state.userConfigModel?.lastGoogleDriveSync != null);
-          final hasChoosenThisCloudSource =
-              state.userConfigModel?.preferredSyncOption ==
-                  widget.cloudSourceName;
 
           return (state.userConfigModel == null)
               ? const Center(child: CircularProgressIndicator())
@@ -66,6 +63,7 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,15 +85,44 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 13),
                       if (isSignedIn)
-                        Text(
-                          "signed in as ${state.userConfigModel!.googleDriveUserInfo}",
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                          ),
+                        Column(
+                          children: [
+                            const Text(
+                              "Signed in as",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              userConfigCubit
+                                  .state.userConfigModel!.googleDriveUserInfo!,
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
                         ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 13),
+                      (lastSynced
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Last synced: "),
+                                const SizedBox(width: 5),
+                                Text(
+                                    "${DateFormat.yMd().format(state.userConfigModel!.lastGoogleDriveSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastGoogleDriveSync!)}"),
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text("Last synced: "),
+                                SizedBox(width: 5),
+                                Text("Not available")
+                              ],
+                            )),
+                      const SizedBox(height: 12),
                       (isSignedIn
                           ? SubmitButton(
                               isLoading: false,
@@ -112,40 +139,6 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                               buttonText: "Sign in",
                             )),
                       const SizedBox(height: 10),
-                      SwitchListTile(
-                        contentPadding: const EdgeInsets.all(0.0),
-                        title: const Text("Select as sync source"),
-                        value: isSignedIn ? hasChoosenThisCloudSource : false,
-                        activeColor: Colors.pinkAccent,
-                        onChanged: isSignedIn
-                            ? (bool val) {
-                                final userConfigCubit =
-                                    BlocProvider.of<UserConfigCubit>(context);
-                                userConfigCubit.setUserConfig(
-                                    UserConfigConstants.preferredSyncOption,
-                                    val ? widget.cloudSourceName : null);
-                              }
-                            : null,
-                      ),
-                      const SizedBox(height: 8.0),
-                      (lastSynced
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("Last synced: "),
-                                const SizedBox(width: 5),
-                                Text(
-                                    "${DateFormat.yMd().format(state.userConfigModel!.lastGoogleDriveSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastGoogleDriveSync!)}"),
-                              ],
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("Last synced: "),
-                                SizedBox(width: 5),
-                                Text("not available")
-                              ],
-                            )),
                     ],
                   ),
                 );

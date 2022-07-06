@@ -41,14 +41,15 @@ class DBProvider {
 
           await db.execute("""
           CREATE TABLE ${Notes.TABLE_NAME} (
-            ${Notes.ID} TEXT PRIMARY KEY, 
+            ${Notes.ID} TEXT, 
             ${Notes.CREATED_AT} DATETIME,
             ${Notes.TITLE} TEXT,
             ${Notes.BODY} TEXT, 
             ${Notes.HASH} TEXT,
             ${Notes.LAST_MODIFIED} DATETIME, 
             ${Notes.PLAIN_TEXT} TEXT, 
-            ${Notes.DELETED} INTEGER
+            ${Notes.DELETED} INTEGER, 
+            ${Notes.AUTHOR_ID} TEXT
           )
           """);
 

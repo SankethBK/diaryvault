@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
-
 import '../../domain/entities/notes.dart';
 
 class NoteModel extends Note {
@@ -16,6 +12,7 @@ class NoteModel extends Note {
     required String hash,
     required DateTime lastModified,
     required String plainText,
+    String? authorId,
     required this.assetDependencies,
   }) : super(
           id: id,
@@ -26,6 +23,7 @@ class NoteModel extends Note {
           lastModified: lastModified,
           plainText: plainText,
           assetDependencies: assetDependencies,
+          authorId: authorId,
         );
 
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {

@@ -3,6 +3,7 @@ import 'package:dairy_app/core/errors/validation_exceptions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/network/network_info.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/core/validators/email_validator.dart';
 import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
@@ -20,12 +21,14 @@ class AuthenticationRepository implements IAuthenticationRepository {
   final IAuthRemoteDataSource remoteDataSource;
   final IAuthLocalDataSource localDataSource;
   final PasswordValidator passwordValidator;
+  final EmailValidator emailValidator;
 
   AuthenticationRepository({
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
     required this.passwordValidator,
+    required this.emailValidator,
   });
 
   @override
@@ -255,5 +258,75 @@ class AuthenticationRepository implements IAuthenticationRepository {
       log.e(e);
       return Left(SignInFailure.unknownError());
     }
+  }
+
+  @override
+  Future<Either<ForgotPasswordFailure, bool>> submitForgotPasswordEmail(
+      String forgotPasswordEmail) async {
+    try {
+      emailValidator(forgotPasswordEmail);
+
+      if (await networkInfo.isConnected) {
+        await remoteDataSource.submitForgotPasswordEmail(forgotPasswordEmail);
+        return const Right(true);
+      }
+      return Left(ForgotPasswordFailure.noInternetConnection());
+    } on FirebaseAuthException catch (e) {
+      log.e(e);
+
+      if (e.code == "user-not-found") {
+        return Left(ForgotPasswordFailure.userNotFound());
+      }
+      return Left(ForgotPasswordFailure.unknownError());
+    } on InvalidEmailException catch (e) {
+      log.e(e);
+      return Left(ForgotPasswordFailure.invalidEmail(e.message));
+    } catch (e) {
+      log.e(e);
+      return Left(ForgotPasswordFailure.unknownError());
+    }
+  }
+
+  @override
+  Future<Either<SignUpFailure, bool>> updateEmail(
+      {required String oldEmail,
+      required String password,
+      required String newEmail}) async {
+    // step 1: validation
+
+    try {
+      emailValidator(newEmail);
+    } on InvalidEmailException catch (e) {
+      return Left(SignUpFailure.invalidEmail(e.message));
+    }
+
+    try {
+      // step 2. Update the email in remote
+      await remoteDataSource.updateEmail(
+        oldEmail: oldEmail,
+        password: password,
+        newEmail: newEmail,
+      );
+
+      // step 3: Reset the password in local
+      await localDataSource.updateEmail(
+        oldEmail: oldEmail,
+        password: password,
+        newEmail: newEmail,
+      );
+    } on FirebaseAuthException catch (e) {
+      log.e(e);
+
+      if (e.code == "email-already-in-use") {
+        return Left(SignUpFailure.emailAlreadyExists());
+      }
+
+      return Left(SignUpFailure.unknownError());
+    } catch (e) {
+      log.e(e);
+      return Left(SignUpFailure.unknownError());
+    }
+
+    return const Right(true);
   }
 }

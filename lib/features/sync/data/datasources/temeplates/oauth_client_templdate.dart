@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
-
 abstract class IOAuthClient {
   Future<bool> initialieClient();
 
@@ -33,4 +31,6 @@ abstract class IOAuthClient {
   Future<String?> getSignedInUserInfo();
 
   Future<void> updateLastSynced();
+
+  Future<DateTime?> getNoteCreatedTime(String fileName);
 }

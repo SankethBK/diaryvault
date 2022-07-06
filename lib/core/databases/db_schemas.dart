@@ -19,6 +19,7 @@ class Notes {
   static const PLAIN_TEXT = "plain_text";
   static const DELETED = "deleted";
   static const HASH = "hash";
+  static const AUTHOR_ID = "author_id";
 }
 
 class NoteDependencies {

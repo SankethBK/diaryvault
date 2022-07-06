@@ -3,39 +3,50 @@ import 'dart:io' as io;
 
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/core/network/network_info.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
+import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
 
 final log = printer("OAuthRepository");
 
 const appFolderName = "my dairy";
 const indexFileName = "index";
+const lockFileName = "lockfile";
 
 class OAuthRepository implements IOAuthRepository {
   final INotesRepository notesRepository;
   late IOAuthClient oAuthClient;
+  final INetworkInfo networkInfo;
 
-  OAuthRepository({required this.notesRepository});
+  OAuthRepository({
+    required this.notesRepository,
+    required this.networkInfo,
+  });
 
   @override
-  Future<bool> initializeOAuthRepository() async {
+  Future<Either<SyncFailure, bool>> initializeOAuthRepository() async {
     try {
+      if (!await networkInfo.isConnected) {
+        return Left(SyncFailure.noInternetConnection());
+      }
+
       _initializeOAuthClient();
       log.i("successfully initalized oauth client");
 
       await oAuthClient.initialieClient();
       log.i("successfully initalized oauth client dependencies");
 
-      return true;
+      return const Right(true);
     } catch (e) {
       log.e(e);
-      return false;
+      return Left(SyncFailure.connectionFailed());
     }
   }
 
@@ -46,32 +57,47 @@ class OAuthRepository implements IOAuthRepository {
   ///
   /// returns true if everything works, false if somethign goes wrong
   @override
-  Future<bool> initializeNewFolderStructure() async {
+  Future<Either<SyncFailure, bool>> initializeNewFolderStructure() async {
     try {
       bool isAppFolderPresent =
           await oAuthClient.isFilePresent(appFolderName, folder: true);
       if (!isAppFolderPresent) {
         log.i("app folder is not present, starting bulk upload");
-        return await bulkUploadEverything();
+        return Right(await bulkUploadEverything());
       }
 
       bool isIndexFolderPresent =
           await oAuthClient.isFilePresent(indexFileName + ".json");
       if (!isIndexFolderPresent) {
         log.i("Index file is not present, starting bulk upload");
-        return await bulkUploadEverything();
+        return Right(await bulkUploadEverything());
       }
+
+      // if the folder is locked
+      bool isAppFolderLocked = await isFolderLocked();
+      if (isAppFolderLocked) {
+        log.w("Folder is locked, aborting sync");
+        return Left(SyncFailure.anotherDeviceIsSyncing());
+      }
+
+      log.i("uploading lockfile for diff and sync");
+      await oAuthClient.uploadFile(
+          fileContent: "", fileName: lockFileName, parentFolder: appFolderName);
 
       bool isNotesSynced = await diffEachNoteAndSync();
+
+      log.i("Removing lockfile for diff and sync");
+      await oAuthClient.deleteFile(lockFileName);
+
       if (!isNotesSynced) {
         log.w("Could not sync notes");
-        return false;
+        return Left(SyncFailure.unknownError());
       }
 
-      return true;
+      return const Right(true);
     } catch (e) {
       log.e(e);
-      return false;
+      return Left(SyncFailure.unknownError());
     }
   }
 
@@ -95,6 +121,11 @@ class OAuthRepository implements IOAuthRepository {
         return false;
       }
 
+      //* upload lockfile
+      log.i("uploading lockfile");
+      await oAuthClient.uploadFile(
+          fileContent: "", fileName: lockFileName, parentFolder: appFolderName);
+
       var result = await notesRepository.getAllNoteIds();
 
       return result.fold((e) {
@@ -110,8 +141,14 @@ class OAuthRepository implements IOAuthRepository {
         // upload index
         var result = await notesRepository.generateNotesIndex();
 
-        return result.fold((e) {
+        //* Remove the lockfile, despite of the process is success or failure
+
+        return result.fold((e) async {
           log.e("fetching of notes index failed");
+
+          await oAuthClient.deleteFile(lockFileName);
+          log.i("removing lockfile");
+
           return false;
         }, (notesIndex) async {
           bool isIndexFileUploaded = await oAuthClient.uploadFile(
@@ -119,6 +156,10 @@ class OAuthRepository implements IOAuthRepository {
             fileName: indexFileName + ".json",
             parentFolder: appFolderName,
           );
+
+          log.i("removing lockfile");
+          await oAuthClient.deleteFile(lockFileName);
+
           if (!isIndexFileUploaded) {
             return false;
           }
@@ -429,6 +470,35 @@ class OAuthRepository implements IOAuthRepository {
     } catch (e) {
       log.e(e);
       rethrow;
+    }
+  }
+
+  @override
+  Future<bool> isFolderLocked() async {
+    try {
+      log.i("Starting lockfile check");
+
+      bool isLockfilePresent = await oAuthClient.isFilePresent(lockFileName);
+      if (!isLockfilePresent) {
+        return false;
+      }
+      // check if it is expired, expiration time: 5 min
+      // if createdTime is null, we assume it is expired and delete it
+
+      DateTime? lockedFileCreatedTime =
+          await oAuthClient.getNoteCreatedTime(lockFileName);
+
+      if (lockedFileCreatedTime == null ||
+          DateTime.now().difference(lockedFileCreatedTime).inMinutes > 5) {
+        // delete lockfile
+        await oAuthClient.deleteFile(lockFileName);
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      log.e(e);
+      return false;
     }
   }
 

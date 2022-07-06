@@ -1,26 +1,32 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/notes/core/failures/failure.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/core/failures/failure.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
-import 'package:crypto/crypto.dart';
 
 final log = printer("NotesRepository");
 
 class NotesRepository implements INotesRepository {
   final INotesLocalDataSource notesLocalDataSource;
+  final AuthSessionBloc authSessionBloc;
 
-  NotesRepository({required this.notesLocalDataSource});
+  NotesRepository({
+    required this.notesLocalDataSource,
+    required this.authSessionBloc,
+  });
 
   @override
   Future<Either<NotesFailure, List<NoteModel>>> fetchNotes() async {
     try {
-      var notesList = await notesLocalDataSource.fetchNotes();
+      var notesList =
+          await notesLocalDataSource.fetchNotes(authSessionBloc.state.user!.id);
       return Right(notesList);
     } catch (e) {
       log.e(e);
@@ -31,7 +37,8 @@ class NotesRepository implements INotesRepository {
   @override
   Future<Either<NotesFailure, NoteModel>> getNote(String id) async {
     try {
-      var note = await notesLocalDataSource.getNote(id);
+      var note = await notesLocalDataSource.getNote(
+          id, authSessionBloc.state.user!.id);
       return Right(note);
     } catch (e) {
       log.e(e);
@@ -69,6 +76,9 @@ class NotesRepository implements INotesRepository {
         noteMap["hash"] = _hash;
       }
 
+      //! bad but i don't have enough time to re-structure it
+      noteMap["author_id"] = authSessionBloc.state.user!.id;
+
       await notesLocalDataSource.saveNote(noteMap);
       return const Right(null);
     } catch (e) {
@@ -103,7 +113,8 @@ class NotesRepository implements INotesRepository {
 
       noteMap["hash"] = _hash;
 
-      await notesLocalDataSource.updateNote(noteMap);
+      await notesLocalDataSource.updateNote(
+          noteMap, authSessionBloc.state.user!.id);
       return const Right(null);
     } catch (e) {
       log.e(e);
@@ -117,13 +128,15 @@ class NotesRepository implements INotesRepository {
     try {
       if (searchText != null || startDate != null || endDate != null) {
         var notesList = await notesLocalDataSource.searchNotes(
+          authSessionBloc.state.user!.id,
           searchText: searchText,
           startDate: startDate,
           endDate: endDate,
         );
         return Right(notesList);
       }
-      var notesList = await notesLocalDataSource.fetchNotesPreview();
+      var notesList = await notesLocalDataSource
+          .fetchNotesPreview(authSessionBloc.state.user!.id);
       return Right(notesList);
     } catch (e) {
       log.e(e);
@@ -136,7 +149,8 @@ class NotesRepository implements INotesRepository {
       {bool hardDeletion = false}) async {
     try {
       for (var noteId in noteList) {
-        await notesLocalDataSource.deleteNote(noteId,
+        await notesLocalDataSource.deleteNote(
+            noteId, authSessionBloc.state.user!.id,
             hardDeletion: hardDeletion);
       }
       return const Right(null);
@@ -149,7 +163,8 @@ class NotesRepository implements INotesRepository {
   @override
   Future<Either<NotesFailure, List<String>>> getAllNoteIds() async {
     try {
-      var noteIdList = await notesLocalDataSource.getAllNoteIds();
+      var noteIdList = await notesLocalDataSource
+          .getAllNoteIds(authSessionBloc.state.user!.id);
       return Right(noteIdList);
     } catch (e) {
       log.e(e);
@@ -161,7 +176,8 @@ class NotesRepository implements INotesRepository {
   Future<Either<NotesFailure, List<Map<String, dynamic>>>>
       generateNotesIndex() async {
     try {
-      var notesIndex = await notesLocalDataSource.getNotesIndex();
+      var notesIndex = await notesLocalDataSource
+          .getNotesIndex(authSessionBloc.state.user!.id);
       return Right(notesIndex);
     } catch (e) {
       log.e(e);
@@ -178,10 +194,13 @@ class NotesRepository implements INotesRepository {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
         // replace paths from assetPathMap for image and video
-        if (noteElement["insert"].containsKey("image")) {
+
+        if (noteElement["insert"].containsKey("image") &&
+            !(noteElement["insert"]["image"] as String).startsWith("http")) {
           noteElement["insert"]["image"] =
               assetPathMap[p.basename(noteElement["insert"]["image"])];
-        } else if (noteElement["insert"].containsKey("video")) {
+        } else if (noteElement["insert"].containsKey("video") &&
+            !(noteElement["insert"]["video"] as String).startsWith("http")) {
           noteElement["insert"]["video"] =
               assetPathMap[p.basename(noteElement["insert"]["video"])];
         }
@@ -198,7 +217,10 @@ class NotesRepository implements INotesRepository {
     var noteBodyMap = jsonDecode(noteBody);
     List<String> noteAssets = [];
 
-    // TODO: currently treats web images and videos also as assets, put a way to distinguish them
+    //! currently treats web images and videos also as assets, put a way to distinguish them
+    //! Luckily parsed assets are only used to subtract from allAssets, since web images are not recorded in allAssets
+    //! We don't need extra check for web images and videos
+
     for (var noteElement in noteBodyMap) {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
@@ -220,10 +242,14 @@ class NotesRepository implements INotesRepository {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
         // check for image and video types and replace their absolute paths with file names
-        if (noteElement["insert"].containsKey("image")) {
+        // Assuming all web images and videos start with http (even https starts with http)
+
+        if (noteElement["insert"].containsKey("image") &&
+            !(noteElement["insert"]["image"] as String).startsWith("http")) {
           noteElement["insert"]["image"] =
               p.basename(noteElement["insert"]["image"]);
-        } else if (noteElement["insert"].containsKey("video")) {
+        } else if (noteElement["insert"].containsKey("video") &&
+            !(noteElement["insert"]["video"] as String).startsWith("http")) {
           noteElement["insert"]["video"] =
               p.basename(noteElement["insert"]["video"]);
         }

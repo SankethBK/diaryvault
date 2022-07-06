@@ -55,12 +55,15 @@ Future<void> init() async {
   sl.registerSingleton<IAuthRemoteDataSource>(AuthRemoteDataSource());
 
   //* Repository
-  sl.registerSingleton<IAuthenticationRepository>(AuthenticationRepository(
-    remoteDataSource: sl(),
-    localDataSource: sl(),
-    networkInfo: sl(),
-    passwordValidator: sl(),
-  ));
+  sl.registerSingleton<IAuthenticationRepository>(
+    AuthenticationRepository(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+      networkInfo: sl(),
+      passwordValidator: sl(),
+      emailValidator: sl(),
+    ),
+  );
   sl.registerSingleton<UserConfigRepository>(
       UserConfigRepository(keyValueDataSource: sl()));
 
@@ -108,7 +111,7 @@ Future<void> init() async {
 
   //* Repository
   sl.registerSingleton<INotesRepository>(
-      NotesRepository(notesLocalDataSource: sl()));
+      NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
 
   //* Blocs
   sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));
@@ -124,8 +127,9 @@ Future<void> init() async {
 
   //* Repository
   sl.registerSingleton<IOAuthRepository>(
-      OAuthRepository(notesRepository: sl()));
+      OAuthRepository(notesRepository: sl(), networkInfo: sl()));
 
   //* Cubit
-  sl.registerLazySingleton(() => NoteSyncCubit(oAuthRepository: sl()));
+  sl.registerLazySingleton(() => NoteSyncCubit(
+      oAuthRepository: sl(), notesBloc: sl(), userConfigCubit: sl()));
 }

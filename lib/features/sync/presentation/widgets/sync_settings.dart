@@ -1,3 +1,4 @@
+import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
@@ -5,6 +6,7 @@ import 'package:dairy_app/features/sync/presentation/widgets/cloud_user_info.dar
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SyncSettings extends StatelessWidget {
   const SyncSettings({Key? key}) : super(key: key);
@@ -18,11 +20,12 @@ class SyncSettings extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Sync",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                fontSize: 20,
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -39,16 +42,17 @@ class SyncSettings extends StatelessWidget {
                     const Text("Auto sync", style: TextStyle(fontSize: 16.0)),
                 subtitle: const Text(
                     "Automatically donwloads and uploads data from cloud"),
-                value: (isSignedIn && hasChoosenCloudSource) &&
-                    state.userConfigModel?.isAutoSyncEnabled == true,
-                onChanged: hasChoosenCloudSource
-                    ? (bool val) {
-                        final userConfigCubit =
-                            BlocProvider.of<UserConfigCubit>(context);
-                        userConfigCubit.setUserConfig(
-                            UserConfigConstants.isAutoSyncEnabled, val);
-                      }
-                    : null,
+                value: state.userConfigModel?.isAutoSyncEnabled == true,
+                onChanged: (bool val) {
+                  if (!isSignedIn) {
+                    showToast("please login to enable auto-sync");
+                    return;
+                  }
+                  final userConfigCubit =
+                      BlocProvider.of<UserConfigCubit>(context);
+                  userConfigCubit.setUserConfig(
+                      UserConfigConstants.isAutoSyncEnabled, val);
+                },
               );
             },
           ),
@@ -94,23 +98,6 @@ class SyncSettings extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 10),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    color: Colors.white.withOpacity(0.2),
-                    // decoration: const BoxDecoration(color: Colors.pinkAccent),
-                  ),
-                  Image.asset(
-                    "assets/images/dropbox_icon.png",
-                    width: 50,
-                    height: 50,
-                  ),
-                ],
-              )
             ],
           ),
         ],

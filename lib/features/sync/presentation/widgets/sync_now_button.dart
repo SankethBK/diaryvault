@@ -32,28 +32,24 @@ class _SyncNowButtonState extends State<SyncNowButton>
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NoteSyncCubit, NoteSyncState>(
-      listener: (context, state) {
+    final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
+
+    return BlocBuilder<NoteSyncCubit, NoteSyncState>(
+      builder: (contextn, state) {
         if (state is NoteSyncSuccessful) {
           showToast("notes sync successful");
           _rotationAnimationController.reset();
         } else if (state is NoteSyncFailed) {
-          showToast("notes sync failed");
+          showToast(state.errorMessage);
           _rotationAnimationController.reset();
+        } else if (state is NoteSyncOnGoing) {
+          _rotationAnimationController.repeat();
         }
-      },
-      builder: (contextn, state) => GestureDetector(
-        onTap: () {
-          final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
-          noteSyncCubit.startNoteSync();
-          if (state is NoteSyncOnGoing) {
-            _rotationAnimationController.reset();
-          } else {
-            _rotationAnimationController.repeat();
-          }
-        },
-        child: AnimatedSize(
-          duration: const Duration(milliseconds: 100),
+
+        return GestureDetector(
+          onTap: () {
+            noteSyncCubit.startNoteSync();
+          },
           child: Container(
             padding: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
@@ -63,37 +59,17 @@ class _SyncNowButtonState extends State<SyncNowButton>
               ),
               borderRadius: BorderRadius.circular(5.0),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                RotationTransition(
-                  turns: Tween(begin: 0.0, end: 1.0)
-                      .animate(_rotationAnimationController),
-                  child: const Icon(
-                    Icons.sync,
-                    color: Colors.pinkAccent,
-                  ),
-                ),
-                (state is NoteSyncOnGoing)
-                    ? Row(
-                        children: const [
-                          SizedBox(width: 5),
-                          Text(
-                            "Cancel",
-                            style: TextStyle(
-                              color: Colors.pink,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(width: 5),
-                        ],
-                      )
-                    : const SizedBox.shrink(),
-              ],
+            child: RotationTransition(
+              turns: Tween(begin: 1.0, end: 0.0)
+                  .animate(_rotationAnimationController),
+              child: const Icon(
+                Icons.sync,
+                color: Colors.pinkAccent,
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

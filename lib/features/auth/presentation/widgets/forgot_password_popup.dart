@@ -1,16 +1,13 @@
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
+import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
 import 'package:flutter/material.dart';
 
-Future<dynamic> passwordLoginPopup(
-    {required BuildContext context, required Function submitPassword}) {
-  String password = "";
-
-  void assignPassword(String val) {
-    password = val;
-  }
+Future<void> forgotPasswordPopup(
+    BuildContext context, Function(String) submitForgotPassword) {
+  String forgotPasswordEmail = "";
 
   bool isLoading = false;
 
@@ -22,13 +19,15 @@ Future<dynamic> passwordLoginPopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text("Enter current password",
+          const Text("Enter registered email",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           const SizedBox(height: 25),
-          AuthPasswordInput(
-            getPasswordErrors: () {},
-            onPasswordChanged: assignPassword,
+          AuthEmailInput(
             autoFocus: true,
+            getEmailErrors: () {},
+            onEmailChanged: (String email) {
+              forgotPasswordEmail = email;
+            },
           ),
           const SizedBox(height: 25),
           StatefulBuilder(builder: (context, setState) {
@@ -38,20 +37,21 @@ Future<dynamic> passwordLoginPopup(
                 setState(() {
                   isLoading = true;
                 });
-                bool result = await submitPassword(password);
-                if (result == false) {
+
+                var result = await submitForgotPassword(forgotPasswordEmail);
+
+                result.fold((ForgotPasswordFailure e) {
                   setState(() {
                     isLoading = false;
                   });
-                  showToast("Incorrect password");
-                } else {
+                  showToast(e.message);
+                }, (_) {
                   setState(() {
                     isLoading = false;
                   });
-                  showToast("Password verified");
-                  await Future.delayed(const Duration(milliseconds: 300));
-                  Navigator.of(context).pop(password);
-                }
+                  showToast("password reset email sent");
+                  Navigator.of(context).pop();
+                });
               },
               buttonText: "Submit",
             );

@@ -5,7 +5,6 @@ import 'package:dairy_app/core/databases/sqflite_setup.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../core/logger/logger.dart';
@@ -44,7 +43,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     log.i("note ${noteMap["id"]} inserted into db");
 
-    // insert notte dependecies
+    // insert note dependecies
     log.i("saving asset dependencies = $assetDependencies");
 
     for (NoteAssetModel asset in assetDependencies) {
@@ -65,13 +64,13 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<List<NotePreviewModel>> fetchNotesPreview() async {
+  Future<List<NotePreviewModel>> fetchNotesPreview(String authorId) async {
     // Only columns required for notes preview
     List<Map<String, Object?>> result;
     try {
       result = await database.query(Notes.TABLE_NAME,
           columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
-          where: "${Notes.DELETED} != 1",
+          where: "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId'",
           orderBy: "${Notes.CREATED_AT} DESC");
     } catch (e) {
       log.e("Local database query for fetching notes preview failed $e");
@@ -82,13 +81,13 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<List<NoteModel>> fetchNotes() async {
+  Future<List<NoteModel>> fetchNotes(String authorId) async {
     // Only columns required for notes preview
     List<Map<String, dynamic>> result;
     try {
       result = await database.query(
         Notes.TABLE_NAME,
-        where: "${Notes.DELETED} != 1",
+        where: "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId'",
       );
     } catch (e) {
       log.e("Local database query for fetching notes failed $e");
@@ -99,7 +98,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<void> deleteNote(String id, {bool hardDeletion = false}) async {
+  Future<void> deleteNote(String id, String authorId,
+      {bool hardDeletion = false}) async {
     List<Map<String, Object?>> files;
 
     // First delete all files
@@ -140,8 +140,9 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     // hard delete the note
     if (hardDeletion == true) {
-      count = await database
-          .delete(Notes.TABLE_NAME, where: "${Notes.ID} = ?", whereArgs: [id]);
+      count = await database.delete(Notes.TABLE_NAME,
+          where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
+          whereArgs: [id]);
       if (count != 1) {
         log.e("notes (hard) deletion unsuccessful for note id: $id");
         throw const DatabaseDeleteException();
@@ -161,7 +162,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
             "last_modified": DateTime.now().millisecondsSinceEpoch,
             "deleted": 1,
           },
-          where: "${Notes.ID} = ?",
+          where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
           whereArgs: [id]);
 
       if (count != 1) {
@@ -174,9 +175,10 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<NoteModel> getNote(String id) async {
-    var result = await database
-        .query(Notes.TABLE_NAME, where: "${Notes.ID} = ?", whereArgs: [id]);
+  Future<NoteModel> getNote(String id, String authorId) async {
+    var result = await database.query(Notes.TABLE_NAME,
+        where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
+        whereArgs: [id]);
     if (result.isEmpty) {
       log.e("Notes with id: $id not found");
       throw const DatabaseQueryException();
@@ -198,17 +200,75 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<void> updateNote(Map<String, dynamic> noteMap) async {
-    // store the asset dependencies to update later
-    noteMap.remove("asset_dependencies");
-
+  Future<void> updateNote(Map<String, dynamic> noteMap, String authorId) async {
     // store id
     var id = noteMap["id"];
     noteMap.remove("id");
 
+    // Remove all asset dependencies and insert all of them again
+
+    List<Map<String, Object?>> files;
+
+    // First delete all files
+    try {
+      files = await database.query(
+        NoteDependencies.TABLE_NAME,
+        columns: [NoteDependencies.NOTE_ID, NoteDependencies.ASSET_PATH],
+        where: "${NoteDependencies.NOTE_ID} = ?",
+        whereArgs: [id],
+      );
+    } catch (e) {
+      log.e("Querying of assets failed for note id: $id");
+      throw const DatabaseQueryException();
+    }
+
+    // try {
+    //   for (var file in files) {
+    //     await deleteFile(file["asset_path"] as String);
+    //   }
+    // } catch (e) {
+    //   // not a criticial exception, so don't throw error
+    //   log.e("file deletion failed for note id:$id $e");
+    // }
+
+    // delete all records of assets
+
+    var res = await database.delete(
+      NoteDependencies.TABLE_NAME,
+      where: "${NoteDependencies.NOTE_ID} = ?",
+      whereArgs: [id],
+    );
+
+    // if number of deleted rows != number of assets present, throw exception
+    if (res != files.length) {
+      log.e("assets deletion unsuccessful for note id: $id");
+      throw const DatabaseDeleteException();
+    }
+
+    // Insert the new ones
+
+    log.i("saving asset dependencies = ${noteMap["asset_dependencies"]}");
+
+    for (NoteAssetModel asset in noteMap["asset_dependencies"]) {
+      try {
+        var res =
+            await database.insert(NoteDependencies.TABLE_NAME, asset.toJson());
+        if (res == -1) {
+          log.e("Insertion of ${asset.assetPath}} faied");
+          throw const DatabaseInsertionException();
+        }
+      } catch (e) {
+        log.e(e);
+        rethrow;
+      }
+    }
+
+    noteMap.remove("asset_dependencies");
+
     var count = await database.update(Notes.TABLE_NAME,
         {...noteMap, "last_modified": DateTime.now().millisecondsSinceEpoch},
-        where: "${Notes.ID} = ?", whereArgs: [id]);
+        where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
+        whereArgs: [id]);
 
     if (count != 1) {
       log.e("note updation failed for id: $id");
@@ -226,19 +286,20 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<List<String>> getAllNoteIds() async {
+  Future<List<String>> getAllNoteIds(String authorId) async {
     var result = await database.query(Notes.TABLE_NAME,
         columns: [Notes.ID],
-        where: "${Notes.DELETED} != 1",
+        where: "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId'",
         orderBy: "${Notes.CREATED_AT} DESC");
 
     return result.map((noteMap) => noteMap["id"] as String).toList();
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getNotesIndex() async {
+  Future<List<Map<String, dynamic>>> getNotesIndex(String authorId) async {
     var allNotesIndex = await database.query(Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.LAST_MODIFIED, Notes.HASH, Notes.DELETED],
+        where: "${Notes.AUTHOR_ID} = '$authorId'",
         orderBy: "${Notes.CREATED_AT} DESC");
 
     return makeModifiableResults(allNotesIndex).map((note) {
@@ -247,7 +308,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<List<NotePreviewModel>> searchNotes(
+  Future<List<NotePreviewModel>> searchNotes(String authorId,
       {String? searchText, DateTime? startDate, DateTime? endDate}) async {
     log.i("Searching for notes");
     List<Map<String, Object?>> result;
@@ -269,12 +330,11 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         searchQuery += " AND (${Notes.CREATED_AT} <= '$endDateStr')";
       }
 
-      log.i("searchquery = $searchQuery");
-
       result = await database.query(
         Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
-        where: "${Notes.DELETED} != 1 AND $searchQuery",
+        where:
+            "${Notes.DELETED} != 1 AND $searchQuery and ${Notes.AUTHOR_ID} = '$authorId'",
         orderBy: "${Notes.CREATED_AT} DESC",
       );
     } catch (e) {

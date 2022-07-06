@@ -18,4 +18,11 @@ abstract class IAuthRemoteDataSource {
       {required String email,
       required String oldPassword,
       required String newPassword});
+
+  Future<void> submitForgotPasswordEmail(String forgotPasswordEmail);
+
+  Future<void> updateEmail(
+      {required String oldEmail,
+      required String password,
+      required String newEmail});
 }

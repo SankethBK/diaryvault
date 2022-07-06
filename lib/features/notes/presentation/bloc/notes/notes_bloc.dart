@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:dairy_app/features/notes/core/failures/failure.dart';
@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:uuid/uuid.dart';
-import 'dart:convert';
 
 part 'notes_event.dart';
 part 'notes_state.dart';
@@ -71,7 +70,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       // we don't want to update when something is getting saved or deleted
 
       if (state is NoteInitialState || state is NoteUpdatedState) {
-        // TODO: need to handle asset dependecies more clearly, there is no callback for asset removal
         // so we need to process the body afterwards to get current list of assets, and suitably delete removed ones
         emit(NoteUpdatedState(
           newNote: state.newNote!,
@@ -100,6 +98,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
 
       var _plainText = state.controller!.document.toPlainText();
+
+      state.controller!.dispose();
 
       var noteMap = {
         "id": state.id,

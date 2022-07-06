@@ -84,3 +84,41 @@ class SignInFailure extends Failure {
         code: USER_DISABLED);
   }
 }
+
+class ForgotPasswordFailure extends Failure {
+  static const UNKNOWN_ERROR = -1;
+  static const INVALID_EMAIL = 0;
+  static const NO_INTERNET_CONNECTION = 1;
+  static const USER_NOT_FOUND = 2;
+
+  const ForgotPasswordFailure._({required String message, required int code})
+      : super(message: message, code: code);
+
+  factory ForgotPasswordFailure.unknownError([String? message]) {
+    return ForgotPasswordFailure._(
+      message: message ?? "Unknown error occured",
+      code: UNKNOWN_ERROR,
+    );
+  }
+
+  factory ForgotPasswordFailure.invalidEmail([String? message]) {
+    return ForgotPasswordFailure._(
+      message: message ?? "Invalid email",
+      code: INVALID_EMAIL,
+    );
+  }
+
+  factory ForgotPasswordFailure.noInternetConnection([String? message]) {
+    return ForgotPasswordFailure._(
+      message: message ?? "No internet connection",
+      code: NO_INTERNET_CONNECTION,
+    );
+  }
+
+  factory ForgotPasswordFailure.userNotFound([String? message]) {
+    return ForgotPasswordFailure._(
+      message: message ?? "user not found",
+      code: USER_NOT_FOUND,
+    );
+  }
+}

@@ -430,9 +430,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "6cceed0fdb2b557ab69a148e15f6143406f41c8e"
-      resolved-ref: "6cceed0fdb2b557ab69a148e15f6143406f41c8e"
-      url: "https://github.com/SankethBK/flutter-quill"
+      ref: "0d8bde4a70acf5d4e2d75299491cb5a1b4c8f887"
+      resolved-ref: "0d8bde4a70acf5d4e2d75299491cb5a1b4c8f887"
+      url: "https://github.com/SankethBK/flutter-quill.git"
     source: git
     version: "4.1.8"
   flutter_test:
@@ -487,6 +487,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -648,13 +655,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  local_session_timeout:
-    dependency: "direct main"
-    description:
-      name: local_session_timeout
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   logger:
     dependency: "direct main"
     description:

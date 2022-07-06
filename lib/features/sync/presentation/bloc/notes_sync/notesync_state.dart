@@ -11,6 +11,10 @@ class NoteSyncInitial extends NoteSyncState {}
 
 class NoteSyncOnGoing extends NoteSyncState {}
 
-class NoteSyncFailed extends NoteSyncState {}
+class NoteSyncFailed extends NoteSyncState {
+  final String errorMessage;
+
+  const NoteSyncFailed(this.errorMessage);
+}
 
 class NoteSyncSuccessful extends NoteSyncState {}

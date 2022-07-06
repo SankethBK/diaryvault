@@ -289,6 +289,34 @@ class GoogleOAuthClient implements IOAuthClient {
     }
   }
 
+  @override
+  Future<DateTime?> getNoteCreatedTime(String fileName,
+      {bool folder = false}) async {
+    log.i("Searching for createdTime of $fileName");
+
+    final mimeType = folder ? "application/vnd.google-apps.folder" : null;
+
+    final String searchQuery = mimeType != null
+        ? "mimeType = '$mimeType' and name = '$fileName'"
+        : "name = '$fileName'";
+
+    const String fields = "files(id, name, createdTime)";
+
+    final found = await driveApi.files.list(
+      q: searchQuery,
+      $fields: fields,
+    );
+
+    final files = found.files;
+
+    if (files == null || files.isEmpty) {
+      log.i("File $fileName not found");
+      return null;
+    }
+
+    return files.first.createdTime;
+  }
+
   //* Private util methods
 
   Future<bool> _isFilePresent(String searchQuery, String fields) async {
