@@ -42,7 +42,7 @@ dependencies:
   flutter_quill:
     git:
       url: https://github.com/SankethBK/flutter-quill.git
-      ref: 0d8bde4a70acf5d4e2d75299491cb5a1b4c8f887
+      ref: 0c1d0b519b98f7c4fcf10c8f0ef59df93d191c8e
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^3.0.1
@@ -69,10 +69,10 @@ dev_dependencies:
 flutter_icons:
   android: 'launcher_icon'
   ios: true
-  image_path: 'assets/images/dairy-logo.png'
+  image_path: 'assets/images/dairy-logo-1.png'
 
 flutter_native_splash:
-  image: 'assets/images/dairy-logo.png'
+  image: 'assets/images/splash-screen.png'
   color: '#ffffff'
 
 dependency_overrides:
