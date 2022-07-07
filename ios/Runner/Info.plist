@@ -47,8 +47,7 @@
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
-		<key>com.apple.security.network.client</key>
-		<true/>
+
 		<!-- Google Sign-in Section -->
 		<key>CFBundleURLTypes</key>
 		<array>

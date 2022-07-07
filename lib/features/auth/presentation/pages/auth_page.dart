@@ -30,7 +30,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   void initState() {
     super.initState();
-    neonImage = Image.asset("assets/images/digital-art-neon-bubbles.jpg");
+    neonImage = Image.asset("assets/images/background.png");
   }
 
   @override
@@ -56,9 +56,10 @@ class _AuthPageState extends State<AuthPage> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                "assets/images/digital-art-neon-bubbles.jpg",
+                "assets/images/background.png",
               ),
               fit: BoxFit.cover,
+              // alignment:
             ),
           ),
           child: Center(

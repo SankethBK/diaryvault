@@ -61,11 +61,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             // color: Colors.black,
             image: DecorationImage(
               image: AssetImage(
-                "assets/images/digital-art-neon-bubbles.jpg",
+                "assets/images/background.png",
               ),
               fit: BoxFit.cover,
-              alignment: Alignment(0.725, 0.1),
-              // alignment: Alignment(0.725, 0.1)
+              // alignment: Alignment(0.725, 0.1),
             ),
           ),
           padding: EdgeInsets.only(

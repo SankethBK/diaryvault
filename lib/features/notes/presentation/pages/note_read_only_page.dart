@@ -35,7 +35,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   @override
   void initState() {
     super.initState();
-    neonImage = Image.asset("assets/images/digital-art-neon-bubbles.jpg");
+    neonImage = Image.asset("assets/images/background.png");
   }
 
   @override
@@ -90,7 +90,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
           decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                  "assets/images/digital-art-neon-bubbles.jpg",
+                  "assets/images/background.png",
                 ),
                 fit: BoxFit.cover,
                 alignment: Alignment(0.725, 0.1)),
