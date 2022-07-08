@@ -62,6 +62,39 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
+  Future<bool> signIn() async {
+    try {
+      Map<String, String> headers;
+
+      // try to login silently, it will be successful if we already have the permission
+      GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signInSilently();
+
+      log.i("prompting new google sign in");
+
+      googleSignInAccount = await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        log.i("prompted login successful");
+        headers = await googleSignInAccount.authHeaders;
+      } else {
+        return false;
+      }
+
+      userConfigCubit.setUserConfig(
+          UserConfigConstants.googleDriveUserInfo, googleSignInAccount.email);
+
+      final client = GoogleAuthHTTPClient(headers);
+      driveApi = drive.DriveApi(client);
+      log.i("drive api created successfully from live auth headers");
+
+      return true;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
+  }
+
+  @override
   Future<bool> isFilePresent(String fileName, {bool folder = false}) async {
     final mimeType = folder ? "application/vnd.google-apps.folder" : null;
 

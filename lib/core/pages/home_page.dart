@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool _isInitialized = false;
   late final NotesFetchCubit notesFetchCubit;
   late final SelectableListCubit selectableListCubit;
+  late double topPadding = 0;
 
   @override
   void initState() {
@@ -37,6 +38,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (!_isInitialized) {
       selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+      topPadding =
+          MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
       _isInitialized = true;
     }
   }
@@ -68,8 +71,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
           ),
           padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top +
-                AppBar().preferredSize.height,
+            top: topPadding,
             left: 5.0,
             right: 5.0,
           ),

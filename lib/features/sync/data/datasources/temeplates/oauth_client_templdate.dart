@@ -3,6 +3,8 @@ import 'dart:io';
 abstract class IOAuthClient {
   Future<bool> initialieClient();
 
+  Future<void> signIn();
+
   Future<bool> isFilePresent(String fileName, {bool folder = false});
 
   Future<bool> createFolder(String folderName, {String? parentFolder});

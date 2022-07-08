@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Dairy App</string>
+		<string>Dairyaholic</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -48,6 +48,8 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 
+		
+
 		<!-- Google Sign-in Section -->
 		<key>CFBundleURLTypes</key>
 		<array>
@@ -57,7 +59,7 @@
 				<key>CFBundleURLSchemes</key>
 				<array>
 					<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-					<string>com.googleusercontent.apps.630089514479-e46bgv90hb2cbivn1mnvnh0fhae6jdc7</string>
+					<string>com.googleusercontent.apps.630089514479-p3ksr3j9rpsp02obbdbbdi81cqnh6jjp</string>
 				</array>
 			</dict>
 		</array>

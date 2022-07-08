@@ -30,6 +30,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
   late Image neonImage;
+  late double topPadding = 0;
 
   @override
   void initState() {
@@ -47,6 +48,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         notesBloc.add(const InitializeNote());
       }
       precacheImage(neonImage.image, context);
+      topPadding =
+          MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
 
       _isInitialized = true;
     }
@@ -89,11 +92,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
               alignment: Alignment(0.725, 0.1),
             ),
           ),
-
-          // TODO: this creates new instance of appbar everytime, find a workaround for this
           padding: EdgeInsets.only(
-            top: AppBar().preferredSize.height +
-                MediaQuery.of(context).padding.top,
+            top: topPadding,
             left: 10.0,
             right: 10.0,
             // bottom: MediaQuery.of(context).viewInsets.bottom,

@@ -111,7 +111,8 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                                 const Text("Last synced: "),
                                 const SizedBox(width: 5),
                                 Text(
-                                    "${DateFormat.yMd().format(state.userConfigModel!.lastGoogleDriveSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastGoogleDriveSync!)}"),
+                                  "${DateFormat.yMd().format(state.userConfigModel!.lastGoogleDriveSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastGoogleDriveSync!)}",
+                                ),
                               ],
                             )
                           : Row(
@@ -134,7 +135,7 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                           : SubmitButton(
                               isLoading: false,
                               onSubmitted: () async {
-                                await oAuthClient.initialieClient();
+                                await oAuthClient.signIn();
                               },
                               buttonText: "Sign in",
                             )),

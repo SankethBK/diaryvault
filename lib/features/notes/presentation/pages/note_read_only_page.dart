@@ -31,6 +31,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
   late Image neonImage;
+  late double topPadding;
 
   @override
   void initState() {
@@ -47,6 +48,9 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
       }
       precacheImage(neonImage.image, context);
 
+      topPadding = MediaQuery.of(context).padding.top +
+          AppBar().preferredSize.height +
+          10;
       _isInitialized = true;
     }
     _isInitialized = true;
@@ -81,12 +85,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
         ),
         body: Container(
           padding: EdgeInsets.only(
-              top: AppBar().preferredSize.height +
-                  MediaQuery.of(context).padding.top +
-                  10.0,
-              left: 10.0,
-              right: 10.0,
-              bottom: 10.0),
+              top: topPadding, left: 10.0, right: 10.0, bottom: 10.0),
           decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
