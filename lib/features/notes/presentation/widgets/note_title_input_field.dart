@@ -33,9 +33,7 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                   const SizedBox(height: 10),
                   TextFormField(
                     textCapitalization: TextCapitalization.sentences,
-                    style: GoogleFonts.lato(
-                        textStyle:
-                            const TextStyle(fontWeight: FontWeight.w500)),
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                     initialValue: widget.initialValue,
                     decoration: InputDecoration(
                       hintText: "title",
@@ -92,6 +90,7 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                     children: [
                       const SizedBox(width: 6),
                       Container(
+                        padding: const EdgeInsets.all(3.0),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.2),
                           borderRadius: const BorderRadius.all(
