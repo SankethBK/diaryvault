@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool _isInitialized = false;
   late final NotesFetchCubit notesFetchCubit;
   late final SelectableListCubit selectableListCubit;
+  late double topPadding = 0;
 
   @override
   void initState() {
@@ -37,6 +38,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (!_isInitialized) {
       selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+      topPadding =
+          MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
       _isInitialized = true;
     }
   }
@@ -61,16 +64,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             // color: Colors.black,
             image: DecorationImage(
               image: AssetImage(
-                "assets/images/digital-art-neon-bubbles.jpg",
+                "assets/images/background.png",
               ),
               fit: BoxFit.cover,
-              alignment: Alignment(0.725, 0.1),
-              // alignment: Alignment(0.725, 0.1)
+              // alignment: Alignment(0.725, 0.1),
             ),
           ),
           padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top +
-                AppBar().preferredSize.height,
+            top: topPadding,
             left: 5.0,
             right: 5.0,
           ),

@@ -31,7 +31,7 @@ class SubmitButton extends StatelessWidget {
             Radius.circular(16),
           ),
         ),
-        elevation: 4,
+        elevation: 2,
         side: BorderSide(
           color: Colors.black.withOpacity(0.5),
           width: 1,

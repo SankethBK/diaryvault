@@ -30,11 +30,12 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
   late Image neonImage;
+  late double topPadding = 0;
 
   @override
   void initState() {
     super.initState();
-    neonImage = Image.asset("assets/images/digital-art-neon-bubbles.jpg");
+    neonImage = Image.asset("assets/images/background.png");
   }
 
   @override
@@ -47,6 +48,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         notesBloc.add(const InitializeNote());
       }
       precacheImage(neonImage.image, context);
+      topPadding =
+          MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
 
       _isInitialized = true;
     }
@@ -83,18 +86,14 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
             color: Color.fromARGB(225, 234, 94, 141),
             image: DecorationImage(
               image: AssetImage(
-                "assets/images/digital-art-neon-bubbles.jpg",
+                "assets/images/background.png",
               ),
               fit: BoxFit.cover,
               alignment: Alignment(0.725, 0.1),
             ),
           ),
-
-          // TODO: this creates new instance of appbar everytime, find a workaround for this
           padding: EdgeInsets.only(
-            top: AppBar().preferredSize.height +
-                MediaQuery.of(context).padding.top +
-                10.0,
+            top: topPadding,
             left: 10.0,
             right: 10.0,
             // bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -135,7 +134,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                     );
                   },
                 ),
-                const SizedBox(height: 10),
                 BlocBuilder<NotesBloc, NotesState>(
                   bloc: notesBloc,
                   buildWhen: (previousState, state) {

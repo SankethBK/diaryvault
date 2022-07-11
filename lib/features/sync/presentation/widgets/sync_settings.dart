@@ -40,8 +40,7 @@ class SyncSettings extends StatelessWidget {
                 contentPadding: const EdgeInsets.all(0),
                 title:
                     const Text("Auto sync", style: TextStyle(fontSize: 16.0)),
-                subtitle: const Text(
-                    "Automatically donwloads and uploads data from cloud"),
+                subtitle: const Text("Automatically sync notes with cloud"),
                 value: state.userConfigModel?.isAutoSyncEnabled == true,
                 onChanged: (bool val) {
                   if (!isSignedIn) {

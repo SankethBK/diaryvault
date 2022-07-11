@@ -42,7 +42,7 @@ dependencies:
   flutter_quill:
     git:
       url: https://github.com/SankethBK/flutter-quill.git
-      ref: 0d8bde4a70acf5d4e2d75299491cb5a1b4c8f887
+      ref: 0c1d0b519b98f7c4fcf10c8f0ef59df93d191c8e
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^3.0.1
@@ -59,10 +59,21 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.0.3
   build_runner: ^2.1.7
+  flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.0
+  flutter_native_splash: ^2.1.0
   flutter_test:
     sdk: flutter
   mockito: ^5.1.0
+
+flutter_icons:
+  android: 'launcher_icon'
+  ios: true
+  image_path: 'assets/images/dairy-logo-1.png'
+
+flutter_native_splash:
+  image: 'assets/images/splash-screen.png'
+  color: '#ffffff'
 
 dependency_overrides:
   analyzer:
@@ -79,6 +90,7 @@ flutter:
   assets:
     - assets/sample.json
     - assets/images/
+    - assets/fonts/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

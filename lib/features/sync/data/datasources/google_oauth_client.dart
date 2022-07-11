@@ -19,7 +19,7 @@ class GoogleOAuthClient implements IOAuthClient {
   final UserConfigCubit userConfigCubit;
   GoogleOAuthClient({required this.userConfigCubit}) {
     googleSignIn = GoogleSignIn.standard(scopes: [
-      drive.DriveApi.driveFileScope,
+      drive.DriveApi.driveAppdataScope,
     ]);
   }
 
@@ -45,6 +45,39 @@ class GoogleOAuthClient implements IOAuthClient {
         } else {
           return false;
         }
+      }
+
+      userConfigCubit.setUserConfig(
+          UserConfigConstants.googleDriveUserInfo, googleSignInAccount.email);
+
+      final client = GoogleAuthHTTPClient(headers);
+      driveApi = drive.DriveApi(client);
+      log.i("drive api created successfully from live auth headers");
+
+      return true;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> signIn() async {
+    try {
+      Map<String, String> headers;
+
+      // try to login silently, it will be successful if we already have the permission
+      GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signInSilently();
+
+      log.i("prompting new google sign in");
+
+      googleSignInAccount = await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        log.i("prompted login successful");
+        headers = await googleSignInAccount.authHeaders;
+      } else {
+        return false;
       }
 
       userConfigCubit.setUserConfig(
@@ -99,12 +132,15 @@ class GoogleOAuthClient implements IOAuthClient {
       var folder = drive.File();
       folder.name = folderName;
       folder.mimeType = mimeType;
+      folder.parents = [parentFolder ?? 'appDataFolder'];
 
       if (parentFolderId != null) {
         folder.parents = [parentFolderId];
       }
 
-      await driveApi.files.create(folder);
+      await driveApi.files.create(
+        folder,
+      );
       return true;
     } catch (e) {
       log.e(e);
@@ -302,10 +338,8 @@ class GoogleOAuthClient implements IOAuthClient {
 
     const String fields = "files(id, name, createdTime)";
 
-    final found = await driveApi.files.list(
-      q: searchQuery,
-      $fields: fields,
-    );
+    final found = await driveApi.files
+        .list(q: searchQuery, $fields: fields, spaces: 'appDataFolder');
 
     final files = found.files;
 
@@ -320,10 +354,8 @@ class GoogleOAuthClient implements IOAuthClient {
   //* Private util methods
 
   Future<bool> _isFilePresent(String searchQuery, String fields) async {
-    final found = await driveApi.files.list(
-      q: searchQuery,
-      $fields: fields,
-    );
+    final found = await driveApi.files
+        .list(q: searchQuery, $fields: fields, spaces: 'appDataFolder');
 
     final files = found.files;
 
@@ -346,10 +378,8 @@ class GoogleOAuthClient implements IOAuthClient {
 
     const String fields = "files(id, name)";
 
-    final found = await driveApi.files.list(
-      q: searchQuery,
-      $fields: fields,
-    );
+    final found = await driveApi.files
+        .list(q: searchQuery, $fields: fields, spaces: 'appDataFolder');
 
     final files = found.files;
 

@@ -437,7 +437,6 @@ class DeleteIcon extends StatelessWidget {
             context: context,
             child: LayoutBuilder(
               builder: (context, constraints) {
-                log.d(constraints.isTight);
                 return Container(
                   color: Colors.transparent,
                   padding:
@@ -496,7 +495,7 @@ class DeletionCount extends StatelessWidget {
       padding: const EdgeInsets.only(right: 13.0),
       child: Text(
         "$deletionCount",
-        style: const TextStyle(fontSize: 22.0),
+        style: const TextStyle(fontSize: 18.0),
       ),
     );
   }

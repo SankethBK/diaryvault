@@ -58,11 +58,6 @@ class RichTextEditor extends StatelessWidget {
     // acquiring bloc to send it to toolbar
     final notesBloc = BlocProvider.of<NotesBloc>(context);
 
-    // controller!.changes.listen((e) {
-    //   // if image is inserted
-    //   controller!.document.insert(controller!.document.length, "yoy");
-    // });
-
     return Expanded(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         GlassMorphismCover(
@@ -180,7 +175,7 @@ class Toolbar extends StatelessWidget {
       iconUnselectedColor: Colors.pink.shade300,
       iconSelectedFillColor: Colors.pink.shade300,
       iconUnselectedFillColor: Colors.transparent,
-      disabledIconColor: Colors.cyan,
+      disabledIconColor: Colors.pink.shade300,
       borderRadius: 5.0,
     );
 
@@ -209,20 +204,20 @@ class Toolbar extends StatelessWidget {
       showBackgroundColorButton: true,
       showClearFormat: false,
       showAlignmentButtons: false,
-      showLeftAlignment: false,
-      showCenterAlignment: false,
-      showRightAlignment: false,
-      showJustifyAlignment: false,
+      showLeftAlignment: true,
+      showCenterAlignment: true,
+      showRightAlignment: true,
+      showJustifyAlignment: true,
       showHeaderStyle: true,
       showListNumbers: true,
       showListBullets: true,
-      showListCheck: false,
-      showCodeBlock: false,
+      showListCheck: true,
+      showCodeBlock: true,
       showQuote: true,
       showIndent: false,
       showLink: true,
-      showUndo: false,
-      showRedo: false,
+      showUndo: true,
+      showRedo: true,
       multiRowsDisplay: false,
       showImageButton: true,
       showVideoButton: true,
@@ -244,7 +239,8 @@ class GlassPaneForEditor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom == 0 ? 10 : 5),
       child: GlassMorphismCover(
         displayShadow: false,
         borderRadius: const BorderRadius.only(

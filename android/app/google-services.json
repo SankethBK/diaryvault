@@ -7,28 +7,35 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:630089514479:android:fdd0947f61493bfa3f0a1a",
+        "mobilesdk_app_id": "1:630089514479:android:c95d1451edee751e3f0a1a",
         "android_client_info": {
-          "package_name": "com.example.dairy_app"
+          "package_name": "me.sankethbk.dairyapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "630089514479-oh5g20sfot2umfq2bk2073vu9k5s4a10.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "630089514479-athk438b054upj1l67b2kg7qujk5krjs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.sankethbk.dairyapp",
+            "certificate_hash": "688c5c6976f5c2167629e9799e048f5e6a994a86"
+          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB-06zNuTFascKwm4dNg7Tc2SCYTBkjzm0"
+          "current_key": "AIzaSyC1dpuSQVwvjypQ4RzmpdfJCh1ogMjmgZk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "630089514479-oh5g20sfot2umfq2bk2073vu9k5s4a10.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "630089514479-p3ksr3j9rpsp02obbdbbdi81cqnh6jjp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.sankethbk.dairyapp"
+              }
             }
           ]
         }
