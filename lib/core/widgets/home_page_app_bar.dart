@@ -254,6 +254,13 @@ class Title extends StatelessWidget {
                     width: 0.1,
                   ),
                 ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17.0),
+                  borderSide: BorderSide(
+                    color: Colors.black.withOpacity(0.0),
+                    width: 0.1,
+                  ),
+                ),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.05),
                 suffixIcon: IconButton(
