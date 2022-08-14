@@ -51,6 +51,7 @@ class _AuthPageState extends State<AuthPage> {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
@@ -59,7 +60,6 @@ class _AuthPageState extends State<AuthPage> {
                 "assets/images/background.png",
               ),
               fit: BoxFit.cover,
-              // alignment:
             ),
           ),
           child: Center(
@@ -85,7 +85,10 @@ class _AuthPageState extends State<AuthPage> {
                       Icons.fingerprint,
                       size: 50,
                       color: Colors.white.withOpacity(0.5),
-                    )
+                    ),
+                  SizedBox(
+                    height: MediaQuery.of(context).viewInsets.bottom,
+                  )
                 ],
               ),
             ),
