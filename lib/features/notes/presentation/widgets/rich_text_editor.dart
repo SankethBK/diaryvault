@@ -7,6 +7,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tuple/tuple.dart';
@@ -40,19 +41,7 @@ class RichTextEditor extends StatelessWidget {
       placeholder: 'Write something here...',
       expands: false,
       padding: EdgeInsets.zero,
-      customStyles: DefaultStyles(
-        h1: DefaultTextBlockStyle(
-            const TextStyle(
-              fontSize: 32,
-              color: Colors.black,
-              height: 1.15,
-              fontWeight: FontWeight.w300,
-            ),
-            const Tuple2(16, 0),
-            const Tuple2(0, 0),
-            null),
-        sizeSmall: const TextStyle(fontSize: 9),
-      ),
+      customStyles: DefaultStyles(),
       scrollBottomInset: 50,
     );
     // acquiring bloc to send it to toolbar
@@ -184,11 +173,19 @@ class Toolbar extends StatelessWidget {
       // provide a callback to enable picking images from device.
       // if omit, "image" button only allows adding images from url.
       // same goes for videos.
-      onImagePickCallback: _onImagePickCallback,
-      onVideoPickCallback: _onVideoPickCallback,
+      embedButtons: FlutterQuillEmbeds.buttons(
+        // provide a callback to enable picking images from device.
+        // if omit, "image" button only allows adding images from url.
+        // same goes for videos.
+        onImagePickCallback: _onImagePickCallback,
+        onVideoPickCallback: _onVideoPickCallback,
+        mediaPickSettingSelector: _selectMediaPickSetting,
+        showImageButton: true,
+        showVideoButton: true,
+        showCameraButton: true,
+      ),
       // uncomment to provide a custom "pick from" dialog.
-      mediaPickSettingSelector: _selectMediaPickSetting,
-      color: Colors.transparent,
+      // color: Colors.transparent,
       showFontSize: false,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
@@ -219,9 +216,6 @@ class Toolbar extends StatelessWidget {
       showUndo: true,
       showRedo: true,
       multiRowsDisplay: false,
-      showImageButton: true,
-      showVideoButton: true,
-      showCameraButton: true,
       showDirection: false,
       iconTheme: quillIconTheme,
     );

@@ -12,7 +12,7 @@ import 'package:dairy_app/features/auth/domain/repositories/authentication_repos
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_auth_invisible/flutter_local_auth_invisible.dart';
+import 'package:local_auth/local_auth.dart';
 
 final log = printer("AuthenticationRepository");
 
@@ -22,6 +22,8 @@ class AuthenticationRepository implements IAuthenticationRepository {
   final IAuthLocalDataSource localDataSource;
   final PasswordValidator passwordValidator;
   final EmailValidator emailValidator;
+
+  final LocalAuthentication auth = LocalAuthentication();
 
   AuthenticationRepository({
     required this.remoteDataSource,
@@ -195,14 +197,13 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
   @override
   Future<void> isFingerprintAuthPossible() async {
-    bool hasBiometrics = await LocalAuthentication.canCheckBiometrics;
+    bool hasBiometrics = await auth.canCheckBiometrics;
     log.i("hasBIometrics = $hasBiometrics");
     if (hasBiometrics == false) {
       throw Exception("device doesn't support fingerprint");
     }
 
-    var availableBiometrics =
-        await LocalAuthentication.getAvailableBiometrics();
+    var availableBiometrics = await auth.getAvailableBiometrics();
     log.i("available biometrics = $availableBiometrics");
 
     if (!availableBiometrics.contains(BiometricType.fingerprint)) {
@@ -218,22 +219,22 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
     while (true) {
       try {
-        var authenticationResult = await LocalAuthentication.authenticate(
+        var authenticationResult = await auth.authenticate(
           localizedReason: 'Scan Fingerprint to Authenticate',
-          useErrorDialogs: true,
-          stickyAuth: true,
+          options: const AuthenticationOptions(
+              stickyAuth: true, biometricOnly: true),
         );
 
         if (authenticationResult == false) {
           wrongAttempts += 1;
           yield FingerPrintAuthState.fail;
         } else if (authenticationResult == true) {
-          await LocalAuthentication.stopAuthentication();
+          await auth.stopAuthentication();
           yield FingerPrintAuthState.success;
         }
 
         if (wrongAttempts == 5) {
-          await LocalAuthentication.stopAuthentication();
+          await auth.stopAuthentication();
           yield FingerPrintAuthState.attemptsExceeded;
           break;
         }
@@ -242,7 +243,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
         await Future.delayed(const Duration(milliseconds: 500));
       } on PlatformException catch (e) {
         log.e(e);
-        LocalAuthentication.stopAuthentication();
+        auth.stopAuthentication();
       }
     }
   }

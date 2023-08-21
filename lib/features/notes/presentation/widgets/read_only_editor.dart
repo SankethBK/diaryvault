@@ -27,19 +27,7 @@ class ReadOnlyEditor extends StatelessWidget {
       placeholder: '',
       expands: false,
       padding: EdgeInsets.zero,
-      customStyles: DefaultStyles(
-        h1: DefaultTextBlockStyle(
-            const TextStyle(
-              fontSize: 32,
-              color: Colors.black,
-              height: 1.15,
-              fontWeight: FontWeight.w300,
-            ),
-            const Tuple2(16, 0),
-            const Tuple2(0, 0),
-            null),
-        sizeSmall: const TextStyle(fontSize: 9),
-      ),
+      customStyles: DefaultStyles(),
     );
 
     return quillEditor;
