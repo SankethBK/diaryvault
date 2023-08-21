@@ -170,6 +170,7 @@ class Toolbar extends StatelessWidget {
 
     return QuillToolbar.basic(
       controller: controller,
+      color: Colors.transparent,
       // provide a callback to enable picking images from device.
       // if omit, "image" button only allows adding images from url.
       // same goes for videos.
@@ -186,6 +187,9 @@ class Toolbar extends StatelessWidget {
       ),
       // uncomment to provide a custom "pick from" dialog.
       // color: Colors.transparent,
+      showFontFamily: false,
+      showSubscript: false,
+      showSuperscript: false,
       showFontSize: false,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
