@@ -206,7 +206,11 @@ class AuthenticationRepository implements IAuthenticationRepository {
     var availableBiometrics = await auth.getAvailableBiometrics();
     log.i("available biometrics = $availableBiometrics");
 
-    if (!availableBiometrics.contains(BiometricType.fingerprint)) {
+    bool hasFingerprintSetup =
+        availableBiometrics.contains(BiometricType.strong) ||
+            availableBiometrics.contains(BiometricType.fingerprint);
+
+    if (!hasFingerprintSetup) {
       throw Exception("please setup fingerprint in device settings");
     }
   }
