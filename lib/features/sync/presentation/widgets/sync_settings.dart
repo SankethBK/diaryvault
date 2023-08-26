@@ -56,8 +56,8 @@ class SyncSettings extends StatelessWidget {
             },
           ),
           const SizedBox(height: 10),
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text("Sync now", style: TextStyle(fontSize: 16.0)),
               Spacer(),
               SyncNowButton(),

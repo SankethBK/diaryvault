@@ -77,10 +77,10 @@ class SecuritySettings extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 6.0),
                 child: Row(
-                  children: const [
+                  children: [
                     Text("Change email", style: TextStyle(fontSize: 16.0)),
                   ],
                 ),
