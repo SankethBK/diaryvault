@@ -14,15 +14,27 @@ import 'package:tuple/tuple.dart';
 
 // import 'read_only_page.dart';
 
-class RichTextEditor extends StatelessWidget {
-  final FocusNode _focusNode = FocusNode();
+class RichTextEditor extends StatefulWidget {
   final QuillController? controller;
 
   RichTextEditor({Key? key, required this.controller}) : super(key: key);
 
   @override
+  State<RichTextEditor> createState() => _RichTextEditorState();
+}
+
+class _RichTextEditorState extends State<RichTextEditor> {
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    _focusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (controller == null) {
+    if (widget.controller == null) {
       return Expanded(child: GlassPaneForEditor(quillEditor: Container()));
     }
 
@@ -32,7 +44,7 @@ class RichTextEditor extends StatelessWidget {
   Widget _buildWelcomeEditor(BuildContext context) {
     var quillEditor = QuillEditor(
       // scrollPhysics: const BouncingScrollPhysics(),
-      controller: controller!,
+      controller: widget.controller!,
       scrollController: ScrollController(),
       scrollable: true,
       focusNode: _focusNode,
@@ -57,7 +69,7 @@ class RichTextEditor extends StatelessWidget {
           ),
           child: Container(
             child: Toolbar(
-              controller: controller!,
+              controller: widget.controller!,
               notesBloc: notesBloc,
             ),
             decoration: BoxDecoration(
