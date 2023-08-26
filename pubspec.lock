@@ -317,10 +317,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "21145c9c268d54b1f771d8380c195d2d6f655e0567dc1ca2f9c134c02c819e0a"
+      sha256: bdfa035a974a0c080576c4c8ed01cdf9d1b406a04c7daa05443ef0383a97bedc
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.3"
+    version: "5.3.4"
   file_selector_linux:
     dependency: transitive
     description:
@@ -542,18 +542,16 @@ packages:
   flutter_quill:
     dependency: "direct main"
     description:
-      name: flutter_quill
-      sha256: e5d517b957e839579ad44bb73e3ac1b315c9ce2d10eee6f2df44e38cb5e13510
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.4.1"
+      path: "packages/flutter_quill"
+      relative: true
+    source: path
+    version: "7.4.0"
   flutter_quill_extensions:
     dependency: "direct main"
     description:
-      name: flutter_quill_extensions
-      sha256: "2881381283c2f31697ba0a5ce4f1b4eb1639d33b10c4252c0de601e4ae640347"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/flutter_quill/flutter_quill_extensions"
+      relative: true
+    source: path
     version: "0.4.1"
   flutter_svg:
     dependency: transitive
