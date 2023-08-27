@@ -12,10 +12,11 @@ Future<void> main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
   return BlocOverrides.runZoned(
     () async {
+      WidgetsFlutterBinding.ensureInitialized();
+
       SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
       );
-      WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
       await di.init();
       runApp(const App());

@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_models.dart';
 import 'package:flutter/material.dart';
 
 class AuthChangePage extends StatelessWidget {
@@ -14,6 +15,8 @@ class AuthChangePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final linkColor =
+        Theme.of(context).extension<AdditionalThemeExtensions>()!.linkColor;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +36,7 @@ class AuthChangePage extends StatelessWidget {
             child: Text(
               flipPageText,
               style: TextStyle(
-                color: Colors.pink[300],
+                color: linkColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

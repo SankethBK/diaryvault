@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_models.dart';
 import 'package:flutter/material.dart';
 
 class AuthPasswordInput extends StatefulWidget {
@@ -26,6 +27,9 @@ class _AuthPasswordInputState extends State<AuthPasswordInput> {
 
   @override
   Widget build(BuildContext context) {
+    final errorColor =
+        Theme.of(context).extension<AdditionalThemeExtensions>()!.linkColor;
+
     return Stack(
       children: [
         TextField(
@@ -55,7 +59,7 @@ class _AuthPasswordInputState extends State<AuthPasswordInput> {
             ),
             errorText: widget.getPasswordErrors(),
             errorStyle: TextStyle(
-              color: Colors.pink[300],
+              color: errorColor,
               fontWeight: FontWeight.bold,
             ),
             border: OutlineInputBorder(

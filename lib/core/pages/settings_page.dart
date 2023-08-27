@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_models.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
@@ -18,22 +19,35 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   late Image neonImage;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    neonImage = Image.asset("assets/images/background.png");
   }
 
   @override
   void didChangeDependencies() {
-    precacheImage(neonImage.image, context);
+    if (!_isInitialized) {
+      final backgroundImagePath = Theme.of(context)
+          .extension<AdditionalThemeExtensions>()!
+          .backgroundImage;
+
+      neonImage = Image.asset(backgroundImagePath);
+      precacheImage(neonImage.image, context);
+
+      _isInitialized = true;
+    }
+
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
+    final backgroundImagePath = Theme.of(context)
+        .extension<AdditionalThemeExtensions>()!
+        .backgroundImage;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: GlassAppBar(
@@ -54,13 +68,13 @@ class _SettingsPageState extends State<SettingsPage> {
           right: 10.0,
           bottom: 10.0,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              "assets/images/background.png",
+              backgroundImagePath,
             ),
             fit: BoxFit.cover,
-            alignment: Alignment(0.725, 0.1),
+            alignment: const Alignment(0.725, 0.1),
           ),
         ),
         child: GlassMorphismCover(

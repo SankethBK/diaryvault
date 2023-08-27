@@ -62,7 +62,7 @@ class UserConfigModel extends Equatable {
         isFingerPrintLoginEnabled:
             jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
         currentTheme: jsonMap[UserConfigConstants.currentTheme] ??
-            Themes.coralBubbles); // default theme is coral bubbles
+            Themes.cosmic); // default theme is coral bubbles
   }
 
   Map<String, dynamic> toJson() {

@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_models.dart';
 import 'package:flutter/material.dart';
 
 class AuthEmailInput extends StatelessWidget {
@@ -13,6 +14,9 @@ class AuthEmailInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final errorColor =
+        Theme.of(context).extension<AdditionalThemeExtensions>()!.linkColor;
+
     return Stack(
       children: [
         TextField(
@@ -34,7 +38,7 @@ class AuthEmailInput extends StatelessWidget {
             ),
             errorText: getEmailErrors(),
             errorStyle: TextStyle(
-              color: Colors.pink[200],
+              color: errorColor,
               fontWeight: FontWeight.bold,
             ),
             border: OutlineInputBorder(

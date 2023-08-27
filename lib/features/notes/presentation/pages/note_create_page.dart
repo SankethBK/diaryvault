@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_models.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -35,7 +36,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   @override
   void initState() {
     super.initState();
-    neonImage = Image.asset("assets/images/background.png");
   }
 
   @override
@@ -47,6 +47,13 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(const InitializeNote());
       }
+
+      final backgroundImagePath = Theme.of(context)
+          .extension<AdditionalThemeExtensions>()!
+          .backgroundImage;
+
+      neonImage = Image.asset(backgroundImagePath);
+
       precacheImage(neonImage.image, context);
       topPadding =
           MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
@@ -59,6 +66,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundImagePath = Theme.of(context)
+        .extension<AdditionalThemeExtensions>()!
+        .backgroundImage;
+
     return WillPopScope(
       onWillPop: () async {
         bool? result = await showCloseDialog(context);
@@ -82,14 +93,14 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
           ],
         ),
         body: Container(
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(225, 234, 94, 141),
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(225, 234, 94, 141),
             image: DecorationImage(
               image: AssetImage(
-                "assets/images/background.png",
+                backgroundImagePath,
               ),
               fit: BoxFit.cover,
-              alignment: Alignment(0.725, 0.1),
+              alignment: const Alignment(0.725, 0.1),
             ),
           ),
           padding: EdgeInsets.only(

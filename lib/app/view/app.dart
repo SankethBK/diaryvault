@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
+import 'package:dairy_app/app/themes/cosmic_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
@@ -60,61 +61,62 @@ class AppView extends StatelessWidget {
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   ThemeData getThemeData(Themes currentTheme) {
-    return CoralBubble.getTheme();
+    switch (currentTheme) {
+      // case Themes.coralBubbles:
+      //   return CoralBubble.getTheme();
+      // case Themes.cosmic:
+      //   return Cosmic.getTheme();
+
+      default:
+        return Cosmic.getTheme();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: _navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'My dairy',
-      theme: ThemeData(
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              Colors.purple.withOpacity(0.5),
-            ),
-          ),
-        ),
-        colorScheme:
-            ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
-          secondary: Colors.pinkAccent,
-        ),
-      ),
-      builder: (BuildContext context, child) {
-        return BlocListener<AuthSessionBloc, AuthSessionState>(
-          listener: (context, state) {
-            log.d("Auth session state is $state");
+    return BlocBuilder<UserConfigCubit, UserConfigState>(
+      builder: (context, state) {
+        return MaterialApp(
+          navigatorKey: _navigatorKey,
+          debugShowCheckedModeBanner: false,
+          title: 'My dairy',
+          theme: getThemeData(
+              state.userConfigModel?.currentTheme ?? Themes.coralBubbles),
+          builder: (BuildContext context, child) {
+            return BlocListener<AuthSessionBloc, AuthSessionState>(
+              listener: (context, state) {
+                log.d("Auth session state is $state");
 
-            //! Currently we are not passing lastLoggedinUser anywhere, if you implement session
-            //! Rememeber to pass lastloggedinuser id as parameter to AuthPage
+                //! Currently we are not passing lastLoggedinUser anywhere, if you implement session
+                //! Rememeber to pass lastloggedinuser id as parameter to AuthPage
 
-            if (state is Unauthenticated) {
-              if (state.sessionTimeoutLogout == true) {
-                _navigator.pushNamed(AuthPage.route);
-              } else {
-                _navigator.pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (_) => AuthPage()),
-                    (route) => false);
-              }
-            } else if (state is Authenticated) {
-              log.d("freshLogin = ${state.freshLogin}");
+                if (state is Unauthenticated) {
+                  if (state.sessionTimeoutLogout == true) {
+                    _navigator.pushNamed(AuthPage.route);
+                  } else {
+                    _navigator.pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (_) => AuthPage()),
+                        (route) => false);
+                  }
+                } else if (state is Authenticated) {
+                  log.d("freshLogin = ${state.freshLogin}");
 
-              if (state.freshLogin == true) {
-                _navigator.pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (_) => const HomePage()),
-                    (route) => false);
-              } else {
-                _navigator.pop();
-              }
-            }
+                  if (state.freshLogin == true) {
+                    _navigator.pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (_) => const HomePage()),
+                        (route) => false);
+                  } else {
+                    _navigator.pop();
+                  }
+                }
+              },
+              child: child,
+            );
           },
-          child: child,
+          initialRoute: AuthPage.route,
+          onGenerateRoute: RouteGenerator.generateRoute,
         );
       },
-      initialRoute: AuthPage.route,
-      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_models.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
@@ -46,6 +47,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundImagePath = Theme.of(context)
+        .extension<AdditionalThemeExtensions>()!
+        .backgroundImage;
+
     return WillPopScope(
       onWillPop: () async {
         bool res = await quitAppDialog(context);
@@ -60,11 +65,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         resizeToAvoidBottomInset: false,
         appBar: const HomePageAppBar(),
         body: Container(
-          decoration: const BoxDecoration(
-            // color: Colors.black,
+          decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                "assets/images/background.png",
+                backgroundImagePath,
               ),
               fit: BoxFit.cover,
               // alignment: Alignment(0.725, 0.1),

@@ -1,17 +1,17 @@
 import 'package:dairy_app/app/themes/theme_models.dart';
 import 'package:flutter/material.dart';
 
-class CoralBubble {
+class Cosmic {
   static ThemeData getTheme() {
     return ThemeData(
       // used only for elements whose colors can't be directly controlled
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
-        secondary: Colors.pinkAccent,
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
+        secondary: Colors.blueAccent,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.pink[300],
-          backgroundColor: Colors.purple,
+          foregroundColor: Color.fromARGB(255, 48, 140, 221),
+          backgroundColor: Color.fromARGB(255, 36, 46, 178),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(16),
@@ -41,9 +41,9 @@ class CoralBubble {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AdditionalThemeExtensions(
-          backgroundImage: "assets/images/coral-bubbles.png",
-          linkColor: Colors.pink[300]!,
-          errorTextColor: Colors.pink[200]!,
+          backgroundImage: "assets/images/space-image.jpeg",
+          linkColor: Colors.blue[300]!,
+          errorTextColor: Colors.blue[200]!,
         )
       },
     );
