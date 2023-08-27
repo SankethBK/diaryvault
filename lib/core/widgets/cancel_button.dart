@@ -11,12 +11,9 @@ class CancelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: Theme.of(context).textButtonTheme.style,
       child: Text(
         buttonText,
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.purple,
-        ),
       ),
       onPressed: onPressed,
     );

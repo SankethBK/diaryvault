@@ -1,6 +1,8 @@
 import 'package:dairy_app/app/routes/routes.dart';
+import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
@@ -56,6 +58,10 @@ class AppView extends StatelessWidget {
 
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
+
+  ThemeData getThemeData(Themes currentTheme) {
+    return CoralBubble.getTheme();
+  }
 
   @override
   Widget build(BuildContext context) {

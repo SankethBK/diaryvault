@@ -9,6 +9,7 @@ class UserConfigConstants {
   static String dropBoxUserInfo = "dropbox_user_info";
   static String isAutoSyncEnabled = "is_auto_sync_enabled";
   static String isFingerPrintLoginEnabled = "is_finger_print_log_enabled";
+  static String currentTheme = "current_theme";
 }
 
 class Global {

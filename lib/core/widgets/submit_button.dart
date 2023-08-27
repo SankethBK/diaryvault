@@ -23,20 +23,6 @@ class SubmitButton extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.purple,
-        onPrimary: Colors.pink[300],
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16),
-          ),
-        ),
-        elevation: 2,
-        side: BorderSide(
-          color: Colors.black.withOpacity(0.5),
-          width: 1,
-        ),
-      ),
     );
   }
 }
