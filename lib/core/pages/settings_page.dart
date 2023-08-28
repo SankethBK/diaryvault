@@ -1,4 +1,4 @@
-import 'package:dairy_app/app/themes/theme_models.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';

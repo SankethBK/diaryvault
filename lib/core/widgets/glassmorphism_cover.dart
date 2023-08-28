@@ -9,12 +9,16 @@ class GlassMorphismCover extends StatelessWidget {
   final Widget child;
   final BorderRadius borderRadius;
   final bool displayShadow;
-  const GlassMorphismCover(
-      {Key? key,
-      required this.child,
-      required this.borderRadius,
-      this.displayShadow = true})
-      : super(key: key);
+  final double sigmaX;
+  final double sigmaY;
+  const GlassMorphismCover({
+    Key? key,
+    required this.child,
+    required this.borderRadius,
+    this.displayShadow = true,
+    this.sigmaX = 40.0,
+    this.sigmaY = 40.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +35,8 @@ class GlassMorphismCover extends StatelessWidget {
           borderRadius: borderRadius,
           child: BackdropFilter(
             filter: ImageFilter.blur(
-              sigmaX: 40.0,
-              sigmaY: 40.0,
+              sigmaX: sigmaX,
+              sigmaY: sigmaY,
             ),
             child: child,
           ),

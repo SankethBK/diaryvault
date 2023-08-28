@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
@@ -35,6 +36,13 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
   @override
   Widget build(BuildContext context) {
     final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+    final appBarGradientStartColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .appBarGradientStartColor;
+
+    final appBarGradientEndColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .appBarGradientEndColor;
 
     void closeSearchAppBar() {
       setState(() {
@@ -62,8 +70,8 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.white.withOpacity(0.3),
-                Colors.white.withOpacity(0.2),
+                appBarGradientStartColor,
+                appBarGradientEndColor,
               ],
               begin: AlignmentDirectional.topCenter,
               end: AlignmentDirectional.bottomCenter,

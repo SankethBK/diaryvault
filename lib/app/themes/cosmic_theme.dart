@@ -1,4 +1,6 @@
-import 'package:dairy_app/app/themes/theme_models.dart';
+import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class Cosmic {
@@ -29,12 +31,12 @@ class Cosmic {
           foregroundColor: const Color.fromARGB(255, 36, 46, 178),
           textStyle: const TextStyle(
             fontSize: 16,
-            color: Colors.purple,
+            color: Color.fromARGB(255, 36, 46, 178),
           ),
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: Color.fromARGB(255, 36, 46, 178),
         elevation: 4,
       ),
 
@@ -51,6 +53,30 @@ class Cosmic {
           hintTextColor: Colors.white.withOpacity(0.7),
           authFormGradientStartColor: Colors.black.withOpacity(0.5),
           authFormGradientEndColor: Colors.black.withOpacity(0.3),
+        ),
+        AppbarThemeExtensions(
+          iconColor: Colors.white.withOpacity(1),
+          appBarGradientStartColor: Colors.black.withOpacity(0.3),
+          appBarGradientEndColor: Colors.black.withOpacity(0.2),
+        ),
+        HomePageThemeExtensions(
+          borderColor: Colors.black,
+          backgroundGradientStartColor: Colors.black.withOpacity(0.8),
+          backgroundGradientEndColor: Colors.black.withOpacity(0.6),
+          previewTitleColor: Colors.white.withOpacity(1),
+          previewBodyColor: Colors.white.withOpacity(1),
+          dateColor: Colors.white.withOpacity(0.8),
+          sigmaX: 5.0,
+          sigmaY: 5.0,
+          notePreviewBorderColor: Colors.black.withOpacity(0.6),
+          notePreviewUnselectedGradientStartColor:
+              Colors.white.withOpacity(0.1),
+          notePreviewUnselectedGradientEndColor: Colors.transparent,
+          notePreviewSelectedGradientStartColor:
+              const Color.fromARGB(255, 36, 46, 178).withOpacity(0.5),
+          notePreviewSelectedGradientEndColor:
+              const Color.fromARGB(255, 36, 46, 178).withOpacity(0.2),
+          checkBoxSelectedColor: Colors.blueAccent,
         )
       },
     );

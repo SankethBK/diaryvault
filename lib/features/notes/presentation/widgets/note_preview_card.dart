@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
@@ -21,6 +22,23 @@ class NotePreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final notePreviewBorderColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewBorderColor;
+
+    final notePreviewUnselectedGradientStartColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewUnselectedGradientStartColor;
+    final notePreviewUnselectedGradientEndColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewUnselectedGradientEndColor;
+    final notePreviewSelectedGradientStartColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewSelectedGradientStartColor;
+    final notePreviewSelectedGradientEndColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewSelectedGradientEndColor;
+
     return BlocBuilder<SelectableListCubit, SelectableListState>(
       builder: (context, state) {
         final selectableListCubit =
@@ -52,22 +70,23 @@ class NotePreviewCard extends StatelessWidget {
             decoration: BoxDecoration(
               border: last
                   ? Border(
-                      bottom: BorderSide(
-                          width: 1.3, color: Colors.white.withOpacity(0.6)),
-                      top: BorderSide(
-                          width: 1.3, color: Colors.white.withOpacity(0.6)),
+                      bottom:
+                          BorderSide(width: 1.3, color: notePreviewBorderColor),
+                      top:
+                          BorderSide(width: 1.3, color: notePreviewBorderColor),
                     )
                   : Border(
-                      top: BorderSide(
-                          width: 1.3, color: Colors.white.withOpacity(0.6)),
+                      top:
+                          BorderSide(width: 1.3, color: notePreviewBorderColor),
                     ),
               gradient: LinearGradient(
                 colors: [
                   isSelected
-                      ? const Color.fromARGB(255, 210, 161, 238)
-                          .withOpacity(0.5)
-                      : Colors.transparent,
-                  const Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
+                      ? notePreviewSelectedGradientStartColor
+                      : notePreviewUnselectedGradientStartColor,
+                  isSelected
+                      ? notePreviewSelectedGradientEndColor
+                      : notePreviewUnselectedGradientEndColor,
                 ],
                 begin: AlignmentDirectional.topStart,
                 end: AlignmentDirectional.bottomEnd,
@@ -109,10 +128,19 @@ class SelectBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final checkBoxSelectedColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .checkBoxSelectedColor;
+
+    final overlayColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewBorderColor;
+
     return StatefulBuilder(
       builder: ((context, setState) => Checkbox(
+            side: BorderSide(color: overlayColor),
             value: isSelected,
-            activeColor: Colors.pinkAccent,
+            activeColor: checkBoxSelectedColor,
             onChanged: (val) {
               val!
                   ? selectableListCubit.addItemToSelection(note.id)
@@ -135,6 +163,14 @@ class TitleAndDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final previewTitleColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .previewTitleColor;
+
+    final previewBodyColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .previewBodyColor;
+
     return Expanded(
       child: Padding(
         padding: EdgeInsets.only(left: selectModeEnabled ? 0 : 10.0),
@@ -144,16 +180,22 @@ class TitleAndDescription extends StatelessWidget {
             const SizedBox(width: 7),
             Text(
               note.title,
-              style:
-                  const TextStyle(fontSize: 17.0, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500,
+                  color: previewTitleColor),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 8),
             Text(
               note.plainText,
-              style:
-                  GoogleFonts.lato(textStyle: const TextStyle(fontSize: 15.0)),
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  fontSize: 15.0,
+                  color: previewBodyColor,
+                ),
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             )
@@ -174,6 +216,9 @@ class DisplayDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateColor =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -182,7 +227,7 @@ class DisplayDate extends StatelessWidget {
           DateFormat.EEEE().format(note.createdAt),
           textAlign: TextAlign.end,
           style: TextStyle(
-            color: Colors.black.withOpacity(0.8),
+            color: dateColor,
             fontStyle: FontStyle.italic,
           ),
         ),
@@ -193,7 +238,7 @@ class DisplayDate extends StatelessWidget {
               DateFormat.MMMd().format(note.createdAt) + ",",
               textAlign: TextAlign.end,
               style: TextStyle(
-                color: Colors.black.withOpacity(1.0),
+                color: dateColor,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -201,7 +246,7 @@ class DisplayDate extends StatelessWidget {
               " " + DateFormat.y().format(note.createdAt),
               textAlign: TextAlign.end,
               style: TextStyle(
-                color: Colors.black.withOpacity(0.8),
+                color: dateColor,
                 fontStyle: FontStyle.italic,
               ),
             ),

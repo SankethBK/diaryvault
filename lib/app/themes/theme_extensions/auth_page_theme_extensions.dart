@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:googleapis/compute/v1.dart';
 
 class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
   final String backgroundImage; // path for background image

@@ -1,4 +1,4 @@
-import 'package:dairy_app/app/themes/theme_models.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class AuthEmailInput extends StatelessWidget {

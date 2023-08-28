@@ -1,4 +1,4 @@
-import 'package:dairy_app/app/themes/theme_models.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
