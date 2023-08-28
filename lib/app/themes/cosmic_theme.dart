@@ -10,8 +10,8 @@ class Cosmic {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: Color.fromARGB(255, 48, 140, 221),
-          backgroundColor: Color.fromARGB(255, 36, 46, 178),
+          foregroundColor: const Color.fromARGB(255, 48, 140, 221),
+          backgroundColor: const Color.fromARGB(255, 36, 46, 178),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(16),
@@ -26,7 +26,7 @@ class Cosmic {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: Colors.purple,
+          foregroundColor: const Color.fromARGB(255, 36, 46, 178),
           textStyle: const TextStyle(
             fontSize: 16,
             color: Colors.purple,
