@@ -30,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void didChangeDependencies() {
     if (!_isInitialized) {
       final backgroundImagePath = Theme.of(context)
-          .extension<AdditionalThemeExtensions>()!
+          .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
       neonImage = Image.asset(backgroundImagePath);
@@ -45,9 +45,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
-    final backgroundImagePath = Theme.of(context)
-        .extension<AdditionalThemeExtensions>()!
-        .backgroundImage;
+    final backgroundImagePath =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: GlassAppBar(

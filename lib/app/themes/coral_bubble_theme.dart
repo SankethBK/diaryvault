@@ -40,10 +40,17 @@ class CoralBubble {
 
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
-        AdditionalThemeExtensions(
+        AuthPageThemeExtensions(
           backgroundImage: "assets/images/coral-bubbles.png",
           linkColor: Colors.pink[300]!,
           errorTextColor: Colors.pink[200]!,
+          prefixIconColor: Colors.black.withOpacity(0.5),
+          fillColor: Colors.white.withOpacity(0.3),
+          borderColor: Colors.black.withOpacity(0.6),
+          textColor: Colors.black.withOpacity(1),
+          hintTextColor: Colors.black.withOpacity(0.7),
+          authFormGradientStartColor: Colors.white.withOpacity(0.4),
+          authFormGradientEndColor: Colors.white.withOpacity(0.2),
         )
       },
     );

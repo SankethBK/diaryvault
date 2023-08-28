@@ -48,7 +48,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
       }
 
       final backgroundImagePath = Theme.of(context)
-          .extension<AdditionalThemeExtensions>()!
+          .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
       neonImage = Image.asset(backgroundImagePath);
@@ -69,9 +69,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   Widget build(BuildContext context) {
     final notesBloc = BlocProvider.of<NotesBloc>(context);
 
-    final backgroundImagePath = Theme.of(context)
-        .extension<AdditionalThemeExtensions>()!
-        .backgroundImage;
+    final backgroundImagePath =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
     return WillPopScope(
       onWillPop: () async {

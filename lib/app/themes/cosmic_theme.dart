@@ -40,10 +40,17 @@ class Cosmic {
 
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
-        AdditionalThemeExtensions(
+        AuthPageThemeExtensions(
           backgroundImage: "assets/images/space-image.jpeg",
           linkColor: Colors.blue[300]!,
           errorTextColor: Colors.blue[200]!,
+          prefixIconColor: Colors.white.withOpacity(0.5),
+          fillColor: Colors.white.withOpacity(0.2),
+          borderColor: Colors.white.withOpacity(0.4),
+          textColor: Colors.white.withOpacity(1),
+          hintTextColor: Colors.white.withOpacity(0.7),
+          authFormGradientStartColor: Colors.black.withOpacity(0.6),
+          authFormGradientEndColor: Colors.black.withOpacity(0.4),
         )
       },
     );

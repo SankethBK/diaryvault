@@ -15,24 +15,40 @@ class AuthEmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final errorColor =
-        Theme.of(context).extension<AdditionalThemeExtensions>()!.linkColor;
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.errorTextColor;
+    final prefixIconColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.prefixIconColor;
+
+    final hintTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.hintTextColor;
+
+    final textColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.textColor;
+
+    final borderColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.borderColor;
+
+    final fillColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.fillColor;
 
     return Stack(
       children: [
         TextField(
           autofocus: autoFocus,
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: "email",
+            hintStyle: TextStyle(color: hintTextColor),
             prefixIcon: Icon(
               Icons.email,
-              color: Colors.black.withOpacity(0.5),
+              color: prefixIconColor,
             ),
-            fillColor: Colors.white.withOpacity(0.3),
+            fillColor: fillColor,
             filled: true,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
               borderSide: BorderSide(
-                color: Colors.black.withOpacity(0.6),
+                color: borderColor,
                 width: 0.7,
               ),
             ),

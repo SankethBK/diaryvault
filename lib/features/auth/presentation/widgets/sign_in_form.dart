@@ -89,7 +89,7 @@ class _SignInFormState extends State<SignInForm> {
             lastLoggedInUserId: widget.lastLoggedInUserId));
 
         final linkColor =
-            Theme.of(context).extension<AdditionalThemeExtensions>()!.linkColor;
+            Theme.of(context).extension<AuthPageThemeExtensions>()!.linkColor;
 
         return GlassMorphismCover(
           borderRadius: BorderRadius.circular(16.0),

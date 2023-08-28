@@ -49,7 +49,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
       }
 
       final backgroundImagePath = Theme.of(context)
-          .extension<AdditionalThemeExtensions>()!
+          .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
       neonImage = Image.asset(backgroundImagePath);
@@ -66,9 +66,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundImagePath = Theme.of(context)
-        .extension<AdditionalThemeExtensions>()!
-        .backgroundImage;
+    final backgroundImagePath =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
     return WillPopScope(
       onWillPop: () async {

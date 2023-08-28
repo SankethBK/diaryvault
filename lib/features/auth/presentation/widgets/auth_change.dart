@@ -16,7 +16,7 @@ class AuthChangePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final linkColor =
-        Theme.of(context).extension<AdditionalThemeExtensions>()!.linkColor;
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.linkColor;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,

@@ -39,7 +39,7 @@ class _AuthPageState extends State<AuthPage> {
   void didChangeDependencies() {
     if (!_isInitialized) {
       final backgroundImagePath = Theme.of(context)
-          .extension<AdditionalThemeExtensions>()!
+          .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
       neonImage = Image.asset(backgroundImagePath);
@@ -58,9 +58,8 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundImagePath = Theme.of(context)
-        .extension<AdditionalThemeExtensions>()!
-        .backgroundImage;
+    final backgroundImagePath =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
     return WillPopScope(
       onWillPop: () async {
         bool res = await quitAppDialog(context);

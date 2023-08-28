@@ -47,9 +47,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundImagePath = Theme.of(context)
-        .extension<AdditionalThemeExtensions>()!
-        .backgroundImage;
+    final backgroundImagePath =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
     return WillPopScope(
       onWillPop: () async {
