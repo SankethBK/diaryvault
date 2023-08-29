@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tuple/tuple.dart';
 
 // import 'read_only_page.dart';
 
@@ -59,39 +59,68 @@ class _RichTextEditorState extends State<RichTextEditor> {
     // acquiring bloc to send it to toolbar
     final notesBloc = BlocProvider.of<NotesBloc>(context);
 
+    final toolbarGradientStartColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .toolbarGradientStartColor;
+
+    final toolbarGradientEndColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .toolbarGradientEndColor;
+
+    final borderColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titleTextBoxBorderColor;
+
     return Expanded(
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        GlassMorphismCover(
-          displayShadow: false,
+      child: Container(
+        decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
           ),
-          child: Container(
-            child: Toolbar(
-              controller: widget.controller!,
-              notesBloc: notesBloc,
-            ),
-            decoration: BoxDecoration(
+          border: Border.all(
+            color: borderColor,
+            width: 0.5,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GlassMorphismCover(
+              displayShadow: false,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(16.0),
               ),
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white.withOpacity(0.75),
-                  Colors.white.withOpacity(0.75),
-                ],
-                begin: AlignmentDirectional.topCenter,
-                end: AlignmentDirectional.bottomCenter,
+              child: Container(
+                child: Toolbar(
+                  controller: widget.controller!,
+                  notesBloc: notesBloc,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16.0),
+                    topRight: Radius.circular(16.0),
+                  ),
+                  gradient: LinearGradient(
+                    colors: [
+                      toolbarGradientStartColor,
+                      toolbarGradientEndColor,
+                    ],
+                    begin: AlignmentDirectional.topCenter,
+                    end: AlignmentDirectional.bottomCenter,
+                  ),
+                ),
               ),
             ),
-          ),
+            Expanded(
+              child: GlassPaneForEditor(quillEditor: quillEditor),
+            ),
+          ],
         ),
-        Expanded(
-          child: GlassPaneForEditor(quillEditor: quillEditor),
-        )
-      ]),
+      ),
     );
   }
 }
@@ -171,14 +200,9 @@ class Toolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuillIconTheme quillIconTheme = QuillIconTheme(
-      iconSelectedColor: Colors.white,
-      iconUnselectedColor: Colors.pink.shade300,
-      iconSelectedFillColor: Colors.pink.shade300,
-      iconUnselectedFillColor: Colors.transparent,
-      disabledIconColor: Colors.pink.shade300,
-      borderRadius: 5.0,
-    );
+    QuillIconTheme quillIconTheme = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .toolbarTheme;
 
     return QuillToolbar.basic(
       controller: controller,
@@ -248,36 +272,38 @@ class GlassPaneForEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom == 0 ? 10 : 5),
-      child: GlassMorphismCover(
-        displayShadow: false,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(16.0),
-          bottomRight: Radius.circular(16.0),
-        ),
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding:
-              const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 5),
-          // margin: const EdgeInsets.symmetric(vertical: 15),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(16.0),
-              bottomRight: Radius.circular(16.0),
-            ),
-            gradient: LinearGradient(
-              colors: [
-                Colors.white.withOpacity(0.7),
-                Colors.white.withOpacity(0.5),
-              ],
-              begin: AlignmentDirectional.topStart,
-              end: AlignmentDirectional.bottomEnd,
-            ),
+    final richTextGradientStartColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientStartColor;
+
+    final richTextGradientEndColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientEndColor;
+
+    return GlassMorphismCover(
+      displayShadow: false,
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(16.0),
+        bottomRight: Radius.circular(16.0),
+      ),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(16.0),
+            bottomRight: Radius.circular(16.0),
           ),
-          child: quillEditor,
+          gradient: LinearGradient(
+            colors: [
+              richTextGradientStartColor,
+              richTextGradientEndColor,
+            ],
+            begin: AlignmentDirectional.topStart,
+            end: AlignmentDirectional.bottomEnd,
+          ),
         ),
+        child: quillEditor,
       ),
     );
   }

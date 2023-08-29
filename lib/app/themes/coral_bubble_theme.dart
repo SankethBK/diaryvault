@@ -1,7 +1,9 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 class CoralBubble {
   static ThemeData getTheme() {
@@ -78,7 +80,28 @@ class CoralBubble {
           notePreviewSelectedGradientEndColor:
               const Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
           checkBoxSelectedColor: Colors.pinkAccent,
-        )
+        ),
+        NoteCreatePageThemeExtensions(
+          fallbackColor: const Color.fromARGB(225, 234, 94, 141),
+          titleTextBoxFillColor: Colors.white.withOpacity(0.7),
+          titleTextBoxBorderColor: Colors.black.withOpacity(0.8),
+          titleTextBoxFocussedBorderColor: Colors.black.withOpacity(1),
+          titlePlaceHolderColor: Colors.black.withOpacity(0.7),
+          titleTextColor: Colors.black.withOpacity(1),
+          toolbarGradientStartColor: Colors.white.withOpacity(0.75),
+          toolbarGradientEndColor: Colors.white.withOpacity(0.75),
+          suffixIconColor: Colors.pink,
+          toolbarTheme: QuillIconTheme(
+            iconSelectedColor: Colors.white,
+            iconUnselectedColor: Colors.pink.shade300,
+            iconSelectedFillColor: Colors.pink.shade300,
+            iconUnselectedFillColor: Colors.transparent,
+            disabledIconColor: Colors.pink.shade300,
+            borderRadius: 5.0,
+          ),
+          richTextGradientStartColor: Colors.white.withOpacity(0.7),
+          richTextGradientEndColor: Colors.white.withOpacity(0.5),
+        ),
       },
     );
   }

@@ -1,7 +1,9 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 class Cosmic {
   static ThemeData getTheme() {
@@ -78,7 +80,28 @@ class Cosmic {
           notePreviewSelectedGradientEndColor:
               const Color.fromARGB(255, 36, 46, 178).withOpacity(0.2),
           checkBoxSelectedColor: Colors.blueAccent,
-        )
+        ),
+        NoteCreatePageThemeExtensions(
+          fallbackColor: const Color.fromARGB(255, 48, 140, 221),
+          titleTextBoxFillColor: Colors.black.withOpacity(0.4),
+          titleTextBoxBorderColor: Colors.white.withOpacity(0.5),
+          titleTextBoxFocussedBorderColor: Colors.white.withOpacity(0.8),
+          titlePlaceHolderColor: Colors.white.withOpacity(0.7),
+          titleTextColor: Colors.white.withOpacity(0.9),
+          suffixIconColor: Colors.white.withOpacity(0.8),
+          toolbarGradientStartColor: Colors.black.withOpacity(0.75),
+          toolbarGradientEndColor: Colors.black.withOpacity(0.6),
+          toolbarTheme: QuillIconTheme(
+            iconSelectedColor: Colors.white,
+            iconUnselectedColor: Colors.white.withOpacity(0.6),
+            iconSelectedFillColor: const Color.fromARGB(255, 36, 46, 178),
+            iconUnselectedFillColor: Colors.transparent,
+            disabledIconColor: Colors.grey.shade400,
+            borderRadius: 5.0,
+          ),
+          richTextGradientStartColor: Colors.black.withOpacity(0.7),
+          richTextGradientEndColor: Colors.black.withOpacity(0.5),
+        ),
       },
     );
   }

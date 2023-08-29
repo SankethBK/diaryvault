@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -69,6 +70,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
+    final fallbackColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .fallbackColor;
+
     return WillPopScope(
       onWillPop: () async {
         bool? result = await showCloseDialog(context);
@@ -93,7 +98,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         ),
         body: Container(
           decoration: BoxDecoration(
-            color: const Color.fromARGB(225, 234, 94, 141),
+            color: fallbackColor,
             image: DecorationImage(
               image: AssetImage(
                 backgroundImagePath,
@@ -156,8 +161,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                   },
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).viewInsets.bottom,
-                )
+                  height: MediaQuery.of(context).viewInsets.bottom == 0
+                      ? 10
+                      : MediaQuery.of(context).viewInsets.bottom + 5,
+                ),
               ],
             ),
           ),
