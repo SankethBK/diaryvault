@@ -58,6 +58,7 @@ class CoralBubble {
           iconColor: Colors.white.withOpacity(1),
           appBarGradientStartColor: Colors.white.withOpacity(0.3),
           appBarGradientEndColor: Colors.white.withOpacity(0.2),
+          searchBarFillColor: Colors.white.withOpacity(0.05),
         ),
         HomePageThemeExtensions(
           borderColor: Colors.white,

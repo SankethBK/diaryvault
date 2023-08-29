@@ -207,6 +207,10 @@ class Title extends StatelessWidget {
   Widget build(BuildContext context) {
     final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
 
+    final searchBarFillColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .searchBarFillColor;
+
     void assignStartDate(DateTime date) {
       startDate = date;
       notesFetchCubit.fetchNotes(
@@ -270,7 +274,7 @@ class Title extends StatelessWidget {
                   ),
                 ),
                 filled: true,
-                fillColor: Colors.white.withOpacity(0.05),
+                fillColor: searchBarFillColor,
                 suffixIcon: IconButton(
                   onPressed: () {
                     showCustomDialog(

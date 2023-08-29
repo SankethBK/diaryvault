@@ -132,13 +132,13 @@ class SelectBox extends StatelessWidget {
         .extension<HomePageThemeExtensions>()!
         .checkBoxSelectedColor;
 
-    final overlayColor = Theme.of(context)
+    final previewTitleColor = Theme.of(context)
         .extension<HomePageThemeExtensions>()!
-        .notePreviewBorderColor;
+        .previewTitleColor;
 
     return StatefulBuilder(
       builder: ((context, setState) => Checkbox(
-            side: BorderSide(color: overlayColor),
+            side: BorderSide(color: previewTitleColor),
             value: isSelected,
             activeColor: checkBoxSelectedColor,
             onChanged: (val) {

@@ -58,6 +58,7 @@ class Cosmic {
           iconColor: Colors.white.withOpacity(1),
           appBarGradientStartColor: Colors.black.withOpacity(0.3),
           appBarGradientEndColor: Colors.black.withOpacity(0.2),
+          searchBarFillColor: Colors.white.withOpacity(0.08),
         ),
         HomePageThemeExtensions(
           borderColor: Colors.black,
@@ -70,8 +71,8 @@ class Cosmic {
           sigmaY: 5.0,
           notePreviewBorderColor: Colors.black.withOpacity(0.6),
           notePreviewUnselectedGradientStartColor:
-              Colors.white.withOpacity(0.1),
-          notePreviewUnselectedGradientEndColor: Colors.transparent,
+              Colors.white.withOpacity(0.05),
+          notePreviewUnselectedGradientEndColor: Colors.white.withOpacity(0.05),
           notePreviewSelectedGradientStartColor:
               const Color.fromARGB(255, 36, 46, 178).withOpacity(0.5),
           notePreviewSelectedGradientEndColor:

@@ -4,11 +4,14 @@ class AppbarThemeExtensions extends ThemeExtension<AppbarThemeExtensions> {
   final Color iconColor;
   final Color appBarGradientStartColor;
   final Color appBarGradientEndColor;
+  final Color
+      searchBarFillColor; // fill color for search bar in home page appbar
 
   AppbarThemeExtensions({
     required this.iconColor,
     required this.appBarGradientStartColor,
     required this.appBarGradientEndColor,
+    required this.searchBarFillColor,
   });
 
   @override
@@ -16,6 +19,7 @@ class AppbarThemeExtensions extends ThemeExtension<AppbarThemeExtensions> {
     Color? iconColor,
     Color? appBarGradientStartColor,
     Color? appBarGradientEndColor,
+    Color? searchBarFillColor,
   }) {
     return AppbarThemeExtensions(
       iconColor: iconColor ?? this.iconColor,
@@ -23,6 +27,7 @@ class AppbarThemeExtensions extends ThemeExtension<AppbarThemeExtensions> {
           appBarGradientStartColor ?? this.appBarGradientStartColor,
       appBarGradientEndColor:
           appBarGradientEndColor ?? this.appBarGradientEndColor,
+      searchBarFillColor: this.searchBarFillColor,
     );
   }
 
@@ -37,6 +42,8 @@ class AppbarThemeExtensions extends ThemeExtension<AppbarThemeExtensions> {
           appBarGradientStartColor, other?.appBarGradientStartColor, t)!,
       appBarGradientEndColor:
           Color.lerp(appBarGradientEndColor, other?.appBarGradientEndColor, t)!,
+      searchBarFillColor:
+          Color.lerp(searchBarFillColor, other?.searchBarFillColor, t)!,
     );
   }
 }
