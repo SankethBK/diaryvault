@@ -16,6 +16,7 @@ class NoteCreatePageThemeExtensions
   final Color richTextGradientStartColor;
   final Color richTextGradientEndColor;
   final Color suffixIconColor; // color of upward aroow in title inpit
+  final Color mainTextColor; // default text color used by flutter_quill
 
   NoteCreatePageThemeExtensions({
     required this.fallbackColor,
@@ -30,22 +31,25 @@ class NoteCreatePageThemeExtensions
     required this.richTextGradientEndColor,
     required this.titleTextBoxFocussedBorderColor,
     required this.suffixIconColor,
+    required this.mainTextColor,
   });
 
   @override
-  ThemeExtension<NoteCreatePageThemeExtensions> copyWith(
-      {Color? fallbackColor,
-      Color? titleTextBoxFillColor,
-      Color? titleTextBoxBorderColor,
-      Color? titlePlaceHolderColor,
-      Color? titleTextColor,
-      Color? toolbarGradientStartColor,
-      Color? toolbarGradientEndColor,
-      QuillIconTheme? toolbarTheme,
-      Color? richTextGradientStartColor,
-      Color? richTextGradientEndColor,
-      Color? titleTextBoxFocussedBorderColor,
-      Color? suffixIconColor}) {
+  ThemeExtension<NoteCreatePageThemeExtensions> copyWith({
+    Color? fallbackColor,
+    Color? titleTextBoxFillColor,
+    Color? titleTextBoxBorderColor,
+    Color? titlePlaceHolderColor,
+    Color? titleTextColor,
+    Color? toolbarGradientStartColor,
+    Color? toolbarGradientEndColor,
+    QuillIconTheme? toolbarTheme,
+    Color? richTextGradientStartColor,
+    Color? richTextGradientEndColor,
+    Color? titleTextBoxFocussedBorderColor,
+    Color? suffixIconColor,
+    Color? mainTextColor,
+  }) {
     return NoteCreatePageThemeExtensions(
       fallbackColor: fallbackColor ?? this.fallbackColor,
       titleTextBoxFillColor:
@@ -67,6 +71,7 @@ class NoteCreatePageThemeExtensions
       titleTextBoxFocussedBorderColor: titleTextBoxFocussedBorderColor ??
           this.titleTextBoxFocussedBorderColor,
       suffixIconColor: suffixIconColor ?? this.suffixIconColor,
+      mainTextColor: mainTextColor ?? this.mainTextColor,
     );
   }
 
@@ -96,6 +101,7 @@ class NoteCreatePageThemeExtensions
           other?.titleTextBoxFocussedBorderColor,
           t)!,
       suffixIconColor: Color.lerp(suffixIconColor, other?.suffixIconColor, t)!,
+      mainTextColor: Color.lerp(mainTextColor, other?.mainTextColor, t)!,
     );
   }
 }

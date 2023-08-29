@@ -93,7 +93,7 @@ class Cosmic {
           toolbarGradientEndColor: Colors.black.withOpacity(0.6),
           toolbarTheme: QuillIconTheme(
             iconSelectedColor: Colors.white,
-            iconUnselectedColor: Colors.white.withOpacity(0.6),
+            iconUnselectedColor: Colors.white.withOpacity(0.8),
             iconSelectedFillColor: const Color.fromARGB(255, 36, 46, 178),
             iconUnselectedFillColor: Colors.transparent,
             disabledIconColor: Colors.grey.shade400,
@@ -101,6 +101,7 @@ class Cosmic {
           ),
           richTextGradientStartColor: Colors.black.withOpacity(0.7),
           richTextGradientEndColor: Colors.black.withOpacity(0.5),
+          mainTextColor: Colors.white,
         ),
       },
     );

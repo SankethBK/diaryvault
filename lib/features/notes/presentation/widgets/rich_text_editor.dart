@@ -280,6 +280,10 @@ class GlassPaneForEditor extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .richTextGradientEndColor;
 
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
+
     return GlassMorphismCover(
       displayShadow: false,
       borderRadius: const BorderRadius.only(
@@ -303,7 +307,10 @@ class GlassPaneForEditor extends StatelessWidget {
             end: AlignmentDirectional.bottomEnd,
           ),
         ),
-        child: quillEditor,
+        child: DefaultTextStyle(
+          style: TextStyle(color: mainTextColor),
+          child: quillEditor,
+        ),
       ),
     );
   }

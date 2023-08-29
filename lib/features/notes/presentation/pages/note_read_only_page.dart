@@ -1,4 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
@@ -72,6 +74,25 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
+    final richTextGradientStartColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientStartColor;
+
+    final richTextGradientEndColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientEndColor;
+
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
+
+    final dateColor =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
+
+    final borderColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titleTextBoxBorderColor;
+
     return WillPopScope(
       onWillPop: () async {
         bool? result = await showCloseDialog(context);
@@ -102,7 +123,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                   backgroundImagePath,
                 ),
                 fit: BoxFit.cover,
-                alignment: Alignment(0.725, 0.1)),
+                alignment: const Alignment(0.725, 0.1)),
           ),
           child: BlocListener<NotesBloc, NotesState>(
             bloc: notesBloc,
@@ -130,13 +151,19 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                     left: 10, right: 10, top: 0, bottom: 5),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(16.0),
-                    bottomRight: Radius.circular(16.0),
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                  border: Border.all(
+                    color: borderColor,
+                    width: 0.5,
                   ),
                   gradient: LinearGradient(
                     colors: [
-                      Colors.white.withOpacity(0.7),
-                      Colors.white.withOpacity(0.5),
+                      richTextGradientStartColor,
+                      richTextGradientEndColor,
                     ],
                     begin: AlignmentDirectional.topStart,
                     end: AlignmentDirectional.bottomEnd,
@@ -150,8 +177,11 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                         padding: const EdgeInsets.only(top: 10),
                         children: [
                           Text(notesBloc.state.title!,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 20.0)),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20.0,
+                                color: mainTextColor,
+                              )),
                           const SizedBox(
                             height: 10,
                           ),
@@ -161,8 +191,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                               Text(
                                 DateFormat.yMMMEd()
                                     .format(notesBloc.state.createdAt!),
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 103, 101, 101),
+                                style: TextStyle(
+                                  color: dateColor,
                                   fontStyle: FontStyle.italic,
                                 ),
                               ),
@@ -170,8 +200,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                               Text(
                                 DateFormat.jm()
                                     .format(notesBloc.state.createdAt!),
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 103, 101, 101),
+                                style: TextStyle(
+                                  color: dateColor,
                                   fontStyle: FontStyle.italic,
                                 ),
                               )
