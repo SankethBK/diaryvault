@@ -58,7 +58,7 @@ class Cosmic {
           iconColor: Colors.white.withOpacity(1),
           appBarGradientStartColor: Colors.black.withOpacity(0.3),
           appBarGradientEndColor: Colors.black.withOpacity(0.2),
-          searchBarFillColor: Colors.white.withOpacity(0.08),
+          searchBarFillColor: Colors.white.withOpacity(0.1),
         ),
         HomePageThemeExtensions(
           borderColor: Colors.black,
