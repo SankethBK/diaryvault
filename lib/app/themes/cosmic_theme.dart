@@ -2,6 +2,8 @@ import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.da
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
@@ -30,7 +32,7 @@ class Cosmic {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: const Color.fromARGB(255, 36, 46, 178),
+          foregroundColor: Colors.white,
           textStyle: const TextStyle(
             fontSize: 16,
             color: Color.fromARGB(255, 36, 46, 178),
@@ -102,6 +104,17 @@ class Cosmic {
           richTextGradientStartColor: Colors.black.withOpacity(0.7),
           richTextGradientEndColor: Colors.black.withOpacity(0.5),
           mainTextColor: Colors.white,
+        ),
+        PopupThemeExtensions(
+          barrierColor: Colors.white.withOpacity(0.3),
+          popupGradientStartColor: Colors.black.withOpacity(0.6),
+          popupGradientEndColor: Colors.black.withOpacity(0.4),
+          mainTextColor: Colors.white,
+        ),
+        SettingsPageThemeExtensions(
+          inactiveTrackColor: Colors.white.withOpacity(0.5),
+          activeColor: Colors.blueAccent,
+          syncButtonColor: Colors.blueAccent,
         ),
       },
     );

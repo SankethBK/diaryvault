@@ -2,6 +2,8 @@ import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.da
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
@@ -102,6 +104,17 @@ class CoralBubble {
           richTextGradientStartColor: Colors.white.withOpacity(0.7),
           richTextGradientEndColor: Colors.white.withOpacity(0.5),
           mainTextColor: Colors.black,
+        ),
+        PopupThemeExtensions(
+          barrierColor: Colors.black.withOpacity(0.5),
+          popupGradientStartColor: Colors.white.withOpacity(0.8),
+          popupGradientEndColor: Colors.white.withOpacity(0.6),
+          mainTextColor: Colors.black,
+        ),
+        SettingsPageThemeExtensions(
+          inactiveTrackColor: Colors.black.withOpacity(0.5),
+          activeColor: Colors.pinkAccent,
+          syncButtonColor: Colors.pinkAccent,
         ),
       },
     );

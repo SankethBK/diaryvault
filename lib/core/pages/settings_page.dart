@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
@@ -47,6 +48,15 @@ class _SettingsPageState extends State<SettingsPage> {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
+
+    final richTextGradientStartColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientStartColor;
+
+    final richTextGradientEndColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientEndColor;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: GlassAppBar(
@@ -93,8 +103,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               gradient: LinearGradient(
                 colors: [
-                  Colors.white.withOpacity(0.7),
-                  Colors.white.withOpacity(0.5),
+                  richTextGradientStartColor,
+                  richTextGradientEndColor,
                 ],
                 begin: AlignmentDirectional.topStart,
                 end: AlignmentDirectional.bottomEnd,

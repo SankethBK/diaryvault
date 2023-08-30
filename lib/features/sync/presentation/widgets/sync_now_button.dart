@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,10 @@ class _SyncNowButtonState extends State<SyncNowButton>
   Widget build(BuildContext context) {
     final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
 
+    final syncButtonColor = Theme.of(context)
+        .extension<SettingsPageThemeExtensions>()!
+        .syncButtonColor!;
+
     return BlocBuilder<NoteSyncCubit, NoteSyncState>(
       builder: (contextn, state) {
         if (state is NoteSyncSuccessful) {
@@ -55,16 +60,16 @@ class _SyncNowButtonState extends State<SyncNowButton>
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.1),
               border: Border.all(
-                color: Colors.pinkAccent,
+                color: syncButtonColor,
               ),
               borderRadius: BorderRadius.circular(5.0),
             ),
             child: RotationTransition(
               turns: Tween(begin: 1.0, end: 0.0)
                   .animate(_rotationAnimationController),
-              child: const Icon(
+              child: Icon(
                 Icons.sync,
-                color: Colors.pinkAccent,
+                color: syncButtonColor,
               ),
             ),
           ),

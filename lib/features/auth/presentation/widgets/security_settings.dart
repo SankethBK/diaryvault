@@ -1,3 +1,5 @@
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
@@ -23,6 +25,17 @@ class SecuritySettings extends StatelessWidget {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
     final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
 
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
+
+    final inactiveTrackColor = Theme.of(context)
+        .extension<SettingsPageThemeExtensions>()!
+        .inactiveTrackColor;
+
+    final activeColor =
+        Theme.of(context).extension<SettingsPageThemeExtensions>()!.activeColor;
+
     return Container(
       padding: const EdgeInsets.only(top: 5.0),
       width: double.infinity,
@@ -30,23 +43,15 @@ class SecuritySettings extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Security",
-            style: GoogleFonts.lato(
-              textStyle: const TextStyle(
-                fontSize: 20,
-              ),
-            ),
-          ),
-          const SizedBox(height: 15.0),
           Material(
             color: Colors.transparent,
             child: InkWell(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Row(
-                  children: const [
-                    Text("Change password", style: TextStyle(fontSize: 16.0)),
+                  children: [
+                    Text("Change password",
+                        style: TextStyle(fontSize: 16.0, color: mainTextColor)),
                   ],
                 ),
               ),
@@ -77,11 +82,17 @@ class SecuritySettings extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 6.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Row(
                   children: [
-                    Text("Change email", style: TextStyle(fontSize: 16.0)),
+                    Text(
+                      "Change email",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: mainTextColor,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -118,11 +129,17 @@ class SecuritySettings extends StatelessWidget {
               var isFingerPrintLoginEnabledValue =
                   state.userConfigModel!.isFingerPrintLoginEnabled;
               return SwitchListTile(
-                activeColor: Colors.pinkAccent,
+                inactiveTrackColor: inactiveTrackColor,
+                activeColor: activeColor,
                 contentPadding: const EdgeInsets.all(0.0),
-                title: const Text("Enable fingerprint login"),
-                subtitle: const Text(
-                    "Fingerprint auth should be enabled in device settings"),
+                title: Text(
+                  "Enable fingerprint login",
+                  style: TextStyle(color: mainTextColor),
+                ),
+                subtitle: Text(
+                  "Fingerprint auth should be enabled in device settings",
+                  style: TextStyle(color: mainTextColor),
+                ),
                 value: isFingerPrintLoginEnabledValue ?? false,
                 onChanged: (value) async {
                   try {

@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
@@ -14,6 +15,9 @@ Future<dynamic> passwordLoginPopup(
 
   bool isLoading = false;
 
+  final mainTextColor =
+      Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
+
   return showCustomDialog(
     context: context,
     child: Container(
@@ -22,8 +26,12 @@ Future<dynamic> passwordLoginPopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text("Enter current password",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Text("Enter current password",
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: mainTextColor,
+              )),
           const SizedBox(height: 25),
           AuthPasswordInput(
             getPasswordErrors: () {},
