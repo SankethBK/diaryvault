@@ -6,6 +6,17 @@ enum Themes {
   cosmic,
 }
 
+extension ThemeExtension on Themes {
+  String enumToStr() {
+    switch (this) {
+      case Themes.coralBubbles:
+        return 'Coral Bubbles';
+      case Themes.cosmic:
+        return 'Cosmic';
+    }
+  }
+}
+
 /// class to store non-critical properties of user
 /// it is stored apart from user table, which stores critical properties of user
 class UserConfigModel extends Equatable {
@@ -43,6 +54,17 @@ class UserConfigModel extends Equatable {
         currentTheme
       ];
 
+  static Themes getThemeFromString(String? themeString) {
+    switch (themeString) {
+      case 'coralBubbles':
+        return Themes.coralBubbles;
+      case 'cosmic':
+        return Themes.cosmic;
+      default:
+        return Themes.cosmic;
+    }
+  }
+
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
     return UserConfigModel(
         userId: jsonMap[UserConfigConstants.userId],
@@ -61,8 +83,8 @@ class UserConfigModel extends Equatable {
         isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
         isFingerPrintLoginEnabled:
             jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
-        currentTheme: jsonMap[UserConfigConstants.currentTheme] ??
-            Themes.cosmic); // default theme is coral bubbles
+        currentTheme: getThemeFromString(jsonMap[UserConfigConstants
+            .currentTheme])); // default theme is coral bubbles
   }
 
   Map<String, dynamic> toJson() {

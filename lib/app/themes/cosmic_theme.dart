@@ -115,6 +115,7 @@ class Cosmic {
           inactiveTrackColor: Colors.white.withOpacity(0.5),
           activeColor: Colors.blueAccent,
           syncButtonColor: Colors.blueAccent,
+          dropDownBackgroundColor: Colors.black.withOpacity(0.8),
         ),
       },
     );

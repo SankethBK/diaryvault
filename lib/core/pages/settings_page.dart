@@ -3,6 +3,7 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
+import 'package:dairy_app/core/widgets/theme_dropdown.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
@@ -115,7 +116,9 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 const SyncSettings(),
                 const SizedBox(height: 25.0),
-                SecuritySettings()
+                SecuritySettings(),
+                const SizedBox(height: 15),
+                const ThemeDropdown(),
               ],
             ),
           ),

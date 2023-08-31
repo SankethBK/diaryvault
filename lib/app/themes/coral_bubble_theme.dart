@@ -115,6 +115,7 @@ class CoralBubble {
           inactiveTrackColor: Colors.black.withOpacity(0.5),
           activeColor: Colors.pinkAccent,
           syncButtonColor: Colors.pinkAccent,
+          dropDownBackgroundColor: Colors.white.withOpacity(0.8),
         ),
       },
     );

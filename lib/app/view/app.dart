@@ -62,10 +62,10 @@ class AppView extends StatelessWidget {
 
   ThemeData getThemeData(Themes currentTheme) {
     switch (currentTheme) {
-      // case Themes.coralBubbles:
-      //   return CoralBubble.getTheme();
-      // case Themes.cosmic:
-      //   return Cosmic.getTheme();
+      case Themes.coralBubbles:
+        return CoralBubble.getTheme();
+      case Themes.cosmic:
+        return Cosmic.getTheme();
 
       default:
         return Cosmic.getTheme();
@@ -81,7 +81,7 @@ class AppView extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'My dairy',
           theme: getThemeData(
-              state.userConfigModel?.currentTheme ?? Themes.coralBubbles),
+              state.userConfigModel?.currentTheme ?? Themes.cosmic),
           builder: (BuildContext context, child) {
             return BlocListener<AuthSessionBloc, AuthSessionState>(
               listener: (context, state) {

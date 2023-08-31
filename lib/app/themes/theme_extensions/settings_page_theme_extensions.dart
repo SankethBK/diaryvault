@@ -6,11 +6,13 @@ class SettingsPageThemeExtensions
   final Color? inactiveTrackColor;
   final Color? activeColor;
   final Color? syncButtonColor;
+  final Color? dropDownBackgroundColor;
 
   SettingsPageThemeExtensions({
     required this.inactiveTrackColor,
     required this.activeColor,
     required this.syncButtonColor,
+    required this.dropDownBackgroundColor,
   });
 
   @override
@@ -18,11 +20,14 @@ class SettingsPageThemeExtensions
     Color? inactiveTrackColor,
     Color? activeColor,
     Color? syncButtonColor,
+    Color? dropDownBackgroundColor,
   }) {
     return SettingsPageThemeExtensions(
       inactiveTrackColor: inactiveTrackColor ?? this.inactiveTrackColor,
       activeColor: activeColor ?? this.activeColor,
       syncButtonColor: syncButtonColor ?? this.syncButtonColor,
+      dropDownBackgroundColor:
+          dropDownBackgroundColor ?? this.dropDownBackgroundColor,
     );
   }
 
@@ -34,6 +39,8 @@ class SettingsPageThemeExtensions
           Color.lerp(inactiveTrackColor, other?.inactiveTrackColor, t)!,
       activeColor: Color.lerp(activeColor, other?.activeColor, t)!,
       syncButtonColor: Color.lerp(syncButtonColor, other?.syncButtonColor, t)!,
+      dropDownBackgroundColor: Color.lerp(
+          dropDownBackgroundColor, other?.dropDownBackgroundColor, t)!,
     );
   }
 }
