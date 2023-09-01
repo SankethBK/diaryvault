@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -47,6 +49,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
       embedBuilders: [
         ...FlutterQuillEmbeds.builders(),
       ],
+
       controller: widget.controller!,
       scrollController: ScrollController(),
       scrollable: true,
@@ -177,28 +180,47 @@ class Toolbar extends StatelessWidget {
   }
 
   // ignore: unused_element
-  Future<MediaPickSetting?> _selectMediaPickSetting(BuildContext context) {
-    return showDialog<MediaPickSetting>(
+  Future<MediaPickSetting?> _selectMediaPickSetting(
+      BuildContext context) async {
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
+
+    final futureResult = showCustomDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        contentPadding: EdgeInsets.zero,
-        content: Column(
+      child: SizedBox(
+        width: 290,
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextButton.icon(
-              icon: const Icon(Icons.collections),
-              label: const Text('Gallery'),
-              onPressed: () => Navigator.pop(ctx, MediaPickSetting.Gallery),
+              icon: Icon(
+                Icons.collections,
+                color: mainTextColor,
+              ),
+              label: Text(
+                'Gallery',
+                style: TextStyle(color: mainTextColor),
+              ),
+              onPressed: () => Navigator.pop(context, MediaPickSetting.Gallery),
             ),
             TextButton.icon(
-              icon: const Icon(Icons.link),
-              label: const Text('Link'),
-              onPressed: () => Navigator.pop(ctx, MediaPickSetting.Link),
+              icon: Icon(
+                Icons.link,
+                color: mainTextColor,
+              ),
+              label: Text(
+                'Link',
+                style: TextStyle(color: mainTextColor),
+              ),
+              onPressed: () => Navigator.pop(context, MediaPickSetting.Link),
             )
           ],
         ),
       ),
     );
+
+    return futureResult.then((result) => result);
   }
 
   @override
@@ -210,6 +232,7 @@ class Toolbar extends StatelessWidget {
     return QuillToolbar.basic(
       controller: controller,
       color: Colors.transparent,
+      showSearchButton: true,
       // provide a callback to enable picking images from device.
       // if omit, "image" button only allows adding images from url.
       // same goes for videos.
