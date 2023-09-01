@@ -43,6 +43,8 @@ class CoralBubble {
         backgroundColor: Colors.pinkAccent,
         elevation: 4,
       ),
+      // used for dialogs in flutter_quill
+      canvasColor: Colors.white.withOpacity(0.9),
 
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
