@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:tuple/tuple.dart';
 
 class ReadOnlyEditor extends StatelessWidget {
@@ -23,6 +24,9 @@ class ReadOnlyEditor extends StatelessWidget {
         .mainTextColor;
 
     var quillEditor = QuillEditor(
+      embedBuilders: [
+        ...FlutterQuillEmbeds.builders(),
+      ],
       controller: controller!,
       scrollController: ScrollController(),
       scrollable: true,
