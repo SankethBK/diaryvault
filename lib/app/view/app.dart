@@ -6,6 +6,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
@@ -45,6 +46,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<UserConfigCubit>(
           create: (context) => sl<UserConfigCubit>(),
+        ),
+        BlocProvider<ThemeCubit>(
+          create: (context) => sl<ThemeCubit>(),
         )
       ],
       child: AppView(),
@@ -74,14 +78,13 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserConfigCubit, UserConfigState>(
+    return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return MaterialApp(
           navigatorKey: _navigatorKey,
           debugShowCheckedModeBanner: false,
           title: 'My dairy',
-          theme: getThemeData(
-              state.userConfigModel?.currentTheme ?? Themes.cosmic),
+          theme: getThemeData(state.theme),
           builder: (BuildContext context, child) {
             return BlocListener<AuthSessionBloc, AuthSessionState>(
               listener: (context, state) {

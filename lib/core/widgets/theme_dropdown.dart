@@ -1,8 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +9,7 @@ class ThemeDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
+    final themeCubit = BlocProvider.of<ThemeCubit>(context);
 
     final mainTextColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
@@ -31,7 +29,7 @@ class ThemeDropdown extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        DropdownButton<String>(
+        DropdownButton<Themes>(
           padding: const EdgeInsets.only(bottom: 5.0),
           iconEnabledColor: mainTextColor,
           borderRadius: const BorderRadius.all(
@@ -43,18 +41,14 @@ class ThemeDropdown extends StatelessWidget {
             color: mainTextColor,
           ),
           dropdownColor: dropDownBackgroundColor,
-          value: userConfigCubit.state.userConfigModel?.currentTheme
-                  ?.toString()
-                  .substring(7) ??
-              Themes.cosmic.toString().substring(7),
-          onChanged: (newValue) {
+          value: themeCubit.state.theme,
+          onChanged: (value) async {
             // Update the selected value
-            userConfigCubit.setUserConfig(
-                UserConfigConstants.currentTheme, newValue);
+            await themeCubit.setTheme(value);
           },
           items: Themes.values.map((item) {
-            return DropdownMenuItem<String>(
-              value: item.toString().substring(7),
+            return DropdownMenuItem<Themes>(
+              value: item,
               child: Text(
                 item.enumToStr(),
                 style: TextStyle(color: mainTextColor),
