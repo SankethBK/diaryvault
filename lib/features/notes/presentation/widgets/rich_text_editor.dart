@@ -44,6 +44,9 @@ class _RichTextEditorState extends State<RichTextEditor> {
   Widget _buildWelcomeEditor(BuildContext context) {
     var quillEditor = QuillEditor(
       // scrollPhysics: const BouncingScrollPhysics(),
+      embedBuilders: [
+        ...FlutterQuillEmbeds.builders(),
+      ],
       controller: widget.controller!,
       scrollController: ScrollController(),
       scrollable: true,
