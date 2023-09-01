@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +24,31 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
   @override
   Widget build(BuildContext context) {
     final textInputBorderRadius = BorderRadius.circular(15.0);
+
+    final titleTextBoxFillColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titleTextBoxFillColor;
+
+    final titleTextBoxBorderColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titleTextBoxBorderColor;
+
+    final titleTextBoxFocussedBorderColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titleTextBoxFocussedBorderColor;
+
+    final titlePlaceHolderColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titlePlaceHolderColor;
+
+    final titleTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titleTextColor;
+
+    final suffixIconColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .suffixIconColor;
+
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: showTitleInput
@@ -33,36 +59,35 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                   const SizedBox(height: 10),
                   TextFormField(
                     textCapitalization: TextCapitalization.sentences,
-                    style: const TextStyle(fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        color: titleTextColor, fontWeight: FontWeight.w500),
                     initialValue: widget.initialValue,
                     decoration: InputDecoration(
                       hintText: "title",
-                      hintStyle: const TextStyle(fontWeight: FontWeight.normal),
-                      fillColor: Colors.white.withOpacity(0.7),
+                      hintStyle: TextStyle(
+                          color: titlePlaceHolderColor,
+                          fontWeight: FontWeight.normal),
+                      fillColor: titleTextBoxFillColor,
                       filled: true,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: textInputBorderRadius,
                         borderSide: BorderSide(
-                          color: Colors.white.withOpacity(1),
+                          color: titleTextBoxFocussedBorderColor,
                           width: 0.5,
                         ),
                       ),
-                      // errorText: getEmailErrors(),
-                      errorStyle: TextStyle(
-                        color: Colors.pink[200],
-                        fontWeight: FontWeight.w500,
-                      ),
-                      border: OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: textInputBorderRadius,
                         borderSide: BorderSide(
-                          color: Colors.white.withOpacity(1),
-                          width: 3,
+                          color: titleTextBoxBorderColor,
+                          width: 0.5,
                         ),
                       ),
                       suffixIcon: IconButton(
                         padding: EdgeInsets.zero,
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_upward,
+                          color: suffixIconColor,
                           size: 20,
                         ),
                         onPressed: () {

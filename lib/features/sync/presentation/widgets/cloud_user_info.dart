@@ -1,6 +1,6 @@
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
@@ -45,6 +45,9 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
     return SizedBox(
       // height: 240,
       width: 330,
@@ -78,9 +81,10 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                             widget.cloudSourceName == "google_drive"
                                 ? "Google Drive"
                                 : "Dropbox",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
+                              color: mainTextColor,
                             ),
                           ),
                         ],
@@ -89,9 +93,10 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                       if (isSignedIn)
                         Column(
                           children: [
-                            const Text(
+                            Text(
                               "Signed in as",
-                              style: TextStyle(fontSize: 14),
+                              style:
+                                  TextStyle(fontSize: 14, color: mainTextColor),
                             ),
                             const SizedBox(
                               height: 3,
@@ -99,7 +104,8 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                             Text(
                               userConfigCubit
                                   .state.userConfigModel!.googleDriveUserInfo!,
-                              style: const TextStyle(fontSize: 14),
+                              style:
+                                  TextStyle(fontSize: 14, color: mainTextColor),
                             )
                           ],
                         ),
@@ -108,19 +114,31 @@ class _CloudUserInfoState extends State<CloudUserInfo> {
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("Last synced: "),
+                                Text(
+                                  "Last synced: ",
+                                  style: TextStyle(color: mainTextColor),
+                                ),
                                 const SizedBox(width: 5),
                                 Text(
                                   "${DateFormat.yMd().format(state.userConfigModel!.lastGoogleDriveSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastGoogleDriveSync!)}",
+                                  style: TextStyle(
+                                    color: mainTextColor,
+                                  ),
                                 ),
                               ],
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text("Last synced: "),
-                                SizedBox(width: 5),
-                                Text("Not available")
+                              children: [
+                                Text(
+                                  "Last synced: ",
+                                  style: TextStyle(color: mainTextColor),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  "Not available",
+                                  style: TextStyle(color: mainTextColor),
+                                )
                               ],
                             )),
                       const SizedBox(height: 12),

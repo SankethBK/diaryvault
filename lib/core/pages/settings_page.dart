@@ -1,6 +1,9 @@
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
+import 'package:dairy_app/core/widgets/theme_dropdown.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
@@ -18,22 +21,43 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   late Image neonImage;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    neonImage = Image.asset("assets/images/background.png");
   }
 
   @override
   void didChangeDependencies() {
-    precacheImage(neonImage.image, context);
+    if (!_isInitialized) {
+      final backgroundImagePath = Theme.of(context)
+          .extension<AuthPageThemeExtensions>()!
+          .backgroundImage;
+
+      neonImage = Image.asset(backgroundImagePath);
+      precacheImage(neonImage.image, context);
+
+      _isInitialized = true;
+    }
+
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
+    final backgroundImagePath =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
+
+    final richTextGradientStartColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientStartColor;
+
+    final richTextGradientEndColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientEndColor;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: GlassAppBar(
@@ -54,13 +78,13 @@ class _SettingsPageState extends State<SettingsPage> {
           right: 10.0,
           bottom: 10.0,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              "assets/images/background.png",
+              backgroundImagePath,
             ),
             fit: BoxFit.cover,
-            alignment: Alignment(0.725, 0.1),
+            alignment: const Alignment(0.725, 0.1),
           ),
         ),
         child: GlassMorphismCover(
@@ -80,8 +104,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               gradient: LinearGradient(
                 colors: [
-                  Colors.white.withOpacity(0.7),
-                  Colors.white.withOpacity(0.5),
+                  richTextGradientStartColor,
+                  richTextGradientEndColor,
                 ],
                 begin: AlignmentDirectional.topStart,
                 end: AlignmentDirectional.bottomEnd,
@@ -92,7 +116,9 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 const SyncSettings(),
                 const SizedBox(height: 25.0),
-                SecuritySettings()
+                SecuritySettings(),
+                const SizedBox(height: 15),
+                const ThemeDropdown(),
               ],
             ),
           ),

@@ -1,3 +1,5 @@
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
@@ -6,13 +8,23 @@ import 'package:dairy_app/features/sync/presentation/widgets/cloud_user_info.dar
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SyncSettings extends StatelessWidget {
   const SyncSettings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
+
+    final inactiveTrackColor = Theme.of(context)
+        .extension<SettingsPageThemeExtensions>()!
+        .inactiveTrackColor;
+
+    final activeColor =
+        Theme.of(context).extension<SettingsPageThemeExtensions>()!.activeColor;
+
     return Container(
       padding: const EdgeInsets.only(top: 5.0),
       width: double.infinity,
@@ -20,15 +32,6 @@ class SyncSettings extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Sync",
-            style: GoogleFonts.lato(
-              textStyle: const TextStyle(
-                fontSize: 20,
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
           BlocBuilder<UserConfigCubit, UserConfigState>(
             builder: (context, state) {
               final hasChoosenCloudSource =
@@ -36,11 +39,18 @@ class SyncSettings extends StatelessWidget {
               final isSignedIn =
                   (state.userConfigModel?.googleDriveUserInfo != null);
               return SwitchListTile(
-                activeColor: Colors.pinkAccent,
+                inactiveTrackColor: inactiveTrackColor,
+                activeColor: activeColor,
                 contentPadding: const EdgeInsets.all(0),
-                title:
-                    const Text("Auto sync", style: TextStyle(fontSize: 16.0)),
-                subtitle: const Text("Automatically sync notes with cloud"),
+                title: Text("Auto sync",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: mainTextColor,
+                    )),
+                subtitle: Text(
+                  "Automatically sync notes with cloud",
+                  style: TextStyle(color: mainTextColor),
+                ),
                 value: state.userConfigModel?.isAutoSyncEnabled == true,
                 onChanged: (bool val) {
                   if (!isSignedIn) {
@@ -56,17 +66,24 @@ class SyncSettings extends StatelessWidget {
             },
           ),
           const SizedBox(height: 10),
-          const Row(
+          Row(
             children: [
-              Text("Sync now", style: TextStyle(fontSize: 16.0)),
-              Spacer(),
-              SyncNowButton(),
-              SizedBox(width: 8.0),
+              Text("Sync now",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: mainTextColor,
+                  )),
+              const Spacer(),
+              const SyncNowButton(),
+              const SizedBox(width: 8.0),
             ],
           ),
           const SizedBox(height: 12),
-          const Text("Available platforms for sync",
-              style: TextStyle(fontSize: 16.0)),
+          Text("Available platforms for sync",
+              style: TextStyle(
+                fontSize: 16.0,
+                color: mainTextColor,
+              )),
           const SizedBox(height: 10.0),
           Row(
             children: [

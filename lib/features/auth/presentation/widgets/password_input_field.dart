@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class AuthPasswordInput extends StatefulWidget {
@@ -26,36 +27,55 @@ class _AuthPasswordInputState extends State<AuthPasswordInput> {
 
   @override
   Widget build(BuildContext context) {
+    final errorColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.linkColor;
+
+    final prefixIconColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.prefixIconColor;
+
+    final hintTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.hintTextColor;
+
+    final textColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.textColor;
+
+    final borderColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.borderColor;
+
+    final fillColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.fillColor;
+
     return Stack(
       children: [
         TextField(
           autofocus: widget.autoFocus,
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: widget.hintText,
+            hintStyle: TextStyle(color: hintTextColor),
             prefixIcon: Icon(
               Icons.lock,
-              color: Colors.black.withOpacity(0.5),
+              color: prefixIconColor,
             ),
             suffixIcon: InkWell(
-                onTap: _togglePasswordVisibility,
-                child: Icon(
-                  !_passwordVisibility
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  color: Colors.black.withOpacity(0.5),
-                )),
-            fillColor: Colors.white.withOpacity(0.3),
+              onTap: _togglePasswordVisibility,
+              child: Icon(
+                !_passwordVisibility ? Icons.visibility : Icons.visibility_off,
+                color: prefixIconColor,
+              ),
+            ),
+            fillColor: fillColor,
             filled: true,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
               borderSide: BorderSide(
-                color: Colors.black.withOpacity(0.6),
+                color: borderColor,
                 width: 0.7,
               ),
             ),
             errorText: widget.getPasswordErrors(),
             errorStyle: TextStyle(
-              color: Colors.pink[300],
+              color: errorColor,
               fontWeight: FontWeight.bold,
             ),
             border: OutlineInputBorder(

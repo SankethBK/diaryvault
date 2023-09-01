@@ -1,13 +1,25 @@
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:flutter/material.dart';
 
 Future<dynamic> showCustomDialog(
     {required BuildContext context, required Widget child}) {
+  final barrierColor =
+      Theme.of(context).extension<PopupThemeExtensions>()!.barrierColor;
+
+  final popupGradientStartColor = Theme.of(context)
+      .extension<PopupThemeExtensions>()!
+      .popupGradientStartColor;
+
+  final popupGradientEndColor = Theme.of(context)
+      .extension<PopupThemeExtensions>()!
+      .popupGradientEndColor;
+
   return showGeneralDialog(
     context: context,
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.5),
+    barrierColor: barrierColor,
     transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: (context, anim1, anim2) {
       return Container(
@@ -26,8 +38,8 @@ Future<dynamic> showCustomDialog(
                 borderRadius: BorderRadius.circular(40),
                 gradient: LinearGradient(
                   colors: [
-                    Colors.white.withOpacity(0.8),
-                    Colors.white.withOpacity(0.6),
+                    popupGradientStartColor,
+                    popupGradientEndColor,
                   ],
                   begin: AlignmentDirectional.topStart,
                   end: AlignmentDirectional.bottomEnd,

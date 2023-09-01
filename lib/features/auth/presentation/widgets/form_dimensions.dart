@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 /// specifies size of form and gradients
@@ -11,7 +12,14 @@ class FormDimensions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceWidth = MediaQuery.of(context).size.width;
+    final authFormGradientStartColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .authFormGradientStartColor;
+
+    final authFormGradientEndColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .authFormGradientEndColor;
+
     return Container(
       height: 362.0,
       width: 312.0,
@@ -23,8 +31,8 @@ class FormDimensions extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
         gradient: LinearGradient(
           colors: [
-            Colors.white.withOpacity(0.4),
-            Colors.white.withOpacity(0.2),
+            authFormGradientStartColor,
+            authFormGradientEndColor,
           ],
           begin: AlignmentDirectional.topStart,
           end: AlignmentDirectional.bottomEnd,

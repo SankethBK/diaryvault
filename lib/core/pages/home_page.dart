@@ -1,3 +1,5 @@
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
@@ -46,6 +48,26 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundImagePath =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
+
+    final borderColor =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.borderColor;
+
+    final backgroundGradientStartColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .backgroundGradientStartColor;
+
+    final backgroundGradientEndColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .backgroundGradientEndColor;
+
+    final sigmaX =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.sigmaX;
+
+    final sigmaY =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.sigmaY;
+
     return WillPopScope(
       onWillPop: () async {
         bool res = await quitAppDialog(context);
@@ -60,11 +82,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         resizeToAvoidBottomInset: false,
         appBar: const HomePageAppBar(),
         body: Container(
-          decoration: const BoxDecoration(
-            // color: Colors.black,
+          decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                "assets/images/background.png",
+                backgroundImagePath,
               ),
               fit: BoxFit.cover,
               // alignment: Alignment(0.725, 0.1),
@@ -76,16 +97,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             right: 5.0,
           ),
           child: GlassMorphismCover(
+            sigmaX: sigmaX,
+            sigmaY: sigmaY,
             borderRadius: BorderRadius.circular(0.0),
             child: Container(
               padding: const EdgeInsets.all(0.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(0.0),
-                border: Border.all(width: 1.0, color: Colors.white),
+                border: Border.all(width: 1.0, color: borderColor),
                 gradient: LinearGradient(
                   colors: [
-                    Colors.white.withOpacity(0.8),
-                    Colors.white.withOpacity(0.6),
+                    backgroundGradientStartColor,
+                    backgroundGradientEndColor,
                   ],
                   begin: AlignmentDirectional.topStart,
                   end: AlignmentDirectional.bottomEnd,

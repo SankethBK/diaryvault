@@ -1,9 +1,13 @@
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 
 Future<bool> quitAppDialog(BuildContext context) async {
+  final mainTextColor =
+      Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
+
   return await showCustomDialog(
     context: context,
     child: Container(
@@ -12,9 +16,12 @@ Future<bool> quitAppDialog(BuildContext context) async {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const Text(
+          Text(
             "Close the App?",
-            style: TextStyle(fontSize: 18.0),
+            style: TextStyle(
+              fontSize: 18.0,
+              color: mainTextColor,
+            ),
           ),
           const SizedBox(height: 15),
           Row(

@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
@@ -87,6 +88,9 @@ class _SignInFormState extends State<SignInForm> {
         void _onSubmitted() => bloc.add(AuthFormSignInSubmitted(
             lastLoggedInUserId: widget.lastLoggedInUserId));
 
+        final linkColor =
+            Theme.of(context).extension<AuthPageThemeExtensions>()!.linkColor;
+
         return GlassMorphismCover(
           borderRadius: BorderRadius.circular(16.0),
           child: FormDimensions(
@@ -136,7 +140,7 @@ class _SignInFormState extends State<SignInForm> {
                         child: Text(
                           "Forgot passowrd",
                           style: TextStyle(
-                            color: Colors.pink[300],
+                            color: linkColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

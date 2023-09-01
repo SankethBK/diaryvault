@@ -1,3 +1,5 @@
+import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
@@ -35,6 +37,13 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
   @override
   Widget build(BuildContext context) {
     final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+    final appBarGradientStartColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .appBarGradientStartColor;
+
+    final appBarGradientEndColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .appBarGradientEndColor;
 
     void closeSearchAppBar() {
       setState(() {
@@ -62,8 +71,8 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.white.withOpacity(0.3),
-                Colors.white.withOpacity(0.2),
+                appBarGradientStartColor,
+                appBarGradientEndColor,
               ],
               begin: AlignmentDirectional.topCenter,
               end: AlignmentDirectional.bottomCenter,
@@ -199,6 +208,10 @@ class Title extends StatelessWidget {
   Widget build(BuildContext context) {
     final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
 
+    final searchBarFillColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .searchBarFillColor;
+
     void assignStartDate(DateTime date) {
       startDate = date;
       notesFetchCubit.fetchNotes(
@@ -227,6 +240,9 @@ class Title extends StatelessWidget {
         endDate: endDate,
       );
     }
+
+    final mainTextColor =
+        Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
@@ -262,7 +278,7 @@ class Title extends StatelessWidget {
                   ),
                 ),
                 filled: true,
-                fillColor: Colors.white.withOpacity(0.05),
+                fillColor: searchBarFillColor,
                 suffixIcon: IconButton(
                   onPressed: () {
                     showCustomDialog(
@@ -278,25 +294,26 @@ class Title extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text(
+                            Text(
                               "Date Filter",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20.0,
-                                // fontWeight: FontWeight.w600,
+                                color: mainTextColor,
                               ),
                             ),
                             const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Flexible(
+                                Flexible(
                                   flex: 2,
                                   child: Text(
                                     "From",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 16.0,
+                                      color: mainTextColor,
                                     ),
                                   ),
                                 ),
@@ -313,13 +330,14 @@ class Title extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Flexible(
+                                Flexible(
                                   flex: 2,
                                   child: Text(
                                     "To",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 16.0,
+                                      color: mainTextColor,
                                     ),
                                   ),
                                 ),
@@ -440,6 +458,10 @@ class DeleteIcon extends StatelessWidget {
             return;
           }
 
+          final mainTextColor = Theme.of(context)
+              .extension<PopupThemeExtensions>()!
+              .mainTextColor;
+
           bool? result = await showCustomDialog(
             context: context,
             child: LayoutBuilder(
@@ -454,7 +476,10 @@ class DeleteIcon extends StatelessWidget {
                     children: [
                       Text(
                         "You are about to delete $deletionCount  item${deletionCount > 1 ? "s" : ""}",
-                        style: const TextStyle(fontSize: 18.0),
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: mainTextColor,
+                        ),
                       ),
                       const SizedBox(height: 15),
                       Row(

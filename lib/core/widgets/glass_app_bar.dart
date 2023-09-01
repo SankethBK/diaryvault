@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'glassmorphism_cover.dart';
@@ -17,6 +18,14 @@ class GlassAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appBarGradientStartColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .appBarGradientStartColor;
+
+    final appBarGradientEndColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .appBarGradientEndColor;
+
     return AppBar(
       automaticallyImplyLeading: automaticallyImplyLeading,
       leading: leading,
@@ -29,8 +38,8 @@ class GlassAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.white.withOpacity(0.3),
-                Colors.white.withOpacity(0.2),
+                appBarGradientStartColor,
+                appBarGradientEndColor,
               ],
               begin: AlignmentDirectional.topCenter,
               end: AlignmentDirectional.bottomCenter,

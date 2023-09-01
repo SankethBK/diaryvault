@@ -1,3 +1,4 @@
+import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:tuple/tuple.dart';
@@ -17,6 +18,10 @@ class ReadOnlyEditor extends StatelessWidget {
   }
 
   Widget _buildWelcomeEditor(BuildContext context) {
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
+
     var quillEditor = QuillEditor(
       controller: controller!,
       scrollController: ScrollController(),
@@ -30,6 +35,9 @@ class ReadOnlyEditor extends StatelessWidget {
       customStyles: DefaultStyles(),
     );
 
-    return quillEditor;
+    return DefaultTextStyle(
+      style: TextStyle(color: mainTextColor),
+      child: quillEditor,
+    );
   }
 }
