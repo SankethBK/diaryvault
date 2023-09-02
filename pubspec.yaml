@@ -70,11 +70,11 @@ dev_dependencies:
 flutter_icons:
   android: 'launcher_icon'
   ios: true
-  image_path: 'assets/images/dairy-logo-1.png'
+  image_path: 'assets/images/test-logo.png'
 
 flutter_native_splash:
-  image: 'assets/images/splash-screen.png'
-  color: '#ffffff'
+  image: 'assets/images/diary_logo.png'
+  color: '#9e8bd9'
 
 dependency_overrides:
   analyzer:
