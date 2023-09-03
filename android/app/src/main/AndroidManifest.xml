@@ -2,7 +2,7 @@
     package="com.example.dairy_app">
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <application
-        android:label="Dairyaholic"
+        android:label="Diary Vault"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
