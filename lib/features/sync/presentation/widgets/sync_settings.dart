@@ -34,8 +34,6 @@ class SyncSettings extends StatelessWidget {
         children: [
           BlocBuilder<UserConfigCubit, UserConfigState>(
             builder: (context, state) {
-              final hasChoosenCloudSource =
-                  state.userConfigModel?.preferredSyncOption != null;
               final isSignedIn =
                   (state.userConfigModel?.googleDriveUserInfo != null);
               return SwitchListTile(
@@ -91,7 +89,7 @@ class SyncSettings extends StatelessWidget {
                 onTap: () {
                   showCustomDialog(
                     context: context,
-                    child: CloudUserInfo(
+                    child: GoogleDriveUserInfo(
                       imagePath: "assets/images/google_drive_icon.png",
                       cloudSourceName: "google_drive",
                     ),

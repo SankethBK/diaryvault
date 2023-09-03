@@ -8,21 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class CloudUserInfo extends StatefulWidget {
+class GoogleDriveUserInfo extends StatefulWidget {
   final String imagePath;
   final String cloudSourceName;
 
-  CloudUserInfo({
+  GoogleDriveUserInfo({
     Key? key,
     required this.imagePath,
     required this.cloudSourceName,
   }) : super(key: key) {}
 
   @override
-  State<CloudUserInfo> createState() => _CloudUserInfoState();
+  State<GoogleDriveUserInfo> createState() => _GoogleDriveUserInfoState();
 }
 
-class _CloudUserInfoState extends State<CloudUserInfo> {
+class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
   late IOAuthClient oAuthClient;
   late UserConfigCubit userConfigCubit;
 

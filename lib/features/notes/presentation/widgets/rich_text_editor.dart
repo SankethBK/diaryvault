@@ -248,10 +248,9 @@ class Toolbar extends StatelessWidget {
         showCameraButton: true,
       ),
       // uncomment to provide a custom "pick from" dialog.
-      // color: Colors.transparent,
       showFontFamily: false,
-      showSubscript: false,
-      showSuperscript: false,
+      showSubscript: true,
+      showSuperscript: true,
       showFontSize: false,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
