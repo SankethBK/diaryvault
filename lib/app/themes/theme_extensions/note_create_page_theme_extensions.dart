@@ -17,6 +17,7 @@ class NoteCreatePageThemeExtensions
   final Color richTextGradientEndColor;
   final Color suffixIconColor; // color of upward aroow in title inpit
   final Color mainTextColor; // default text color used by flutter_quill
+  final Color quillPopupTextColor; // used for text in popups of flutter_quill
 
   NoteCreatePageThemeExtensions({
     required this.fallbackColor,
@@ -32,6 +33,7 @@ class NoteCreatePageThemeExtensions
     required this.titleTextBoxFocussedBorderColor,
     required this.suffixIconColor,
     required this.mainTextColor,
+    required this.quillPopupTextColor,
   });
 
   @override
@@ -49,6 +51,7 @@ class NoteCreatePageThemeExtensions
     Color? titleTextBoxFocussedBorderColor,
     Color? suffixIconColor,
     Color? mainTextColor,
+    Color? quillPopupTextColor,
   }) {
     return NoteCreatePageThemeExtensions(
       fallbackColor: fallbackColor ?? this.fallbackColor,
@@ -72,6 +75,7 @@ class NoteCreatePageThemeExtensions
           this.titleTextBoxFocussedBorderColor,
       suffixIconColor: suffixIconColor ?? this.suffixIconColor,
       mainTextColor: mainTextColor ?? this.mainTextColor,
+      quillPopupTextColor: quillPopupTextColor ?? this.quillPopupTextColor,
     );
   }
 
@@ -102,6 +106,8 @@ class NoteCreatePageThemeExtensions
           t)!,
       suffixIconColor: Color.lerp(suffixIconColor, other?.suffixIconColor, t)!,
       mainTextColor: Color.lerp(mainTextColor, other?.mainTextColor, t)!,
+      quillPopupTextColor:
+          Color.lerp(quillPopupTextColor, other?.quillPopupTextColor, t)!,
     );
   }
 }

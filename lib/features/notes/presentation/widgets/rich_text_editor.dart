@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
@@ -179,12 +178,11 @@ class Toolbar extends StatelessWidget {
     return filepath;
   }
 
-  // ignore: unused_element
   Future<MediaPickSetting?> _selectMediaPickSetting(
       BuildContext context) async {
-    final mainTextColor = Theme.of(context)
+    final quillPopupTextColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
-        .mainTextColor;
+        .quillPopupTextColor;
 
     final futureResult = showCustomDialog(
       context: context,
@@ -196,24 +194,67 @@ class Toolbar extends StatelessWidget {
             TextButton.icon(
               icon: Icon(
                 Icons.collections,
-                color: mainTextColor,
+                color: quillPopupTextColor,
               ),
               label: Text(
                 'Gallery',
-                style: TextStyle(color: mainTextColor),
+                style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Gallery),
             ),
             TextButton.icon(
               icon: Icon(
                 Icons.link,
-                color: mainTextColor,
+                color: quillPopupTextColor,
               ),
               label: Text(
                 'Link',
-                style: TextStyle(color: mainTextColor),
+                style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Link),
+            )
+          ],
+        ),
+      ),
+    );
+
+    return futureResult.then((result) => result);
+  }
+
+  Future<MediaPickSetting?> _selectCameraPickSetting(
+      BuildContext context) async {
+    final quillPopupTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .quillPopupTextColor;
+
+    final futureResult = showCustomDialog(
+      context: context,
+      child: SizedBox(
+        width: 290,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextButton.icon(
+              icon: Icon(
+                Icons.camera,
+                color: quillPopupTextColor,
+              ),
+              label: Text(
+                'Camera',
+                style: TextStyle(color: quillPopupTextColor),
+              ),
+              onPressed: () => Navigator.pop(context, MediaPickSetting.Camera),
+            ),
+            TextButton.icon(
+              icon: Icon(
+                Icons.video_call,
+                color: quillPopupTextColor,
+              ),
+              label: Text(
+                'Video',
+                style: TextStyle(color: quillPopupTextColor),
+              ),
+              onPressed: () => Navigator.pop(context, MediaPickSetting.Video),
             )
           ],
         ),
@@ -243,15 +284,15 @@ class Toolbar extends StatelessWidget {
         onImagePickCallback: _onImagePickCallback,
         onVideoPickCallback: _onVideoPickCallback,
         mediaPickSettingSelector: _selectMediaPickSetting,
+        cameraPickSettingSelector: _selectCameraPickSetting,
         showImageButton: true,
         showVideoButton: true,
         showCameraButton: true,
       ),
       // uncomment to provide a custom "pick from" dialog.
-      // color: Colors.transparent,
       showFontFamily: false,
-      showSubscript: false,
-      showSuperscript: false,
+      showSubscript: true,
+      showSuperscript: true,
       showFontSize: false,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,

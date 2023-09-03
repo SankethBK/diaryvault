@@ -1,6 +1,7 @@
 name: dairy_app
-description: Diaryaholic is a personal diary application equipped with a rich text editor, it has support for images, and videos as well. It also supports emojis from Google Keyboards.
-
+description: Diaryaholic is a personal diary application equipped with a rich
+  text editor, it has support for images, and videos as well. It also supports
+  emojis from Google Keyboards.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -67,14 +68,16 @@ dev_dependencies:
     sdk: flutter
   mockito: ^5.1.0
 
-flutter_icons:
-  android: 'launcher_icon'
-  ios: true
-  image_path: 'assets/images/dairy-logo-1.png'
-
-flutter_native_splash:
-  image: 'assets/images/splash-screen.png'
-  color: '#ffffff'
+# not using this as of now
+# flutter_icons:
+#   android: 'launcher_icon'
+#   ios: true
+#   image_path: 'assets/images/test-logo.png'
+# flutter_native_splash:
+#   color: '#9e8bd9'
+#   image: 'assets/images/splash_screen.png'
+#   android_12:
+#     image: 'assets/images/splash_screen.png'
 
 dependency_overrides:
   analyzer:

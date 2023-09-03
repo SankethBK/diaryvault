@@ -47,9 +47,6 @@
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
-
-		
-
 		<!-- Google Sign-in Section -->
 		<key>CFBundleURLTypes</key>
 		<array>
