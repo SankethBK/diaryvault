@@ -106,6 +106,7 @@ class CoralBubble {
           richTextGradientStartColor: Colors.white.withOpacity(0.7),
           richTextGradientEndColor: Colors.white.withOpacity(0.5),
           mainTextColor: Colors.black,
+          quillPopupTextColor: Colors.purple,
         ),
         PopupThemeExtensions(
           barrierColor: Colors.black.withOpacity(0.5),

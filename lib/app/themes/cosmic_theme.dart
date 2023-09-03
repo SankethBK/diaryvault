@@ -105,6 +105,7 @@ class Cosmic {
           richTextGradientStartColor: Colors.black.withOpacity(0.7),
           richTextGradientEndColor: Colors.black.withOpacity(0.5),
           mainTextColor: Colors.white,
+          quillPopupTextColor: Colors.white,
         ),
         PopupThemeExtensions(
           barrierColor: Colors.white.withOpacity(0.3),
