@@ -6,11 +6,12 @@
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 </a>
 
-## Features
+## Key Features
 
 1. Rich text editor with support for images and videos
 2. Backup data to your own Google Drive account and sync between multiple devices.
 3. Fingerprint login on supported devices.
+4. Multiple Themes
 
 ## Libraries used
 
@@ -22,11 +23,12 @@
 ### Screenshots
 
 <div style="display:flex; flex-wrap: wrap;">
-<img src="https://lh3.googleusercontent.com/Jk2t7wb1LAHdVsWMno2ZKYW0A0ADm3YZJKiL3Kz-ZKzhBTCTCVnhmnn6ZgueOYsqDQ" style = "padding: 1rem; height: 300px">
-<img src="https://play-lh.googleusercontent.com/uV8TbdBg6hbwP_9bn-BtEmUF45b1X3MmTx8QVdo04TEniYIv5HrPcAn0GrFWyax-9cQ=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/EtZLsJOxAx83z0elKNuvklifWmVFLYyV0uzvHlC_KRQ0q0rLGmV-VRtFUZCFMULNYxk=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://lh3.googleusercontent.com/Jk2t7wb1LAHdVsWMno2ZKYW0A0ADm3YZJKiL3Kz-ZKzhBTCTCVnhmnn6ZgueOYsqDQ" style = "padding: 1rem;  height: 300px;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/kOH-iiXzoMCDdbjMFwV06mzlsY89ZtqSkwpVX8cNF5C-CYXk7m0lcgtEeRYsJNnzgGA=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://lh3.googleusercontent.com/7Ig6VB0wcMzaGjRbjLf5xuc5dv01xiLMc_kBWqv0TFYRWpDp4-cxEoRs9oXCXFyrihs" style = "padding: 1rem;  height: 300px">
-<img src="https://lh3.googleusercontent.com/l-txC21qbS0eWJWS7diDfbTXvWfhg7RBV9QBjstFw9ENAI_mjefEcLq1kOBRXkaeFiY" style = "padding: 1rem;  height: 300px">
+<img src="https://play-lh.googleusercontent.com/XpmWV-0KYD05TX8wis9_2im9W-dVyoVcelU4Vs65NtOkevLvnQAN4xInIqenQS_E-M_Z=w1052-h592-rw" style = "padding: 1rem; height: 300px">
+<img src="https://play-lh.googleusercontent.com/NGA8M9ADN-92a4dqoB8E-I7C9CBx46j30UldKeRiBqqvqBfr4TF6NLNp61NnMqiEz4U=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
+<img src="https://play-lh.googleusercontent.com/SeO5qfqjG8K3b9xkp50Q6eCHLFdeq_3kACkkDah2vhMNCpDFIxyje4Br2OpBfzNPZfc=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
+<img src="https://play-lh.googleusercontent.com/DFDuTUM6WnVDJkxbBSzuJiZK-BTHuNoIRe8qyvH0n2ReQeSgbqFeGaAL8Zp-N6wVF-FH=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
+<img src="https://play-lh.googleusercontent.com/r-op0omSd2BgOLiDHpAsrjG6wKpBCpMzCf3Lf5UBlWOaf98eyoMo_eiH-PTRJ1CDgHh6=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
+<img src="https://play-lh.googleusercontent.com/cX3M2PFpQAki-wT2YCZAt8rlUa07H_UAFGpOwePrBfSD-BjgrTMQs_j1FYsgKnSDcbN2=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
+<img src="https://play-lh.googleusercontent.com/3JwekFJXpECEN2kczGHRe2-zUneKE0mtutCtThZIYBv9OfGN4vivbYL5KDw5DFhLES4=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
+<img src="https://play-lh.googleusercontent.com/0i2Aokmfxw2WaX2aReg3b3bzG3xqMsfOFEXqnguzzHLq3EwnIVxc98biEagpKLiHtc8=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
 </div>
