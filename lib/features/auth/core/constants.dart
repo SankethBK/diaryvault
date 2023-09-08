@@ -14,3 +14,8 @@ class UserConfigConstants {
 class Global {
   static String lastLoggedInUser = "last_logged_in_user";
 }
+
+class GuestUserDetails {
+  static String guestUserEmail = "guest@guest.com";
+  static String guestUserId = "guest_user_id";
+}

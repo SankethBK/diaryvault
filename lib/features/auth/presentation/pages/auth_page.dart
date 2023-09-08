@@ -88,7 +88,9 @@ class _AuthPageState extends State<AuthPage> {
                 children: [
                   FlipCardAnimation(
                     frontWidget: (void Function() flipCard) {
-                      return SignUpForm(flipCard: flipCard);
+                      return SignUpForm(
+                        flipCard: flipCard,
+                      );
                     },
                     rearWidget: (void Function() flipCard) {
                       return SignInForm(

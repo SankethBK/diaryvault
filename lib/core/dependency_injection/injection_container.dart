@@ -69,7 +69,8 @@ Future<void> init() async {
       UserConfigRepository(keyValueDataSource: sl()));
 
   //* Blocs
-  sl.registerSingleton<AuthSessionBloc>(AuthSessionBloc());
+  sl.registerSingleton<AuthSessionBloc>(
+      AuthSessionBloc(keyValueDataSource: sl()));
   sl.registerLazySingleton<AuthFormBloc>(
     () => AuthFormBloc(
       authSessionBloc: sl(),
