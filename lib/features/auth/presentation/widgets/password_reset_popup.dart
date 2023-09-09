@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
@@ -76,6 +78,7 @@ Future<dynamic> passwordResetPopup(
                       isLoading = false;
                     });
                     showToast("password reset successful");
+                    Navigator.pop(context);
                   });
                 },
                 buttonText: "Submit");

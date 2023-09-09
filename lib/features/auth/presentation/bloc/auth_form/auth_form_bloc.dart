@@ -89,14 +89,14 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
       }, (user) async {
         _authSessionBloc.add(UserLoggedIn(user: user));
 
+        emit(AuthFormSubmissionSuccessful(
+            email: state.email, password: state.password));
+
         // update the last logged in user
         await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
 
         // Cancel the fingerprint auth, in case it's running
         fingerPrintAuthRepository.cancel();
-
-        emit(AuthFormSubmissionSuccessful(
-            email: state.email, password: state.password));
       });
     }));
 

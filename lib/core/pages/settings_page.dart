@@ -6,6 +6,7 @@ import 'package:dairy_app/core/widgets/logout_button.dart';
 import 'package:dairy_app/core/widgets/theme_dropdown.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,6 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               padding: const EdgeInsets.all(0.0),
               children: [
+                const SetupAccount(),
                 const SyncSettings(),
                 const SizedBox(height: 25.0),
                 SecuritySettings(),

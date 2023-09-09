@@ -25,8 +25,9 @@ class NotesRepository implements INotesRepository {
   @override
   Future<Either<NotesFailure, List<NoteModel>>> fetchNotes() async {
     try {
-      var notesList =
-          await notesLocalDataSource.fetchNotes(authSessionBloc.state.user!.id);
+      // since userId is fetched asynchronously, it will be null first time
+      final userId = authSessionBloc.state.user?.id ?? "";
+      var notesList = await notesLocalDataSource.fetchNotes(userId);
       return Right(notesList);
     } catch (e) {
       log.e(e);

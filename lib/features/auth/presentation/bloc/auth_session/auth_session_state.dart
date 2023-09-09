@@ -11,7 +11,9 @@ abstract class AuthSessionState extends Equatable {
 
 class Unauthenticated extends AuthSessionState {
   final bool sessionTimeoutLogout;
-  const Unauthenticated({this.sessionTimeoutLogout = false})
+  final String? lastLoggedInUserId;
+  const Unauthenticated(
+      {this.sessionTimeoutLogout = false, this.lastLoggedInUserId})
       : super(user: null);
 }
 
