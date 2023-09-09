@@ -446,7 +446,7 @@ class OAuthRepository implements IOAuthRepository {
   }) async {
     try {
       log.i("Deleting $noteId on cloud");
-      // update the index first and then delete the actual dolfer to avoid inconsisteny
+      // update the index first and then delete the actual folder to avoid inconsisteny
       if (hardDeletion) {
         globalIndex.removeWhere((noteIndex) => noteIndex["id"] == noteId);
       } else {

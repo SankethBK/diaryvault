@@ -9,8 +9,6 @@ abstract class INotesLocalDataSource {
   /// Fetches all notes
   ///
   /// Throws [DatabaseQueryException] if something goes wrong
-  ///
-  /// TODO: add support for pagination
   Future<List<NoteModel>> fetchNotes(String authorId);
 
   // Fetch all notes with only columns required to diplay the preview

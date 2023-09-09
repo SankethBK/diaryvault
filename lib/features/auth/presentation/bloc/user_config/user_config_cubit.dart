@@ -20,7 +20,7 @@ class UserConfigCubit extends Cubit<UserConfigState> {
       {required this.userConfigRepository, required this.authSessionBloc})
       : super(const UserConfigDataState()) {
     authSessionBlocSubscription = authSessionBloc.stream.listen((state) {
-      log.d("state received $state");
+      log.d("UserConfigCubit state received $state");
       if (state is Authenticated) {
         userId = state.user!.id;
         log.i("userId obtained = $userId");

@@ -6,7 +6,16 @@ abstract class AuthSessionState extends Equatable {
   const AuthSessionState({required this.user});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props {
+    final propsList = <Object>[];
+
+    // Add user.id to propsList if user is not null
+    if (user != null) {
+      propsList.add(user!.id);
+    }
+
+    return propsList;
+  }
 }
 
 class Unauthenticated extends AuthSessionState {
