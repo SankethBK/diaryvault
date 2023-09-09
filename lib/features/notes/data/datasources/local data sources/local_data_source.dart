@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dairy_app/core/databases/db_schemas.dart';
 import 'package:dairy_app/core/databases/sqflite_setup.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -70,7 +71,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     try {
       result = await database.query(Notes.TABLE_NAME,
           columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
-          where: "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId'",
+          where:
+              "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
           orderBy: "${Notes.CREATED_AT} DESC");
     } catch (e) {
       log.e("Local database query for fetching notes preview failed $e");
@@ -82,12 +84,12 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
   @override
   Future<List<NoteModel>> fetchNotes(String authorId) async {
-    // Only columns required for notes preview
     List<Map<String, dynamic>> result;
     try {
       result = await database.query(
         Notes.TABLE_NAME,
-        where: "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId'",
+        where:
+            "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
       );
     } catch (e) {
       log.e("Local database query for fetching notes failed $e");
@@ -140,9 +142,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     // hard delete the note
     if (hardDeletion == true) {
-      count = await database.delete(Notes.TABLE_NAME,
-          where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
-          whereArgs: [id]);
+      count = await database
+          .delete(Notes.TABLE_NAME, where: "${Notes.ID} = ?", whereArgs: [id]);
       if (count != 1) {
         log.e("notes (hard) deletion unsuccessful for note id: $id");
         throw const DatabaseDeleteException();
@@ -162,7 +163,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
             "last_modified": DateTime.now().millisecondsSinceEpoch,
             "deleted": 1,
           },
-          where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
+          where: "${Notes.ID} = ?",
           whereArgs: [id]);
 
       if (count != 1) {
@@ -176,9 +177,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
   @override
   Future<NoteModel> getNote(String id, String authorId) async {
-    var result = await database.query(Notes.TABLE_NAME,
-        where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
-        whereArgs: [id]);
+    var result = await database
+        .query(Notes.TABLE_NAME, where: "${Notes.ID} = ?", whereArgs: [id]);
     if (result.isEmpty) {
       log.e("Notes with id: $id not found");
       throw const DatabaseQueryException();
@@ -267,8 +267,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     var count = await database.update(Notes.TABLE_NAME,
         {...noteMap, "last_modified": DateTime.now().millisecondsSinceEpoch},
-        where: "${Notes.ID} = ? and ${Notes.AUTHOR_ID} = '$authorId'",
-        whereArgs: [id]);
+        where: "${Notes.ID} = ?", whereArgs: [id]);
 
     if (count != 1) {
       log.e("note updation failed for id: $id");
@@ -289,7 +288,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   Future<List<String>> getAllNoteIds(String authorId) async {
     var result = await database.query(Notes.TABLE_NAME,
         columns: [Notes.ID],
-        where: "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId'",
+        where:
+            "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
         orderBy: "${Notes.CREATED_AT} DESC");
 
     return result.map((noteMap) => noteMap["id"] as String).toList();
@@ -299,7 +299,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   Future<List<Map<String, dynamic>>> getNotesIndex(String authorId) async {
     var allNotesIndex = await database.query(Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.LAST_MODIFIED, Notes.HASH, Notes.DELETED],
-        where: "${Notes.AUTHOR_ID} = '$authorId'",
+        where:
+            "${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
         orderBy: "${Notes.CREATED_AT} DESC");
 
     return makeModifiableResults(allNotesIndex).map((note) {
@@ -334,7 +335,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
         where:
-            "${Notes.DELETED} != 1 AND $searchQuery and ${Notes.AUTHOR_ID} = '$authorId'",
+            "${Notes.DELETED} != 1 AND $searchQuery and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
         orderBy: "${Notes.CREATED_AT} DESC",
       );
     } catch (e) {

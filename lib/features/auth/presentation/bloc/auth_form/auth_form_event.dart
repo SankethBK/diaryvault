@@ -23,3 +23,5 @@ class AuthFormSignInSubmitted extends AuthFormEvent {
 }
 
 class ResetAuthForm extends AuthFormEvent {}
+
+class AuthFormGuestSignIn extends AuthFormEvent {}

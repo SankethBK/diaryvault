@@ -3,6 +3,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
+import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
@@ -46,6 +47,17 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
       },
     );
 
+    on<AuthFormGuestSignIn>(
+      (event, emit) async {
+        await keyValueDataSource.setValue(
+            Global.lastLoggedInUser, GuestUserDetails.guestUserId);
+
+        // emit the UserLoggedIn with guest user model
+        _authSessionBloc
+            .add(UserLoggedIn(user: LoggedInUser.getGuestUserModel()));
+      },
+    );
+
     on<AuthFormSignUpSubmitted>(((event, emit) async {
       emit(AuthFormSubmissionLoading(
           email: state.email, password: state.password));
@@ -77,14 +89,14 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
       }, (user) async {
         _authSessionBloc.add(UserLoggedIn(user: user));
 
+        emit(AuthFormSubmissionSuccessful(
+            email: state.email, password: state.password));
+
         // update the last logged in user
         await keyValueDataSource.setValue(Global.lastLoggedInUser, user.id);
 
         // Cancel the fingerprint auth, in case it's running
         fingerPrintAuthRepository.cancel();
-
-        emit(AuthFormSubmissionSuccessful(
-            email: state.email, password: state.password));
       });
     }));
 

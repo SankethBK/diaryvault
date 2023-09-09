@@ -19,3 +19,5 @@ class UserLoggedIn extends AuthSessionEvent {
 class UserLoggedOut extends AuthSessionEvent {}
 
 class AppSessionTimeout extends AuthSessionEvent {}
+
+class InitalizeLastLoggedInUser extends AuthSessionEvent {}

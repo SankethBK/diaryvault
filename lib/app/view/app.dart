@@ -56,12 +56,31 @@ class App extends StatelessWidget {
   }
 }
 
-class AppView extends StatelessWidget {
+class AppView extends StatefulWidget {
   AppView({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<AppView> createState() => _AppViewState();
+}
+
+class _AppViewState extends State<AppView> {
   final _navigatorKey = GlobalKey<NavigatorState>();
+  bool _isInitialized = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_isInitialized) {
+      // trigger the initialization of lastLoggedinUserId
+      BlocProvider.of<AuthSessionBloc>(context)
+          .add(InitalizeLastLoggedInUser());
+      _isInitialized = true;
+    }
+  }
+
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   ThemeData getThemeData(Themes currentTheme) {

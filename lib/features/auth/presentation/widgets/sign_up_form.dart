@@ -1,8 +1,10 @@
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/guest_sign_up.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,11 +117,16 @@ class _SignUpFormState extends State<SignUpForm> {
                       )
                     ],
                   ),
-                  AuthChangePage(
-                    infoText: "Already have an account?",
-                    flipPageText: "Log in",
-                    flipCard: widget.flipCard,
-                  )
+                  Column(
+                    children: [
+                      const GuestSignUp(),
+                      AuthChangePage(
+                        infoText: "Already have an account?",
+                        flipPageText: "Log in",
+                        flipCard: widget.flipCard,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

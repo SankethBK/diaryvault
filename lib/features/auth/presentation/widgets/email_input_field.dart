@@ -30,7 +30,6 @@ class AuthEmailInput extends StatelessWidget {
 
     final fillColor =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.fillColor;
-
     return Stack(
       children: [
         TextField(

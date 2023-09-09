@@ -36,99 +36,120 @@ class SecuritySettings extends StatelessWidget {
     final activeColor =
         Theme.of(context).extension<SettingsPageThemeExtensions>()!.activeColor;
 
-    return Container(
-      padding: const EdgeInsets.only(top: 5.0),
-      width: double.infinity,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child: Row(
-                  children: [
-                    Text("Change password",
-                        style: TextStyle(fontSize: 16.0, color: mainTextColor)),
-                  ],
+    return BlocBuilder<UserConfigCubit, UserConfigState>(
+      builder: (context, state) {
+        var isFingerPrintLoginEnabledValue =
+            state.userConfigModel!.isFingerPrintLoginEnabled;
+
+        final userId = state.userConfigModel?.userId;
+        return Container(
+          padding: const EdgeInsets.only(top: 5.0),
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: Row(
+                      children: [
+                        Text("Change password",
+                            style: TextStyle(
+                                fontSize: 16.0, color: mainTextColor)),
+                      ],
+                    ),
+                  ),
+                  onTap: () async {
+                    if (userId == null) {
+                      showToast("Unexpected error occured");
+                      return;
+                    }
+
+                    if (userId == GuestUserDetails.guestUserId) {
+                      showToast(
+                          "Please setup your account to use this feature");
+                      return;
+                    }
+                    String? result = await passwordLoginPopup(
+                      context: context,
+                      submitPassword: (password) => authenticationRepository
+                          .verifyPassword(userId!, password),
+                    );
+
+                    // old password will be retrieved from previous dialog
+                    if (result != null) {
+                      passwordResetPopup(
+                        context: context,
+                        submitPassword: (newPassword) =>
+                            authenticationRepository.updatePassword(
+                          authSessionBloc.state.user!.email,
+                          result,
+                          newPassword,
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
-              onTap: () async {
-                //! accessing userId like this is bad, but since it is assured that userId will be always present if user is logged in we are doing it
-                String? result = await passwordLoginPopup(
-                  context: context,
-                  submitPassword: (password) => authenticationRepository
-                      .verifyPassword(authSessionBloc.state.user!.id, password),
-                );
+              const SizedBox(height: 10.0),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Change email",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: mainTextColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: () async {
+                    if (userId == null) {
+                      showToast("Unexpected error occured");
+                    }
 
-                // old password will be retrieved from previous dialog
-                if (result != null) {
-                  passwordResetPopup(
-                    context: context,
-                    submitPassword: (newPassword) =>
-                        authenticationRepository.updatePassword(
-                      authSessionBloc.state.user!.email,
-                      result,
-                      newPassword,
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
-          const SizedBox(height: 10.0),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Change email",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: mainTextColor,
-                      ),
-                    ),
-                  ],
+                    if (userId == GuestUserDetails.guestUserId) {
+                      showToast(
+                          "Please setup your account to use this feature");
+                    }
+
+                    String? result = await passwordLoginPopup(
+                      context: context,
+                      submitPassword: (password) =>
+                          authenticationRepository.verifyPassword(
+                              authSessionBloc.state.user!.id, password),
+                    );
+
+                    // old password will be retrieved from previous dialog
+                    var emailChanged;
+                    if (result != null) {
+                      emailChanged = await emailChangePopup(
+                        context,
+                        (newEmail) => authenticationRepository.updateEmail(
+                          oldEmail: authSessionBloc.state.user!.email,
+                          password: result,
+                          newEmail: newEmail,
+                        ),
+                      );
+                    }
+
+                    if (emailChanged == true) {
+                      authSessionBloc.add(UserLoggedOut());
+                    }
+                  },
                 ),
               ),
-              onTap: () async {
-                //! accessing userId like this is bad, but since it is assured that userId will be always present if user is logged in we are doing it
-                String? result = await passwordLoginPopup(
-                  context: context,
-                  submitPassword: (password) => authenticationRepository
-                      .verifyPassword(authSessionBloc.state.user!.id, password),
-                );
-
-                // old password will be retrieved from previous dialog
-                var emailChanged;
-                if (result != null) {
-                  emailChanged = await emailChangePopup(
-                    context,
-                    (newEmail) => authenticationRepository.updateEmail(
-                      oldEmail: authSessionBloc.state.user!.email,
-                      password: result,
-                      newEmail: newEmail,
-                    ),
-                  );
-                }
-
-                if (emailChanged == true) {
-                  authSessionBloc.add(UserLoggedOut());
-                }
-              },
-            ),
-          ),
-          const SizedBox(height: 10),
-          BlocBuilder<UserConfigCubit, UserConfigState>(
-            builder: (context, state) {
-              var isFingerPrintLoginEnabledValue =
-                  state.userConfigModel!.isFingerPrintLoginEnabled;
-              return SwitchListTile(
+              const SizedBox(height: 10),
+              SwitchListTile(
                 inactiveTrackColor: inactiveTrackColor,
                 activeColor: activeColor,
                 contentPadding: const EdgeInsets.all(0.0),
@@ -142,6 +163,16 @@ class SecuritySettings extends StatelessWidget {
                 ),
                 value: isFingerPrintLoginEnabledValue ?? false,
                 onChanged: (value) async {
+                  if (userId == null) {
+                    showToast("Unexpected error occured");
+                    return;
+                  }
+
+                  if (userId == GuestUserDetails.guestUserId) {
+                    showToast("Please setup your account to use this feature");
+                    return;
+                  }
+
                   try {
                     await authenticationRepository.isFingerprintAuthPossible();
                     userConfigCubit.setUserConfig(
@@ -152,11 +183,11 @@ class SecuritySettings extends StatelessWidget {
                     showToast(e.toString().replaceAll("Exception: ", ""));
                   }
                 },
-              );
-            },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
