@@ -25,15 +25,6 @@
 
 ### Screenshots
 
-![8]()
-![7]()
-![6]()
-![5]()
-![4]()
-![3]()
-![2]()
-![1]()
-
 
 <div style="display:flex; flex-wrap: wrap;">
 <img src="https://github.com/SankethBK/diaryvault/assets/51091231/cc55f581-fcea-4ac3-8d8b-abe85dbf9a34" style = "padding: 1rem; height: 300px">
