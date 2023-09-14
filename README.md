@@ -25,15 +25,25 @@
 
 ### Screenshots
 
+![8]()
+![7]()
+![6]()
+![5]()
+![4]()
+![3]()
+![2]()
+![1]()
+
+
 <div style="display:flex; flex-wrap: wrap;">
-<img src="https://play-lh.googleusercontent.com/XpmWV-0KYD05TX8wis9_2im9W-dVyoVcelU4Vs65NtOkevLvnQAN4xInIqenQS_E-M_Z=w1052-h592-rw" style = "padding: 1rem; height: 300px">
-<img src="https://play-lh.googleusercontent.com/NGA8M9ADN-92a4dqoB8E-I7C9CBx46j30UldKeRiBqqvqBfr4TF6NLNp61NnMqiEz4U=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/SeO5qfqjG8K3b9xkp50Q6eCHLFdeq_3kACkkDah2vhMNCpDFIxyje4Br2OpBfzNPZfc=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/DFDuTUM6WnVDJkxbBSzuJiZK-BTHuNoIRe8qyvH0n2ReQeSgbqFeGaAL8Zp-N6wVF-FH=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/r-op0omSd2BgOLiDHpAsrjG6wKpBCpMzCf3Lf5UBlWOaf98eyoMo_eiH-PTRJ1CDgHh6=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/cX3M2PFpQAki-wT2YCZAt8rlUa07H_UAFGpOwePrBfSD-BjgrTMQs_j1FYsgKnSDcbN2=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/3JwekFJXpECEN2kczGHRe2-zUneKE0mtutCtThZIYBv9OfGN4vivbYL5KDw5DFhLES4=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
-<img src="https://play-lh.googleusercontent.com/0i2Aokmfxw2WaX2aReg3b3bzG3xqMsfOFEXqnguzzHLq3EwnIVxc98biEagpKLiHtc8=w1052-h592-rw" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/cc55f581-fcea-4ac3-8d8b-abe85dbf9a34" style = "padding: 1rem; height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/277b6bba-0097-47a5-9618-ea51eb37f52b" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/27ccec6b-acb5-4630-abe0-0fcd199bd7fa" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/7f70a292-57c1-4ed2-8ec2-af042997905a" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/054ea144-8f2b-4dde-b925-08f450f8b803" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/992b297a-ede5-48ec-bef7-e8817d9a7a17" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/4eb2b326-4bd0-4dc7-a004-08f9d83e662d" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/547737d0-fa7b-43d5-b8c9-b1bbc460f16e" style = "padding: 1rem;  height: 300px">
 </div>
 
 ### Documentation
