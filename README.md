@@ -1,6 +1,7 @@
-## Diaryaholic
+## Diary Vault
 
-#### A personal diary application written in Flutter
+#### A FOSS personal diary application written in Flutter
+
 
 <a href="https://play.google.com/store/apps/details?id=me.sankethbk.dairyapp">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
@@ -9,9 +10,10 @@
 ## Key Features
 
 1. Rich text editor with support for images and videos
-2. Backup data to your own Google Drive account and sync between multiple devices.
-3. Fingerprint login on supported devices.
-4. Multiple Themes
+2. Your data is securely preserved on your Google Drive account, ensuring your complete ownership and privacy.
+3. Sync data between multiple devices.
+4. Fingerprint login on supported devices.
+5. Multiple Themes
 
 ## Libraries used
 
