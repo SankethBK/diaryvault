@@ -1,6 +1,6 @@
 ## Diary Vault
 
-#### A FOSS personal diary application written in Flutter
+#### A FOSS, offline first personal diary application written in Flutter
 
 
 <a href="https://play.google.com/store/apps/details?id=me.sankethbk.dairyapp">
