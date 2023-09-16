@@ -37,6 +37,36 @@
 <img src="https://github.com/SankethBK/diaryvault/assets/51091231/547737d0-fa7b-43d5-b8c9-b1bbc460f16e" style = "padding: 1rem;  height: 300px">
 </div>
 
+### Motivation for building this app
+
+I have explored numerous diary apps on Google Play. Here's my opinion, as well as insights from other people's reviews on the shortcomings of existing diary apps.
+
+* Requires premium subscription for seemilngly simple features. 
+* Lack of proper authentication: In some cases, users have to enter their password every time they log in, as there is no support for fingerprint authentication.
+* Ads are the last thing you want to encounter while writing; just picture yourself composing a thought-provoking entry, and an ad suddenly appears, disrupting your train of thought.
+* No support for images.
+* No automatic save: people don't want to lose their lengthy notes just because they ran out of battery, received a phone call, or clicked on a notification, risking data loss upon their return.
+* No Font customisation for overall app and individual note level
+* No customizable sorting: Not everyone wants to sort by date.
+
+### Feature Roadmap Table
+
+| Feature | Timeline | Issue |
+|---------|----------|-------|
+| 1. Support for tags | Planned for October release | [#19](https://github.com/SankethBK/diaryvault/issues/19)
+| 2. Support for customizable sort order | Planned for October release | [#28](https://github.com/SankethBK/diaryvault/issues/28)
+| 3. Auto save for every "x" seconds | Planned for October release | [#29](https://github.com/SankethBK/diaryvault/issues/29)
+| 4. Export data to text file | Planned for October release | [#26](https://github.com/SankethBK/diaryvault/issues/26)
+| 5. Support for daily reminders | Planned for October release | [#24](https://github.com/SankethBK/diaryvault/issues/24)
+| 6. Support for customizable fonts | Planned for November release | [#31](https://github.com/SankethBK/diaryvault/issues/31)
+| 7. Support for folder organization | Planned for November release | [#30](https://github.com/SankethBK/diaryvault/issues/30)
+| 8. Export data to PDF | Planned for November release | [#25](https://github.com/SankethBK/diaryvault/issues/25)
+| 9. Introduce "todos" within rich text editor | Planned for December release | [#20](https://github.com/SankethBK/diaryvault/issues/20)
+| 10. Add support for embedding audio files in rich text editor | Planned for December release | [#21](https://github.com/SankethBK/diaryvault/issues/21)
+
+
+
+
 ### Documentation
 
 The entire project is structured in [this way](https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/)
