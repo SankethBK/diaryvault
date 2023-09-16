@@ -1,6 +1,6 @@
 ## Docs
 
-The [features](https://github.com/SankethBK/diaryaholic/tree/master/lib/features) carries a folder for each of the major features.  
+The [features](lib/features) carries a folder for each of the major features.  
 
 These are the major features as of now
 
@@ -77,4 +77,4 @@ All of the theme related info can be found in this folder *lib/app/themes*. Curr
 
 We are heavily using [Flutter Theme Extensions](https://api.flutter.dev/flutter/material/ThemeExtension-class.html) as the color palette provided by standard ThemeData object is not sufficient. 
 
-Inorder to add a new theme, first step is to chose whether its a light theme or dark theme. Then create a file similar to [lib/app/themes/coral_bubble_theme.dart](https://github.com/SankethBK/diaryaholic/blob/master/lib/app/themes/coral_bubble_theme.dart). Then generate a background image and pick a color palette in accordance to the background image. There are lot of properties used in ThemeData object, but most of them can be copy pasted either from coral_bubbles.dart for light themes and cosmic.dart for dark themes
+Inorder to add a new theme, first step is to chose whether its a light theme or dark theme. Then create a file similar to [lib/app/themes/coral_bubble_theme.dart](lib/app/themes/coral_bubble_theme.dart). Then generate a background image and pick a color palette in accordance to the background image. There are lot of properties used in ThemeData object, but most of them can be copy pasted either from coral_bubbles.dart for light themes and cosmic.dart for dark themes

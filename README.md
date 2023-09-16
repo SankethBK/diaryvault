@@ -73,4 +73,4 @@ The entire project is structured in [this way](https://resocoder.com/2019/08/27/
 
 <img src="https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/Clean-Architecture-Flutter-Diagram.png?w=556&ssl=1">
 
-For full documentation, check (docs)[docs.md]
+For full documentation, check [docs](docs.md)
