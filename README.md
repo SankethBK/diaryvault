@@ -7,6 +7,7 @@
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 </a>
 
+
 ## Key Features
 
 1. Rich text editor with support for images and videos
@@ -64,6 +65,7 @@ I have explored numerous diary apps on Google Play. Here's my opinion, as well a
 | 9. Introduce "todos" within rich text editor | Planned for December release | [#20](https://github.com/SankethBK/diaryvault/issues/20)
 | 10. Add support for embedding audio files in rich text editor | Planned for December release | [#21](https://github.com/SankethBK/diaryvault/issues/21)
 
+Join our discord server for any hel
 
 
 
@@ -74,3 +76,7 @@ The entire project is structured in [this way](https://resocoder.com/2019/08/27/
 <img src="https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/Clean-Architecture-Flutter-Diagram.png?w=556&ssl=1">
 
 For full documentation, check [docs](docs.md)
+
+### Support
+
+If you have any questions or doubt, join our discord server https://discord.gg/S4QkJbV9Vw
