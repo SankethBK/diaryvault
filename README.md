@@ -80,3 +80,7 @@ For full documentation, check [docs](docs.md)
 ### Support
 
 If you have any questions or doubt, join our discord server https://discord.gg/S4QkJbV9Vw
+
+### Contributions
+
+For local setup and contribution guidelines, please visit [CONTRIBUTING.md](CONTRIBUTING.md)
