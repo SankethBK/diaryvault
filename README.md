@@ -40,14 +40,14 @@
 
 ### Motivation for building this app
 
-I have explored numerous diary apps on Google Play. Here's my opinion, as well as insights from other people's reviews on the shortcomings of existing diary apps.
+As someone who enjoys writing in a diary, I've tried out many diary apps on Google Play. Through my own experiences and by reading what others have shared in their reviews, I've gained a better understanding of the issues that current diary apps face.
 
-* Requires premium subscription for seemilngly simple features. 
+* Requires premium subscription for seemingly simple features. 
 * Lack of proper authentication: In some cases, users have to enter their password every time they log in, as there is no support for fingerprint authentication.
 * Ads are the last thing you want to encounter while writing; just picture yourself composing a thought-provoking entry, and an ad suddenly appears, disrupting your train of thought.
 * No support for images.
 * No automatic save: people don't want to lose their lengthy notes just because they ran out of battery, received a phone call, or clicked on a notification, risking data loss upon their return.
-* No Font customisation for overall app and individual note level
+* No Font customization for overall app and individual note level
 * No customizable sorting: Not everyone wants to sort by date.
 
 ### Feature Roadmap Table
@@ -79,7 +79,7 @@ For full documentation, check [docs](docs.md)
 
 ### Support
 
-If you have any questions or doubt, join our discord server https://discord.gg/S4QkJbV9Vw
+If you have any questions or doubts, join our discord server https://discord.gg/S4QkJbV9Vw
 
 ### Contributions
 
