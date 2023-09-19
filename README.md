@@ -26,16 +26,15 @@
 
 ### Screenshots
 
-
 <div style="display:flex; flex-wrap: wrap;">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/cc55f581-fcea-4ac3-8d8b-abe85dbf9a34" style = "padding: 1rem; height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/277b6bba-0097-47a5-9618-ea51eb37f52b" style = "padding: 1rem;  height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/27ccec6b-acb5-4630-abe0-0fcd199bd7fa" style = "padding: 1rem;  height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/7f70a292-57c1-4ed2-8ec2-af042997905a" style = "padding: 1rem;  height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/054ea144-8f2b-4dde-b925-08f450f8b803" style = "padding: 1rem;  height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/992b297a-ede5-48ec-bef7-e8817d9a7a17" style = "padding: 1rem;  height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/4eb2b326-4bd0-4dc7-a004-08f9d83e662d" style = "padding: 1rem;  height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/547737d0-fa7b-43d5-b8c9-b1bbc460f16e" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/9bfe5700-5cf7-4852-a158-f5b19278cc8d" style = "padding: 1rem; height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/5e034a32-3fb9-478b-a3be-61b270f975a9" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/f7aca438-a923-4977-8cf2-216561aebcc7" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/d5b5766a-547b-41e9-b834-9035fd805c9f" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/1ef02504-7b22-4a36-88cd-7381ccc6c847" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/5928736b-2a2c-44cc-ae6b-2fb311ec796e" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/e9e59b4e-f318-478c-852f-6ed8a107eb31" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/89163acc-8905-408a-a652-d3c2d1f8eb06" style = "padding: 1rem;  height: 300px">
 </div>
 
 ### Motivation for building this app
