@@ -21,51 +21,54 @@ class PrivacyPolicy extends StatelessWidget {
         if (state is Unauthenticated) {
           final lastLoggedInUserId = state.lastLoggedInUserId;
 
-          return GlassMorphismCover(
-            sigmaX: 20,
-            sigmaY: 20,
-            borderRadius: const BorderRadius.all(Radius.circular(16)),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
-                border: Border.all(
-                  width: 1.5,
-                  color: Colors.white.withOpacity(0.2),
-                ),
-              ),
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Text(
-                    "By continuing, you agree to our",
-                    style: TextStyle(
-                      fontSize: 16,
-                      // fontWeight: FontWeight.bold,
-                      color: linkColor,
-                    ),
+          if (lastLoggedInUserId == null) {
+            return GlassMorphismCover(
+              sigmaX: 20,
+              sigmaY: 20,
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.0),
+                  border: Border.all(
+                    width: 1.5,
+                    color: Colors.white.withOpacity(0.2),
                   ),
-                  InkWell(
-                    child: Text(
-                      'Privacy Policy',
+                ),
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "By continuing, you agree to our",
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                        // fontSize: 16,
+                        // fontWeight: FontWeight.bold,
                         color: linkColor,
                       ),
                     ),
-                    onTap: () async {
-                      final Uri url = Uri.parse(
-                          'https://sankethbk.netlify.app/privacy-policies/dairyaholic');
+                    InkWell(
+                      child: Text(
+                        'Privacy Policy',
+                        style: TextStyle(
+                          // fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: linkColor,
+                        ),
+                      ),
+                      onTap: () async {
+                        final Uri url = Uri.parse(
+                            'https://sankethbk.netlify.app/privacy-policies/dairyaholic');
 
-                      if (!await launchUrl(url)) {
-                        throw Exception('Could not launch $url');
-                      }
-                    },
-                  )
-                ],
+                        if (!await launchUrl(url)) {
+                          throw Exception('Could not launch $url');
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          }
+          return const SizedBox.shrink();
         }
         return const SizedBox.shrink();
       },
