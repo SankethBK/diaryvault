@@ -9,14 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class GoogleDriveUserInfo extends StatefulWidget {
-  final String imagePath;
-  final String cloudSourceName;
-
   GoogleDriveUserInfo({
     Key? key,
-    required this.imagePath,
-    required this.cloudSourceName,
-  }) : super(key: key) {}
+  }) : super(key: key);
 
   @override
   State<GoogleDriveUserInfo> createState() => _GoogleDriveUserInfoState();
@@ -68,7 +63,7 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            widget.imagePath,
+                            "assets/images/google_drive_icon.png",
                             width: 25,
                             height: 25,
                           ),

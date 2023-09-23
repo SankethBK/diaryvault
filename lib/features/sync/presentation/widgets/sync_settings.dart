@@ -89,10 +89,7 @@ class SyncSettings extends StatelessWidget {
                 onTap: () {
                   showCustomDialog(
                     context: context,
-                    child: GoogleDriveUserInfo(
-                      imagePath: "assets/images/google_drive_icon.png",
-                      cloudSourceName: "google_drive",
-                    ),
+                    child: GoogleDriveUserInfo(),
                   );
                 },
                 child: Stack(
