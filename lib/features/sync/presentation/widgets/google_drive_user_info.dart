@@ -27,9 +27,7 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
   late UserConfigCubit userConfigCubit;
 
   void initialize() async {
-    if (widget.cloudSourceName == "google_drive") {
-      oAuthClient = sl<GoogleOAuthClient>();
-    }
+    oAuthClient = sl<GoogleOAuthClient>();
 
     userConfigCubit = sl<UserConfigCubit>();
 
@@ -54,10 +52,8 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
       child: BlocConsumer<UserConfigCubit, UserConfigState>(
         listener: (context, state) {},
         builder: (context, state) {
-          final isSignedIn = (widget.cloudSourceName == "google_drive" &&
-              state.userConfigModel?.googleDriveUserInfo != null);
-          final lastSynced = (widget.cloudSourceName == "google_drive" &&
-              state.userConfigModel?.lastGoogleDriveSync != null);
+          final isSignedIn = state.userConfigModel?.googleDriveUserInfo != null;
+          final lastSynced = state.userConfigModel?.lastGoogleDriveSync != null;
 
           return (state.userConfigModel == null)
               ? const Center(child: CircularProgressIndicator())
@@ -78,9 +74,7 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            widget.cloudSourceName == "google_drive"
-                                ? "Google Drive"
-                                : "Dropbox",
+                            "Google Drive",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
