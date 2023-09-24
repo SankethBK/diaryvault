@@ -4,20 +4,20 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:http/http.dart' as http;
-import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
+import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-final log = printer("GoogleOAuthClient");
+final log = printer("GoogleDriveSyncClient");
 
-class GoogleOAuthClient implements IOAuthClient {
+class GoogleDriveSyncClient implements ISyncClient {
   late GoogleSignIn googleSignIn;
   late drive.DriveApi driveApi;
 
   final UserConfigCubit userConfigCubit;
-  GoogleOAuthClient({required this.userConfigCubit}) {
+  GoogleDriveSyncClient({required this.userConfigCubit}) {
     googleSignIn = GoogleSignIn.standard(scopes: [
       drive.DriveApi.driveAppdataScope,
     ]);
@@ -95,7 +95,8 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
-  Future<bool> isFilePresent(String fileName, {bool folder = false}) async {
+  Future<bool> isFilePresent(String fileName,
+      {bool folder = false, String? fullFilePath}) async {
     final mimeType = folder ? "application/vnd.google-apps.folder" : null;
 
     try {
@@ -116,7 +117,8 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
-  Future<bool> createFolder(String folderName, {String? parentFolder}) async {
+  Future<bool> createFolder(String folderName,
+      {String? parentFolder, String? fullFolderPath}) async {
     try {
       String? parentFolderId;
       if (parentFolder != null) {
@@ -149,7 +151,8 @@ class GoogleOAuthClient implements IOAuthClient {
   }
 
   @override
-  Future<bool> deleteFile(String fileName, {bool folder = false}) async {
+  Future<bool> deleteFile(String fileName,
+      {bool folder = false, String? fullFilePath}) async {
     log.i("deleting file $fileName");
 
     try {
@@ -172,6 +175,7 @@ class GoogleOAuthClient implements IOAuthClient {
     String? fileContent,
     String? fileName,
     File? file,
+    String? fullFilePath,
     required String parentFolder,
   }) async {
     try {
@@ -184,7 +188,7 @@ class GoogleOAuthClient implements IOAuthClient {
       }
 
       if (fileContent != null) {
-        // convert file conetent to stream
+        // convert file content to stream
         List<int> byteList = utf8.encode(fileContent);
         final Stream<List<int>> mediaStream =
             Future.value(byteList).asStream().asBroadcastStream();

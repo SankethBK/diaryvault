@@ -1,21 +1,25 @@
 import 'dart:io';
 
-abstract class IOAuthClient {
+abstract class ISyncClient {
   Future<bool> initialieClient();
 
   Future<void> signIn();
 
-  Future<bool> isFilePresent(String fileName, {bool folder = false});
+  Future<bool> isFilePresent(String fileName,
+      {bool folder = false, String? fullFilePath});
 
-  Future<bool> createFolder(String folderName, {String? parentFolder});
+  Future<bool> createFolder(String folderName,
+      {String? parentFolder, String? fullFolderPath});
 
-  Future<bool> deleteFile(String fileName, {bool folder = false});
+  Future<bool> deleteFile(String fileName,
+      {bool folder = false, String? fullFilePath});
 
   /// File content can be a Flutter File object, or file content, name and extension can be passed separately
   Future<bool> uploadFile({
     String? fileContent,
     String? fileName,
     File? file,
+    String? fullFilePath,
     required String parentFolder,
   });
 

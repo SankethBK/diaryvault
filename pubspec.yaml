@@ -29,6 +29,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter:
+    sdk: flutter
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
@@ -36,13 +38,14 @@ dependencies:
   file_picker: ^5.3.4
   filesystem_picker: ^2.0.0-nullsafety.0
   firebase_auth: ^4.7.3
-  flutter:
-    sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_quill:
     path: ./packages/flutter_quill
   flutter_quill_extensions:
     path: ./packages/flutter_quill/flutter_quill_extensions
+  dropbox_client: 
+    path: ./packages/dropbox_client/
+
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^4.0.4
@@ -80,7 +83,7 @@ dev_dependencies:
 #   android_12:
 #     image: 'assets/images/splash_screen.png'
 dependency_overrides:
-  analyzer:
+  ? analyzer
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

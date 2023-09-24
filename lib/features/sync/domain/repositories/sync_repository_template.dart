@@ -1,8 +1,8 @@
 import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dartz/dartz.dart';
 
-abstract class IOAuthRepository {
-  Future<Either<SyncFailure, bool>> initializeOAuthRepository();
+abstract class ISyncRepository {
+  Future<Either<SyncFailure, bool>> initializeSyncRepository();
 
   Future<Either<SyncFailure, bool>> initializeNewFolderStructure();
 

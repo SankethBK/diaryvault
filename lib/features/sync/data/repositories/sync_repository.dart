@@ -8,40 +8,41 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/sync/core/failures.dart';
-import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/oauth_client_templdate.dart';
-import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
+import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
+import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
 
-final log = printer("OAuthRepository");
+final log = printer("SyncRepository");
 
 const appFolderName = "my dairy";
 const indexFileName = "index";
 const lockFileName = "lockfile";
 
-class OAuthRepository implements IOAuthRepository {
+class SyncRepository implements ISyncRepository {
   final INotesRepository notesRepository;
-  late IOAuthClient oAuthClient;
+  late ISyncClient syncClient;
   final INetworkInfo networkInfo;
 
-  OAuthRepository({
+  SyncRepository({
     required this.notesRepository,
     required this.networkInfo,
   });
 
   @override
-  Future<Either<SyncFailure, bool>> initializeOAuthRepository() async {
+  Future<Either<SyncFailure, bool>> initializeSyncRepository() async {
     try {
       if (!await networkInfo.isConnected) {
         return Left(SyncFailure.noInternetConnection());
       }
 
-      _initializeOAuthClient();
-      log.i("successfully initalized oauth client");
+      _initializeSyncClient();
+      log.i("successfully initalized sync client");
 
-      await oAuthClient.initialieClient();
-      log.i("successfully initalized oauth client dependencies");
+      await syncClient.initialieClient();
+      log.i("successfully initalized sync client dependencies");
 
       return const Right(true);
     } catch (e) {
@@ -59,15 +60,16 @@ class OAuthRepository implements IOAuthRepository {
   @override
   Future<Either<SyncFailure, bool>> initializeNewFolderStructure() async {
     try {
-      bool isAppFolderPresent =
-          await oAuthClient.isFilePresent(appFolderName, folder: true);
+      bool isAppFolderPresent = await syncClient.isFilePresent(appFolderName,
+          folder: true, fullFilePath: "/$appFolderName");
       if (!isAppFolderPresent) {
         log.i("app folder is not present, starting bulk upload");
         return Right(await bulkUploadEverything());
       }
 
-      bool isIndexFolderPresent =
-          await oAuthClient.isFilePresent(indexFileName + ".json");
+      bool isIndexFolderPresent = await syncClient.isFilePresent(
+          indexFileName + ".json",
+          fullFilePath: "/$appFolderName/$indexFileName.json");
       if (!isIndexFolderPresent) {
         log.i("Index file is not present, starting bulk upload");
         return Right(await bulkUploadEverything());
@@ -81,13 +83,18 @@ class OAuthRepository implements IOAuthRepository {
       }
 
       log.i("uploading lockfile for diff and sync");
-      await oAuthClient.uploadFile(
-          fileContent: "", fileName: lockFileName, parentFolder: appFolderName);
+      await syncClient.uploadFile(
+        fileContent: "",
+        fileName: lockFileName,
+        parentFolder: appFolderName,
+        fullFilePath: "/$appFolderName/$lockFileName",
+      );
 
       bool isNotesSynced = await diffEachNoteAndSync();
 
       log.i("Removing lockfile for diff and sync");
-      await oAuthClient.deleteFile(lockFileName);
+      await syncClient.deleteFile(lockFileName,
+          fullFilePath: "/$appFolderName/$lockFileName");
 
       if (!isNotesSynced) {
         log.w("Could not sync notes");
@@ -107,15 +114,16 @@ class OAuthRepository implements IOAuthRepository {
   Future<bool> bulkUploadEverything() async {
     try {
       // delete the main app folder
-      bool isAppFolderDeleted =
-          await oAuthClient.deleteFile(appFolderName, folder: true);
+      bool isAppFolderDeleted = await syncClient.deleteFile(appFolderName,
+          folder: true, fullFilePath: "/$appFolderName");
       if (!isAppFolderDeleted) {
         log.e("Could not delete the app folder");
         return false;
       }
 
       // create the app folder
-      bool isAppFolderCreated = await oAuthClient.createFolder(appFolderName);
+      bool isAppFolderCreated = await syncClient.createFolder(appFolderName,
+          fullFolderPath: "/$appFolderName");
       if (!isAppFolderCreated) {
         log.e("Could not create app folder");
         return false;
@@ -123,8 +131,12 @@ class OAuthRepository implements IOAuthRepository {
 
       //* upload lockfile
       log.i("uploading lockfile");
-      await oAuthClient.uploadFile(
-          fileContent: "", fileName: lockFileName, parentFolder: appFolderName);
+      await syncClient.uploadFile(
+        fileContent: "test",
+        fileName: lockFileName,
+        parentFolder: appFolderName,
+        fullFilePath: "/$appFolderName/$lockFileName",
+      );
 
       var result = await notesRepository.getAllNoteIds();
 
@@ -146,19 +158,21 @@ class OAuthRepository implements IOAuthRepository {
         return result.fold((e) async {
           log.e("fetching of notes index failed");
 
-          await oAuthClient.deleteFile(lockFileName);
+          await syncClient.deleteFile(lockFileName,
+              fullFilePath: "/$appFolderName/$lockFileName");
           log.i("removing lockfile");
 
           return false;
         }, (notesIndex) async {
-          bool isIndexFileUploaded = await oAuthClient.uploadFile(
-            fileContent: jsonEncode(notesIndex),
-            fileName: indexFileName + ".json",
-            parentFolder: appFolderName,
-          );
+          bool isIndexFileUploaded = await syncClient.uploadFile(
+              fileContent: jsonEncode(notesIndex),
+              fileName: indexFileName + ".json",
+              parentFolder: appFolderName,
+              fullFilePath: "/$appFolderName/$indexFileName.json");
 
           log.i("removing lockfile");
-          await oAuthClient.deleteFile(lockFileName);
+          await syncClient.deleteFile(lockFileName,
+              fullFilePath: "/$appFolderName/$lockFileName");
 
           if (!isIndexFileUploaded) {
             return false;
@@ -181,7 +195,7 @@ class OAuthRepository implements IOAuthRepository {
       // Download the index file
       log.i("Started diffEachNoteAndSync");
       var _globalNotesIndex =
-          jsonDecode(await oAuthClient.downloadFile("index.json"));
+          jsonDecode(await syncClient.downloadFile("index.json"));
 
       List<Map<String, dynamic>> globalNotesIndex = [];
       for (var noteIndex in _globalNotesIndex) {
@@ -321,7 +335,7 @@ class OAuthRepository implements IOAuthRepository {
 
       log.i("global notes index at end = \n $globalNotesIndexCopy");
 
-      await oAuthClient.updateLastSynced();
+      await syncClient.updateLastSynced();
       return true;
     } catch (e) {
       log.e(e);
@@ -337,22 +351,27 @@ class OAuthRepository implements IOAuthRepository {
         log.e(e);
       }, (note) async {
         // Create the parent folder for post
-        bool isPostParentFolderCreated = await oAuthClient.createFolder(note.id,
-            parentFolder: appFolderName);
+        bool isPostParentFolderCreated = await syncClient.createFolder(note.id,
+            parentFolder: appFolderName,
+            fullFolderPath: "/$appFolderName/${note.id}");
         if (!isPostParentFolderCreated) {
           log.e("failed to create parent folder for note id ${note.id}");
         }
 
-        await oAuthClient.uploadFile(
-            fileContent: jsonEncode(note.toJson()),
-            fileName: noteId + ".json",
-            parentFolder: note.id);
+        await syncClient.uploadFile(
+          fileContent: jsonEncode(note.toJson()),
+          fileName: noteId + ".json",
+          parentFolder: note.id,
+          fullFilePath: "/$appFolderName/${note.id}/$noteId.json",
+        );
 
         // upload all the note assets
         for (var asset in note.assetDependencies) {
-          bool isAssetUploaded = await oAuthClient.uploadFile(
+          bool isAssetUploaded = await syncClient.uploadFile(
             file: io.File(asset.assetPath),
             parentFolder: note.id,
+            fullFilePath:
+                "/$appFolderName/${note.id}/${p.basename(asset.assetPath)}",
           );
           if (!isAssetUploaded) {
             log.e("Could not upload the asset");
@@ -379,7 +398,7 @@ class OAuthRepository implements IOAuthRepository {
       // update global index and update the file in cloud
       globalIndex.add(noteIndex);
 
-      await oAuthClient.updateFile(
+      await syncClient.updateFile(
           fileName: "index.json", fileContent: jsonEncode(globalIndex));
 
       log.i("uploading ${noteIndex["id"]} to cloud successful");
@@ -399,7 +418,7 @@ class OAuthRepository implements IOAuthRepository {
 
       log.i("Downloading $noteId from cloud");
       Map<String, dynamic> newNote =
-          jsonDecode(await oAuthClient.downloadFile(noteId + ".json"));
+          jsonDecode(await syncClient.downloadFile(noteId + ".json"));
 
       // download all assets and record the paths in a map
       // new asset paths will replace old asset paths
@@ -408,7 +427,7 @@ class OAuthRepository implements IOAuthRepository {
 
       for (var noteAsset in newNote["asset_dependencies"]) {
         String assetName = p.basename(noteAsset["asset_path"]);
-        assetPathMap[assetName] = await oAuthClient.downloadFile(
+        assetPathMap[assetName] = await syncClient.downloadFile(
           assetName,
           outputAsFile: true,
         );
@@ -457,13 +476,14 @@ class OAuthRepository implements IOAuthRepository {
             .toList();
       }
 
-      await oAuthClient.updateFile(
+      await syncClient.updateFile(
         fileName: "index.json",
         fileContent: jsonEncode(globalIndex),
       );
 
       // delete the note folder
-      await oAuthClient.deleteFile(noteId, folder: true);
+      await syncClient.deleteFile(noteId,
+          folder: true, fullFilePath: "/$appFolderName/$noteId");
 
       log.i("Deletion of $noteId successful");
       return globalIndex;
@@ -478,7 +498,8 @@ class OAuthRepository implements IOAuthRepository {
     try {
       log.i("Starting lockfile check");
 
-      bool isLockfilePresent = await oAuthClient.isFilePresent(lockFileName);
+      bool isLockfilePresent = await syncClient.isFilePresent(lockFileName,
+          fullFilePath: "/$appFolderName/$lockFileName");
       if (!isLockfilePresent) {
         return false;
       }
@@ -486,12 +507,13 @@ class OAuthRepository implements IOAuthRepository {
       // if createdTime is null, we assume it is expired and delete it
 
       DateTime? lockedFileCreatedTime =
-          await oAuthClient.getNoteCreatedTime(lockFileName);
+          await syncClient.getNoteCreatedTime(lockFileName);
 
       if (lockedFileCreatedTime == null ||
           DateTime.now().difference(lockedFileCreatedTime).inMinutes > 5) {
         // delete lockfile
-        await oAuthClient.deleteFile(lockFileName);
+        await syncClient.deleteFile(lockFileName,
+            fullFilePath: "/$appFolderName/$lockFileName");
         return false;
       }
 
@@ -505,8 +527,10 @@ class OAuthRepository implements IOAuthRepository {
   //* Utils
 
   /// Chooses the appropriate OAuthClient as per user choice and initializes it
-  void _initializeOAuthClient() {
-    oAuthClient = GoogleOAuthClient(userConfigCubit: sl<UserConfigCubit>());
+  void _initializeSyncClient() {
+    // oAuthClient = GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
+
+    syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
   }
 
   Map<String, dynamic>? _findNoteWithGivenId(
