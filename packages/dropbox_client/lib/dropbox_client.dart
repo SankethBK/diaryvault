@@ -161,18 +161,46 @@ class Dropbox {
   ///
   /// filepath is local file path. dropboxpath should start with /.
   /// callback for monitoring progress : (downloadedBytes, totalExpectedBytes) { } (can be null)
-  static Future download(String dropboxpath, String filepath,
-      [DropboxProgressCallback? callback]) async {
-    final key = ++_callbackInt;
+  // static Future download(String dropboxpath,
+  //     [DropboxProgressCallback? callback]) async {
+  //   final key = ++_callbackInt;
 
-    _callbackMap[key] = _CallbackInfo(0, callback);
+  //   _callbackMap[key] = _CallbackInfo(0, callback);
 
-    final ret = await _channel.invokeMethod('download',
-        {'filepath': filepath, 'dropboxpath': dropboxpath, 'key': key});
+  //   final ret = await _channel
+  //       .invokeMethod('download', {'dropboxpath': dropboxpath, 'key': key});
 
-    _callbackMap.remove(key);
+  //   _callbackMap.remove(key);
 
-    return ret;
+  //   return ret;
+  // }
+
+  static Future<Uint8List> download(
+    String dropboxpath,
+  ) async {
+    var accessToken = await Dropbox.getAccessToken();
+    if (accessToken == null) {
+      throw Exception('Access token not found.');
+    }
+
+    var url = Uri.parse('https://content.dropboxapi.com/2/files/download');
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+        'Content-Type': 'application/octet-stream',
+        'Dropbox-API-Arg': json.encode({"path": dropboxpath})
+      },
+    );
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      print("RESPONSE_HERE=== ${response.bodyBytes}");
+      return response.bodyBytes;
+    } else {
+      throw Exception(
+          'Request failed with status code: ${response.statusCode}, message: ${response.body}');
+    }
   }
 
   /// get current account information.

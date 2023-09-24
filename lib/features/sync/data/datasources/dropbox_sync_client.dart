@@ -7,6 +7,8 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 
 import 'package:dropbox_client/dropbox_client.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 final log = printer("DropboxSyncClient");
 
@@ -74,9 +76,38 @@ class DropboxSyncClient implements ISyncClient {
   }
 
   @override
-  Future<String> downloadFile(String fileName, {bool outputAsFile = false}) {
-    // TODO: implement downloadFile
-    throw UnimplementedError();
+  Future<String> downloadFile(
+    String fileName, {
+    bool outputAsFile = false,
+    String? fullFilePath,
+  }) async {
+    try {
+      log.i(
+          "Downloading file $fileName at $fullFilePath, outputAsFile = $outputAsFile");
+
+      // if file path is not passed, we assume it is present in root folder
+      fullFilePath = fullFilePath ?? "/$fileName";
+
+      final binaryRes = await Dropbox.download(fullFilePath);
+      log.i("Successfully download  file $fileName at $fullFilePath");
+
+      if (!outputAsFile) {
+        String result = utf8.decode(binaryRes);
+        return result;
+      }
+
+      // save the file, and return the file's path
+      final appDocDir = await getApplicationDocumentsDirectory();
+
+      final copiedFile = File('${appDocDir.path}/${p.basename(fileName)}');
+
+      copiedFile.writeAsBytes(binaryRes);
+
+      return copiedFile.path.toString();
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
   }
 
   @override

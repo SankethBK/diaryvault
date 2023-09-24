@@ -194,8 +194,10 @@ class SyncRepository implements ISyncRepository {
     try {
       // Download the index file
       log.i("Started diffEachNoteAndSync");
-      var _globalNotesIndex =
-          jsonDecode(await syncClient.downloadFile("index.json"));
+      var _globalNotesIndex = jsonDecode(await syncClient.downloadFile(
+        "index.json",
+        fullFilePath: "/$appFolderName/index.json",
+      ));
 
       List<Map<String, dynamic>> globalNotesIndex = [];
       for (var noteIndex in _globalNotesIndex) {
@@ -417,9 +419,12 @@ class SyncRepository implements ISyncRepository {
       // download the note body which was stored as JSON
 
       log.i("Downloading $noteId from cloud");
-      Map<String, dynamic> newNote =
-          jsonDecode(await syncClient.downloadFile(noteId + ".json"));
+      Map<String, dynamic> newNote = jsonDecode(await syncClient.downloadFile(
+        noteId + ".json",
+        fullFilePath: "/$appFolderName/$noteId/$noteId.json",
+      ));
 
+      log.i("newNote = $newNote");
       // download all assets and record the paths in a map
       // new asset paths will replace old asset paths
 
@@ -430,6 +435,7 @@ class SyncRepository implements ISyncRepository {
         assetPathMap[assetName] = await syncClient.downloadFile(
           assetName,
           outputAsFile: true,
+          fullFilePath: "/$appFolderName/$noteId/${p.basename(assetName)}",
         );
       }
 

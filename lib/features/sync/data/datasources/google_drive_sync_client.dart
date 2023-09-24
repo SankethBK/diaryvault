@@ -227,15 +227,18 @@ class GoogleDriveSyncClient implements ISyncClient {
   }
 
   @override
-  Future<String> downloadFile(String fileName,
-      {bool outputAsFile = false}) async {
+  Future<String> downloadFile(
+    String fileName, {
+    bool outputAsFile = false,
+    String? fullFilePath,
+  }) async {
     log.i(
         "Downloading file $fileName returning  ${outputAsFile ? "file content" : "file path"}");
     var fileId = await _getFileIdIfPresent(fileName);
     drive.Media file = await driveApi.files.get(fileId!,
         downloadOptions: drive.DownloadOptions.fullMedia) as drive.Media;
 
-    log.i("DOwnload successful");
+    log.i("Download successful");
 
     // return the content as string
     if (!outputAsFile) {
