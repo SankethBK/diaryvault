@@ -7,6 +7,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 
 import 'package:dropbox_client/dropbox_client.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
@@ -17,7 +18,7 @@ class DropboxSyncClient implements ISyncClient {
 
   final String dropboxClientId = 'diaryvault';
   final String dropboxKey = 'rqndas0qvioj4f1';
-  final String dropboxSecret = 'zqtl5iyytdwgf92';
+  final String dropboxSecret = dotenv.env['DROPBOX_SECET'] ?? "no_secret";
 
   String? accessToken;
 
@@ -25,6 +26,8 @@ class DropboxSyncClient implements ISyncClient {
 
   @override
   Future<void> signIn() async {
+    log.i("dropboxSecret: $dropboxSecret");
+
     final res = await Dropbox.init(dropboxClientId, dropboxKey, dropboxSecret);
     log.i("Starting signIn:= $res");
 
