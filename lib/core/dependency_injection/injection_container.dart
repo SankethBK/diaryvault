@@ -135,8 +135,8 @@ Future<void> init() async {
       DropboxSyncClient(userConfigCubit: sl()));
 
   //* Repository
-  sl.registerSingleton<ISyncRepository>(
-      SyncRepository(notesRepository: sl(), networkInfo: sl()));
+  sl.registerSingleton<ISyncRepository>(SyncRepository(
+      notesRepository: sl(), networkInfo: sl(), userConfigCubit: sl()));
 
   //* Cubit
   sl.registerLazySingleton(() => NoteSyncCubit(

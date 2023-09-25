@@ -130,7 +130,7 @@ class _DropboxUserInfoState extends State<DropboxUserInfo>
                                 ),
                                 const SizedBox(width: 5),
                                 Text(
-                                  "${DateFormat.yMd().format(state.userConfigModel!.lastGoogleDriveSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastGoogleDriveSync!)}",
+                                  "${DateFormat.yMd().format(state.userConfigModel!.lastDropboxSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastDropboxSync!)}",
                                   style: TextStyle(
                                     color: mainTextColor,
                                   ),

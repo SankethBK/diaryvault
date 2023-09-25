@@ -7,6 +7,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/sync/presentation/widgets/dropbox_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/google_drive_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
+import 'package:dairy_app/features/sync/presentation/widgets/sync_source_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -77,6 +78,8 @@ class SyncSettings extends StatelessWidget {
               const SizedBox(width: 8.0),
             ],
           ),
+          const SizedBox(height: 12),
+          const SyncSourceDropdown(),
           const SizedBox(height: 12),
           Text("Available platforms for sync",
               style: TextStyle(

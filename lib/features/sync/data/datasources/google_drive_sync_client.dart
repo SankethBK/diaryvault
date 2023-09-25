@@ -259,8 +259,11 @@ class GoogleDriveSyncClient implements ISyncClient {
   }
 
   @override
-  Future<bool> updateFile(
-      {required String fileName, required String fileContent}) async {
+  Future<bool> updateFile({
+    required String fileName,
+    required String fileContent,
+    required String fullFilePath,
+  }) async {
     log.i("updating file $fileName");
     try {
       String? fileId = await _getFileIdIfPresent(fileName);
@@ -333,8 +336,11 @@ class GoogleDriveSyncClient implements ISyncClient {
   }
 
   @override
-  Future<DateTime?> getNoteCreatedTime(String fileName,
-      {bool folder = false}) async {
+  Future<DateTime?> getNoteCreatedTime(
+    String fileName, {
+    bool folder = false,
+    String? fullFilePath,
+  }) async {
     log.i("Searching for createdTime of $fileName");
 
     final mimeType = folder ? "application/vnd.google-apps.folder" : null;

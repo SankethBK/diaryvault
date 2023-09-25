@@ -5,6 +5,8 @@ class SyncFailure extends Failure {
   static const NO_INTERNET_CONNECTION = 0;
   static const CONNECTION_FAILED = 1;
   static const OTHER_DEVICE_SYNCING = 2;
+  static const NO_SYNC_SOURCE_SELECTED = 3;
+  static const UNATHENTICATED_CLIENT = 4;
 
   const SyncFailure._({required String message, required int code})
       : super(message: message, code: code);
@@ -31,5 +33,17 @@ class SyncFailure extends Failure {
         message: message ??
             "Looks like another device us syncing, please try again after sometime",
         code: OTHER_DEVICE_SYNCING);
+  }
+
+  factory SyncFailure.noSyncSourceSelected([String? message]) {
+    return SyncFailure._(
+        message: message ?? "Please choose a sync source",
+        code: NO_SYNC_SOURCE_SELECTED);
+  }
+
+  factory SyncFailure.stopSync([String? message]) {
+    return SyncFailure._(
+        message: message ?? "Stopping sync as client is unauthenticated",
+        code: UNATHENTICATED_CLIENT);
   }
 }

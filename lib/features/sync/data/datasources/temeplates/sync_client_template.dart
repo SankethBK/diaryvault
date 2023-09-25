@@ -31,8 +31,11 @@ abstract class ISyncClient {
     String? fullFilePath,
   });
 
-  Future<bool> updateFile(
-      {required String fileName, required String fileContent});
+  Future<bool> updateFile({
+    required String fileName,
+    required String fileContent,
+    required String fullFilePath,
+  });
 
   Future<void> signOut();
 
@@ -42,5 +45,9 @@ abstract class ISyncClient {
 
   Future<void> updateLastSynced();
 
-  Future<DateTime?> getNoteCreatedTime(String fileName);
+  Future<DateTime?> getNoteCreatedTime(
+    String fileName, {
+    bool folder = false,
+    String? fullFilePath,
+  });
 }

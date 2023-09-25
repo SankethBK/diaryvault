@@ -8,6 +8,7 @@ import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_
 
 import 'package:dropbox_client/dropbox_client.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
@@ -16,29 +17,33 @@ final log = printer("DropboxSyncClient");
 class DropboxSyncClient implements ISyncClient {
   final UserConfigCubit userConfigCubit;
 
+  static const REFRESH_TOKEN = "DROPBOX_REFRESH_TOKEN";
+
   final String dropboxClientId = 'diaryvault';
   final String dropboxKey = 'rqndas0qvioj4f1';
   final String dropboxSecret = dotenv.env['DROPBOX_SECET'] ?? "no_secret";
+  late FlutterSecureStorage secureStorage;
 
   String? accessToken;
 
-  DropboxSyncClient({required this.userConfigCubit});
+  DropboxSyncClient({required this.userConfigCubit}) {
+    AndroidOptions _getAndroidOptions() => const AndroidOptions(
+          encryptedSharedPreferences: true,
+        );
+    secureStorage = FlutterSecureStorage(aOptions: _getAndroidOptions());
+  }
 
   @override
   Future<void> signIn() async {
-    log.i("dropboxSecret: $dropboxSecret");
-
     final res = await Dropbox.init(dropboxClientId, dropboxKey, dropboxSecret);
     log.i("Starting signIn:= $res");
 
-    final isSignedIn = await this.isSignedIn();
+    // final isSignedIn = await this.isSignedIn();
 
-    log.i("isSignedIn:= $isSignedIn");
+    log.i("Attempting new login ");
+    await Dropbox.authorize();
 
-    if (!isSignedIn) {
-      log.i("Attempting new login ");
-      await Dropbox.authorize();
-    }
+    // get the refresh token and store it
   }
 
   @override
@@ -114,9 +119,34 @@ class DropboxSyncClient implements ISyncClient {
   }
 
   @override
-  Future<DateTime?> getNoteCreatedTime(String fileName) {
-    // TODO: implement getNoteCreatedTime
-    throw UnimplementedError();
+  Future<DateTime?> getNoteCreatedTime(
+    String fileName, {
+    bool folder = false,
+    String? fullFilePath,
+  }) async {
+    try {
+      log.i("Getting metadata for $fileName at $fullFilePath");
+
+      // if file path is not passed, we assume it is present in root folder
+      fullFilePath = fullFilePath ?? "/$fileName";
+
+      final res = await Dropbox.getMetaData(fullFilePath);
+      log.i("metadata for file $fileName found $res");
+
+      Map<String, dynamic> resMap = json.decode(res);
+
+      final createdDateTimeString = resMap["server_modified"];
+
+      if (createdDateTimeString != null) {
+        DateTime createdDateTime = DateTime.parse(createdDateTimeString);
+        return createdDateTime;
+      }
+
+      return null;
+    } catch (e) {
+      log.e(e);
+      return null;
+    }
   }
 
   @override
@@ -136,9 +166,22 @@ class DropboxSyncClient implements ISyncClient {
 
   @override
   Future<bool> initialieClient() async {
-    // TODO: implement this properly based on accesstoken
+    //! TODO: remove sensitive logs here
+    // check if there is any stored refresh token
+    String? refreshToken = await secureStorage.read(key: REFRESH_TOKEN);
+
+    log.i("refresh token $refreshToken");
+    if (refreshToken?.isNotEmpty == true) {
+      // try to fetch new access token with the refresh token
+      final res = await Dropbox.refreshAccessToken(
+          dropboxKey, dropboxSecret, refreshToken!);
+      log.i("response:= $res");
+
+      return true;
+    }
+
     await signIn();
-    return true;
+    return false;
   }
 
   @override
@@ -152,7 +195,7 @@ class DropboxSyncClient implements ISyncClient {
 
       final res = await Dropbox.getMetaData(fullFilePath);
       log.i("file $fileName found $res");
-      return res;
+      return true;
     } catch (e) {
       log.e(e);
       return false;
@@ -185,16 +228,35 @@ class DropboxSyncClient implements ISyncClient {
   }
 
   @override
-  Future<bool> updateFile(
-      {required String fileName, required String fileContent}) {
-    // TODO: implement updateFile
-    throw UnimplementedError();
+  Future<bool> updateFile({
+    required String fileName,
+    required String fileContent,
+    required String fullFilePath,
+  }) async {
+    log.i("Updating file $fileName at $fullFilePath");
+    try {
+      // Encode the string content as bytes
+      List<int> contentBytes = utf8.encode(fileContent);
+
+      final res = await Dropbox.updateFile(contentBytes, fullFilePath);
+      log.i("updated file $fileName at $fullFilePath, $res");
+      return res;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
   }
 
   @override
-  Future<void> updateLastSynced() {
-    // TODO: implement updateLastSynced
-    throw UnimplementedError();
+  Future<void> updateLastSynced() async {
+    log.i("Updating last sync time");
+    try {
+      userConfigCubit.setUserConfig(UserConfigConstants.lastDropboxSync,
+          DateTime.now().millisecondsSinceEpoch);
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
   }
 
   @override

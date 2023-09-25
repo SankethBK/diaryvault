@@ -4,6 +4,7 @@ import 'dart:io' as io;
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/network/network_info.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
@@ -23,12 +24,14 @@ const lockFileName = "lockfile";
 
 class SyncRepository implements ISyncRepository {
   final INotesRepository notesRepository;
+  final UserConfigCubit userConfigCubit;
   late ISyncClient syncClient;
   final INetworkInfo networkInfo;
 
   SyncRepository({
     required this.notesRepository,
     required this.networkInfo,
+    required this.userConfigCubit,
   });
 
   @override
@@ -38,10 +41,20 @@ class SyncRepository implements ISyncRepository {
         return Left(SyncFailure.noInternetConnection());
       }
 
-      _initializeSyncClient();
+      var res = _initializeSyncClient();
+      if (res == false) {
+        return Left(SyncFailure.noSyncSourceSelected());
+      }
+
       log.i("successfully initalized sync client");
 
-      await syncClient.initialieClient();
+      res = await syncClient.initialieClient();
+      // if res is false here, cancel the sync as in case of dropbox authentication will
+      // happen in browser
+      if (res == false) {
+        return Left(SyncFailure.stopSync());
+      }
+
       log.i("successfully initalized sync client dependencies");
 
       return const Right(true);
@@ -401,7 +414,9 @@ class SyncRepository implements ISyncRepository {
       globalIndex.add(noteIndex);
 
       await syncClient.updateFile(
-          fileName: "index.json", fileContent: jsonEncode(globalIndex));
+          fileName: "index.json",
+          fileContent: jsonEncode(globalIndex),
+          fullFilePath: "/$appFolderName/index.json");
 
       log.i("uploading ${noteIndex["id"]} to cloud successful");
       // return the updated global index array
@@ -483,9 +498,9 @@ class SyncRepository implements ISyncRepository {
       }
 
       await syncClient.updateFile(
-        fileName: "index.json",
-        fileContent: jsonEncode(globalIndex),
-      );
+          fileName: "index.json",
+          fileContent: jsonEncode(globalIndex),
+          fullFilePath: "/$appFolderName/index.json");
 
       // delete the note folder
       await syncClient.deleteFile(noteId,
@@ -512,8 +527,10 @@ class SyncRepository implements ISyncRepository {
       // check if it is expired, expiration time: 5 min
       // if createdTime is null, we assume it is expired and delete it
 
-      DateTime? lockedFileCreatedTime =
-          await syncClient.getNoteCreatedTime(lockFileName);
+      DateTime? lockedFileCreatedTime = await syncClient.getNoteCreatedTime(
+        lockFileName,
+        fullFilePath: "/$appFolderName/$lockFileName",
+      );
 
       if (lockedFileCreatedTime == null ||
           DateTime.now().difference(lockedFileCreatedTime).inMinutes > 5) {
@@ -533,10 +550,46 @@ class SyncRepository implements ISyncRepository {
   //* Utils
 
   /// Chooses the appropriate OAuthClient as per user choice and initializes it
-  void _initializeSyncClient() {
-    // oAuthClient = GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
+  bool _initializeSyncClient() {
+    final preferredSyncOption =
+        userConfigCubit.state.userConfigModel?.preferredSyncOption;
 
-    syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
+    if (preferredSyncOption == SyncConstants.googleDrive) {
+      syncClient =
+          GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      return true;
+    } else if (preferredSyncOption == SyncConstants.dropbox) {
+      syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      return true;
+    }
+
+    // if preferred sync option is not set, check if user has logged into
+    // any of the sync sources, if so set it as preferred sync source
+
+    final isLoggedIntoGoogleDrive =
+        userConfigCubit.state.userConfigModel?.googleDriveUserInfo?.isNotEmpty;
+
+    if (isLoggedIntoGoogleDrive == true) {
+      log.i("Setting google drive as sync source as user has logged in");
+      userConfigCubit.setUserConfig(
+          UserConfigConstants.preferredSyncOption, SyncConstants.googleDrive);
+      syncClient =
+          GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      return true;
+    }
+
+    final isLoggedIntoDropBox =
+        userConfigCubit.state.userConfigModel?.dropBoxUserInfo?.isNotEmpty;
+
+    if (isLoggedIntoDropBox == true) {
+      log.i("Setting dropbox as sync source as user has logged in");
+      userConfigCubit.setUserConfig(
+          UserConfigConstants.preferredSyncOption, SyncConstants.dropbox);
+      syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      return true;
+    }
+
+    return false;
   }
 
   Map<String, dynamic>? _findNoteWithGivenId(

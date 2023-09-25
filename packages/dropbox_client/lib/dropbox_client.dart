@@ -157,6 +157,74 @@ class Dropbox {
     return ret;
   }
 
+  static Future<bool> updateFile(
+      List<int> binaryContent, String dropboxpath) async {
+    var accessToken = await Dropbox.getAccessToken();
+    if (accessToken == null) {
+      throw Exception('Access token not found.');
+    }
+
+    var url = Uri.parse('https://content.dropboxapi.com/2/files/upload');
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+        'Content-Type': 'application/octet-stream',
+        'Dropbox-API-Arg': json.encode({
+          'path': dropboxpath,
+          'mode': {'.tag': 'overwrite'}
+        })
+      },
+      body: binaryContent,
+    );
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return true;
+    } else {
+      throw Exception(
+          'Request failed with status code: ${response.statusCode}, message: ${response.body}');
+    }
+  }
+
+// get new accessToken using refresh token
+  static Future<Map<String, dynamic>> refreshAccessToken(
+      String key, String secret, String refreshToken) async {
+    try {
+      // Encode the key and secret as a Base64 string
+      final base64authorization = base64Encode(utf8.encode('$key:$secret'));
+
+      // Define the request headers and data
+      final headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic $base64authorization',
+      };
+      final body = {
+        'refresh_token': refreshToken,
+        'grant_type': 'refresh_token',
+      };
+
+      // Send the POST request to the Dropbox token endpoint
+      final response = await http.post(
+        Uri.parse('https://api.dropbox.com/oauth2/token'),
+        headers: headers,
+        body: body,
+      );
+
+      // Check if the request was successful (status code 200)
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        return data;
+      } else {
+        // Handle the error, e.g., by throwing an exception or returning an error message
+        throw Exception('Failed to refresh access token');
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the request
+      throw Exception('Error: $e');
+    }
+  }
+
   /// download file from dropboxpath to local file(filepath).
   ///
   /// filepath is local file path. dropboxpath should start with /.
@@ -195,7 +263,6 @@ class Dropbox {
     );
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      print("RESPONSE_HERE=== ${response.bodyBytes}");
       return response.bodyBytes;
     } else {
       throw Exception(
@@ -243,7 +310,7 @@ class Dropbox {
     }
   }
 
-  static Future<bool> getMetaData(String fullFilePath) async {
+  static Future<String> getMetaData(String fullFilePath) async {
     var accessToken = await Dropbox.getAccessToken();
     if (accessToken == null) {
       throw Exception('Access token not found.');
@@ -259,7 +326,7 @@ class Dropbox {
         body: json.encode({"path": fullFilePath}));
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return true;
+      return response.body;
     } else {
       throw Exception(
           'Request failed with status code: ${response.statusCode}, message: ${response.body}');
