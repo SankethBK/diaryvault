@@ -17,7 +17,7 @@ final log = printer("DropboxSyncClient");
 class DropboxSyncClient implements ISyncClient {
   final UserConfigCubit userConfigCubit;
 
-  static const REFRESH_TOKEN = "DROPBOX_REFRESH_TOKEN";
+  static const ACCESS_TOKEN = "DROPBOX_ACCESS_TOKEN";
 
   final String dropboxClientId = 'diaryvault';
   final String dropboxKey = 'rqndas0qvioj4f1';
@@ -38,12 +38,12 @@ class DropboxSyncClient implements ISyncClient {
     final res = await Dropbox.init(dropboxClientId, dropboxKey, dropboxSecret);
     log.i("Starting signIn:= $res");
 
-    // final isSignedIn = await this.isSignedIn();
+    final isSignedIn = await this.isSignedIn();
 
-    log.i("Attempting new login ");
-    await Dropbox.authorize();
-
-    // get the refresh token and store it
+    if (!isSignedIn) {
+      log.i("Attempting new login ");
+      await Dropbox.authorize();
+    }
   }
 
   @override
@@ -166,22 +166,15 @@ class DropboxSyncClient implements ISyncClient {
 
   @override
   Future<bool> initialieClient() async {
-    //! TODO: remove sensitive logs here
-    // check if there is any stored refresh token
-    String? refreshToken = await secureStorage.read(key: REFRESH_TOKEN);
+    final isSignedIn = await this.isSignedIn();
 
-    log.i("refresh token $refreshToken");
-    if (refreshToken?.isNotEmpty == true) {
-      // try to fetch new access token with the refresh token
-      final res = await Dropbox.refreshAccessToken(
-          dropboxKey, dropboxSecret, refreshToken!);
-      log.i("response:= $res");
-
-      return true;
+    if (!isSignedIn) {
+      log.i("Attempting new login ");
+      await signIn();
+      return false;
     }
 
-    await signIn();
-    return false;
+    return true;
   }
 
   @override
@@ -206,6 +199,14 @@ class DropboxSyncClient implements ISyncClient {
   Future<bool> isSignedIn() async {
     log.i("Checking for existing session");
 
+    // if dropBoxUserInfo is empty, force another signin even though there is existign session
+    final dropBoxUserInfo =
+        userConfigCubit.state.userConfigModel?.dropBoxUserInfo;
+
+    if (dropBoxUserInfo == null) {
+      return false;
+    }
+
     final _accessToken = await Dropbox.getAccessToken();
     if (_accessToken != null) {
       log.i("Existing access token found");
@@ -213,6 +214,8 @@ class DropboxSyncClient implements ISyncClient {
       if (accessToken == null || accessToken!.isEmpty) {
         accessToken = _accessToken;
       }
+
+      await Dropbox.authorizeWithAccessToken(_accessToken);
       return true;
     }
 
@@ -222,9 +225,12 @@ class DropboxSyncClient implements ISyncClient {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    // clear out the access token and delete it
+    accessToken = null;
+
+    userConfigCubit.setUserConfig(UserConfigConstants.dropBoxUserInfo, null);
+    log.i("sign out successful");
   }
 
   @override
