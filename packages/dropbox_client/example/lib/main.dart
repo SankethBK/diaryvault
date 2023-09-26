@@ -81,7 +81,6 @@ class _HomeState extends State<Home> {
         await Dropbox.authorizeWithCredentials(credentials!);
         final _credentials = await Dropbox.getCredentials();
         if (_credentials != null) {
-          print('authorizeWithCredentials!');
           return true;
         }
       }
@@ -89,12 +88,10 @@ class _HomeState extends State<Home> {
         await Dropbox.authorizeWithAccessToken(accessToken!);
         final token = await Dropbox.getAccessToken();
         if (token != null) {
-          print('authorizeWithAccessToken!');
           return true;
         }
       } else {
         await Dropbox.authorize();
-        print('authorize!');
       }
     }
     return false;
