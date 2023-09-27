@@ -22,11 +22,12 @@ import 'package:dairy_app/features/notes/domain/repositories/notes_repository.da
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
-import 'package:dairy_app/features/sync/data/datasources/google_oauth_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
-import 'package:dairy_app/features/sync/data/repositories/oauth_repository.dart';
-import 'package:dairy_app/features/sync/domain/repositories/oauth_repository_template.dart';
+import 'package:dairy_app/features/sync/data/repositories/sync_repository.dart';
+import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -127,14 +128,17 @@ Future<void> init() async {
   //* FEATURE: sync
 
   //* Data sources
-  sl.registerSingleton<GoogleOAuthClient>(
-      GoogleOAuthClient(userConfigCubit: sl()));
+  sl.registerSingleton<GoogleDriveSyncClient>(
+      GoogleDriveSyncClient(userConfigCubit: sl()));
+
+  sl.registerSingleton<DropboxSyncClient>(
+      DropboxSyncClient(userConfigCubit: sl()));
 
   //* Repository
-  sl.registerSingleton<IOAuthRepository>(
-      OAuthRepository(notesRepository: sl(), networkInfo: sl()));
+  sl.registerSingleton<ISyncRepository>(SyncRepository(
+      notesRepository: sl(), networkInfo: sl(), userConfigCubit: sl()));
 
   //* Cubit
   sl.registerLazySingleton(() => NoteSyncCubit(
-      oAuthRepository: sl(), notesBloc: sl(), userConfigCubit: sl()));
+      syncRepository: sl(), notesBloc: sl(), userConfigCubit: sl()));
 }

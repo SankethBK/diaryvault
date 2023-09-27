@@ -11,6 +11,11 @@ class UserConfigConstants {
   static String isFingerPrintLoginEnabled = "is_finger_print_log_enabled";
 }
 
+class SyncConstants {
+  static String googleDrive = "Google Drive";
+  static String dropbox = "Dropbox";
+}
+
 class Global {
   static String lastLoggedInUser = "last_logged_in_user";
 }

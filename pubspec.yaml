@@ -32,6 +32,8 @@ dependencies:
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  stateless_dropbox_client:
+    path: ./packages/stateless_dropbox_client/
   equatable: ^2.0.3
   file_picker: ^5.3.4
   filesystem_picker: ^2.0.0-nullsafety.0
@@ -39,10 +41,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_dotenv: ^5.1.0
   flutter_quill:
     path: ./packages/flutter_quill
   flutter_quill_extensions:
     path: ./packages/flutter_quill/flutter_quill_extensions
+  flutter_secure_storage: ^9.0.0
+  flutter_web_auth_2: ^2.2.1
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^4.0.4
@@ -94,6 +99,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - .env
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
