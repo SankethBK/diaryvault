@@ -5,7 +5,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-
+import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:dropbox_client/dropbox_client.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -42,7 +42,15 @@ class DropboxSyncClient implements ISyncClient {
 
     if (!isSignedIn) {
       log.i("Attempting new login ");
-      await Dropbox.authorize();
+      // await Dropbox.authorize();
+
+      // Present the dialog to the user
+      final result = await FlutterWebAuth2.authenticate(
+          url:
+              "https://www.dropbox.com/oauth2/authorize?client_id=rqndas0qvioj4f1&response_type=code&token_access_type=offline&redirect_uri=https://sankethbk.netlify.app/oauth2redirect",
+          callbackUrlScheme: "db-rqndas0qvioj4f1");
+
+      log.i("result of authentication $result");
     }
   }
 

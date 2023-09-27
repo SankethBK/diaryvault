@@ -12,6 +12,7 @@
 #include <local_auth_windows/local_auth_plugin.h>
 #include <pasteboard/pasteboard_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
+#include <window_to_front/window_to_front_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   FileSelectorWindowsRegisterWithRegistrar(
@@ -26,4 +27,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("PasteboardPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
+  WindowToFrontPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("WindowToFrontPlugin"));
 }
