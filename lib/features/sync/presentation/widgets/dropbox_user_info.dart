@@ -29,32 +29,12 @@ class _DropboxUserInfoState extends State<DropboxUserInfo>
 
     // to initate the first call, as initial state doesn't has user config
     await userConfigCubit.getUserConfig();
-
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void initState() {
     initialize();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    // Add this line to remove this class as an observer when it's disposed.
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  // This method will be called when the app's lifecycle state changes.
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.resumed) {
-      // This block of code will be executed when the app is resumed after Dropbox authorization.
-
-      // Check if the user is signed in
-      await oAuthClient.getSignedInUserInfo();
-    }
   }
 
   @override

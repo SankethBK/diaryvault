@@ -33,7 +33,6 @@
         <activity
             android:name="com.linusu.flutter_web_auth_2.CallbackActivity"
             android:launchMode="singleTask"
-            android:autoVerify="true"
             android:exported="true">
             <intent-filter android:label="flutter_web_auth_2">
                 <action android:name="android.intent.action.VIEW" />
@@ -41,11 +40,7 @@
                     android:name="android.intent.category.DEFAULT" />
                 <category
                     android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" />
-                <data
-                    android:host="sankethbk.netlify.app" />
-                <data
-                    android:pathPrefix="/oauth2redirect" />
+                <data android:scheme="db-rqndas0qvioj4f1" />
             </intent-filter>
         </activity>
 

@@ -17,7 +17,7 @@ final log = printer("DropboxSyncClient");
 class DropboxSyncClient implements ISyncClient {
   final UserConfigCubit userConfigCubit;
 
-  static const ACCESS_TOKEN = "DROPBOX_ACCESS_TOKEN";
+  static const REFRESH_TOKEN = "DROPBOX_REFRESH_TOKEN";
 
   final String dropboxClientId = 'diaryvault';
   final String dropboxKey = 'rqndas0qvioj4f1';
@@ -25,6 +25,7 @@ class DropboxSyncClient implements ISyncClient {
   late FlutterSecureStorage secureStorage;
 
   String? accessToken;
+  String? refreshToken;
 
   DropboxSyncClient({required this.userConfigCubit}) {
     AndroidOptions _getAndroidOptions() => const AndroidOptions(
@@ -35,22 +36,34 @@ class DropboxSyncClient implements ISyncClient {
 
   @override
   Future<void> signIn() async {
-    final res = await Dropbox.init(dropboxClientId, dropboxKey, dropboxSecret);
-    log.i("Starting signIn:= $res");
+    log.i("Starting signIn");
 
     final isSignedIn = await this.isSignedIn();
 
     if (!isSignedIn) {
       log.i("Attempting new login ");
-      // await Dropbox.authorize();
 
       // Present the dialog to the user
       final result = await FlutterWebAuth2.authenticate(
           url:
               "https://www.dropbox.com/oauth2/authorize?client_id=rqndas0qvioj4f1&response_type=code&token_access_type=offline&redirect_uri=https://sankethbk.netlify.app/oauth2redirect",
           callbackUrlScheme: "db-rqndas0qvioj4f1");
+      log.i("result of step 1 = $result");
+      final code = Uri.parse(result).queryParameters['code'];
 
-      log.i("result of authentication $result");
+      final res = await Dropbox.exchangeAuthorizationCodeForAccessToken(
+          dropboxKey, dropboxSecret, code!);
+
+      accessToken = res["access_token"];
+      refreshToken = res["refresh_token"];
+
+      log.i("Signin successful");
+
+      // store refresh token for future use
+      await secureStorage.write(key: REFRESH_TOKEN, value: refreshToken);
+
+      // get account into
+      await getSignedInUserInfo();
     }
   }
 
@@ -62,7 +75,7 @@ class DropboxSyncClient implements ISyncClient {
     try {
       // if file path is not passed, we assume it is present in root folder
       fullFolderPath = fullFolderPath ?? "/$folderName";
-      final res = await Dropbox.createFolder(fullFolderPath);
+      final res = await Dropbox.createFolder(fullFolderPath, accessToken!);
 
       log.i("created folder for $folderName at $fullFolderPath, $res");
 
@@ -81,7 +94,7 @@ class DropboxSyncClient implements ISyncClient {
       // if file path is not passed, we assume it is present in root folder
       fullFilePath = fullFilePath ?? "/$fileName";
 
-      final res = await Dropbox.deleteFile(fullFilePath);
+      final res = await Dropbox.deleteFile(fullFilePath, accessToken!);
       log.i("Deleted $fileName at $fullFilePath, $res");
 
       return res;
@@ -104,7 +117,7 @@ class DropboxSyncClient implements ISyncClient {
       // if file path is not passed, we assume it is present in root folder
       fullFilePath = fullFilePath ?? "/$fileName";
 
-      final binaryRes = await Dropbox.download(fullFilePath);
+      final binaryRes = await Dropbox.download(fullFilePath, accessToken!);
       log.i("Successfully download  file $fileName at $fullFilePath");
 
       if (!outputAsFile) {
@@ -138,7 +151,7 @@ class DropboxSyncClient implements ISyncClient {
       // if file path is not passed, we assume it is present in root folder
       fullFilePath = fullFilePath ?? "/$fileName";
 
-      final res = await Dropbox.getMetaData(fullFilePath);
+      final res = await Dropbox.getMetaData(fullFilePath, accessToken!);
       log.i("metadata for file $fileName found $res");
 
       Map<String, dynamic> resMap = json.decode(res);
@@ -159,12 +172,15 @@ class DropboxSyncClient implements ISyncClient {
 
   @override
   Future<String?> getSignedInUserInfo() async {
-    final accountInfo = await Dropbox.getCurrentAccount();
-    log.i("accountInfo:= ${accountInfo?.email}");
+    if (accessToken == null) {
+      await signIn();
+    }
+
+    final accountInfo = await Dropbox.getCurrentAccount(accessToken!);
+    log.i("account info = $accountInfo");
 
     // first preference would be email, if it doesn't exists username would be used
-    final dropboxUserInfo =
-        accountInfo?.email ?? accountInfo?.name!.displayName;
+    final dropboxUserInfo = accountInfo["email"] ?? accountInfo["display_name"];
 
     userConfigCubit.setUserConfig(
         UserConfigConstants.dropBoxUserInfo, dropboxUserInfo);
@@ -174,14 +190,7 @@ class DropboxSyncClient implements ISyncClient {
 
   @override
   Future<bool> initialieClient() async {
-    final isSignedIn = await this.isSignedIn();
-
-    if (!isSignedIn) {
-      log.i("Attempting new login ");
-      await signIn();
-      return false;
-    }
-
+    await signIn();
     return true;
   }
 
@@ -194,7 +203,7 @@ class DropboxSyncClient implements ISyncClient {
       // if file path is not passed, we assume it is present in root folder
       fullFilePath = fullFilePath ?? "/$fileName";
 
-      final res = await Dropbox.getMetaData(fullFilePath);
+      final res = await Dropbox.getMetaData(fullFilePath, accessToken!);
       log.i("file $fileName found $res");
       return true;
     } catch (e) {
@@ -215,15 +224,16 @@ class DropboxSyncClient implements ISyncClient {
       return false;
     }
 
-    final _accessToken = await Dropbox.getAccessToken();
-    if (_accessToken != null) {
-      log.i("Existing access token found");
+    final _refreshToken = await secureStorage.read(key: REFRESH_TOKEN);
+    if (_refreshToken != null) {
+      log.i("Existing refresh token found");
 
-      if (accessToken == null || accessToken!.isEmpty) {
-        accessToken = _accessToken;
-      }
+      // get new access token using the refresh token to check if its valid
+      final newAccessToken = await Dropbox.getNewAccessToken(
+          dropboxKey, dropboxSecret, _refreshToken);
 
-      await Dropbox.authorizeWithAccessToken(_accessToken);
+      accessToken = newAccessToken;
+      log.i("retrieved new access token");
       return true;
     }
 
@@ -236,8 +246,10 @@ class DropboxSyncClient implements ISyncClient {
   Future<void> signOut() async {
     // clear out the access token and delete it
     accessToken = null;
+    await secureStorage.delete(key: REFRESH_TOKEN);
 
     userConfigCubit.setUserConfig(UserConfigConstants.dropBoxUserInfo, null);
+
     log.i("sign out successful");
   }
 
@@ -252,7 +264,8 @@ class DropboxSyncClient implements ISyncClient {
       // Encode the string content as bytes
       List<int> contentBytes = utf8.encode(fileContent);
 
-      final res = await Dropbox.updateFile(contentBytes, fullFilePath);
+      final res =
+          await Dropbox.updateFile(contentBytes, fullFilePath, accessToken!);
       log.i("updated file $fileName at $fullFilePath, $res");
       return res;
     } catch (e) {
@@ -296,7 +309,8 @@ class DropboxSyncClient implements ISyncClient {
         // Write the string content to the temporary file
         await tempFile.writeAsString(fileContent, flush: true);
 
-        final res = await Dropbox.upload(tempFile.path, fullFilePath);
+        final res =
+            await Dropbox.upload(tempFile.path, fullFilePath, accessToken!);
 
         log.i(
             "file $fileName successfully uploaded at dropboxPath $fullFilePath, res = $res");
@@ -308,7 +322,7 @@ class DropboxSyncClient implements ISyncClient {
       } else if (file != null) {
         log.i("uploading asset at $fullFilePath");
 
-        final res = await Dropbox.upload(file.path, fullFilePath);
+        final res = await Dropbox.upload(file.path, fullFilePath, accessToken!);
 
         log.i(
             "asset file successfully uploaded at dropboxPath $fullFilePath, res = $res");

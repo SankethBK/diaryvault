@@ -77,7 +77,11 @@ class SyncRepository implements ISyncRepository {
           folder: true, fullFilePath: "/$appFolderName");
       if (!isAppFolderPresent) {
         log.i("app folder is not present, starting bulk upload");
-        return Right(await bulkUploadEverything());
+        final res = await bulkUploadEverything();
+        if (res) {
+          return Right(res);
+        }
+        return Left(SyncFailure.unknownError());
       }
 
       bool isIndexFolderPresent = await syncClient.isFilePresent(
