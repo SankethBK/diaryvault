@@ -23,14 +23,15 @@ class SyncSourceDropdown extends StatelessWidget {
 
     return Row(
       children: [
-        Text(
-          "Choose the Sync Source",
-          style: TextStyle(
-            fontSize: 16.0,
-            color: mainTextColor,
+        Expanded(
+          child: Text(
+            "Choose the Sync Source",
+            style: TextStyle(
+              fontSize: 16.0,
+              color: mainTextColor,
+            ),
           ),
         ),
-        const Spacer(),
         BlocBuilder<UserConfigCubit, UserConfigState>(
           builder: (context, state) {
             return DropdownButton<String>(
