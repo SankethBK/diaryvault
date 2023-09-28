@@ -51,7 +51,7 @@ class Dropbox {
   static Future<String> authenticate() async {
     final response = await FlutterWebAuth2.authenticate(
       url:
-          "https://www.dropbox.com/oauth2/authorize?client_id=rqndas0qvioj4f1&response_type=code&token_access_type=offline&redirect_uri=https://sankethbk.netlify.app/oauth2redirect",
+          "https://www.dropbox.com/oauth2/authorize?client_id=x1kowr6oymu6s19&response_type=code&token_access_type=offline&redirect_uri=https://sankethbk.netlify.app/oauth2redirect",
       callbackUrlScheme: "db-rqndas0qvioj4f1",
       preferEphemeral: true,
     );
