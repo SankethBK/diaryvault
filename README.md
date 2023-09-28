@@ -49,6 +49,8 @@ As someone who enjoys writing in a diary, I've tried out many diary apps on Goog
 * No Font customization for overall app and individual note level
 * No customizable sorting: Not everyone wants to sort by date.
 
+🌟 **If you like what we're building, please consider starring our repository on GitHub to show your support. It means a lot to us!** ⭐
+
 ### Feature Roadmap Table
 
 | Feature | Timeline | Issue |
@@ -72,8 +74,6 @@ If you have any questions or doubts, join our discord server https://discord.gg/
 ### Contributions
 
 For local setup and contribution guidelines, please visit [CONTRIBUTING.md](CONTRIBUTING.md)
-
-❤️ If you like the project, please consider starring our repository! 
 
 
 ### Documentation
