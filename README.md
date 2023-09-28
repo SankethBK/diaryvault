@@ -73,6 +73,9 @@ If you have any questions or doubts, join our discord server https://discord.gg/
 
 For local setup and contribution guidelines, please visit [CONTRIBUTING.md](CONTRIBUTING.md)
 
+❤️ If you like the project, please consider starring our repository! 
+
+
 ### Documentation
 
 The entire project is structured in [this way](https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/)
