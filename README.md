@@ -11,7 +11,7 @@
 ## Key Features
 
 1. Rich text editor with support for images and videos
-2. Your data is securely preserved on your Google Drive account, ensuring your complete ownership and privacy.
+2. Your data is securely preserved on your Google Drive / Dropbox account, ensuring your complete ownership and privacy.
 3. Sync data between multiple devices.
 4. Fingerprint login on supported devices.
 5. Multiple Themes
@@ -33,7 +33,7 @@
 <img src="https://github.com/SankethBK/diaryvault/assets/51091231/d5b5766a-547b-41e9-b834-9035fd805c9f" style = "padding: 1rem;  height: 300px">
 <img src="https://github.com/SankethBK/diaryvault/assets/51091231/1ef02504-7b22-4a36-88cd-7381ccc6c847" style = "padding: 1rem;  height: 300px">
 <img src="https://github.com/SankethBK/diaryvault/assets/51091231/5928736b-2a2c-44cc-ae6b-2fb311ec796e" style = "padding: 1rem;  height: 300px">
-<img src="https://github.com/SankethBK/diaryvault/assets/51091231/e9e59b4e-f318-478c-852f-6ed8a107eb31" style = "padding: 1rem;  height: 300px">
+<img src="https://github.com/SankethBK/diaryvault/assets/51091231/b544c3b8-2b7b-4ff3-90c9-c474ed87e6e6" style = "padding: 1rem;  height: 300px">
 <img src="https://github.com/SankethBK/diaryvault/assets/51091231/89163acc-8905-408a-a652-d3c2d1f8eb06" style = "padding: 1rem;  height: 300px">
 </div>
 
@@ -132,7 +132,7 @@ Notes {
 
 #### 3. Sync
 
-The Sync feature plays a pivotal role in ensuring that your diary app seamlessly integrates with Google Drive, allowing users to effortlessly manage their notes across multiple devices. Underpinning this functionality is a streamlined synchronization algorithm, whichminimal version of syncing algorithms used in distributed systems. Here's an in-depth explanation of how it works:
+The Sync feature plays a pivotal role in ensuring that your diary app seamlessly integrates with Google Drive / Dropbox, allowing users to effortlessly manage their notes across multiple devices. Underpinning this functionality is a streamlined synchronization algorithm, whichminimal version of syncing algorithms used in distributed systems. Here's an in-depth explanation of how it works:
 
 **1. Hash-Based Note Comparison**
 
