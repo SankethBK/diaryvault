@@ -247,4 +247,18 @@ class Dropbox {
           'Request failed with status code: ${response.statusCode}, message: ${response.body}');
     }
   }
+
+  static Future<void> revokeDropboxToken(String accessToken) async {
+    final url = Uri.parse('https://api.dropboxapi.com/2/auth/token/revoke');
+    final headers = {
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      final response = await http.post(url, headers: headers, body: 'null');
+    } catch (e) {
+      // ignore if failed as this is not critical
+    }
+  }
 }
