@@ -6,6 +6,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/cubit/version_number_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
@@ -49,6 +50,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<ThemeCubit>(
           create: (context) => sl<ThemeCubit>(),
+        ),
+        BlocProvider<VersionNumberCubit>(
+          create: (context) => sl<VersionNumberCubit>()..getVersion(),
         )
       ],
       child: AppView(),
