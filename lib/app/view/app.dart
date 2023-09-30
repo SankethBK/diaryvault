@@ -49,7 +49,7 @@ class App extends StatelessWidget {
         ),
         BlocProvider<ThemeCubit>(
           create: (context) => sl<ThemeCubit>(),
-        ),
+        )
       ],
       child: AppView(),
     );
