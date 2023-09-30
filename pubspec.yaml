@@ -32,8 +32,6 @@ dependencies:
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
-  stateless_dropbox_client:
-    path: ./packages/stateless_dropbox_client/
   equatable: ^2.0.3
   file_picker: ^5.3.4
   filesystem_picker: ^2.0.0-nullsafety.0
@@ -57,10 +55,13 @@ dependencies:
   intl: ^0.18.0
   local_auth: ^2.1.6
   logger: ^1.1.0
+  package_info_plus: ^4.1.0
   path_provider: ^2.0.9
   provider: ^6.0.5
   shared_preferences: ^2.0.15
   sqflite: ^2.0.2
+  stateless_dropbox_client:
+    path: ./packages/stateless_dropbox_client/
   url_launcher: ^6.1.14
   uuid: ^3.0.6
 
