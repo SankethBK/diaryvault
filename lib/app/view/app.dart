@@ -3,13 +3,12 @@ import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
-import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -135,7 +134,6 @@ class _AppViewState extends State<AppView> {
               child: child,
             );
           },
-          initialRoute: AuthPage.route,
           onGenerateRoute: RouteGenerator.generateRoute,
         );
       },
