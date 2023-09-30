@@ -1,7 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/cubit/version_number_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class VersionNumber extends StatelessWidget {
   const VersionNumber({Key? key}) : super(key: key);
@@ -15,20 +14,25 @@ class VersionNumber extends StatelessWidget {
           .mainTextColor,
     );
 
-    return BlocBuilder<VersionNumberCubit, String>(
-      builder: (context, version) => Row(
-        children: [
-          Text(
-            "App version",
-            style: mainTextStyle,
-          ),
-          const Spacer(),
-          Text(
-            version,
-            style: mainTextStyle,
-          ),
-        ],
-      ),
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (context, snapshot) {
+        final version = snapshot.data?.version ?? '';
+
+        return Row(
+          children: [
+            Text(
+              "App version",
+              style: mainTextStyle,
+            ),
+            const Spacer(),
+            Text(
+              version,
+              style: mainTextStyle,
+            ),
+          ],
+        );
+      },
     );
   }
 }
