@@ -123,6 +123,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 SecuritySettings(),
                 const SizedBox(height: 15),
                 const ThemeDropdown(),
+                const SizedBox(height: 15),
                 const ShareWithFriends(),
                 const SizedBox(height: 15),
                 const VersionNumber(),

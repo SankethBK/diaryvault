@@ -13,9 +13,6 @@ class ShareWithFriends extends StatelessWidget {
           .extension<NoteCreatePageThemeExtensions>()!
           .mainTextColor,
     );
-    final mainTextColor = Theme.of(context)
-        .extension<NoteCreatePageThemeExtensions>()!
-        .mainTextColor;
     const appDescription =
         "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!";
     return GestureDetector(
@@ -25,18 +22,14 @@ class ShareWithFriends extends StatelessWidget {
               'https://play.google.com/store/apps/details?id=me.sankethbk.dairyapp';
           await Share.share('$appDescription\n\n$playstoreURL');
         } catch (e) {
-          throw Exception("Error sharing app");
+          throw Exception(
+            "Error sharing app",
+          );
         }
       }),
-      child: Row(
-        children: [
-          Icon(
-            Icons.share,
-            color: mainTextColor,
-          ),
-          const SizedBox(width: 10.0),
-          Text("Share with Friends", style: mainTextStyle),
-        ],
+      child: Text(
+        "Share with Friends",
+        style: mainTextStyle,
       ),
     );
   }
