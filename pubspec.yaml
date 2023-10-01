@@ -60,6 +60,7 @@ dependencies:
   provider: ^6.0.5
   shared_preferences: ^2.0.15
   sqflite: ^2.0.2
+  share_plus: ^7.1.0
   stateless_dropbox_client:
     path: ./packages/stateless_dropbox_client/
   url_launcher: ^6.1.14
