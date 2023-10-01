@@ -16,13 +16,14 @@ class ShareWithFriends extends StatelessWidget {
     final mainTextColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
-
+    const appDescription =
+        "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!";
     return GestureDetector(
       onTap: (() async {
         try {
           const playstoreURL =
               'https://play.google.com/store/apps/details?id=me.sankethbk.dairyapp';
-          await Share.share(playstoreURL);
+          await Share.share('$appDescription\n\n$playstoreURL');
         } catch (e) {
           throw Exception("Error sharing app");
         }
