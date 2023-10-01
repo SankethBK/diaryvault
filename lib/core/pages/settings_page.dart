@@ -117,14 +117,13 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               padding: const EdgeInsets.all(0.0),
               children: [
-                const ShareWithFriends(),
-                const SizedBox(height: 15),
                 const SetupAccount(),
                 const SyncSettings(),
                 const SizedBox(height: 25.0),
                 SecuritySettings(),
                 const SizedBox(height: 15),
                 const ThemeDropdown(),
+                const ShareWithFriends(),
                 const SizedBox(height: 15),
                 const VersionNumber(),
               ],
