@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
+import 'package:dairy_app/app/themes/lush_green_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
@@ -88,6 +89,8 @@ class _AppViewState extends State<AppView> {
         return CoralBubble.getTheme();
       case Themes.cosmic:
         return Cosmic.getTheme();
+      case Themes.lushGreen:
+        return LushGreen.getTheme();
 
       default:
         return Cosmic.getTheme();
