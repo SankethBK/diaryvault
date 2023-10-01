@@ -27,6 +27,8 @@ class UpdateNote extends NotesEvent {
 /// if newNote is true, then create a new note, otherwise update the existing note
 class SaveNote extends NotesEvent {}
 
+class AutoSaveNote extends NotesEvent {}
+
 class DeleteNote extends NotesEvent {
   final List<String> noteList;
 
@@ -39,3 +41,5 @@ class DiscardNote extends NotesEvent {}
 
 /// Removes all the info stored in state and starts with NoteDummyState again
 class RefreshNote extends NotesEvent {}
+
+class FetchNote extends NotesEvent {}
