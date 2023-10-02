@@ -15,6 +15,7 @@ class ShareWithFriends extends StatelessWidget {
     );
     const appDescription =
         "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!";
+    
     return GestureDetector(
       onTap: (() async {
         try {
@@ -27,9 +28,12 @@ class ShareWithFriends extends StatelessWidget {
           );
         }
       }),
-      child: Text(
-        "Share with Friends",
-        style: mainTextStyle,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6.0),
+        child: Text(
+          "Share with Friends",
+          style: mainTextStyle,
+        ),
       ),
     );
   }
