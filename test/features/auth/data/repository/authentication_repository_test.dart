@@ -1,6 +1,7 @@
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/core/network/network_info.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/core/validators/email_validator.dart';
 import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
@@ -35,6 +36,7 @@ void main() {
       localDataSource: localDataSource,
       networkInfo: networkInfo,
       passwordValidator: PasswordValidator(),
+      emailValidator: EmailValidator(),
     );
   });
 
@@ -166,11 +168,15 @@ void main() {
       'should return SignInFailure.passwordDoesNotExists when local data source throws same failure',
       () async {
         // arrange
+        when(networkInfo.isConnected).thenAnswer((_) async => true);
         when(
           localDataSource.signInUser(
               email: anyNamed("email"), password: anyNamed("password")),
         ).thenThrow(SignInFailure.wrongPassword());
-
+        when(
+          remoteDataSource.signInUser(
+              email: anyNamed("email"), password: anyNamed("password")),
+        ).thenThrow(FirebaseAuthException(code: 'wrong-password'));
         // act
         var result = await authenticationRepository.signInWithEmailAndPassword(
             email: testEmail, password: testPassword);
