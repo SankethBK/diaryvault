@@ -27,12 +27,18 @@ class SendFeedBack extends StatelessWidget {
       );
 
   void _launchEmailApp() async {
-    final Uri emailLaunchUri = Uri(
-      scheme: 'mailto',
-      path: emailAddress,
-      queryParameters: {'subject': subject},
-    );
+    try {
+      final Uri emailLaunchUri = Uri(
+        scheme: 'mailto',
+        path: emailAddress,
+        queryParameters: {'subject': subject},
+      );
 
-    await launchUrl(emailLaunchUri);
+      await launchUrl(emailLaunchUri);
+    } catch (e) {
+      throw Exception(
+        "Error sending feed-back",
+      );
+    }
   }
 }
