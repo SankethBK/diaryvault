@@ -12,13 +12,16 @@ class SendFeedBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: _launchEmailApp,
-        child: Text(
-          "Send feedback",
-          style: TextStyle(
-            fontSize: 16.0,
-            color: Theme.of(context)
-                .extension<NoteCreatePageThemeExtensions>()!
-                .mainTextColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6.0),
+          child: Text(
+            "Send feedback",
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Theme.of(context)
+                  .extension<NoteCreatePageThemeExtensions>()!
+                  .mainTextColor,
+            ),
           ),
         ),
       );
