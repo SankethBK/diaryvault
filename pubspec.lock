@@ -1342,10 +1342,9 @@ packages:
   simple_accordion:
     dependency: "direct main"
     description:
-      name: simple_accordion
-      sha256: "3048960ec1bb0b147d8269c93faae7bff334de07f0a5d3342e0e5cad50e4a1a3"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/simple_accordion"
+      relative: true
+    source: path
     version: "0.1.4"
   sky_engine:
     dependency: transitive

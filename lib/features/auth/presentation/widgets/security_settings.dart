@@ -47,6 +47,7 @@ class SecuritySettings extends StatelessWidget {
 
         final userId = state.userConfigModel?.userId;
         return SimpleAccordion(
+          headerColor: mainTextColor,
           headerTextStyle: TextStyle(
             color: mainTextColor,
             fontSize: 16,
