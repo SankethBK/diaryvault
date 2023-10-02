@@ -41,7 +41,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   @override
   void initState() {
     super.initState();
-    _initSaveTimer();
   }
 
   void _initSaveTimer() {
@@ -62,7 +61,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   void didChangeDependencies() {
     if (!_isInitialized) {
       notesBloc = BlocProvider.of<NotesBloc>(context);
-
+      _initSaveTimer();
       // it is definitely a new note if we reached this page and the state is still NoteDummyState
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(const InitializeNote());
@@ -142,8 +141,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                     ? "Note saved successfully"
                     : "Note updated successfully");
                 _routeToHome();
-              } else if (state is NoteAutoSavedSuccesfully) {
-                showToast("Note Auto Saved");
               }
             },
             child: Column(
