@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -15,8 +16,8 @@ class ShareWithFriends extends StatelessWidget {
     );
     const appDescription =
         "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!";
-    
-    return GestureDetector(
+
+    return SettingsTile(
       onTap: (() async {
         try {
           const playstoreURL =
@@ -28,12 +29,9 @@ class ShareWithFriends extends StatelessWidget {
           );
         }
       }),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0),
-        child: Text(
-          "Share with Friends",
-          style: mainTextStyle,
-        ),
+      child: Text(
+        "Share with Friends",
+        style: mainTextStyle,
       ),
     );
   }
