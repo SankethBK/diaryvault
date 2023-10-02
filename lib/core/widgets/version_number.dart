@@ -19,18 +19,21 @@ class VersionNumber extends StatelessWidget {
       builder: (context, snapshot) {
         final version = snapshot.data?.version ?? '';
 
-        return Row(
-          children: [
-            Text(
-              "App version",
-              style: mainTextStyle,
-            ),
-            const Spacer(),
-            Text(
-              version,
-              style: mainTextStyle,
-            ),
-          ],
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6.0),
+          child: Row(
+            children: [
+              Text(
+                "App version",
+                style: mainTextStyle,
+              ),
+              const Spacer(),
+              Text(
+                version,
+                style: mainTextStyle,
+              ),
+            ],
+          ),
         );
       },
     );
