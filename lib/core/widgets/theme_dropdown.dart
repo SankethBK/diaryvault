@@ -30,7 +30,7 @@ class ThemeDropdown extends StatelessWidget {
         ),
         const Spacer(),
         DropdownButton<Themes>(
-          padding: const EdgeInsets.only(bottom: 5.0),
+          padding: const EdgeInsets.only(bottom: 0.0),
           iconEnabledColor: mainTextColor,
           borderRadius: const BorderRadius.all(
             Radius.circular(16),

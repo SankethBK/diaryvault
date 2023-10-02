@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 SecuritySettings(),
                 const SizedBox(height: 15),
                 const AutoSaveToggleButton(),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 const ThemeDropdown(),
                 const SizedBox(height: 15),
                 const SendFeedBack(),
