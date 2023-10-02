@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
+import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
@@ -45,7 +46,7 @@ class _SetupAccountState extends State<SetupAccount> {
         if (state.userConfigModel?.userId == GuestUserDetails.guestUserId) {
           return Material(
             color: Colors.transparent,
-            child: InkWell(
+            child: SettingsTile(
               onTap: () async {
                 await showCustomDialog(
                   context: context,
@@ -136,23 +137,17 @@ class _SetupAccountState extends State<SetupAccount> {
                   ),
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Setup your account",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: mainTextColor,
-                      ),
-                    ),
-                  ],
+              child: Text(
+                "Setup your account",
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: mainTextColor,
                 ),
               ),
             ),
           );
         }
+
         return const SizedBox.shrink();
       },
     );
