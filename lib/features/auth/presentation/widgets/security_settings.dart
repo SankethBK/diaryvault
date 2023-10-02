@@ -2,6 +2,7 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/utils.dart';
+import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
@@ -51,15 +52,12 @@ class SecuritySettings extends StatelessWidget {
             children: [
               Material(
                 color: Colors.transparent,
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: Row(
-                      children: [
-                        Text("Change password",
-                            style: TextStyle(
-                                fontSize: 16.0, color: mainTextColor)),
-                      ],
+                child: SettingsTile(
+                  child: Text(
+                    "Change password",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: mainTextColor,
                     ),
                   ),
                   onTap: () async {
@@ -97,19 +95,12 @@ class SecuritySettings extends StatelessWidget {
               const SizedBox(height: 10.0),
               Material(
                 color: Colors.transparent,
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Change email",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: mainTextColor,
-                          ),
-                        ),
-                      ],
+                child: SettingsTile(
+                  child: Text(
+                    "Change email",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: mainTextColor,
                     ),
                   ),
                   onTap: () async {
