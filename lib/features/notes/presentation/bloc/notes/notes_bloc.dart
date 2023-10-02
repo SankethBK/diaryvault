@@ -67,20 +67,18 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
     on<UpdateNote>((event, emit) {
       // we don't want to update when something is getting saved or deleted
+      // so we need to process the body afterwards to get current list of assets, and suitably delete removed ones
 
-      if (state is NoteInitialState || state is NoteUpdatedState) {
-        // so we need to process the body afterwards to get current list of assets, and suitably delete removed ones
-        emit(NoteUpdatedState(
-          newNote: state.newNote!,
-          id: state.id,
-          title: event.title ?? state.title!,
-          controller: state.controller!,
-          createdAt: event.createdAt ?? state.createdAt!,
-          allNoteAssets: event.noteAsset != null
-              ? [...state.allNoteAssets!, event.noteAsset!]
-              : state.allNoteAssets!,
-        ));
-      }
+      emit(NoteUpdatedState(
+        newNote: state.newNote!,
+        id: state.id,
+        title: event.title ?? state.title!,
+        controller: state.controller!,
+        createdAt: event.createdAt ?? state.createdAt!,
+        allNoteAssets: event.noteAsset != null
+            ? [...state.allNoteAssets!, event.noteAsset!]
+            : state.allNoteAssets!,
+      ));
     });
 
     on<SaveNote>((event, emit) async {
