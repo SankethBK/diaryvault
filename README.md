@@ -91,7 +91,7 @@ These are the major features as of now
 DiaryVault is designed to work fully offline (internet connection is required during signup)
 
 
-**Signup:** We only support username + password during signup. After a successful signup, data is stored in firebase and then in local SQFlite table named *Users*.  
+**Signup:** We only support username + password during signup. After a successful signup, the data is stored in firebase and then in local SQFlite table named *Users*.  
 
 **Login:** We support *username+password* and *fingerprint* login (if enabled). 
 1. When a *username+password* login is attempted first its validated with data stored with *Users* table, if success user is logged in. 
@@ -106,7 +106,7 @@ Other features like **forgot password**, **reset email**, **reset password** are
 
 Notes folder has the logic for CRUD operations for notes. Flutter quill is used as rich text editor
 
-This is the schema of notes entity
+This is the schema of the notes entity
 ```
 Notes {
   final String id;
