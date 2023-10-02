@@ -11,9 +11,10 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../widgets/auto_save_enable.dart';
 
 class SettingsPage extends StatefulWidget {
   static String get route => '/settings';
@@ -123,6 +124,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SyncSettings(),
                 const SizedBox(height: 25.0),
                 SecuritySettings(),
+                const SizedBox(height: 15),
+                const AutoSaveToggleButton(),
                 const SizedBox(height: 15),
                 const ThemeDropdown(),
                 const SizedBox(height: 15),

@@ -7,6 +7,7 @@ abstract class NotesState extends Equatable {
   final QuillController? controller;
   final DateTime? createdAt;
   final List<NoteAssetModel>? allNoteAssets;
+
   // tells if it is safe to access the properties of this state
   final bool safe;
 
@@ -185,6 +186,44 @@ class NotesSavingFailed extends NotesState {
         );
 }
 
+class NoteAutoSavedSuccesfully extends NotesState {
+  const NoteAutoSavedSuccesfully(
+      {required bool newNote,
+      required QuillController controller,
+      required DateTime createdAt,
+      required String title,
+      required List<NoteAssetModel> noteAssets,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+          allNoteAssets: noteAssets,
+          safe: true,
+        );
+}
+
+class NotesAutoSavingFailed extends NotesState {
+  const NotesAutoSavingFailed(
+      {required bool newNote,
+      required QuillController controller,
+      required DateTime createdAt,
+      required String title,
+      required List<NoteAssetModel> noteAssets,
+      required String id})
+      : super(
+          newNote: newNote,
+          controller: controller,
+          id: id,
+          title: title,
+          createdAt: createdAt,
+          allNoteAssets: noteAssets,
+          safe: true,
+        );
+}
+
 class NoteDeleteLoading extends NotesState {
   const NoteDeleteLoading({required String id}) : super(id: id, safe: false);
 }
@@ -196,4 +235,8 @@ class NoteDeletionSuccesful extends NotesState {
 
 class NoteDeletionFailed extends NotesState {
   const NoteDeletionFailed({required String id}) : super(id: id, safe: false);
+}
+
+class FetchAfterAutoSave extends NotesState {
+  const FetchAfterAutoSave({required String id}) : super(id: id, safe: false);
 }
