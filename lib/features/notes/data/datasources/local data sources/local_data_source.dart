@@ -72,7 +72,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       result = await database.query(Notes.TABLE_NAME,
           columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
           where:
-              "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
+              "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
           orderBy: "${Notes.CREATED_AT} DESC");
     } catch (e) {
       log.e("Local database query for fetching notes preview failed $e");
@@ -89,7 +89,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       result = await database.query(
         Notes.TABLE_NAME,
         where:
-            "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
+            "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
       );
     } catch (e) {
       log.e("Local database query for fetching notes failed $e");
@@ -289,7 +289,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     var result = await database.query(Notes.TABLE_NAME,
         columns: [Notes.ID],
         where:
-            "${Notes.DELETED} != 1 and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
+            "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
         orderBy: "${Notes.CREATED_AT} DESC");
 
     return result.map((noteMap) => noteMap["id"] as String).toList();
@@ -335,7 +335,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
         where:
-            "${Notes.DELETED} != 1 AND $searchQuery and ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}'",
+            "${Notes.DELETED} != 1 AND $searchQuery and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
         orderBy: "${Notes.CREATED_AT} DESC",
       );
     } catch (e) {
