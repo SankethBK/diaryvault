@@ -1,11 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
+import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -17,13 +19,17 @@ import 'auth_form_test.mocks.dart';
   AuthSessionBloc,
   AuthenticationRepository,
   SignUpWithEmailAndPassword,
-  SignInWithEmailAndPassword
+  SignInWithEmailAndPassword,
+  KeyValueDataSource,
+  FingerPrintAuthRepository
 ])
 void main() {
   late MockAuthenticationRepository authenticationRepository;
   late MockAuthSessionBloc authSessionBloc;
   late MockSignUpWithEmailAndPassword signUpWithEmailAndPassword;
   late MockSignInWithEmailAndPassword signInWithEmailAndPassword;
+  late MockKeyValueDataSource mockKeyValueDataSource;
+  late MockFingerPrintAuthRepository mockFingerPrintAuthRepository;
 
   late AuthFormBloc authFormBloc;
   const String testEmail = "test@email";
@@ -36,10 +42,16 @@ void main() {
     authSessionBloc = MockAuthSessionBloc();
     signUpWithEmailAndPassword = MockSignUpWithEmailAndPassword();
     signInWithEmailAndPassword = MockSignInWithEmailAndPassword();
+    mockKeyValueDataSource = MockKeyValueDataSource();
+    mockFingerPrintAuthRepository = MockFingerPrintAuthRepository();
+
     authFormBloc = AuthFormBloc(
       authSessionBloc: authSessionBloc,
       signInWithEmailAndPassword: signInWithEmailAndPassword,
       signUpWithEmailAndPassword: signUpWithEmailAndPassword,
+      authenticationRepository: authenticationRepository,
+      keyValueDataSource: mockKeyValueDataSource,
+      fingerPrintAuthRepository: mockFingerPrintAuthRepository,
     );
   });
 
@@ -169,7 +181,7 @@ void main() {
         act: (bloc) {
           bloc.add(const AuthFormInputsChangedEvent(
               email: testEmail, password: testPassword));
-          bloc.add(AuthFormSignInSubmitted());
+          bloc.add(const AuthFormSignInSubmitted());
         },
         expect: () => const <AuthFormState>[
           AuthFormInitial(email: testEmail, password: testPassword),
@@ -190,7 +202,7 @@ void main() {
         act: (bloc) {
           bloc.add(const AuthFormInputsChangedEvent(
               email: testEmail, password: testPassword));
-          bloc.add(AuthFormSignInSubmitted());
+          bloc.add(const AuthFormSignInSubmitted());
         },
         expect: () => <AuthFormState>[
           const AuthFormInitial(email: testEmail, password: testPassword),
@@ -200,7 +212,7 @@ void main() {
               email: testEmail,
               password: testPassword,
               errors: {
-                "email": [SignInFailure.noInternetConnection().message]
+                "general": [SignInFailure.noInternetConnection().message]
               })
         ],
       );
@@ -217,7 +229,7 @@ void main() {
         act: (bloc) {
           bloc.add(const AuthFormInputsChangedEvent(
               email: testEmail, password: testPassword));
-          bloc.add(AuthFormSignInSubmitted());
+          bloc.add(const AuthFormSignInSubmitted());
         },
         expect: () => <AuthFormState>[
           const AuthFormInitial(email: testEmail, password: testPassword),
