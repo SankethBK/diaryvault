@@ -60,6 +60,7 @@ dependencies:
   provider: ^6.0.5
   share_plus: ^7.1.0
   shared_preferences: ^2.0.15
+  simple_accordion: ^0.1.4
   sqflite: ^2.0.2
   stateless_dropbox_client:
     path: ./packages/stateless_dropbox_client/
@@ -89,9 +90,9 @@ dev_dependencies:
 dependency_overrides:
   ? analyzer
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-# The following section is specific to Flutter.
+    # For information on the generic Dart part of this file, see the
+    # following page: https://dart.dev/tools/pub/pubspec
+    # The following section is specific to Flutter.
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
