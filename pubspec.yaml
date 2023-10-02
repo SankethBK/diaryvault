@@ -63,6 +63,8 @@ dependencies:
   sqflite: ^2.0.2
   url_launcher: ^6.1.14
   uuid: ^3.0.6
+  share_plus: ^7.1.0
+  pdf: ^3.8.4
 
 dev_dependencies:
   bloc_test: ^9.0.3
