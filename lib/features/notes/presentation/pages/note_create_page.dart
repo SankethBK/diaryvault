@@ -12,6 +12,7 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
@@ -35,7 +36,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late final NotesBloc notesBloc;
   late Image neonImage;
   late double topPadding = 0;
-  late Timer _saveTimer;
+  Timer? _saveTimer;
 
   @override
   void initState() {
@@ -44,11 +45,17 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   }
 
   void _initSaveTimer() {
-    const int saveDelayInSeconds = 10; // delay in seconds
-    _saveTimer =
-        Timer.periodic(const Duration(seconds: saveDelayInSeconds), (timer) {
-      notesBloc.add(AutoSaveNote());
-    });
+    final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
+    final isAutoSaveEnabled =
+        userConfigCubit.state.userConfigModel?.isAutoSaveEnabled ?? false;
+
+    if (isAutoSaveEnabled) {
+      const int saveDelayInSeconds = 10; // delay in seconds
+      _saveTimer =
+          Timer.periodic(const Duration(seconds: saveDelayInSeconds), (timer) {
+        notesBloc.add(AutoSaveNote());
+      });
+    }
   }
 
   @override
@@ -191,14 +198,14 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   }
 
   void _routeToHome() {
-    _saveTimer.cancel();
+    _saveTimer?.cancel();
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
   }
 
   @override
   void dispose() {
-    _saveTimer.cancel();
+    _saveTimer?.cancel();
     super.dispose();
   }
 }
