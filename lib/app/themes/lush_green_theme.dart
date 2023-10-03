@@ -14,10 +14,19 @@ class LushGreen {
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green).copyWith(
         secondary: Colors.lightGreen,
       ),
+      timePickerTheme:
+          const TimePickerThemeData(backgroundColor: Color(0xFF466A5D)),
+      datePickerTheme: const DatePickerThemeData(
+        backgroundColor: Color(0xFF59746A),
+        weekdayStyle: TextStyle(color: Colors.white),
+        dayForegroundColor: MaterialStatePropertyAll(Colors.white),
+        todayForegroundColor: MaterialStatePropertyAll(Colors.white),
+        yearForegroundColor: MaterialStatePropertyAll(Colors.white),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: Color.fromARGB(255, 57, 221, 48),
-          backgroundColor: Color.fromARGB(255, 35, 151, 44),
+          foregroundColor: const Color.fromARGB(255, 57, 221, 48),
+          backgroundColor: const Color.fromARGB(255, 35, 151, 44),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(16),
