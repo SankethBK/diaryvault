@@ -21,8 +21,6 @@ class NotePreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late bool isSelected;
-
     final notePreviewBorderColor = Theme.of(context)
         .extension<HomePageThemeExtensions>()!
         .notePreviewBorderColor;
@@ -44,7 +42,8 @@ class NotePreviewCard extends StatelessWidget {
       builder: (context, state) {
         final selectableListCubit =
             BlocProvider.of<SelectableListCubit>(context);
-        isSelected = selectableListCubit.state.selectedItems.contains(note.id);
+        final isSelected =
+            selectableListCubit.state.selectedItems.contains(note.id);
 
         return GestureDetector(
           onLongPress: () {
