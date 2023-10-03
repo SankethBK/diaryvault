@@ -195,14 +195,19 @@ class Action extends StatelessWidget {
 // Title will be
 // TextField for search
 // SizedBox.shrink for rest
-class Title extends StatelessWidget {
+class Title extends StatefulWidget {
   final bool isSearchEnabled;
 
+  const Title({Key? key, required this.isSearchEnabled}) : super(key: key);
+
+  @override
+  State createState() => _TitleState();
+}
+
+class _TitleState extends State<Title> {
   String? searchText;
   DateTime? startDate;
   DateTime? endDate;
-
-  Title({Key? key, required this.isSearchEnabled}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +251,7 @@ class Title extends StatelessWidget {
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
-      child: isSearchEnabled
+      child: widget.isSearchEnabled
           ? TextField(
               autofocus: true,
               cursorColor: Colors.white,
@@ -374,10 +379,17 @@ class Title extends StatelessWidget {
   }
 }
 
-class _DeleteButton extends StatelessWidget {
+class _DeleteButton extends StatefulWidget {
   final int deleteCount;
+
+  const _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
+
+  @override
+  State<_DeleteButton> createState() => _DeleteButtonState();
+}
+
+class _DeleteButtonState extends State<_DeleteButton> {
   late SelectableListCubit selectableListCubit;
-  _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

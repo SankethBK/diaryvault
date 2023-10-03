@@ -7,11 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class NotePreviewCard extends StatelessWidget {
-  late bool isSelected;
+class NotePreviewCard extends StatefulWidget {
   final bool first;
   final bool last;
-  NotePreviewCard({
+  const NotePreviewCard({
     Key? key,
     required this.note,
     required this.first,
@@ -19,6 +18,13 @@ class NotePreviewCard extends StatelessWidget {
   }) : super(key: key);
 
   final NotePreview note;
+
+  @override
+  State createState() => _NotePreviewCardState();
+}
+
+class _NotePreviewCardState extends State<NotePreviewCard> {
+  late bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -43,23 +49,24 @@ class NotePreviewCard extends StatelessWidget {
       builder: (context, state) {
         final selectableListCubit =
             BlocProvider.of<SelectableListCubit>(context);
-        isSelected = selectableListCubit.state.selectedItems.contains(note.id);
+        isSelected =
+            selectableListCubit.state.selectedItems.contains(widget.note.id);
 
         return GestureDetector(
           onLongPress: () {
             if (selectableListCubit.state is SelectableListDisabled) {
-              selectableListCubit.enableSelectableList(note.id);
+              selectableListCubit.enableSelectableList(widget.note.id);
             }
           },
           onTap: () {
             if (selectableListCubit.state is SelectableListEnabled) {
               isSelected
-                  ? selectableListCubit.removeItemFromSelection(note.id)
-                  : selectableListCubit.addItemToSelection(note.id);
+                  ? selectableListCubit.removeItemFromSelection(widget.note.id)
+                  : selectableListCubit.addItemToSelection(widget.note.id);
             } else {
               Navigator.of(context).pushNamed(
                 NotesReadOnlyPage.routeThroughHome,
-                arguments: note.id,
+                arguments: widget.note.id,
               );
             }
           },
@@ -68,7 +75,7 @@ class NotePreviewCard extends StatelessWidget {
             padding:
                 const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
             decoration: BoxDecoration(
-              border: last
+              border: widget.last
                   ? Border(
                       bottom:
                           BorderSide(width: 1.3, color: notePreviewBorderColor),
@@ -99,12 +106,12 @@ class NotePreviewCard extends StatelessWidget {
                   SelectBox(
                       isSelected: isSelected,
                       selectableListCubit: selectableListCubit,
-                      note: note),
+                      note: widget.note),
                 TitleAndDescription(
-                    note: note,
+                    note: widget.note,
                     selectModeEnabled:
                         (selectableListCubit.state is SelectableListEnabled)),
-                DisplayDate(note: note),
+                DisplayDate(note: widget.note),
               ],
             ),
           ),
