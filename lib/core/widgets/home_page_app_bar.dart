@@ -195,19 +195,10 @@ class Action extends StatelessWidget {
 // Title will be
 // TextField for search
 // SizedBox.shrink for rest
-class Title extends StatefulWidget {
+class Title extends StatelessWidget {
   final bool isSearchEnabled;
 
   const Title({Key? key, required this.isSearchEnabled}) : super(key: key);
-
-  @override
-  State createState() => _TitleState();
-}
-
-class _TitleState extends State<Title> {
-  String? searchText;
-  DateTime? startDate;
-  DateTime? endDate;
 
   @override
   Widget build(BuildContext context) {
@@ -216,6 +207,10 @@ class _TitleState extends State<Title> {
     final searchBarFillColor = Theme.of(context)
         .extension<AppbarThemeExtensions>()!
         .searchBarFillColor;
+
+    String? searchText;
+    DateTime? startDate;
+    DateTime? endDate;
 
     void assignStartDate(DateTime date) {
       startDate = date;
@@ -251,7 +246,7 @@ class _TitleState extends State<Title> {
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
-      child: widget.isSearchEnabled
+      child: isSearchEnabled
           ? TextField(
               autofocus: true,
               cursorColor: Colors.white,
@@ -379,21 +374,15 @@ class _TitleState extends State<Title> {
   }
 }
 
-class _DeleteButton extends StatefulWidget {
+class _DeleteButton extends StatelessWidget {
   final int deleteCount;
 
   const _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
 
   @override
-  State<_DeleteButton> createState() => _DeleteButtonState();
-}
-
-class _DeleteButtonState extends State<_DeleteButton> {
-  late SelectableListCubit selectableListCubit;
-
-  @override
   Widget build(BuildContext context) {
-    selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+    final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
         NotesBloc notesBloc = BlocProvider.of<NotesBloc>(context);

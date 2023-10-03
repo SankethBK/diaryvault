@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class NotePreviewCard extends StatefulWidget {
+class NotePreviewCard extends StatelessWidget {
   final bool first;
   final bool last;
   const NotePreviewCard({
@@ -20,14 +20,9 @@ class NotePreviewCard extends StatefulWidget {
   final NotePreview note;
 
   @override
-  State createState() => _NotePreviewCardState();
-}
-
-class _NotePreviewCardState extends State<NotePreviewCard> {
-  late bool isSelected;
-
-  @override
   Widget build(BuildContext context) {
+    late bool isSelected;
+
     final notePreviewBorderColor = Theme.of(context)
         .extension<HomePageThemeExtensions>()!
         .notePreviewBorderColor;
@@ -49,24 +44,23 @@ class _NotePreviewCardState extends State<NotePreviewCard> {
       builder: (context, state) {
         final selectableListCubit =
             BlocProvider.of<SelectableListCubit>(context);
-        isSelected =
-            selectableListCubit.state.selectedItems.contains(widget.note.id);
+        isSelected = selectableListCubit.state.selectedItems.contains(note.id);
 
         return GestureDetector(
           onLongPress: () {
             if (selectableListCubit.state is SelectableListDisabled) {
-              selectableListCubit.enableSelectableList(widget.note.id);
+              selectableListCubit.enableSelectableList(note.id);
             }
           },
           onTap: () {
             if (selectableListCubit.state is SelectableListEnabled) {
               isSelected
-                  ? selectableListCubit.removeItemFromSelection(widget.note.id)
-                  : selectableListCubit.addItemToSelection(widget.note.id);
+                  ? selectableListCubit.removeItemFromSelection(note.id)
+                  : selectableListCubit.addItemToSelection(note.id);
             } else {
               Navigator.of(context).pushNamed(
                 NotesReadOnlyPage.routeThroughHome,
-                arguments: widget.note.id,
+                arguments: note.id,
               );
             }
           },
@@ -75,7 +69,7 @@ class _NotePreviewCardState extends State<NotePreviewCard> {
             padding:
                 const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
             decoration: BoxDecoration(
-              border: widget.last
+              border: last
                   ? Border(
                       bottom:
                           BorderSide(width: 1.3, color: notePreviewBorderColor),
@@ -106,12 +100,12 @@ class _NotePreviewCardState extends State<NotePreviewCard> {
                   SelectBox(
                       isSelected: isSelected,
                       selectableListCubit: selectableListCubit,
-                      note: widget.note),
+                      note: note),
                 TitleAndDescription(
-                    note: widget.note,
+                    note: note,
                     selectModeEnabled:
                         (selectableListCubit.state is SelectableListEnabled)),
-                DisplayDate(note: widget.note),
+                DisplayDate(note: note),
               ],
             ),
           ),
