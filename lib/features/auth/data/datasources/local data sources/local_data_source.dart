@@ -4,7 +4,6 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:dairy_app/core/databases/db_schemas.dart';
 
