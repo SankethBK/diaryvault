@@ -1,4 +1,3 @@
-
 ## What type of PR is this? (check all applicable)
 
 - [ ] Refactor
@@ -10,6 +9,7 @@
 ## Description
 
 ## Featured Covered in this PR
+
 - [ ] Task 1
 - [ ] Task 2
 
@@ -27,12 +27,11 @@ automatically close the issue.
 - Related Issue #
 - Closes #
 
-##Screenshots, Recordings 
+## Screenshots, Recordings
 
-_Please replace this line with instructions on how to test your changes, or any screenshots or recording you can attach here._
+*Please replace this line with instructions on how to test your changes, or any screenshots or recording you can attach here.*
 
 ## Tested Feature??
 
 - [ ] In Real Device.
 - [ ] In Emulator
-
