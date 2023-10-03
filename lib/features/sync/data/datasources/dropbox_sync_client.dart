@@ -5,7 +5,6 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:stateless_dropbox_client/stateless_dropbox_client.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
