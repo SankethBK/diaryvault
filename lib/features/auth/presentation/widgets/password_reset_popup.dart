@@ -40,14 +40,14 @@ Future<dynamic> passwordResetPopup(
                   color: mainTextColor)),
           const SizedBox(height: 25),
           AuthPasswordInput(
-            getPasswordErrors: () {},
+            getPasswordErrors: () => null,
             onPasswordChanged: assignNewPassword,
             autoFocus: true,
             hintText: "New password",
           ),
           const SizedBox(height: 15),
           AuthPasswordInput(
-            getPasswordErrors: () {},
+            getPasswordErrors: () => null,
             onPasswordChanged: assignConfirmNewPassword,
             hintText: "Confirm new password",
           ),

@@ -34,7 +34,7 @@ Future<dynamic> passwordLoginPopup(
               )),
           const SizedBox(height: 25),
           AuthPasswordInput(
-            getPasswordErrors: () {},
+            getPasswordErrors: () => null,
             onPasswordChanged: assignPassword,
             autoFocus: true,
           ),

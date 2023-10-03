@@ -32,7 +32,7 @@ Future<void> forgotPasswordPopup(
           const SizedBox(height: 25),
           AuthEmailInput(
             autoFocus: true,
-            getEmailErrors: () {},
+            getEmailErrors: () => null,
             onEmailChanged: (String email) {
               forgotPasswordEmail = email;
             },
