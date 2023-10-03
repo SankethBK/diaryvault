@@ -32,7 +32,7 @@ Future<dynamic> emailChangePopup(
           const SizedBox(height: 25),
           AuthEmailInput(
             autoFocus: true,
-            getEmailErrors: () {},
+            getEmailErrors: () => null,
             onEmailChanged: (String email) {
               changedEmail = email;
             },

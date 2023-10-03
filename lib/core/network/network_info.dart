@@ -14,6 +14,5 @@ class NetworkInfo implements INetworkInfo {
   @override
   Future<bool> get isConnected async => await connectionChecker.hasConnection;
 
-  @override
   List<Object?> get props => [];
 }

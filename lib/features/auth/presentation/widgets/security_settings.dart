@@ -88,7 +88,7 @@ class SecuritySettings extends StatelessWidget {
                                 context: context,
                                 submitPassword: (password) =>
                                     authenticationRepository.verifyPassword(
-                                        userId!, password),
+                                        userId, password),
                               );
 
                               // old password will be retrieved from previous dialog
