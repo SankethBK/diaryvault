@@ -12,8 +12,15 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
+import 'package:flutter_tts/flutter_tts.dart';
 import '../widgets/notes_close_button.dart';
+
+FlutterTts flutterTts = FlutterTts();
+Future<void> _speak(String text) async {
+  await flutterTts.setLanguage("en-US"); // Set the language if needed
+  await flutterTts.setPitch(1.0); // Set pitch (1.0 is the default)
+  await flutterTts.speak(text);
+}
 
 class NotesReadOnlyPage extends StatefulWidget {
   // display open container animation
@@ -110,7 +117,13 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
           automaticallyImplyLeading: false,
           actions: const [
             NoteSaveButton(),
-            ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage)
+            ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage),
+            IconButton(
+              icon: Icon(Icons.play_arrow), // Play button icon
+              onPressed: () {
+                _speak(notesBloc.state.title! + ". " + state.controller!.document.toPlainText());
+              },
+            ),
           ],
           leading: NotesCloseButton(onNotesClosed: _routeToHome),
         ),
