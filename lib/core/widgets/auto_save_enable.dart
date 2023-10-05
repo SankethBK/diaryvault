@@ -35,6 +35,10 @@ class AutoSaveToggleButton extends StatelessWidget {
             "Enable Auto Save",
             style: TextStyle(color: mainTextColor),
           ),
+          subtitle: Text(
+            "Automatically saves your notes after every 10 seconds",
+            style: TextStyle(color: mainTextColor),
+          ),
           value: isAutoSaveEnabled ?? false,
           onChanged: (value) async {
             try {
