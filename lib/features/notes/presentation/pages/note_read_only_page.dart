@@ -121,7 +121,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
             IconButton(
               icon: Icon(Icons.play_arrow), // Play button icon
               onPressed: () {
-                _speak(notesBloc.state.title! + ". " + state.controller!.document.toPlainText());
+                _speak(notesBloc.state.title! + ". " + notesBloc.state.controller!.document.toPlainText());
               },
             ),
           ],
