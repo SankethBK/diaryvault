@@ -60,8 +60,35 @@ class DBProvider {
               ${NoteDependencies.ASSET_PATH} TEXT
             )
             """);
+          //as soon as the tables are created, insert a welcome note
+          await db.execute("""
+            INSERT INTO ${Notes.TABLE_NAME} (
+              ${Notes.ID},
+              ${Notes.CREATED_AT},
+              ${Notes.TITLE},
+              ${Notes.BODY},
+              ${Notes.HASH},
+              ${Notes.LAST_MODIFIED},
+              ${Notes.PLAIN_TEXT},
+              ${Notes.DELETED},
+              ${Notes.AUTHOR_ID}
+            ) VALUES (
+              "",
+              "",
+              "Welcome to Dairy App",
+              "This is a welcome note. You can delete this note and start writing your own notes.",
+              "",
+              "",
+              "This is a welcome note. You can delete this note and start writing your own notes.",
+              0,
+              "guest_user_id"
+            )
+            """);
 
           log.i("All create queries executed successfully");
+          log.i("Welcome Note inserted into table: ${Notes.TABLE_NAME}");
+        //   print note
+          await db.query(Notes.TABLE_NAME).then((value) => log.i(value));
         } catch (e) {
           log.e(e);
           rethrow;
