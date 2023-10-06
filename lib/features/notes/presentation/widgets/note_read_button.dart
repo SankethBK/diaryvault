@@ -21,7 +21,6 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
   @override
   void initState() {
     super.initState();
-    // TTS event handlers
     flutterTts.setCompletionHandler(() {
       setState(() {
         isPlaying = false;

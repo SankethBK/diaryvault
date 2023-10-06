@@ -13,7 +13,6 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
 import '../widgets/notes_close_button.dart';
 
@@ -38,12 +37,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   late final NotesBloc notesBloc;
   late Image neonImage;
   late double topPadding;
-  // note reading
-  bool isPlaying = false;
-  bool isPaused = false;
-  late FlutterTts flutterTts;
-
-
 
   @override
   void didChangeDependencies() {
@@ -232,11 +225,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
     );
   }
 
-  Future<void> _speak(String text) async {
-    await flutterTts.setLanguage("en-US"); // Set the language if needed
-    await flutterTts.setPitch(1.0); // Set pitch (1.0 is the default)
-    await flutterTts.speak(text);
-  }
   void _routeToHome() {
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
