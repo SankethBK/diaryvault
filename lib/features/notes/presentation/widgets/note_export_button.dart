@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/features/notes/core/converters/delta_to_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,8 @@ class NoteShareButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final popupTextColor =
+        Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
     NotesBloc notesBloc = BlocProvider.of<NotesBloc>(context);
     return BlocBuilder<NotesBloc, NotesState>(
       bloc: notesBloc,
@@ -58,22 +61,27 @@ void _showBottomSheet(BuildContext context, NotesState state) {
   showModalBottomSheet<void>(
     context: context,
     builder: (BuildContext context) {
+      final mainTextColor =
+          Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
       return Container(
         child: ListView(
           shrinkWrap: true,
           padding: const EdgeInsets.all(16.0),
           children: <Widget>[
             ListTile(
-              leading: const Icon(Icons.code),
-              title: const Text('Delta JSON'),
+              leading: Icon(Icons.code, color: mainTextColor),
+              title: Text('Delta JSON', style: TextStyle(color: mainTextColor)),
               onTap: () async {
                 Share.share('${state.controller!.document.toDelta().toJson()}');
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: const Icon(Icons.picture_as_pdf),
-              title: const Text('PDF'),
+              leading: Icon(Icons.picture_as_pdf, color: mainTextColor),
+              title: Text(
+                'PDF',
+                style: TextStyle(color: mainTextColor),
+              ),
               onTap: () async {
                 var pdf = pw.Document();
 
@@ -97,8 +105,8 @@ void _showBottomSheet(BuildContext context, NotesState state) {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.text_snippet),
-              title: const Text('Plain Text'),
+              leading: Icon(Icons.text_snippet, color: mainTextColor),
+              title: Text('Plain Text', style: TextStyle(color: mainTextColor)),
               onTap: () {
                 //Share to appropriate app
                 Share.share('${state.controller!.document.toPlainText()}');
