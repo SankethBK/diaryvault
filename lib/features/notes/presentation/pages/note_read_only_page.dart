@@ -5,6 +5,7 @@ import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/note_read_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
@@ -14,19 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-
 import '../widgets/notes_close_button.dart';
 
-bool isPlaying = false;
-FlutterTts flutterTts = FlutterTts();
-Future<void> _speak(String text) async {
-  await flutterTts.setLanguage("en-US"); // Set the language if needed
-  await flutterTts.setPitch(1.0); // Set pitch (1.0 is the default)
-  await flutterTts.speak(text);
-}
-Future<void> _pause() async {
-  await flutterTts.pause();
-}
 
 class NotesReadOnlyPage extends StatefulWidget {
   // display open container animation
@@ -48,11 +38,12 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   late final NotesBloc notesBloc;
   late Image neonImage;
   late double topPadding;
+  // note reading
+  bool isPlaying = false;
+  bool isPaused = false;
+  late FlutterTts flutterTts;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+
 
   @override
   void didChangeDependencies() {
@@ -121,23 +112,9 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
         resizeToAvoidBottomInset: false,
         appBar: GlassAppBar(
           automaticallyImplyLeading: false,
-          actions: const [
+          actions: const <Widget>[
             NoteSaveButton(),
-            IconButton(
-              icon: isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
-              onPressed: () {
-              if (isPlaying) {
-                _pause();
-              }     
-              else  
-              {
-                _speak(notesBloc.state.title! + ". " + notesBloc.state.controller!.document.toPlainText());
-              }
-              setState(() {
-                isPlaying = !isPlaying;
-                });
-              },
-            ),
+            NoteReadIconButton(),
             ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage),
           ],
           leading: NotesCloseButton(onNotesClosed: _routeToHome),
@@ -255,6 +232,11 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
     );
   }
 
+  Future<void> _speak(String text) async {
+    await flutterTts.setLanguage("en-US"); // Set the language if needed
+    await flutterTts.setPitch(1.0); // Set pitch (1.0 is the default)
+    await flutterTts.speak(text);
+  }
   void _routeToHome() {
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
