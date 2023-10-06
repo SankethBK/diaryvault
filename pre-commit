@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Max line length for Dart files.
+LINE_LENGTH=100
+
+echo
+echo "Running Dart Format, please wait…"
+echo
+
+if ! dart --disable-analytics format --fix --line-length $LINE_LENGTH "."; then
+  echo
+  echo "Fatal: Dart Format exited with an error. Please fix the issues and commit again."
+  echo
+  exit 1
+fi
+
+echo
+echo "Running Dart Analysis, please wait…"
+echo
+
+# Run Dart Analysis on all modules.
+if ! flutter --suppress-analytics analyze --no-pub "."; then
+  echo
+  echo "Dart Analysis found some issues. Please fix the issues and commit again."
+  echo
+  exit 1
+fi
+
+echo
+echo "Dart Analysis found no issues, congratulations! Continuing with commit…"
+echo
