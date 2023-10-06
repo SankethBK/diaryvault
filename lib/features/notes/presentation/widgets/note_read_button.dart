@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-import 'package:logger/logger.dart';
-
-
-Logger _logger = Logger();
 
 class NoteReadIconButton extends StatefulWidget {
   const NoteReadIconButton({Key? key}) : super(key: key);
@@ -34,7 +30,6 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
 
     flutterTts.setPauseHandler(() {
       setState(() {
-        _logger.d("Paused $isPlaying");
         isPlaying = false;
       });
     });
@@ -49,18 +44,21 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
   @override
   Widget build(BuildContext context) {
     final notesBloc = BlocProvider.of<NotesBloc>(context);
-    return IconButton(
-      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-      onPressed: () async {
-        if (isPlaying) {
-          await flutterTts.pause();
-        } else {
-          await _speak(notesBloc.state.title! +
-              ". " +
-              notesBloc.state.controller!.document.toPlainText());
-        }
-        setState(() => isPlaying = !isPlaying);
-      },
+    return Padding(
+      padding: const EdgeInsets.only(right: 13.0),
+      child: IconButton(
+        icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+        onPressed: () async {
+          if (isPlaying) {
+            await flutterTts.pause();
+          } else {
+            await _speak(notesBloc.state.title! +
+                ". " +
+                notesBloc.state.controller!.document.toPlainText());
+          }
+          setState(() => isPlaying = !isPlaying);
+        },
+      ),
     );
   }
 
