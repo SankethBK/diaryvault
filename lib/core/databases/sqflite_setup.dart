@@ -60,30 +60,23 @@ class DBProvider {
               ${NoteDependencies.ASSET_PATH} TEXT
             )
             """);
+          log.i("Inserting welcome note");
           //as soon as the tables are created, insert a welcome note
-          await db.execute("""
-            INSERT INTO ${Notes.TABLE_NAME} (
-              ${Notes.ID},
-              ${Notes.CREATED_AT},
-              ${Notes.TITLE},
-              ${Notes.BODY},
-              ${Notes.HASH},
-              ${Notes.LAST_MODIFIED},
-              ${Notes.PLAIN_TEXT},
-              ${Notes.DELETED},
-              ${Notes.AUTHOR_ID}
-            ) VALUES (
-              "",
-              "",
-              "Welcome to Dairy App",
-              "This is a welcome note. You can delete this note and start writing your own notes.",
-              "",
-              "",
-              "This is a welcome note. You can delete this note and start writing your own notes.",
-              0,
-              "guest_user_id"
-            )
-            """);
+
+          String body = """[{\"insert\":\"Welcome to DiaryVault!\\n\\nKey Features:\\n\\n-Rich text editor with support for images and videos.\\n\\n-Your data is securely preserved on your Google Drive / Dropbox account, ensuring complete ownership and privacy\\r.\\n\\n-Sync data between multiple devices.\\r\\n\\n-Fingerprint login on supported devices.\\r\\n\\n-Multiple Themes.\\n\\n\\nHappy notemaking!\\nThe DiaryVault team.\\n\\n\"}]""";
+
+          Map<String,Object> notemap = {
+            Notes.ID: "f773a170-6447-11ee-9a76-c314b6be99a3",
+            Notes.CREATED_AT: DateTime.now().millisecondsSinceEpoch,
+            Notes.TITLE: "Welcome to DiaryVault",
+            Notes.BODY: body,
+            Notes.HASH: "welcome_note_hash",
+            Notes.LAST_MODIFIED: DateTime.now().millisecondsSinceEpoch,
+            Notes.PLAIN_TEXT: "Read me to get started!",
+            Notes.DELETED: 0,
+            Notes.AUTHOR_ID: "guest_user_id",
+          };
+          await db.insert(Notes.TABLE_NAME, notemap);
 
           log.i("All create queries executed successfully");
           log.i("Welcome Note inserted into table: ${Notes.TABLE_NAME}");
