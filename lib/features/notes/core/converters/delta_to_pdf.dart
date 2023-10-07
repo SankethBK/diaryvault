@@ -18,6 +18,7 @@ class DeltaToPDF {
   getPDFHeaderStyle(key, value) {
     pw.FontWeight fontWeight = pw.FontWeight.normal;
     double fontSize = 14;
+    
     if (value == 1) {
       fontWeight = pw.FontWeight.bold;
       fontSize = 24;
@@ -28,6 +29,7 @@ class DeltaToPDF {
       fontWeight = pw.FontWeight.bold;
       fontSize = 16;
     }
+
     return [fontWeight, fontSize];
   }
 
@@ -37,6 +39,7 @@ class DeltaToPDF {
       Map<String, dynamic>? attribute, String text, bool hasAttribute) {
     pw.FontWeight fontWeight = pw.FontWeight.normal;
     double fontSize = 14;
+    
     if (hasAttribute) {
       attribute!.forEach((key, value) {
         switch (key) {
@@ -55,6 +58,7 @@ class DeltaToPDF {
         }
       });
     }
+
     return [fontWeight, fontSize];
   }
 
@@ -66,6 +70,7 @@ class DeltaToPDF {
     pw.FontStyle fontStyle = pw.FontStyle.normal;
     pw.TextDecoration decoration = pw.TextDecoration.none;
     pw.BoxDecoration boxDecoration = const pw.BoxDecoration();
+    
     if (hasAttribute) {
       attribute!.forEach((key, value) {
         switch (key) {
@@ -90,6 +95,7 @@ class DeltaToPDF {
         }
       });
     }
+
     return pw.Text(
       text,
       style: pw.TextStyle(
@@ -109,6 +115,7 @@ class DeltaToPDF {
     List header = [null, null];
     List texts = [];
     List pdfColumnWidget = [];
+    
     for (var element in deltaList.reversed) {
       if (element.data == '\n') {
         if (header != [] && texts != []) {
@@ -136,6 +143,7 @@ class DeltaToPDF {
         [
           pw.Column(children: [...texts.reversed])
         ];
+
     return pw.Padding(
         padding: pw.EdgeInsets.all(16),
         child: pw.Column(

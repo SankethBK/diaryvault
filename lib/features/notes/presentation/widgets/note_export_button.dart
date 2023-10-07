@@ -28,9 +28,7 @@ class NoteShareButton extends StatelessWidget {
             padding: const EdgeInsets.only(right: 13.0),
             child: IconButton(
               icon: const Icon(Icons.share),
-              onPressed: () {
-                _showBottomSheet(context, state);
-              },
+              onPressed: () => _showBottomSheet(context, state),
             ),
           );
         }
@@ -63,6 +61,7 @@ void _showBottomSheet(BuildContext context, NotesState state) {
     builder: (BuildContext context) {
       final mainTextColor =
           Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
+
       return Container(
         child: ListView(
           shrinkWrap: true,
