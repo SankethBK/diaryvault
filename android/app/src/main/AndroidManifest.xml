@@ -2,6 +2,11 @@
     package="com.example.dairy_app">
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
     <application
         android:label="Diary Vault"
         android:name="${applicationName}"
