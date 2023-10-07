@@ -1,10 +1,6 @@
 part of 'theme_cubit.dart';
 
-enum Themes {
-  coralBubbles,
-  cosmic,
-  lushGreen
-}
+enum Themes { coralBubbles, cosmic, lushGreen }
 
 String themeKey = "current_theme";
 

@@ -1,0 +1,25 @@
+name: Deploy application
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  render_document:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - name: Set up flutter-action
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.0'
+          channel: 'stable'
+      - name: Get dependencies
+        run: flutter pub get
+      - name: Detect formatting errors
+        run: dart format --line-length 80 --set-exit-if-changed --output none .
+      - name: Detect syntax errors
+        run: flutter analyze --no-pub .

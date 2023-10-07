@@ -22,7 +22,8 @@ class Cosmic {
         todayForegroundColor: MaterialStatePropertyAll(Colors.white),
         yearForegroundColor: MaterialStatePropertyAll(Colors.white),
       ),
-      timePickerTheme: const TimePickerThemeData(backgroundColor: Color(0xFF49638B)),
+      timePickerTheme:
+          const TimePickerThemeData(backgroundColor: Color(0xFF49638B)),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: const Color.fromARGB(255, 48, 140, 221),
