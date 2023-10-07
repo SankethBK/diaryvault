@@ -8,10 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class NotePreviewCard extends StatelessWidget {
-  late bool isSelected;
   final bool first;
   final bool last;
-  NotePreviewCard({
+  const NotePreviewCard({
     Key? key,
     required this.note,
     required this.first,
@@ -43,7 +42,8 @@ class NotePreviewCard extends StatelessWidget {
       builder: (context, state) {
         final selectableListCubit =
             BlocProvider.of<SelectableListCubit>(context);
-        isSelected = selectableListCubit.state.selectedItems.contains(note.id);
+        final isSelected =
+            selectableListCubit.state.selectedItems.contains(note.id);
 
         return GestureDetector(
           onLongPress: () {

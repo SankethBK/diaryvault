@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
@@ -10,6 +12,7 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
@@ -18,7 +21,7 @@ class NoteCreatePage extends StatefulWidget {
   // display page growing animation
   static String get routeThroughHome => '/note-create-though-home';
 
-  // display fade transition animaiton
+  // display fade transition animation
   static String get routeThroughNoteReadOnly =>
       '/note-create-through-note-read-only';
 
@@ -33,18 +36,33 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late final NotesBloc notesBloc;
   late Image neonImage;
   late double topPadding = 0;
+  Timer? _saveTimer;
 
   @override
   void initState() {
     super.initState();
   }
 
+  void _initSaveTimer() {
+    final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
+    final isAutoSaveEnabled =
+        userConfigCubit.state.userConfigModel?.isAutoSaveEnabled ?? false;
+
+    if (isAutoSaveEnabled) {
+      const int saveDelayInSeconds = 10; // delay in seconds
+      _saveTimer =
+          Timer.periodic(const Duration(seconds: saveDelayInSeconds), (timer) {
+        notesBloc.add(AutoSaveNote());
+      });
+    }
+  }
+
   @override
   void didChangeDependencies() {
     if (!_isInitialized) {
       notesBloc = BlocProvider.of<NotesBloc>(context);
-
-      // it is definetely a new note if we reached this page and the state is still NoteDummyState
+      _initSaveTimer();
+      // it is definitely a new note if we reached this page and the state is still NoteDummyState
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(const InitializeNote());
       }
@@ -89,7 +107,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         resizeToAvoidBottomInset: false,
         appBar: GlassAppBar(
           automaticallyImplyLeading: false,
-          leading: NotesCloseButton(onNotesClosed: _routeToHome),
+          leading: NotesCloseButton(onNotesClosed: _closeAfterAutoSave),
           actions: const [
             NoteSaveButton(),
             DateTimePicker(),
@@ -108,16 +126,14 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
             ),
           ),
           padding: EdgeInsets.only(
-            top: topPadding,
-            left: 10.0,
-            right: 10.0,
+            top: topPadding, left: 10.0, right: 10.0,
             // bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: BlocListener<NotesBloc, NotesState>(
             bloc: notesBloc,
             listener: (context, state) {
               if (state is NoteFetchFailed) {
-                showToast("feiled to fetch note");
+                showToast("failed to fetch note");
               } else if (state is NotesSavingFailed) {
                 showToast("Failed to save note");
               } else if (state is NoteSavedSuccesfully) {
@@ -173,8 +189,20 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
     );
   }
 
+  void _closeAfterAutoSave() {
+    notesBloc.add(FetchNote());
+    _routeToHome();
+  }
+
   void _routeToHome() {
+    _saveTimer?.cancel();
     notesBloc.add(RefreshNote());
     Navigator.of(context).pop();
+  }
+
+  @override
+  void dispose() {
+    _saveTimer?.cancel();
+    super.dispose();
   }
 }

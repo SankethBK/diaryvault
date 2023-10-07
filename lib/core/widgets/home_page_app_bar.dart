@@ -198,11 +198,7 @@ class Action extends StatelessWidget {
 class Title extends StatelessWidget {
   final bool isSearchEnabled;
 
-  String? searchText;
-  DateTime? startDate;
-  DateTime? endDate;
-
-  Title({Key? key, required this.isSearchEnabled}) : super(key: key);
+  const Title({Key? key, required this.isSearchEnabled}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -211,6 +207,10 @@ class Title extends StatelessWidget {
     final searchBarFillColor = Theme.of(context)
         .extension<AppbarThemeExtensions>()!
         .searchBarFillColor;
+
+    String? searchText;
+    DateTime? startDate;
+    DateTime? endDate;
 
     void assignStartDate(DateTime date) {
       startDate = date;
@@ -376,12 +376,13 @@ class Title extends StatelessWidget {
 
 class _DeleteButton extends StatelessWidget {
   final int deleteCount;
-  late SelectableListCubit selectableListCubit;
-  _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
+
+  const _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+    final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
         NotesBloc notesBloc = BlocProvider.of<NotesBloc>(context);

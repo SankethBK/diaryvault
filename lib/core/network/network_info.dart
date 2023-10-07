@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 abstract class INetworkInfo {
@@ -15,6 +14,5 @@ class NetworkInfo implements INetworkInfo {
   @override
   Future<bool> get isConnected async => await connectionChecker.hasConnection;
 
-  @override
   List<Object?> get props => [];
 }

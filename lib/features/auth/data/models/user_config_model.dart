@@ -12,17 +12,18 @@ class UserConfigModel extends Equatable {
   final String? dropBoxUserInfo;
   final bool? isAutoSyncEnabled;
   final bool? isFingerPrintLoginEnabled;
+  final bool? isAutoSaveEnabled;
 
-  const UserConfigModel({
-    required this.userId,
-    this.preferredSyncOption,
-    this.lastGoogleDriveSync,
-    this.lastDropboxSync,
-    this.googleDriveUserInfo,
-    this.dropBoxUserInfo,
-    this.isAutoSyncEnabled,
-    this.isFingerPrintLoginEnabled,
-  });
+  const UserConfigModel(
+      {required this.userId,
+      this.preferredSyncOption,
+      this.lastGoogleDriveSync,
+      this.lastDropboxSync,
+      this.googleDriveUserInfo,
+      this.dropBoxUserInfo,
+      this.isAutoSyncEnabled,
+      this.isFingerPrintLoginEnabled,
+      this.isAutoSaveEnabled});
 
   @override
   List<Object?> get props => [
@@ -34,6 +35,7 @@ class UserConfigModel extends Equatable {
         dropBoxUserInfo,
         isAutoSyncEnabled,
         isFingerPrintLoginEnabled,
+        isAutoSaveEnabled
       ];
 
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
@@ -54,6 +56,7 @@ class UserConfigModel extends Equatable {
       isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
       isFingerPrintLoginEnabled:
           jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
+      isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
     ); // default theme is coral bubbles
   }
 
@@ -69,6 +72,7 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.dropBoxUserInfo: dropBoxUserInfo,
       UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
+      UserConfigConstants.isAutoSaveEnabled: isAutoSaveEnabled,
     };
   }
 }

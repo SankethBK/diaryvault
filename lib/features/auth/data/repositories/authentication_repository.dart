@@ -70,7 +70,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
         log.i("signup successful");
 
         return Right(user);
-      } on DatabaseInsertionException catch (e) {
+      } on DatabaseInsertionException {
         log.e("sign up failed becuase of database exception");
 
         return Left(SignUpFailure.unknownError());
@@ -98,7 +98,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
         try {
           await localDataSource.cacheUser(
               id: user.id, email: email, password: password);
-        } on DatabaseInsertionException catch (e) {
+        } on DatabaseInsertionException {
           //! silently fail for this exception, as it is not critical
 
           log.e("caching of user into local db failed");

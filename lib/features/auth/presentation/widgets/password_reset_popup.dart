@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
@@ -42,14 +40,14 @@ Future<dynamic> passwordResetPopup(
                   color: mainTextColor)),
           const SizedBox(height: 25),
           AuthPasswordInput(
-            getPasswordErrors: () {},
+            getPasswordErrors: () => null,
             onPasswordChanged: assignNewPassword,
             autoFocus: true,
             hintText: "New password",
           ),
           const SizedBox(height: 15),
           AuthPasswordInput(
-            getPasswordErrors: () {},
+            getPasswordErrors: () => null,
             onPasswordChanged: assignConfirmNewPassword,
             hintText: "Confirm new password",
           ),

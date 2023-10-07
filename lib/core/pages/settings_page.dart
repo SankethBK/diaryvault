@@ -3,13 +3,18 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
+import 'package:dairy_app/core/widgets/send_feedback.dart';
+import 'package:dairy_app/core/widgets/share_with_friends.dart';
 import 'package:dairy_app/core/widgets/theme_dropdown.dart';
+import 'package:dairy_app/core/widgets/version_number.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../widgets/auto_save_enable.dart';
 
 class SettingsPage extends StatefulWidget {
   static String get route => '/settings';
@@ -120,7 +125,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 25.0),
                 SecuritySettings(),
                 const SizedBox(height: 15),
+                const AutoSaveToggleButton(),
+                const SizedBox(height: 10),
                 const ThemeDropdown(),
+                const SizedBox(height: 15),
+                const SendFeedBack(),
+                const SizedBox(height: 15),
+                const ShareWithFriends(),
+                const SizedBox(height: 15),
+                const VersionNumber(),
               ],
             ),
           ),

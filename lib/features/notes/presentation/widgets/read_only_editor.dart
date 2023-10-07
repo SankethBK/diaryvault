@@ -2,10 +2,9 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
-import 'package:tuple/tuple.dart';
 
 class ReadOnlyEditor extends StatelessWidget {
-  QuillController? controller;
+  final QuillController? controller;
   final FocusNode _focusNode = FocusNode();
 
   ReadOnlyEditor({Key? key, required this.controller}) : super(key: key);

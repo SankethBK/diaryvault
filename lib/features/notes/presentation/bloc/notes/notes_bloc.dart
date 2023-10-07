@@ -6,7 +6,6 @@ import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:uuid/uuid.dart';
@@ -68,20 +67,18 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
     on<UpdateNote>((event, emit) {
       // we don't want to update when something is getting saved or deleted
+      // so we need to process the body afterwards to get current list of assets, and suitably delete removed ones
 
-      if (state is NoteInitialState || state is NoteUpdatedState) {
-        // so we need to process the body afterwards to get current list of assets, and suitably delete removed ones
-        emit(NoteUpdatedState(
-          newNote: state.newNote!,
-          id: state.id,
-          title: event.title ?? state.title!,
-          controller: state.controller!,
-          createdAt: event.createdAt ?? state.createdAt!,
-          allNoteAssets: event.noteAsset != null
-              ? [...state.allNoteAssets!, event.noteAsset!]
-              : state.allNoteAssets!,
-        ));
-      }
+      emit(NoteUpdatedState(
+        newNote: state.newNote!,
+        id: state.id,
+        title: event.title ?? state.title!,
+        controller: state.controller!,
+        createdAt: event.createdAt ?? state.createdAt!,
+        allNoteAssets: event.noteAsset != null
+            ? [...state.allNoteAssets!, event.noteAsset!]
+            : state.allNoteAssets!,
+      ));
     });
 
     on<SaveNote>((event, emit) async {
@@ -143,6 +140,62 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       });
     });
 
+    on<AutoSaveNote>((event, emit) async {
+      emit(NoteSaveLoading(
+        newNote: state.newNote!,
+        id: state.id,
+        title: state.title!,
+        controller: state.controller!,
+        createdAt: state.createdAt!,
+        noteAssets: state.allNoteAssets!,
+      ));
+
+      var _body = jsonEncode(state.controller!.document.toDelta().toJson());
+
+      var _plainText = state.controller!.document.toPlainText();
+
+      var noteMap = {
+        "id": state.id,
+        "created_at": state.createdAt!.millisecondsSinceEpoch,
+        "title": state.title!,
+        "body": _body,
+        "last_modified": DateTime.now().millisecondsSinceEpoch,
+        "plain_text": _plainText,
+        "asset_dependencies": state.allNoteAssets,
+        "deleted": 0,
+      };
+
+      Either<NotesFailure, void> result;
+
+      // For smooth UX, it displays CIrcularProgressindicator till then
+      await Future.delayed(const Duration(seconds: 1));
+
+      if (state.newNote!) {
+        result = await notesRepository.saveNote(noteMap);
+      } else {
+        result = await notesRepository.updateNote(noteMap);
+      }
+      result.fold((error) {
+        emit(NotesAutoSavingFailed(
+          newNote: false,
+          id: state.id,
+          title: state.title!,
+          controller: state.controller!,
+          createdAt: state.createdAt!,
+          noteAssets: state.allNoteAssets!,
+        ));
+      }, (_) {
+        emit(NoteAutoSavedSuccesfully(
+          newNote: false,
+          id: state.id,
+          title: state.title!,
+          controller: state.controller!,
+          createdAt: state.createdAt!,
+          noteAssets: state.allNoteAssets!,
+        ));
+      });
+    });
+
     on<DeleteNote>((event, emit) async {
       emit(const NoteDeleteLoading(id: ""));
       var result = await notesRepository.deleteNotes(event.noteList);
@@ -156,6 +209,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
     on<RefreshNote>((event, emit) {
       emit(const NoteDummyState(id: ""));
+    });
+
+    on<FetchNote>((event, emit) {
+      emit(const FetchAfterAutoSave(id: ""));
     });
   }
 

@@ -17,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.1.0+6
+version: 2.1.1+7
 
 environment:
   sdk: ">=2.16.1 <3.0.0"
@@ -32,8 +32,6 @@ dependencies:
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
-  stateless_dropbox_client:
-    path: ./packages/stateless_dropbox_client/
   equatable: ^2.0.3
   file_picker: ^5.3.4
   filesystem_picker: ^2.0.0-nullsafety.0
@@ -57,10 +55,16 @@ dependencies:
   intl: ^0.18.0
   local_auth: ^2.1.6
   logger: ^1.1.0
+  package_info_plus: ^4.1.0
   path_provider: ^2.0.9
   provider: ^6.0.5
+  share_plus: ^7.1.0
   shared_preferences: ^2.0.15
+  simple_accordion:
+    path: ./packages/simple_accordion
   sqflite: ^2.0.2
+  stateless_dropbox_client:
+    path: ./packages/stateless_dropbox_client/
   url_launcher: ^6.1.14
   uuid: ^3.0.6
   share_plus: ^7.1.0
@@ -87,11 +91,11 @@ dev_dependencies:
 #   android_12:
 #     image: 'assets/images/splash_screen.png'
 dependency_overrides:
-  analyzer:
+  ? analyzer
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-# The following section is specific to Flutter.
+    # For information on the generic Dart part of this file, see the
+    # following page: https://dart.dev/tools/pub/pubspec
+    # The following section is specific to Flutter.
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
