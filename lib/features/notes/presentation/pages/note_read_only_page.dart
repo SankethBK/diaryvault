@@ -16,7 +16,6 @@ import 'package:intl/intl.dart';
 
 import '../widgets/notes_close_button.dart';
 
-
 class NotesReadOnlyPage extends StatefulWidget {
   // display open container animation
   static String get routeThroughHome => '/note-read-page-through-home';
