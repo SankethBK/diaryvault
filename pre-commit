@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Max line length for Dart files.
-LINE_LENGTH=100
+LINE_LENGTH=80
 
 echo
 echo "Running Dart Format, please wait…"
