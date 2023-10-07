@@ -19,8 +19,10 @@ class DropboxSyncClient implements ISyncClient {
   static const REFRESH_TOKEN = "DROPBOX_REFRESH_TOKEN";
 
   final String dropboxClientId = 'diaryvault';
-  final String dropboxKey = 'rqndas0qvioj4f1';
-  final String dropboxSecret = dotenv.env['DROPBOX_SECET'] ?? "no_secret";
+
+  final String dropboxKey = 'x1kowr6oymu6s19';
+  final String dropboxSecret = dotenv.env['DROPBOX_SECRET'] ?? "no_secret";
+
   late FlutterSecureStorage secureStorage;
 
   String? accessToken;

@@ -73,72 +73,72 @@ class ImageEmbedBuilder extends EmbedBuilder {
       return GestureDetector(
           onLongPress: () {
             showDialog(
-                context: context,
-                builder: (context) {
-                  final resizeOption = _SimpleDialogItem(
-                    icon: Icons.settings_outlined,
-                    color: Colors.lightBlueAccent,
-                    text: 'Resize'.i18n,
-                    onPressed: () {
-                      Navigator.pop(context);
-                      showCupertinoModalPopup<void>(
-                          context: context,
-                          builder: (context) {
-                            final _screenSize = MediaQuery.of(context).size;
-                            return ImageResizer(
-                                onImageResize: (w, h) {
-                                  final res = getEmbedNode(
-                                      controller, controller.selection.start);
-                                  final attr = base.replaceStyleString(
-                                      getImageStyleString(controller), w, h);
-                                  controller
-                                    ..skipRequestKeyboard = true
-                                    ..formatText(
-                                        res.offset, 1, StyleAttribute(attr));
-                                },
-                                imageWidth: _imageSize?.width,
-                                imageHeight: _imageSize?.height,
-                                maxWidth: _screenSize.width,
-                                maxHeight: _screenSize.height);
-                          });
-                    },
-                  );
-                  final copyOption = _SimpleDialogItem(
-                    icon: Icons.copy_all_outlined,
-                    color: Colors.cyanAccent,
-                    text: 'Copy'.i18n,
-                    onPressed: () {
-                      final imageNode =
-                          getEmbedNode(controller, controller.selection.start)
-                              .value;
-                      final imageUrl = imageNode.value.data;
-                      controller.copiedImageUrl =
-                          ImageUrl(imageUrl, getImageStyleString(controller));
-                      Navigator.pop(context);
-                    },
-                  );
-                  final removeOption = _SimpleDialogItem(
-                    icon: Icons.delete_forever_outlined,
-                    color: Colors.red.shade200,
-                    text: 'Remove'.i18n,
-                    onPressed: () {
-                      final offset =
-                          getEmbedNode(controller, controller.selection.start)
-                              .offset;
-                      controller.replaceText(offset, 1, '',
-                          TextSelection.collapsed(offset: offset));
-                      Navigator.pop(context);
-                    },
-                  );
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
-                    child: SimpleDialog(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        children: [copyOption, removeOption]),
-                  );
-                });
+              context: context,
+              builder: (context) {
+                final resizeOption = _SimpleDialogItem(
+                  icon: Icons.settings_outlined,
+                  color: Colors.lightBlueAccent,
+                  text: 'Resize'.i18n,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    showCupertinoModalPopup<void>(
+                        context: context,
+                        builder: (context) {
+                          final _screenSize = MediaQuery.of(context).size;
+                          return ImageResizer(
+                              onImageResize: (w, h) {
+                                final res = getEmbedNode(
+                                    controller, controller.selection.start);
+                                final attr = base.replaceStyleString(
+                                    getImageStyleString(controller), w, h);
+                                controller
+                                  ..skipRequestKeyboard = true
+                                  ..formatText(
+                                      res.offset, 1, StyleAttribute(attr));
+                              },
+                              imageWidth: _imageSize?.width,
+                              imageHeight: _imageSize?.height,
+                              maxWidth: _screenSize.width,
+                              maxHeight: _screenSize.height);
+                        });
+                  },
+                );
+                final copyOption = _SimpleDialogItem(
+                  icon: Icons.copy_all_outlined,
+                  color: Colors.cyanAccent,
+                  text: 'Copy'.i18n,
+                  onPressed: () {
+                    final imageNode =
+                        getEmbedNode(controller, controller.selection.start)
+                            .value;
+                    final imageUrl = imageNode.value.data;
+                    controller.copiedImageUrl =
+                        ImageUrl(imageUrl, getImageStyleString(controller));
+                    Navigator.pop(context);
+                  },
+                );
+                final removeOption = _SimpleDialogItem(
+                  icon: Icons.delete_forever_outlined,
+                  color: Colors.red.shade200,
+                  text: 'Remove'.i18n,
+                  onPressed: () {
+                    final offset =
+                        getEmbedNode(controller, controller.selection.start)
+                            .offset;
+                    controller.replaceText(
+                        offset, 1, '', TextSelection.collapsed(offset: offset));
+                    Navigator.pop(context);
+                  },
+                );
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+                  child: SimpleDialog(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      children: [copyOption, removeOption]),
+                );
+              },
+            );
           },
           child: image);
     }
