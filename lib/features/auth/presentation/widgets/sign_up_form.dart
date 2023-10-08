@@ -112,7 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       SubmitButton(
                         isLoading: (state is AuthFormSubmissionLoading),
                         onSubmitted: _onSubmitted,
-                        buttonText: "Submit",
+                        buttonText: AppLocalizations.of(context).submit,
                       )
                     ],
                   ),
@@ -120,8 +120,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     children: [
                       const GuestSignUp(),
                       AuthChangePage(
-                        infoText: "Already have an account?",
-                        flipPageText: "Log in",
+                        infoText:
+                            AppLocalizations.of(context).alreadyHaveAnAccount,
+                        flipPageText: AppLocalizations.of(context).logIn,
                         flipCard: widget.flipCard,
                       ),
                     ],

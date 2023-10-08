@@ -13,6 +13,7 @@
 "enterCurrentPassword":"Enter current password",
 "resetPassword":"Reset password",
 "autoSync":"Auto sync",
+"alreadyHaveAnAccount":"Already have an account?",
 "syncNow":"Sync now",
 "availablePlatformsForSync":"Available platforms for sync",
 "automaticallySyncNotesWithCloud":"Automatically sync notes with cloud",
