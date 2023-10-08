@@ -3,6 +3,7 @@ import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extens
 import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ThemeDropdown extends StatelessWidget {
   const ThemeDropdown({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class ThemeDropdown extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "Choose Theme",
+          AppLocalizations.of(context).chooseTheme,
           style: TextStyle(
             fontSize: 16.0,
             color: mainTextColor,

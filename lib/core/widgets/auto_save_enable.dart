@@ -1,7 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import '../../features/auth/core/constants.dart';
 import '../../features/auth/presentation/bloc/user_config/user_config_cubit.dart';
@@ -32,7 +32,7 @@ class AutoSaveToggleButton extends StatelessWidget {
           activeColor: activeColor,
           contentPadding: const EdgeInsets.all(0.0),
           title: Text(
-            "Enable Auto Save",
+            AppLocalizations.of(context).enableAutoSave,
             style: TextStyle(color: mainTextColor),
           ),
           value: isAutoSaveEnabled ?? false,

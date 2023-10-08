@@ -4,6 +4,7 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> passwordLoginPopup(
     {required BuildContext context, required Function submitPassword}) {
@@ -26,7 +27,7 @@ Future<dynamic> passwordLoginPopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Enter current password",
+          Text(AppLocalizations.of(context).enterCurrentPassword,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -51,17 +52,17 @@ Future<dynamic> passwordLoginPopup(
                   setState(() {
                     isLoading = false;
                   });
-                  showToast("Incorrect password");
+                  showToast(AppLocalizations.of(context).incorrectPassword);
                 } else {
                   setState(() {
                     isLoading = false;
                   });
-                  showToast("Password verified");
+                  showToast(AppLocalizations.of(context).passwordVerified);
                   await Future.delayed(const Duration(milliseconds: 300));
                   Navigator.of(context).pop(password);
                 }
               },
-              buttonText: "Submit",
+              buttonText: AppLocalizations.of(context).submit,
             );
           })
         ],

@@ -4,7 +4,7 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'password_input_field.dart';
 
 Future<dynamic> passwordResetPopup(
@@ -33,7 +33,7 @@ Future<dynamic> passwordResetPopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Reset password",
+          Text(AppLocalizations.of(context).resetPassword,
               style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -43,13 +43,13 @@ Future<dynamic> passwordResetPopup(
             getPasswordErrors: () => null,
             onPasswordChanged: assignNewPassword,
             autoFocus: true,
-            hintText: "New password",
+            hintText: AppLocalizations.of(context).newPassword,
           ),
           const SizedBox(height: 15),
           AuthPasswordInput(
             getPasswordErrors: () => null,
             onPasswordChanged: assignConfirmNewPassword,
-            hintText: "Confirm new password",
+            hintText: AppLocalizations.of(context).confirmNewPassword,
           ),
           const SizedBox(height: 25),
           StatefulBuilder(builder: (context, setState) {
@@ -60,7 +60,7 @@ Future<dynamic> passwordResetPopup(
                     isLoading = true;
                   });
                   if (newPassword != confirmNewPassword) {
-                    showToast("Passwords don't match");
+                    showToast(AppLocalizations.of(context).passwordsDontMatch);
                     return;
                   }
 
@@ -75,11 +75,12 @@ Future<dynamic> passwordResetPopup(
                     setState(() {
                       isLoading = false;
                     });
-                    showToast("password reset successful");
+                    showToast(
+                        AppLocalizations.of(context).passwordResetSuccessful);
                     Navigator.pop(context);
                   });
                 },
-                buttonText: "Submit");
+                buttonText: AppLocalizations.of(context).submit);
           })
         ],
       ),

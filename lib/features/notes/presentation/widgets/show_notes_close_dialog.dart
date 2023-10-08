@@ -3,6 +3,7 @@ import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> showCloseDialog(BuildContext context) {
   final mainTextColor =
@@ -17,7 +18,7 @@ Future<dynamic> showCloseDialog(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            "You have unsaved changes",
+            AppLocalizations.of(context).youHaveUnsavedChanges,
             style: TextStyle(
               fontSize: 18.0,
               color: mainTextColor,

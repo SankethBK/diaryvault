@@ -38,6 +38,8 @@ dependencies:
   firebase_auth: ^4.7.3
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter  
   flutter_bloc: ^8.0.1
   flutter_dotenv: ^5.1.0
   flutter_quill:
@@ -99,6 +101,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/

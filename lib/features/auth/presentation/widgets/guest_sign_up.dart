@@ -4,6 +4,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bl
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GuestSignUp extends StatelessWidget {
   const GuestSignUp({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class GuestSignUp extends StatelessWidget {
                 authFormbloc.add(AuthFormGuestSignIn());
               },
               child: Text(
-                "Continue as guest",
+                AppLocalizations.of(context).continueAsGues,
                 style: TextStyle(
                   color: linkColor,
                   fontWeight: FontWeight.bold,

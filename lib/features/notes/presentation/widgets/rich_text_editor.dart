@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
@@ -197,7 +197,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                'Gallery',
+                AppLocalizations.of(context).gallery,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Gallery),
@@ -208,7 +208,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                'Link',
+                AppLocalizations.of(context).link,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Link),
@@ -240,7 +240,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                'Camera',
+                AppLocalizations.of(context).camera,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Camera),
@@ -251,7 +251,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                'Video',
+                AppLocalizations.of(context).video,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Video),
