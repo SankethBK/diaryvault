@@ -497,24 +497,23 @@ class MockAuthenticationRepository extends _i1.Mock
             )),
           ) as _i12.Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>);
   @override
-  _i12.Future<
-      _i10.Either<_i15.ForgotPasswordFailure, bool>> submitForgotPasswordEmail(
-          String? forgotPasswordEmail) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #submitForgotPasswordEmail,
-          [forgotPasswordEmail],
-        ),
-        returnValue:
-            _i12.Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>.value(
+  _i12.Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>
+      submitForgotPasswordEmail(String? forgotPasswordEmail) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #submitForgotPasswordEmail,
+              [forgotPasswordEmail],
+            ),
+            returnValue: _i12
+                .Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>.value(
                 _FakeEither_8<_i15.ForgotPasswordFailure, bool>(
-          this,
-          Invocation.method(
-            #submitForgotPasswordEmail,
-            [forgotPasswordEmail],
-          ),
-        )),
-      ) as _i12.Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>);
+              this,
+              Invocation.method(
+                #submitForgotPasswordEmail,
+                [forgotPasswordEmail],
+              ),
+            )),
+          ) as _i12.Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>);
   @override
   _i12.Future<_i10.Either<_i15.SignUpFailure, bool>> updateEmail({
     required String? oldEmail,
@@ -589,8 +588,8 @@ class MockSignUpWithEmailAndPassword extends _i1.Mock
           #call,
           [params],
         ),
-        returnValue: _i12.Future<
-                _i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>>.value(
+        returnValue: _i12
+            .Future<_i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>>.value(
             _FakeEither_8<_i15.SignUpFailure, _i16.LoggedInUser>(
           this,
           Invocation.method(
@@ -635,8 +634,8 @@ class MockSignInWithEmailAndPassword extends _i1.Mock
           #call,
           [params],
         ),
-        returnValue: _i12.Future<
-                _i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>.value(
+        returnValue: _i12
+            .Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>.value(
             _FakeEither_8<_i15.SignInFailure, _i16.LoggedInUser>(
           this,
           Invocation.method(
