@@ -49,7 +49,7 @@ class _AuthPageState extends State<AuthPage> {
       final currentAuthState = BlocProvider.of<AuthSessionBloc>(context).state;
 
       if (currentAuthState is Unauthenticated) {
-        widget.fingerPrintAuthRepository.startFingerPrintAuthIfNeeded();
+        widget.fingerPrintAuthRepository.startFingerPrintAuthIfNeeded(context);
       }
 
       _isInitialized = true;

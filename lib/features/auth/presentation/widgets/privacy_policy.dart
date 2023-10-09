@@ -3,6 +3,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({
@@ -38,7 +39,7 @@ class PrivacyPolicy extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "By continuing, you agree to our",
+                      AppLocalizations.of(context).byContinuingYouAgree,
                       style: TextStyle(
                         // fontSize: 16,
                         // fontWeight: FontWeight.bold,
@@ -47,7 +48,7 @@ class PrivacyPolicy extends StatelessWidget {
                     ),
                     InkWell(
                       child: Text(
-                        'Privacy Policy',
+                        AppLocalizations.of(context).privacyPolicy,
                         style: TextStyle(
                           // fontSize: 16,
                           fontWeight: FontWeight.bold,

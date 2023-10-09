@@ -10,6 +10,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.d
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SetupAccount extends StatefulWidget {
   const SetupAccount({Key? key}) : super(key: key);
@@ -58,7 +59,8 @@ class _SetupAccountState extends State<SetupAccount> {
                       }
 
                       if (state is AuthFormSubmissionSuccessful) {
-                        showToast("Account setup successful");
+                        showToast(AppLocalizations.of(context)
+                            .accountSetupSuccessful);
                         Navigator.pop(context);
                       }
                     },
@@ -95,7 +97,7 @@ class _SetupAccountState extends State<SetupAccount> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "Setup your Account",
+                              AppLocalizations.of(context).setupYourAccount,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -126,7 +128,8 @@ class _SetupAccountState extends State<SetupAccount> {
                                   isLoading:
                                       (state is AuthFormSubmissionLoading),
                                   onSubmitted: _onSubmitted,
-                                  buttonText: "Submit",
+                                  buttonText:
+                                      AppLocalizations.of(context).submit,
                                 )
                               ],
                             ),
@@ -138,7 +141,7 @@ class _SetupAccountState extends State<SetupAccount> {
                 );
               },
               child: Text(
-                "Setup your account",
+                AppLocalizations.of(context).setupYourAccount,
                 style: TextStyle(
                   fontSize: 16.0,
                   color: mainTextColor,
