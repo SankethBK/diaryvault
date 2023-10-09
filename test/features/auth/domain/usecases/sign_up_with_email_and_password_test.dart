@@ -41,7 +41,7 @@ void main() {
 
         // act
         final result = await usecase(
-            SignUpParams(email: testEmail, password: testPassword));
+            const SignUpParams(email: testEmail, password: testPassword));
 
         // assert
         verify(emailValidator(testEmail));
@@ -59,7 +59,7 @@ void main() {
 
         // act
         final result = await usecase(
-            SignUpParams(email: testEmail, password: testPassword));
+            const SignUpParams(email: testEmail, password: testPassword));
 
         // assert
         verify(passwordValidator(testPassword));
@@ -78,7 +78,7 @@ void main() {
 
         // act
         final result = await usecase(
-            SignUpParams(email: testEmail, password: testPassword));
+            const SignUpParams(email: testEmail, password: testPassword));
 
         // assert
         verify(passwordValidator(testPassword));

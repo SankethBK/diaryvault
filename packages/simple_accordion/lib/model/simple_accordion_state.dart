@@ -10,12 +10,13 @@ class AccordionData {
 class SimpleAccordionState extends InheritedWidget {
   const SimpleAccordionState(
       {Key? key,
-      required this.child,
+      required this.customChild,
       required this.selectedItems,
       this.onSelectedChanged,
       this.maxSelectedCount})
-      : super(key: key, child: child);
-  final Widget child;
+      : super(key: key, child: customChild);
+
+  final Widget customChild;
   final List<AccordionData> selectedItems;
   final int? maxSelectedCount;
   final Function(List<AccordionData>)? onSelectedChanged;

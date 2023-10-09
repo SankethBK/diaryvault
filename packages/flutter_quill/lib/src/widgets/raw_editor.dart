@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
-import 'dart:ui' as ui hide TextStyle;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -412,39 +411,39 @@ class RawEditorState extends EditorState
     );
   }
 
-  void _defaultOnTapOutside(PointerDownEvent event) {
-    /// The focus dropping behavior is only present on desktop platforms
-    /// and mobile browsers.
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-      case TargetPlatform.fuchsia:
-        // On mobile platforms, we don't unfocus on touch events unless they're
-        // in the web browser, but we do unfocus for all other kinds of events.
-        switch (event.kind) {
-          case ui.PointerDeviceKind.touch:
-            if (kIsWeb) {
-              widget.focusNode.unfocus();
-            }
-            break;
-          case ui.PointerDeviceKind.mouse:
-          case ui.PointerDeviceKind.stylus:
-          case ui.PointerDeviceKind.invertedStylus:
-          case ui.PointerDeviceKind.unknown:
-            widget.focusNode.unfocus();
-            break;
-          case ui.PointerDeviceKind.trackpad:
-            throw UnimplementedError(
-                'Unexpected pointer down event for trackpad');
-        }
-        break;
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-        widget.focusNode.unfocus();
-        break;
-    }
-  }
+  // void _defaultOnTapOutside(PointerDownEvent event) {
+  //   /// The focus dropping behavior is only present on desktop platforms
+  //   /// and mobile browsers.
+  //   switch (defaultTargetPlatform) {
+  //     case TargetPlatform.android:
+  //     case TargetPlatform.iOS:
+  //     case TargetPlatform.fuchsia:
+  //       // On mobile platforms, we don't unfocus on touch events unless they're
+  //       // in the web browser, but we do unfocus for all other kinds of events.
+  //       switch (event.kind) {
+  //         case ui.PointerDeviceKind.touch:
+  //           if (kIsWeb) {
+  //             widget.focusNode.unfocus();
+  //           }
+  //           break;
+  //         case ui.PointerDeviceKind.mouse:
+  //         case ui.PointerDeviceKind.stylus:
+  //         case ui.PointerDeviceKind.invertedStylus:
+  //         case ui.PointerDeviceKind.unknown:
+  //           widget.focusNode.unfocus();
+  //           break;
+  //         case ui.PointerDeviceKind.trackpad:
+  //           throw UnimplementedError(
+  //               'Unexpected pointer down event for trackpad');
+  //       }
+  //       break;
+  //     case TargetPlatform.linux:
+  //     case TargetPlatform.macOS:
+  //     case TargetPlatform.windows:
+  //       widget.focusNode.unfocus();
+  //       break;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

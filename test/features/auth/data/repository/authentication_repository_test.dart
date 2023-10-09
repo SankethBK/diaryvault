@@ -24,7 +24,7 @@ void main() {
   const String testEmail = "test@email.com";
   const String testPassword = "testpassword";
   const String testId = "77";
-  final LoggedInUserModel user =
+  const LoggedInUserModel user =
       LoggedInUserModel(email: testEmail, id: testId);
 
   setUp(() {
@@ -210,7 +210,7 @@ void main() {
               email: anyNamed("email"), password: anyNamed("password")),
         );
 
-        expect(result, Right(user));
+        expect(result, const Right(user));
       },
     );
 
@@ -331,7 +331,7 @@ void main() {
           password: anyNamed("password"),
         ));
 
-        expect(result, Right(user));
+        expect(result, const Right(user));
       },
     );
 

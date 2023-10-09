@@ -12,10 +12,11 @@ import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popu
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
-import 'package:simple_accordion/widgets/AccordionItem.dart';
-import 'package:simple_accordion/widgets/AccordionWidget.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:simple_accordion/widgets/accordion_header_item.dart';
+import 'package:simple_accordion/widgets/accordion_item.dart';
+import 'package:simple_accordion/widgets/accordion_widget.dart';
 
 // ignore: must_be_immutable
 class SecuritySettings extends StatelessWidget {
@@ -139,7 +140,7 @@ class SecuritySettings extends StatelessWidget {
                               );
 
                               // old password will be retrieved from previous dialog
-                              var emailChanged;
+                              dynamic emailChanged;
                               if (result != null) {
                                 emailChanged = await emailChangePopup(
                                   context,
