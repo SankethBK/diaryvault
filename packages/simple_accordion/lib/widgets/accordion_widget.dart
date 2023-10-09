@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simple_accordion/model/simple_accordion_state.dart';
-import 'package:simple_accordion/widgets/accordion_header_item.dart';
+import 'package:simple_accordion/model/SimpleAccordionState.dart';
+import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
 
 class SimpleAccordion extends StatefulWidget {
   const SimpleAccordion(
@@ -50,7 +50,7 @@ class _SimpleAccordionState extends State<SimpleAccordion> {
       selectedItems: widget.selectedItems ?? [],
       onSelectedChanged: widget.onSelectedChanged,
       maxSelectedCount: widget.maxSelectCount,
-      customChild: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Column(
           children: widget.children
               .map((e) => e

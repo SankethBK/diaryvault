@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,14 +6,14 @@ import 'package:flutter_quill/extensions.dart' as base;
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter_quill/translations.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:math_keyboard/'
-    'math_keyboard.dart';
+import 'package:math_keyboard/math_keyboard.dart';
 import 'package:universal_html/html.dart' as html;
 
 import '../shims/dart_ui_fake.dart'
     if (dart.library.html) '../shims/dart_ui_real.dart' as ui;
 import 'utils.dart';
 import 'widgets/image.dart';
+import 'widgets/image_resizer.dart';
 import 'widgets/video_app.dart';
 import 'widgets/youtube_video_app.dart';
 
@@ -74,35 +75,34 @@ class ImageEmbedBuilder extends EmbedBuilder {
             showDialog(
                 context: context,
                 builder: (context) {
-                  // final resizeOption = _SimpleDialogItem(
-                  //   icon: Icons.settings_outlined,
-                  //   color: Colors.lightBlueAccent,
-                  //   text: 'Resize'.i18n,
-                  //   onPressed: () {
-                  //     Navigator.pop(context);
-                  //     showCupertinoModalPopup<void>(
-                  //         context: context,
-                  //         builder: (context) {
-                  //           final _screenSize = MediaQuery.of(context).size;
-                  //           return ImageResizer(
-                  //               onImageResize: (w, h) {
-                  //                 final res = getEmbedNode(
-                  //                     controller,
-                  // controller.selection.start);
-                  //                 final attr = base.replaceStyleString(
-                  //                     getImageStyleString(controller), w, h);
-                  //                 controller
-                  //                   ..skipRequestKeyboard = true
-                  //                   ..formatText(
-                  //                       res.offset, 1, StyleAttribute(attr));
-                  //               },
-                  //               imageWidth: _imageSize?.width,
-                  //               imageHeight: _imageSize?.height,
-                  //               maxWidth: _screenSize.width,
-                  //               maxHeight: _screenSize.height);
-                  //         });
-                  //   },
-                  // );
+                  final resizeOption = _SimpleDialogItem(
+                    icon: Icons.settings_outlined,
+                    color: Colors.lightBlueAccent,
+                    text: 'Resize'.i18n,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      showCupertinoModalPopup<void>(
+                          context: context,
+                          builder: (context) {
+                            final _screenSize = MediaQuery.of(context).size;
+                            return ImageResizer(
+                                onImageResize: (w, h) {
+                                  final res = getEmbedNode(
+                                      controller, controller.selection.start);
+                                  final attr = base.replaceStyleString(
+                                      getImageStyleString(controller), w, h);
+                                  controller
+                                    ..skipRequestKeyboard = true
+                                    ..formatText(
+                                        res.offset, 1, StyleAttribute(attr));
+                                },
+                                imageWidth: _imageSize?.width,
+                                imageHeight: _imageSize?.height,
+                                maxWidth: _screenSize.width,
+                                maxHeight: _screenSize.height);
+                          });
+                    },
+                  );
                   final copyOption = _SimpleDialogItem(
                     icon: Icons.copy_all_outlined,
                     color: Colors.cyanAccent,
