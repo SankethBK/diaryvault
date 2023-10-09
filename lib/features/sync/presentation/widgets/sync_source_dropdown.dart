@@ -4,6 +4,7 @@ import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SyncSourceDropdown extends StatelessWidget {
   const SyncSourceDropdown({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class SyncSourceDropdown extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            "Choose the Sync Source",
+            AppLocalizations.of(context).chooseTheSyncSource,
             style: TextStyle(
               fontSize: 16.0,
               color: mainTextColor,

@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
 import 'package:simple_accordion/widgets/AccordionItem.dart';
 import 'package:simple_accordion/widgets/AccordionWidget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class SecuritySettings extends StatelessWidget {
@@ -67,7 +68,7 @@ class SecuritySettings extends StatelessWidget {
                           color: Colors.transparent,
                           child: SettingsTile(
                             child: Text(
-                              "Change password",
+                              AppLocalizations.of(context).changePassword,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 color: mainTextColor,
@@ -75,13 +76,14 @@ class SecuritySettings extends StatelessWidget {
                             ),
                             onTap: () async {
                               if (userId == null) {
-                                showToast("Unexpected error occured");
+                                showToast(AppLocalizations.of(context)
+                                    .unexpectedErrorOccured);
                                 return;
                               }
 
                               if (userId == GuestUserDetails.guestUserId) {
-                                showToast(
-                                    "Please setup your account to use this feature");
+                                showToast(AppLocalizations.of(context)
+                                    .pleaseSetupYourAccountToUseThisFeature);
                                 return;
                               }
                               String? result = await passwordLoginPopup(
@@ -111,7 +113,7 @@ class SecuritySettings extends StatelessWidget {
                           color: Colors.transparent,
                           child: SettingsTile(
                             child: Text(
-                              "Change email",
+                              AppLocalizations.of(context).changeEmail,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 color: mainTextColor,
@@ -119,12 +121,13 @@ class SecuritySettings extends StatelessWidget {
                             ),
                             onTap: () async {
                               if (userId == null) {
-                                showToast("Unexpected error occured");
+                                showToast(AppLocalizations.of(context)
+                                    .unexpectedErrorOccured);
                               }
 
                               if (userId == GuestUserDetails.guestUserId) {
-                                showToast(
-                                    "Please setup your account to use this feature");
+                                showToast(AppLocalizations.of(context)
+                                    .pleaseSetupYourAccountToUseThisFeature);
                               }
 
                               String? result = await passwordLoginPopup(
@@ -161,23 +164,25 @@ class SecuritySettings extends StatelessWidget {
                           activeColor: activeColor,
                           contentPadding: const EdgeInsets.all(0.0),
                           title: Text(
-                            "Enable fingerprint login",
+                            AppLocalizations.of(context).enableFingerPrintLogin,
                             style: TextStyle(color: mainTextColor),
                           ),
                           subtitle: Text(
-                            "Fingerprint auth should be enabled in device settings",
+                            AppLocalizations.of(context)
+                                .fingerPrintAthShouldBeEnabledInDeviceSettings,
                             style: TextStyle(color: mainTextColor),
                           ),
                           value: isFingerPrintLoginEnabledValue ?? false,
                           onChanged: (value) async {
                             if (userId == null) {
-                              showToast("Unexpected error occured");
+                              showToast(AppLocalizations.of(context)
+                                  .unexpectedErrorOccured);
                               return;
                             }
 
                             if (userId == GuestUserDetails.guestUserId) {
-                              showToast(
-                                  "Please setup your account to use this feature");
+                              showToast(AppLocalizations.of(context)
+                                  .pleaseSetupYourAccountToUseThisFeature);
                               return;
                             }
 

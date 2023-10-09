@@ -7,7 +7,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/guest_sign_up.dart'
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'auth_change.dart';
 import 'email_input_field.dart';
 
@@ -85,9 +85,9 @@ class _SignUpFormState extends State<SignUpForm> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text(
-                    "Sign up",
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context).signUp,
+                    style: const TextStyle(
                       fontSize: 25,
                       color: Colors.white,
                     ),
@@ -112,7 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       SubmitButton(
                         isLoading: (state is AuthFormSubmissionLoading),
                         onSubmitted: _onSubmitted,
-                        buttonText: "Submit",
+                        buttonText: AppLocalizations.of(context).submit,
                       )
                     ],
                   ),
@@ -120,8 +120,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     children: [
                       const GuestSignUp(),
                       AuthChangePage(
-                        infoText: "Already have an account?",
-                        flipPageText: "Log in",
+                        infoText:
+                            AppLocalizations.of(context).alreadyHaveAnAccount,
+                        flipPageText: AppLocalizations.of(context).logIn,
                         flipCard: widget.flipCard,
                       ),
                     ],
