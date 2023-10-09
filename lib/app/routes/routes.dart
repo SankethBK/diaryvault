@@ -34,10 +34,8 @@ class RouteGenerator {
     }
 
     return MaterialPageRoute(
-      builder: (context) => Container(
-        child: Center(
-          child: Text(AppLocalizations.of(context).pageNotFound),
-        ),
+      builder: (context) => Center(
+        child: Text(AppLocalizations.of(context).pageNotFound),
       ),
     );
   }

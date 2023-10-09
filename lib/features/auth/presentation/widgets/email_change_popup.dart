@@ -6,7 +6,6 @@ import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> emailChangePopup(
     BuildContext context, Function(String) submitEmailChange) {

@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GoogleDriveUserInfo extends StatefulWidget {
-  GoogleDriveUserInfo({
+  const GoogleDriveUserInfo({
     Key? key,
   }) : super(key: key);
 

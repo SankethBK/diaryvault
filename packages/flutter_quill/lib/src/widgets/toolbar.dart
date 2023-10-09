@@ -17,7 +17,6 @@ import 'toolbar/enum.dart';
 import 'toolbar/history_button.dart';
 import 'toolbar/indent_button.dart';
 import 'toolbar/link_style_button.dart';
-import 'toolbar/quill_font_family_button.dart';
 import 'toolbar/quill_font_size_button.dart';
 import 'toolbar/search_button.dart';
 import 'toolbar/select_alignment_button.dart';
@@ -196,18 +195,18 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
         };
 
     //default font family values
-    final fontFamilies = fontFamilyValues ??
-        {
-          'Sans Serif': 'sans-serif',
-          'Serif': 'serif',
-          'Monospace': 'monospace',
-          'Ibarra Real Nova': 'ibarra-real-nova',
-          'SquarePeg': 'square-peg',
-          'Nunito': 'nunito',
-          'Pacifico': 'pacifico',
-          'Roboto Mono': 'roboto-mono',
-          'Clear'.i18n: 'Clear'
-        };
+    // final fontFamilies = fontFamilyValues ??
+    //     {
+    //       'Sans Serif': 'sans-serif',
+    //       'Serif': 'serif',
+    //       'Monospace': 'monospace',
+    //       'Ibarra Real Nova': 'ibarra-real-nova',
+    //       'SquarePeg': 'square-peg',
+    //       'Nunito': 'nunito',
+    //       'Pacifico': 'pacifico',
+    //       'Roboto Mono': 'roboto-mono',
+    //       'Clear'.i18n: 'Clear'
+    //     };
 
     //default button tooltips
     final buttonTooltips = tooltips ??

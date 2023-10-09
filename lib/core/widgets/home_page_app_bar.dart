@@ -153,7 +153,7 @@ class Action extends StatelessWidget {
       Widget getSuitableWidget() {
         if (isSearchEnabled) {
           return Padding(
-            key: ValueKey("close icon"),
+            key: const ValueKey("close icon"),
             padding: const EdgeInsets.only(right: 13.0),
             child: IconButton(
               icon: const Icon(Icons.close),
@@ -175,7 +175,7 @@ class Action extends StatelessWidget {
           );
         } else {
           return Padding(
-            key: ValueKey("search icon"),
+            key: const ValueKey("search icon"),
             padding: const EdgeInsets.only(right: 13.0),
             child: IconButton(
               icon: const Icon(Icons.search),

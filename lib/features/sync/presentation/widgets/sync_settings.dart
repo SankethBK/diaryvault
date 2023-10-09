@@ -97,7 +97,7 @@ class SyncSettings extends StatelessWidget {
                   onTap: () {
                     showCustomDialog(
                       context: context,
-                      child: GoogleDriveUserInfo(),
+                      child: const GoogleDriveUserInfo(),
                     );
                   },
                   child: Stack(
@@ -124,7 +124,7 @@ class SyncSettings extends StatelessWidget {
                   onTap: () {
                     showCustomDialog(
                       context: context,
-                      child: DropboxUserInfo(),
+                      child: const DropboxUserInfo(),
                     );
                   },
                   child: Stack(

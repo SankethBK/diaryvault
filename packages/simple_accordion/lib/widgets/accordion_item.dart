@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:simple_accordion/model/SimpleAccordionState.dart';
+import 'package:simple_accordion/model/simple_accordion_state.dart';
 
-enum AccrodionItemType { Label, CheckBox }
+enum AccrodionItemType { label, checkBox }
 
+// ignore: must_be_immutable
 class AccordionItem extends StatefulWidget {
   AccordionItem(
       {Key? key,
@@ -16,7 +17,7 @@ class AccordionItem extends StatefulWidget {
       this.checkColor,
       this.itemColor,
       this.itemTextStyle,
-      this.accrodionItemType = AccrodionItemType.Label})
+      this.accrodionItemType = AccrodionItemType.label})
       : assert(title != null || child != null),
         super(key: key);
   final String? id;
@@ -67,10 +68,10 @@ class _AccordionItem extends State<AccordionItem> {
             widget.title!,
             style: widget.itemTextStyle ??
                 TextStyle(
-                    color: Theme.of(context).textTheme.headline1?.color,
+                    color: Theme.of(context).textTheme.displayLarge?.color,
                     fontSize: 13),
           ),
-          trailing: widget.accrodionItemType == AccrodionItemType.CheckBox
+          trailing: widget.accrodionItemType == AccrodionItemType.checkBox
               ? AnimatedCrossFade(
                   crossFadeState: checked
                       ? CrossFadeState.showFirst
@@ -89,7 +90,7 @@ class _AccordionItem extends State<AccordionItem> {
           visualDensity: VisualDensity.compact,
           onTap: widget.onTap ??
               () {
-                if (widget.accrodionItemType == AccrodionItemType.CheckBox) {
+                if (widget.accrodionItemType == AccrodionItemType.checkBox) {
                   SimpleAccordionState state =
                       SimpleAccordionState.of(context)!;
                   if (state.selectedItems.length >=

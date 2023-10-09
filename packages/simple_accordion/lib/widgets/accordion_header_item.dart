@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simple_accordion/model/SimpleAccordionState.dart';
-import 'package:simple_accordion/widgets/AccordionItem.dart';
+import 'package:simple_accordion/model/simple_accordion_state.dart';
+import 'package:simple_accordion/widgets/accordion_item.dart';
 
+// ignore: must_be_immutable
 class AccordionHeaderItem extends StatefulWidget {
   AccordionHeaderItem(
       {this.isOpen,
@@ -60,23 +61,21 @@ class _AccordionHeaderItem extends State<AccordionHeaderItem> {
           isOpen = !isOpen;
         });
       },
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            widget.child ??
-                Text(
-                  widget.title!,
-                  style: widget.headerTextStyle,
-                ),
-            Icon(
-              isOpen
-                  ? Icons.keyboard_arrow_up_outlined
-                  : Icons.keyboard_arrow_down_outlined,
-              color: widget.headerColor,
-            )
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          widget.child ??
+              Text(
+                widget.title!,
+                style: widget.headerTextStyle,
+              ),
+          Icon(
+            isOpen
+                ? Icons.keyboard_arrow_up_outlined
+                : Icons.keyboard_arrow_down_outlined,
+            color: widget.headerColor,
+          )
+        ],
       ),
     );
     return AnimatedCrossFade(
