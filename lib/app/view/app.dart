@@ -107,7 +107,7 @@ class _AppViewState extends State<AppView> {
           navigatorKey: _navigatorKey,
           debugShowCheckedModeBanner: false,
           title: "My Dairy",
-          supportedLocales: const [Locale('en'), Locale('hi')],
+          supportedLocales: const [Locale('en'), Locale('hi'), Locale('pa')],
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
