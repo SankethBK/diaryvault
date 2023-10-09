@@ -33,7 +33,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             title: "",
             createdAt: DateTime.now(),
             controller: _controller,
-            allNoteAssets: [],
+            allNoteAssets: const [],
           ),
         );
         return;

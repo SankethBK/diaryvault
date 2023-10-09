@@ -10,17 +10,14 @@ import 'core/dependency_injection/injection_container.dart' as di;
 
 Future<void> main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
-  return BlocOverrides.runZoned(
-    () async {
-      WidgetsFlutterBinding.ensureInitialized();
-      await dotenv.load();
+  Bloc.observer = AppBlocObserver();
 
-      SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
-      );
-      await di.init();
-      runApp(const App());
-    },
-    blocObserver: AppBlocObserver(),
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
+
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
+  await di.init();
+  runApp(const App());
 }

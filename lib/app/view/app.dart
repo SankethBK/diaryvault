@@ -53,13 +53,13 @@ class App extends StatelessWidget {
           create: (context) => sl<ThemeCubit>(),
         )
       ],
-      child: AppView(),
+      child: const AppView(),
     );
   }
 }
 
 class AppView extends StatefulWidget {
-  AppView({
+  const AppView({
     Key? key,
   }) : super(key: key);
 

@@ -19,7 +19,7 @@ void main() {
   const String testEmail = "test@email";
   const String testPassword = "testpassword";
   const String testId = "77";
-  final LoggedInUserModel user =
+  const LoggedInUserModel user =
       LoggedInUserModel(email: testEmail, id: testId);
 
   setUp(() {
@@ -41,7 +41,7 @@ void main() {
 
         // act
         final result = await usecase(
-            SignInParams(email: testEmail, password: testPassword));
+            const SignInParams(email: testEmail, password: testPassword));
 
         // assert
         verify(emailValidator(any));
@@ -57,11 +57,11 @@ void main() {
         when(
           authenticationRepository.signInWithEmailAndPassword(
               email: anyNamed("email"), password: anyNamed("password")),
-        ).thenAnswer((_) async => Right(user));
+        ).thenAnswer((_) async => const Right(user));
 
         // act
         var result = await usecase(
-            SignInParams(email: testEmail, password: testPassword));
+            const SignInParams(email: testEmail, password: testPassword));
 
         // assert
         verify(emailValidator(any));
@@ -69,7 +69,7 @@ void main() {
           authenticationRepository.signInWithEmailAndPassword(
               email: anyNamed("email"), password: anyNamed("password")),
         );
-        expect(result, Right(user));
+        expect(result, const Right(user));
       },
     );
   });

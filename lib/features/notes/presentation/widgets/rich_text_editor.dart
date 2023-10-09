@@ -18,7 +18,7 @@ import 'package:path_provider/path_provider.dart';
 class RichTextEditor extends StatefulWidget {
   final QuillController? controller;
 
-  RichTextEditor({Key? key, required this.controller}) : super(key: key);
+  const RichTextEditor({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<RichTextEditor> createState() => _RichTextEditorState();

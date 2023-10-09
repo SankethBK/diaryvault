@@ -96,7 +96,7 @@ class SyncSettings extends StatelessWidget {
                   onTap: () {
                     showCustomDialog(
                       context: context,
-                      child: DropboxUserInfo(),
+                      child: const DropboxUserInfo(),
                     );
                   },
                   child: Stack(
