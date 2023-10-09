@@ -11,7 +11,7 @@
   "enterRegisteredEmail":"पंजीकृत ईमेल दर्ज करें",
   "enterCurrentPassword":"वर्तमान पासवर्ड दर्ज करें",
   "resetPassword":"पासवर्ड रीसेट",
-  "autoSync":"Auto sync",
+  "autoSync":"स्वतः सिंक",
   "alreadyHaveAnAccount":"पहले से खाता मौजूद है?",
   "syncNow":"सिंक करें",
   "availablePlatformsForSync":"सिंक के लिए उपलब्ध प्लेटफ़ॉर्म",
