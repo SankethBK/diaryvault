@@ -2,6 +2,7 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShareWithFriends extends StatelessWidget {
   const ShareWithFriends({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class ShareWithFriends extends StatelessWidget {
         }
       }),
       child: Text(
-        "Share with Friends",
+        AppLocalizations.of(context).shareWithFriends,
         style: mainTextStyle,
       ),
     );

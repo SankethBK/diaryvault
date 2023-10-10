@@ -35,6 +35,7 @@ import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.d
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart'
     as _i2;
 import 'package:dartz/dartz.dart' as _i10;
+import 'package:flutter/widgets.dart';
 import 'package:local_auth/local_auth.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -745,7 +746,7 @@ class MockFingerPrintAuthRepository extends _i1.Mock
         returnValue: false,
       ) as bool);
   @override
-  void startFingerPrintAuthIfNeeded() => super.noSuchMethod(
+  void startFingerPrintAuthIfNeeded(BuildContext context) => super.noSuchMethod(
         Invocation.method(
           #startFingerPrintAuthIfNeeded,
           [],

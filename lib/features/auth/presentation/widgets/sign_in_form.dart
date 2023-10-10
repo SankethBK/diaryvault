@@ -9,7 +9,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dar
 import 'package:dartz/dartz.dart' as dz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'auth_change.dart';
 import 'forgot_password_popup.dart';
 import 'password_input_field.dart';
@@ -99,9 +99,9 @@ class _SignInFormState extends State<SignInForm> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text(
-                    "Log In",
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context).logIn,
+                    style: const TextStyle(
                       fontSize: 25,
                       color: Colors.white,
                     ),
@@ -138,7 +138,7 @@ class _SignInFormState extends State<SignInForm> {
                               context, submitForgotPasswordEmail);
                         },
                         child: Text(
-                          "Forgot passowrd",
+                          AppLocalizations.of(context).forgotPassword,
                           style: TextStyle(
                             color: linkColor,
                             fontWeight: FontWeight.bold,
@@ -146,8 +146,8 @@ class _SignInFormState extends State<SignInForm> {
                         ),
                       ),
                       AuthChangePage(
-                        infoText: "Don't have an account?",
-                        flipPageText: "Sign up",
+                        infoText: AppLocalizations.of(context).dontHaveAccount,
+                        flipPageText: AppLocalizations.of(context).signUp,
                         flipCard: widget.flipCard,
                       ),
                     ],
