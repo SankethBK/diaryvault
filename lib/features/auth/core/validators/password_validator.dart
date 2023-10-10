@@ -5,7 +5,7 @@ import '../../../../core/validators/validtor_template.dart';
 class PasswordValidator implements Validator<String> {
   @override
   bool call(String password) {
-    if (password.length < 6) {
+    if (password.length < 8) {
       throw InvalidPasswordException.shortPassword();
     }
     if (password.length > 20) {

@@ -1,42 +1,41 @@
 {
   "project_info": {
-    "project_number": "488976839921",
-    "project_id": "my-diary-dev",
-    "storage_bucket": "my-diary-dev.appspot.com"
+    "project_number": "630089514479",
+    "project_id": "my-dairy-ba5e5",
+    "storage_bucket": "my-dairy-ba5e5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:488976839921:android:0c4fa9529fee97d862e550",
+        "mobilesdk_app_id": "1:630089514479:android:c95d1451edee751e3f0a1a",
         "android_client_info": {
           "package_name": "me.sankethbk.dairyapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "488976839921-1ekv4h4ilh535g0c7a2f3hq3grsuo897.apps.googleusercontent.com",
+          "client_id": "630089514479-athk438b054upj1l67b2kg7qujk5krjs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "me.sankethbk.dairyapp",
             "certificate_hash": "688c5c6976f5c2167629e9799e048f5e6a994a86"
           }
-        },
-        {
-          "client_id": "488976839921-jp4pdtuqj7iel278rskvjrv7nprbu28g.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCCkGDVTRJZ0ezUfDt8Unv7FV0L5FXWUzY"
+          "current_key": "AIzaSyC1dpuSQVwvjypQ4RzmpdfJCh1ogMjmgZk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "488976839921-jp4pdtuqj7iel278rskvjrv7nprbu28g.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "630089514479-p3ksr3j9rpsp02obbdbbdi81cqnh6jjp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.sankethbk.dairyapp"
+              }
             }
           ]
         }

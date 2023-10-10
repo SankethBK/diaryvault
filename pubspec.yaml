@@ -29,13 +29,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  appwrite: ^11.0.0
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   equatable: ^2.0.3
   file_picker: ^5.3.4
   filesystem_picker: ^2.0.0-nullsafety.0
-  firebase_auth: ^4.7.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -49,8 +49,6 @@ dependencies:
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^4.0.4
-  google_sign_in: ^5.3.3
-  googleapis: ^9.0.0
   internet_connection_checker: ^0.0.1+4
   intl: ^0.18.0
   local_auth: ^2.1.6
@@ -89,11 +87,10 @@ dev_dependencies:
 #   android_12:
 #     image: 'assets/images/splash_screen.png'
 dependency_overrides:
-  ? analyzer
-
-    # For information on the generic Dart part of this file, see the
-    # following page: https://dart.dev/tools/pub/pubspec
-    # The following section is specific to Flutter.
+  # For information on the generic Dart part of this file, see the
+  # following page: https://dart.dev/tools/pub/pubspec
+  # The following section is specific to Flutter.
+  analyzer:
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

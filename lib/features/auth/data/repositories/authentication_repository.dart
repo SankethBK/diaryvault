@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/core/errors/validation_exceptions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
@@ -10,7 +11,6 @@ import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -45,17 +45,21 @@ class AuthenticationRepository implements IAuthenticationRepository {
       try {
         user =
             await remoteDataSource.signUpUser(email: email, password: password);
-      } on FirebaseAuthException catch (e) {
-        log.w("signup failed because of remote exception ${e.code}");
+      } on AppwriteException catch (e) {
+        log.w(
+            "signup failed because of remote exception ${e.code} ${e.message} ${e.type}");
 
-        switch (e.code) {
-          case 'email-already-in-use':
+        switch (e.type) {
+          case 'user_already_exists':
+          case 'user_email_already_exists':
             return Left(SignUpFailure.emailAlreadyExists());
-          case 'invalid-email':
-            return Left(SignUpFailure.invalidEmail());
-          case 'weak-password':
+          case 'general_argument_invalid':
+            return Left(
+                SignUpFailure.invalidPassword("choose a strong password"));
+          case 'password_personal_data':
             return Left(SignUpFailure.invalidPassword(
-                "password must be atleast 6 characters"));
+                "password cannot be similar to email"));
+
           default:
             return Left(SignUpFailure.unknownError());
         }
@@ -105,18 +109,18 @@ class AuthenticationRepository implements IAuthenticationRepository {
         }
 
         return Right(user);
-      } on FirebaseAuthException catch (e) {
-        log.w("sign in failed because of remote database exception ${e.code}");
+      } on AppwriteException catch (e) {
+        log.w("sign in failed because of remote database exception ${e.type}");
 
-        switch (e.code) {
-          case 'invalid-email':
-            return Left(SignInFailure.invalidEmail());
-          case 'user-disabled':
+        switch (e.type) {
+          case 'user_invalid_credentials':
+            return Left(
+                SignInFailure.wrongPassword("email or password is incorrect"));
+          case 'general_argument_invalid':
+            return Left(SignInFailure.wrongPassword(
+                "password must be atleast 8 characters"));
+          case 'user_blocked':
             return Left(SignInFailure.userDisabled());
-          case 'user-not-found':
-            return Left(SignInFailure.emailDoesNotExists());
-          case 'wrong-password':
-            return Left(SignInFailure.wrongPassword());
           default:
             return Left(SignInFailure.unknownError());
         }
@@ -276,10 +280,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
         return const Right(true);
       }
       return Left(ForgotPasswordFailure.noInternetConnection());
-    } on FirebaseAuthException catch (e) {
+    } on AppwriteException catch (e) {
       log.e(e);
 
-      if (e.code == "user-not-found") {
+      if (e.type == "user_not_found") {
         return Left(ForgotPasswordFailure.userNotFound());
       }
       return Left(ForgotPasswordFailure.unknownError());
@@ -319,10 +323,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
         password: password,
         newEmail: newEmail,
       );
-    } on FirebaseAuthException catch (e) {
-      log.e(e);
+    } on AppwriteException catch (e) {
+      log.e(e.type);
 
-      if (e.code == "email-already-in-use") {
+      if (e.type == "user_email_already_exists") {
         return Left(SignUpFailure.emailAlreadyExists());
       }
 

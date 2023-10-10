@@ -10,7 +10,6 @@ import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
-import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dartz/dartz.dart';
@@ -558,29 +557,13 @@ class SyncRepository implements ISyncRepository {
     final preferredSyncOption =
         userConfigCubit.state.userConfigModel?.preferredSyncOption;
 
-    if (preferredSyncOption == SyncConstants.googleDrive) {
-      syncClient =
-          GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
-      return true;
-    } else if (preferredSyncOption == SyncConstants.dropbox) {
+    if (preferredSyncOption == SyncConstants.dropbox) {
       syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
       return true;
     }
 
     // if preferred sync option is not set, check if user has logged into
     // any of the sync sources, if so set it as preferred sync source
-
-    final isLoggedIntoGoogleDrive =
-        userConfigCubit.state.userConfigModel?.googleDriveUserInfo?.isNotEmpty;
-
-    if (isLoggedIntoGoogleDrive == true) {
-      log.i("Setting google drive as sync source as user has logged in");
-      userConfigCubit.setUserConfig(
-          UserConfigConstants.preferredSyncOption, SyncConstants.googleDrive);
-      syncClient =
-          GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
-      return true;
-    }
 
     final isLoggedIntoDropBox =
         userConfigCubit.state.userConfigModel?.dropBoxUserInfo?.isNotEmpty;

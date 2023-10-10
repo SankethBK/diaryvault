@@ -21,7 +21,7 @@ class InvalidPasswordException extends CustomException {
 
   factory InvalidPasswordException.shortPassword() {
     return const InvalidPasswordException._(
-        code: SHORT_PASWORD, message: "password must be atleast 6 characters");
+        code: SHORT_PASWORD, message: "password must be atleast 8 characters");
   }
 
   factory InvalidPasswordException.longPassword() {
