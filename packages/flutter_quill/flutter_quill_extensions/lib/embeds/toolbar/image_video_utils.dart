@@ -61,9 +61,9 @@ class LinkDialogState extends State<LinkDialog> {
               : null,
           child: Text(
             'Ok'.i18n,
-             style: widget.dialogTheme?.labelTextStyle == null ?
-             TextStyle(color: Colors.black) :
-             widget.dialogTheme?.labelTextStyle,
+            style: widget.dialogTheme?.labelTextStyle == null
+                ? TextStyle(color: Colors.black)
+                : widget.dialogTheme?.labelTextStyle,
           ),
         ),
       ],
