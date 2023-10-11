@@ -14,7 +14,7 @@ class AuthRemoteDataSource implements IAuthRemoteDataSource {
     appwriteClient = Client();
     appwriteClient
         .setEndpoint('https://cloud.appwrite.io/v1')
-        .setProject('')
+        .setProject(appwriteProjectId)
         .setSelfSigned(status: true);
   }
 
