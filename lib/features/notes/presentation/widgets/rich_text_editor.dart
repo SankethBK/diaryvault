@@ -57,7 +57,8 @@ class _RichTextEditorState extends State<RichTextEditor> {
       readOnly: false,
       placeholder: 'Write something here...',
       expands: false,
-      padding: EdgeInsets.zero,
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.25),
       customStyles: DefaultStyles(),
       scrollBottomInset: 50,
     );
