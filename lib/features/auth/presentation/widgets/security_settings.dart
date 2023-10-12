@@ -14,9 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:simple_accordion/widgets/accordion_header_item.dart';
-import 'package:simple_accordion/widgets/accordion_item.dart';
-import 'package:simple_accordion/widgets/accordion_widget.dart';
+import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
+import 'package:simple_accordion/widgets/AccordionItem.dart';
+import 'package:simple_accordion/widgets/AccordionWidget.dart';
 
 // ignore: must_be_immutable
 class SecuritySettings extends StatelessWidget {
