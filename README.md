@@ -2,9 +2,17 @@
 
 **A FOSS, offline first personal diary application written in Flutter**
 
-<a href="https://play.google.com/store/apps/details?id=me.sankethbk.dairyapp">
-  <img alt="Android App on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
-</a>
+<div>
+  <a href="https://play.google.com/store/apps/details?id=me.sankethbk.dairyapp">
+    <img alt="Android App on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+  </a>
+</div>
+
+<div>
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/me.sankethbk.dairyapp/">
+    <img alt="Android App on Google Play" src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" height="65"/>
+  </a>
+</div>
 
 ## Key Features
 
