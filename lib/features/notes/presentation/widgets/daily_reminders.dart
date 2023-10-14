@@ -1,16 +1,23 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
 import 'package:simple_accordion/widgets/AccordionItem.dart';
 import 'package:simple_accordion/widgets/AccordionWidget.dart';
 
+// ignore: must_be_immutable
 class DailyReminders extends StatelessWidget {
-  const DailyReminders({Key? key}) : super(key: key);
+  late INotificationsRepository notificationsRepository;
+
+  DailyReminders({Key? key}) : super(key: key) {
+    notificationsRepository = sl<INotificationsRepository>();
+  }
 
   String getSubtitle(bool? isDailyReminderEnabled, TimeOfDay? reminderTime) {
     if (isDailyReminderEnabled == null || isDailyReminderEnabled == false) {
@@ -78,6 +85,8 @@ class DailyReminders extends StatelessWidget {
                           value: isDailyReminderEnabled ?? false,
                           onChanged: (value) async {
                             try {
+                              await notificationsRepository
+                                  .zonedScheduleNotification(reminderTime!);
                               userConfigCubit.setUserConfig(
                                 UserConfigConstants.isDailyReminderEnabled,
                                 value,
