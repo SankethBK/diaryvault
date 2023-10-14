@@ -44,6 +44,7 @@ class SecuritySettings extends StatelessWidget {
 
     return BlocBuilder<UserConfigCubit, UserConfigState>(
       builder: (context, state) {
+        print(" state.userConfigModel = ${state.userConfigModel}");
         var isFingerPrintLoginEnabledValue =
             state.userConfigModel!.isFingerPrintLoginEnabled;
 
