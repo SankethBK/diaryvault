@@ -1,4 +1,5 @@
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
@@ -19,15 +20,9 @@ Future<void> main() async {
   });
 
   testWidgets(
-      'Guest login integration test,'
-      'click on sign up button to move reveal guest login button'
-      'click the guest login button to enter HomePage'
-      'Click on the floating action button to move to NoteCreatePage'
-      'Enter some text in the title field'
-      'Enter some text in the body field'
-      'Click on the save button to save the note'
-      'Click on the back button to move back to HomePage'
-      'Check if the note is saved in the HomePage',
+      'Run login and create note'
+      'long press the note'
+      'delete the note and check if the note is deleted',
       (WidgetTester tester) async {
     await tester.pumpWidget(const App());
     await tester.pumpAndSettle();
@@ -57,5 +52,13 @@ Future<void> main() async {
     expect(find.text('Test Title'), findsOneWidget);
     expect(find.byType(HomePage), findsOneWidget);
     expect(find.byType(NoteCreatePage), findsNothing);
+    await tester.longPress(find.text('Test Title'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(DeleteIcon));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Delete'));
+    await Future.delayed(const Duration(seconds: 1));
+    expect(find.text('Test Title'), findsNothing);
+    expect(find.byType(HomePage), findsOneWidget);
   });
 }
