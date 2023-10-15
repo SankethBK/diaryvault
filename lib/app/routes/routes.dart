@@ -1,5 +1,4 @@
 import 'package:dairy_app/core/constants/exports.dart';
-import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/features/auth/core/exports.dart';
 import 'package:dairy_app/features/notes/core/exports.dart';
 

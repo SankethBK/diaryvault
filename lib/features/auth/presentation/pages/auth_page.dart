@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dairy_app/core/constants/exports.dart';
 import 'package:dairy_app/features/auth/core/exports.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
