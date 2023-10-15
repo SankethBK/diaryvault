@@ -13,14 +13,9 @@ class NotificationsRepository implements INotificationsRepository {
 
   NotificationsRepository({required this.flutterLocalNotificationsPlugin});
 
-  Future<void> initializeTimeZone() async {
-    tz.initializeTimeZones();
-    final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(timeZoneName!));
-  }
+  tz.TZDateTime nextInstanceOfTime(TimeOfDay time, tz.Location localTimeZOne) {
+    final tz.TZDateTime now = tz.TZDateTime.now(localTimeZOne);
 
-  tz.TZDateTime nextInstanceOfTime(TimeOfDay time) {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate = tz.TZDateTime(
         tz.local, now.year, now.month, now.day, time.hour, time.minute);
     if (scheduledDate.isBefore(now)) {
@@ -34,18 +29,21 @@ class NotificationsRepository implements INotificationsRepository {
   @override
   Future<void> zonedScheduleNotification(TimeOfDay time) async {
     try {
-      initializeTimeZone();
+      // inititalize time zones
+      tz.initializeTimeZones();
+      final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(timeZoneName!));
+
+      log.i("Local timezone = ${tz.local}");
 
       // cancel all previously scheduled notifications before scheduling new ones
       cancelAllNotifications();
-
-      log.i("Local timezone = ${tz.local}");
 
       await flutterLocalNotificationsPlugin.zonedSchedule(
           0,
           'Time to Journal!',
           'Take a moment for yourself. Write your thoughts, dreams, and experiences in your journal today.',
-          nextInstanceOfTime(time),
+          nextInstanceOfTime(time, tz.local),
           const NotificationDetails(
             android: AndroidNotificationDetails(
               'daily_reminder',
