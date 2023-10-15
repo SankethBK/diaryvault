@@ -1,23 +1,9 @@
-import 'package:dairy_app/app/routes/routes.dart';
-import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
-import 'package:dairy_app/app/themes/cosmic_theme.dart';
-import 'package:dairy_app/app/themes/lush_green_theme.dart';
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/core/pages/home_page.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
-import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
+
+import '../../features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 
 final log = printer("App");
 

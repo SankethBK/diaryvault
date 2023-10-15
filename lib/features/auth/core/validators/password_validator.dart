@@ -1,6 +1,4 @@
-import 'package:dairy_app/core/errors/validation_exceptions.dart';
-
-import '../../../../core/validators/validtor_template.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 
 class PasswordValidator implements Validator<String> {
   @override

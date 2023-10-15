@@ -1,21 +1,7 @@
-import 'dart:async';
-
-import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/core/widgets/glass_app_bar.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
-import '../widgets/note_date_time_picker.dart';
-import '../widgets/note_save_button.dart';
-import '../widgets/notes_close_button.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/note_date_time_picker.dart';
 
 class NoteCreatePage extends StatefulWidget {
   // display page growing animation

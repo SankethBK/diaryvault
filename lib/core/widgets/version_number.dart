@@ -1,8 +1,4 @@
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/widgets/settings_tile.dart';
-import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 
 class VersionNumber extends StatelessWidget {
   const VersionNumber({Key? key}) : super(key: key);

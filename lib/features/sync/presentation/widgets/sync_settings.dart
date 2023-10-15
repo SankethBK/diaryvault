@@ -1,16 +1,8 @@
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/core/widgets/glass_dialog.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import 'package:dairy_app/features/sync/presentation/widgets/dropbox_user_info.dart';
-import 'package:dairy_app/features/sync/presentation/widgets/google_drive_user_info.dart';
-import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
-import 'package:dairy_app/features/sync/presentation/widgets/sync_source_dropdown.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
+
+import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 
 class SyncSettings extends StatelessWidget {
   const SyncSettings({Key? key}) : super(key: key);

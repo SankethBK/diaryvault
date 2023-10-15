@@ -1,14 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-import 'package:stateless_dropbox_client/stateless_dropbox_client.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 import 'package:path/path.dart' as p;
 
 final log = printer("DropboxSyncClient");

@@ -1,15 +1,5 @@
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/guest_sign_up.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'auth_change.dart';
-import 'email_input_field.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 
 class SignUpForm extends StatefulWidget {
   static String get route => '/auth';

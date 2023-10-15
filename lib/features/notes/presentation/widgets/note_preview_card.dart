@@ -1,10 +1,5 @@
-import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
-import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 import 'package:intl/intl.dart';
 
 class NotePreviewCard extends StatelessWidget {

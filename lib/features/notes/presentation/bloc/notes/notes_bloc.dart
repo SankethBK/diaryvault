@@ -1,14 +1,8 @@
-import 'dart:convert';
-
-import 'package:bloc/bloc.dart';
-import 'package:dairy_app/features/notes/core/failures/failure.dart';
-import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:uuid/uuid.dart';
 
 part 'notes_event.dart';
 part 'notes_state.dart';

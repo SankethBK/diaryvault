@@ -1,8 +1,4 @@
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/widgets/settings_tile.dart';
-import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 
 class ShareWithFriends extends StatelessWidget {
   const ShareWithFriends({Key? key}) : super(key: key);

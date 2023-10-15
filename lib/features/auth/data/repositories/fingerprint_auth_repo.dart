@@ -1,15 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
-import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 
 final log = printer("FingerPrintAuthRepo");
 

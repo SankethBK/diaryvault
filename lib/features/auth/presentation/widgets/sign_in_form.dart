@@ -1,18 +1,6 @@
-import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 import 'package:dartz/dartz.dart' as dz;
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'auth_change.dart';
-import 'forgot_password_popup.dart';
-import 'password_input_field.dart';
 
 class SignInForm extends StatefulWidget {
   static String get route => '/auth';

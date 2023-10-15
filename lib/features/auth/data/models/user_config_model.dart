@@ -1,5 +1,5 @@
-import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 
 /// class to store non-critical properties of user
 /// it is stored apart from user table, which stores critical properties of user

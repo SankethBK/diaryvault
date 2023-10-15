@@ -1,14 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 import 'package:http/http.dart' as http;
-import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 final log = printer("GoogleDriveSyncClient");
 

@@ -1,7 +1,5 @@
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:flutter/material.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 class ReadOnlyEditor extends StatelessWidget {
   final QuillController? controller;

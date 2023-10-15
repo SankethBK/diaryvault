@@ -1,5 +1,4 @@
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
-import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 import 'package:dartz/dartz.dart';
 
 enum FingerPrintAuthState {

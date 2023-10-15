@@ -1,9 +1,5 @@
-import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 
 class SyncNowButton extends StatefulWidget {
   const SyncNowButton({Key? key}) : super(key: key);

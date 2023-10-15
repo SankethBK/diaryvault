@@ -1,7 +1,5 @@
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 
 class NoteReadIconButton extends StatefulWidget {
   const NoteReadIconButton({Key? key}) : super(key: key);

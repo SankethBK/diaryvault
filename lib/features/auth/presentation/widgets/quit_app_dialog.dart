@@ -1,9 +1,4 @@
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
-import 'package:dairy_app/core/widgets/cancel_button.dart';
-import 'package:dairy_app/core/widgets/glass_dialog.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 
 Future<bool> quitAppDialog(BuildContext context) async {
   final mainTextColor =

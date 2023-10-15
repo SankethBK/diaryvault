@@ -1,20 +1,15 @@
-import 'dart:convert';
 import 'dart:io' as io;
 
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/core/network/network_info.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
-import 'package:dairy_app/features/sync/core/failures.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
+
+import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 
 final log = printer("SyncRepository");
 

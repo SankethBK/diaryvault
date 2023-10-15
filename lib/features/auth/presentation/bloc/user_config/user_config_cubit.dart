@@ -1,10 +1,6 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 
 part 'user_config_state.dart';
 

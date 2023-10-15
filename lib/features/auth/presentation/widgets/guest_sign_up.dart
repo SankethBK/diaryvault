@@ -1,10 +1,5 @@
-import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 
 class GuestSignUp extends StatelessWidget {
   const GuestSignUp({Key? key}) : super(key: key);

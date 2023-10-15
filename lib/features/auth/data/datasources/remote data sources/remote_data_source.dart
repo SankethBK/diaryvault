@@ -1,7 +1,5 @@
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
-import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 
 final log = printer("AuthRemoteDataSource");
 

@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 
 class NoteSaveButton extends StatelessWidget {
   const NoteSaveButton({Key? key}) : super(key: key);

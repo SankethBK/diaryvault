@@ -1,14 +1,7 @@
-import 'dart:io';
-
-import 'package:dairy_app/core/databases/db_schemas.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 import 'package:dairy_app/core/databases/sqflite_setup.dart';
-import 'package:dairy_app/core/errors/database_exceptions.dart';
-import 'package:dairy_app/features/auth/core/constants.dart';
-import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
-import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:sqflite/sqflite.dart';
-
-import '../../../../../core/logger/logger.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 
 final log = printer("NotesLocalDataSource");
 

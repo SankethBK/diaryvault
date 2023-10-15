@@ -1,6 +1,4 @@
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:flutter/material.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 
 Future<dynamic> showCustomDialog(
     {required BuildContext context, required Widget child}) {

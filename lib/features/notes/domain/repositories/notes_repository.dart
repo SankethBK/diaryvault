@@ -1,8 +1,5 @@
-import 'package:dairy_app/features/notes/core/failures/failure.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 import 'package:dartz/dartz.dart';
-
-import '../../data/models/notes_model.dart';
 
 abstract class INotesRepository {
   /// Saves the note into local database, it involves some computation on [noteMap]

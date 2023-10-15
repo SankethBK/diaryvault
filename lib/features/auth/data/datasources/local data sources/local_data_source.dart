@@ -1,11 +1,6 @@
+import 'package:dairy_app/core/constants/exports.dart';
 import 'package:dairy_app/core/databases/sqflite_setup.dart';
-import 'package:dairy_app/core/errors/database_exceptions.dart';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
-import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
-import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:dairy_app/core/databases/db_schemas.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 
 final log = printer("AuthLocalDataSource");
 

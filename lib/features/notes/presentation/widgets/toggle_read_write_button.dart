@@ -1,7 +1,5 @@
-import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
-import 'package:flutter/material.dart';
-
-import '../pages/note_read_only_page.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 
 enum PageName { NoteCreatePage, NoteReadOnlyPage }
 

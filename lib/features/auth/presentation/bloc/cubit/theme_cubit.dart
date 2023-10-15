@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 
 part 'theme_state.dart';
 

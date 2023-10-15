@@ -1,12 +1,10 @@
-import 'dart:convert';
-
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 
 final log = printer("UserConfigRepository");
 
-/// deals with storing and retrieiving values for UserCOnfig model
+/// deals with storing and retrieving values for UserConfig model
 class UserConfigRepository {
   final IKeyValueDataSource keyValueDataSource;
 

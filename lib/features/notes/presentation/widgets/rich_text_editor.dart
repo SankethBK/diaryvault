@@ -1,19 +1,7 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/widgets/glass_dialog.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-
-// import 'read_only_page.dart';
 
 class RichTextEditor extends StatefulWidget {
   final QuillController? controller;

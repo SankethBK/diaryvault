@@ -1,5 +1,4 @@
-import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
-import 'package:flutter/material.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 
 /// specifies size of form and gradients
 class FormDimensions extends StatelessWidget {

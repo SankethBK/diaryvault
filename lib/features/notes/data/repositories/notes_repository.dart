@@ -1,13 +1,6 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/notes/core/failures/failure.dart';
-import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
-import 'package:dairy_app/features/notes/data/models/notes_model.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
-import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
 

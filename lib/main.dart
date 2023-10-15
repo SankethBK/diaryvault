@@ -1,12 +1,5 @@
-import 'package:dairy_app/app/bloc_observer.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 
-import 'app/view/app.dart';
 import 'core/dependency_injection/injection_container.dart' as di;
 
 Future<void> main() async {

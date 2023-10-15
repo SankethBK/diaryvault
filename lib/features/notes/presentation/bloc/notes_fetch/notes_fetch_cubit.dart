@@ -1,11 +1,6 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:dairy_app/features/notes/domain/entities/notes.dart';
-import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 
 part 'notes_fetch_state.dart';
 

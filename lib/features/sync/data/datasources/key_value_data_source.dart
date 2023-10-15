@@ -1,6 +1,5 @@
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'temeplates/key_value_data_source_template.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 
 final log = printer("KeyValueDataSource");
 

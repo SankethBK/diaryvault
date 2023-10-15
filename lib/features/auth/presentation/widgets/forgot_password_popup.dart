@@ -1,11 +1,5 @@
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/core/widgets/glass_dialog.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 
 Future<void> forgotPasswordPopup(
     BuildContext context, Function(String) submitForgotPassword) {

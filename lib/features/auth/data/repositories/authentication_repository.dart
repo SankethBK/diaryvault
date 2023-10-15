@@ -1,18 +1,6 @@
-import 'package:dairy_app/core/errors/database_exceptions.dart';
-import 'package:dairy_app/core/errors/validation_exceptions.dart';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/core/network/network_info.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
-import 'package:dairy_app/features/auth/core/validators/email_validator.dart';
-import 'package:dairy_app/features/auth/core/validators/password_validator.dart';
-import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/local_data_source_template.dart';
-import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
-import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
-import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/auth/core/exports.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
-import 'package:local_auth/local_auth.dart';
 
 final log = printer("AuthenticationRepository");
 

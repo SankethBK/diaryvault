@@ -1,8 +1,4 @@
-import 'dart:io';
-import 'package:dairy_app/core/databases/db_schemas.dart';
-import 'package:dairy_app/core/logger/logger.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 import 'package:path/path.dart';
 
 final log = printer("SQLTableSetup");

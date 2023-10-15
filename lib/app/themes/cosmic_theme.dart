@@ -1,10 +1,4 @@
-import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
-import 'package:flutter/material.dart';
+import 'package:dairy_app/core/constants/exports.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 class Cosmic {

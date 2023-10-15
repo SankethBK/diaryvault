@@ -1,16 +1,8 @@
-import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
-import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
+
+import '../../features/auth/presentation/widgets/quit_app_dialog.dart';
+import '../widgets/home_page_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   static String get route => '/';

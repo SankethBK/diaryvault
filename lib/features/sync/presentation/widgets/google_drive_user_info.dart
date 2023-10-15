@@ -1,13 +1,9 @@
-import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/sync/core/exports.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
-import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 
 class GoogleDriveUserInfo extends StatefulWidget {
   const GoogleDriveUserInfo({

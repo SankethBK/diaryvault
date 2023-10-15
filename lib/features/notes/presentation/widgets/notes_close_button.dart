@@ -1,7 +1,5 @@
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 
 class NotesCloseButton extends StatelessWidget {
   final Function() onNotesClosed;

@@ -1,23 +1,8 @@
-import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
-import 'package:dairy_app/core/pages/settings_page.dart';
-import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/core/widgets/cancel_button.dart';
-import 'package:dairy_app/core/widgets/date_input_field.dart';
-import 'package:dairy_app/core/widgets/glass_dialog.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
-import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/core/constants/exports.dart';
+import 'package:dairy_app/features/notes/core/exports.dart';
 
 class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const HomePageAppBar({
-    Key? key,
-  }) : super(key: key);
+  const HomePageAppBar({Key? key}) : super(key: key);
 
   @override
   State<HomePageAppBar> createState() => _HomePageAppBarState();
