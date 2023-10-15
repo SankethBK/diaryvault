@@ -55,7 +55,8 @@ Future<void> main() async {
     await tester.pumpAndSettle();
     await tester.tap(find.byType(ToggleReadWriteButton));
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(NoteTitleInputField), 'Test Title Updated');
+    await tester.enterText(
+        find.byType(NoteTitleInputField), 'Test Title Updated');
     await tester.pumpAndSettle();
     await tester.tap(find.byType(NoteSaveButton));
     await tester.pumpAndSettle();
