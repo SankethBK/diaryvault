@@ -57,90 +57,90 @@ void main() {
 
     testWidgets('Update Note', (WidgetTester tester) async {
 
-      // await tester.pumpWidget(const App());
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.text('Continue as guest'));
-      // await tester.pumpAndSettle();
-      // expect(find.byType(HomePage), findsOneWidget);
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.byType(FloatingActionButton));
-      // await tester.pumpAndSettle();
-      // await tester.enterText(find.byType(NoteTitleInputField), 'Test Title');
-      // await tester.pumpAndSettle();
-      //
-      // expect(find.byType(QuillEditor), findsOneWidget);
-      //
-      // expect(
-      //     find.descendant(
-      //       of: find.byType(QuillEditor),
-      //       matching: find.byType(TextFieldTapRegion),
-      //     ),
-      //     findsOneWidget);
-      //
-      // await tester.tap(find.byType(NoteSaveButton));
-      // await tester.pumpAndSettle();
-      //
-      // await Future.delayed(const Duration(seconds: 1));
-      // await tester.pumpAndSettle();
-      // expect(find.text('Test Title'), findsOneWidget);
-      // expect(find.byType(HomePage), findsOneWidget);
-      // expect(find.byType(NoteCreatePage), findsNothing);
-      // await tester.tap(find.text('Test Title'));
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.byType(ToggleReadWriteButton));
-      // await tester.pumpAndSettle();
-      // await tester.enterText(
-      //     find.byType(NoteTitleInputField), 'Test Title Updated');
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.byType(NoteSaveButton));
-      // await tester.pumpAndSettle();
-      //
-      // await Future.delayed(const Duration(seconds: 1));
-      // await tester.pumpAndSettle();
-      // expect(find.text('Test Title'), findsNothing);
-      // expect(find.text('Test Title Updated'), findsOneWidget);
-      // expect(find.byType(HomePage), findsOneWidget);
-      // expect(find.byType(NoteCreatePage), findsNothing);
+      await tester.pumpWidget(const App());
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Continue as guest'));
+      await tester.pumpAndSettle();
+      expect(find.byType(HomePage), findsOneWidget);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(NoteTitleInputField), 'Test Title');
+      await tester.pumpAndSettle();
+
+      expect(find.byType(QuillEditor), findsOneWidget);
+
+      expect(
+          find.descendant(
+            of: find.byType(QuillEditor),
+            matching: find.byType(TextFieldTapRegion),
+          ),
+          findsOneWidget);
+
+      await tester.tap(find.byType(NoteSaveButton));
+      await tester.pumpAndSettle();
+
+      await Future.delayed(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+      expect(find.text('Test Title'), findsOneWidget);
+      expect(find.byType(HomePage), findsOneWidget);
+      expect(find.byType(NoteCreatePage), findsNothing);
+      await tester.tap(find.text('Test Title'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(ToggleReadWriteButton));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+          find.byType(NoteTitleInputField), 'Test Title Updated');
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(NoteSaveButton));
+      await tester.pumpAndSettle();
+
+      await Future.delayed(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+      expect(find.text('Test Title'), findsNothing);
+      expect(find.text('Test Title Updated'), findsOneWidget);
+      expect(find.byType(HomePage), findsOneWidget);
+      expect(find.byType(NoteCreatePage), findsNothing);
     });
 
     testWidgets('Delete Note', (WidgetTester tester) async {
-      // Your test case code here
-      // await tester.pumpWidget(const App());
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.text('Continue as guest'));
-      // await tester.pumpAndSettle();
-      // expect(find.byType(HomePage), findsOneWidget);
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.byType(FloatingActionButton));
-      // await tester.pumpAndSettle();
-      // await tester.enterText(find.byType(NoteTitleInputField), 'Test Title');
-      // await tester.pumpAndSettle();
-      //
-      // expect(find.byType(QuillEditor), findsOneWidget);
-      //
-      // expect(
-      //     find.descendant(
-      //       of: find.byType(QuillEditor),
-      //       matching: find.byType(TextFieldTapRegion),
-      //     ),
-      //     findsOneWidget);
-      //
-      // await tester.tap(find.byType(NoteSaveButton));
-      // await tester.pumpAndSettle();
-      //
-      // await Future.delayed(const Duration(seconds: 1));
-      // await tester.pumpAndSettle();
-      // expect(find.text('Test Title'), findsOneWidget);
-      // expect(find.byType(HomePage), findsOneWidget);
-      // expect(find.byType(NoteCreatePage), findsNothing);
-      // await tester.longPress(find.text('Test Title'));
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.byType(DeleteIcon));
-      // await tester.pumpAndSettle();
-      // await tester.tap(find.text('Delete'));
-      // await Future.delayed(const Duration(seconds: 1));
-      // expect(find.text('Test Title'), findsNothing);
-      // expect(find.byType(HomePage), findsOneWidget);
+      Your test case code here
+      await tester.pumpWidget(const App());
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Continue as guest'));
+      await tester.pumpAndSettle();
+      expect(find.byType(HomePage), findsOneWidget);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(NoteTitleInputField), 'Test Title');
+      await tester.pumpAndSettle();
+
+      expect(find.byType(QuillEditor), findsOneWidget);
+
+      expect(
+          find.descendant(
+            of: find.byType(QuillEditor),
+            matching: find.byType(TextFieldTapRegion),
+          ),
+          findsOneWidget);
+
+      await tester.tap(find.byType(NoteSaveButton));
+      await tester.pumpAndSettle();
+
+      await Future.delayed(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+      expect(find.text('Test Title'), findsOneWidget);
+      expect(find.byType(HomePage), findsOneWidget);
+      expect(find.byType(NoteCreatePage), findsNothing);
+      await tester.longPress(find.text('Test Title'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(DeleteIcon));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Delete'));
+      await Future.delayed(const Duration(seconds: 1));
+      expect(find.text('Test Title'), findsNothing);
+      expect(find.byType(HomePage), findsOneWidget);
     });
   });
 }
