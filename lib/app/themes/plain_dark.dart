@@ -7,7 +7,7 @@ import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extens
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
-class Cosmic {
+class PlainDark {
   static ThemeData getTheme() {
     return ThemeData(
       // used only for elements whose colors can't be directly controlled
@@ -26,8 +26,8 @@ class Cosmic {
           const TimePickerThemeData(backgroundColor: Color(0xFF49638B)),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: const Color.fromARGB(255, 48, 140, 221),
-          backgroundColor: const Color(0xFF242EB2),
+          foregroundColor: const Color.fromARGB(255, 125, 199, 192),
+          backgroundColor: const Color.fromARGB(255, 80, 126, 122),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(16),
@@ -45,12 +45,12 @@ class Cosmic {
           foregroundColor: Colors.white,
           textStyle: const TextStyle(
             fontSize: 16,
-            color: Color.fromARGB(255, 36, 46, 178),
+            color: Color.fromARGB(255, 80, 126, 122),
           ),
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Color.fromARGB(255, 36, 46, 178),
+        backgroundColor: Color.fromARGB(255, 80, 126, 122),
         elevation: 4,
       ),
       // used for dialogs in flutter_quill
@@ -58,8 +58,8 @@ class Cosmic {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/space-image.jpeg",
-          linkColor: Colors.blue[300]!,
+          backgroundImage: "assets/images/blackbg.png",
+          linkColor: const Color.fromARGB(255, 125, 199, 192),
           errorTextColor: Colors.blue[200]!,
           prefixIconColor: Colors.white.withOpacity(0.5),
           fillColor: Colors.white.withOpacity(0.2),
@@ -68,7 +68,7 @@ class Cosmic {
           hintTextColor: Colors.white.withOpacity(0.7),
           authFormGradientStartColor: Colors.black.withOpacity(0.5),
           authFormGradientEndColor: Colors.black.withOpacity(0.3),
-          infoTextColor: Colors.white.withOpacity(0.7),
+          infoTextColor: Colors.white.withOpacity(1),
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),
