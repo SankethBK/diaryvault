@@ -78,6 +78,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.1.0
+  integration_test:
+    sdk: flutter
+
 
 # not using this as of now
 # flutter_icons:
