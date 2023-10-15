@@ -29,6 +29,18 @@ class NotificationsRepository implements INotificationsRepository {
   @override
   Future<void> zonedScheduleNotification(TimeOfDay time) async {
     try {
+      final permissionsEnabled = await areNotificationsEnabled();
+
+      log.w("permissions enabled = $permissionsEnabled");
+
+      if (!permissionsEnabled) {
+        // We can request permission from within the App for >= Android 13
+        final arePermissionsGranted = await requestPermission();
+        if (!arePermissionsGranted) {
+          throw Exception("Notification permissions are not enabled");
+        }
+      }
+
       // inititalize time zones
       tz.initializeTimeZones();
       final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
@@ -42,7 +54,7 @@ class NotificationsRepository implements INotificationsRepository {
       await flutterLocalNotificationsPlugin.zonedSchedule(
           0,
           'Time to Journal!',
-          'Take a moment for yourself. Write your thoughts, dreams, and experiences in your journal today.',
+          'Take a few minutes to reflect on your day in your diary/journal.',
           nextInstanceOfTime(time, tz.local),
           const NotificationDetails(
             android: AndroidNotificationDetails(
@@ -60,6 +72,26 @@ class NotificationsRepository implements INotificationsRepository {
       log.e(e);
       rethrow;
     }
+  }
+
+  Future<bool> areNotificationsEnabled() async {
+    final bool granted = await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.areNotificationsEnabled() ??
+        false;
+    return granted;
+  }
+
+  Future<bool> requestPermission() async {
+    final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+
+    final bool grantedNotificationPermission =
+        await androidImplementation?.requestNotificationsPermission() ?? false;
+
+    return grantedNotificationPermission;
   }
 
   @override
