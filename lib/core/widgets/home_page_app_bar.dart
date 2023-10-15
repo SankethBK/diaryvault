@@ -12,6 +12,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fet
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
   const HomePageAppBar({
@@ -198,11 +199,7 @@ class Action extends StatelessWidget {
 class Title extends StatelessWidget {
   final bool isSearchEnabled;
 
-  String? searchText;
-  DateTime? startDate;
-  DateTime? endDate;
-
-  Title({Key? key, required this.isSearchEnabled}) : super(key: key);
+  const Title({Key? key, required this.isSearchEnabled}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -211,6 +208,10 @@ class Title extends StatelessWidget {
     final searchBarFillColor = Theme.of(context)
         .extension<AppbarThemeExtensions>()!
         .searchBarFillColor;
+
+    String? searchText;
+    DateTime? startDate;
+    DateTime? endDate;
 
     void assignStartDate(DateTime date) {
       startDate = date;
@@ -295,7 +296,7 @@ class Title extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "Date Filter",
+                              AppLocalizations.of(context).dateFilter,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20.0,
@@ -309,7 +310,7 @@ class Title extends StatelessWidget {
                                 Flexible(
                                   flex: 2,
                                   child: Text(
-                                    "From",
+                                    AppLocalizations.of(context).from,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 16.0,
@@ -333,7 +334,7 @@ class Title extends StatelessWidget {
                                 Flexible(
                                   flex: 2,
                                   child: Text(
-                                    "To",
+                                    AppLocalizations.of(context).to,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 16.0,
@@ -354,7 +355,7 @@ class Title extends StatelessWidget {
                             SubmitButton(
                               isLoading: false,
                               onSubmitted: () => Navigator.of(context).pop(),
-                              buttonText: "Done",
+                              buttonText: AppLocalizations.of(context).done,
                             )
                           ],
                         ),
@@ -376,12 +377,13 @@ class Title extends StatelessWidget {
 
 class _DeleteButton extends StatelessWidget {
   final int deleteCount;
-  late SelectableListCubit selectableListCubit;
-  _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
+
+  const _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+    final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
         NotesBloc notesBloc = BlocProvider.of<NotesBloc>(context);
@@ -405,7 +407,7 @@ class _DeleteButton extends StatelessWidget {
                     noteList: selectableListCubit.state.selectedItems));
               }
             },
-            buttonText: "Delete");
+            buttonText: AppLocalizations.of(context).delete);
       },
     );
   }
@@ -421,7 +423,7 @@ class _CancelButton extends StatelessWidget {
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
         return CancelButton(
-          buttonText: "Cancel",
+          buttonText: AppLocalizations.of(context).cancel,
           onPressed: () {
             if (state is NoteDeleteLoading) {
               return;
@@ -507,7 +509,7 @@ class DeleteIcon extends StatelessWidget {
               showToast(
                   "$deletionCount item${deletionCount > 1 ? "s" : ""} deleted");
             } else {
-              showToast("deletion failed");
+              showToast(AppLocalizations.of(context).deletionFailed);
             }
           }
         },

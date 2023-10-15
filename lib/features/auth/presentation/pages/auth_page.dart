@@ -16,7 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AuthPage extends StatefulWidget {
   // user id of last logged in user to determine if it is a fresh login or not
   final String? lastLoggedInUserId;
-  late FingerPrintAuthRepository fingerPrintAuthRepository;
+  late final FingerPrintAuthRepository fingerPrintAuthRepository;
 
   AuthPage({Key? key, this.lastLoggedInUserId}) : super(key: key) {
     fingerPrintAuthRepository = sl<FingerPrintAuthRepository>();
@@ -49,7 +49,7 @@ class _AuthPageState extends State<AuthPage> {
       final currentAuthState = BlocProvider.of<AuthSessionBloc>(context).state;
 
       if (currentAuthState is Unauthenticated) {
-        widget.fingerPrintAuthRepository.startFingerPrintAuthIfNeeded();
+        widget.fingerPrintAuthRepository.startFingerPrintAuthIfNeeded(context);
       }
 
       _isInitialized = true;

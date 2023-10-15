@@ -14,10 +14,20 @@ class Cosmic {
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
         secondary: Colors.blueAccent,
       ),
+      datePickerTheme: const DatePickerThemeData(
+        backgroundColor: Color(0xFF4B6996),
+        weekdayStyle: TextStyle(color: Colors.white),
+        headerBackgroundColor: Color(0xFF4471EC),
+        dayForegroundColor: MaterialStatePropertyAll(Colors.white),
+        todayForegroundColor: MaterialStatePropertyAll(Colors.white),
+        yearForegroundColor: MaterialStatePropertyAll(Colors.white),
+      ),
+      timePickerTheme:
+          const TimePickerThemeData(backgroundColor: Color(0xFF49638B)),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: const Color.fromARGB(255, 48, 140, 221),
-          backgroundColor: const Color.fromARGB(255, 36, 46, 178),
+          backgroundColor: const Color(0xFF242EB2),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(16),

@@ -5,6 +5,7 @@ import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/note_read_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
@@ -12,7 +13,7 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/notes_close_button.dart';
 
 class NotesReadOnlyPage extends StatefulWidget {
@@ -35,11 +36,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   late final NotesBloc notesBloc;
   late Image neonImage;
   late double topPadding;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -108,9 +104,10 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
         resizeToAvoidBottomInset: false,
         appBar: GlassAppBar(
           automaticallyImplyLeading: false,
-          actions: const [
+          actions: const <Widget>[
             NoteSaveButton(),
-            ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage)
+            NoteReadIconButton(),
+            ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage),
           ],
           leading: NotesCloseButton(onNotesClosed: _routeToHome),
         ),
@@ -129,13 +126,13 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
             bloc: notesBloc,
             listener: (context, state) {
               if (state is NoteFetchFailed) {
-                showToast("feiled to fetch note");
+                showToast(AppLocalizations.of(context).failedToFetchNote);
               } else if (state is NotesSavingFailed) {
-                showToast("Failed to save note");
+                showToast(AppLocalizations.of(context).failedToSaveNote);
               } else if (state is NoteSavedSuccesfully) {
                 showToast(state.newNote!
-                    ? "Note saved successfully"
-                    : "Note updated successfully");
+                    ? AppLocalizations.of(context).noteSavedSuccessfully
+                    : AppLocalizations.of(context).noteUpdatedSuccessfully);
                 _routeToHome();
               }
             },

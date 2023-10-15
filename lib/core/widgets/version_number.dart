@@ -2,6 +2,7 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VersionNumber extends StatelessWidget {
   const VersionNumber({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class VersionNumber extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "App version",
+                AppLocalizations.of(context).appVersion,
                 style: mainTextStyle,
               ),
               const Spacer(),

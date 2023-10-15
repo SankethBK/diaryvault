@@ -13,7 +13,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart'
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/auto_save_enable.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -72,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text("Settings"),
+        title: Text(AppLocalizations.of(context).settings),
         actions: [LogoutButton(authSessionBloc: authSessionBloc)],
       ),
       body: Container(

@@ -5,6 +5,7 @@ import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> emailChangePopup(
     BuildContext context, Function(String) submitEmailChange) {
@@ -23,7 +24,7 @@ Future<dynamic> emailChangePopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Enter new email",
+          Text(AppLocalizations.of(context).enterNewEmail,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -32,7 +33,7 @@ Future<dynamic> emailChangePopup(
           const SizedBox(height: 25),
           AuthEmailInput(
             autoFocus: true,
-            getEmailErrors: () {},
+            getEmailErrors: () => null,
             onEmailChanged: (String email) {
               changedEmail = email;
             },
@@ -57,12 +58,13 @@ Future<dynamic> emailChangePopup(
                   setState(() {
                     isLoading = false;
                   });
-                  showToast("email updated successfully, please login again");
+                  showToast(
+                      AppLocalizations.of(context).emailUpdatedSuccessfully);
                   await Future.delayed(const Duration(milliseconds: 500));
                   Navigator.of(context).pop(true);
                 });
               },
-              buttonText: "Submit",
+              buttonText: AppLocalizations.of(context).submit,
             );
           })
         ],

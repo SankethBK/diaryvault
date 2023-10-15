@@ -11,7 +11,7 @@ import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_d
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
@@ -133,13 +133,13 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
             bloc: notesBloc,
             listener: (context, state) {
               if (state is NoteFetchFailed) {
-                showToast("failed to fetch note");
+                showToast(AppLocalizations.of(context).failedToFetchNote);
               } else if (state is NotesSavingFailed) {
-                showToast("Failed to save note");
+                showToast(AppLocalizations.of(context).failedToSaveNote);
               } else if (state is NoteSavedSuccesfully) {
                 showToast(state.newNote!
-                    ? "Note saved successfully"
-                    : "Note updated successfully");
+                    ? AppLocalizations.of(context).noteSavedSuccessfully
+                    : AppLocalizations.of(context).noteUpdatedSuccessfully);
                 _routeToHome();
               }
             },

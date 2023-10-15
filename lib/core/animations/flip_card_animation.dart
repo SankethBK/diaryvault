@@ -33,13 +33,11 @@ class _FlipCardAnimationState extends State<FlipCardAnimation>
     );
   }
 
-  late bool _flipXAxis;
   late bool _showFrontSide;
 
   @override
   void initState() {
     super.initState();
-    _flipXAxis = true;
     _showFrontSide = true;
   }
 
