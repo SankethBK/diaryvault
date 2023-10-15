@@ -26,6 +26,8 @@ class NotificationsRepository implements INotificationsRepository {
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
+
+    log.i("Scheduling alarm at $scheduledDate");
     return scheduledDate;
   }
 
@@ -33,14 +35,17 @@ class NotificationsRepository implements INotificationsRepository {
   Future<void> zonedScheduleNotification(TimeOfDay time) async {
     try {
       initializeTimeZone();
+
+      // cancel all previously scheduled notifications before scheduling new ones
+      cancelAllNotifications();
+
       log.i("Local timezone = ${tz.local}");
 
       await flutterLocalNotificationsPlugin.zonedSchedule(
           0,
           'Time to Journal!',
           'Take a moment for yourself. Write your thoughts, dreams, and experiences in your journal today.',
-          tz.TZDateTime.from(
-              DateTime.now().add(const Duration(seconds: 5)), tz.local),
+          nextInstanceOfTime(time),
           const NotificationDetails(
             android: AndroidNotificationDetails(
               'daily_reminder',
@@ -57,5 +62,11 @@ class NotificationsRepository implements INotificationsRepository {
       log.e(e);
       rethrow;
     }
+  }
+
+  @override
+  Future<void> cancelAllNotifications() async {
+    log.i("Cancelling all scheduled notifications");
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 }

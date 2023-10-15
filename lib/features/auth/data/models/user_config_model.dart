@@ -46,6 +46,35 @@ class UserConfigModel extends Equatable {
         reminderTime
       ];
 
+  static TimeOfDay? getTimeOfDayFromTimeString(String? timeString) {
+    if (timeString != null) {
+      final parts = timeString.split(':');
+
+      if (parts.length == 2) {
+        final hour = int.parse(parts[0]);
+        final minute = int.parse(parts[1]);
+        return TimeOfDay(hour: hour, minute: minute);
+      }
+
+      return null;
+    }
+    return null;
+  }
+
+  static String? getTimeOfDayToString(TimeOfDay? time) {
+    if (time == null) {
+      return null;
+    }
+
+    final hour = time.hour.toString();
+    final minute = time.minute.toString();
+    final formattedHour = hour.length == 1 ? hour.padLeft(2, '0') : hour;
+    final formattedMinute =
+        minute.length == 1 ? minute.padLeft(2, '0') : minute;
+
+    return '$formattedHour:$formattedMinute';
+  }
+
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
     return UserConfigModel(
       userId: jsonMap[UserConfigConstants.userId],
@@ -67,10 +96,8 @@ class UserConfigModel extends Equatable {
       isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
       isDailyReminderEnabled:
           jsonMap[UserConfigConstants.isDailyReminderEnabled],
-      reminderTime: jsonMap[UserConfigConstants.reminderTime] != null
-          ? TimeOfDay.fromDateTime(DateTime.parse(
-              "1970-01-01 ${jsonMap[UserConfigConstants.reminderTime]}:00"))
-          : null,
+      reminderTime:
+          getTimeOfDayFromTimeString(jsonMap[UserConfigConstants.reminderTime]),
     );
   }
 
@@ -88,9 +115,7 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
       UserConfigConstants.isAutoSaveEnabled: isAutoSaveEnabled,
       UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
-      UserConfigConstants.reminderTime: reminderTime != null
-          ? '${reminderTime!.hour}:${reminderTime!.minute}'
-          : null
+      UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime)
     };
   }
 }

@@ -3,6 +3,7 @@ import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extens
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class DailyReminders extends StatelessWidget {
       return "You haven't selected a notification time";
     }
 
-    return "You will be notified at ${reminderTime.hour}:${reminderTime.minute}";
+    return "You will be notified at ${UserConfigModel.getTimeOfDayToString(reminderTime)}";
   }
 
   @override
@@ -85,8 +86,16 @@ class DailyReminders extends StatelessWidget {
                           value: isDailyReminderEnabled ?? false,
                           onChanged: (value) async {
                             try {
-                              await notificationsRepository
-                                  .zonedScheduleNotification(reminderTime!);
+                              if (value == true) {
+                                if (reminderTime != null) {
+                                  await notificationsRepository
+                                      .zonedScheduleNotification(reminderTime);
+                                }
+                              } else {
+                                await notificationsRepository
+                                    .cancelAllNotifications();
+                              }
+
                               userConfigCubit.setUserConfig(
                                 UserConfigConstants.isDailyReminderEnabled,
                                 value,
@@ -114,16 +123,22 @@ class DailyReminders extends StatelessWidget {
                           onTap: () async {
                             TimeOfDay selectedTime = TimeOfDay.now();
 
-                            final TimeOfDay? picked = await showTimePicker(
+                            final TimeOfDay? pickedTime = await showTimePicker(
                               context: context,
                               initialTime: selectedTime,
                             );
 
-                            if (picked != null) {
+                            if (pickedTime != null) {
                               // Handle the selected time
                               userConfigCubit.setUserConfig(
-                                  UserConfigConstants.reminderTime,
-                                  '${picked.hour}:${picked.minute}');
+                                UserConfigConstants.reminderTime,
+                                UserConfigModel.getTimeOfDayToString(
+                                    pickedTime),
+                              );
+
+                              // if notifications are enabled, then new schedule new notification at this time
+                              notificationsRepository
+                                  .zonedScheduleNotification(pickedTime);
                             }
                           },
                         )
