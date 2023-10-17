@@ -33,6 +33,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             title: "",
             createdAt: DateTime.now(),
             controller: _controller,
+            // ignore: prefer_const_literals_to_create_immutables
             allNoteAssets: [],
           ),
         );
