@@ -26,8 +26,8 @@ class DailyReminders extends StatelessWidget {
       return AppLocalizations.of(context).notificationTimeNotEnabled;
     }
 
-    return AppLocalizations.of(context).youWillBeNotifiedAt +
-        " ${UserConfigModel.getTimeOfDayToString(reminderTime)}";
+    return AppLocalizations.of(context).youWillBeNotifiedAt(
+        UserConfigModel.getTimeOfDayToString(reminderTime)!);
   }
 
   @override
