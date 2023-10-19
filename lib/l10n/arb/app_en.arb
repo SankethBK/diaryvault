@@ -79,9 +79,19 @@
   "appDescription":"Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!",
   "notificationsNotEnabled":"Notifications are not enabled",
   "notificationTimeNotEnabled":"You haven't selected a notification time",
-  "youWillBeNotifiedAt":"You will be notified at",
+  "youWillBeNotifiedAt":"You will be notified at {time}",
+  "@youWillBeNotifiedAt":{
+    "placeholders":{
+      "time": {
+        "type": "String",
+        "example":"in sometime"
+      }
+    }
+  },
   "enableDailyReminders":"Enable Daily Reminders", 
   "dailyReminders":"Daily Reminders",
   "getDailyReminders":"Get daily reminders at your chosen time to keep your journal up to date.",
-  "chooseTime":"Choose Time"
+  "chooseTime":"Choose Time",
+  "notificationTitle1":"Time to Journal!",
+  "notificationDescription1":"Take a few minutes to reflect on your day in your diary"
 }
