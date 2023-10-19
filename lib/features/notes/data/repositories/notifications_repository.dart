@@ -54,7 +54,7 @@ class NotificationsRepository implements INotificationsRepository {
       await flutterLocalNotificationsPlugin.zonedSchedule(
           0,
           'Time to Journal!',
-          'Take a few minutes to reflect on your day in your diary/journal.',
+          'Take a few minutes to reflect on your day in your diary',
           nextInstanceOfTime(time, tz.local),
           const NotificationDetails(
             android: AndroidNotificationDetails(

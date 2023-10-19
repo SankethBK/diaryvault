@@ -27,7 +27,7 @@ class DailyReminders extends StatelessWidget {
     }
 
     return AppLocalizations.of(context).youWillBeNotifiedAt +
-        "${UserConfigModel.getTimeOfDayToString(reminderTime)}";
+        " ${UserConfigModel.getTimeOfDayToString(reminderTime)}";
   }
 
   @override
@@ -137,10 +137,14 @@ class DailyReminders extends StatelessWidget {
                                 UserConfigModel.getTimeOfDayToString(
                                     pickedTime),
                               );
-
-                              // if notifications are enabled, then new schedule new notification at this time
-                              notificationsRepository
-                                  .zonedScheduleNotification(pickedTime);
+                              try {
+                                // if notifications are enabled, then new schedule new notification at this time
+                                notificationsRepository
+                                    .zonedScheduleNotification(pickedTime);
+                              } on Exception catch (e) {
+                                showToast(
+                                    e.toString().replaceAll("Exception: ", ""));
+                              }
                             }
                           },
                         )
