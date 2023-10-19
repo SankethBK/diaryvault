@@ -8,8 +8,8 @@ import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final log = printer("FingerPrintAuthRepo");
 
@@ -88,7 +88,7 @@ class FingerPrintAuthRepository {
 
             result.fold((e) {
               log.e(e);
-              showToast(AppLocalizations.of(context).fingerprintLoginFailed);
+              showToast(S.current.fingerprintLoginFailed);
             }, (user) {
               // for fingerprint login, it's never fresh login
               //! since a feature is removed, freshlogin is true to avoid breaking changes
@@ -98,7 +98,7 @@ class FingerPrintAuthRepository {
             });
           } else {
             log.e("lastLoginUser not found");
-            showToast(AppLocalizations.of(context).fingerprintLoginFailed);
+            showToast(S.current.fingerprintLoginFailed);
           }
         } else if (value == FingerPrintAuthState.platformError) {
           fingerPrintAuthStreamSubscription?.cancel();
@@ -107,7 +107,7 @@ class FingerPrintAuthRepository {
           fingerPrintAuthStreamSubscription?.cancel();
           isFingerPrintAuthActivated = false;
 
-          showToast(AppLocalizations.of(context).tooManyWrongAttempts);
+          showToast(S.current.tooManyWrongAttempts);
         } else if (value == FingerPrintAuthState.fail) {
           // showToast("fingerprint not recognized");
         }

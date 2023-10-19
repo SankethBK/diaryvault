@@ -6,12 +6,12 @@ import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
 import 'package:simple_accordion/widgets/AccordionItem.dart';
 import 'package:simple_accordion/widgets/AccordionWidget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DailyReminders extends StatelessWidget {
   const DailyReminders({Key? key}) : super(key: key);
@@ -19,14 +19,14 @@ class DailyReminders extends StatelessWidget {
   String getSubtitle(bool? isDailyReminderEnabled, TimeOfDay? reminderTime,
       BuildContext context) {
     if (isDailyReminderEnabled == null || isDailyReminderEnabled == false) {
-      return AppLocalizations.of(context).notificationsNotEnabled;
+      return S.current.notificationsNotEnabled;
     }
 
     if (reminderTime == null) {
-      return AppLocalizations.of(context).notificationTimeNotEnabled;
+      return S.current.notificationTimeNotEnabled;
     }
 
-    return AppLocalizations.of(context).youWillBeNotifiedAt(
+    return S.current.youWillBeNotifiedAt(
         UserConfigModel.getTimeOfDayToString(reminderTime)!);
   }
 
@@ -63,7 +63,7 @@ class DailyReminders extends StatelessWidget {
           ),
           children: [
             AccordionHeaderItem(
-              title: AppLocalizations.of(context).dailyReminders,
+              title: S.current.dailyReminders,
               children: [
                 AccordionItem(
                   child: Padding(
@@ -77,11 +77,11 @@ class DailyReminders extends StatelessWidget {
                           activeColor: activeColor,
                           contentPadding: const EdgeInsets.all(0.0),
                           title: Text(
-                            AppLocalizations.of(context).enableDailyReminders,
+                            S.current.enableDailyReminders,
                             style: TextStyle(color: mainTextColor),
                           ),
                           subtitle: Text(
-                            AppLocalizations.of(context).getDailyReminders,
+                            S.current.getDailyReminders,
                             style: TextStyle(color: mainTextColor),
                           ),
                           value: isDailyReminderEnabled ?? false,
@@ -110,7 +110,7 @@ class DailyReminders extends StatelessWidget {
                         ListTile(
                           contentPadding: const EdgeInsets.only(right: 10.0),
                           title: Text(
-                            AppLocalizations.of(context).chooseTime,
+                            S.current.chooseTime,
                             style: TextStyle(color: mainTextColor),
                           ),
                           subtitle: Text(

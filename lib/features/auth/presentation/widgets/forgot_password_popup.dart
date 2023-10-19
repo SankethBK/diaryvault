@@ -4,8 +4,8 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> forgotPasswordPopup(
     BuildContext context, Function(String) submitForgotPassword) {
@@ -24,7 +24,7 @@ Future<void> forgotPasswordPopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(AppLocalizations.of(context).enterRegisteredEmail,
+          Text(S.current.enterRegisteredEmail,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -58,11 +58,11 @@ Future<void> forgotPasswordPopup(
                   setState(() {
                     isLoading = false;
                   });
-                  showToast(AppLocalizations.of(context).passwordResetMailSent);
+                  showToast(S.current.passwordResetMailSent);
                   Navigator.of(context).pop();
                 });
               },
-              buttonText: AppLocalizations.of(context).submit,
+              buttonText: S.current.submit,
             );
           })
         ],

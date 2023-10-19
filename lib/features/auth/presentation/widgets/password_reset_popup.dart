@@ -3,8 +3,8 @@ import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'password_input_field.dart';
 
 Future<dynamic> passwordResetPopup(
@@ -33,7 +33,7 @@ Future<dynamic> passwordResetPopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(AppLocalizations.of(context).resetPassword,
+          Text(S.current.resetPassword,
               style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -43,13 +43,13 @@ Future<dynamic> passwordResetPopup(
             getPasswordErrors: () => null,
             onPasswordChanged: assignNewPassword,
             autoFocus: true,
-            hintText: AppLocalizations.of(context).newPassword,
+            hintText: S.current.newPassword,
           ),
           const SizedBox(height: 15),
           AuthPasswordInput(
             getPasswordErrors: () => null,
             onPasswordChanged: assignConfirmNewPassword,
-            hintText: AppLocalizations.of(context).confirmNewPassword,
+            hintText: S.current.confirmNewPassword,
           ),
           const SizedBox(height: 25),
           StatefulBuilder(builder: (context, setState) {
@@ -60,7 +60,7 @@ Future<dynamic> passwordResetPopup(
                     isLoading = true;
                   });
                   if (newPassword != confirmNewPassword) {
-                    showToast(AppLocalizations.of(context).passwordsDontMatch);
+                    showToast(S.current.passwordsDontMatch);
                     return;
                   }
 
@@ -75,12 +75,11 @@ Future<dynamic> passwordResetPopup(
                     setState(() {
                       isLoading = false;
                     });
-                    showToast(
-                        AppLocalizations.of(context).passwordResetSuccessful);
+                    showToast(S.current.passwordResetSuccessful);
                     Navigator.pop(context);
                   });
                 },
-                buttonText: AppLocalizations.of(context).submit);
+                buttonText: S.current.submit);
           })
         ],
       ),

@@ -2,8 +2,8 @@ import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dar
 import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<bool> quitAppDialog(BuildContext context) async {
   final mainTextColor =
@@ -18,7 +18,7 @@ Future<bool> quitAppDialog(BuildContext context) async {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            AppLocalizations.of(context).closeTheApp,
+            S.current.closeTheApp,
             style: TextStyle(
               fontSize: 18.0,
               color: mainTextColor,

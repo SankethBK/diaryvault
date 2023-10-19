@@ -8,9 +8,9 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bl
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SetupAccount extends StatefulWidget {
   const SetupAccount({Key? key}) : super(key: key);
@@ -59,8 +59,7 @@ class _SetupAccountState extends State<SetupAccount> {
                       }
 
                       if (state is AuthFormSubmissionSuccessful) {
-                        showToast(AppLocalizations.of(context)
-                            .accountSetupSuccessful);
+                        showToast(S.current.accountSetupSuccessful);
                         Navigator.pop(context);
                       }
                     },
@@ -97,7 +96,7 @@ class _SetupAccountState extends State<SetupAccount> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              AppLocalizations.of(context).setupYourAccount,
+                              S.current.setupYourAccount,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -128,8 +127,7 @@ class _SetupAccountState extends State<SetupAccount> {
                                   isLoading:
                                       (state is AuthFormSubmissionLoading),
                                   onSubmitted: _onSubmitted,
-                                  buttonText:
-                                      AppLocalizations.of(context).submit,
+                                  buttonText: S.current.submit,
                                 )
                               ],
                             ),
@@ -141,7 +139,7 @@ class _SetupAccountState extends State<SetupAccount> {
                 );
               },
               child: Text(
-                AppLocalizations.of(context).setupYourAccount,
+                S.current.setupYourAccount,
                 style: TextStyle(
                   fontSize: 16.0,
                   color: mainTextColor,
