@@ -17,7 +17,6 @@ import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cu
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final log = printer("App");
