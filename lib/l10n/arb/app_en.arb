@@ -76,6 +76,12 @@
   "delete":"Delete",
   "cancel":"Cancel",
   "submit":"Submit",
-  "appDescription":"Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!"
-
+  "appDescription":"Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!",
+  "notificationsNotEnabled":"Notifications are not enabled",
+  "notificationTimeNotEnabled":"You haven't selected a notification time",
+  "youWillBeNotifiedAt":"You will be notified at",
+  "enableDailyReminders":"Enable Daily Reminders", 
+  "dailyReminders":"Daily Reminders",
+  "getDailyReminders":"Get daily reminders at your chosen time to keep your journal up to date.",
+  "chooseTime":"Choose Time"
 }
