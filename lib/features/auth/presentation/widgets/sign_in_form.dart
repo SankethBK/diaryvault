@@ -6,10 +6,10 @@ import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:dartz/dartz.dart' as dz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'auth_change.dart';
 import 'forgot_password_popup.dart';
 import 'password_input_field.dart';
@@ -100,7 +100,7 @@ class _SignInFormState extends State<SignInForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    AppLocalizations.of(context).logIn,
+                    S.current.logIn,
                     style: const TextStyle(
                       fontSize: 25,
                       color: Colors.white,
@@ -138,7 +138,7 @@ class _SignInFormState extends State<SignInForm> {
                               context, submitForgotPasswordEmail);
                         },
                         child: Text(
-                          AppLocalizations.of(context).forgotPassword,
+                          S.current.forgotPassword,
                           style: TextStyle(
                             color: linkColor,
                             fontWeight: FontWeight.bold,
@@ -146,8 +146,8 @@ class _SignInFormState extends State<SignInForm> {
                         ),
                       ),
                       AuthChangePage(
-                        infoText: AppLocalizations.of(context).dontHaveAccount,
-                        flipPageText: AppLocalizations.of(context).signUp,
+                        infoText: S.current.dontHaveAccount,
+                        flipPageText: S.current.signUp,
                         flipCard: widget.flipCard,
                       ),
                     ],

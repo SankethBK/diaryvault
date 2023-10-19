@@ -13,7 +13,7 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import '../widgets/notes_close_button.dart';
 
 class NotesReadOnlyPage extends StatefulWidget {
@@ -126,13 +126,13 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
             bloc: notesBloc,
             listener: (context, state) {
               if (state is NoteFetchFailed) {
-                showToast(AppLocalizations.of(context).failedToFetchNote);
+                showToast(S.current.failedToFetchNote);
               } else if (state is NotesSavingFailed) {
-                showToast(AppLocalizations.of(context).failedToSaveNote);
+                showToast(S.current.failedToSaveNote);
               } else if (state is NoteSavedSuccesfully) {
                 showToast(state.newNote!
-                    ? AppLocalizations.of(context).noteSavedSuccessfully
-                    : AppLocalizations.of(context).noteUpdatedSuccessfully);
+                    ? S.current.noteSavedSuccessfully
+                    : S.current.noteUpdatedSuccessfully);
                 _routeToHome();
               }
             },
