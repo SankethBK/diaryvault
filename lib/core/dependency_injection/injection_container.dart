@@ -18,7 +18,9 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart';
+import 'package:dairy_app/features/notes/data/repositories/notifications_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -28,6 +30,7 @@ import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_da
 import 'package:dairy_app/features/sync/data/repositories/sync_repository.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -117,6 +120,21 @@ Future<void> init() async {
   //* Repository
   sl.registerSingleton<INotesRepository>(
       NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
+
+  sl.registerSingletonAsync<INotificationsRepository>(() async {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    return NotificationsRepository(
+        flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin);
+  });
 
   //* Blocs
   sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));

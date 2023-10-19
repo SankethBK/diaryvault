@@ -38,15 +38,17 @@ dependencies:
   filesystem_picker: ^2.0.0-nullsafety.0
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter  
   flutter_bloc: ^8.0.1
   flutter_dotenv: ^5.1.0
+  flutter_local_notifications: ^16.1.0
+  flutter_localizations:
+    sdk: flutter
   flutter_quill:
     path: ./packages/flutter_quill
   flutter_quill_extensions:
     path: ./packages/flutter_quill/flutter_quill_extensions
   flutter_secure_storage: ^9.0.0
+  flutter_timezone: ^1.0.8
   flutter_tts: ^3.8.3
   flutter_web_auth_2: ^2.2.1
   fluttertoast: ^8.0.9
@@ -132,4 +134,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
