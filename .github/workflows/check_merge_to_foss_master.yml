@@ -1,0 +1,29 @@
+name: Check merge to foss-master
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  check-merge-compatibility-with-foss-master:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request head
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Fetch foss-master
+        run: git fetch origin foss-master
+      - name: Rebase 'foss-master' with PR branch
+        run: git rebase foss-master
+      - name: Check for conflicts
+        run: |
+          if git diff --quiet; then
+            echo "No merge conflicts found. Rebase successful."
+            exit 0
+          else
+            echo "Merge conflicts found. Rebase failed."
+            exit 1
+          fi
