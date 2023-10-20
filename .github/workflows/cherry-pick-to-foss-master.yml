@@ -1,0 +1,42 @@
+name: Auto Cherry-pick to foss-master
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  cherry-pick:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Checkout foss-master branch
+        run: git checkout foss-master
+
+      - name: Cherry-pick latest commit from master
+        run: git cherry-pick -X theirs master
+
+      - name: Check for conflicts
+        run: |
+          if git diff --check; then
+            echo "No conflicts found"
+          else
+            echo "Conflicts detected. Manual intervention required."
+            exit 1  # Exit with an error code
+          fi
+
+      - name: Commit and push to foss-master
+        run: |
+          git add .
+          git commit -m "Cherry-pick from master"
+          git push origin foss-master
