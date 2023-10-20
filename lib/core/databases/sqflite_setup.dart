@@ -71,7 +71,7 @@ class DBProvider {
           if (count == 0) {
             await db.insert(Notes.TABLE_NAME, welcomeNote);
           }
-          log.i("Welcome Note inserted into table: ${Notes.TABLE_NAME}");
+          log.i("Welcome Note inserted into table: ${Notes.TABLE_NAME} test");
         } catch (e) {
           log.e(e);
           rethrow;
