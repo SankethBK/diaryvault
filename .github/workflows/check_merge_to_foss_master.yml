@@ -1,11 +1,11 @@
-name: Check merge to foss-master
+name: Check merge to foss_master
 
 on:
   pull_request_review:
     types: [submitted]
 
 jobs:
-  check-merge-compatibility-with-foss-master:
+  check-merge-compatibility-with-foss_master:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
 
@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-      - name: Fetch foss-master
-        run: git fetch origin foss-master
-      - name: Rebase 'foss-master' with PR branch
-        run: git rebase foss-master
+      - name: Fetch foss_master
+        run: git fetch origin foss_master
+      - name: Rebase 'foss_master' with PR branch
+        run: git rebase foss_master
       - name: Check for conflicts
         run: |
           if git diff --quiet; then
