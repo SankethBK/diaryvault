@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
-
+    final test = "";
     final log = printer("Router");
 
     log.i("routing to ${settings.name} with args $args");
