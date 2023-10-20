@@ -116,7 +116,8 @@ class _AppViewState extends State<AppView> {
             Locale('pt', "BR"),
             Locale('sw'),
             Locale('ar'),
-            Locale('de')
+            Locale('de'),
+            Locale('fi')
           ],
           localizationsDelegates: const [
             AppLocalizations.delegate,
