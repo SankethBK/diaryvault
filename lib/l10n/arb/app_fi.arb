@@ -22,7 +22,7 @@
   "fingerprintLoginFailed":"Sormenjälkitunnistus ei onnistunut",
   "tooManyWrongAttempts":"Tunnistus epäonnistui liian monta kertaa. Anna salasana.",
   "emailUpdatedSuccessfully":"Sähköpostiosoite on päivitetty. Kirjaudu uudelleen sisään.",
-  "passwordResetMailSent":"Salasanan palautusviesti on lähtetty",
+  "passwordResetMailSent":"Salasanan palautusviesti on lähetetty",
   "incorrectPassword":"Salasana on väärä",
   "passwordVerified":"Salasana on vahvistettu",
   "passwordsDontMatch":"Salasanat eivät täsmää",
