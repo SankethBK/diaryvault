@@ -13,7 +13,7 @@ class RouteGenerator {
 
     final log = printer("Router");
 
-    log.i("routing to ${settings.name} with args $args");
+    log.i("routing to ${settings.name} with args $args ");
 
     if (settings.name == HomePage.route) {
       return MaterialPageRoute(builder: (_) => const HomePage());
