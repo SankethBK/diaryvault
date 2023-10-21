@@ -61,7 +61,7 @@ class DBProvider {
               ${NoteDependencies.ASSET_PATH} TEXT
             )
             """);
-          log.i("All create queries executed successfully");
+          log.i(" All create queries executed successfully");
           log.i("Inserting welcome note");
 
           // As soon as the tables are created, insert a welcome note
