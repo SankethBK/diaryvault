@@ -5,7 +5,8 @@ on:
       - closed  
 permissions:
   contents: write
-  
+  pull-requests: write
+
 jobs:  
   release_pull_request:  
     if: github.event.pull_request.merged
