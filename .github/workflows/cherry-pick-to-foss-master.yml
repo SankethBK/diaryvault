@@ -9,7 +9,6 @@ on:
 
 jobs:  
   release_pull_request:  
-    if: github.event.pull_request.merged
     runs-on: ubuntu-latest  
     name: release_pull_request  
     steps:  
