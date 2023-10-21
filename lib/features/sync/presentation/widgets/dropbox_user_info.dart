@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
@@ -144,7 +145,13 @@ class _DropboxUserInfoState extends State<DropboxUserInfo>
                           : SubmitButton(
                               isLoading: false,
                               onSubmitted: () async {
-                                await oAuthClient.signIn();
+                                try {
+                                  await oAuthClient.signIn();
+                                } on Exception catch (e) {
+                                  showToast(e
+                                      .toString()
+                                      .replaceAll("Exception: ", ""));
+                                }
                               },
                               buttonText: S.current.signIn,
                             )),
