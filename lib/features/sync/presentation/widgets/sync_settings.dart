@@ -9,7 +9,7 @@ import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dar
 import 'package:dairy_app/features/sync/presentation/widgets/sync_source_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/generated/l10n.dart';
 
 class SyncSettings extends StatelessWidget {
   const SyncSettings({Key? key}) : super(key: key);
@@ -42,20 +42,19 @@ class SyncSettings extends StatelessWidget {
                 inactiveTrackColor: inactiveTrackColor,
                 activeColor: activeColor,
                 contentPadding: const EdgeInsets.all(0),
-                title: Text(AppLocalizations.of(context).autoSync,
+                title: Text(S.current.autoSync,
                     style: TextStyle(
                       fontSize: 16.0,
                       color: mainTextColor,
                     )),
                 subtitle: Text(
-                  AppLocalizations.of(context).automaticallySyncNotesWithCloud,
+                  S.current.automaticallySyncNotesWithCloud,
                   style: TextStyle(color: mainTextColor),
                 ),
                 value: state.userConfigModel?.isAutoSyncEnabled == true,
                 onChanged: (bool val) {
                   if (!isSignedIn) {
-                    showToast(
-                        AppLocalizations.of(context).loginToEnableAutoSync);
+                    showToast(S.current.loginToEnableAutoSync);
                     return;
                   }
                   final userConfigCubit =
@@ -69,7 +68,7 @@ class SyncSettings extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              Text(AppLocalizations.of(context).syncNow,
+              Text(S.current.syncNow,
                   style: TextStyle(
                     fontSize: 16.0,
                     color: mainTextColor,
@@ -82,7 +81,7 @@ class SyncSettings extends StatelessWidget {
           const SizedBox(height: 12),
           const SyncSourceDropdown(),
           const SizedBox(height: 12),
-          Text(AppLocalizations.of(context).availablePlatformsForSync,
+          Text(S.current.availablePlatformsForSync,
               style: TextStyle(
                 fontSize: 16.0,
                 color: mainTextColor,

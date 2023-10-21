@@ -3,7 +3,7 @@ import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/generated/l10n.dart';
 
 class SyncNowButton extends StatefulWidget {
   const SyncNowButton({Key? key}) : super(key: key);
@@ -43,7 +43,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
     return BlocBuilder<NoteSyncCubit, NoteSyncState>(
       builder: (contextn, state) {
         if (state is NoteSyncSuccessful) {
-          showToast(AppLocalizations.of(context).notesSyncSuccessfull);
+          showToast(S.current.notesSyncSuccessfull);
           _rotationAnimationController.reset();
         } else if (state is NoteSyncFailed) {
           showToast(state.errorMessage);

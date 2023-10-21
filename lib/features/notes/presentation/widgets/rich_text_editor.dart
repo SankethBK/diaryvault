@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
@@ -197,7 +197,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                AppLocalizations.of(context).gallery,
+                S.current.gallery,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Gallery),
@@ -208,7 +208,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                AppLocalizations.of(context).link,
+                S.current.link,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Link),
@@ -240,7 +240,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                AppLocalizations.of(context).camera,
+                S.current.camera,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Camera),
@@ -251,7 +251,7 @@ class Toolbar extends StatelessWidget {
                 color: quillPopupTextColor,
               ),
               label: Text(
-                AppLocalizations.of(context).video,
+                S.current.video,
                 style: TextStyle(color: quillPopupTextColor),
               ),
               onPressed: () => Navigator.pop(context, MediaPickSetting.Video),

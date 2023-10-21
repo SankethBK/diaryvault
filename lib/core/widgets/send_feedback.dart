@@ -1,6 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/settings_tile.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,7 +14,7 @@ class SendFeedBack extends StatelessWidget {
   Widget build(BuildContext context) => SettingsTile(
         onTap: _launchEmailApp,
         child: Text(
-          AppLocalizations.of(context).sendFeedback,
+          S.current.sendFeedback,
           style: TextStyle(
             fontSize: 16.0,
             color: Theme.of(context)

@@ -3,8 +3,8 @@ import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({
@@ -34,7 +34,7 @@ class LogoutButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      AppLocalizations.of(context).areYouSureAboutLoggingOut,
+                      S.current.areYouSureAboutLoggingOut,
                       style: TextStyle(fontSize: 16.0, color: mainTextColor),
                     ),
                     const SizedBox(height: 15),

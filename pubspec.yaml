@@ -1,7 +1,7 @@
 name: dairy_app
-description: Diaryvault is a personal diary application equipped with a rich
-  text editor, it has support for images, and videos as well. It also supports
-  emojis from Google Keyboards.
+description: Diaryvault is a personal diary application equipped with a rich text editor,
+  it has support for images, and videos as well. It also supports emojis from
+  Google Keyboards.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -83,7 +83,6 @@ dev_dependencies:
   integration_test:
     sdk: flutter
 
-
 # not using this as of now
 # flutter_icons:
 #   android: 'launcher_icon'
@@ -98,7 +97,7 @@ dependency_overrides:
   # For information on the generic Dart part of this file, see the
   # following page: https://dart.dev/tools/pub/pubspec
   # The following section is specific to Flutter.
-  analyzer:
+  ? analyzer
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -134,3 +133,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
