@@ -1,8 +1,5 @@
 name: PR for release branch
 on:
-  push:
-    branches:
-      - master
   pull_request:
     types:
       - closed  
@@ -16,7 +13,7 @@ jobs:
       - name: checkout  
         uses: actions/checkout@v1  
       - name: Create PR to branch  
-        uses: gorillio/github-action-cherry-pick@master  
+        uses: pinkbatman7777/github-action-cherry-pick@master  
         with:  
           pr_branch: 'foss_master'  
         env:  
