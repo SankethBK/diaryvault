@@ -16,5 +16,5 @@ jobs:
         pr_branch: 'foss_master'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITBOT_EMAIL: <BOT_EMAIL>
+        GITBOT_EMAIL: sankethbk7777@gmail.com
         DRY_RUN: false
