@@ -1,48 +1,20 @@
-name: Auto Cherry-pick to foss_master
-
+name: PR for release branch
 on:
   push:
     branches:
-      - master
-  pull_request:
-    types:
-      - closed
-
+      - 0.1.0
 jobs:
-  cherry-pick:
-    if: github.event.pull_request.merged
+  release_pull_request:
     runs-on: ubuntu-latest
-    needs: check-foss-master-branch  # Ensure the previous step runs first
-
+    name: release_pull_request
     steps:
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          ref: master
-    
-      - name: Print remote information
-        run: git remote -v
-
-      - name: List all branches
-        run: git branch -a
-
-      - name: Checkout foss_master branch
-        run: git checkout foss_master
-
-      - name: Cherry-pick latest commit from master
-        run: git cherry-pick -X theirs master
-
-      - name: Check for conflicts
-        run: |
-          if git diff --check; then
-            echo "No conflicts found"
-          else
-            echo "Conflicts detected. Manual intervention required."
-            exit 1  # Exit with an error code
-          fi
-
-      - name: Commit and push to foss_master
-        run: |
-          git add .
-          git commit -m "Cherry-pick from master"
-          git push origin foss_master
+    - name: checkout
+      uses: actions/checkout@v1
+    - name: Create PR to branch
+      uses: gorillio/github-action-cherry-pick@master
+      with:
+        pr_branch: '0.1.x'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITBOT_EMAIL: <BOT_EMAIL>
+        DRY_RUN: false
