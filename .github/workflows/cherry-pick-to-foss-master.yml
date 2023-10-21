@@ -9,12 +9,23 @@ on:
       - closed
 
 jobs:
-  cherry-pick:
-    if: github.event.pull_request.merged
+  check-foss-master-branch:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if foss_master branch exists
+        run: |
+          if ! git ls-remote --exit-code --heads origin foss_master; then
+            echo "The foss_master branch does not exist in the remote repository."
+            exit 1  # Exit with an error code
+          fi
 
+  cherry-pick:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    needs: check-foss-master-branch  # Ensure the previous step runs first
+
+    steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
