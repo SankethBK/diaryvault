@@ -1,0 +1,25 @@
+name: Merge to Foss master
+on:
+  pull_request:
+    types:
+      - closed  
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:  
+  release_pull_request:  
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest  
+    name: release_pull_request  
+    steps:  
+      - name: checkout  
+        uses: actions/checkout@v1  
+      - name: Create PR to branch  
+        uses: pinkbatman7777/github-action-cherry-pick@master  
+        with:  
+          pr_branch: 'foss_master'  
+        env:  
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITBOT_EMAIL: sankethbk7777@gmail.com
+          DRY_RUN: false
