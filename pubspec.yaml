@@ -1,7 +1,7 @@
 name: dairy_app
-description: Diaryvault is a personal diary application equipped with a rich text editor,
-  it has support for images, and videos as well. It also supports emojis from
-  Google Keyboards.
+description: Diaryvault is a personal diary application equipped with a rich
+  text editor, it has support for images, and videos as well. It also supports
+  emojis from Google Keyboards.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -39,7 +39,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  flutter_dotenv: ^5.1.0
   flutter_local_notifications: ^16.1.0
   flutter_localizations:
     sdk: flutter
@@ -56,6 +55,7 @@ dependencies:
   google_fonts: ^4.0.4
   google_sign_in: ^5.3.3
   googleapis: ^9.0.0
+  http: 0.13.6
   internet_connection_checker: ^0.0.1+4
   intl: ^0.18.0
   local_auth: ^2.1.6
@@ -81,9 +81,9 @@ dev_dependencies:
   flutter_native_splash: ^2.1.0
   flutter_test:
     sdk: flutter
-  mockito: ^5.1.0
   integration_test:
     sdk: flutter
+  mockito: ^5.1.0
 
 # not using this as of now
 # flutter_icons:
@@ -99,7 +99,7 @@ dependency_overrides:
   # For information on the generic Dart part of this file, see the
   # following page: https://dart.dev/tools/pub/pubspec
   # The following section is specific to Flutter.
-  ? analyzer
+  analyzer:
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -110,7 +110,6 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
-    - .env
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
