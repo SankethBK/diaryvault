@@ -10,9 +10,9 @@ import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
   const HomePageAppBar({
@@ -296,7 +296,7 @@ class Title extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              AppLocalizations.of(context).dateFilter,
+                              S.current.dateFilter,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20.0,
@@ -310,7 +310,7 @@ class Title extends StatelessWidget {
                                 Flexible(
                                   flex: 2,
                                   child: Text(
-                                    AppLocalizations.of(context).from,
+                                    S.current.from,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 16.0,
@@ -334,7 +334,7 @@ class Title extends StatelessWidget {
                                 Flexible(
                                   flex: 2,
                                   child: Text(
-                                    AppLocalizations.of(context).to,
+                                    S.current.to,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 16.0,
@@ -355,7 +355,7 @@ class Title extends StatelessWidget {
                             SubmitButton(
                               isLoading: false,
                               onSubmitted: () => Navigator.of(context).pop(),
-                              buttonText: AppLocalizations.of(context).done,
+                              buttonText: S.current.done,
                             )
                           ],
                         ),
@@ -407,7 +407,7 @@ class _DeleteButton extends StatelessWidget {
                     noteList: selectableListCubit.state.selectedItems));
               }
             },
-            buttonText: AppLocalizations.of(context).delete);
+            buttonText: S.current.delete);
       },
     );
   }
@@ -423,7 +423,7 @@ class _CancelButton extends StatelessWidget {
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
         return CancelButton(
-          buttonText: AppLocalizations.of(context).cancel,
+          buttonText: S.current.cancel,
           onPressed: () {
             if (state is NoteDeleteLoading) {
               return;
@@ -509,7 +509,7 @@ class DeleteIcon extends StatelessWidget {
               showToast(
                   "$deletionCount item${deletionCount > 1 ? "s" : ""} deleted");
             } else {
-              showToast(AppLocalizations.of(context).deletionFailed);
+              showToast(S.current.deletionFailed);
             }
           }
         },

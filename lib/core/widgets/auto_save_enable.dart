@@ -1,11 +1,11 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../app/themes/theme_extensions/settings_page_theme_extensions.dart';
-import '../../features/auth/core/constants.dart';
-import '../../features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import '../utils/utils.dart';
+import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/core/utils/utils.dart';
 
 class AutoSaveToggleButton extends StatelessWidget {
   const AutoSaveToggleButton({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class AutoSaveToggleButton extends StatelessWidget {
           activeColor: activeColor,
           contentPadding: const EdgeInsets.all(0.0),
           title: Text(
-            AppLocalizations.of(context).enableAutoSave,
+            S.current.enableAutoSave,
             style: TextStyle(color: mainTextColor),
           ),
           subtitle: Text(

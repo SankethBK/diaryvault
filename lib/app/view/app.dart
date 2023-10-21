@@ -14,9 +14,9 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final log = printer("App");
@@ -107,20 +107,9 @@ class _AppViewState extends State<AppView> {
           navigatorKey: _navigatorKey,
           debugShowCheckedModeBanner: false,
           title: "My Dairy",
-          supportedLocales: const [
-            Locale('en'),
-            Locale('hi'),
-            Locale('pa'),
-            Locale('he'),
-            Locale('kn'),
-            Locale('pt', "BR"),
-            Locale('sw'),
-            Locale('ar'),
-            Locale('de'),
-            Locale('fi')
-          ],
+          supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
-            AppLocalizations.delegate,
+            S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate

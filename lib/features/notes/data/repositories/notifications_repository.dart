@@ -1,5 +1,6 @@
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -53,8 +54,8 @@ class NotificationsRepository implements INotificationsRepository {
 
       await flutterLocalNotificationsPlugin.zonedSchedule(
           0,
-          'Time to Journal!',
-          'Take a few minutes to reflect on your day in your diary',
+          S.current.notificationTitle1,
+          S.current.notificationDescription1,
           nextInstanceOfTime(time, tz.local),
           const NotificationDetails(
             android: AndroidNotificationDetails(

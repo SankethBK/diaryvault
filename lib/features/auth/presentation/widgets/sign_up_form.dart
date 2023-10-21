@@ -5,9 +5,9 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bl
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/guest_sign_up.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_input_field.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'auth_change.dart';
 import 'email_input_field.dart';
 
@@ -86,7 +86,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    AppLocalizations.of(context).signUp,
+                    S.current.signUp,
                     style: const TextStyle(
                       fontSize: 25,
                       color: Colors.white,
@@ -112,7 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       SubmitButton(
                         isLoading: (state is AuthFormSubmissionLoading),
                         onSubmitted: _onSubmitted,
-                        buttonText: AppLocalizations.of(context).submit,
+                        buttonText: S.current.submit,
                       )
                     ],
                   ),
@@ -120,9 +120,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     children: [
                       const GuestSignUp(),
                       AuthChangePage(
-                        infoText:
-                            AppLocalizations.of(context).alreadyHaveAnAccount,
-                        flipPageText: AppLocalizations.of(context).logIn,
+                        infoText: S.current.alreadyHaveAnAccount,
+                        flipPageText: S.current.logIn,
                         flipCard: widget.flipCard,
                       ),
                     ],
