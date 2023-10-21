@@ -2,13 +2,12 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final log = printer("AuthRemoteDataSource");
 
 class AuthRemoteDataSource implements IAuthRemoteDataSource {
   late Client appwriteClient;
-  final String appwriteProjectId = dotenv.env['APPWRITE_ID'] ?? "";
+  final String appwriteProjectId = "6524587ed66bb323ec06";
 
   AuthRemoteDataSource() {
     appwriteClient = Client();
