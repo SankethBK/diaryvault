@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print remote information
+        run: git remote -v
+
+      - name: List all branches
+        run: git branch -a
+        
       - name: Check if foss_master branch exists
         run: |
           if ! git ls-remote --exit-code --heads origin foss_master; then
