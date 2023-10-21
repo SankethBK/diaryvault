@@ -1,4 +1,4 @@
-name: Auto Cherry-pick to foss-master
+name: Auto Cherry-pick to foss_master
 
 on:
   push:
@@ -20,8 +20,8 @@ jobs:
         with:
           ref: master
 
-      - name: Checkout foss-master branch
-        run: git checkout foss-master
+      - name: Checkout foss_master branch
+        run: git checkout foss_master
 
       - name: Cherry-pick latest commit from master
         run: git cherry-pick -X theirs master
@@ -35,8 +35,8 @@ jobs:
             exit 1  # Exit with an error code
           fi
 
-      - name: Commit and push to foss-master
+      - name: Commit and push to foss_master
         run: |
           git add .
           git commit -m "Cherry-pick from master"
-          git push origin foss-master
+          git push origin foss_master
