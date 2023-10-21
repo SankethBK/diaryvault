@@ -5,7 +5,7 @@ on:
       - master
   pull_request:
     types:
-      - closed
+      - closed  
 
 jobs:  
   release_pull_request:  
