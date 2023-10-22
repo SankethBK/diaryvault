@@ -24,7 +24,7 @@ class AuthChangePage extends StatelessWidget {
         Text(
           infoText,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withOpacity(1),
           ),
         ),
         GestureDetector(

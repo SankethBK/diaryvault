@@ -59,6 +59,7 @@ class CoralBubble {
           hintTextColor: Colors.black.withOpacity(0.7),
           authFormGradientStartColor: Colors.white.withOpacity(0.4),
           authFormGradientEndColor: Colors.white.withOpacity(0.2),
+          infoTextColor: Colors.white.withOpacity(0.7),
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),
