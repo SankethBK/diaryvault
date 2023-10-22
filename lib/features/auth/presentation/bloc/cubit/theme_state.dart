@@ -1,6 +1,6 @@
 part of 'theme_cubit.dart';
 
-enum Themes { coralBubbles, cosmic, lushGreen }
+enum Themes { coralBubbles, cosmic, lushGreen, plainDark }
 
 String themeKey = "current_theme";
 
@@ -13,6 +13,8 @@ extension ThemeExtension on Themes {
         return 'Cosmic';
       case Themes.lushGreen:
         return 'Lush Green';
+      case Themes.plainDark:
+        return "Plain Dark";
     }
   }
 }
@@ -25,6 +27,8 @@ Themes getThemeFromString(String? themeString) {
       return Themes.cosmic;
     case 'lushGreen':
       return Themes.lushGreen;
+    case 'plainDark':
+      return Themes.plainDark;
     default:
       return Themes.cosmic;
   }

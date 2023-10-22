@@ -16,6 +16,7 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
       authFormGradientStartColor; // start color of gradient in auth page flip card
   final Color
       authFormGradientEndColor; // end color of gradient in auth page flip card
+  final Color infoTextColor; // color for text on auth page
 
   AuthPageThemeExtensions({
     required this.linkColor,
@@ -28,6 +29,7 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
     required this.fillColor,
     required this.authFormGradientStartColor,
     required this.authFormGradientEndColor,
+    required this.infoTextColor,
   });
 
   @override
@@ -42,6 +44,7 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
     Color? fillColor,
     Color? authFormGradientStartColor,
     Color? authFormGradientEndColor,
+    Color? infoTextColor,
   }) {
     return AuthPageThemeExtensions(
         backgroundImage: backgroundImage ?? this.backgroundImage,
@@ -55,7 +58,8 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
         authFormGradientStartColor:
             authFormGradientStartColor ?? this.authFormGradientStartColor,
         authFormGradientEndColor:
-            authFormGradientEndColor ?? this.authFormGradientEndColor);
+            authFormGradientEndColor ?? this.authFormGradientEndColor,
+        infoTextColor: infoTextColor ?? this.infoTextColor);
   }
 
   @override
@@ -74,6 +78,7 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
           authFormGradientStartColor, other?.authFormGradientStartColor, t)!,
       authFormGradientEndColor: Color.lerp(
           authFormGradientEndColor, other?.authFormGradientEndColor, t)!,
+      infoTextColor: Color.lerp(infoTextColor, other?.infoTextColor, t)!,
     );
   }
 }
