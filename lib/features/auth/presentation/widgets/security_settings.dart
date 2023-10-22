@@ -10,10 +10,9 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/auth/presentation/widgets/email_change_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
 import 'package:simple_accordion/widgets/AccordionItem.dart';
 import 'package:simple_accordion/widgets/AccordionWidget.dart';
@@ -69,7 +68,7 @@ class SecuritySettings extends StatelessWidget {
                           color: Colors.transparent,
                           child: SettingsTile(
                             child: Text(
-                              AppLocalizations.of(context).changePassword,
+                              S.current.changePassword,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 color: mainTextColor,
@@ -77,13 +76,12 @@ class SecuritySettings extends StatelessWidget {
                             ),
                             onTap: () async {
                               if (userId == null) {
-                                showToast(AppLocalizations.of(context)
-                                    .unexpectedErrorOccured);
+                                showToast(S.current.unexpectedErrorOccured);
                                 return;
                               }
 
                               if (userId == GuestUserDetails.guestUserId) {
-                                showToast(AppLocalizations.of(context)
+                                showToast(S.current
                                     .pleaseSetupYourAccountToUseThisFeature);
                                 return;
                               }
@@ -114,7 +112,7 @@ class SecuritySettings extends StatelessWidget {
                           color: Colors.transparent,
                           child: SettingsTile(
                             child: Text(
-                              AppLocalizations.of(context).changeEmail,
+                              S.current.changeEmail,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 color: mainTextColor,
@@ -122,12 +120,11 @@ class SecuritySettings extends StatelessWidget {
                             ),
                             onTap: () async {
                               if (userId == null) {
-                                showToast(AppLocalizations.of(context)
-                                    .unexpectedErrorOccured);
+                                showToast(S.current.unexpectedErrorOccured);
                               }
 
                               if (userId == GuestUserDetails.guestUserId) {
-                                showToast(AppLocalizations.of(context)
+                                showToast(S.current
                                     .pleaseSetupYourAccountToUseThisFeature);
                               }
 
@@ -165,24 +162,23 @@ class SecuritySettings extends StatelessWidget {
                           activeColor: activeColor,
                           contentPadding: const EdgeInsets.all(0.0),
                           title: Text(
-                            AppLocalizations.of(context).enableFingerPrintLogin,
+                            S.current.enableFingerPrintLogin,
                             style: TextStyle(color: mainTextColor),
                           ),
                           subtitle: Text(
-                            AppLocalizations.of(context)
+                            S.current
                                 .fingerPrintAthShouldBeEnabledInDeviceSettings,
                             style: TextStyle(color: mainTextColor),
                           ),
                           value: isFingerPrintLoginEnabledValue ?? false,
                           onChanged: (value) async {
                             if (userId == null) {
-                              showToast(AppLocalizations.of(context)
-                                  .unexpectedErrorOccured);
+                              showToast(S.current.unexpectedErrorOccured);
                               return;
                             }
 
                             if (userId == GuestUserDetails.guestUserId) {
-                              showToast(AppLocalizations.of(context)
+                              showToast(S.current
                                   .pleaseSetupYourAccountToUseThisFeature);
                               return;
                             }

@@ -16,6 +16,7 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
   final flutterTts = FlutterTts()
     ..setLanguage("en-US")
     ..setSpeechRate(0.5)
+    ..setVolume(1)
     ..setPitch(1.0);
 
   @override
