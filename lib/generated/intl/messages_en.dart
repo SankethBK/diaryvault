@@ -142,6 +142,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Signed in as"),
+        "sortByAtoZ": MessageLookupByLibrary.simpleMessage("Sort by A-Z"),
+        "sortByLatestFirst":
+            MessageLookupByLibrary.simpleMessage("Sort by Latest First"),
+        "sortByOldestFirst":
+            MessageLookupByLibrary.simpleMessage("Sort by Oldest First"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "syncNow": MessageLookupByLibrary.simpleMessage("Sync now"),
         "tapToExpandTitle":

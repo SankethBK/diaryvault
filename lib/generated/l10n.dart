@@ -869,6 +869,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Sort by Latest First`
+  String get sortByLatestFirst {
+    return Intl.message(
+      'Sort by Latest First',
+      name: 'sortByLatestFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by Oldest First`
+  String get sortByOldestFirst {
+    return Intl.message(
+      'Sort by Oldest First',
+      name: 'sortByOldestFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by A-Z`
+  String get sortByAtoZ {
+    return Intl.message(
+      'Sort by A-Z',
+      name: 'sortByAtoZ',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -880,13 +910,13 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'ar'),
       Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'fi'),
+      Locale.fromSubtags(languageCode: 'gu'),
       Locale.fromSubtags(languageCode: 'he'),
       Locale.fromSubtags(languageCode: 'hi'),
       Locale.fromSubtags(languageCode: 'kn'),
       Locale.fromSubtags(languageCode: 'pa'),
       Locale.fromSubtags(languageCode: 'pt'),
       Locale.fromSubtags(languageCode: 'sw'),
-      Locale.fromSubtags(languageCode: 'gu'),
     ];
   }
 

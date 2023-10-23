@@ -140,7 +140,10 @@ Future<void> init() async {
   //* Blocs
   sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));
   sl.registerLazySingleton(() => NotesFetchCubit(
-      notesRepository: sl(), notesBloc: sl(), noteSyncCubit: sl()));
+      notesRepository: sl(),
+      notesBloc: sl(),
+      noteSyncCubit: sl(),
+      userConfigCubit: sl()));
   sl.registerLazySingleton(() => SelectableListCubit());
 
   //* FEATURE: sync

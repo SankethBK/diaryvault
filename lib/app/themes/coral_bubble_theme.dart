@@ -46,8 +46,11 @@ class CoralBubble {
       // used for dialogs in flutter_quill
       canvasColor: Colors.white.withOpacity(0.9),
       popupMenuTheme: PopupMenuThemeData(
-        color: Colors.white.withOpacity(0.8), // Set the background color
+        color: Colors.white.withOpacity(0.9), // Set the background color
         textStyle: const TextStyle(color: Colors.black), // Set text color
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
       ),
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
