@@ -57,6 +57,13 @@ class PlainDark {
       ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.black.withOpacity(0.7),
+      popupMenuTheme: PopupMenuThemeData(
+        color: Colors.black.withOpacity(0.9), // Set the background color
+        textStyle: const TextStyle(color: Colors.white), // Set text color
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
