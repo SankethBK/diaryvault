@@ -120,7 +120,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   if (state is NotesFetchDummyState) {
                     notesFetchCubit.fetchNotes();
                     return const Center(child: CircularProgressIndicator());
-                  } else if (state is NotesFetchSuccessful) {
+                  } else if (state is NotesFetchSuccessful ||
+                      state is NotesSortSuccessful) {
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {

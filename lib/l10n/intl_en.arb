@@ -91,5 +91,8 @@
   "getDailyReminders": "Get daily reminders at your chosen time to keep your journal up to date.",
   "chooseTime": "Choose Time",
   "notificationTitle1": "Time to Journal!",
-  "notificationDescription1": "Take a few minutes to reflect on your day in your diary"
+  "notificationDescription1": "Take a few minutes to reflect on your day in your diary",
+  "sortByLatestFirst": "Sort by Latest First",
+  "sortByOldestFirst": "Sort by Oldest First",
+  "sortByAtoZ": "Sort by A-Z"
 }

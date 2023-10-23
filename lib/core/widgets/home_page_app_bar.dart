@@ -7,6 +7,7 @@ import 'package:dairy_app/core/widgets/date_input_field.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
+import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -148,6 +149,8 @@ class Action extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+    final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+
     return BlocBuilder<SelectableListCubit, SelectableListState>(
         builder: (context, state) {
       Widget getSuitableWidget() {
@@ -174,13 +177,52 @@ class Action extends StatelessWidget {
             ],
           );
         } else {
-          return Padding(
-            key: const ValueKey("search icon"),
-            padding: const EdgeInsets.only(right: 13.0),
-            child: IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: openSearchAppBar,
-            ),
+          return Row(
+            children: [
+              Padding(
+                key: const ValueKey("search icon"),
+                padding: const EdgeInsets.only(right: 5.0),
+                child: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: openSearchAppBar,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 13.0),
+                child: PopupMenuButton<NoteSortType>(
+                  key: const ValueKey("sort icon"),
+                  icon: const Icon(
+                    Icons.sort,
+                    color: Colors.white,
+                  ),
+                  onSelected: (NoteSortType value) async {
+                    await notesFetchCubit.setNoteSortType(value);
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem<NoteSortType>(
+                        value: NoteSortType.sortByLatestFirst,
+                        child: Text(
+                          S.current.sortByLatestFirst,
+                        ),
+                      ),
+                      PopupMenuItem<NoteSortType>(
+                        value: NoteSortType.sortByOldestFirst,
+                        child: Text(
+                          S.current.sortByOldestFirst,
+                        ),
+                      ),
+                      PopupMenuItem<NoteSortType>(
+                        value: NoteSortType.sortByAtoZ,
+                        child: Text(
+                          S.current.sortByAtoZ,
+                        ),
+                      ),
+                    ];
+                  },
+                ),
+              ),
+            ],
           );
         }
       }
