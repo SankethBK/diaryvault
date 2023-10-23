@@ -148,6 +148,7 @@ class Action extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
+
     return BlocBuilder<SelectableListCubit, SelectableListState>(
         builder: (context, state) {
       Widget getSuitableWidget() {
@@ -174,13 +175,50 @@ class Action extends StatelessWidget {
             ],
           );
         } else {
-          return Padding(
-            key: const ValueKey("search icon"),
-            padding: const EdgeInsets.only(right: 13.0),
-            child: IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: openSearchAppBar,
-            ),
+          return Row(
+            children: [
+              Padding(
+                key: const ValueKey("search icon"),
+                padding: const EdgeInsets.only(right: 5.0),
+                child: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: openSearchAppBar,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 13.0),
+                child: PopupMenuButton<int>(
+                  key: const ValueKey("sort icon"),
+                  icon: const Icon(
+                    Icons.sort,
+                    color: Colors.white,
+                  ),
+                  onSelected: (int value) {},
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem<int>(
+                        value: 1,
+                        child: Text(
+                          'Sort by created date',
+                        ),
+                      ),
+                      PopupMenuItem<int>(
+                        value: 2,
+                        child: Text(
+                          'Sort by last modified',
+                        ),
+                      ),
+                      PopupMenuItem<int>(
+                        value: 3,
+                        child: Text(
+                          'Sort by A-Z',
+                        ),
+                      ),
+                    ];
+                  },
+                ),
+              ),
+            ],
           );
         }
       }

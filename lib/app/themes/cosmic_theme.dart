@@ -55,6 +55,10 @@ class Cosmic {
       ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.black.withOpacity(0.7),
+      popupMenuTheme: PopupMenuThemeData(
+        color: Colors.black.withOpacity(0.8), // Set the background color
+        textStyle: const TextStyle(color: Colors.white), // Set text color
+      ),
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
