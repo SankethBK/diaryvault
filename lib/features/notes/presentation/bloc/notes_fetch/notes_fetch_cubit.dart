@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -12,16 +15,18 @@ part 'notes_fetch_state.dart';
 class NotesFetchCubit extends Cubit<NotesFetchState> {
   final INotesRepository notesRepository;
   final NotesBloc notesBloc;
+  final UserConfigCubit userConfigCubit;
   late StreamSubscription notesSubscription;
 
   final NoteSyncCubit noteSyncCubit;
   late StreamSubscription noteSyncSubscrption;
 
-  NotesFetchCubit(
-      {required this.notesRepository,
-      required this.notesBloc,
-      required this.noteSyncCubit})
-      : super(const NotesFetchDummyState()) {
+  NotesFetchCubit({
+    required this.notesRepository,
+    required this.notesBloc,
+    required this.noteSyncCubit,
+    required this.userConfigCubit,
+  }) : super(const NotesFetchDummyState()) {
     notesSubscription = notesBloc.stream.listen((state) {
       if (state is NoteSavedSuccesfully) {
         fetchNotes();
@@ -41,6 +46,36 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
     });
   }
 
+  Future<void> setNoteSortType(NoteSortType noteSortType) async {
+    await userConfigCubit.setUserConfig(
+        UserConfigConstants.noteSortType, noteSortType.text);
+
+    sortNotes(noteSortType);
+  }
+
+  void sortNotes(NoteSortType noteSortType) {
+    // Create a new list for sorting
+    List<NotePreview> notePreviewList = List.from(state.notePreviewList);
+
+    // Sort the notePreviewList based on the selected sort type
+    switch (noteSortType) {
+      case NoteSortType.sortByLatestFirst:
+        notePreviewList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        break;
+      case NoteSortType.sortByOldestFirst:
+        notePreviewList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+        break;
+      case NoteSortType.sortByAtoZ:
+        notePreviewList.sort(
+            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+        break;
+      default:
+        break;
+    }
+
+    emit(NotesSortSuccessful(notePreviewList: notePreviewList));
+  }
+
   void fetchNotes(
       {String? searchText, DateTime? startDate, DateTime? endDate}) async {
     emit(const NotesFetchLoadingState());
@@ -53,7 +88,15 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
     result.fold((error) {
       emit(const NotesFetchFailed());
     }, (data) {
+      // get the preferred note sort type
+      final preferredNoteSortType =
+          userConfigCubit.state.userConfigModel?.noteSortType;
+
       emit(NotesFetchSuccessful(notePreviewList: data));
+
+      if (preferredNoteSortType != null) {
+        sortNotes(preferredNoteSortType);
+      }
     });
   }
 }

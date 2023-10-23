@@ -2,6 +2,28 @@ import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+enum NoteSortType {
+  sortByLatestFirst("sortByLatestFirst"),
+  sortByOldestFirst("sortByOldestFirst"),
+  sortByAtoZ("sortByAtoZ");
+
+  const NoteSortType(this.text);
+
+  factory NoteSortType.fromStringValue(String stringValue) {
+    switch (stringValue) {
+      case 'sortByLatestFirst':
+        return NoteSortType.sortByLatestFirst;
+      case 'sortByOldestFirst':
+        return NoteSortType.sortByOldestFirst;
+      case 'sortByAtoZ':
+        return NoteSortType.sortByAtoZ;
+      default:
+        throw Exception('Invalid NoteSortType value: $stringValue');
+    }
+  }
+  final String text;
+}
+
 /// class to store non-critical properties of user
 /// it is stored apart from user table, which stores critical properties of user
 class UserConfigModel extends Equatable {
@@ -16,6 +38,7 @@ class UserConfigModel extends Equatable {
   final bool? isAutoSaveEnabled;
   final bool? isDailyReminderEnabled;
   final TimeOfDay? reminderTime;
+  final NoteSortType? noteSortType;
 
   const UserConfigModel({
     required this.userId,
@@ -29,6 +52,7 @@ class UserConfigModel extends Equatable {
     this.isAutoSaveEnabled,
     this.isDailyReminderEnabled,
     this.reminderTime,
+    this.noteSortType,
   });
 
   @override
@@ -43,7 +67,8 @@ class UserConfigModel extends Equatable {
         isFingerPrintLoginEnabled,
         isAutoSaveEnabled,
         isDailyReminderEnabled,
-        reminderTime
+        reminderTime,
+        noteSortType,
       ];
 
   static TimeOfDay? getTimeOfDayFromTimeString(String? timeString) {
@@ -98,6 +123,11 @@ class UserConfigModel extends Equatable {
           jsonMap[UserConfigConstants.isDailyReminderEnabled],
       reminderTime:
           getTimeOfDayFromTimeString(jsonMap[UserConfigConstants.reminderTime]),
+      noteSortType: jsonMap[UserConfigConstants.noteSortType] != null
+          ? NoteSortType.fromStringValue(
+              jsonMap[UserConfigConstants.noteSortType])
+          : null,
+      // noteSortType:
     );
   }
 
@@ -115,7 +145,8 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
       UserConfigConstants.isAutoSaveEnabled: isAutoSaveEnabled,
       UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
-      UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime)
+      UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime),
+      UserConfigConstants.noteSortType: noteSortType?.text,
     };
   }
 }

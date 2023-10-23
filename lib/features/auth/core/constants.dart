@@ -12,6 +12,7 @@ class UserConfigConstants {
   static String isAutoSaveEnabled = "is_auto_save_enabled";
   static String isDailyReminderEnabled = "is_daily_reminder_enabled";
   static String reminderTime = "reminder_time";
+  static String noteSortType = "note_sort_type";
 }
 
 class SyncConstants {
