@@ -899,6 +899,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Export your notes`
+  String get exportNotes {
+    return Intl.message(
+      'Export your notes',
+      name: 'exportNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export to Plain Text`
+  String get exportToPlainText {
+    return Intl.message(
+      'Export to Plain Text',
+      name: 'exportToPlainText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export to PDF`
+  String get exportToPDF {
+    return Intl.message(
+      'Export to PDF',
+      name: 'exportToPDF',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

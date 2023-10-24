@@ -11,6 +11,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -131,6 +132,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const DailyReminders(),
                 const SizedBox(height: 10),
                 const ThemeDropdown(),
+                const SizedBox(height: 15),
+                const ExportNotes(),
                 const SizedBox(height: 15),
                 const SendFeedBack(),
                 const SizedBox(height: 15),
