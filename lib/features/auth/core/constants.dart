@@ -10,6 +10,9 @@ class UserConfigConstants {
   static String isAutoSyncEnabled = "is_auto_sync_enabled";
   static String isFingerPrintLoginEnabled = "is_finger_print_log_enabled";
   static String isAutoSaveEnabled = "is_auto_save_enabled";
+  static String isDailyReminderEnabled = "is_daily_reminder_enabled";
+  static String reminderTime = "reminder_time";
+  static String noteSortType = "note_sort_type";
 }
 
 class SyncConstants {

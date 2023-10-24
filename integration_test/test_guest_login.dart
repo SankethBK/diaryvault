@@ -4,7 +4,6 @@ import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.d
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/app/view/app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -14,7 +13,6 @@ import 'package:dairy_app/core/dependency_injection/injection_container.dart'
 Future<void> main() async {
   setUpAll(() async {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-    await dotenv.load();
     await di.init();
   });
 

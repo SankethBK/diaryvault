@@ -2,6 +2,7 @@ import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
 import 'package:dairy_app/app/themes/lush_green_theme.dart';
+import 'package:dairy_app/app/themes/plain_dark.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
@@ -14,9 +15,9 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final log = printer("App");
@@ -93,6 +94,8 @@ class _AppViewState extends State<AppView> {
         return Cosmic.getTheme();
       case Themes.lushGreen:
         return LushGreen.getTheme();
+      case Themes.plainDark:
+        return PlainDark.getTheme();
 
       default:
         return Cosmic.getTheme();
@@ -107,18 +110,9 @@ class _AppViewState extends State<AppView> {
           navigatorKey: _navigatorKey,
           debugShowCheckedModeBanner: false,
           title: "My Dairy",
-          supportedLocales: const [
-            Locale('en'),
-            Locale('hi'),
-            Locale('pa'),
-            Locale('he'),
-            Locale('kn'),
-            Locale('pt', "BR"),
-            Locale('sw'),
-            Locale('ar')
-          ],
+          supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
-            AppLocalizations.delegate,
+            S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate

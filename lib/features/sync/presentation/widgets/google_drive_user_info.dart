@@ -7,7 +7,7 @@ import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dairy_app/generated/l10n.dart';
 
 class GoogleDriveUserInfo extends StatefulWidget {
   const GoogleDriveUserInfo({
@@ -70,7 +70,7 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            AppLocalizations.of(context).googleDrive,
+                            S.current.googleDrive,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
@@ -84,7 +84,7 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                         Column(
                           children: [
                             Text(
-                              AppLocalizations.of(context).signedInAs,
+                              S.current.signedInAs,
                               style:
                                   TextStyle(fontSize: 14, color: mainTextColor),
                             ),
@@ -105,7 +105,7 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context).lastSynced,
+                                  S.current.lastSynced,
                                   style: TextStyle(color: mainTextColor),
                                 ),
                                 const SizedBox(width: 5),
@@ -121,12 +121,12 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context).lastSynced,
+                                  S.current.lastSynced,
                                   style: TextStyle(color: mainTextColor),
                                 ),
                                 const SizedBox(width: 5),
                                 Text(
-                                  AppLocalizations.of(context).notAvailable,
+                                  S.current.notAvailable,
                                   style: TextStyle(color: mainTextColor),
                                 )
                               ],
@@ -138,14 +138,14 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                               onSubmitted: () async {
                                 await oAuthClient.signOut();
                               },
-                              buttonText: AppLocalizations.of(context).logOut,
+                              buttonText: S.current.logOut,
                             )
                           : SubmitButton(
                               isLoading: false,
                               onSubmitted: () async {
                                 await oAuthClient.signIn();
                               },
-                              buttonText: AppLocalizations.of(context).signIn,
+                              buttonText: S.current.signIn,
                             )),
                       const SizedBox(height: 10),
                     ],

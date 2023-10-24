@@ -1,5 +1,28 @@
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+
+enum NoteSortType {
+  sortByLatestFirst("sortByLatestFirst"),
+  sortByOldestFirst("sortByOldestFirst"),
+  sortByAtoZ("sortByAtoZ");
+
+  const NoteSortType(this.text);
+
+  factory NoteSortType.fromStringValue(String stringValue) {
+    switch (stringValue) {
+      case 'sortByLatestFirst':
+        return NoteSortType.sortByLatestFirst;
+      case 'sortByOldestFirst':
+        return NoteSortType.sortByOldestFirst;
+      case 'sortByAtoZ':
+        return NoteSortType.sortByAtoZ;
+      default:
+        throw Exception('Invalid NoteSortType value: $stringValue');
+    }
+  }
+  final String text;
+}
 
 /// class to store non-critical properties of user
 /// it is stored apart from user table, which stores critical properties of user
@@ -13,17 +36,24 @@ class UserConfigModel extends Equatable {
   final bool? isAutoSyncEnabled;
   final bool? isFingerPrintLoginEnabled;
   final bool? isAutoSaveEnabled;
+  final bool? isDailyReminderEnabled;
+  final TimeOfDay? reminderTime;
+  final NoteSortType? noteSortType;
 
-  const UserConfigModel(
-      {required this.userId,
-      this.preferredSyncOption,
-      this.lastGoogleDriveSync,
-      this.lastDropboxSync,
-      this.googleDriveUserInfo,
-      this.dropBoxUserInfo,
-      this.isAutoSyncEnabled,
-      this.isFingerPrintLoginEnabled,
-      this.isAutoSaveEnabled});
+  const UserConfigModel({
+    required this.userId,
+    this.preferredSyncOption,
+    this.lastGoogleDriveSync,
+    this.lastDropboxSync,
+    this.googleDriveUserInfo,
+    this.dropBoxUserInfo,
+    this.isAutoSyncEnabled,
+    this.isFingerPrintLoginEnabled,
+    this.isAutoSaveEnabled,
+    this.isDailyReminderEnabled,
+    this.reminderTime,
+    this.noteSortType,
+  });
 
   @override
   List<Object?> get props => [
@@ -35,8 +65,40 @@ class UserConfigModel extends Equatable {
         dropBoxUserInfo,
         isAutoSyncEnabled,
         isFingerPrintLoginEnabled,
-        isAutoSaveEnabled
+        isAutoSaveEnabled,
+        isDailyReminderEnabled,
+        reminderTime,
+        noteSortType,
       ];
+
+  static TimeOfDay? getTimeOfDayFromTimeString(String? timeString) {
+    if (timeString != null) {
+      final parts = timeString.split(':');
+
+      if (parts.length == 2) {
+        final hour = int.parse(parts[0]);
+        final minute = int.parse(parts[1]);
+        return TimeOfDay(hour: hour, minute: minute);
+      }
+
+      return null;
+    }
+    return null;
+  }
+
+  static String? getTimeOfDayToString(TimeOfDay? time) {
+    if (time == null) {
+      return null;
+    }
+
+    final hour = time.hour.toString();
+    final minute = time.minute.toString();
+    final formattedHour = hour.length == 1 ? hour.padLeft(2, '0') : hour;
+    final formattedMinute =
+        minute.length == 1 ? minute.padLeft(2, '0') : minute;
+
+    return '$formattedHour:$formattedMinute';
+  }
 
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
     return UserConfigModel(
@@ -57,7 +119,16 @@ class UserConfigModel extends Equatable {
       isFingerPrintLoginEnabled:
           jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
       isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
-    ); // default theme is coral bubbles
+      isDailyReminderEnabled:
+          jsonMap[UserConfigConstants.isDailyReminderEnabled],
+      reminderTime:
+          getTimeOfDayFromTimeString(jsonMap[UserConfigConstants.reminderTime]),
+      noteSortType: jsonMap[UserConfigConstants.noteSortType] != null
+          ? NoteSortType.fromStringValue(
+              jsonMap[UserConfigConstants.noteSortType])
+          : null,
+      // noteSortType:
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +144,9 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
       UserConfigConstants.isAutoSaveEnabled: isAutoSaveEnabled,
+      UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
+      UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime),
+      UserConfigConstants.noteSortType: noteSortType?.text,
     };
   }
 }

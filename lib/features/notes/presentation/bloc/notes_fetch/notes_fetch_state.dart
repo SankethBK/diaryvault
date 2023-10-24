@@ -27,3 +27,8 @@ class NotesFetchSuccessful extends NotesFetchState {
   const NotesFetchSuccessful({required List<NotePreview> notePreviewList})
       : super(notePreviewList: notePreviewList, safe: true);
 }
+
+class NotesSortSuccessful extends NotesFetchState {
+  const NotesSortSuccessful({required List<NotePreview> notePreviewList})
+      : super(notePreviewList: notePreviewList, safe: true);
+}

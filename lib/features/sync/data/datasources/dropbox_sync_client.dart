@@ -6,7 +6,7 @@ import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 import 'package:stateless_dropbox_client/stateless_dropbox_client.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
@@ -17,10 +17,11 @@ class DropboxSyncClient implements ISyncClient {
   final UserConfigCubit userConfigCubit;
 
   static const REFRESH_TOKEN = "DROPBOX_REFRESH_TOKEN";
+  static const DROPBOX_SECRET = "DROPBOX_SECRET";
 
   final String dropboxClientId = 'diaryvault';
   final String dropboxKey = 'rqndas0qvioj4f1';
-  final String dropboxSecret = dotenv.env['DROPBOX_SECET'] ?? "no_secret";
+  String? dropboxSecret;
   late FlutterSecureStorage secureStorage;
 
   String? accessToken;
@@ -48,7 +49,7 @@ class DropboxSyncClient implements ISyncClient {
       final code = Uri.parse(result).queryParameters['code'];
 
       final res = await Dropbox.exchangeAuthorizationCodeForAccessToken(
-          dropboxKey, dropboxSecret, code!);
+          dropboxKey, dropboxSecret!, code!);
 
       accessToken = res["access_token"];
       refreshToken = res["refresh_token"];
@@ -208,9 +209,49 @@ class DropboxSyncClient implements ISyncClient {
     }
   }
 
+  Future<void> fetchDropboxSecret() async {
+    log.i("fetching dropbox client token");
+
+    final Uri url = Uri.parse(utf8.decode(base64.decode(
+        "aHR0cHM6Ly9kOTNuZGpzMjMubmV0bGlmeS5hcHAvLm5ldGxpZnkvZnVuY3Rpb25zL2FwaS9nZXQtZHJvcGJveC10b2tlbg==")));
+
+    final Map<String, String> headers = {
+      'X-Package-Name': 'me.sankethbk.dairyapp',
+    };
+
+    final response = await http.get(url, headers: headers);
+    log.i("dropbox fetch token response = ${response.statusCode}");
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+
+      if (data.containsKey('dropbox_token')) {
+        dropboxSecret = data['dropbox_token'].toString();
+        await secureStorage.write(key: DROPBOX_SECRET, value: dropboxSecret);
+      } else {
+        throw Exception("Dropbox login failed");
+      }
+    } else {
+      throw Exception("Dropbox login failed");
+    }
+  }
+
   @override
   Future<bool> isSignedIn() async {
     log.i("Checking for existing session");
+
+    if (dropboxSecret == null) {
+      // check for dropbox secret locallu
+      final _dropboxSecret = await secureStorage.read(key: DROPBOX_SECRET);
+
+      if (_dropboxSecret == null) {
+        log.i("dropbox secret not found locally");
+        await fetchDropboxSecret();
+      } else {
+        log.i("dropbox client token found locally");
+        dropboxSecret = _dropboxSecret;
+      }
+    }
 
     // if dropBoxUserInfo is empty, force another signin even though there is existign session
     final dropBoxUserInfo =
@@ -226,7 +267,7 @@ class DropboxSyncClient implements ISyncClient {
 
       // get new access token using the refresh token to check if its valid
       final newAccessToken = await Dropbox.getNewAccessToken(
-          dropboxKey, dropboxSecret, _refreshToken);
+          dropboxKey, dropboxSecret!, _refreshToken);
 
       accessToken = newAccessToken;
       log.i("retrieved new access token");

@@ -4,8 +4,8 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_input_field.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> emailChangePopup(
     BuildContext context, Function(String) submitEmailChange) {
@@ -24,7 +24,7 @@ Future<dynamic> emailChangePopup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(AppLocalizations.of(context).enterNewEmail,
+          Text(S.current.enterNewEmail,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -58,13 +58,12 @@ Future<dynamic> emailChangePopup(
                   setState(() {
                     isLoading = false;
                   });
-                  showToast(
-                      AppLocalizations.of(context).emailUpdatedSuccessfully);
+                  showToast(S.current.emailUpdatedSuccessfully);
                   await Future.delayed(const Duration(milliseconds: 500));
                   Navigator.of(context).pop(true);
                 });
               },
-              buttonText: AppLocalizations.of(context).submit,
+              buttonText: S.current.submit,
             );
           })
         ],

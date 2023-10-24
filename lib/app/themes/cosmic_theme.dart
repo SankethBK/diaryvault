@@ -55,6 +55,13 @@ class Cosmic {
       ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.black.withOpacity(0.7),
+      popupMenuTheme: PopupMenuThemeData(
+        color: Colors.black.withOpacity(0.9), // Set the background color
+        textStyle: const TextStyle(color: Colors.white), // Set text color
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
@@ -68,6 +75,7 @@ class Cosmic {
           hintTextColor: Colors.white.withOpacity(0.7),
           authFormGradientStartColor: Colors.black.withOpacity(0.5),
           authFormGradientEndColor: Colors.black.withOpacity(0.3),
+          infoTextColor: Colors.white.withOpacity(0.7),
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),
