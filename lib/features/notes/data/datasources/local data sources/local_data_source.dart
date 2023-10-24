@@ -95,7 +95,6 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       log.e("Local database query for fetching notes failed $e");
       throw const DatabaseQueryException();
     }
-
     return result.map((noteMap) => NoteModel.fromJson(noteMap)).toList();
   }
 
