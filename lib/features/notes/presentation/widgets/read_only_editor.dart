@@ -1,5 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
@@ -38,8 +40,14 @@ class ReadOnlyEditor extends StatelessWidget {
       customStyles: DefaultStyles(),
     );
 
+    final userConfig = BlocProvider.of<UserConfigCubit>(context);
+
     return DefaultTextStyle(
-      style: TextStyle(color: mainTextColor),
+      style: TextStyle(
+        color: mainTextColor,
+        fontSize: userConfig.state.userConfigModel?.preferredFontSize,
+        fontFamily: userConfig.state.userConfigModel?.preferredFontFamily
+      ),
       child: quillEditor,
     );
   }

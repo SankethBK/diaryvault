@@ -18,7 +18,7 @@ class UserConfigRepository {
     if (value == null) {
       log.i("Setting default values for $userId");
       final userConfigMap =
-          jsonEncode(UserConfigModel(userId: userId).toJson());
+          jsonEncode(UserConfigModel(userId: userId, preferredFontSize: 16.0, preferredFontFamily: "san-serif").toJson());
       await keyValueDataSource.setValue(userId, userConfigMap);
       return;
     }

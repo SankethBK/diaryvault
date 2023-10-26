@@ -4,6 +4,7 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_read_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
@@ -169,14 +170,16 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                 child: BlocBuilder<NotesBloc, NotesState>(
                   bloc: notesBloc,
                   builder: (context, state) {
+                    final userConfig = BlocProvider.of<UserConfigCubit>(context);
                     if (state.safe) {
                       return ListView(
                         padding: const EdgeInsets.only(top: 10),
                         children: [
                           Text(notesBloc.state.title!,
                               style: TextStyle(
+                                fontFamily: userConfig.state.userConfigModel?.preferredFontFamily,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 20.0,
+                                fontSize: userConfig.state.userConfigModel?.preferredFontSize,
                                 color: mainTextColor,
                               )),
                           const SizedBox(

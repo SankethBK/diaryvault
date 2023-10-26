@@ -1,7 +1,9 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/generated/l10n.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NoteTitleInputField extends StatefulWidget {
@@ -50,60 +52,65 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
         .extension<NoteCreatePageThemeExtensions>()!
         .suffixIconColor;
 
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      child: showTitleInput
-          ? GlassMorphismCover(
-              borderRadius: textInputBorderRadius,
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.sentences,
-                    style: TextStyle(
-                        color: titleTextColor, fontWeight: FontWeight.w500),
-                    initialValue: widget.initialValue,
-                    decoration: InputDecoration(
-                      hintText: "title",
-                      hintStyle: TextStyle(
-                          color: titlePlaceHolderColor,
-                          fontWeight: FontWeight.normal),
-                      fillColor: titleTextBoxFillColor,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: textInputBorderRadius,
-                        borderSide: BorderSide(
-                          color: titleTextBoxFocussedBorderColor,
-                          width: 0.5,
+    return BlocBuilder<UserConfigCubit, UserConfigState>(
+        builder: (context, state) {
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: showTitleInput
+                ? GlassMorphismCover(
+                borderRadius: textInputBorderRadius,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      textCapitalization: TextCapitalization.sentences,
+                      style: TextStyle(
+                          fontFamily: state.userConfigModel
+                              ?.preferredFontFamily,
+                          fontSize: state.userConfigModel?.preferredFontSize,
+                          color: titleTextColor, fontWeight: FontWeight.w500),
+                      initialValue: widget.initialValue,
+                      decoration: InputDecoration(
+                        hintText: "title",
+                        hintStyle: TextStyle(
+                            color: titlePlaceHolderColor,
+                            fontWeight: FontWeight.normal),
+                        fillColor: titleTextBoxFillColor,
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: textInputBorderRadius,
+                          borderSide: BorderSide(
+                            color: titleTextBoxFocussedBorderColor,
+                            width: 0.5,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: textInputBorderRadius,
+                          borderSide: BorderSide(
+                            color: titleTextBoxBorderColor,
+                            width: 0.5,
+                          ),
+                        ),
+                        suffixIcon: IconButton(
+                          padding: EdgeInsets.zero,
+                          icon: Icon(
+                            Icons.arrow_upward,
+                            color: suffixIconColor,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              showTitleInput = false;
+                            });
+                          },
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: textInputBorderRadius,
-                        borderSide: BorderSide(
-                          color: titleTextBoxBorderColor,
-                          width: 0.5,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: Icon(
-                          Icons.arrow_upward,
-                          color: suffixIconColor,
-                          size: 20,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            showTitleInput = false;
-                          });
-                        },
-                      ),
+                      onChanged: widget.onTitleChanged,
                     ),
-                    onChanged: widget.onTitleChanged,
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ))
-          : Column(
+                    const SizedBox(height: 10),
+                  ],
+                ))
+                : Column(
               children: [
                 const SizedBox(height: 6),
                 GestureDetector(
@@ -143,6 +150,8 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                 const SizedBox(height: 6),
               ],
             ),
+          );
+        }
     );
   }
 }
