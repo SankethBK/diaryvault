@@ -39,6 +39,8 @@ class UserConfigModel extends Equatable {
   final bool? isDailyReminderEnabled;
   final TimeOfDay? reminderTime;
   final NoteSortType? noteSortType;
+  final double? preferredFontSize;
+  final String? preferredFontFamily;
 
   const UserConfigModel({
     required this.userId,
@@ -53,6 +55,8 @@ class UserConfigModel extends Equatable {
     this.isDailyReminderEnabled,
     this.reminderTime,
     this.noteSortType,
+    this.preferredFontFamily,
+    this.preferredFontSize,
   });
 
   @override
@@ -128,6 +132,8 @@ class UserConfigModel extends Equatable {
               jsonMap[UserConfigConstants.noteSortType])
           : null,
       // noteSortType:
+        preferredFontFamily: jsonMap[UserConfigConstants.preferredFontFamily],
+        preferredFontSize: jsonMap[UserConfigConstants.preferredFontSize]
     );
   }
 
@@ -147,6 +153,8 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
       UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime),
       UserConfigConstants.noteSortType: noteSortType?.text,
+      UserConfigConstants.preferredFontFamily: preferredFontFamily,
+      UserConfigConstants.preferredFontSize: preferredFontSize
     };
   }
 }

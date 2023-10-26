@@ -13,6 +13,8 @@ class UserConfigConstants {
   static String isDailyReminderEnabled = "is_daily_reminder_enabled";
   static String reminderTime = "reminder_time";
   static String noteSortType = "note_sort_type";
+  static String preferredFontSize = "preferred_font_size";
+  static String preferredFontFamily = "preferred_font_family";
 }
 
 class SyncConstants {

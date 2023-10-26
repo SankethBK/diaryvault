@@ -13,6 +13,8 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
+
 // import 'read_only_page.dart';
 
 class RichTextEditor extends StatefulWidget {
@@ -351,6 +353,8 @@ class GlassPaneForEditor extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
 
+    final userConfig = BlocProvider.of<UserConfigCubit>(context);
+
     return GlassMorphismCover(
       displayShadow: false,
       borderRadius: const BorderRadius.only(
@@ -375,7 +379,11 @@ class GlassPaneForEditor extends StatelessWidget {
           ),
         ),
         child: DefaultTextStyle(
-          style: TextStyle(color: mainTextColor),
+          style: TextStyle(
+              color: mainTextColor,
+              fontSize: userConfig.state.userConfigModel?.preferredFontSize,
+              fontFamily: userConfig.state.userConfigModel?.preferredFontFamily
+          ),
           child: quillEditor,
         ),
       ),
