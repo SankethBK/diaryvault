@@ -63,7 +63,7 @@ class DarkAcademia {
       ),
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/dark_academia.jpeg",
+          backgroundImage: "assets/images/da1.jpeg",
           linkColor: Color(0xFFD39E70),
           prefixIconColor: Color(0xFFA89C94),
           fillColor: Color(0xFFA89C94),
@@ -91,15 +91,14 @@ class DarkAcademia {
           sigmaX: 5.0,
           sigmaY: 5.0,
           notePreviewBorderColor: Color(0xFF57393A),
-          notePreviewUnselectedGradientStartColor:
-          Color(0xFF8B6B5E),
+          notePreviewUnselectedGradientStartColor: Color(0xFF8B6B5E),
           notePreviewUnselectedGradientEndColor: Color(0xFF8B6B5E),
           notePreviewSelectedGradientStartColor: Color(0xFF472E24),
           notePreviewSelectedGradientEndColor: Color(0xFF472E24),
           checkBoxSelectedColor: Color(0xFF472E24),
         ),
         NoteCreatePageThemeExtensions(
-        fallbackColor: const Color.fromARGB(255, 48, 140, 221),
+          fallbackColor: const Color.fromARGB(255, 48, 140, 221),
           titleTextBoxFillColor: Color(0xFF2D1F16),
           titleTextBoxBorderColor: Color(0xFFA89C94),
           titleTextBoxFocussedBorderColor: Color(0xFFA89C94),
