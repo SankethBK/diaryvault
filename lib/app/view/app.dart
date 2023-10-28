@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
+import 'package:dairy_app/app/themes/dark_academia.dart';
 import 'package:dairy_app/app/themes/lush_green_theme.dart';
 import 'package:dairy_app/app/themes/plain_dark.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
@@ -96,6 +97,8 @@ class _AppViewState extends State<AppView> {
         return LushGreen.getTheme();
       case Themes.plainDark:
         return PlainDark.getTheme();
+        case Themes.darkAcademia:
+        return DarkAcademia.getTheme();
 
       default:
         return Cosmic.getTheme();
