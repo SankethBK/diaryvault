@@ -6,7 +6,6 @@ import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/generated/l10n.dart';
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -78,6 +77,20 @@ class ExportNotes extends StatelessWidget {
                       Material(
                         color: Colors.transparent,
                         child: SettingsTile(
+                          onTap: () async {
+                            try {
+                              String filePath =
+                                  await sl<IExportNotesRepository>()
+                                      .exportNotesToPDF();
+
+                              // Share the file and await its completion
+                              await Share.shareXFiles([XFile(filePath)],
+                                  text: 'diaryvault_notes_export');
+                            } on Exception catch (e) {
+                              showToast(
+                                  e.toString().replaceAll("Exception: ", ""));
+                            }
+                          },
                           child: Text(
                             S.current.exportToPDF,
                             style: TextStyle(
