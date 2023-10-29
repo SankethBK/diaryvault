@@ -29,6 +29,9 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     var assetDependencies = noteMap["asset_dependencies"];
     noteMap.remove("asset_dependencies");
 
+    final tags = noteMap["tags"] ?? [];
+    noteMap.remove("tags");
+
     // Insert notes
     try {
       var res = await database.insert(Notes.TABLE_NAME, noteMap);
@@ -52,7 +55,24 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         var res =
             await database.insert(NoteDependencies.TABLE_NAME, asset.toJson());
         if (res == -1) {
-          log.e("Insertion of ${asset.assetPath}} faied");
+          log.e("Insertion of ${asset.assetPath} faied");
+          throw const DatabaseInsertionException();
+        }
+      } catch (e) {
+        log.e(e);
+        rethrow;
+      }
+    }
+
+    // Insert tags
+    log.i("Inserting tags $tags");
+
+    for (String tag in tags) {
+      try {
+        var res = await database.insert(
+            Tags.TABLE_NAME, {Tags.NOTE_ID: noteMap["id"], Tags.NAME: tag});
+        if (res == -1) {
+          log.e("Insertion of $tag faied");
           throw const DatabaseInsertionException();
         }
       } catch (e) {
@@ -140,6 +160,15 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       throw const DatabaseDeleteException();
     }
 
+    // delete all tags for that note
+    count = await database.delete(
+      Tags.TABLE_NAME,
+      where: "${Tags.NOTE_ID} = ?",
+      whereArgs: [id],
+    );
+
+    log.i("$count number of tags deleted");
+
     // hard delete the note
     if (hardDeletion == true) {
       count = await database
@@ -192,8 +221,22 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     log.i("Retrieved asset depencies = $_assetDependencies");
 
+    // Get tags
+    var tagsQuery = await database
+        .query(Tags.TABLE_NAME, where: "${Tags.NOTE_ID} = ?", whereArgs: [id]);
+
+    final tags = tagsQuery.map((tag) {
+      return tag[Tags.NAME] as String;
+    }).toList();
+
+    log.i("Retrieved tags = $tags");
+
     var finalNote = makeModifiableResults(result).map((note) {
-      return {"asset_dependencies": _assetDependencies, ...note};
+      return {
+        "asset_dependencies": _assetDependencies,
+        "tags": tags,
+        ...note,
+      };
     }).toList()[0];
 
     return NoteModel.fromJson(finalNote);
@@ -222,15 +265,6 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       throw const DatabaseQueryException();
     }
 
-    // try {
-    //   for (var file in files) {
-    //     await deleteFile(file["asset_path"] as String);
-    //   }
-    // } catch (e) {
-    //   // not a criticial exception, so don't throw error
-    //   log.e("file deletion failed for note id:$id $e");
-    // }
-
     // delete all records of assets
 
     var res = await database.delete(
@@ -244,6 +278,15 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       log.e("assets deletion unsuccessful for note id: $id");
       throw const DatabaseDeleteException();
     }
+
+    // delete all tags and insert them again
+    var count = await database.delete(
+      Tags.TABLE_NAME,
+      where: "${Tags.NOTE_ID} = ?",
+      whereArgs: [id],
+    );
+
+    log.i("$count number of tags deleted");
 
     // Insert the new ones
 
@@ -263,9 +306,28 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       }
     }
 
+    // Insert new tags
+    final tags = noteMap["tags"] ?? [];
+
+    log.i("Inserting tags $tags");
+
+    for (String tag in tags) {
+      try {
+        var res = await database.insert(
+            Tags.TABLE_NAME, {Tags.NOTE_ID: noteMap["id"], Tags.NAME: tag});
+        if (res == -1) {
+          log.e("Insertion of $tag faied");
+          throw const DatabaseInsertionException();
+        }
+      } catch (e) {
+        log.e(e);
+        rethrow;
+      }
+    }
+
     noteMap.remove("asset_dependencies");
 
-    var count = await database.update(Notes.TABLE_NAME,
+    count = await database.update(Notes.TABLE_NAME,
         {...noteMap, "last_modified": DateTime.now().millisecondsSinceEpoch},
         where: "${Notes.ID} = ?", whereArgs: [id]);
 

@@ -11,6 +11,7 @@ class Note extends Equatable {
   final List<NoteAsset> assetDependencies;
   final bool deleted;
   final String? authorId;
+  final List<String> tags;
 
   const Note({
     required this.id,
@@ -23,6 +24,7 @@ class Note extends Equatable {
     required this.assetDependencies,
     this.deleted = false,
     this.authorId,
+    required this.tags,
   });
 
   String getHashingString() {

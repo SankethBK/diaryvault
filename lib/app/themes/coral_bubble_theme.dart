@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
@@ -66,6 +67,11 @@ class CoralBubble {
           authFormGradientStartColor: Colors.white.withOpacity(0.4),
           authFormGradientEndColor: Colors.white.withOpacity(0.2),
           infoTextColor: Colors.white.withOpacity(0.7),
+        ),
+        ChipThemeExtensions(
+          backgroundColor: Colors.pink[300]!,
+          deleteIconColor: Colors.pink[200]!,
+          textColor: Colors.black,
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),

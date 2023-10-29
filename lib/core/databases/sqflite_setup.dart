@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -61,6 +61,13 @@ class DBProvider {
               ${NoteDependencies.ASSET_PATH} TEXT
             )
             """);
+
+          await db.execute("""
+            CREATE TABLE  ${Tags.TABLE_NAME} (
+              ${Tags.NOTE_ID} TEXT, 
+              ${Tags.NAME} TEXT
+            )""");
+
           log.i("All create queries executed successfully");
           log.i("Inserting welcome note");
 
@@ -75,6 +82,17 @@ class DBProvider {
         } catch (e) {
           log.e(e);
           rethrow;
+        }
+      },
+      onUpgrade: (Database db, int oldVersion, int newVersion) async {
+        log.i(
+            "onUpgrade called with oldVersion: $oldVersion, newVersion: $newVersion");
+        if (oldVersion < 2) {
+          await db.execute("""
+            CREATE TABLE  ${Tags.TABLE_NAME} (
+              ${Tags.NOTE_ID} TEXT, 
+              ${Tags.NAME} TEXT
+            )""");
         }
       },
     );

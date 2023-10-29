@@ -7,6 +7,7 @@ import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_read_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/note_tags.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
@@ -204,9 +205,9 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 20),
+                          const NoteTags(),
+                          const SizedBox(height: 20),
                           ReadOnlyEditor(
                             controller: notesBloc.state.controller,
                           )

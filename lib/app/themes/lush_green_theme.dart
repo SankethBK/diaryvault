@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
@@ -81,6 +82,11 @@ class LushGreen {
           appBarGradientStartColor: Colors.black.withOpacity(0.3),
           appBarGradientEndColor: Colors.black.withOpacity(0.2),
           searchBarFillColor: Colors.white.withOpacity(0.1),
+        ),
+        ChipThemeExtensions(
+          backgroundColor: const Color(0xFF59746A),
+          deleteIconColor: Colors.green[300]!,
+          textColor: Colors.white,
         ),
         HomePageThemeExtensions(
           borderColor: Colors.black,

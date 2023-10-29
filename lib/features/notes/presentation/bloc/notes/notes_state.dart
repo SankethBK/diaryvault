@@ -7,6 +7,7 @@ abstract class NotesState extends Equatable {
   final QuillController? controller;
   final DateTime? createdAt;
   final List<NoteAssetModel>? allNoteAssets;
+  final List<String>? tags;
 
   // tells if it is safe to access the properties of this state
   final bool safe;
@@ -19,6 +20,7 @@ abstract class NotesState extends Equatable {
     this.controller,
     this.newNote,
     this.allNoteAssets,
+    this.tags,
     required this.id,
     required this.safe,
   });
@@ -42,14 +44,15 @@ class NoteDummyState extends NotesState {
 /// It means a new note has been initialized, or an existing note has been loaded but they aren't edited yet
 /// Useful for shpwing tick mark for saving in edit screen after the editing begind
 class NoteInitialState extends NotesState {
-  const NoteInitialState(
-      {required bool newNote,
-      required QuillController controller,
-      required DateTime createdAt,
-      required String title,
-      required List<NoteAssetModel> allNoteAssets,
-      required String id})
-      : super(
+  const NoteInitialState({
+    required bool newNote,
+    required QuillController controller,
+    required DateTime createdAt,
+    required String title,
+    required List<NoteAssetModel> allNoteAssets,
+    required String id,
+    required List<String> tags,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -57,11 +60,12 @@ class NoteInitialState extends NotesState {
           createdAt: createdAt,
           allNoteAssets: allNoteAssets,
           safe: true,
+          tags: tags,
         );
 
   @override
   String toString() {
-    return "NoteInitialState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()})";
+    return "NoteInitialState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()}, tags: $tags)";
   }
 }
 
