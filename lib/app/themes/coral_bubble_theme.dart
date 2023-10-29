@@ -70,8 +70,9 @@ class CoralBubble {
         ),
         ChipThemeExtensions(
           backgroundColor: Colors.pink[300]!,
-          deleteIconColor: Colors.pink[200]!,
-          textColor: Colors.black,
+          iconColor: Colors.pink[200]!,
+          textColor: const Color.fromARGB(255, 54, 52, 52),
+          // textColor: Colors.black,
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),

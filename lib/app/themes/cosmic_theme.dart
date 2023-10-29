@@ -80,7 +80,7 @@ class Cosmic {
         ),
         ChipThemeExtensions(
           backgroundColor: const Color.fromARGB(255, 36, 46, 178),
-          deleteIconColor: Colors.blueAccent,
+          iconColor: Colors.blueAccent,
           textColor: Colors.white,
         ),
         AppbarThemeExtensions(

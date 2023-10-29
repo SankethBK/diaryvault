@@ -81,8 +81,8 @@ class PlainDark {
           infoTextColor: Colors.white.withOpacity(1),
         ),
         ChipThemeExtensions(
-          backgroundColor: Colors.teal,
-          deleteIconColor: Colors.tealAccent,
+          backgroundColor: const Color.fromARGB(255, 0, 166, 150),
+          iconColor: Colors.tealAccent,
           textColor: Colors.white,
         ),
         AppbarThemeExtensions(

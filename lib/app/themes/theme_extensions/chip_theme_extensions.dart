@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 
 class ChipThemeExtensions extends ThemeExtension<ChipThemeExtensions> {
   final Color backgroundColor;
-  final Color deleteIconColor;
+  final Color iconColor;
   final Color textColor;
 
   ChipThemeExtensions({
     required this.backgroundColor,
-    required this.deleteIconColor,
+    required this.iconColor,
     required this.textColor,
   });
 
   @override
   ThemeExtension<ChipThemeExtensions> copyWith({
     Color? backgroundColor,
-    Color? deleteIconColor,
+    Color? iconColor,
     Color? textColor,
   }) {
     return ChipThemeExtensions(
       backgroundColor: backgroundColor ?? this.backgroundColor,
-      deleteIconColor: deleteIconColor ?? this.deleteIconColor,
+      iconColor: iconColor ?? this.iconColor,
       textColor: textColor ?? this.textColor,
     );
   }
@@ -31,7 +31,7 @@ class ChipThemeExtensions extends ThemeExtension<ChipThemeExtensions> {
   ) {
     return ChipThemeExtensions(
       backgroundColor: Color.lerp(backgroundColor, other?.backgroundColor, t)!,
-      deleteIconColor: Color.lerp(deleteIconColor, other?.deleteIconColor, t)!,
+      iconColor: Color.lerp(iconColor, other?.iconColor, t)!,
       textColor: Color.lerp(textColor, other?.textColor, t)!,
     );
   }

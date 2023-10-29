@@ -71,14 +71,15 @@ class NoteInitialState extends NotesState {
 
 /// once the user starts editing, [NoteInitialState] changes to [NoteUpdatedState]
 class NoteUpdatedState extends NotesState {
-  const NoteUpdatedState(
-      {required bool newNote,
-      required QuillController controller,
-      required DateTime createdAt,
-      required String title,
-      required List<NoteAssetModel> allNoteAssets,
-      required String id})
-      : super(
+  const NoteUpdatedState({
+    required bool newNote,
+    required QuillController controller,
+    required DateTime createdAt,
+    required String title,
+    required List<NoteAssetModel> allNoteAssets,
+    required String id,
+    required List<String> tags,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -86,10 +87,11 @@ class NoteUpdatedState extends NotesState {
           createdAt: createdAt,
           allNoteAssets: allNoteAssets,
           safe: true,
+          tags: tags,
         );
 
   @override
-  List<Object> get props => [id, title!, createdAt!, allNoteAssets!];
+  List<Object> get props => [id, title!, createdAt!, allNoteAssets!, tags!];
 
   @override
   String toString() {
@@ -99,13 +101,13 @@ class NoteUpdatedState extends NotesState {
 
 // Loading state while fetching an existing note
 class NoteFetchLoading extends NotesState {
-  const NoteFetchLoading(
-      {bool? newNote,
-      QuillController? controller,
-      DateTime? createdAt,
-      String? title,
-      required String id})
-      : super(
+  const NoteFetchLoading({
+    bool? newNote,
+    QuillController? controller,
+    DateTime? createdAt,
+    String? title,
+    required String id,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -116,13 +118,13 @@ class NoteFetchLoading extends NotesState {
 }
 
 class NoteFetchFailed extends NotesState {
-  const NoteFetchFailed(
-      {bool? newNote,
-      QuillController? controller,
-      DateTime? createdAt,
-      String? title,
-      required String id})
-      : super(
+  const NoteFetchFailed({
+    bool? newNote,
+    QuillController? controller,
+    DateTime? createdAt,
+    String? title,
+    required String id,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -134,14 +136,15 @@ class NoteFetchFailed extends NotesState {
 
 //* Notes saving
 class NoteSaveLoading extends NotesState {
-  const NoteSaveLoading(
-      {required bool newNote,
-      required QuillController controller,
-      required DateTime createdAt,
-      required String title,
-      required List<NoteAssetModel> noteAssets,
-      required String id})
-      : super(
+  const NoteSaveLoading({
+    required bool newNote,
+    required QuillController controller,
+    required DateTime createdAt,
+    required String title,
+    required List<NoteAssetModel> noteAssets,
+    required String id,
+    required List<String> tags,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -149,18 +152,20 @@ class NoteSaveLoading extends NotesState {
           createdAt: createdAt,
           allNoteAssets: noteAssets,
           safe: true,
+          tags: tags,
         );
 }
 
 class NoteSavedSuccesfully extends NotesState {
-  const NoteSavedSuccesfully(
-      {required bool newNote,
-      required QuillController controller,
-      required DateTime createdAt,
-      required String title,
-      required List<NoteAssetModel> noteAssets,
-      required String id})
-      : super(
+  const NoteSavedSuccesfully({
+    required bool newNote,
+    required QuillController controller,
+    required DateTime createdAt,
+    required String title,
+    required List<NoteAssetModel> noteAssets,
+    required String id,
+    required List<String> tags,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -168,18 +173,20 @@ class NoteSavedSuccesfully extends NotesState {
           createdAt: createdAt,
           allNoteAssets: noteAssets,
           safe: true,
+          tags: tags,
         );
 }
 
 class NotesSavingFailed extends NotesState {
-  const NotesSavingFailed(
-      {required bool newNote,
-      required QuillController controller,
-      required DateTime createdAt,
-      required String title,
-      required List<NoteAssetModel> noteAssets,
-      required String id})
-      : super(
+  const NotesSavingFailed({
+    required bool newNote,
+    required QuillController controller,
+    required DateTime createdAt,
+    required String title,
+    required List<NoteAssetModel> noteAssets,
+    required String id,
+    required List<String> tags,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -187,18 +194,20 @@ class NotesSavingFailed extends NotesState {
           createdAt: createdAt,
           allNoteAssets: noteAssets,
           safe: true,
+          tags: tags,
         );
 }
 
 class NoteAutoSavedSuccesfully extends NotesState {
-  const NoteAutoSavedSuccesfully(
-      {required bool newNote,
-      required QuillController controller,
-      required DateTime createdAt,
-      required String title,
-      required List<NoteAssetModel> noteAssets,
-      required String id})
-      : super(
+  const NoteAutoSavedSuccesfully({
+    required bool newNote,
+    required QuillController controller,
+    required DateTime createdAt,
+    required String title,
+    required List<NoteAssetModel> noteAssets,
+    required String id,
+    required List<String> tags,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -206,18 +215,20 @@ class NoteAutoSavedSuccesfully extends NotesState {
           createdAt: createdAt,
           allNoteAssets: noteAssets,
           safe: true,
+          tags: tags,
         );
 }
 
 class NotesAutoSavingFailed extends NotesState {
-  const NotesAutoSavingFailed(
-      {required bool newNote,
-      required QuillController controller,
-      required DateTime createdAt,
-      required String title,
-      required List<NoteAssetModel> noteAssets,
-      required String id})
-      : super(
+  const NotesAutoSavingFailed({
+    required bool newNote,
+    required QuillController controller,
+    required DateTime createdAt,
+    required String title,
+    required List<NoteAssetModel> noteAssets,
+    required String id,
+    required List<String> tags,
+  }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
@@ -225,6 +236,7 @@ class NotesAutoSavingFailed extends NotesState {
           createdAt: createdAt,
           allNoteAssets: noteAssets,
           safe: true,
+          tags: tags,
         );
 }
 

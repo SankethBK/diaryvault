@@ -313,8 +313,8 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
     for (String tag in tags) {
       try {
-        var res = await database.insert(
-            Tags.TABLE_NAME, {Tags.NOTE_ID: noteMap["id"], Tags.NAME: tag});
+        var res = await database
+            .insert(Tags.TABLE_NAME, {Tags.NOTE_ID: id, Tags.NAME: tag});
         if (res == -1) {
           log.e("Insertion of $tag faied");
           throw const DatabaseInsertionException();
@@ -326,6 +326,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     }
 
     noteMap.remove("asset_dependencies");
+    noteMap.remove("tags");
 
     count = await database.update(Notes.TABLE_NAME,
         {...noteMap, "last_modified": DateTime.now().millisecondsSinceEpoch},

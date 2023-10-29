@@ -85,7 +85,7 @@ class LushGreen {
         ),
         ChipThemeExtensions(
           backgroundColor: const Color(0xFF59746A),
-          deleteIconColor: Colors.green[300]!,
+          iconColor: Colors.green[300]!,
           textColor: Colors.white,
         ),
         HomePageThemeExtensions(
