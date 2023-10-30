@@ -373,7 +373,10 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
   @override
   Future<List<NotePreviewModel>> searchNotes(String authorId,
-      {String? searchText, DateTime? startDate, DateTime? endDate}) async {
+      {String? searchText,
+      DateTime? startDate,
+      DateTime? endDate,
+      List<String>? tags}) async {
     log.i("Searching for notes");
     List<Map<String, Object?>> result;
 
@@ -393,6 +396,31 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
         searchQuery += " AND (${Notes.CREATED_AT} <= '$endDateStr')";
       }
+
+      if (tags != null && tags.isNotEmpty) {
+        // noteId's with matching tags
+        List<String> noteIds = [];
+
+        for (String tagName in tags) {
+          final tagResult = await database.query(
+            Tags.TABLE_NAME,
+            columns: [Tags.NOTE_ID],
+            where: "${Tags.NAME} = ?",
+            whereArgs: [tagName],
+          );
+
+          for (var tagMap in tagResult) {
+            final noteId = tagMap[Tags.NOTE_ID] as String;
+            noteIds.add("'$noteId'");
+          }
+        }
+
+        if (noteIds.isNotEmpty) {
+          searchQuery += " AND ${Notes.ID} IN (${noteIds.join(", ")})";
+        }
+      }
+
+      log.i("searchQuery = $searchQuery");
 
       result = await database.query(
         Notes.TABLE_NAME,

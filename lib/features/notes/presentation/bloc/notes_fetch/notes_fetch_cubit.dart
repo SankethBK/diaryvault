@@ -93,6 +93,8 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
         notePreviewList: state.notePreviewList,
         tags: [newTag, ...state.tags],
         isTagSearchEnabled: state.isTagSearchEnabled));
+
+    fetchNotes();
   }
 
   void deleteTag(int index) {
@@ -103,6 +105,8 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
         notePreviewList: state.notePreviewList,
         tags: updatedTags,
         isTagSearchEnabled: state.isTagSearchEnabled));
+
+    fetchNotes();
   }
 
   void fetchNotes(
@@ -114,6 +118,7 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
       searchText: searchText,
       startDate: startDate,
       endDate: endDate,
+      tags: state.tags,
     );
     result.fold((error) {
       emit(const NotesFetchFailed());
