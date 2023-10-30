@@ -177,7 +177,16 @@ class Action extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 13.0),
                 child: IconButton(
                   icon: const Icon(Icons.close),
-                  onPressed: closeSearchAppBar,
+                  onPressed: () {
+                    // if tag search is enabled, disable it
+                    final isTagSearchEnabled =
+                        notesFetchCubitState.isTagSearchEnabled;
+                    if (isTagSearchEnabled) {
+                      notesFetchCubit.toggleTagSearch();
+                    }
+
+                    closeSearchAppBar();
+                  },
                   color: Colors.white.withOpacity(1),
                 ),
               ),

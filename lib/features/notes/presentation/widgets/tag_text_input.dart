@@ -20,10 +20,19 @@ class TagTextInput extends StatefulWidget {
 class _TagTextInputState extends State<TagTextInput> {
   final TextEditingController _textController = TextEditingController();
 
+  final FocusNode textfieldFocus = FocusNode();
+
   @override
   void dispose() {
     _textController.dispose();
+    textfieldFocus.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    textfieldFocus.requestFocus();
+    super.initState();
   }
 
   @override
@@ -41,6 +50,7 @@ class _TagTextInputState extends State<TagTextInput> {
         Theme.of(context).extension<AuthPageThemeExtensions>()!.borderColor;
 
     return TextField(
+      focusNode: textfieldFocus,
       controller: _textController,
       autofocus: widget.autoFocus,
       style: TextStyle(color: textColor),

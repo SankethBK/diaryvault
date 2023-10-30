@@ -69,7 +69,7 @@ class CoralBubble {
           infoTextColor: Colors.white.withOpacity(0.7),
         ),
         ChipThemeExtensions(
-          backgroundColor: Colors.pink[300]!,
+          backgroundColor: const Color.fromARGB(255, 219, 127, 158),
           iconColor: Colors.pink[200]!,
           textColor: const Color.fromARGB(255, 54, 52, 52),
           // textColor: Colors.black,
