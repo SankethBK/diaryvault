@@ -35,6 +35,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             controller: _controller,
             // ignore: prefer_const_literals_to_create_immutables
             allNoteAssets: [],
+            // ignore: prefer_const_literals_to_create_immutables
+            tags: [],
           ),
         );
         return;
@@ -61,6 +63,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             createdAt: note.createdAt,
             controller: _controller,
             allNoteAssets: note.assetDependencies,
+            tags: note.tags,
           ));
         },
       );
@@ -79,6 +82,35 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         allNoteAssets: event.noteAsset != null
             ? [...state.allNoteAssets!, event.noteAsset!]
             : state.allNoteAssets!,
+        tags: state.tags ?? [],
+      ));
+    });
+
+    on<AddTag>((event, emit) {
+      emit(NoteUpdatedState(
+        newNote: state.newNote!,
+        id: state.id,
+        title: state.title!,
+        controller: state.controller!,
+        createdAt: state.createdAt!,
+        allNoteAssets: state.allNoteAssets!,
+        tags: [event.newTag, ...state.tags!],
+      ));
+    });
+
+    on<DeleteTag>((event, emit) {
+      // Create a copy of the tags list without the element at event.tagIndex
+      final updatedTags = List<String>.from(state.tags!);
+      updatedTags.removeAt(event.tagIndex);
+
+      emit(NoteUpdatedState(
+        newNote: state.newNote!,
+        id: state.id,
+        title: state.title!,
+        controller: state.controller!,
+        createdAt: state.createdAt!,
+        allNoteAssets: state.allNoteAssets!,
+        tags: updatedTags,
       ));
     });
 
@@ -91,6 +123,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         controller: state.controller!,
         createdAt: state.createdAt!,
         noteAssets: state.allNoteAssets!,
+        tags: state.tags!,
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
@@ -108,6 +141,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "plain_text": _plainText,
         "asset_dependencies": state.allNoteAssets,
         "deleted": 0,
+        "tags": state.tags,
       };
 
       Either<NotesFailure, void> result;
@@ -128,6 +162,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           controller: state.controller!,
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
+          tags: state.tags ?? [],
         ));
       }, (_) {
         emit(NoteSavedSuccesfully(
@@ -137,6 +172,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           controller: state.controller!,
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
+          tags: state.tags ?? [],
         ));
       });
     });
@@ -149,6 +185,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         controller: state.controller!,
         createdAt: state.createdAt!,
         noteAssets: state.allNoteAssets!,
+        tags: state.tags!,
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
@@ -164,6 +201,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "plain_text": _plainText,
         "asset_dependencies": state.allNoteAssets,
         "deleted": 0,
+        "tags": state.tags,
       };
 
       Either<NotesFailure, void> result;
@@ -184,6 +222,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           controller: state.controller!,
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
+          tags: state.tags!,
         ));
       }, (_) {
         emit(NoteAutoSavedSuccesfully(
@@ -193,6 +232,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           controller: state.controller!,
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
+          tags: state.tags!,
         ));
       });
     });

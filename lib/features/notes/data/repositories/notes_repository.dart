@@ -72,7 +72,8 @@ class NotesRepository implements INotesRepository {
 
         var _hash = _generateHash(noteMap["title"] +
             noteMap["created_at"].toString() +
-            noteBodyWithAssetPathsRemoved);
+            noteBodyWithAssetPathsRemoved +
+            noteMap["tags"].join(","));
 
         noteMap["hash"] = _hash;
       }
@@ -110,7 +111,8 @@ class NotesRepository implements INotesRepository {
 
       var _hash = _generateHash(noteMap["title"] +
           noteMap["created_at"].toString() +
-          noteBodyWithAssetPathsRemoved);
+          noteBodyWithAssetPathsRemoved +
+          noteMap["tags"].join(","));
 
       noteMap["hash"] = _hash;
 
@@ -125,15 +127,21 @@ class NotesRepository implements INotesRepository {
 
   @override
   Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview(
-      {String? searchText, DateTime? startDate, DateTime? endDate}) async {
+      {String? searchText,
+      DateTime? startDate,
+      DateTime? endDate,
+      List<String>? tags}) async {
     try {
-      if (searchText != null || startDate != null || endDate != null) {
+      if (searchText != null ||
+          startDate != null ||
+          endDate != null ||
+          tags != null) {
         var notesList = await notesLocalDataSource.searchNotes(
-          authSessionBloc.state.user!.id,
-          searchText: searchText,
-          startDate: startDate,
-          endDate: endDate,
-        );
+            authSessionBloc.state.user!.id,
+            searchText: searchText,
+            startDate: startDate,
+            endDate: endDate,
+            tags: tags);
         return Right(notesList);
       }
       var notesList = await notesLocalDataSource
