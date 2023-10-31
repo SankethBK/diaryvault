@@ -1,5 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
+import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/tag_text_input.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class TagList extends StatefulWidget {
@@ -51,7 +53,14 @@ class _TagListState extends State<TagList> {
                   ? SizedBox(
                       width: 180,
                       child: TagTextInput(
-                        onSubmit: widget.addNewTag,
+                        onSubmit: (String newTag) {
+                          if (widget.tags.contains(newTag)) {
+                            showToast(S.current.tagAlreadyExists);
+                            return;
+                          }
+
+                          widget.addNewTag(newTag);
+                        },
                         onCancel: closeTagTextInput,
                         autoFocus: true,
                       ),

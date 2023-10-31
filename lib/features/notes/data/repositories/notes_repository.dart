@@ -72,7 +72,8 @@ class NotesRepository implements INotesRepository {
 
         var _hash = _generateHash(noteMap["title"] +
             noteMap["created_at"].toString() +
-            noteBodyWithAssetPathsRemoved);
+            noteBodyWithAssetPathsRemoved +
+            noteMap["tags"].join(","));
 
         noteMap["hash"] = _hash;
       }
@@ -110,7 +111,8 @@ class NotesRepository implements INotesRepository {
 
       var _hash = _generateHash(noteMap["title"] +
           noteMap["created_at"].toString() +
-          noteBodyWithAssetPathsRemoved);
+          noteBodyWithAssetPathsRemoved +
+          noteMap["tags"].join(","));
 
       noteMap["hash"] = _hash;
 

@@ -29,7 +29,7 @@ class Note extends Equatable {
 
   String getHashingString() {
     // assetDependencies is included in body itself
-    return title + createdAt.toString() + body;
+    return title + createdAt.toString() + body + tags.join(",");
   }
 
   @override

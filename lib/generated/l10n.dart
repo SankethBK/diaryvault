@@ -899,6 +899,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Tag already exists`
+  String get tagAlreadyExists {
+    return Intl.message(
+      'Tag already exists',
+      name: 'tagAlreadyExists',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
