@@ -43,3 +43,17 @@ class DiscardNote extends NotesEvent {}
 class RefreshNote extends NotesEvent {}
 
 class FetchNote extends NotesEvent {}
+
+// Add new tag
+class AddTag extends NotesEvent {
+  final String newTag;
+
+  const AddTag({required this.newTag});
+}
+
+// Removes the tag at given index
+class DeleteTag extends NotesEvent {
+  final int tagIndex;
+
+  const DeleteTag({required this.tagIndex});
+}

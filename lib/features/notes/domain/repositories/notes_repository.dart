@@ -20,7 +20,10 @@ abstract class INotesRepository {
   Future<Either<NotesFailure, void>> updateNote(Map<String, dynamic> noteMap);
 
   Future<Either<NotesFailure, List<NotePreview>>> fetchNotesPreview(
-      {String? searchText, DateTime? startDate, DateTime? endDate});
+      {String? searchText,
+      DateTime? startDate,
+      DateTime? endDate,
+      List<String>? tags});
 
   /// By default it does soft deletion, if hardDeletion = true, it does hard deletion
   Future<Either<NotesFailure, void>> deleteNotes(List<String> noteList,
