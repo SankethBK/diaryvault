@@ -77,6 +77,12 @@ class DBProvider {
               await db.rawQuery('SELECT COUNT(*) FROM ${Notes.TABLE_NAME}'));
           if (count == 0) {
             await db.insert(Notes.TABLE_NAME, welcomeNote);
+
+            // Insert a tag for welcome note
+            await db.insert(Tags.TABLE_NAME, {
+              "name": "welcome note",
+              "note_id": welcomeNote["id"],
+            });
           }
           log.i("Welcome Note inserted into table: ${Notes.TABLE_NAME}");
         } catch (e) {
