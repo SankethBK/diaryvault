@@ -94,5 +94,6 @@
   "notificationDescription1": "Take a few minutes to reflect on your day in your diary",
   "sortByLatestFirst": "Sort by Latest First",
   "sortByOldestFirst": "Sort by Oldest First",
-  "sortByAtoZ": "Sort by A-Z"
+  "sortByAtoZ": "Sort by A-Z",
+  "tagAlreadyExists": "Tag already exists"
 }

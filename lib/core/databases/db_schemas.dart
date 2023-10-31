@@ -20,6 +20,7 @@ class Notes {
   static const DELETED = "deleted";
   static const HASH = "hash";
   static const AUTHOR_ID = "author_id";
+  static const TAGS = "tags";
 }
 
 class NoteDependencies {
@@ -29,4 +30,12 @@ class NoteDependencies {
   static const NOTE_ID = "note_id";
   static const ASSET_TYPE = "asset_type";
   static const ASSET_PATH = "asset_path";
+}
+
+class Tags {
+  static const TABLE_NAME = "tags";
+
+  // Columns
+  static const NOTE_ID = "note_id";
+  static const NAME = "name";
 }
