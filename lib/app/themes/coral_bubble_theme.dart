@@ -72,7 +72,6 @@ class CoralBubble {
           backgroundColor: const Color.fromARGB(255, 219, 127, 158),
           iconColor: Colors.pink[200]!,
           textColor: const Color.fromARGB(255, 54, 52, 52),
-          // textColor: Colors.black,
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),
