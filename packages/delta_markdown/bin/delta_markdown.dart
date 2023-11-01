@@ -54,8 +54,6 @@ Future main(List<String> args) async {
   }
 }
 
-
-
 void printUsage(ArgParser parser) {
   print('''
 Usage: delta_markdown.dart [options] [file]
