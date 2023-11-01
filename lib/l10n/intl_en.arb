@@ -95,5 +95,8 @@
   "sortByLatestFirst": "Sort by Latest First",
   "sortByOldestFirst": "Sort by Oldest First",
   "sortByAtoZ": "Sort by A-Z",
+  "exportNotes": "Export your notes",
+  "exportToPlainText": "Export to Plain Text",
+  "exportToPDF": "Export to PDF (beta)",
   "tagAlreadyExists": "Tag already exists"
 }
