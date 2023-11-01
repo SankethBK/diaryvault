@@ -19,9 +19,13 @@ class SettingsTile extends StatelessWidget {
 
     return null == onTap
         ? widget
-        : InkWell(
-            onTap: onTap,
-            child: widget,
+        : Container(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            width: double.infinity,
+            child: InkWell(
+              onTap: onTap,
+              child: widget,
+            ),
           );
   }
 }
