@@ -23,6 +23,8 @@ class ExportNotesRepository implements IExportNotesRepository {
       {required File file, List<String>? noteList}) async {
     try {
       if (noteList == null) {
+        log.i("Generating text file for all notes");
+
         final result = await notesRepository.fetchNotes();
 
         var fileContent = "";
@@ -56,6 +58,8 @@ class ExportNotesRepository implements IExportNotesRepository {
 
     try {
       if (noteList == null) {
+        log.i("Generating PDF for all notes");
+
         final result = await notesRepository.fetchNotes();
 
         // Add watermark

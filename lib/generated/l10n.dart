@@ -920,10 +920,10 @@ class S {
     );
   }
 
-  /// `Export to PDF`
+  /// `Export to PDF (beta)`
   String get exportToPDF {
     return Intl.message(
-      'Export to PDF',
+      'Export to PDF (beta)',
       name: 'exportToPDF',
       desc: '',
       args: [],

@@ -80,7 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Export your notes"),
-        "exportToPDF": MessageLookupByLibrary.simpleMessage("Export to PDF"),
+        "exportToPDF":
+            MessageLookupByLibrary.simpleMessage("Export to PDF (beta)"),
         "exportToPlainText":
             MessageLookupByLibrary.simpleMessage("Export to Plain Text"),
         "failedToFetchNote":
