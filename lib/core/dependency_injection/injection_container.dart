@@ -17,8 +17,10 @@ import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
+import 'package:dairy_app/features/notes/data/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/data/repositories/notifications_repository.dart';
+import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -120,6 +122,9 @@ Future<void> init() async {
   //* Repository
   sl.registerSingleton<INotesRepository>(
       NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
+
+  sl.registerSingleton<IExportNotesRepository>(
+      ExportNotesRepository(notesRepository: sl()));
 
   sl.registerSingletonAsync<INotificationsRepository>(() async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();

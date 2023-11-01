@@ -42,11 +42,13 @@ class NoteModel extends Note {
       lastModified:
           DateTime.fromMillisecondsSinceEpoch(jsonMap["last_modified"]),
       plainText: jsonMap["plain_text"],
-      assetDependencies: jsonMap["asset_dependencies"]
-          .map<NoteAssetModel>(
-            (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
-          )
-          .toList(),
+      assetDependencies: jsonMap["asset_dependencies"] != null
+          ? jsonMap["asset_dependencies"]
+              .map<NoteAssetModel>(
+                (noteAssetMap) => NoteAssetModel.fromJson(noteAssetMap),
+              )
+              .toList()
+          : [],
       tags: jsonMap["tags"] ?? [],
     );
   }
