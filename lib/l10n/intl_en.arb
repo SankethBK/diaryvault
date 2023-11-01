@@ -97,5 +97,6 @@
   "sortByAtoZ": "Sort by A-Z",
   "exportNotes": "Export your notes",
   "exportToPlainText": "Export to Plain Text",
-  "exportToPDF": "Export to PDF"
+  "exportToPDF": "Export to PDF",
+  "tagAlreadyExists": "Tag already exists"
 }

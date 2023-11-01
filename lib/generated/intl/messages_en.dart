@@ -154,6 +154,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sort by Oldest First"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "syncNow": MessageLookupByLibrary.simpleMessage("Sync now"),
+        "tagAlreadyExists":
+            MessageLookupByLibrary.simpleMessage("Tag already exists"),
         "tapToExpandTitle":
             MessageLookupByLibrary.simpleMessage("Tap here to expand title"),
         "to": MessageLookupByLibrary.simpleMessage("To"),

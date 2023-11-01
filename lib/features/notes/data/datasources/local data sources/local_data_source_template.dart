@@ -41,5 +41,8 @@ abstract class INotesLocalDataSource {
 
   /// Search notes based on searchText, startDate and endDate
   Future<List<NotePreviewModel>> searchNotes(String authorId,
-      {String? searchText, DateTime? startDate, DateTime? endDate});
+      {String? searchText,
+      DateTime? startDate,
+      DateTime? endDate,
+      List<String>? tags});
 }

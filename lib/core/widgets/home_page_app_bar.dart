@@ -151,20 +151,48 @@ class Action extends StatelessWidget {
     final selectableListCubit = BlocProvider.of<SelectableListCubit>(context);
     final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
 
-    return BlocBuilder<SelectableListCubit, SelectableListState>(
-        builder: (context, state) {
+    return Builder(builder: (context) {
+      final selectableListState = context.watch<SelectableListCubit>().state;
+      final notesFetchCubitState = context.watch<NotesFetchCubit>().state;
+
       Widget getSuitableWidget() {
         if (isSearchEnabled) {
-          return Padding(
-            key: const ValueKey("close icon"),
-            padding: const EdgeInsets.only(right: 13.0),
-            child: IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: closeSearchAppBar,
-              color: Colors.white.withOpacity(1),
-            ),
+          return Row(
+            children: [
+              Padding(
+                key: const ValueKey("tag icon"),
+                padding: const EdgeInsets.only(right: 5.0),
+                child: IconButton(
+                  icon: notesFetchCubitState.isTagSearchEnabled
+                      ? const Icon(Icons.local_offer)
+                      : const Icon(Icons.local_offer_outlined),
+                  onPressed: () {
+                    notesFetchCubit.toggleTagSearch();
+                  },
+                  color: Colors.white.withOpacity(1),
+                ),
+              ),
+              Padding(
+                key: const ValueKey("close icon"),
+                padding: const EdgeInsets.only(right: 13.0),
+                child: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    // if tag search is enabled, disable it
+                    final isTagSearchEnabled =
+                        notesFetchCubitState.isTagSearchEnabled;
+                    if (isTagSearchEnabled) {
+                      notesFetchCubit.toggleTagSearch();
+                    }
+
+                    closeSearchAppBar();
+                  },
+                  color: Colors.white.withOpacity(1),
+                ),
+              ),
+            ],
           );
-        } else if (state is SelectableListEnabled) {
+        } else if (selectableListState is SelectableListEnabled) {
           return Row(
             children: [
               DeletionCount(

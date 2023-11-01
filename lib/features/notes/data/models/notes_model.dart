@@ -4,6 +4,10 @@ class NoteModel extends Note {
   @override
   // ignore: overridden_fields
   final List<NoteAssetModel> assetDependencies;
+  @override
+  // ignore: overridden_fields
+  final List<String> tags;
+
   const NoteModel({
     required String id,
     required DateTime createdAt,
@@ -14,6 +18,7 @@ class NoteModel extends Note {
     required String plainText,
     String? authorId,
     required this.assetDependencies,
+    required this.tags,
   }) : super(
           id: id,
           createdAt: createdAt,
@@ -24,6 +29,7 @@ class NoteModel extends Note {
           plainText: plainText,
           assetDependencies: assetDependencies,
           authorId: authorId,
+          tags: tags,
         );
 
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {
@@ -43,6 +49,7 @@ class NoteModel extends Note {
               )
               .toList()
           : [],
+      tags: jsonMap["tags"] ?? [],
     );
   }
 
@@ -58,6 +65,7 @@ class NoteModel extends Note {
       "deleted": deleted ? 1 : 0,
       "asset_dependencies":
           assetDependencies.map((noteAsset) => noteAsset.toJson()).toList(),
+      "tags": tags
     };
   }
 }
