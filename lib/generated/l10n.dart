@@ -900,6 +900,36 @@ class S {
     );
   }
 
+  /// `Export your notes`
+  String get exportNotes {
+    return Intl.message(
+      'Export your notes',
+      name: 'exportNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export to Plain Text`
+  String get exportToPlainText {
+    return Intl.message(
+      'Export to Plain Text',
+      name: 'exportToPlainText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export to PDF (beta)`
+  String get exportToPDF {
+    return Intl.message(
+      'Export to PDF (beta)',
+      name: 'exportToPDF',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tag already exists`
   String get tagAlreadyExists {
     return Intl.message(
