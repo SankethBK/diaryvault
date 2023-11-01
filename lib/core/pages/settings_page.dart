@@ -140,6 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const ShareWithFriends(),
                 const SizedBox(height: 15),
                 const VersionNumber(),
+                const SizedBox(height: 15),
               ],
             ),
           ),
