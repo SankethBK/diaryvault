@@ -98,8 +98,8 @@ class MockIAuthenticationRepository extends _i1.Mock
                 #password: password,
               },
             ),
-            returnValue: _i6.Future<
-                    _i2.Either<_i7.SignUpFailure, _i8.LoggedInUser>>.value(
+            returnValue: _i6
+                .Future<_i2.Either<_i7.SignUpFailure, _i8.LoggedInUser>>.value(
                 _FakeEither_0<_i7.SignUpFailure, _i8.LoggedInUser>(
               this,
               Invocation.method(
@@ -127,8 +127,8 @@ class MockIAuthenticationRepository extends _i1.Mock
                 #password: password,
               },
             ),
-            returnValue: _i6.Future<
-                    _i2.Either<_i7.SignInFailure, _i8.LoggedInUser>>.value(
+            returnValue: _i6
+                .Future<_i2.Either<_i7.SignInFailure, _i8.LoggedInUser>>.value(
                 _FakeEither_0<_i7.SignInFailure, _i8.LoggedInUser>(
               this,
               Invocation.method(
