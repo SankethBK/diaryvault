@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
@@ -63,7 +64,7 @@ class DarkAcademia {
       ),
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/dark_academia.png",
+          backgroundImage: "assets/images/dark-academia.png",
           linkColor: const Color(0xFFD39E70),
           prefixIconColor: const Color.fromARGB(255, 87, 57, 58),
           fillColor: const Color(0xFFA89C94),
@@ -80,6 +81,11 @@ class DarkAcademia {
           appBarGradientStartColor: const Color(0xFF2D1F16),
           appBarGradientEndColor: const Color(0xFF2D1F16),
           searchBarFillColor: const Color(0xFF543831),
+        ),
+        ChipThemeExtensions(
+          backgroundColor: const Color.fromARGB(216, 87, 57, 58),
+          iconColor: const Color(0xFFA89C94),
+          textColor: Colors.white,
         ),
         HomePageThemeExtensions(
           borderColor: const Color(0xFF472E24),

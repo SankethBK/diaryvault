@@ -409,8 +409,10 @@ class NotesLocalDataSource implements INotesLocalDataSource {
           );
 
           for (var tagMap in tagResult) {
-            final noteId = tagMap[Tags.NOTE_ID] as String;
-            noteIds.add("'$noteId'");
+            if (tagMap[Tags.NOTE_ID] != null) {
+              final noteId = tagMap[Tags.NOTE_ID] as String;
+              noteIds.add("'$noteId'");
+            }
           }
         }
 
