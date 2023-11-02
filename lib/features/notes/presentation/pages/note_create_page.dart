@@ -122,7 +122,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                 backgroundImagePath,
               ),
               fit: BoxFit.cover,
-              alignment: const Alignment(0.725, 0.1),
+              // alignment: const Alignment(0.725, 0.1),
             ),
           ),
           padding: EdgeInsets.only(

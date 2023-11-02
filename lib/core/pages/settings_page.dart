@@ -91,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
               backgroundImagePath,
             ),
             fit: BoxFit.cover,
-            alignment: const Alignment(0.725, 0.1),
+            // alignment: const Alignment(0.725, 0.1),
           ),
         ),
         child: GlassMorphismCover(
