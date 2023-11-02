@@ -121,11 +121,12 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                 top: topPadding, left: 10.0, right: 10.0, bottom: 10.0),
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(
-                    backgroundImagePath,
-                  ),
-                  fit: BoxFit.cover,
-                  alignment: const Alignment(0.725, 0.1)),
+                image: AssetImage(
+                  backgroundImagePath,
+                ),
+                fit: BoxFit.cover,
+                // alignment: const Alignment(0.725, 0.1),
+              ),
             ),
             child: BlocListener<NotesBloc, NotesState>(
               bloc: notesBloc,

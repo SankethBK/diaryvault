@@ -54,6 +54,9 @@ class Cosmic {
         backgroundColor: Color.fromARGB(255, 36, 46, 178),
         elevation: 4,
       ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.white,
+      ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.black.withOpacity(0.7),
       popupMenuTheme: PopupMenuThemeData(

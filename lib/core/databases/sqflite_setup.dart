@@ -96,7 +96,7 @@ class DBProvider {
         if (oldVersion < 2) {
           await db.execute("""
             CREATE TABLE  ${Tags.TABLE_NAME} (
-              ${Tags.NOTE_ID} TEXT, 
+              ${Tags.NOTE_ID} TEXT,
               ${Tags.NAME} TEXT
             )""");
         }
