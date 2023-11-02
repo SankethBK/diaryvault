@@ -32,6 +32,8 @@ dependencies:
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  delta_markdown:
+    path: ./packages/delta_markdown
   equatable: ^2.0.3
   file_picker: ^5.3.4
   filesystem_picker: ^2.0.0-nullsafety.0
@@ -39,6 +41,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_html_to_pdf: 
+    path: ./packages/flutter_html_to_pdf
   flutter_local_notifications: ^16.1.0
   flutter_localizations:
     sdk: flutter
@@ -60,6 +64,7 @@ dependencies:
   intl: ^0.18.0
   local_auth: ^2.1.6
   logger: ^1.1.0
+  markdown: ^7.1.1
   package_info_plus: ^4.1.0
   path_provider: ^2.0.9
   provider: ^6.0.5
@@ -99,7 +104,7 @@ dependency_overrides:
   # For information on the generic Dart part of this file, see the
   # following page: https://dart.dev/tools/pub/pubspec
   # The following section is specific to Flutter.
-  analyzer:
+  ? analyzer
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

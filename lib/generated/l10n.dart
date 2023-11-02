@@ -899,6 +899,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Export your notes`
+  String get exportNotes {
+    return Intl.message(
+      'Export your notes',
+      name: 'exportNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export to Plain Text`
+  String get exportToPlainText {
+    return Intl.message(
+      'Export to Plain Text',
+      name: 'exportToPlainText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export to PDF (beta)`
+  String get exportToPDF {
+    return Intl.message(
+      'Export to PDF (beta)',
+      name: 'exportToPDF',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tag already exists`
+  String get tagAlreadyExists {
+    return Intl.message(
+      'Tag already exists',
+      name: 'tagAlreadyExists',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -913,6 +953,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'gu'),
       Locale.fromSubtags(languageCode: 'he'),
       Locale.fromSubtags(languageCode: 'hi'),
+      Locale.fromSubtags(languageCode: 'id'),
       Locale.fromSubtags(languageCode: 'kn'),
       Locale.fromSubtags(languageCode: 'pa'),
       Locale.fromSubtags(languageCode: 'pt'),

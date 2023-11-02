@@ -78,6 +78,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter new email"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
+        "exportNotes":
+            MessageLookupByLibrary.simpleMessage("Export your notes"),
+        "exportToPDF":
+            MessageLookupByLibrary.simpleMessage("Export to PDF (beta)"),
+        "exportToPlainText":
+            MessageLookupByLibrary.simpleMessage("Export to Plain Text"),
         "failedToFetchNote":
             MessageLookupByLibrary.simpleMessage("Failed to fetch note"),
         "failedToSaveNote":
@@ -149,6 +155,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sort by Oldest First"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "syncNow": MessageLookupByLibrary.simpleMessage("Sync now"),
+        "tagAlreadyExists":
+            MessageLookupByLibrary.simpleMessage("Tag already exists"),
         "tapToExpandTitle":
             MessageLookupByLibrary.simpleMessage("Tap here to expand title"),
         "to": MessageLookupByLibrary.simpleMessage("To"),
