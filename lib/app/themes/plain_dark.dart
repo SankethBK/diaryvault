@@ -56,6 +56,9 @@ class PlainDark {
         backgroundColor: Colors.teal,
         elevation: 4,
       ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.white,
+      ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.black.withOpacity(0.7),
       popupMenuTheme: PopupMenuThemeData(
