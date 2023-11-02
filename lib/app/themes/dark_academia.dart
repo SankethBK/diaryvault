@@ -12,7 +12,7 @@ class DarkAcademia {
   static ThemeData getTheme() {
     return ThemeData(
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.brown).copyWith(
-        secondary: const Color(0xFF472E24),
+        secondary: const Color.fromARGB(255, 217, 168, 149),
       ),
       datePickerTheme: const DatePickerThemeData(
         backgroundColor: Color(0xFFFFE0C8),
@@ -53,6 +53,9 @@ class DarkAcademia {
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color(0xFF8B6B5E),
         elevation: 4,
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.white,
       ),
       canvasColor: const Color(0xFFFFE0C8),
       popupMenuTheme: PopupMenuThemeData(
