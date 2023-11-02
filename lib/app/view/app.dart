@@ -97,7 +97,7 @@ class _AppViewState extends State<AppView> {
         return LushGreen.getTheme();
       case Themes.plainDark:
         return PlainDark.getTheme();
-        case Themes.darkAcademia:
+      case Themes.darkAcademia:
         return DarkAcademia.getTheme();
 
       default:

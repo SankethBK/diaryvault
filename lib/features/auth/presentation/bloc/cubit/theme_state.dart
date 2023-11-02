@@ -15,7 +15,7 @@ extension ThemeExtension on Themes {
         return 'Lush Green';
       case Themes.plainDark:
         return "Plain Dark";
-        case Themes.darkAcademia:
+      case Themes.darkAcademia:
         return "Dark Academia";
     }
   }
