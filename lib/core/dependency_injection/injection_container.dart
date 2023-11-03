@@ -13,7 +13,8 @@ import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_p
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
@@ -91,6 +92,8 @@ Future<void> init() async {
       UserConfigCubit(userConfigRepository: sl(), authSessionBloc: sl()));
 
   sl.registerSingleton<ThemeCubit>(ThemeCubit(keyValueDataSource: sl()));
+
+  sl.registerSingleton<LocaleCubit>(LocaleCubit(keyValueDataSource: sl()));
 
   sl.registerSingleton<FingerPrintAuthRepository>(FingerPrintAuthRepository(
     keyValueDataSource: sl(),

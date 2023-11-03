@@ -1,7 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/core/locale/language_locale.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +11,8 @@ class LanguageDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeCubit = BlocProvider.of<LocaleCubit>(context);
+
     final mainTextColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
@@ -42,16 +44,22 @@ class LanguageDropDown extends StatelessWidget {
             color: mainTextColor,
           ),
           dropdownColor: dropDownBackgroundColor,
-          // value: Intl.getCurrentLocale(),
+          value: localeCubit.state.currentLocale,
           onChanged: (value) async {
             // Update the selected value
-            // await themeCubit.setTheme(value);
+            if (value != null) {
+              await localeCubit.setLocale(value);
+            }
           },
           items: S.delegate.supportedLocales.map((Locale locale) {
             return DropdownMenuItem<Locale>(
               value: locale,
-              child: Text(LanguageLocal
-                  .isoLangs[locale.toLanguageTag()]!["nativeName"]!),
+              child: Text(
+                LanguageLocal.isoLangs[locale.toLanguageTag()]!["nativeName"]!,
+                style: TextStyle(
+                  color: mainTextColor,
+                ),
+              ),
             );
           }).toList(),
         ),
