@@ -24,7 +24,7 @@ class LanguageDropDown extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "App Language",
+          S.current.appLanguage,
           style: TextStyle(
             fontSize: 16.0,
             color: mainTextColor,
@@ -54,10 +54,13 @@ class LanguageDropDown extends StatelessWidget {
           items: S.delegate.supportedLocales.map((Locale locale) {
             return DropdownMenuItem<Locale>(
               value: locale,
-              child: Text(
-                LanguageLocal.isoLangs[locale.toLanguageTag()]!["nativeName"]!,
-                style: TextStyle(
-                  color: mainTextColor,
+              child: Center(
+                child: Text(
+                  LanguageLocal
+                      .isoLangs[locale.toLanguageTag()]!["nativeName"]!,
+                  style: TextStyle(
+                    color: mainTextColor,
+                  ),
                 ),
               ),
             );

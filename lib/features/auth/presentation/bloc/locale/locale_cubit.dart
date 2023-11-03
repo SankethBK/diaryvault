@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -8,23 +9,28 @@ part 'locale_state.dart';
 class LocaleCubit extends Cubit<LocaleState> {
   final IKeyValueDataSource keyValueDataSource;
 
+  final log = printer("LocaleCubit");
+
   LocaleCubit({required this.keyValueDataSource})
       : super(const LocaleChanged(locale: Locale('en'))) {
     var preferredLocale = const Locale('en');
     final languageCode = keyValueDataSource.getValue(preferredLanguageCode);
 
     final countryCode = keyValueDataSource.getValue(preferredCountryCode);
-    print("languageCode = ${languageCode}");
+
+    log.i("preferred language code: $languageCode");
+
     if (languageCode != null) {
-      preferredLocale = Locale(preferredLanguageCode, countryCode);
+      preferredLocale = Locale(languageCode, countryCode);
     }
 
-    print("preferredLocale = ${preferredLocale.toLanguageTag()}");
-
+    log.i("preferred locale = ${preferredLocale.toLanguageTag()}");
     emit(LocaleChanged(locale: preferredLocale));
   }
 
   setLocale(Locale locale) async {
+    log.i("setting locale = ${locale.toLanguageTag()}");
+
     await keyValueDataSource.setValue(
         preferredLanguageCode, locale.languageCode);
 

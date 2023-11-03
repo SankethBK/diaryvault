@@ -30,7 +30,7 @@ Future<dynamic> showCloseDialog(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: [
               CancelButton(
-                buttonText: "Leave",
+                buttonText: S.current.leave,
                 onPressed: () {
                   Navigator.pop(context, true);
                 },
@@ -39,7 +39,7 @@ Future<dynamic> showCloseDialog(BuildContext context) {
               SubmitButton(
                 isLoading: false,
                 onSubmitted: () => Navigator.pop(context, false),
-                buttonText: "Stay",
+                buttonText: S.current.stay,
               ),
             ],
           ),
