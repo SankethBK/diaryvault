@@ -939,6 +939,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Security Settings`
+  String get securitySettings {
+    return Intl.message(
+      'Security Settings',
+      name: 'securitySettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave`
+  String get leave {
+    return Intl.message(
+      'Leave',
+      name: 'leave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stay`
+  String get stay {
+    return Intl.message(
+      'Stay',
+      name: 'stay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Automatically saves your notes after every 10 seconds`
+  String get automaticallySave {
+    return Intl.message(
+      'Automatically saves your notes after every 10 seconds',
+      name: 'automaticallySave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logOut2 {
+    return Intl.message(
+      'Logout',
+      name: 'logOut2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Language`
+  String get appLanguage {
+    return Intl.message(
+      'App Language',
+      name: 'appLanguage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

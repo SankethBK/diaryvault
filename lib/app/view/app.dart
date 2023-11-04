@@ -9,7 +9,8 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -53,6 +54,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<ThemeCubit>(
           create: (context) => sl<ThemeCubit>(),
+        ),
+        BlocProvider<LocaleCubit>(
+          create: (context) => sl<LocaleCubit>(),
         )
       ],
       child: const AppView(),
@@ -107,12 +111,16 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, state) {
+    return Builder(
+      builder: (context) {
+        final themeState = context.watch<ThemeCubit>().state;
+        final localeCubit = context.watch<LocaleCubit>().state;
+
         return MaterialApp(
           navigatorKey: _navigatorKey,
           debugShowCheckedModeBanner: false,
           title: "My Dairy",
+          locale: localeCubit.currentLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
             S.delegate,
@@ -120,7 +128,7 @@ class _AppViewState extends State<AppView> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate
           ],
-          theme: getThemeData(state.theme),
+          theme: getThemeData(themeState.theme),
           builder: (BuildContext context, child) {
             return BlocListener<AuthSessionBloc, AuthSessionState>(
               listener: (context, state) {
