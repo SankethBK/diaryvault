@@ -21,53 +21,60 @@ class LanguageDropDown extends StatelessWidget {
         .extension<SettingsPageThemeExtensions>()!
         .dropDownBackgroundColor;
 
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            S.current.appLanguage,
-            style: TextStyle(
-              fontSize: 16.0,
-              color: mainTextColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              S.current.appLanguage,
+              style: TextStyle(
+                fontSize: 16.0,
+                color: mainTextColor,
+              ),
             ),
           ),
-        ),
-        DropdownButton<Locale>(
-          menuMaxHeight: 400,
-          padding: const EdgeInsets.only(bottom: 0.0),
-          iconEnabledColor: mainTextColor,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(16),
-          ),
-          focusColor: mainTextColor,
-          underline: Container(
-            height: 1,
-            color: mainTextColor,
-          ),
-          dropdownColor: dropDownBackgroundColor,
-          value: localeCubit.state.currentLocale,
-          onChanged: (value) async {
-            // Update the selected value
-            if (value != null) {
+          PopupMenuButton<Locale>(
+            itemBuilder: (context) {
+              return S.delegate.supportedLocales.map((Locale locale) {
+                return PopupMenuItem(
+                  value: locale,
+                  child: Text(
+                    LanguageLocal
+                        .isoLangs[locale.toLanguageTag()]!["nativeName"]!,
+                    style: TextStyle(
+                      color: mainTextColor,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+            padding: const EdgeInsets.only(bottom: 0.0),
+            onSelected: (value) async {
+              // Update the selected value
               await localeCubit.setLocale(value);
-            }
-          },
-          items: S.delegate.supportedLocales.map((Locale locale) {
-            return DropdownMenuItem<Locale>(
-              value: locale,
-              child: Center(
-                child: Text(
-                  LanguageLocal
-                      .isoLangs[locale.toLanguageTag()]!["nativeName"]!,
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  LanguageLocal.isoLangs[localeCubit.state.currentLocale
+                      .toLanguageTag()]!["nativeName"]!,
                   style: TextStyle(
                     color: mainTextColor,
+                    fontSize: 16,
                   ),
                 ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
+                const SizedBox(width: 10),
+                Icon(
+                  Icons.arrow_drop_down,
+                  color: mainTextColor,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
