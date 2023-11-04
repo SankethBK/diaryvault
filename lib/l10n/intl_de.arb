@@ -74,5 +74,35 @@
   "delete": "Löschen",
   "cancel": "Stornieren",
   "submit": "Einreichen",
-  "appDescription": "Entdecken Sie diaryVault – eine Tagebuch-App, mit der Sie Ihre Gedanken, Erinnerungen und Momente mühelos festhalten können. Jetzt im Play Store erhältlich!"
+  "appDescription": "Entdecken Sie diaryVault – eine Tagebuch-App, mit der Sie Ihre Gedanken, Erinnerungen und Momente mühelos festhalten können. Jetzt im Play Store erhältlich!",
+  "notificationsNotEnabled": "Benachrichtigungen sind nicht aktiviert",
+  "notificationTimeNotEnabled": "Sie haben keinen Benachrichtigungszeitpunkt ausgewählt",
+  "youWillBeNotifiedAt": "Sie werden unter benachrichtigt {time}",
+  "@youWillBeNotifiedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "in sometime"
+      }
+    }
+  },
+  "enableDailyReminders": "Aktivieren Sie tägliche Erinnerungen",
+  "dailyReminders": "Tägliche Erinnerungen",
+  "getDailyReminders": "Erhalten Sie tägliche Erinnerungen zu der von Ihnen gewählten Zeit, um Ihr Tagebuch auf dem neuesten Stand zu halten.",
+  "chooseTime": "Wählen Sie Zeit",
+  "notificationTitle1": "Zeit zum Tagebuchschreiben!",
+  "notificationDescription1": "Nehmen Sie sich ein paar Minuten Zeit, um in Ihrem Tagebuch über Ihren Tag nachzudenken",
+  "sortByLatestFirst": "Sortieren Sie nach „Neueste zuerst",
+  "sortByOldestFirst": "Sortieren Sie nach Ältesten zuerst",
+  "sortByAtoZ": "Sortieren nach A-Z",
+  "exportNotes": "Exportieren Sie Ihre Notizen",
+  "exportToPlainText": "Export to Plain Text",
+  "exportToPDF": "In einfachen Text exportieren",
+  "tagAlreadyExists": "Tag existiert bereits",
+  "securitySettings": "Sicherheitseinstellungen",
+  "leave": "Verlassen",
+  "stay": "Bleiben",
+  "automaticallySave": "Speichert Ihre Notizen automatisch alle 10 Sekunden",
+  "logOut2": "Ausloggen",
+  "appLanguage": "App-Sprache"
 }

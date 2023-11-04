@@ -2,6 +2,7 @@ import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/core/widgets/language_dropdown.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
 import 'package:dairy_app/core/widgets/send_feedback.dart';
 import 'package:dairy_app/core/widgets/share_with_friends.dart';
@@ -134,6 +135,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const ThemeDropdown(),
                 const SizedBox(height: 15),
                 const ExportNotes(),
+                const SizedBox(height: 15),
+                const LanguageDropDown(),
                 const SizedBox(height: 15),
                 const SendFeedBack(),
                 const SizedBox(height: 15),

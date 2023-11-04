@@ -43,7 +43,7 @@ class LogoutButton extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CancelButton(
-                          buttonText: "Cancel",
+                          buttonText: S.current.cancel,
                           onPressed: () {
                             Navigator.pop(context, false);
                           },
@@ -52,7 +52,7 @@ class LogoutButton extends StatelessWidget {
                         SubmitButton(
                           isLoading: false,
                           onSubmitted: () => Navigator.pop(context, true),
-                          buttonText: "Logout",
+                          buttonText: S.current.logOut2,
                         ),
                       ],
                     ),

@@ -74,5 +74,35 @@
   "delete": "मिटायें",
   "cancel": "रद्द करें",
   "submit": "सबमिट करें",
-  "appDescription": "डायरीवॉल्ट - एक डायरी ऐप जिसे आपके विचारों, यादों और क्षणों को सहजता से समेटने में मदद करने के लिए डिज़ाइन किया गया है। अब प्ले स्टोर पर उपलब्ध है!"
+  "appDescription": "डायरीवॉल्ट - एक डायरी ऐप जिसे आपके विचारों, यादों और क्षणों को सहजता से समेटने में मदद करने के लिए डिज़ाइन किया गया है। अब प्ले स्टोर पर उपलब्ध है!",
+  "notificationsNotEnabled": "सूचनाएं सक्षम नहीं हैं",
+  "notificationTimeNotEnabled": "आपने अधिसूचना समय का चयन नहीं किया है",
+  "youWillBeNotifiedAt": "आपको {time} पर सूचित किया जाएगा",
+  "@youWillBeNotifiedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "in sometime"
+      }
+    }
+  },
+  "enableDailyReminders": "दैनिक अनुस्मारक सक्षम करें",
+  "dailyReminders": "दैनिक अनुस्मारक",
+  "getDailyReminders": "अपनी पत्रिका को अद्यतन रखने के लिए अपने चुने हुए समय पर दैनिक अनुस्मारक प्राप्त करें।",
+  "chooseTime": "समय चुनें",
+  "notificationTitle1": "जर्नल करने का समय!",
+  "notificationDescription1": "अपनी डायरी में अपने दिन को प्रतिबिंबित करने के लिए कुछ मिनट निकालें",
+  "sortByLatestFirst": "सबसे पहले नवीनतम के अनुसार क्रमबद्ध करें",
+  "sortByOldestFirst": "सबसे पहले सबसे पुराने के अनुसार क्रमबद्ध करें",
+  "sortByAtoZ": "A-Z के अनुसार क्रमबद्ध करें",
+  "exportNotes": "अपने नोट्स निर्यात करें",
+  "exportToPlainText": "सादे पाठ में निर्यात करें",
+  "exportToPDF": "पीडीएफ में निर्यात करें ",
+  "tagAlreadyExists": "टैग पहले से मौजूद है",
+  "securitySettings": "सुरक्षा सेटिंग्स",
+  "leave": "बंद करें",
+  "stay": "रुके",
+  "automaticallySave": "प्रत्येक 10 सेकंड के बाद स्वचालित रूप से आपके नोट्स सहेजता है",
+  "logOut2": "लॉग आउट",
+  "appLanguage": "ऐप भाषा"
 }
