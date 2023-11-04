@@ -17,10 +17,6 @@ class LanguageDropDown extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
 
-    final dropDownBackgroundColor = Theme.of(context)
-        .extension<SettingsPageThemeExtensions>()!
-        .dropDownBackgroundColor;
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
