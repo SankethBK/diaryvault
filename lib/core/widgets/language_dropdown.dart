@@ -1,5 +1,4 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/core/locale/language_locale.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
 import 'package:dairy_app/generated/l10n.dart';
