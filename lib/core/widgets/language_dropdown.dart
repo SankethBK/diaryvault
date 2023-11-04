@@ -23,14 +23,15 @@ class LanguageDropDown extends StatelessWidget {
 
     return Row(
       children: [
-        Text(
-          S.current.appLanguage,
-          style: TextStyle(
-            fontSize: 16.0,
-            color: mainTextColor,
+        Expanded(
+          child: Text(
+            S.current.appLanguage,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: mainTextColor,
+            ),
           ),
         ),
-        const Spacer(),
         DropdownButton<Locale>(
           menuMaxHeight: 400,
           padding: const EdgeInsets.only(bottom: 0.0),

@@ -30,12 +30,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vous avez déjà un compte?"),
         "appDescription": MessageLookupByLibrary.simpleMessage(
             "Découvrez diaryVault - une application de journal conçue pour vous aider à capturer vos pensées, vos souvenirs et vos moments sans effort. Disponible dès maintenant sur le Play Store !"),
+        "appLanguage":
+            MessageLookupByLibrary.simpleMessage("Langue de l\'application"),
         "appVersion":
             MessageLookupByLibrary.simpleMessage("Version de l\'application"),
         "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
             "Etes-vous sûr de vous déconnecter ?"),
         "autoSync": MessageLookupByLibrary.simpleMessage(
             "Réinitialiser le mot de passe"),
+        "automaticallySave": MessageLookupByLibrary.simpleMessage(
+            "Enregistre automatiquement vos notes toutes les 10 secondes"),
         "automaticallySyncNotesWithCloud": MessageLookupByLibrary.simpleMessage(
             "Synchronisez automatiquement les notes avec le cloud"),
         "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
@@ -110,9 +114,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("English"),
         "lastSynced":
             MessageLookupByLibrary.simpleMessage("Dernière synchronisation : "),
+        "leave": MessageLookupByLibrary.simpleMessage("Partir"),
         "link": MessageLookupByLibrary.simpleMessage("Lien"),
         "logIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
         "logOut": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
+        "logOut2": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "Veuillez vous connecter pour activer la synchronisation automatique"),
         "newPassword":
@@ -149,6 +155,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "politique de confidentialité"),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Réinitialiser le mot de passe"),
+        "securitySettings":
+            MessageLookupByLibrary.simpleMessage("Les paramètres de sécurité"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Envoyer des commentaires"),
         "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
@@ -166,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Trier par le plus récent en premier"),
         "sortByOldestFirst": MessageLookupByLibrary.simpleMessage(
             "Trier par le plus ancien en premier"),
+        "stay": MessageLookupByLibrary.simpleMessage("rester"),
         "submit": MessageLookupByLibrary.simpleMessage("Soumettre"),
         "syncNow":
             MessageLookupByLibrary.simpleMessage("Synchroniser maintenant"),
