@@ -41,7 +41,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  flutter_html_to_pdf: 
+  flutter_html_to_pdf:
     path: ./packages/flutter_html_to_pdf
   flutter_local_notifications: ^16.1.0
   flutter_localizations:
@@ -77,6 +77,7 @@ dependencies:
     path: ./packages/stateless_dropbox_client/
   url_launcher: ^6.1.14
   uuid: ^3.0.6
+  webdav_client: ^1.2.1
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -104,7 +105,7 @@ dependency_overrides:
   # For information on the generic Dart part of this file, see the
   # following page: https://dart.dev/tools/pub/pubspec
   # The following section is specific to Flutter.
-  ? analyzer
+  analyzer:
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -129,7 +130,6 @@ flutter:
     - family: SF-UI-Display
       fonts:
         - asset: assets/fonts/SF-Pro-Display-Regular.otf
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
