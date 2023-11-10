@@ -1822,10 +1822,9 @@ packages:
   webdav_client:
     dependency: "direct main"
     description:
-      name: webdav_client
-      sha256: b3f5afee27e7db5635817ddd79d57f56d43fdc6dad4c6bc93b0703261f96064c
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/webdav_client"
+      relative: true
+    source: path
     version: "1.2.1"
   webdriver:
     dependency: transitive

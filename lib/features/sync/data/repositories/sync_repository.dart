@@ -11,6 +11,7 @@ import 'package:dairy_app/features/notes/domain/repositories/notes_repository.da
 import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dartz/dartz.dart';
@@ -555,6 +556,8 @@ class SyncRepository implements ISyncRepository {
 
   /// Chooses the appropriate OAuthClient as per user choice and initializes it
   bool _initializeSyncClient() {
+    syncClient = NextCloudSyncClient();
+    return true;
     final preferredSyncOption =
         userConfigCubit.state.userConfigModel?.preferredSyncOption;
 
