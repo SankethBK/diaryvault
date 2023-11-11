@@ -174,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("You have unsaved changes"),
         "youWillBeNotifiedAt": m0

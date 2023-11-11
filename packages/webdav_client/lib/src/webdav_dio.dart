@@ -78,9 +78,6 @@ class WdDio with DioMixin implements Dio {
       options.headers?['authorization'] = str;
     }
 
-    print(
-        "URL = '${path.startsWith(RegExp(r'(http|https)://')) ? path : join(self.uri, path)}'");
-
     var resp = await this.requestUri<T>(
       Uri.parse(
           '${path.startsWith(RegExp(r'(http|https)://')) ? path : join(self.uri, path)}'),
@@ -110,7 +107,7 @@ class WdDio with DioMixin implements Dio {
         }
         // error
         else {
-          throw newResponseError(resp);
+          throw Exception("Username or password is incorrect");
         }
       }
       // before is digest and Nonce Lifetime is out
@@ -121,7 +118,7 @@ class WdDio with DioMixin implements Dio {
             pwd: self.auth.pwd,
             dParts: DigestParts(w3AHeader));
       } else {
-        throw newResponseError(resp);
+        throw Exception("Username or password is incorrect");
       }
 
       // retry

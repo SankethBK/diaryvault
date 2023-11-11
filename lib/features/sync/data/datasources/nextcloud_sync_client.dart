@@ -5,6 +5,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:webdav_client/webdav_client.dart' as webdav_client;
 import 'package:path/path.dart' as p;
@@ -13,18 +14,41 @@ final log = printer("NextCloudSyncClient");
 
 class NextCloudSyncClient extends ISyncClient {
   late webdav_client.Client client;
+  late FlutterSecureStorage secureStorage;
 
   final UserConfigCubit userConfigCubit;
 
-  NextCloudSyncClient({required this.userConfigCubit});
+  static const WEBDAV_URL = "WEBDAV_URL";
+  static const NEXTCLOUD_USERNAME = "NEXTCLOUD_USERNAME";
+  static const NEXTCLOUD_PASSWORD = "NEXTCLOUD_PASSWORD";
+
+  NextCloudSyncClient({required this.userConfigCubit}) {
+    AndroidOptions _getAndroidOptions() => const AndroidOptions(
+          encryptedSharedPreferences: true,
+        );
+    secureStorage = FlutterSecureStorage(aOptions: _getAndroidOptions());
+  }
+
+  Future<void> addLoginDetails(
+    String webDAVURL,
+    String nextCloudUsername,
+    String nextCloudPassword,
+  ) async {
+    await secureStorage.write(key: WEBDAV_URL, value: webDAVURL);
+    await secureStorage.write(
+        key: NEXTCLOUD_USERNAME, value: nextCloudUsername);
+    await secureStorage.write(
+        key: NEXTCLOUD_PASSWORD, value: nextCloudPassword);
+  }
 
   @override
   Future<void> signIn() async {
     log.i("Starting signIn");
 
     final isSignedIn = await this.isSignedIn();
-
     log.i("isSignedIn = $isSignedIn");
+
+    await getSignedInUserInfo();
   }
 
   @override
@@ -131,9 +155,15 @@ class NextCloudSyncClient extends ISyncClient {
   }
 
   @override
-  Future<String?> getSignedInUserInfo() {
-    // TODO: implement getSignedInUserInfo
-    throw UnimplementedError();
+  Future<String?> getSignedInUserInfo() async {
+    final host = await secureStorage.read(key: WEBDAV_URL);
+    final email = await secureStorage.read(key: NEXTCLOUD_USERNAME);
+
+    log.i("host = $host, email = $email");
+
+    userConfigCubit.setUserConfig(UserConfigConstants.nextCloudUserInfo, email);
+
+    return email;
   }
 
   @override
@@ -166,15 +196,18 @@ class NextCloudSyncClient extends ISyncClient {
 
   @override
   Future<bool> isSignedIn() async {
-    const host =
-        "https://efss.qloud.my/remote.php/dav/files/pinkbatman7777@gmail.com/";
-    const email = "pinkbatman7777@gmail.com";
-    const password = "mqwQ7gjTM@rL6Z9";
+    final host = await secureStorage.read(key: WEBDAV_URL);
+    final email = await secureStorage.read(key: NEXTCLOUD_USERNAME);
+    final password = await secureStorage.read(key: NEXTCLOUD_PASSWORD);
+
+    if (host == null || host.isEmpty) {
+      throw Exception("URL cannot be empty");
+    }
 
     client = webdav_client.newClient(
-      host,
-      user: email,
-      password: password,
+      host!,
+      user: email!,
+      password: password!,
       debug: true,
     );
 
@@ -194,9 +227,15 @@ class NextCloudSyncClient extends ISyncClient {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    await secureStorage.delete(key: WEBDAV_URL);
+    await secureStorage.delete(key: NEXTCLOUD_USERNAME);
+    await secureStorage.delete(key: NEXTCLOUD_PASSWORD);
+
+    await userConfigCubit.setUserConfig(
+        UserConfigConstants.nextCloudUserInfo, null);
+
+    log.i("sign out successful");
   }
 
   @override

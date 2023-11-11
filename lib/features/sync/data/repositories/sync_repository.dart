@@ -559,6 +559,7 @@ class SyncRepository implements ISyncRepository {
     final preferredSyncOption =
         userConfigCubit.state.userConfigModel?.preferredSyncOption;
 
+    log.i("preferredSyncOption = $preferredSyncOption");
     if (preferredSyncOption == SyncConstants.googleDrive) {
       syncClient = sl<GoogleDriveSyncClient>();
       return true;
@@ -567,6 +568,7 @@ class SyncRepository implements ISyncRepository {
       return true;
     } else if (preferredSyncOption == SyncConstants.nextCloud) {
       syncClient = sl<NextCloudSyncClient>();
+      return true;
     }
 
     // if preferred sync option is not set, check if user has logged into
@@ -591,17 +593,6 @@ class SyncRepository implements ISyncRepository {
       userConfigCubit.setUserConfig(
           UserConfigConstants.preferredSyncOption, SyncConstants.dropbox);
       syncClient = sl<DropboxSyncClient>();
-      return true;
-    }
-
-    final isLoggedIntoNextCloud =
-        userConfigCubit.state.userConfigModel?.nextCloudUserInfo?.isNotEmpty;
-
-    if (isLoggedIntoNextCloud == true) {
-      log.i("Setting nextcloud as sync source as user has logged in");
-      userConfigCubit.setUserConfig(
-          UserConfigConstants.preferredSyncOption, SyncConstants.nextCloud);
-      syncClient = sl<NextCloudSyncClient>();
       return true;
     }
 

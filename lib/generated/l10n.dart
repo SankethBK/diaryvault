@@ -1009,6 +1009,16 @@ class S {
       args: [],
     );
   }
+
+  /// `WebDAV URL`
+  String get webdavURL {
+    return Intl.message(
+      'WebDAV URL',
+      name: 'webdavURL',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -51,7 +51,7 @@ class Client {
   Future<void> ping([CancelToken? cancelToken]) async {
     var resp = await c.wdOptions(this, '/', cancelToken: cancelToken);
     if (resp.statusCode != 200) {
-      throw newResponseError(resp);
+      throw Exception(resp.statusMessage);
     }
   }
 
