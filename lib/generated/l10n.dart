@@ -999,6 +999,16 @@ class S {
       args: [],
     );
   }
+
+  /// `NextCloud`
+  String get nextCloud {
+    return Intl.message(
+      'NextCloud',
+      name: 'nextCloud',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -98,9 +98,36 @@ class NextCloudSyncClient extends ISyncClient {
 
   @override
   Future<DateTime?> getNoteCreatedTime(String fileName,
-      {bool folder = false, String? fullFilePath}) {
-    // TODO: implement getNoteCreatedTime
-    throw UnimplementedError();
+      {bool folder = false, String? fullFilePath}) async {
+    log.i("Getting metadata for $fileName at $fullFilePath");
+
+    try {
+      fullFilePath = fullFilePath ?? "/$fileName";
+
+      // Remove fileName from fullFilePath
+
+      int lastSlashIndex = fullFilePath.lastIndexOf("/");
+      if (lastSlashIndex != -1) {
+        fullFilePath = fullFilePath.substring(0, lastSlashIndex);
+      }
+
+      var list = await client.readDir(fullFilePath);
+
+      DateTime? createdAt;
+
+      for (var f in list) {
+        if (f.name == fileName) {
+          createdAt = f.mTime;
+        }
+      }
+
+      log.i("created at = $createdAt");
+
+      return createdAt;
+    } catch (e) {
+      log.e(e);
+      return null;
+    }
   }
 
   @override
@@ -176,9 +203,34 @@ class NextCloudSyncClient extends ISyncClient {
   Future<bool> updateFile(
       {required String fileName,
       required String fileContent,
-      required String fullFilePath}) {
-    // TODO: implement updateFile
-    throw UnimplementedError();
+      required String fullFilePath}) async {
+    // update is same as write in NextCloud
+
+    try {
+      log.i("Updating file for $fileName, nextCloudPath = $fullFilePath");
+
+      // Get the system's temporary directory
+      final tempDir = Directory.systemTemp;
+
+      // Create a temporary file in the system's temporary directory
+      final tempFile = File('${tempDir.path}/temp.txt');
+
+      // Write the string content to the temporary file
+      await tempFile.writeAsString(fileContent, flush: true);
+
+      await client.writeFromFile(tempFile.path, fullFilePath);
+
+      log.i(
+          "file $fileName successfully upated at nextCloudPath $fullFilePath");
+
+      // Delete the temporary file when done
+      await tempFile.delete();
+
+      return true;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
   }
 
   @override

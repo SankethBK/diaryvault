@@ -115,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "Please login to enable auto-sync"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
+        "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
         "noteSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Note saved successfully"),

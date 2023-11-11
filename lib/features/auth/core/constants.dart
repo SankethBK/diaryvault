@@ -20,6 +20,7 @@ class UserConfigConstants {
 class SyncConstants {
   static String googleDrive = "Google Drive";
   static String dropbox = "Dropbox";
+  static String nextCloud = "NextCloud";
 }
 
 class Global {

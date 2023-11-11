@@ -556,18 +556,17 @@ class SyncRepository implements ISyncRepository {
 
   /// Chooses the appropriate OAuthClient as per user choice and initializes it
   bool _initializeSyncClient() {
-    syncClient = NextCloudSyncClient(userConfigCubit: sl());
-    return true;
     final preferredSyncOption =
         userConfigCubit.state.userConfigModel?.preferredSyncOption;
 
     if (preferredSyncOption == SyncConstants.googleDrive) {
-      syncClient =
-          GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      syncClient = sl<GoogleDriveSyncClient>();
       return true;
     } else if (preferredSyncOption == SyncConstants.dropbox) {
-      syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      syncClient = sl<DropboxSyncClient>();
       return true;
+    } else if (preferredSyncOption == SyncConstants.nextCloud) {
+      syncClient = sl<NextCloudSyncClient>();
     }
 
     // if preferred sync option is not set, check if user has logged into
@@ -580,8 +579,7 @@ class SyncRepository implements ISyncRepository {
       log.i("Setting google drive as sync source as user has logged in");
       userConfigCubit.setUserConfig(
           UserConfigConstants.preferredSyncOption, SyncConstants.googleDrive);
-      syncClient =
-          GoogleDriveSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      syncClient = sl<GoogleDriveSyncClient>();
       return true;
     }
 
@@ -592,7 +590,18 @@ class SyncRepository implements ISyncRepository {
       log.i("Setting dropbox as sync source as user has logged in");
       userConfigCubit.setUserConfig(
           UserConfigConstants.preferredSyncOption, SyncConstants.dropbox);
-      syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      syncClient = sl<DropboxSyncClient>();
+      return true;
+    }
+
+    final isLoggedIntoNextCloud =
+        userConfigCubit.state.userConfigModel?.nextCloudUserInfo?.isNotEmpty;
+
+    if (isLoggedIntoNextCloud == true) {
+      log.i("Setting nextcloud as sync source as user has logged in");
+      userConfigCubit.setUserConfig(
+          UserConfigConstants.preferredSyncOption, SyncConstants.nextCloud);
+      syncClient = sl<NextCloudSyncClient>();
       return true;
     }
 
