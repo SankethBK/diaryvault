@@ -54,8 +54,6 @@ class _NextCloudUserInfoState extends State<NextCloudUserInfo>
           final isSignedIn = state.userConfigModel?.nextCloudUserInfo != null;
           final lastSynced = state.userConfigModel?.lastNextCloudSync != null;
 
-          print("nextcloud info = ${state.userConfigModel?.nextCloudUserInfo}");
-          print("isSignedIn = $isSignedIn");
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             child: Column(
