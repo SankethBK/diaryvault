@@ -109,7 +109,7 @@ class _NextCloudUserInfoState extends State<NextCloudUserInfo>
                                       ),
                                       const SizedBox(width: 5),
                                       Text(
-                                        "${DateFormat.yMd().format(state.userConfigModel!.lastDropboxSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastDropboxSync!)}",
+                                        "${DateFormat.yMd().format(state.userConfigModel!.lastNextCloudSync!)}  ${DateFormat.jm().format(state.userConfigModel!.lastNextCloudSync!)}",
                                         style: TextStyle(
                                           color: mainTextColor,
                                         ),

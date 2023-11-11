@@ -208,7 +208,7 @@ class NextCloudSyncClient extends ISyncClient {
       host!,
       user: email!,
       password: password!,
-      debug: true,
+      debug: false,
     );
 
     // Set the public request headers
