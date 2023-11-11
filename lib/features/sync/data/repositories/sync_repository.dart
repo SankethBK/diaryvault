@@ -556,7 +556,7 @@ class SyncRepository implements ISyncRepository {
 
   /// Chooses the appropriate OAuthClient as per user choice and initializes it
   bool _initializeSyncClient() {
-    syncClient = NextCloudSyncClient();
+    syncClient = NextCloudSyncClient(userConfigCubit: sl());
     return true;
     final preferredSyncOption =
         userConfigCubit.state.userConfigModel?.preferredSyncOption;

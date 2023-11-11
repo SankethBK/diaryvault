@@ -1,13 +1,22 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-import 'package:webdav_client/webdav_client.dart' as webdavClient;
+import 'package:path_provider/path_provider.dart';
+import 'package:webdav_client/webdav_client.dart' as webdav_client;
+import 'package:path/path.dart' as p;
 
 final log = printer("NextCloudSyncClient");
 
 class NextCloudSyncClient extends ISyncClient {
-  late webdavClient.Client client;
+  late webdav_client.Client client;
+
+  final UserConfigCubit userConfigCubit;
+
+  NextCloudSyncClient({required this.userConfigCubit});
 
   @override
   Future<void> signIn() async {
@@ -55,10 +64,36 @@ class NextCloudSyncClient extends ISyncClient {
   }
 
   @override
-  Future<String> downloadFile(String fileName,
-      {bool outputAsFile = false, String? fullFilePath}) {
-    // TODO: implement downloadFile
-    throw UnimplementedError();
+  Future<String> downloadFile(
+    String fileName, {
+    bool outputAsFile = false,
+    String? fullFilePath,
+  }) async {
+    try {
+      log.i(
+          "Downloading file $fileName at $fullFilePath, outputAsFile = $outputAsFile");
+
+      // if file path is not passed, we assume it is present in root folder
+      fullFilePath = fullFilePath ?? "/$fileName";
+
+      final binaryRes = await client.read(fullFilePath);
+      log.i("Successfully download  file $fileName at $fullFilePath");
+
+      if (!outputAsFile) {
+        String result = utf8.decode(binaryRes);
+        return result;
+      }
+
+      // save the file, and return the file's path
+      final appDocDir = await getApplicationDocumentsDirectory();
+      final copiedFile = File('${appDocDir.path}/${p.basename(fileName)}');
+      copiedFile.writeAsBytes(binaryRes);
+
+      return copiedFile.path.toString();
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
   }
 
   @override
@@ -109,7 +144,7 @@ class NextCloudSyncClient extends ISyncClient {
     const email = "pinkbatman7777@gmail.com";
     const password = "mqwQ7gjTM@rL6Z9";
 
-    client = webdavClient.newClient(
+    client = webdav_client.newClient(
       host,
       user: email,
       password: password,
@@ -147,9 +182,15 @@ class NextCloudSyncClient extends ISyncClient {
   }
 
   @override
-  Future<void> updateLastSynced() {
-    // TODO: implement updateLastSynced
-    throw UnimplementedError();
+  Future<void> updateLastSynced() async {
+    log.i("Updating last sync time");
+    try {
+      userConfigCubit.setUserConfig(UserConfigConstants.lastNextCloudSync,
+          DateTime.now().millisecondsSinceEpoch);
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
   }
 
   @override
@@ -159,8 +200,6 @@ class NextCloudSyncClient extends ISyncClient {
       File? file,
       String? fullFilePath,
       required String parentFolder}) async {
-    fullFilePath = fullFilePath ?? "/$fileName";
-
     try {
       fullFilePath = fullFilePath ?? "/$fileName";
 
@@ -185,6 +224,13 @@ class NextCloudSyncClient extends ISyncClient {
         // Delete the temporary file when done
         await tempFile.delete();
 
+        return true;
+      } else if (file != null) {
+        log.i("uploading asset at $fullFilePath");
+
+        await client.writeFromFile(file.path, fullFilePath);
+
+        log.i("asset file successfully uploaded at dropboxPath $fullFilePath");
         return true;
       }
 
