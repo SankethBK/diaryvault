@@ -64,7 +64,7 @@
   "camera": "Caméra",
   "video": "Vidéo",
   "youHaveUnsavedChanges": "Vous avez des changements non enregistrés",
-  "dropbox": "Boîte de dépôt",
+  "dropbox": "Dropbox",
   "signedInAs": "Connecté en tant que",
   "lastSynced": "Dernière synchronisation : ",
   "notAvailable": "Pas disponible",
@@ -105,5 +105,7 @@
   "automaticallySave": "Enregistre automatiquement vos notes toutes les 10 secondes",
   "logOut2": "Se déconnecter",
   "appLanguage": "Langue de l'application",
+  "nextCloud": "NextCloud",
+  "webdavURL": "URL WebDAV",
   "moreInfo": "Plus d'informations"
 }

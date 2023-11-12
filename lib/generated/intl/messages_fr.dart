@@ -72,7 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "done": MessageLookupByLibrary.simpleMessage("Fait"),
         "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
             "Vous n\'avez pas de compte ?"),
-        "dropbox": MessageLookupByLibrary.simpleMessage("Boîte de dépôt"),
+        "dropbox": MessageLookupByLibrary.simpleMessage("Dropbox"),
         "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "E-mail mis à jour avec succès, veuillez vous reconnecter"),
         "enableAutoSave": MessageLookupByLibrary.simpleMessage(
@@ -125,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Plus d\'informations"),
         "newPassword":
             MessageLookupByLibrary.simpleMessage("nouveau mot de passe"),
+        "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("Pas disponible"),
         "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Note enregistrée avec succès"),
@@ -190,6 +191,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Une erreur inattendue s\'est produite"),
         "video": MessageLookupByLibrary.simpleMessage("Vidéo"),
+        "webdavURL": MessageLookupByLibrary.simpleMessage("URL WebDAV"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Vous avez des changements non enregistrés"),
         "youWillBeNotifiedAt": m0
