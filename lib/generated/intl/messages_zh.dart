@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut2": MessageLookupByLibrary.simpleMessage("退出登录"),
         "loginToEnableAutoSync":
             MessageLookupByLibrary.simpleMessage("请登录以开启自动同步"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("更多信息"),
         "newPassword": MessageLookupByLibrary.simpleMessage("新密码"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("未知"),
         "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage("笔记保存成功"),

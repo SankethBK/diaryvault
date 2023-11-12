@@ -114,7 +114,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut2": MessageLookupByLibrary.simpleMessage("लॉग आउट"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "कृपया ऑटो-सिंक सक्षम करने के लिए लॉगिन करें"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("और जानकारी"),
         "newPassword": MessageLookupByLibrary.simpleMessage("नया पासवर्ड"),
+        "nextCloud": MessageLookupByLibrary.simpleMessage("नेक्स्टक्लाउड"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("उपलब्ध नहीं है"),
         "noteSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("नोट सफलतापूर्वक सहेजा गया"),
@@ -176,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "अनपेक्षित त्रुटि उत्पन्न हुई"),
         "video": MessageLookupByLibrary.simpleMessage("वीडियो"),
+        "webdavURL": MessageLookupByLibrary.simpleMessage("वेबडीएवी यूआरएल"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("सहेजे न गए परिवर्तन"),
         "youWillBeNotifiedAt": m0

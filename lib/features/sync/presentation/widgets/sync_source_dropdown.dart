@@ -52,8 +52,12 @@ class SyncSourceDropdown extends StatelessWidget {
                 await userConfigCubit.setUserConfig(
                     UserConfigConstants.preferredSyncOption, value);
               },
-              items: [SyncConstants.googleDrive, SyncConstants.dropbox, "None"]
-                  .map((item) {
+              items: [
+                SyncConstants.googleDrive,
+                SyncConstants.dropbox,
+                SyncConstants.nextCloud,
+                "None"
+              ].map((item) {
                 return DropdownMenuItem<String>(
                   value: item,
                   child: Text(

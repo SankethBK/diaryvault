@@ -30,6 +30,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
+import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/repositories/sync_repository.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
@@ -162,6 +163,9 @@ Future<void> init() async {
 
   sl.registerSingleton<DropboxSyncClient>(
       DropboxSyncClient(userConfigCubit: sl()));
+
+  sl.registerSingleton<NextCloudSyncClient>(
+      NextCloudSyncClient(userConfigCubit: sl()));
 
   //* Repository
   sl.registerSingleton<ISyncRepository>(SyncRepository(

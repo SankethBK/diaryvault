@@ -999,6 +999,36 @@ class S {
       args: [],
     );
   }
+
+  /// `NextCloud`
+  String get nextCloud {
+    return Intl.message(
+      'NextCloud',
+      name: 'nextCloud',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WebDAV URL`
+  String get webdavURL {
+    return Intl.message(
+      'WebDAV URL',
+      name: 'webdavURL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More Info`
+  String get moreInfo {
+    return Intl.message(
+      'More Info',
+      name: 'moreInfo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
