@@ -146,6 +146,12 @@ class SyncSettings extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 10),
+          Text("(Note: Dropbox will be deprecated in future releases)",
+              style: TextStyle(
+                fontSize: 16.0,
+                color: mainTextColor,
+              )),
         ],
       ),
     );
