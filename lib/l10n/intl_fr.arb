@@ -104,5 +104,6 @@
   "stay": "rester",
   "automaticallySave": "Enregistre automatiquement vos notes toutes les 10 secondes",
   "logOut2": "Se déconnecter",
-  "appLanguage": "Langue de l'application"
+  "appLanguage": "Langue de l'application",
+  "moreInfo": "Plus d'informations"
 }

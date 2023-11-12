@@ -104,5 +104,6 @@
   "stay": "留下",
   "automaticallySave": "每隔十秒自动保存笔记",
   "logOut2": "退出登录",
-  "appLanguage": "语言"
+  "appLanguage": "语言",
+  "moreInfo": "更多信息"
 }

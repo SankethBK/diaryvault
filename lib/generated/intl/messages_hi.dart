@@ -114,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut2": MessageLookupByLibrary.simpleMessage("लॉग आउट"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "कृपया ऑटो-सिंक सक्षम करने के लिए लॉगिन करें"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("और जानकारी"),
         "newPassword": MessageLookupByLibrary.simpleMessage("नया पासवर्ड"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("उपलब्ध नहीं है"),
         "noteSavedSuccessfully":
