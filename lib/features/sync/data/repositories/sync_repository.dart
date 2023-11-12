@@ -10,6 +10,7 @@ import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dartz/dartz.dart';
@@ -557,8 +558,12 @@ class SyncRepository implements ISyncRepository {
     final preferredSyncOption =
         userConfigCubit.state.userConfigModel?.preferredSyncOption;
 
+    log.i("preferredSyncOption = $preferredSyncOption");
     if (preferredSyncOption == SyncConstants.dropbox) {
-      syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      syncClient = sl<DropboxSyncClient>();
+      return true;
+    } else if (preferredSyncOption == SyncConstants.nextCloud) {
+      syncClient = sl<NextCloudSyncClient>();
       return true;
     }
 
@@ -572,7 +577,7 @@ class SyncRepository implements ISyncRepository {
       log.i("Setting dropbox as sync source as user has logged in");
       userConfigCubit.setUserConfig(
           UserConfigConstants.preferredSyncOption, SyncConstants.dropbox);
-      syncClient = DropboxSyncClient(userConfigCubit: sl<UserConfigCubit>());
+      syncClient = sl<DropboxSyncClient>();
       return true;
     }
 

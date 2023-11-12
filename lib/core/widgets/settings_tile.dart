@@ -17,15 +17,15 @@ class SettingsTile extends StatelessWidget {
       child: child,
     );
 
-    return null == onTap
-        ? widget
-        : Container(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            width: double.infinity,
-            child: InkWell(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 2.5),
+      width: double.infinity,
+      child: null == onTap
+          ? widget
+          : InkWell(
               onTap: onTap,
               child: widget,
             ),
-          );
+    );
   }
 }

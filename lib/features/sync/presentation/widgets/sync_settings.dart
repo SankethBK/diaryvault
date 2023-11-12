@@ -5,6 +5,7 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/dropbox_user_info.dart';
+import 'package:dairy_app/features/sync/presentation/widgets/nextcloud_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_source_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,33 @@ class SyncSettings extends StatelessWidget {
                       ),
                       Image.asset(
                         "assets/images/dropbox_logo.png",
+                        width: 35,
+                        height: 35,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: GestureDetector(
+                  onTap: () {
+                    showCustomDialog(
+                      context: context,
+                      child: const NextCloudUserInfo(),
+                    );
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        color: Colors.white.withOpacity(0.2),
+                        // decoration: const BoxDecoration(color: Colors.pinkAccent),
+                      ),
+                      Image.asset(
+                        "assets/images/nextcloud_logo.png",
                         width: 35,
                         height: 35,
                       ),

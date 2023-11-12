@@ -117,7 +117,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut2": MessageLookupByLibrary.simpleMessage("Ausloggen"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "Bitte melden Sie sich an, um die automatische Synchronisierung zu aktivieren"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("Mehr Info"),
         "newPassword": MessageLookupByLibrary.simpleMessage("Neues Kennwort"),
+        "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("Nicht verfügbar"),
         "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Notiz erfolgreich gespeichert"),
@@ -182,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Es ist ein unerwarteter Fehler aufgetreten"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV-URL"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Du hast nicht gespeicherte Änderungen"),
         "youWillBeNotifiedAt": m0

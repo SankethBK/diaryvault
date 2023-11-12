@@ -104,5 +104,8 @@
   "stay": "Stay",
   "automaticallySave": "Automatically saves your notes after every 10 seconds",
   "logOut2": "Logout",
-  "appLanguage": "App Language"
+  "appLanguage": "App Language",
+  "nextCloud": "NextCloud",
+  "webdavURL": "WebDAV URL",
+  "moreInfo": "More Info"
 }
