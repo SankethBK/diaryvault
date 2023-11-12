@@ -117,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut2": MessageLookupByLibrary.simpleMessage("Ausloggen"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "Bitte melden Sie sich an, um die automatische Synchronisierung zu aktivieren"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("Mehr Info"),
         "newPassword": MessageLookupByLibrary.simpleMessage("Neues Kennwort"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("Nicht verfügbar"),
         "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
