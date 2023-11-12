@@ -205,7 +205,7 @@ class NextCloudSyncClient extends ISyncClient {
     }
 
     client = webdav_client.newClient(
-      host!,
+      host,
       user: email!,
       password: password!,
       debug: false,

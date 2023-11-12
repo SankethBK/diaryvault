@@ -106,5 +106,6 @@
   "logOut2": "Logout",
   "appLanguage": "App Language",
   "nextCloud": "NextCloud",
-  "webdavURL": "WebDAV URL"
+  "webdavURL": "WebDAV URL",
+  "moreInfo": "More Info"
 }
