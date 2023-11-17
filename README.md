@@ -86,8 +86,9 @@ DiaryVault is available in multiple languages. Following is the status of transl
 | [Bahasa](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_id.arb) | Incomplete
 | [Kannada](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_kn.arb) | Incomplete
 | [Panjabi](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pa.arb) | Incomplete
-| [Portuguese (Brazil)](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pt.arb) | Incomplete
+| [Portuguese (Brazil)](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pt.arb) | Complete
 | [Swahili](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_sw.arb) | Incomplete
+| [Chinese](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_zh.arb) | Complete
 
 To add missing translations or new language, refer [this](https://github.com/SankethBK/diaryvault/issues/75)
 
