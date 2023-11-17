@@ -38,7 +38,10 @@ class SyncSettings extends StatelessWidget {
           BlocBuilder<UserConfigCubit, UserConfigState>(
             builder: (context, state) {
               final isSignedIn =
-                  (state.userConfigModel?.googleDriveUserInfo != null);
+                  (state.userConfigModel?.googleDriveUserInfo != null) ||
+                      (state.userConfigModel?.dropBoxUserInfo != null) ||
+                      (state.userConfigModel?.nextCloudUserInfo != null);
+
               return SwitchListTile(
                 inactiveTrackColor: inactiveTrackColor,
                 activeColor: activeColor,
