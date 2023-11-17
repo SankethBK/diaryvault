@@ -16,4 +16,10 @@ $ flutter pub get
 $ flutter run
 ```
 
+### In case you're installing flutter from the flutter repo, run the following commands to down-grade your version:
+
+1. cd into the path where you cloned flutter to install it into your machine.
+2. Fetch all the tags from the flutter repo: `git fetch --tags`.
+3. Checkout to the correct flutter version: `git checkout 3.13.0`
+4. Ensure flutter's version updated: `flutter --version`
 If you are contributing for any specific issue, make sure to reference the issue in your PR so that we can help with additional information.
