@@ -190,6 +190,16 @@ class S {
     );
   }
 
+   /// `Enable pin login`
+    String get enablePINLogin {
+      return Intl.message(
+        'Enable Pin login',
+        name: 'enablePINLogin',
+        desc: '',
+        args: [],
+      );
+    }
+
   /// `Fingerprint auth should be enabled in device settings`
   String get fingerPrintAthShouldBeEnabledInDeviceSettings {
     return Intl.message(
@@ -200,6 +210,16 @@ class S {
     );
   }
 
+   /// `Should have a 4 digit `
+    String get pinLoginSetupInstructions {
+      return Intl.message(
+        'A 4 digit PIN will be prompted on lock screen',
+        name: 'A 4 digit PIN will be prompted on lock screen',
+        desc: '',
+        args: [],
+      );
+    }
+
   /// `Fingerprint login failed`
   String get fingerprintLoginFailed {
     return Intl.message(
@@ -209,6 +229,16 @@ class S {
       args: [],
     );
   }
+
+    /// `Pin login failed`
+    String get pinLoginFailed {
+      return Intl.message(
+        'Pin login failed',
+        name: 'PinLoginFailed',
+        desc: '',
+        args: [],
+      );
+    }
 
   /// `Too many wrong attempts, please login with password`
   String get tooManyWrongAttempts {
