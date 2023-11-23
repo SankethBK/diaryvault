@@ -17,194 +17,255 @@ import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
 import 'package:simple_accordion/widgets/AccordionItem.dart';
 import 'package:simple_accordion/widgets/AccordionWidget.dart';
 
+
 // ignore: must_be_immutable
 class SecuritySettings extends StatelessWidget {
-  late IAuthenticationRepository authenticationRepository;
+ late IAuthenticationRepository authenticationRepository;
 
-  SecuritySettings({Key? key}) : super(key: key) {
-    authenticationRepository = sl<IAuthenticationRepository>();
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
-    final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
+ SecuritySettings({Key? key}) : super(key: key) {
+   authenticationRepository = sl<IAuthenticationRepository>();
+ }
 
-    final mainTextColor = Theme.of(context)
-        .extension<NoteCreatePageThemeExtensions>()!
-        .mainTextColor;
 
-    final inactiveTrackColor = Theme.of(context)
-        .extension<SettingsPageThemeExtensions>()!
-        .inactiveTrackColor;
+ @override
+ Widget build(BuildContext context) {
+   final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
+   final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
 
-    final activeColor =
-        Theme.of(context).extension<SettingsPageThemeExtensions>()!.activeColor;
 
-    return BlocBuilder<UserConfigCubit, UserConfigState>(
-      builder: (context, state) {
-        var isFingerPrintLoginEnabledValue =
-            state.userConfigModel!.isFingerPrintLoginEnabled;
+   final mainTextColor = Theme.of(context)
+       .extension<NoteCreatePageThemeExtensions>()!
+       .mainTextColor;
 
-        final userId = state.userConfigModel?.userId;
-        return SimpleAccordion(
-          headerColor: mainTextColor,
-          headerTextStyle: TextStyle(
-            color: mainTextColor,
-            fontSize: 16,
-          ),
-          children: [
-            AccordionHeaderItem(
-              title: S.current.securitySettings,
-              children: [
-                AccordionItem(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Material(
-                          color: Colors.transparent,
-                          child: SettingsTile(
-                            child: Text(
-                              S.current.changePassword,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: mainTextColor,
-                              ),
-                            ),
-                            onTap: () async {
-                              if (userId == null) {
-                                showToast(S.current.unexpectedErrorOccured);
-                                return;
-                              }
 
-                              if (userId == GuestUserDetails.guestUserId) {
-                                showToast(S.current
-                                    .pleaseSetupYourAccountToUseThisFeature);
-                                return;
-                              }
-                              String? result = await passwordLoginPopup(
-                                context: context,
-                                submitPassword: (password) =>
-                                    authenticationRepository.verifyPassword(
-                                        userId, password),
-                              );
+   final inactiveTrackColor = Theme.of(context)
+       .extension<SettingsPageThemeExtensions>()!
+       .inactiveTrackColor;
 
-                              // old password will be retrieved from previous dialog
-                              if (result != null) {
-                                passwordResetPopup(
-                                  context: context,
-                                  submitPassword: (newPassword) =>
-                                      authenticationRepository.updatePassword(
-                                    authSessionBloc.state.user!.email,
-                                    result,
-                                    newPassword,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 10.0),
-                        Material(
-                          color: Colors.transparent,
-                          child: SettingsTile(
-                            child: Text(
-                              S.current.changeEmail,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: mainTextColor,
-                              ),
-                            ),
-                            onTap: () async {
-                              if (userId == null) {
-                                showToast(S.current.unexpectedErrorOccured);
-                              }
 
-                              if (userId == GuestUserDetails.guestUserId) {
-                                showToast(S.current
-                                    .pleaseSetupYourAccountToUseThisFeature);
-                              }
+   final activeColor =
+       Theme.of(context).extension<SettingsPageThemeExtensions>()!.activeColor;
 
-                              String? result = await passwordLoginPopup(
-                                context: context,
-                                submitPassword: (password) =>
-                                    authenticationRepository.verifyPassword(
-                                        authSessionBloc.state.user!.id,
-                                        password),
-                              );
 
-                              // old password will be retrieved from previous dialog
-                              dynamic emailChanged;
-                              if (result != null) {
-                                emailChanged = await emailChangePopup(
-                                  context,
-                                  (newEmail) =>
-                                      authenticationRepository.updateEmail(
-                                    oldEmail: authSessionBloc.state.user!.email,
-                                    password: result,
-                                    newEmail: newEmail,
-                                  ),
-                                );
-                              }
+   return BlocBuilder<UserConfigCubit, UserConfigState>(
+     builder: (context, state) {
+       var isFingerPrintLoginEnabledValue =
+           state.userConfigModel!.isFingerPrintLoginEnabled;
+       var isPINLoginEnabledValue =
+          state.userConfigModel!.isPINLoginEnabled;
 
-                              if (emailChanged == true) {
-                                authSessionBloc.add(UserLoggedOut());
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        SwitchListTile(
-                          inactiveTrackColor: inactiveTrackColor,
-                          activeColor: activeColor,
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: Text(
-                            S.current.enableFingerPrintLogin,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          subtitle: Text(
-                            S.current
-                                .fingerPrintAthShouldBeEnabledInDeviceSettings,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          value: isFingerPrintLoginEnabledValue ?? false,
-                          onChanged: (value) async {
-                            if (userId == null) {
-                              showToast(S.current.unexpectedErrorOccured);
-                              return;
-                            }
 
-                            if (userId == GuestUserDetails.guestUserId) {
-                              showToast(S.current
-                                  .pleaseSetupYourAccountToUseThisFeature);
-                              return;
-                            }
+       final userId = state.userConfigModel?.userId;
+       return SimpleAccordion(
+         headerColor: mainTextColor,
+         headerTextStyle: TextStyle(
+           color: mainTextColor,
+           fontSize: 16,
+         ),
+         children: [
+           AccordionHeaderItem(
+             title: S.current.securitySettings,
+             children: [
+               AccordionItem(
+                 child: Padding(
+                   padding: const EdgeInsets.only(top: 10),
+                   child: Column(
+                     mainAxisSize: MainAxisSize.min,
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Material(
+                         color: Colors.transparent,
+                         child: SettingsTile(
+                           child: Text(
+                             S.current.changePassword,
+                             style: TextStyle(
+                               fontSize: 16.0,
+                               color: mainTextColor,
+                             ),
+                           ),
+                           onTap: () async {
+                             if (userId == null) {
+                               showToast(S.current.unexpectedErrorOccured);
+                               return;
+                             }
 
-                            try {
-                              await authenticationRepository
-                                  .isFingerprintAuthPossible();
-                              userConfigCubit.setUserConfig(
-                                UserConfigConstants.isFingerPrintLoginEnabled,
-                                value,
-                              );
-                            } on Exception catch (e) {
-                              showToast(
-                                  e.toString().replaceAll("Exception: ", ""));
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
+
+                             if (userId == GuestUserDetails.guestUserId) {
+                               showToast(S.current
+                                   .pleaseSetupYourAccountToUseThisFeature);
+                               return;
+                             }
+                             String? result = await passwordLoginPopup(
+                               context: context,
+                               submitPassword: (password) =>
+                                   authenticationRepository.verifyPassword(
+                                       userId, password),
+                             );
+
+
+                             // old password will be retrieved from previous dialog
+                             if (result != null) {
+                               passwordResetPopup(
+                                 context: context,
+                                 submitPassword: (newPassword) =>
+                                     authenticationRepository.updatePassword(
+                                   authSessionBloc.state.user!.email,
+                                   result,
+                                   newPassword,
+                                 ),
+                               );
+                             }
+                           },
+                         ),
+                       ),
+                       const SizedBox(height: 10.0),
+                       Material(
+                         color: Colors.transparent,
+                         child: SettingsTile(
+                           child: Text(
+                             S.current.changeEmail,
+                             style: TextStyle(
+                               fontSize: 16.0,
+                               color: mainTextColor,
+                             ),
+                           ),
+                           onTap: () async {
+                             if (userId == null) {
+                               showToast(S.current.unexpectedErrorOccured);
+                             }
+
+
+                             if (userId == GuestUserDetails.guestUserId) {
+                               showToast(S.current
+                                   .pleaseSetupYourAccountToUseThisFeature);
+                             }
+
+
+                             String? result = await passwordLoginPopup(
+                               context: context,
+                               submitPassword: (password) =>
+                                   authenticationRepository.verifyPassword(
+                                       authSessionBloc.state.user!.id,
+                                       password),
+                             );
+
+
+                             // old password will be retrieved from previous dialog
+                             dynamic emailChanged;
+                             if (result != null) {
+                               emailChanged = await emailChangePopup(
+                                 context,
+                                 (newEmail) =>
+                                     authenticationRepository.updateEmail(
+                                   oldEmail: authSessionBloc.state.user!.email,
+                                   password: result,
+                                   newEmail: newEmail,
+                                 ),
+                               );
+                             }
+
+
+                             if (emailChanged == true) {
+                               authSessionBloc.add(UserLoggedOut());
+                             }
+                           },
+                         ),
+                       ),
+                       const SizedBox(height: 10),
+                       SwitchListTile(
+                         inactiveTrackColor: inactiveTrackColor,
+                         activeColor: activeColor,
+                         contentPadding: const EdgeInsets.all(0.0),
+                         title: Text(
+                           S.current.enableFingerPrintLogin,
+                           style: TextStyle(color: mainTextColor),
+                         ),
+                         subtitle: Text(
+                           S.current
+                               .fingerPrintAthShouldBeEnabledInDeviceSettings,
+                           style: TextStyle(color: mainTextColor),
+                         ),
+                         value: isFingerPrintLoginEnabledValue ?? false,
+                         onChanged: (value) async {
+                           if (userId == null) {
+                             showToast(S.current.unexpectedErrorOccured);
+                             return;
+                           }
+
+
+                           if (userId == GuestUserDetails.guestUserId) {
+                             showToast(S.current
+                                 .pleaseSetupYourAccountToUseThisFeature);
+                             return;
+                           }
+
+
+                           try {
+                             await authenticationRepository
+                                 .isFingerprintAuthPossible();
+                             userConfigCubit.setUserConfig(
+                               UserConfigConstants.isFingerPrintLoginEnabled,
+                               value,
+                             );
+                           } on Exception catch (e) {
+                             showToast(
+                                 e.toString().replaceAll("Exception: ", ""));
+                           }
+                         },
+                       ),
+                       SwitchListTile(
+                         inactiveTrackColor: inactiveTrackColor,
+                         activeColor: activeColor,
+                         contentPadding: const EdgeInsets.all(0.0),
+                         title: Text(
+                           S.current.enablePINLogin,
+                           style: TextStyle(color: mainTextColor),
+                         ),
+                         subtitle: Text(
+                                    S.current
+                                        .pinLoginSetupInstructions,
+                                    style: TextStyle(color: mainTextColor),
+                         ),
+                        value: isPINLoginEnabledValue ?? false,
+                         onChanged: (value) async {
+                           if (userId == null) {
+                             showToast(S.current.unexpectedErrorOccured);
+                             return;
+                           }
+
+
+                           if (userId == GuestUserDetails.guestUserId) {
+                             showToast(S.current
+                                 .pleaseSetupYourAccountToUseThisFeature);
+                             return;
+                           }
+
+
+                           try {
+                                        await authenticationRepository
+                                            .isFingerprintAuthPossible();
+                                        userConfigCubit.setUserConfig(
+                                          UserConfigConstants.isFingerPrintLoginEnabled, //change
+                                          value,
+                                        );
+                                      } on Exception catch (e) {
+                                        showToast(
+                                            e.toString().replaceAll("Exception: ", ""));
+                                      }
+
+                         },
+                       ),
+                     ],
+                   ),
+                 ),
+               ),
+             ],
+           ),
+         ],
+       );
+     },
+   );
+ }
 }
+
