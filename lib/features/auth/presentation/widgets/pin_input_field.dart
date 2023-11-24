@@ -1,5 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 
 class AuthPinInput extends StatefulWidget {
   final String? Function() getPinErrors;
@@ -50,6 +52,7 @@ class _AuthPinInputState extends State<AuthPinInput> {
         TextField(
           autofocus: widget.autoFocus,
           keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: widget.hintText,

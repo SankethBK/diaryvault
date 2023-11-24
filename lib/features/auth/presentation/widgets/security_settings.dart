@@ -245,9 +245,7 @@ class SecuritySettings extends StatelessWidget {
                              // Call the PIN reset popup
                              await pinResetPopup(
                                context: context,
-                               submitPin: (newPin) {
-                                 // Logic to handle new PIN submission
-                               },
+                               userPinId: userId,
                              );
                            }
 

@@ -9,10 +9,10 @@ import 'pin_input_field.dart';
 import 'package:dairy_app/features/auth/data/repositories/PINAuthRepository.dart';
 
 Future<dynamic> pinResetPopup(
-    {required BuildContext context, required Function(String) submitPin}) {
+    {required BuildContext context, required String userPinId}) {
   String newPin = "";
   String confirmNewPin = "";
-  String userId = "";
+  String userId = userPinId;
   final pinAuthRepository = new PINAuthRepository();
 
   void assignNewPin(String val) {
@@ -68,6 +68,7 @@ Future<dynamic> pinResetPopup(
                   }
                   // Use the provided submitPin function to handle the new PIN
                   await pinAuthRepository.savePIN(userId, newPin);
+
                   setState(() => isLoading = false);
                   Navigator.pop(context);
 
