@@ -10,6 +10,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/auth/presentation/widgets/email_change_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/pin_reset_popup.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -240,13 +241,19 @@ class SecuritySettings extends StatelessWidget {
                                  .pleaseSetupYourAccountToUseThisFeature);
                              return;
                            }
-
+                           if (value) {
+                             // Call the PIN reset popup
+                             await pinResetPopup(
+                               context: context,
+                               submitPin: (newPin) {
+                                 // Logic to handle new PIN submission
+                               },
+                             );
+                           }
 
                            try {
-                                        await authenticationRepository
-                                            .isFingerprintAuthPossible();
                                         userConfigCubit.setUserConfig(
-                                          UserConfigConstants.isFingerPrintLoginEnabled, //change
+                                          UserConfigConstants.isPINLoginEnabled, //change
                                           value,
                                         );
                                       } on Exception catch (e) {

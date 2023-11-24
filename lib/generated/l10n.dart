@@ -210,15 +210,16 @@ class S {
     );
   }
 
-   /// `Should have a 4 digit `
-    String get pinLoginSetupInstructions {
-      return Intl.message(
-        'A 4 digit PIN will be prompted on lock screen',
-        name: 'A 4 digit PIN will be prompted on lock screen',
-        desc: '',
-        args: [],
-      );
-    }
+ /// `Should have a 4 digit `
+  String get pinLoginSetupInstructions {
+    return Intl.message(
+      'A 4 digit PIN will be prompted on lock screen',
+      name: 'A 4 digit PIN will be prompted on lock screen',
+      desc: '',
+      args: [],
+    );
+  }
+
 
   /// `Fingerprint login failed`
   String get fingerprintLoginFailed {
@@ -799,6 +800,61 @@ class S {
       args: [],
     );
   }
+  /// `Reset PIN`
+  String get resetPin {
+    return Intl.message(
+      'Reset PIN',
+      name: 'resetPin',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `Enter your new PIN`
+  String get enterNewPin {
+    return Intl.message(
+      'Enter your new PIN',
+      name: 'enterNewPin',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `PIN confirmation feeling`
+  String get pinResetSuccessful {
+    return Intl.message(
+      'PIN confirmation feeling',
+      name: 'pinResetSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `Confirm your new PIN`
+  String get confirmNewPin {
+    return Intl.message(
+      'Confirm your new PIN',
+      name: 'confirmNewPin',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `The PINs don't match`
+  String get pinsDontMatch {
+    return Intl.message(
+      "The PINs don't match",
+      name: 'pinsDontMatch',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `PIN must be 4 digits`
+  String get pinLengthError {
+    return Intl.message(
+      'PIN must be 4 digits',
+      name: 'pinLengthError',
+      desc: '',
+      args: [],
+    );
+  }
+
 
   /// `Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!`
   String get appDescription {

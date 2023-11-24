@@ -39,6 +39,8 @@ abstract class IAuthenticationRepository {
   /// fingerprint auth should be both available and set
   Future<void> isFingerprintAuthPossible();
 
+
+
   /// Listens for fingerprint events, and returns a stream of bool values
   /// null inidcates some error occured while doing so
   Stream<FingerPrintAuthState> processFingerPrintAuth();
