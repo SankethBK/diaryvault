@@ -386,10 +386,8 @@ class GlassPaneForEditor extends StatelessWidget {
         ),
         child: DefaultTextStyle(
           style: TextStyle(
-              color: mainTextColor,
-              fontSize: userConfig.state.userConfigModel?.preferredFontSize,
-              fontFamily:
-                  userConfig.state.userConfigModel?.preferredFontFamily),
+            color: mainTextColor,
+          ),
           child: quillEditor,
         ),
       ),

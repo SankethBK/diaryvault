@@ -54,10 +54,10 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
 
     return BlocBuilder<UserConfigCubit, UserConfigState>(
         builder: (context, state) {
-          return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: showTitleInput
-                ? GlassMorphismCover(
+      return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: showTitleInput
+            ? GlassMorphismCover(
                 borderRadius: textInputBorderRadius,
                 child: Column(
                   children: [
@@ -65,9 +65,6 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                     TextFormField(
                       textCapitalization: TextCapitalization.sentences,
                       style: TextStyle(
-                          fontFamily: state.userConfigModel
-                              ?.preferredFontFamily,
-                          fontSize: state.userConfigModel?.preferredFontSize,
                           color: titleTextColor, fontWeight: FontWeight.w500),
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
@@ -110,48 +107,47 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                     const SizedBox(height: 10),
                   ],
                 ))
-                : Column(
-              children: [
-                const SizedBox(height: 6),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showTitleInput = true;
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 6),
-                      Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(12.0),
+            : Column(
+                children: [
+                  const SizedBox(height: 6),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        showTitleInput = true;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 6),
+                        Container(
+                          padding: const EdgeInsets.all(3.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12.0),
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.arrow_downward,
+                            size: 15,
+                            color: Colors.white.withOpacity(0.8),
                           ),
                         ),
-                        child: Icon(
-                          Icons.arrow_downward,
-                          size: 15,
-                          color: Colors.white.withOpacity(0.8),
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        S.current.tapToExpandTitle,
-                        style: GoogleFonts.lato(
-                            textStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                        )),
-                      )
-                    ],
+                        const SizedBox(width: 6),
+                        Text(
+                          S.current.tapToExpandTitle,
+                          style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                            color: Colors.white.withOpacity(0.8),
+                          )),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6),
-              ],
-            ),
-          );
-        }
-    );
+                  const SizedBox(height: 6),
+                ],
+              ),
+      );
+    });
   }
 }

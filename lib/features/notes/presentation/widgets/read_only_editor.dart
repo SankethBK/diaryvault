@@ -55,8 +55,7 @@ class ReadOnlyEditor extends StatelessWidget {
     return DefaultTextStyle(
       style: TextStyle(
         color: mainTextColor,
-        fontSize: userConfig.state.userConfigModel?.preferredFontSize,
-        fontFamily: userConfig.state.userConfigModel?.preferredFontFamily
+        fontFamily: userConfig.state.userConfigModel?.preferredFontFamily,
       ),
       child: quillEditor,
     );
