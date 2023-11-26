@@ -73,17 +73,51 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
         break;
     }
 
-    emit(NotesSortSuccessful(notePreviewList: notePreviewList));
+    emit(NotesSortSuccessful(
+        notePreviewList: notePreviewList,
+        isTagSearchEnabled: state.isTagSearchEnabled,
+        tags: state.tags));
+  }
+
+  void toggleTagSearch() {
+    if (state is NotesFetchSuccessful || state is NotesSortSuccessful) {
+      emit(NotesFetchSuccessful(
+          notePreviewList: state.notePreviewList,
+          isTagSearchEnabled: !state.isTagSearchEnabled));
+    }
+  }
+
+  void addNewTag(String newTag) {
+    emit(NotesFetchSuccessful(
+        notePreviewList: state.notePreviewList,
+        tags: [newTag, ...state.tags],
+        isTagSearchEnabled: state.isTagSearchEnabled));
+
+    fetchNotes();
+  }
+
+  void deleteTag(int index) {
+    final updatedTags = List<String>.from(state.tags);
+    updatedTags.removeAt(index);
+
+    emit(NotesFetchSuccessful(
+        notePreviewList: state.notePreviewList,
+        tags: updatedTags,
+        isTagSearchEnabled: state.isTagSearchEnabled));
+
+    fetchNotes();
   }
 
   void fetchNotes(
       {String? searchText, DateTime? startDate, DateTime? endDate}) async {
-    emit(const NotesFetchLoadingState());
+    emit(NotesFetchLoadingState(
+        isTagSearchEnabled: state.isTagSearchEnabled, tags: state.tags));
 
     var result = await notesRepository.fetchNotesPreview(
       searchText: searchText,
       startDate: startDate,
       endDate: endDate,
+      tags: state.tags,
     );
     result.fold((error) {
       emit(const NotesFetchFailed());
@@ -92,7 +126,10 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
       final preferredNoteSortType =
           userConfigCubit.state.userConfigModel?.noteSortType;
 
-      emit(NotesFetchSuccessful(notePreviewList: data));
+      emit(NotesFetchSuccessful(
+          notePreviewList: data,
+          tags: state.tags,
+          isTagSearchEnabled: state.isTagSearchEnabled));
 
       if (preferredNoteSortType != null) {
         sortNotes(preferredNoteSortType);

@@ -8,6 +8,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fet
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/search_tag_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,7 +89,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 backgroundImagePath,
               ),
               fit: BoxFit.cover,
-              // alignment: Alignment(0.725, 0.1),
             ),
           ),
           padding: EdgeInsets.only(
@@ -125,15 +125,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
-                        final note = state.notePreviewList[index];
+                        if (index == 0) {
+                          return const SearchTagList();
+                        }
+                        final note = state.notePreviewList[index - 1];
 
                         return NotePreviewCard(
-                          first: index == 0,
-                          last: index == state.notePreviewList.length - 1,
+                          first: index == 1,
+                          last: index == state.notePreviewList.length,
                           note: note,
                         );
                       },
-                      itemCount: state.notePreviewList.length,
+                      itemCount: state.notePreviewList.length + 1,
                     );
                   }
                   return Container();

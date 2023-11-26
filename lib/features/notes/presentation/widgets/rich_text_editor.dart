@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/generated/l10n.dart';
@@ -12,10 +14,6 @@ import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
-
-// import 'read_only_page.dart';
 
 class RichTextEditor extends StatefulWidget {
   final QuillController? controller;
@@ -60,7 +58,15 @@ class _RichTextEditorState extends State<RichTextEditor> {
       placeholder: 'Write something here...',
       expands: false,
       padding: EdgeInsets.zero,
-      customStyles: DefaultStyles(),
+      customStyles: DefaultStyles(
+        subscript: const TextStyle(fontFamily: 'SF-UI-Display', fontFeatures: [
+          FontFeature.subscripts(),
+        ]),
+        superscript:
+            const TextStyle(fontFamily: 'SF-UI-Display', fontFeatures: [
+          FontFeature.superscripts(),
+        ]),
+      ),
       scrollBottomInset: 50,
     );
     // acquiring bloc to send it to toolbar
@@ -382,8 +388,8 @@ class GlassPaneForEditor extends StatelessWidget {
           style: TextStyle(
               color: mainTextColor,
               fontSize: userConfig.state.userConfigModel?.preferredFontSize,
-              fontFamily: userConfig.state.userConfigModel?.preferredFontFamily
-          ),
+              fontFamily:
+                  userConfig.state.userConfigModel?.preferredFontFamily),
           child: quillEditor,
         ),
       ),

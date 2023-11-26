@@ -30,10 +30,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "appDescription": MessageLookupByLibrary.simpleMessage(
             "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
         "appVersion": MessageLookupByLibrary.simpleMessage("App version"),
         "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
             "Are you sure about logging out?"),
         "autoSync": MessageLookupByLibrary.simpleMessage("Auto sync"),
+        "automaticallySave": MessageLookupByLibrary.simpleMessage(
+            "Automatically saves your notes after every 10 seconds"),
         "automaticallySyncNotesWithCloud": MessageLookupByLibrary.simpleMessage(
             "Automatically sync notes with cloud"),
         "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
@@ -80,7 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Export your notes"),
-        "exportToPDF": MessageLookupByLibrary.simpleMessage("Export to PDF"),
+        "exportToPDF":
+            MessageLookupByLibrary.simpleMessage("Export to PDF (beta)"),
         "exportToPlainText":
             MessageLookupByLibrary.simpleMessage("Export to Plain Text"),
         "failedToFetchNote":
@@ -103,12 +107,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Incorrect password"),
         "language": MessageLookupByLibrary.simpleMessage("English"),
         "lastSynced": MessageLookupByLibrary.simpleMessage("Last synced: "),
+        "leave": MessageLookupByLibrary.simpleMessage("Leave"),
         "link": MessageLookupByLibrary.simpleMessage("Link"),
         "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
+        "logOut2": MessageLookupByLibrary.simpleMessage("Logout"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "Please login to enable auto-sync"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("More Info"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
+        "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
         "noteSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Note saved successfully"),
@@ -138,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Please setup your account to use this feature"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "securitySettings":
+            MessageLookupByLibrary.simpleMessage("Security Settings"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "setupYourAccount":
@@ -152,8 +162,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sort by Latest First"),
         "sortByOldestFirst":
             MessageLookupByLibrary.simpleMessage("Sort by Oldest First"),
+        "stay": MessageLookupByLibrary.simpleMessage("Stay"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "syncNow": MessageLookupByLibrary.simpleMessage("Sync now"),
+        "tagAlreadyExists":
+            MessageLookupByLibrary.simpleMessage("Tag already exists"),
         "tapToExpandTitle":
             MessageLookupByLibrary.simpleMessage("Tap here to expand title"),
         "to": MessageLookupByLibrary.simpleMessage("To"),
@@ -162,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("You have unsaved changes"),
         "youWillBeNotifiedAt": m0

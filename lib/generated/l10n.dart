@@ -920,11 +920,111 @@ class S {
     );
   }
 
-  /// `Export to PDF`
+  /// `Export to PDF (beta)`
   String get exportToPDF {
     return Intl.message(
-      'Export to PDF',
+      'Export to PDF (beta)',
       name: 'exportToPDF',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tag already exists`
+  String get tagAlreadyExists {
+    return Intl.message(
+      'Tag already exists',
+      name: 'tagAlreadyExists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security Settings`
+  String get securitySettings {
+    return Intl.message(
+      'Security Settings',
+      name: 'securitySettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave`
+  String get leave {
+    return Intl.message(
+      'Leave',
+      name: 'leave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stay`
+  String get stay {
+    return Intl.message(
+      'Stay',
+      name: 'stay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Automatically saves your notes after every 10 seconds`
+  String get automaticallySave {
+    return Intl.message(
+      'Automatically saves your notes after every 10 seconds',
+      name: 'automaticallySave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logOut2 {
+    return Intl.message(
+      'Logout',
+      name: 'logOut2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Language`
+  String get appLanguage {
+    return Intl.message(
+      'App Language',
+      name: 'appLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NextCloud`
+  String get nextCloud {
+    return Intl.message(
+      'NextCloud',
+      name: 'nextCloud',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WebDAV URL`
+  String get webdavURL {
+    return Intl.message(
+      'WebDAV URL',
+      name: 'webdavURL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More Info`
+  String get moreInfo {
+    return Intl.message(
+      'More Info',
+      name: 'moreInfo',
       desc: '',
       args: [],
     );
@@ -939,14 +1039,18 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
       Locale.fromSubtags(languageCode: 'de'),
+      Locale.fromSubtags(languageCode: 'es'),
       Locale.fromSubtags(languageCode: 'fi'),
+      Locale.fromSubtags(languageCode: 'fr'),
       Locale.fromSubtags(languageCode: 'gu'),
       Locale.fromSubtags(languageCode: 'he'),
       Locale.fromSubtags(languageCode: 'hi'),
+      Locale.fromSubtags(languageCode: 'id'),
       Locale.fromSubtags(languageCode: 'kn'),
       Locale.fromSubtags(languageCode: 'pa'),
       Locale.fromSubtags(languageCode: 'pt'),
       Locale.fromSubtags(languageCode: 'sw'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 

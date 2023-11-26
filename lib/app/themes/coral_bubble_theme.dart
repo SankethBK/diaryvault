@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
@@ -46,6 +47,9 @@ class CoralBubble {
         backgroundColor: Colors.pinkAccent,
         elevation: 4,
       ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.white,
+      ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.white.withOpacity(0.9),
       popupMenuTheme: PopupMenuThemeData(
@@ -69,6 +73,11 @@ class CoralBubble {
           authFormGradientStartColor: Colors.white.withOpacity(0.4),
           authFormGradientEndColor: Colors.white.withOpacity(0.2),
           infoTextColor: Colors.white.withOpacity(0.7),
+        ),
+        ChipThemeExtensions(
+          backgroundColor: const Color.fromARGB(255, 219, 127, 158),
+          iconColor: Colors.pink[200]!,
+          textColor: const Color.fromARGB(255, 54, 52, 52),
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),

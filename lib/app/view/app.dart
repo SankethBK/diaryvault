@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
+import 'package:dairy_app/app/themes/dark_academia.dart';
 import 'package:dairy_app/app/themes/lush_green_theme.dart';
 import 'package:dairy_app/app/themes/plain_dark.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
@@ -8,7 +9,8 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -52,6 +54,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<ThemeCubit>(
           create: (context) => sl<ThemeCubit>(),
+        ),
+        BlocProvider<LocaleCubit>(
+          create: (context) => sl<LocaleCubit>(),
         )
       ],
       child: const AppView(),
@@ -96,6 +101,8 @@ class _AppViewState extends State<AppView> {
         return LushGreen.getTheme();
       case Themes.plainDark:
         return PlainDark.getTheme();
+      case Themes.darkAcademia:
+        return DarkAcademia.getTheme();
 
       default:
         return Cosmic.getTheme();
@@ -104,12 +111,16 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, state) {
+    return Builder(
+      builder: (context) {
+        final themeState = context.watch<ThemeCubit>().state;
+        final localeCubit = context.watch<LocaleCubit>().state;
+
         return MaterialApp(
           navigatorKey: _navigatorKey,
           debugShowCheckedModeBanner: false,
           title: "My Dairy",
+          locale: localeCubit.currentLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
             S.delegate,
@@ -117,7 +128,7 @@ class _AppViewState extends State<AppView> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate
           ],
-          theme: getThemeData(state.theme),
+          theme: getThemeData(themeState.theme),
           builder: (BuildContext context, child) {
             return BlocListener<AuthSessionBloc, AuthSessionState>(
               listener: (context, state) {

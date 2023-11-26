@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,15 @@ class ReadOnlyEditor extends StatelessWidget {
       placeholder: '',
       expands: false,
       padding: EdgeInsets.zero,
-      customStyles: DefaultStyles(),
+      customStyles: DefaultStyles(
+        subscript: const TextStyle(fontFamily: 'SF-UI-Display', fontFeatures: [
+          FontFeature.subscripts(),
+        ]),
+        superscript:
+            const TextStyle(fontFamily: 'SF-UI-Display', fontFeatures: [
+          FontFeature.superscripts(),
+        ]),
+      ),
     );
 
     final userConfig = BlocProvider.of<UserConfigCubit>(context);

@@ -13,13 +13,15 @@ class UserConfigConstants {
   static String isDailyReminderEnabled = "is_daily_reminder_enabled";
   static String reminderTime = "reminder_time";
   static String noteSortType = "note_sort_type";
-  static String preferredFontSize = "preferred_font_size";
+  static String nextCloudUserInfo = "next_cloud_user_info";
+  static String lastNextCloudSync = "last_next_cloud_sync";
   static String preferredFontFamily = "preferred_font_family";
 }
 
 class SyncConstants {
   static String googleDrive = "Google Drive";
   static String dropbox = "Dropbox";
+  static String nextCloud = "NextCloud";
 }
 
 class Global {

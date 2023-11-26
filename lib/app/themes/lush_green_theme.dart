@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
@@ -52,6 +53,9 @@ class LushGreen {
         backgroundColor: Color.fromARGB(255, 35, 151, 44),
         elevation: 4,
       ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.white,
+      ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.black.withOpacity(0.7),
       popupMenuTheme: PopupMenuThemeData(
@@ -64,7 +68,7 @@ class LushGreen {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/lush-green.jpg",
+          backgroundImage: "assets/images/lush_green.png",
           linkColor: Colors.green[300]!,
           errorTextColor: Colors.green[200]!,
           prefixIconColor: Colors.white.withOpacity(0.5),
@@ -81,6 +85,11 @@ class LushGreen {
           appBarGradientStartColor: Colors.black.withOpacity(0.3),
           appBarGradientEndColor: Colors.black.withOpacity(0.2),
           searchBarFillColor: Colors.white.withOpacity(0.1),
+        ),
+        ChipThemeExtensions(
+          backgroundColor: const Color(0xFF59746A),
+          iconColor: Colors.green[300]!,
+          textColor: Colors.white,
         ),
         HomePageThemeExtensions(
           borderColor: Colors.black,
@@ -103,9 +112,10 @@ class LushGreen {
         ),
         NoteCreatePageThemeExtensions(
           fallbackColor: const Color.fromARGB(255, 57, 221, 48),
-          titleTextBoxFillColor: Colors.black.withOpacity(0.4),
-          titleTextBoxBorderColor: Colors.white.withOpacity(0.5),
-          titleTextBoxFocussedBorderColor: Colors.white.withOpacity(0.8),
+          titleTextBoxFillColor: Colors.black.withOpacity(0.6),
+          titleTextBoxBorderColor: const Color.fromARGB(255, 94, 161, 58),
+          titleTextBoxFocussedBorderColor:
+              const Color.fromARGB(255, 57, 221, 48),
           titlePlaceHolderColor: Colors.white.withOpacity(0.7),
           titleTextColor: Colors.white.withOpacity(0.9),
           suffixIconColor: Colors.white.withOpacity(0.8),

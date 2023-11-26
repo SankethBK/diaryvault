@@ -19,8 +19,11 @@
 1. Rich text editor with support for images and videos
 2. Your data is securely preserved on your Google Drive / Dropbox account, ensuring complete ownership and privacy
 3. Sync data between multiple devices
-4. Fingerprint login on supported devices
-5. Multiple Themes
+4. Notes can be organized by attaching tags
+5. Notes can be exported to text files and PDF files
+6. Fingerprint login on supported devices
+7. Daily reminder notifications to stay on track with writing
+8. Multiple Themes and languages
 
 ## Libraries used
 
@@ -58,20 +61,36 @@ Through my own experiences and by reading what others have shared in their revie
 
 🌟 **If you like what we're building, please consider starring our repository on GitHub to show your support. It means a lot to us!** ⭐
 
-### Feature Roadmap Table
+### Features Planned for Future Releases
 
-| Feature                                                       | Timeline                     | Issue                                                    |
-|---------------------------------------------------------------|------------------------------|----------------------------------------------------------|
-| 1. Support for tags                                           | Planned for October release  | [#19](https://github.com/SankethBK/diaryvault/issues/19) |
-| 2. Support for customizable sort order                        | Planned for October release  | [#28](https://github.com/SankethBK/diaryvault/issues/28) |
-| 3. Auto save for every "x" seconds                            | Planned for October release  | [#29](https://github.com/SankethBK/diaryvault/issues/29) |
-| 4. Export data to text file                                   | Planned for October release  | [#26](https://github.com/SankethBK/diaryvault/issues/26) |
-| 5. Support for daily reminders                                | Planned for October release  | [#24](https://github.com/SankethBK/diaryvault/issues/24) |
-| 6. Support for customizable fonts                             | Planned for November release | [#31](https://github.com/SankethBK/diaryvault/issues/31) |
-| 7. Support for folder organization                            | Planned for November release | [#30](https://github.com/SankethBK/diaryvault/issues/30) |
-| 8. Export data to PDF                                         | Planned for November release | [#25](https://github.com/SankethBK/diaryvault/issues/25) |
-| 9. Introduce "todos" within rich text editor                  | Planned for December release | [#20](https://github.com/SankethBK/diaryvault/issues/20) |
-| 10. Add support for embedding audio files in rich text editor | Planned for December release | [#21](https://github.com/SankethBK/diaryvault/issues/21) |
+* Adding OneDrive and Nextcloud as cloud backup sources.
+* Add support for embedding audio files in rich text editor
+* A simple todolist within the rich text editor
+* Support for embedding audio files
+* Organizing notes in the form of folders
+
+### Multi-Language Support
+DiaryVault is available in multiple languages. Following is the status of translation to different languages
+
+[English](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_en.arb) is the primary language
+
+| Language | Translation Status 
+|----------|-------------------
+| [Arabic](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_ar.arb) | Incomplete
+| [German](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_de.arb) | Complete
+| [Finnish](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_fi.arb) | Incomplete
+| [French](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_fr.arb) | Complete
+| [Gujarati](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_gu.arb) | Incomplete
+| [Hebrew](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_he.arb) | Incomplete
+| [Hindi](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_hi.arb) | Complete
+| [Bahasa](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_id.arb) | Incomplete
+| [Kannada](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_kn.arb) | Incomplete
+| [Panjabi](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pa.arb) | Incomplete
+| [Portuguese (Brazil)](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pt.arb) | Complete
+| [Swahili](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_sw.arb) | Incomplete
+| [Chinese](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_zh.arb) | Complete
+
+To add missing translations or new language, refer [this](https://github.com/SankethBK/diaryvault/issues/75)
 
 ### Support
 
