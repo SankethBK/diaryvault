@@ -9,7 +9,7 @@ import 'app/view/app.dart';
 import 'core/dependency_injection/injection_container.dart' as di;
 
 Future<void> main() async {
-  GoogleFonts.config.allowRuntimeFetching = false;
+  GoogleFonts.config.allowRuntimeFetching = true;
   Bloc.observer = AppBlocObserver();
 
   WidgetsFlutterBinding.ensureInitialized();

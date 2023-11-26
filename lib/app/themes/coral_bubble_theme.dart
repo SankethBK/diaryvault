@@ -6,10 +6,13 @@ import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dar
 import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CoralBubble {
   static ThemeData getTheme() {
     return ThemeData(
+      textTheme: GoogleFonts.rochesterTextTheme(),
+
       // used only for elements whose colors can't be directly controlled
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
         secondary: Colors.pinkAccent,
