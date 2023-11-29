@@ -35,6 +35,7 @@ class UserConfigModel extends Equatable {
   final String? dropBoxUserInfo;
   final bool? isAutoSyncEnabled;
   final bool? isFingerPrintLoginEnabled;
+  final bool? isPINLoginEnabled;
   final bool? isAutoSaveEnabled;
   final bool? isDailyReminderEnabled;
   final TimeOfDay? reminderTime;
@@ -51,6 +52,7 @@ class UserConfigModel extends Equatable {
     this.dropBoxUserInfo,
     this.isAutoSyncEnabled,
     this.isFingerPrintLoginEnabled,
+    this.isPINLoginEnabled,
     this.isAutoSaveEnabled,
     this.isDailyReminderEnabled,
     this.reminderTime,
@@ -69,6 +71,7 @@ class UserConfigModel extends Equatable {
         dropBoxUserInfo,
         isAutoSyncEnabled,
         isFingerPrintLoginEnabled,
+        isPINLoginEnabled,
         isAutoSaveEnabled,
         isDailyReminderEnabled,
         reminderTime,
@@ -153,6 +156,7 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.dropBoxUserInfo: dropBoxUserInfo,
       UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
+            UserConfigConstants.isPINLoginEnabled: isPINLoginEnabled,
       UserConfigConstants.isAutoSaveEnabled: isAutoSaveEnabled,
       UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
       UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime),
