@@ -18,3 +18,21 @@ class PINAuthRepository {
     String? storedPIN = await storage.read(key: '${userId}_PIN');
     return storedPIN != null;
   }
+
+  Future<bool> verifyPIN(String userId, String pin) async {
+      // Hash the pin for verification
+      var bytes = utf8.encode(pin); // data being hashed
+      var hashedPIN = sha256.convert(bytes).toString();
+
+      // Retrieve the hashed pin using the userId
+      String? storedHashedPIN = await storage.read(key: '${userId}_PIN');
+
+      // Return true if the hashed pin matches the stored hashed pin
+      return storedHashedPIN == hashedPIN;
+    }
+
+    Future<void> deletePIN(String userId) async {
+      // Delete the pin for the user
+      await storage.delete(key: '${userId}_PIN');
+    }
+  }
