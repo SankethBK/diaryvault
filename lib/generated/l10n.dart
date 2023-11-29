@@ -827,7 +827,33 @@ class S {
       args: [],
     );
   }
-
+  /// `Confirm your new PIN`
+  String get confirmNewPin {
+    return Intl.message(
+      'Confirm your new PIN',
+      name: 'confirmNewPin',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `The PINs don't match`
+  String get pinsDontMatch {
+    return Intl.message(
+      "The PINs don't match",
+      name: 'pinsDontMatch',
+      desc: '',
+      args: [],
+    );
+  }
+  /// `PIN must be 4 digits`
+  String get pinLengthError {
+    return Intl.message(
+      'PIN must be 4 digits',
+      name: 'pinLengthError',
+      desc: '',
+      args: [],
+    );
+  }
 
 
   /// `Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!`
