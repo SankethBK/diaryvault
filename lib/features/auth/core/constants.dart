@@ -17,17 +17,3 @@ class UserConfigConstants {
   static String lastNextCloudSync = "last_next_cloud_sync";
 }
 
-class SyncConstants {
-  static String googleDrive = "Google Drive";
-  static String dropbox = "Dropbox";
-  static String nextCloud = "NextCloud";
-}
-
-class Global {
-  static String lastLoggedInUser = "last_logged_in_user";
-}
-
-class GuestUserDetails {
-  static String guestUserEmail = "guest@guest.com";
-  static String guestUserId = "guest_user_id";
-}
