@@ -127,6 +127,8 @@ class UserConfigModel extends Equatable {
       isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
       isFingerPrintLoginEnabled:
           jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
+      isPINLoginEnabled:
+          jsonMap[UserConfigConstants.isPINLoginEnabled],
       isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
       isDailyReminderEnabled:
           jsonMap[UserConfigConstants.isDailyReminderEnabled],
