@@ -4,10 +4,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
-import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 
 class NotePreviewCard extends StatelessWidget {
   final bool first;
@@ -173,36 +170,32 @@ class TitleAndDescription extends StatelessWidget {
         .extension<HomePageThemeExtensions>()!
         .previewBodyColor;
 
-    return BlocBuilder<UserConfigCubit, UserConfigState>(
-      builder: (context, state) {
-        return Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(left: selectModeEnabled ? 0 : 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(width: 7),
-                Text(
-                  note.title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500, color: previewTitleColor),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  note.plainText,
-                  style: TextStyle(
-                    color: previewBodyColor,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )
-              ],
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.only(left: selectModeEnabled ? 0 : 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(width: 7),
+            Text(
+              note.title,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500, color: previewTitleColor),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-          ),
-        );
-      },
+            const SizedBox(height: 8),
+            Text(
+              note.plainText,
+              style: TextStyle(
+                color: previewBodyColor,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

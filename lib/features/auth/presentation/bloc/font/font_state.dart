@@ -38,7 +38,7 @@ enum FontFamily {
         return FontFamily.lobster;
       case "Montserrat":
         return FontFamily.montserrat;
-      case "satisfy":
+      case "Satisfy":
         return FontFamily.satisfy;
       default:
         throw Exception('Invalid font family value: $stringValue');

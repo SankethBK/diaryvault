@@ -41,7 +41,6 @@ class UserConfigModel extends Equatable {
   final NoteSortType? noteSortType;
   final String? nextCloudUserInfo;
   final DateTime? lastNextCloudSync;
-  final String? preferredFontFamily;
 
   const UserConfigModel({
     required this.userId,
@@ -58,7 +57,6 @@ class UserConfigModel extends Equatable {
     this.noteSortType,
     this.nextCloudUserInfo,
     this.lastNextCloudSync,
-    this.preferredFontFamily,
   });
 
   @override
@@ -140,7 +138,6 @@ class UserConfigModel extends Equatable {
           ? DateTime.fromMillisecondsSinceEpoch(
               jsonMap[UserConfigConstants.lastNextCloudSync])
           : null,
-      preferredFontFamily: jsonMap[UserConfigConstants.preferredFontFamily],
     );
   }
 
@@ -163,7 +160,6 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.nextCloudUserInfo: nextCloudUserInfo,
       UserConfigConstants.lastNextCloudSync:
           lastNextCloudSync?.millisecondsSinceEpoch,
-      UserConfigConstants.preferredFontFamily: preferredFontFamily,
     };
   }
 }
