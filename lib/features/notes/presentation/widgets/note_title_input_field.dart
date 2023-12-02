@@ -1,10 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/generated/l10n.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NoteTitleInputField extends StatefulWidget {
   // final String? Function() getEmailErrors;
@@ -52,102 +49,98 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
         .extension<NoteCreatePageThemeExtensions>()!
         .suffixIconColor;
 
-    return BlocBuilder<UserConfigCubit, UserConfigState>(
-        builder: (context, state) {
-      return AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: showTitleInput
-            ? GlassMorphismCover(
-                borderRadius: textInputBorderRadius,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      textCapitalization: TextCapitalization.sentences,
-                      style: TextStyle(
-                          color: titleTextColor, fontWeight: FontWeight.w500),
-                      initialValue: widget.initialValue,
-                      decoration: InputDecoration(
-                        hintText: "title",
-                        hintStyle: TextStyle(
-                            color: titlePlaceHolderColor,
-                            fontWeight: FontWeight.normal),
-                        fillColor: titleTextBoxFillColor,
-                        filled: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: textInputBorderRadius,
-                          borderSide: BorderSide(
-                            color: titleTextBoxFocussedBorderColor,
-                            width: 0.5,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: textInputBorderRadius,
-                          borderSide: BorderSide(
-                            color: titleTextBoxBorderColor,
-                            width: 0.5,
-                          ),
-                        ),
-                        suffixIcon: IconButton(
-                          padding: EdgeInsets.zero,
-                          icon: Icon(
-                            Icons.arrow_upward,
-                            color: suffixIconColor,
-                            size: 20,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              showTitleInput = false;
-                            });
-                          },
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      child: showTitleInput
+          ? GlassMorphismCover(
+              borderRadius: textInputBorderRadius,
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    textCapitalization: TextCapitalization.sentences,
+                    style: TextStyle(
+                        color: titleTextColor, fontWeight: FontWeight.w500),
+                    initialValue: widget.initialValue,
+                    decoration: InputDecoration(
+                      hintText: "title",
+                      hintStyle: TextStyle(
+                          color: titlePlaceHolderColor,
+                          fontWeight: FontWeight.normal),
+                      fillColor: titleTextBoxFillColor,
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: textInputBorderRadius,
+                        borderSide: BorderSide(
+                          color: titleTextBoxFocussedBorderColor,
+                          width: 0.5,
                         ),
                       ),
-                      onChanged: widget.onTitleChanged,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: textInputBorderRadius,
+                        borderSide: BorderSide(
+                          color: titleTextBoxBorderColor,
+                          width: 0.5,
+                        ),
+                      ),
+                      suffixIcon: IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: Icon(
+                          Icons.arrow_upward,
+                          color: suffixIconColor,
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            showTitleInput = false;
+                          });
+                        },
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                  ],
-                ))
-            : Column(
-                children: [
-                  const SizedBox(height: 6),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        showTitleInput = true;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(12.0),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.arrow_downward,
-                            size: 15,
-                            color: Colors.white.withOpacity(0.8),
+                    onChanged: widget.onTitleChanged,
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ))
+          : Column(
+              children: [
+                const SizedBox(height: 6),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      showTitleInput = true;
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 6),
+                      Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(12.0),
                           ),
                         ),
-                        const SizedBox(width: 6),
-                        Text(
-                          S.current.tapToExpandTitle,
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
-                          )),
-                        )
-                      ],
-                    ),
+                        child: Icon(
+                          Icons.arrow_downward,
+                          size: 15,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        S.current.tapToExpandTitle,
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                      )
+                    ],
                   ),
-                  const SizedBox(height: 6),
-                ],
-              ),
-      );
-    });
+                ),
+                const SizedBox(height: 6),
+              ],
+            ),
+    );
   }
 }
