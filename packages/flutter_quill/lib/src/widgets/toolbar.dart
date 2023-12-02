@@ -535,11 +535,6 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
             rawItemsMap: fontSizes,
             afterButtonPressed: afterButtonPressed,
           ),
-        if (showFontFamily)
-          QuillFontFamilyButton(
-              rawItemsMap: fontFamilies,
-              attribute: attribute,
-              controller: controller),
         if (showLink)
           LinkStyleButton(
             tooltip: buttonTooltips[ToolbarButtons.link],

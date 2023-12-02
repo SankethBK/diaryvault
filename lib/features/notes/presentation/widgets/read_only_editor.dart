@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,13 +51,11 @@ class ReadOnlyEditor extends StatelessWidget {
       ),
     );
 
-    final userConfig = BlocProvider.of<UserConfigCubit>(context);
+    final fontCubit = BlocProvider.of<FontCubit>(context);
 
     return DefaultTextStyle(
-      style: TextStyle(
-        color: mainTextColor,
-        fontFamily: userConfig.state.userConfigModel?.preferredFontFamily,
-      ),
+      style: fontCubit.state.currentFontFamily
+          .getGoogleFontFamilyTextStyle(mainTextColor),
       child: quillEditor,
     );
   }

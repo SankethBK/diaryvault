@@ -10,6 +10,7 @@ enum FontFamily {
   ibmPlexMono("IBM Plex Mono"),
   permanentMarker("Permanent Marker"),
   oswald("Oswald"),
+  satisfy("Satisfy"),
   lobster("Lobster"),
   montserrat("Montserrat");
 
@@ -37,6 +38,8 @@ enum FontFamily {
         return FontFamily.lobster;
       case "Montserrat":
         return FontFamily.montserrat;
+      case "satisfy":
+        return FontFamily.satisfy;
       default:
         throw Exception('Invalid font family value: $stringValue');
     }
@@ -64,6 +67,8 @@ extension FontFamilyExtension on FontFamily {
         return GoogleFonts.montserratTextTheme();
       case FontFamily.lobster:
         return GoogleFonts.lobsterTextTheme();
+      case FontFamily.satisfy:
+        return GoogleFonts.satisfyTextTheme();
     }
   }
 
@@ -103,6 +108,10 @@ extension FontFamilyExtension on FontFamily {
         );
       case FontFamily.lobster:
         return GoogleFonts.lobster(
+          textStyle: TextStyle(color: mainTextColor),
+        );
+      case FontFamily.satisfy:
+        return GoogleFonts.satisfy(
           textStyle: TextStyle(color: mainTextColor),
         );
     }
