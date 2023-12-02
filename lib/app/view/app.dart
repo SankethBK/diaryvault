@@ -9,6 +9,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
@@ -57,6 +58,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<LocaleCubit>(
           create: (context) => sl<LocaleCubit>(),
+        ),
+        BlocProvider<FontCubit>(
+          create: (context) => sl<FontCubit>(),
         )
       ],
       child: const AppView(),
@@ -91,21 +95,21 @@ class _AppViewState extends State<AppView> {
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
-  ThemeData getThemeData(Themes currentTheme) {
+  ThemeData getThemeData(Themes currentTheme, FontFamily fontFamily) {
     switch (currentTheme) {
       case Themes.coralBubbles:
-        return CoralBubble.getTheme();
+        return CoralBubble.getTheme(fontFamily);
       case Themes.cosmic:
-        return Cosmic.getTheme();
+        return Cosmic.getTheme(fontFamily);
       case Themes.lushGreen:
-        return LushGreen.getTheme();
+        return LushGreen.getTheme(fontFamily);
       case Themes.plainDark:
-        return PlainDark.getTheme();
+        return PlainDark.getTheme(fontFamily);
       case Themes.darkAcademia:
-        return DarkAcademia.getTheme();
+        return DarkAcademia.getTheme(fontFamily);
 
       default:
-        return Cosmic.getTheme();
+        return Cosmic.getTheme(fontFamily);
     }
   }
 
@@ -115,6 +119,7 @@ class _AppViewState extends State<AppView> {
       builder: (context) {
         final themeState = context.watch<ThemeCubit>().state;
         final localeCubit = context.watch<LocaleCubit>().state;
+        final fontCubit = context.watch<FontCubit>().state;
 
         return MaterialApp(
           navigatorKey: _navigatorKey,
@@ -128,7 +133,7 @@ class _AppViewState extends State<AppView> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate
           ],
-          theme: getThemeData(themeState.theme),
+          theme: getThemeData(themeState.theme, fontCubit.currentFontFamily),
           builder: (BuildContext context, child) {
             return BlocListener<AuthSessionBloc, AuthSessionState>(
               listener: (context, state) {

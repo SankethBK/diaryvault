@@ -257,16 +257,6 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
       locale: locale,
       afterButtonPressed: afterButtonPressed,
       children: [
-        if (showFontSize)
-          QuillFontSizeButton(
-            iconTheme: iconTheme,
-            iconSize: toolbarIconSize,
-            tooltip: buttonTooltips[ToolbarButtons.fontSize],
-            attribute: Attribute.size,
-            controller: controller,
-            rawItemsMap: fontSizes,
-            afterButtonPressed: afterButtonPressed,
-          ),
         if (showBoldButton)
           ToggleStyleButton(
             attribute: Attribute.bold,
@@ -535,6 +525,21 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
         if (showDividers && isButtonGroupShown[4] && isButtonGroupShown[5])
           QuillDivider(axis,
               color: sectionDividerColor, space: sectionDividerSpace),
+        if (showFontSize)
+          QuillFontSizeButton(
+            iconTheme: iconTheme,
+            iconSize: toolbarIconSize,
+            tooltip: buttonTooltips[ToolbarButtons.fontSize],
+            attribute: Attribute.size,
+            controller: controller,
+            rawItemsMap: fontSizes,
+            afterButtonPressed: afterButtonPressed,
+          ),
+        if (showFontFamily)
+          QuillFontFamilyButton(
+              rawItemsMap: fontFamilies,
+              attribute: attribute,
+              controller: controller),
         if (showLink)
           LinkStyleButton(
             tooltip: buttonTooltips[ToolbarButtons.link],

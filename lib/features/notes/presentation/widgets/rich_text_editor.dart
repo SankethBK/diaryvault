@@ -298,10 +298,10 @@ class Toolbar extends StatelessWidget {
         showCameraButton: true,
       ),
       // uncomment to provide a custom "pick from" dialog.
-      showFontFamily: false,
+      showFontFamily: true,
       showSubscript: true,
       showSuperscript: true,
-      showFontSize: false,
+      showFontSize: true,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
       toolbarIconAlignment: WrapAlignment.center,
@@ -358,8 +358,6 @@ class GlassPaneForEditor extends StatelessWidget {
     final mainTextColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
-
-    final userConfig = BlocProvider.of<UserConfigCubit>(context);
 
     return GlassMorphismCover(
       displayShadow: false,
