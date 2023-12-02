@@ -96,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Fingerprint auth should be enabled in device settings"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("Fingerprint login failed"),
+        "fontFamily": MessageLookupByLibrary.simpleMessage("Font Family"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "from": MessageLookupByLibrary.simpleMessage("From"),

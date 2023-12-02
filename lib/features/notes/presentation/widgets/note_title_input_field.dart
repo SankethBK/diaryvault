@@ -2,7 +2,6 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NoteTitleInputField extends StatefulWidget {
   // final String? Function() getEmailErrors;
@@ -132,10 +131,9 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                       const SizedBox(width: 6),
                       Text(
                         S.current.tapToExpandTitle,
-                        style: GoogleFonts.lato(
-                            textStyle: TextStyle(
+                        style: TextStyle(
                           color: Colors.white.withOpacity(0.8),
-                        )),
+                        ),
                       )
                     ],
                   ),
