@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/generated/l10n.dart';
@@ -358,6 +359,8 @@ class GlassPaneForEditor extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
 
+    final fontCubit = BlocProvider.of<FontCubit>(context);
+
     return GlassMorphismCover(
       displayShadow: false,
       borderRadius: const BorderRadius.only(
@@ -382,7 +385,8 @@ class GlassPaneForEditor extends StatelessWidget {
           ),
         ),
         child: DefaultTextStyle(
-          style: TextStyle(color: mainTextColor),
+          style: fontCubit.state.currentFontFamily
+              .getGoogleFontFamilyTextStyle(mainTextColor),
           child: quillEditor,
         ),
       ),

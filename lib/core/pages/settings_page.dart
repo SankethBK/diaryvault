@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/widgets/font_customization.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/language_dropdown.dart';
@@ -125,17 +126,19 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 const SetupAccount(),
                 const SyncSettings(),
-                const SizedBox(height: 25.0),
+                const SizedBox(height: 15.0),
                 SecuritySettings(),
                 const SizedBox(height: 15),
                 const AutoSaveToggleButton(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
                 const DailyReminders(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
                 const ThemeDropdown(),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 const ExportNotes(),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
+                const FontCustomization(),
+                const SizedBox(height: 10),
                 const LanguageDropDown(),
                 const SizedBox(height: 15),
                 const SendFeedBack(),
