@@ -4,7 +4,6 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class NotePreviewCard extends StatelessWidget {
@@ -190,12 +189,7 @@ class TitleAndDescription extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               note.plainText,
-              style: GoogleFonts.lato(
-                textStyle: TextStyle(
-                  fontSize: 15.0,
-                  color: previewBodyColor,
-                ),
-              ),
+              style: TextStyle(fontSize: 15.0, color: previewBodyColor),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             )
