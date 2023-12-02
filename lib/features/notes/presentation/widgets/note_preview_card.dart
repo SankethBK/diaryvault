@@ -180,16 +180,16 @@ class TitleAndDescription extends StatelessWidget {
             Text(
               note.title,
               style: TextStyle(
-                  fontWeight: FontWeight.w500, color: previewTitleColor),
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500,
+                  color: previewTitleColor),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 8),
             Text(
               note.plainText,
-              style: TextStyle(
-                color: previewBodyColor,
-              ),
+              style: TextStyle(fontSize: 15.0, color: previewTitleColor),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             )
