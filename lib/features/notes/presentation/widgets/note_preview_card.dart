@@ -189,7 +189,7 @@ class TitleAndDescription extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               note.plainText,
-              style: TextStyle(fontSize: 15.0, color: previewTitleColor),
+              style: TextStyle(fontSize: 15.0, color: previewBodyColor),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             )
