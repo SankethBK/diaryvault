@@ -116,4 +116,5 @@
   "pinLoginFailed": "Pin login failed",
   "enablePINLogin": "Enable Pin login",
   "pinLoginSetupInstructions": "A 4 digit PIN will be prompted on lock screen"
+  "fontFamily": "Font Family"
 }
