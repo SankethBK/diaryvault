@@ -273,4 +273,3 @@ class SecuritySettings extends StatelessWidget {
    );
  }
 }
-

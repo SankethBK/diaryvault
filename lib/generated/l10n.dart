@@ -1109,6 +1109,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Font Family`
+  String get fontFamily {
+    return Intl.message(
+      'Font Family',
+      name: 'fontFamily',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -7,14 +7,13 @@ import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'pin_input_field.dart';
 import 'package:dairy_app/features/auth/data/repositories/PINAuthRepository.dart';
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 
 Future<dynamic> pinResetPopup(
     {required BuildContext context, required String userPinId}) {
   String newPin = "";
   String confirmNewPin = "";
   String userId = userPinId;
-  final pinAuthRepository = sl<PINAuthRepository>();
+  final pinAuthRepository = new PINAuthRepository();
 
   void assignNewPin(String val) {
     newPin = val;
