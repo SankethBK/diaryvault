@@ -13,6 +13,7 @@ import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_p
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
@@ -95,6 +96,8 @@ Future<void> init() async {
   sl.registerSingleton<ThemeCubit>(ThemeCubit(keyValueDataSource: sl()));
 
   sl.registerSingleton<LocaleCubit>(LocaleCubit(keyValueDataSource: sl()));
+
+  sl.registerSingleton<FontCubit>(FontCubit(keyValueDataSource: sl()));
 
   sl.registerSingleton<FingerPrintAuthRepository>(FingerPrintAuthRepository(
     keyValueDataSource: sl(),
