@@ -107,5 +107,13 @@
   "appLanguage": "App Language",
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV URL",
-  "moreInfo": "More Info"
+  "moreInfo": "More Info",
+  "resetPin": "Reset PIN",
+  "enterNewPin": "Enter your new PIN",
+  "pinResetSuccessful": "PIN confirmation feeling",
+  "confirmNewPin": "Confirm your new PIN",
+  "pinsDontMatch": "The PINs don't match",
+  "pinLoginFailed": "Pin login failed",
+  "enablePINLogin": "Enable Pin login",
+  "pinLoginSetupInstructions": "A 4 digit PIN will be prompted on lock screen"
 }
