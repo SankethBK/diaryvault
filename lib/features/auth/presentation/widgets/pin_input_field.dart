@@ -51,6 +51,7 @@ class _AuthPinInputState extends State<AuthPinInput> {
       children: [
         TextField(
           autofocus: widget.autoFocus,
+          maxLength: 4,
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           style: TextStyle(color: textColor),
