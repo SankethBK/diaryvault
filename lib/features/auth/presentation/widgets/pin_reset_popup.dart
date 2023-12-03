@@ -2,7 +2,6 @@ import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dar
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'pin_input_field.dart';
@@ -13,7 +12,7 @@ Future<dynamic> pinResetPopup(
   String newPin = "";
   String confirmNewPin = "";
   String userId = userPinId;
-  final pinAuthRepository = new PINAuthRepository();
+  final pinAuthRepository = PINAuthRepository();
 
   void assignNewPin(String val) {
     newPin = val;
