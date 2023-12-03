@@ -13,7 +13,6 @@ class UserConfigConstants {
   static String isPINLoginEnabled = "is_pin_log_enabled";
   static String enablePINLogin = "enable_pin_login";
 
-
   static String isAutoSaveEnabled = "is_auto_save_enabled";
   static String isDailyReminderEnabled = "is_daily_reminder_enabled";
   static String reminderTime = "reminder_time";

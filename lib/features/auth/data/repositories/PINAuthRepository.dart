@@ -9,8 +9,8 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:crypto/crypto.dart';
-final log = printer("PinAuthRepo");
 
+final log = printer("PinAuthRepo");
 
 class PINAuthRepository {
   final IKeyValueDataSource keyValueDataSource;
@@ -30,10 +30,12 @@ class PINAuthRepository {
     // Store the hashed pin with the userId as part of the key
     await storage.write(key: '${userId}_PIN', value: hashedPIN);
   }
+
   Future<bool> isPINStored(String userId) async {
     String? storedPIN = await storage.read(key: '${userId}_PIN');
     return storedPIN != null;
   }
+
   /// Checks if UI can submit through accessing user_id in user_config
   String? getUserId() {
     String? userId = keyValueDataSource.getValue(Global.lastLoggedInUser);
@@ -42,7 +44,6 @@ class PINAuthRepository {
     } else {
       return null;
     }
-
   }
 
   /// Checks if UI can use pin auth, based on last logged in user's preferences (if available)
@@ -51,7 +52,7 @@ class PINAuthRepository {
       log.i("Checking for activating fingerprints");
       // see if lastLoggedInUser is present
       String? lastLoggedInUser =
-      keyValueDataSource.getValue(Global.lastLoggedInUser);
+          keyValueDataSource.getValue(Global.lastLoggedInUser);
 
       log.d("lastLoggedInUser = $lastLoggedInUser");
 

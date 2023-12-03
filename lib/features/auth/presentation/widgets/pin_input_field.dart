@@ -2,7 +2,6 @@ import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class AuthPinInput extends StatefulWidget {
   final String? Function() getPinErrors;
   final void Function(String pin) onPinChanged;
@@ -24,8 +23,8 @@ class _AuthPinInputState extends State<AuthPinInput> {
   bool _pinVisibility = true;
 
   void _togglePinVisibility() => setState(() {
-    _pinVisibility = !_pinVisibility;
-  });
+        _pinVisibility = !_pinVisibility;
+      });
 
   @override
   Widget build(BuildContext context) {
