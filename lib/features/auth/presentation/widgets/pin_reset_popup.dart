@@ -73,8 +73,6 @@ Future<dynamic> pinResetPopup(
 
                   setState(() => isLoading = false);
                   Navigator.pop(context);
-
-
                 },
                 buttonText: S.current.submit);
           })

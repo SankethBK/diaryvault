@@ -13,11 +13,11 @@ class PINAuthRepository {
     // Store the hashed pin with the userId as part of the key
     await storage.write(key: '${userId}_PIN', value: hashedPIN);
   }
+
   Future<bool> isPINStored(String userId) async {
     String? storedPIN = await storage.read(key: '${userId}_PIN');
     return storedPIN != null;
   }
-
 
   Future<bool> verifyPIN(String userId, String pin) async {
     // Hash the pin for verification
