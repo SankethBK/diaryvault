@@ -94,5 +94,19 @@
   "notificationDescription1": "Take a few minutes to reflect on your day in your diary",
   "sortByLatestFirst": "Sort by Latest First",
   "sortByOldestFirst": "Sort by Oldest First",
-  "sortByAtoZ": "Sort by A-Z"
+  "sortByAtoZ": "Sort by A-Z",
+  "exportNotes": "Export your notes",
+  "exportToPlainText": "Export to Plain Text",
+  "exportToPDF": "Export to PDF (beta)",
+  "tagAlreadyExists": "Tag already exists",
+  "securitySettings": "Security Settings",
+  "leave": "Leave",
+  "stay": "Stay",
+  "automaticallySave": "Automatically saves your notes after every 10 seconds",
+  "logOut2": "Logout",
+  "appLanguage": "App Language",
+  "nextCloud": "NextCloud",
+  "webdavURL": "WebDAV URL",
+  "moreInfo": "More Info",
+  "fontFamily": "Font Family"
 }

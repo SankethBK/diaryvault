@@ -1,15 +1,19 @@
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 class Cosmic {
-  static ThemeData getTheme() {
+  static ThemeData getTheme(FontFamily fontFamily) {
     return ThemeData(
+      textTheme: fontFamily.getGoogleFontTextTheme(),
+
       // used only for elements whose colors can't be directly controlled
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
         secondary: Colors.blueAccent,
@@ -53,6 +57,9 @@ class Cosmic {
         backgroundColor: Color.fromARGB(255, 36, 46, 178),
         elevation: 4,
       ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.white,
+      ),
       // used for dialogs in flutter_quill
       canvasColor: Colors.black.withOpacity(0.7),
       popupMenuTheme: PopupMenuThemeData(
@@ -76,6 +83,11 @@ class Cosmic {
           authFormGradientStartColor: Colors.black.withOpacity(0.5),
           authFormGradientEndColor: Colors.black.withOpacity(0.3),
           infoTextColor: Colors.white.withOpacity(0.7),
+        ),
+        ChipThemeExtensions(
+          backgroundColor: const Color.fromARGB(255, 36, 46, 178),
+          iconColor: Colors.blueAccent,
+          textColor: Colors.white,
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),

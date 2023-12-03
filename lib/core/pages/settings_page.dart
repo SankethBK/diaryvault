@@ -1,7 +1,9 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/widgets/font_customization.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/core/widgets/language_dropdown.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
 import 'package:dairy_app/core/widgets/send_feedback.dart';
 import 'package:dairy_app/core/widgets/share_with_friends.dart';
@@ -11,6 +13,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
               backgroundImagePath,
             ),
             fit: BoxFit.cover,
-            alignment: const Alignment(0.725, 0.1),
+            // alignment: const Alignment(0.725, 0.1),
           ),
         ),
         child: GlassMorphismCover(
@@ -123,20 +126,27 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 const SetupAccount(),
                 const SyncSettings(),
-                const SizedBox(height: 25.0),
+                const SizedBox(height: 15.0),
                 SecuritySettings(),
                 const SizedBox(height: 15),
                 const AutoSaveToggleButton(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
                 const DailyReminders(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
                 const ThemeDropdown(),
+                const SizedBox(height: 10),
+                const ExportNotes(),
+                const SizedBox(height: 10),
+                const FontCustomization(),
+                const SizedBox(height: 10),
+                const LanguageDropDown(),
                 const SizedBox(height: 15),
                 const SendFeedBack(),
                 const SizedBox(height: 15),
                 const ShareWithFriends(),
                 const SizedBox(height: 15),
                 const VersionNumber(),
+                const SizedBox(height: 15),
               ],
             ),
           ),

@@ -1,0 +1,14 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+pubspec.lock
+
+.idea/
+build/
+
+# generated files not to be checked in
+flutter_export_environment.sh
+.flutter-plugins-dependencies
+Flutter.podspec

@@ -55,7 +55,7 @@ class SecuritySettings extends StatelessWidget {
           ),
           children: [
             AccordionHeaderItem(
-              title: "Security Settings",
+              title: S.current.securitySettings,
               children: [
                 AccordionItem(
                   child: Padding(

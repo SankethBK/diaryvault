@@ -17,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.1.4+10
+version: 2.1.8+14
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -32,6 +32,8 @@ dependencies:
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  delta_markdown:
+    path: ./packages/delta_markdown
   equatable: ^2.0.3
   file_picker: ^5.3.4
   filesystem_picker: ^2.0.0-nullsafety.0
@@ -39,6 +41,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_html_to_pdf:
+    path: ./packages/flutter_html_to_pdf
   flutter_local_notifications: ^16.1.0
   flutter_localizations:
     sdk: flutter
@@ -60,6 +64,7 @@ dependencies:
   intl: ^0.18.0
   local_auth: ^2.1.6
   logger: ^1.1.0
+  markdown: ^7.1.1
   package_info_plus: ^4.1.0
   path_provider: ^2.0.9
   provider: ^6.0.5
@@ -72,6 +77,8 @@ dependencies:
     path: ./packages/stateless_dropbox_client/
   url_launcher: ^6.1.14
   uuid: ^3.0.6
+  webdav_client:
+    path: ./packages/webdav_client
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -120,18 +127,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+  fonts:
+    - family: SF-UI-Display
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Regular.otf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:

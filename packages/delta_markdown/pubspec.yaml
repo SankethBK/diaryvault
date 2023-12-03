@@ -1,0 +1,23 @@
+name: delta_markdown
+version: 0.8.0
+
+description: A library for converting between Markdown and Delta of the
+  package flutter_quill.
+homepage: https://github.com/friebetill/notus_markdown
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  args: ^2.0.0
+  charcode: ^1.2.0
+  collection: ^1.15.0
+  flutter_quill: 
+    path: ../flutter_quill
+
+dev_dependencies:
+  build_runner: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.11.0
+  test: ^1.16.5

@@ -285,7 +285,8 @@ class DropboxSyncClient implements ISyncClient {
     accessToken = null;
     await secureStorage.delete(key: REFRESH_TOKEN);
 
-    userConfigCubit.setUserConfig(UserConfigConstants.dropBoxUserInfo, null);
+    await userConfigCubit.setUserConfig(
+        UserConfigConstants.dropBoxUserInfo, null);
 
     log.i("sign out successful");
   }

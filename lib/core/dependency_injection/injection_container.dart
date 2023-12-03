@@ -13,12 +13,16 @@ import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_p
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/cubit/theme_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
+import 'package:dairy_app/features/notes/data/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/data/repositories/notifications_repository.dart';
+import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -27,6 +31,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
+import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/repositories/sync_repository.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
@@ -90,6 +95,10 @@ Future<void> init() async {
 
   sl.registerSingleton<ThemeCubit>(ThemeCubit(keyValueDataSource: sl()));
 
+  sl.registerSingleton<LocaleCubit>(LocaleCubit(keyValueDataSource: sl()));
+
+  sl.registerSingleton<FontCubit>(FontCubit(keyValueDataSource: sl()));
+
   sl.registerSingleton<FingerPrintAuthRepository>(FingerPrintAuthRepository(
     keyValueDataSource: sl(),
     authSessionBloc: sl(),
@@ -121,6 +130,9 @@ Future<void> init() async {
   //* Repository
   sl.registerSingleton<INotesRepository>(
       NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
+
+  sl.registerSingleton<IExportNotesRepository>(
+      ExportNotesRepository(notesRepository: sl()));
 
   sl.registerSingletonAsync<INotificationsRepository>(() async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -154,6 +166,9 @@ Future<void> init() async {
 
   sl.registerSingleton<DropboxSyncClient>(
       DropboxSyncClient(userConfigCubit: sl()));
+
+  sl.registerSingleton<NextCloudSyncClient>(
+      NextCloudSyncClient(userConfigCubit: sl()));
 
   //* Repository
   sl.registerSingleton<ISyncRepository>(SyncRepository(

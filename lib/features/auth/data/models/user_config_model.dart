@@ -39,6 +39,8 @@ class UserConfigModel extends Equatable {
   final bool? isDailyReminderEnabled;
   final TimeOfDay? reminderTime;
   final NoteSortType? noteSortType;
+  final String? nextCloudUserInfo;
+  final DateTime? lastNextCloudSync;
 
   const UserConfigModel({
     required this.userId,
@@ -53,6 +55,8 @@ class UserConfigModel extends Equatable {
     this.isDailyReminderEnabled,
     this.reminderTime,
     this.noteSortType,
+    this.nextCloudUserInfo,
+    this.lastNextCloudSync,
   });
 
   @override
@@ -69,6 +73,8 @@ class UserConfigModel extends Equatable {
         isDailyReminderEnabled,
         reminderTime,
         noteSortType,
+        nextCloudUserInfo,
+        lastNextCloudSync
       ];
 
   static TimeOfDay? getTimeOfDayFromTimeString(String? timeString) {
@@ -127,7 +133,11 @@ class UserConfigModel extends Equatable {
           ? NoteSortType.fromStringValue(
               jsonMap[UserConfigConstants.noteSortType])
           : null,
-      // noteSortType:
+      nextCloudUserInfo: jsonMap[UserConfigConstants.nextCloudUserInfo],
+      lastNextCloudSync: jsonMap[UserConfigConstants.lastNextCloudSync] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              jsonMap[UserConfigConstants.lastNextCloudSync])
+          : null,
     );
   }
 
@@ -147,6 +157,9 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
       UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime),
       UserConfigConstants.noteSortType: noteSortType?.text,
+      UserConfigConstants.nextCloudUserInfo: nextCloudUserInfo,
+      UserConfigConstants.lastNextCloudSync:
+          lastNextCloudSync?.millisecondsSinceEpoch,
     };
   }
 }
