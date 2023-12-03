@@ -6,9 +6,7 @@ enum NoteSortType {
   sortByLatestFirst("sortByLatestFirst"),
   sortByOldestFirst("sortByOldestFirst"),
   sortByAtoZ("sortByAtoZ");
-
   const NoteSortType(this.text);
-
   factory NoteSortType.fromStringValue(String stringValue) {
     switch (stringValue) {
       case 'sortByLatestFirst':
@@ -60,7 +58,6 @@ class UserConfigModel extends Equatable {
     this.nextCloudUserInfo,
     this.lastNextCloudSync,
   });
-
   @override
   List<Object?> get props => [
         userId,
