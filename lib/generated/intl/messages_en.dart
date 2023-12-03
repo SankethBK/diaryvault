@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(time) => "You will be notified at ${time}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> notInlinedMessages() => <String, Function>{
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("Account setup successful"),
         "alreadyHaveAnAccount":
