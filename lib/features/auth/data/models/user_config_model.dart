@@ -6,6 +6,7 @@ enum NoteSortType {
   sortByLatestFirst("sortByLatestFirst"),
   sortByOldestFirst("sortByOldestFirst"),
   sortByAtoZ("sortByAtoZ");
+
   const NoteSortType(this.text);
   factory NoteSortType.fromStringValue(String stringValue) {
     switch (stringValue) {
@@ -124,8 +125,7 @@ class UserConfigModel extends Equatable {
       isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
       isFingerPrintLoginEnabled:
           jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
-      isPINLoginEnabled:
-          jsonMap[UserConfigConstants.isPINLoginEnabled],
+      isPINLoginEnabled: jsonMap[UserConfigConstants.isPINLoginEnabled],
       isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
       isDailyReminderEnabled:
           jsonMap[UserConfigConstants.isDailyReminderEnabled],
@@ -155,7 +155,7 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.dropBoxUserInfo: dropBoxUserInfo,
       UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
-            UserConfigConstants.isPINLoginEnabled: isPINLoginEnabled,
+      UserConfigConstants.isPINLoginEnabled: isPINLoginEnabled,
       UserConfigConstants.isAutoSaveEnabled: isAutoSaveEnabled,
       UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
       UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime),
