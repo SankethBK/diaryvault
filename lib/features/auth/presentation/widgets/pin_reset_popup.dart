@@ -49,7 +49,7 @@ Future<bool> pinResetPopup({
             getPinErrors: () => null,
             onPinChanged: assignNewPin,
             autoFocus: true,
-            hintText: S.current.enterNewPin,
+            hintText: S.current.enterPin,
           ),
           const SizedBox(height: 15),
           AuthPinInput(
