@@ -6,6 +6,7 @@ import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dar
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/pin_login_form.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -19,6 +20,9 @@ class RouteGenerator {
       return MaterialPageRoute(builder: (_) => const HomePage());
     } else if (settings.name == AuthPage.route) {
       return MaterialPageRoute(builder: (_) => AuthPage());
+    } else if (settings.name == PinSignInForm.route) {
+      // ignore: prefer_const_constructors
+      return MaterialPageRoute(builder: (_) => PinSignInForm());
     } else if (settings.name == NoteCreatePage.routeThroughHome) {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());
     } else if (settings.name == NoteCreatePage.routeThroughNoteReadOnly) {

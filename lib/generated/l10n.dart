@@ -1040,11 +1040,11 @@ class S {
     );
   }
 
-  /// `Enter your new PIN`
-  String get enterNewPin {
+  /// `Enter your PIN`
+  String get enterPin {
     return Intl.message(
-      'Enter your new PIN',
-      name: 'enterNewPin',
+      'Enter your PIN',
+      name: 'enterPin',
       desc: '',
       args: [],
     );
@@ -1100,10 +1100,10 @@ class S {
     );
   }
 
-  /// `A 4 digit PIN will be prompted on lock screen`
+  /// `An up 4 to digit PIN will be prompted on lock screen`
   String get pinLoginSetupInstructions {
     return Intl.message(
-      'A 4 digit PIN will be prompted on lock screen',
+      'An up to 4 digit PIN will be prompted on lock screen',
       name: 'pinLoginSetupInstructions',
       desc: '',
       args: [],

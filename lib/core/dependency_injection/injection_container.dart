@@ -7,6 +7,7 @@ import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
+import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
@@ -88,6 +89,7 @@ Future<void> init() async {
       authenticationRepository: sl(),
       keyValueDataSource: sl(),
       fingerPrintAuthRepository: sl(),
+      pinAuthRepository: sl(),
     ),
   );
   sl.registerSingleton<UserConfigCubit>(
@@ -100,6 +102,13 @@ Future<void> init() async {
   sl.registerSingleton<FontCubit>(FontCubit(keyValueDataSource: sl()));
 
   sl.registerSingleton<FingerPrintAuthRepository>(FingerPrintAuthRepository(
+    keyValueDataSource: sl(),
+    authSessionBloc: sl(),
+    authenticationRepository: sl(),
+  ));
+
+  // Added pin authentication repository to injection
+  sl.registerSingleton<PINAuthRepository>(PINAuthRepository(
     keyValueDataSource: sl(),
     authSessionBloc: sl(),
     authenticationRepository: sl(),

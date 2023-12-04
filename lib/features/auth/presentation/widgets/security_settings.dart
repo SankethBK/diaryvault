@@ -212,32 +212,39 @@ class SecuritySettings extends StatelessWidget {
                           ),
                           value: isPINLoginEnabledValue ?? false,
                           onChanged: (value) async {
-                            if (userId == null) {
-                              showToast(S.current.unexpectedErrorOccured);
-                              return;
-                            }
-
-                            if (userId == GuestUserDetails.guestUserId) {
+                            if (userId == null ||
+                                userId == GuestUserDetails.guestUserId) {
                               showToast(S.current
                                   .pleaseSetupYourAccountToUseThisFeature);
                               return;
                             }
-                            if (value) {
-                              // Call the PIN reset popup
-                              await pinResetPopup(
+
+                            if (value == true) {
+                              // Call the PIN reset popup and await its result
+                              bool pinSetSuccessfully = await pinResetPopup(
                                 context: context,
                                 userPinId: userId,
                               );
-                            }
 
-                            try {
+                              // Only update the switch state if PIN was set successfully
+                              if (pinSetSuccessfully == true) {
+                                try {
+                                  userConfigCubit.setUserConfig(
+                                    UserConfigConstants.isPINLoginEnabled,
+                                    value,
+                                  );
+                                } on Exception catch (e) {
+                                  showToast(e
+                                      .toString()
+                                      .replaceAll("Exception: ", ""));
+                                }
+                              }
+                            } else {
+                              // Handle the logic for turning off PIN login
                               userConfigCubit.setUserConfig(
-                                UserConfigConstants.isPINLoginEnabled, //change
+                                UserConfigConstants.isPINLoginEnabled,
                                 value,
                               );
-                            } on Exception catch (e) {
-                              showToast(
-                                  e.toString().replaceAll("Exception: ", ""));
                             }
                           },
                         ),

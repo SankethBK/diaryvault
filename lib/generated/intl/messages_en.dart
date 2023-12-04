@@ -83,8 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter current password"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("Enter new email"),
-        "enterNewPin":
-            MessageLookupByLibrary.simpleMessage("Enter your new PIN"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Enter your PIN"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
         "exportNotes":
@@ -151,7 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pinLoginFailed":
             MessageLookupByLibrary.simpleMessage("Pin login failed"),
         "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
-            "A 4 digit PIN will be prompted on lock screen"),
+            "An up 4 to digit PIN will be prompted on lock screen"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("PIN confirmation feeling"),
         "pinsDontMatch":
