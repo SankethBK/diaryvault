@@ -1,27 +1,14 @@
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
-import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'pin_input_field.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/submit_button.dart';
-import 'package:dairy_app/features/auth/core/failures/failures.dart';
-import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/pin_input_field.dart';
-import 'package:dairy_app/generated/l10n.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
-import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 
 class PinSignInForm extends StatefulWidget {
   static String get route => '/pin-auth';
@@ -112,7 +99,7 @@ class _PinSignInFormState extends State<PinSignInForm> {
                             showToast(S.current.pinLoginFailed);
                             setState(() => isLoading = false);
                             return;
-                          } else if (verifiedPin == true && userId != null) {
+                          } else if (verifiedPin == true) {
                             setState(() => isLoading = false);
                             bloc.add(AuthFormSignInDirectlySubmitted(
                                 userId: userId));

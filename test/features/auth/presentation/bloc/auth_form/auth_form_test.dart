@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dairy_app/features/auth/core/failures/failures.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
+import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart';
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart';
@@ -21,7 +22,8 @@ import 'auth_form_test.mocks.dart';
   SignUpWithEmailAndPassword,
   SignInWithEmailAndPassword,
   KeyValueDataSource,
-  FingerPrintAuthRepository
+  FingerPrintAuthRepository,
+  PINAuthRepository
 ])
 void main() {
   late MockAuthenticationRepository authenticationRepository;
@@ -30,6 +32,7 @@ void main() {
   late MockSignInWithEmailAndPassword signInWithEmailAndPassword;
   late MockKeyValueDataSource mockKeyValueDataSource;
   late MockFingerPrintAuthRepository mockFingerPrintAuthRepository;
+  late MockPINAuthRepository mockPinAuthRepository;
 
   late AuthFormBloc authFormBloc;
   const String testEmail = "test@email";
@@ -44,6 +47,7 @@ void main() {
     signInWithEmailAndPassword = MockSignInWithEmailAndPassword();
     mockKeyValueDataSource = MockKeyValueDataSource();
     mockFingerPrintAuthRepository = MockFingerPrintAuthRepository();
+    mockPinAuthRepository = MockPINAuthRepository();
 
     authFormBloc = AuthFormBloc(
       authSessionBloc: authSessionBloc,
@@ -52,6 +56,7 @@ void main() {
       authenticationRepository: authenticationRepository,
       keyValueDataSource: mockKeyValueDataSource,
       fingerPrintAuthRepository: mockFingerPrintAuthRepository,
+      pinAuthRepository: mockPinAuthRepository,
     );
   });
 

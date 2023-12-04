@@ -3,11 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i12;
+import 'dart:async' as _i13;
 
-import 'package:bloc/bloc.dart' as _i13;
+import 'package:bloc/bloc.dart' as _i14;
 import 'package:dairy_app/core/network/network_info.dart' as _i4;
-import 'package:dairy_app/features/auth/core/failures/failures.dart' as _i15;
+import 'package:dairy_app/features/auth/core/failures/failures.dart' as _i16;
 import 'package:dairy_app/features/auth/core/validators/email_validator.dart'
     as _i8;
 import 'package:dairy_app/features/auth/core/validators/password_validator.dart'
@@ -17,25 +17,28 @@ import 'package:dairy_app/features/auth/data/datasources/local%20data%20sources/
 import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources/remote_data_source_template.dart'
     as _i5;
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart'
-    as _i14;
+    as _i15;
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart'
-    as _i20;
+    as _i21;
+import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart'
+    as _i23;
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart'
-    as _i16;
+    as _i17;
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart'
     as _i11;
 import 'package:dairy_app/features/auth/domain/usecases/sign_in_with_email_and_password.dart'
-    as _i18;
+    as _i19;
 import 'package:dairy_app/features/auth/domain/usecases/sign_up_with_email_and_password.dart'
-    as _i17;
+    as _i18;
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart'
     as _i3;
 import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart'
-    as _i19;
+    as _i20;
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart'
     as _i2;
 import 'package:dartz/dartz.dart' as _i10;
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' as _i22;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i12;
 import 'package:local_auth/local_auth.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -169,6 +172,17 @@ class _FakeAuthSessionBloc_10 extends _i1.SmartFake
         );
 }
 
+class _FakeFlutterSecureStorage_11 extends _i1.SmartFake
+    implements _i12.FlutterSecureStorage {
+  _FakeFlutterSecureStorage_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [AuthSessionBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -194,10 +208,10 @@ class MockAuthSessionBloc extends _i1.Mock implements _i3.AuthSessionBloc {
         ),
       ) as _i3.AuthSessionState);
   @override
-  _i12.Stream<_i3.AuthSessionState> get stream => (super.noSuchMethod(
+  _i13.Stream<_i3.AuthSessionState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i12.Stream<_i3.AuthSessionState>.empty(),
-      ) as _i12.Stream<_i3.AuthSessionState>);
+        returnValue: _i13.Stream<_i3.AuthSessionState>.empty(),
+      ) as _i13.Stream<_i3.AuthSessionState>);
   @override
   bool get isClosed => (super.noSuchMethod(
         Invocation.getter(#isClosed),
@@ -229,8 +243,8 @@ class MockAuthSessionBloc extends _i1.Mock implements _i3.AuthSessionBloc {
       );
   @override
   void on<E extends _i3.AuthSessionEvent>(
-    _i13.EventHandler<E, _i3.AuthSessionState>? handler, {
-    _i13.EventTransformer<E>? transformer,
+    _i14.EventHandler<E, _i3.AuthSessionState>? handler, {
+    _i14.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -242,7 +256,7 @@ class MockAuthSessionBloc extends _i1.Mock implements _i3.AuthSessionBloc {
       );
   @override
   void onTransition(
-          _i13.Transition<_i3.AuthSessionEvent, _i3.AuthSessionState>?
+          _i14.Transition<_i3.AuthSessionEvent, _i3.AuthSessionState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -252,16 +266,16 @@ class MockAuthSessionBloc extends _i1.Mock implements _i3.AuthSessionBloc {
         returnValueForMissingStub: null,
       );
   @override
-  _i12.Future<void> close() => (super.noSuchMethod(
+  _i13.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i12.Future<void>.value(),
-        returnValueForMissingStub: _i12.Future<void>.value(),
-      ) as _i12.Future<void>);
+        returnValue: _i13.Future<void>.value(),
+        returnValueForMissingStub: _i13.Future<void>.value(),
+      ) as _i13.Future<void>);
   @override
-  void onChange(_i13.Change<_i3.AuthSessionState>? change) =>
+  void onChange(_i14.Change<_i3.AuthSessionState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
@@ -305,7 +319,7 @@ class MockAuthSessionBloc extends _i1.Mock implements _i3.AuthSessionBloc {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthenticationRepository extends _i1.Mock
-    implements _i14.AuthenticationRepository {
+    implements _i15.AuthenticationRepository {
   MockAuthenticationRepository() {
     _i1.throwOnMissingStub(this);
   }
@@ -359,7 +373,7 @@ class MockAuthenticationRepository extends _i1.Mock
         ),
       ) as _i9.LocalAuthentication);
   @override
-  _i12.Future<_i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>>
+  _i13.Future<_i10.Either<_i16.SignUpFailure, _i17.LoggedInUser>>
       signUpWithEmailAndPassword({
     required String? email,
     required String? password,
@@ -373,9 +387,9 @@ class MockAuthenticationRepository extends _i1.Mock
                 #password: password,
               },
             ),
-            returnValue: _i12.Future<
-                    _i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>>.value(
-                _FakeEither_8<_i15.SignUpFailure, _i16.LoggedInUser>(
+            returnValue: _i13.Future<
+                    _i10.Either<_i16.SignUpFailure, _i17.LoggedInUser>>.value(
+                _FakeEither_8<_i16.SignUpFailure, _i17.LoggedInUser>(
               this,
               Invocation.method(
                 #signUpWithEmailAndPassword,
@@ -386,9 +400,9 @@ class MockAuthenticationRepository extends _i1.Mock
                 },
               ),
             )),
-          ) as _i12.Future<_i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>>);
+          ) as _i13.Future<_i10.Either<_i16.SignUpFailure, _i17.LoggedInUser>>);
   @override
-  _i12.Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>
+  _i13.Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>
       signInWithEmailAndPassword({
     required String? email,
     required String? password,
@@ -402,9 +416,9 @@ class MockAuthenticationRepository extends _i1.Mock
                 #password: password,
               },
             ),
-            returnValue: _i12.Future<
-                    _i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>.value(
-                _FakeEither_8<_i15.SignInFailure, _i16.LoggedInUser>(
+            returnValue: _i13.Future<
+                    _i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>.value(
+                _FakeEither_8<_i16.SignInFailure, _i17.LoggedInUser>(
               this,
               Invocation.method(
                 #signInWithEmailAndPassword,
@@ -415,9 +429,9 @@ class MockAuthenticationRepository extends _i1.Mock
                 },
               ),
             )),
-          ) as _i12.Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>);
+          ) as _i13.Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>);
   @override
-  _i12.Future<bool> verifyPassword(
+  _i13.Future<bool> verifyPassword(
     String? userId,
     String? password,
   ) =>
@@ -429,10 +443,10 @@ class MockAuthenticationRepository extends _i1.Mock
             password,
           ],
         ),
-        returnValue: _i12.Future<bool>.value(false),
-      ) as _i12.Future<bool>);
+        returnValue: _i13.Future<bool>.value(false),
+      ) as _i13.Future<bool>);
   @override
-  _i12.Future<_i10.Either<_i15.SignUpFailure, bool>> updatePassword(
+  _i13.Future<_i10.Either<_i16.SignUpFailure, bool>> updatePassword(
     String? email,
     String? oldPassword,
     String? newPassword,
@@ -446,8 +460,8 @@ class MockAuthenticationRepository extends _i1.Mock
             newPassword,
           ],
         ),
-        returnValue: _i12.Future<_i10.Either<_i15.SignUpFailure, bool>>.value(
-            _FakeEither_8<_i15.SignUpFailure, bool>(
+        returnValue: _i13.Future<_i10.Either<_i16.SignUpFailure, bool>>.value(
+            _FakeEither_8<_i16.SignUpFailure, bool>(
           this,
           Invocation.method(
             #updatePassword,
@@ -458,36 +472,36 @@ class MockAuthenticationRepository extends _i1.Mock
             ],
           ),
         )),
-      ) as _i12.Future<_i10.Either<_i15.SignUpFailure, bool>>);
+      ) as _i13.Future<_i10.Either<_i16.SignUpFailure, bool>>);
   @override
-  _i12.Future<void> isFingerprintAuthPossible() => (super.noSuchMethod(
+  _i13.Future<void> isFingerprintAuthPossible() => (super.noSuchMethod(
         Invocation.method(
           #isFingerprintAuthPossible,
           [],
         ),
-        returnValue: _i12.Future<void>.value(),
-        returnValueForMissingStub: _i12.Future<void>.value(),
-      ) as _i12.Future<void>);
+        returnValue: _i13.Future<void>.value(),
+        returnValueForMissingStub: _i13.Future<void>.value(),
+      ) as _i13.Future<void>);
   @override
-  _i12.Stream<_i11.FingerPrintAuthState> processFingerPrintAuth() =>
+  _i13.Stream<_i11.FingerPrintAuthState> processFingerPrintAuth() =>
       (super.noSuchMethod(
         Invocation.method(
           #processFingerPrintAuth,
           [],
         ),
-        returnValue: _i12.Stream<_i11.FingerPrintAuthState>.empty(),
-      ) as _i12.Stream<_i11.FingerPrintAuthState>);
+        returnValue: _i13.Stream<_i11.FingerPrintAuthState>.empty(),
+      ) as _i13.Stream<_i11.FingerPrintAuthState>);
   @override
-  _i12.Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>
+  _i13.Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>
       signInDirectly({required String? userId}) => (super.noSuchMethod(
             Invocation.method(
               #signInDirectly,
               [],
               {#userId: userId},
             ),
-            returnValue: _i12.Future<
-                    _i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>.value(
-                _FakeEither_8<_i15.SignInFailure, _i16.LoggedInUser>(
+            returnValue: _i13.Future<
+                    _i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>.value(
+                _FakeEither_8<_i16.SignInFailure, _i17.LoggedInUser>(
               this,
               Invocation.method(
                 #signInDirectly,
@@ -495,27 +509,27 @@ class MockAuthenticationRepository extends _i1.Mock
                 {#userId: userId},
               ),
             )),
-          ) as _i12.Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>);
+          ) as _i13.Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>);
   @override
-  _i12.Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>
+  _i13.Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>
       submitForgotPasswordEmail(String? forgotPasswordEmail) =>
           (super.noSuchMethod(
             Invocation.method(
               #submitForgotPasswordEmail,
               [forgotPasswordEmail],
             ),
-            returnValue: _i12
-                .Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>.value(
-                _FakeEither_8<_i15.ForgotPasswordFailure, bool>(
+            returnValue: _i13
+                .Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>.value(
+                _FakeEither_8<_i16.ForgotPasswordFailure, bool>(
               this,
               Invocation.method(
                 #submitForgotPasswordEmail,
                 [forgotPasswordEmail],
               ),
             )),
-          ) as _i12.Future<_i10.Either<_i15.ForgotPasswordFailure, bool>>);
+          ) as _i13.Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>);
   @override
-  _i12.Future<_i10.Either<_i15.SignUpFailure, bool>> updateEmail({
+  _i13.Future<_i10.Either<_i16.SignUpFailure, bool>> updateEmail({
     required String? oldEmail,
     required String? password,
     required String? newEmail,
@@ -530,8 +544,8 @@ class MockAuthenticationRepository extends _i1.Mock
             #newEmail: newEmail,
           },
         ),
-        returnValue: _i12.Future<_i10.Either<_i15.SignUpFailure, bool>>.value(
-            _FakeEither_8<_i15.SignUpFailure, bool>(
+        returnValue: _i13.Future<_i10.Either<_i16.SignUpFailure, bool>>.value(
+            _FakeEither_8<_i16.SignUpFailure, bool>(
           this,
           Invocation.method(
             #updateEmail,
@@ -543,14 +557,14 @@ class MockAuthenticationRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i12.Future<_i10.Either<_i15.SignUpFailure, bool>>);
+      ) as _i13.Future<_i10.Either<_i16.SignUpFailure, bool>>);
 }
 
 /// A class which mocks [SignUpWithEmailAndPassword].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSignUpWithEmailAndPassword extends _i1.Mock
-    implements _i17.SignUpWithEmailAndPassword {
+    implements _i18.SignUpWithEmailAndPassword {
   MockSignUpWithEmailAndPassword() {
     _i1.throwOnMissingStub(this);
   }
@@ -581,30 +595,30 @@ class MockSignUpWithEmailAndPassword extends _i1.Mock
         ),
       ) as _i11.IAuthenticationRepository);
   @override
-  _i12.Future<_i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>> call(
-          _i17.SignUpParams? params) =>
+  _i13.Future<_i10.Either<_i16.SignUpFailure, _i17.LoggedInUser>> call(
+          _i18.SignUpParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i12
-            .Future<_i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>>.value(
-            _FakeEither_8<_i15.SignUpFailure, _i16.LoggedInUser>(
+        returnValue: _i13
+            .Future<_i10.Either<_i16.SignUpFailure, _i17.LoggedInUser>>.value(
+            _FakeEither_8<_i16.SignUpFailure, _i17.LoggedInUser>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i12.Future<_i10.Either<_i15.SignUpFailure, _i16.LoggedInUser>>);
+      ) as _i13.Future<_i10.Either<_i16.SignUpFailure, _i17.LoggedInUser>>);
 }
 
 /// A class which mocks [SignInWithEmailAndPassword].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSignInWithEmailAndPassword extends _i1.Mock
-    implements _i18.SignInWithEmailAndPassword {
+    implements _i19.SignInWithEmailAndPassword {
   MockSignInWithEmailAndPassword() {
     _i1.throwOnMissingStub(this);
   }
@@ -627,30 +641,30 @@ class MockSignInWithEmailAndPassword extends _i1.Mock
         ),
       ) as _i11.IAuthenticationRepository);
   @override
-  _i12.Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>> call(
-          _i18.SignInParams? params) =>
+  _i13.Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>> call(
+          _i19.SignInParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i12
-            .Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>.value(
-            _FakeEither_8<_i15.SignInFailure, _i16.LoggedInUser>(
+        returnValue: _i13
+            .Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>.value(
+            _FakeEither_8<_i16.SignInFailure, _i17.LoggedInUser>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i12.Future<_i10.Either<_i15.SignInFailure, _i16.LoggedInUser>>);
+      ) as _i13.Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>);
 }
 
 /// A class which mocks [KeyValueDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockKeyValueDataSource extends _i1.Mock
-    implements _i19.KeyValueDataSource {
+    implements _i20.KeyValueDataSource {
   MockKeyValueDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -661,7 +675,7 @@ class MockKeyValueDataSource extends _i1.Mock
         [key],
       )) as String?);
   @override
-  _i12.Future<void> setValue(
+  _i13.Future<void> setValue(
     String? key,
     String? value,
   ) =>
@@ -673,16 +687,16 @@ class MockKeyValueDataSource extends _i1.Mock
             value,
           ],
         ),
-        returnValue: _i12.Future<void>.value(),
-        returnValueForMissingStub: _i12.Future<void>.value(),
-      ) as _i12.Future<void>);
+        returnValue: _i13.Future<void>.value(),
+        returnValueForMissingStub: _i13.Future<void>.value(),
+      ) as _i13.Future<void>);
 }
 
 /// A class which mocks [FingerPrintAuthRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFingerPrintAuthRepository extends _i1.Mock
-    implements _i20.FingerPrintAuthRepository {
+    implements _i21.FingerPrintAuthRepository {
   MockFingerPrintAuthRepository() {
     _i1.throwOnMissingStub(this);
   }
@@ -714,7 +728,7 @@ class MockFingerPrintAuthRepository extends _i1.Mock
       ) as _i11.IAuthenticationRepository);
   @override
   set fingerPrintAuthStreamSubscription(
-          _i12.StreamSubscription<_i11.FingerPrintAuthState?>?
+          _i13.StreamSubscription<_i11.FingerPrintAuthState?>?
               _fingerPrintAuthStreamSubscription) =>
       super.noSuchMethod(
         Invocation.setter(
@@ -746,10 +760,11 @@ class MockFingerPrintAuthRepository extends _i1.Mock
         returnValue: false,
       ) as bool);
   @override
-  void startFingerPrintAuthIfNeeded(BuildContext context) => super.noSuchMethod(
+  void startFingerPrintAuthIfNeeded(_i22.BuildContext? context) =>
+      super.noSuchMethod(
         Invocation.method(
           #startFingerPrintAuthIfNeeded,
-          [],
+          [context],
         ),
         returnValueForMissingStub: null,
       );
@@ -761,4 +776,103 @@ class MockFingerPrintAuthRepository extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [PINAuthRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPINAuthRepository extends _i1.Mock implements _i23.PINAuthRepository {
+  MockPINAuthRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.IKeyValueDataSource get keyValueDataSource => (super.noSuchMethod(
+        Invocation.getter(#keyValueDataSource),
+        returnValue: _FakeIKeyValueDataSource_0(
+          this,
+          Invocation.getter(#keyValueDataSource),
+        ),
+      ) as _i2.IKeyValueDataSource);
+  @override
+  _i3.AuthSessionBloc get authSessionBloc => (super.noSuchMethod(
+        Invocation.getter(#authSessionBloc),
+        returnValue: _FakeAuthSessionBloc_10(
+          this,
+          Invocation.getter(#authSessionBloc),
+        ),
+      ) as _i3.AuthSessionBloc);
+  @override
+  _i11.IAuthenticationRepository get authenticationRepository =>
+      (super.noSuchMethod(
+        Invocation.getter(#authenticationRepository),
+        returnValue: _FakeIAuthenticationRepository_9(
+          this,
+          Invocation.getter(#authenticationRepository),
+        ),
+      ) as _i11.IAuthenticationRepository);
+  @override
+  _i12.FlutterSecureStorage get storage => (super.noSuchMethod(
+        Invocation.getter(#storage),
+        returnValue: _FakeFlutterSecureStorage_11(
+          this,
+          Invocation.getter(#storage),
+        ),
+      ) as _i12.FlutterSecureStorage);
+  @override
+  _i13.Future<void> savePIN(
+    String? userId,
+    String? pin,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #savePIN,
+          [
+            userId,
+            pin,
+          ],
+        ),
+        returnValue: _i13.Future<void>.value(),
+        returnValueForMissingStub: _i13.Future<void>.value(),
+      ) as _i13.Future<void>);
+  @override
+  _i13.Future<bool> isPINStored(String? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #isPINStored,
+          [userId],
+        ),
+        returnValue: _i13.Future<bool>.value(false),
+      ) as _i13.Future<bool>);
+  @override
+  bool shouldredirectToPINAuthScreen() => (super.noSuchMethod(
+        Invocation.method(
+          #shouldredirectToPINAuthScreen,
+          [],
+        ),
+        returnValue: false,
+      ) as bool);
+  @override
+  _i13.Future<bool> verifyPIN(
+    String? userId,
+    String? pin,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyPIN,
+          [
+            userId,
+            pin,
+          ],
+        ),
+        returnValue: _i13.Future<bool>.value(false),
+      ) as _i13.Future<bool>);
+  @override
+  _i13.Future<void> deletePIN(String? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #deletePIN,
+          [userId],
+        ),
+        returnValue: _i13.Future<void>.value(),
+        returnValueForMissingStub: _i13.Future<void>.value(),
+      ) as _i13.Future<void>);
 }

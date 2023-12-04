@@ -21,6 +21,7 @@ class RouteGenerator {
     } else if (settings.name == AuthPage.route) {
       return MaterialPageRoute(builder: (_) => AuthPage());
     } else if (settings.name == PinSignInForm.route) {
+      // ignore: prefer_const_constructors
       return MaterialPageRoute(builder: (_) => PinSignInForm());
     } else if (settings.name == NoteCreatePage.routeThroughHome) {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());

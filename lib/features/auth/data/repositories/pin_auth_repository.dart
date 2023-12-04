@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
@@ -16,7 +15,7 @@ class PINAuthRepository {
   final IKeyValueDataSource keyValueDataSource;
   final AuthSessionBloc authSessionBloc;
   final IAuthenticationRepository authenticationRepository;
-  final storage = new FlutterSecureStorage();
+  final storage = FlutterSecureStorage();
   PINAuthRepository({
     required this.keyValueDataSource,
     required this.authSessionBloc,
