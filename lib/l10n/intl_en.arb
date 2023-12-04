@@ -109,7 +109,7 @@
   "webdavURL": "WebDAV URL",
   "moreInfo": "More Info",
   "resetPin": "Reset PIN",
-  "enterNewPin": "Enter your new PIN",
+  "enterPin": "Enter your new PIN",
   "pinResetSuccessful": "PIN confirmation feeling",
   "confirmNewPin": "Confirm your new PIN",
   "pinsDontMatch": "The PINs don't match",

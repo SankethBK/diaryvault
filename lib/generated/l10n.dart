@@ -1040,11 +1040,11 @@ class S {
     );
   }
 
-  /// `Enter your new PIN`
-  String get enterNewPin {
+  /// `Enter your PIN`
+  String get enterPin {
     return Intl.message(
-      'Enter your new PIN',
-      name: 'enterNewPin',
+      'Enter your PIN',
+      name: 'enterPin',
       desc: '',
       args: [],
     );

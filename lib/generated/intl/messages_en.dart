@@ -83,8 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
     MessageLookupByLibrary.simpleMessage("Enter current password"),
     "enterNewEmail":
     MessageLookupByLibrary.simpleMessage("Enter new email"),
-    "enterNewPin":
-    MessageLookupByLibrary.simpleMessage("Enter your new PIN"),
+    "enterPin":
+    MessageLookupByLibrary.simpleMessage("Enter your PIN"),
     "enterRegisteredEmail":
     MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
     "exportNotes":
