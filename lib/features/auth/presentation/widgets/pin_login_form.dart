@@ -3,6 +3,7 @@ import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'pin_input_field.dart';
+import 'sign_in_form.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
@@ -53,6 +54,15 @@ class _PinSignInFormState extends State<PinSignInForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            // This will push the route to go to the sign in form
+            Navigator.of(context).pushReplacementNamed(SignInForm.route);
+          },
+        ),
+      ),
       body: BlocBuilder<AuthFormBloc, AuthFormState>(
         bloc: bloc,
         builder: (context, state) {
