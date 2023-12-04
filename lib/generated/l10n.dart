@@ -19,7 +19,7 @@ class S {
 
   static S get current {
     assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
@@ -42,7 +42,7 @@ class S {
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
     assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -1025,6 +1025,86 @@ class S {
     return Intl.message(
       'More Info',
       name: 'moreInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset PIN`
+  String get resetPin {
+    return Intl.message(
+      'Reset PIN',
+      name: 'resetPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your new PIN`
+  String get enterNewPin {
+    return Intl.message(
+      'Enter your new PIN',
+      name: 'enterNewPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PIN confirmation feeling`
+  String get pinResetSuccessful {
+    return Intl.message(
+      'PIN confirmation feeling',
+      name: 'pinResetSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm your new PIN`
+  String get confirmNewPin {
+    return Intl.message(
+      'Confirm your new PIN',
+      name: 'confirmNewPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The PINs don't match`
+  String get pinsDontMatch {
+    return Intl.message(
+      'The PINs don\'t match',
+      name: 'pinsDontMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pin login failed`
+  String get pinLoginFailed {
+    return Intl.message(
+      'Pin login failed',
+      name: 'pinLoginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Pin login`
+  String get enablePINLogin {
+    return Intl.message(
+      'Enable Pin login',
+      name: 'enablePINLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A 4 digit PIN will be prompted on lock screen`
+  String get pinLoginSetupInstructions {
+    return Intl.message(
+      'A 4 digit PIN will be prompted on lock screen',
+      name: 'pinLoginSetupInstructions',
       desc: '',
       args: [],
     );
