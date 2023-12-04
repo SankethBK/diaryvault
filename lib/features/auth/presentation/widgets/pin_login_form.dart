@@ -56,15 +56,6 @@ class _PinSignInFormState extends State<PinSignInForm> {
       body: BlocBuilder<AuthFormBloc, AuthFormState>(
         bloc: bloc,
         builder: (context, state) {
-          String? _getPinErrors() {
-            if (state is AuthFormSubmissionFailed &&
-                state.errors.containsKey("pin") &&
-                state.errors["pin"]?.isNotEmpty == true) {
-              return state.errors["pin"]![0];
-            }
-            return null;
-          }
-
           return GlassMorphismCover(
             borderRadius: BorderRadius.circular(16.0),
             child: FormDimensions(

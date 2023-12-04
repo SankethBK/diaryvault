@@ -15,6 +15,7 @@ class PINAuthRepository {
   final IKeyValueDataSource keyValueDataSource;
   final AuthSessionBloc authSessionBloc;
   final IAuthenticationRepository authenticationRepository;
+  // ignore: prefer_const_constructors
   final storage = FlutterSecureStorage();
   PINAuthRepository({
     required this.keyValueDataSource,

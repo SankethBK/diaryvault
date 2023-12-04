@@ -29,7 +29,7 @@ class AuthFormGuestSignIn extends AuthFormEvent {}
 // added to handle direct sign in for pin
 class AuthFormSignInDirectlySubmitted extends AuthFormEvent {
   final String userId;
-
+  // ignore: prefer_const_constructors_in_immutables
   AuthFormSignInDirectlySubmitted({required this.userId});
 
   @override
