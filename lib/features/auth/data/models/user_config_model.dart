@@ -8,7 +8,6 @@ enum NoteSortType {
   sortByAtoZ("sortByAtoZ");
 
   const NoteSortType(this.text);
-
   factory NoteSortType.fromStringValue(String stringValue) {
     switch (stringValue) {
       case 'sortByLatestFirst':
@@ -35,6 +34,7 @@ class UserConfigModel extends Equatable {
   final String? dropBoxUserInfo;
   final bool? isAutoSyncEnabled;
   final bool? isFingerPrintLoginEnabled;
+  final bool? isPINLoginEnabled;
   final bool? isAutoSaveEnabled;
   final bool? isDailyReminderEnabled;
   final TimeOfDay? reminderTime;
@@ -51,6 +51,7 @@ class UserConfigModel extends Equatable {
     this.dropBoxUserInfo,
     this.isAutoSyncEnabled,
     this.isFingerPrintLoginEnabled,
+    this.isPINLoginEnabled,
     this.isAutoSaveEnabled,
     this.isDailyReminderEnabled,
     this.reminderTime,
@@ -58,24 +59,24 @@ class UserConfigModel extends Equatable {
     this.nextCloudUserInfo,
     this.lastNextCloudSync,
   });
-
   @override
   List<Object?> get props => [
-        userId,
-        preferredSyncOption,
-        lastGoogleDriveSync,
-        lastDropboxSync,
-        googleDriveUserInfo,
-        dropBoxUserInfo,
-        isAutoSyncEnabled,
-        isFingerPrintLoginEnabled,
-        isAutoSaveEnabled,
-        isDailyReminderEnabled,
-        reminderTime,
-        noteSortType,
-        nextCloudUserInfo,
-        lastNextCloudSync
-      ];
+    userId,
+    preferredSyncOption,
+    lastGoogleDriveSync,
+    lastDropboxSync,
+    googleDriveUserInfo,
+    dropBoxUserInfo,
+    isAutoSyncEnabled,
+    isFingerPrintLoginEnabled,
+    isPINLoginEnabled,
+    isAutoSaveEnabled,
+    isDailyReminderEnabled,
+    reminderTime,
+    noteSortType,
+    nextCloudUserInfo,
+    lastNextCloudSync
+  ];
 
   static TimeOfDay? getTimeOfDayFromTimeString(String? timeString) {
     if (timeString != null) {
@@ -101,7 +102,7 @@ class UserConfigModel extends Equatable {
     final minute = time.minute.toString();
     final formattedHour = hour.length == 1 ? hour.padLeft(2, '0') : hour;
     final formattedMinute =
-        minute.length == 1 ? minute.padLeft(2, '0') : minute;
+    minute.length == 1 ? minute.padLeft(2, '0') : minute;
 
     return '$formattedHour:$formattedMinute';
   }
@@ -111,32 +112,33 @@ class UserConfigModel extends Equatable {
       userId: jsonMap[UserConfigConstants.userId],
       preferredSyncOption: jsonMap[UserConfigConstants.preferredSyncOption],
       lastGoogleDriveSync:
-          jsonMap[UserConfigConstants.lastGoogleDriveSync] != null
-              ? DateTime.fromMillisecondsSinceEpoch(
-                  jsonMap[UserConfigConstants.lastGoogleDriveSync])
-              : null,
+      jsonMap[UserConfigConstants.lastGoogleDriveSync] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+          jsonMap[UserConfigConstants.lastGoogleDriveSync])
+          : null,
       lastDropboxSync: jsonMap[UserConfigConstants.lastDropboxSync] != null
           ? DateTime.fromMillisecondsSinceEpoch(
-              jsonMap[UserConfigConstants.lastDropboxSync])
+          jsonMap[UserConfigConstants.lastDropboxSync])
           : null,
       googleDriveUserInfo: jsonMap[UserConfigConstants.googleDriveUserInfo],
       dropBoxUserInfo: jsonMap[UserConfigConstants.dropBoxUserInfo],
       isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
       isFingerPrintLoginEnabled:
-          jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
+      jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
+      isPINLoginEnabled: jsonMap[UserConfigConstants.isPINLoginEnabled],
       isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
       isDailyReminderEnabled:
-          jsonMap[UserConfigConstants.isDailyReminderEnabled],
+      jsonMap[UserConfigConstants.isDailyReminderEnabled],
       reminderTime:
-          getTimeOfDayFromTimeString(jsonMap[UserConfigConstants.reminderTime]),
+      getTimeOfDayFromTimeString(jsonMap[UserConfigConstants.reminderTime]),
       noteSortType: jsonMap[UserConfigConstants.noteSortType] != null
           ? NoteSortType.fromStringValue(
-              jsonMap[UserConfigConstants.noteSortType])
+          jsonMap[UserConfigConstants.noteSortType])
           : null,
       nextCloudUserInfo: jsonMap[UserConfigConstants.nextCloudUserInfo],
       lastNextCloudSync: jsonMap[UserConfigConstants.lastNextCloudSync] != null
           ? DateTime.fromMillisecondsSinceEpoch(
-              jsonMap[UserConfigConstants.lastNextCloudSync])
+          jsonMap[UserConfigConstants.lastNextCloudSync])
           : null,
     );
   }
@@ -146,20 +148,21 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.userId: userId,
       UserConfigConstants.preferredSyncOption: preferredSyncOption,
       UserConfigConstants.lastGoogleDriveSync:
-          lastGoogleDriveSync?.millisecondsSinceEpoch,
+      lastGoogleDriveSync?.millisecondsSinceEpoch,
       UserConfigConstants.lastDropboxSync:
-          lastDropboxSync?.millisecondsSinceEpoch,
+      lastDropboxSync?.millisecondsSinceEpoch,
       UserConfigConstants.googleDriveUserInfo: googleDriveUserInfo,
       UserConfigConstants.dropBoxUserInfo: dropBoxUserInfo,
       UserConfigConstants.isAutoSyncEnabled: isAutoSyncEnabled,
       UserConfigConstants.isFingerPrintLoginEnabled: isFingerPrintLoginEnabled,
+      UserConfigConstants.isPINLoginEnabled: isPINLoginEnabled,
       UserConfigConstants.isAutoSaveEnabled: isAutoSaveEnabled,
       UserConfigConstants.isDailyReminderEnabled: isDailyReminderEnabled,
       UserConfigConstants.reminderTime: getTimeOfDayToString(reminderTime),
       UserConfigConstants.noteSortType: noteSortType?.text,
       UserConfigConstants.nextCloudUserInfo: nextCloudUserInfo,
       UserConfigConstants.lastNextCloudSync:
-          lastNextCloudSync?.millisecondsSinceEpoch,
+      lastNextCloudSync?.millisecondsSinceEpoch,
     };
   }
 }
