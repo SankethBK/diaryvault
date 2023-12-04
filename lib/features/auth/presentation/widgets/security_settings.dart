@@ -10,6 +10,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/auth/presentation/widgets/email_change_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/pin_reset_popup.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,7 @@ class SecuritySettings extends StatelessWidget {
       builder: (context, state) {
         var isFingerPrintLoginEnabledValue =
             state.userConfigModel!.isFingerPrintLoginEnabled;
+        var isPINLoginEnabledValue = state.userConfigModel!.isPINLoginEnabled;
 
         final userId = state.userConfigModel?.userId;
         return SimpleAccordion(
@@ -98,10 +100,10 @@ class SecuritySettings extends StatelessWidget {
                                   context: context,
                                   submitPassword: (newPassword) =>
                                       authenticationRepository.updatePassword(
-                                    authSessionBloc.state.user!.email,
-                                    result,
-                                    newPassword,
-                                  ),
+                                        authSessionBloc.state.user!.email,
+                                        result,
+                                        newPassword,
+                                      ),
                                 );
                               }
                             },
@@ -141,12 +143,12 @@ class SecuritySettings extends StatelessWidget {
                               if (result != null) {
                                 emailChanged = await emailChangePopup(
                                   context,
-                                  (newEmail) =>
+                                      (newEmail) =>
                                       authenticationRepository.updateEmail(
-                                    oldEmail: authSessionBloc.state.user!.email,
-                                    password: result,
-                                    newEmail: newEmail,
-                                  ),
+                                        oldEmail: authSessionBloc.state.user!.email,
+                                        password: result,
+                                        newEmail: newEmail,
+                                      ),
                                 );
                               }
 
@@ -188,6 +190,49 @@ class SecuritySettings extends StatelessWidget {
                                   .isFingerprintAuthPossible();
                               userConfigCubit.setUserConfig(
                                 UserConfigConstants.isFingerPrintLoginEnabled,
+                                value,
+                              );
+                            } on Exception catch (e) {
+                              showToast(
+                                  e.toString().replaceAll("Exception: ", ""));
+                            }
+                          },
+                        ),
+                        SwitchListTile(
+                          inactiveTrackColor: inactiveTrackColor,
+                          activeColor: activeColor,
+                          contentPadding: const EdgeInsets.all(0.0),
+                          title: Text(
+                            S.current.enablePINLogin,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          subtitle: Text(
+                            S.current.pinLoginSetupInstructions,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          value: isPINLoginEnabledValue ?? false,
+                          onChanged: (value) async {
+                            if (userId == null) {
+                              showToast(S.current.unexpectedErrorOccured);
+                              return;
+                            }
+
+                            if (userId == GuestUserDetails.guestUserId) {
+                              showToast(S.current
+                                  .pleaseSetupYourAccountToUseThisFeature);
+                              return;
+                            }
+                            if (value == true) {
+                              // Call the PIN reset popup
+                              await pinResetPopup(
+                                context: context,
+                                userPinId: userId,
+                              );
+                            }
+
+                            try {
+                              userConfigCubit.setUserConfig(
+                                UserConfigConstants.isPINLoginEnabled, //change
                                 value,
                               );
                             } on Exception catch (e) {
