@@ -25,3 +25,13 @@ class AuthFormSignInSubmitted extends AuthFormEvent {
 class ResetAuthForm extends AuthFormEvent {}
 
 class AuthFormGuestSignIn extends AuthFormEvent {}
+
+// added to handle direct sign in for pin
+class AuthFormSignInDirectlySubmitted extends AuthFormEvent {
+  final String userId;
+
+  AuthFormSignInDirectlySubmitted({required this.userId});
+
+  @override
+  List<Object> get props => [userId];
+}

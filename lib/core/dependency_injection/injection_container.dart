@@ -89,6 +89,7 @@ Future<void> init() async {
       authenticationRepository: sl(),
       keyValueDataSource: sl(),
       fingerPrintAuthRepository: sl(),
+      pinAuthRepository: sl(),
     ),
   );
   sl.registerSingleton<UserConfigCubit>(
@@ -107,7 +108,11 @@ Future<void> init() async {
   ));
 
   // Added pin authentication repository to injection
-  sl.registerSingleton<PINAuthRepository>(PINAuthRepository());
+  sl.registerSingleton<PINAuthRepository>(PINAuthRepository(
+    keyValueDataSource: sl(),
+    authSessionBloc: sl(),
+    authenticationRepository: sl(),
+  ));
 
   //* Usecases
   sl.registerLazySingleton<SignUpWithEmailAndPassword>(

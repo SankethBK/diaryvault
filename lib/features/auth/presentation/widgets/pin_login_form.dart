@@ -1,0 +1,133 @@
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+import 'package:dairy_app/core/utils/utils.dart';
+import 'package:dairy_app/core/widgets/glass_dialog.dart';
+import 'package:dairy_app/core/widgets/submit_button.dart';
+import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'pin_input_field.dart';
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dairy_app/core/utils/utils.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/core/widgets/submit_button.dart';
+import 'package:dairy_app/features/auth/core/failures/failures.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/form_dimensions.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/pin_input_field.dart';
+import 'package:dairy_app/generated/l10n.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
+import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
+import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+
+class PinSignInForm extends StatefulWidget {
+  static String get route => '/pin-auth';
+
+  const PinSignInForm({Key? key}) : super(key: key);
+
+  @override
+  State<PinSignInForm> createState() => _PinSignInFormState();
+}
+
+class _PinSignInFormState extends State<PinSignInForm> {
+  late AuthFormBloc bloc;
+  final pinAuthRepository = sl<PINAuthRepository>();
+  String enteredPin = "";
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<AuthFormBloc>(context);
+  }
+
+  void _onPinChanged(String pin) {
+    enteredPin = pin;
+  }
+
+  String? _getUserHelper() {
+    String? userId = pinAuthRepository.getUserId();
+    return userId;
+  }
+
+  Future<bool> _onSubmitted() async {
+    String? userId = _getUserHelper();
+    if (userId != null) {
+      bool isPinValid = await pinAuthRepository.verifyPIN(userId, enteredPin);
+      return isPinValid;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocBuilder<AuthFormBloc, AuthFormState>(
+        bloc: bloc,
+        builder: (context, state) {
+          String? _getPinErrors() {
+            if (state is AuthFormSubmissionFailed &&
+                state.errors.containsKey("pin") &&
+                state.errors["pin"]?.isNotEmpty == true) {
+              return state.errors["pin"]![0];
+            }
+            return null;
+          }
+
+          return GlassMorphismCover(
+            borderRadius: BorderRadius.circular(16.0),
+            child: FormDimensions(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      S.current.enterPin,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                      ),
+                    ),
+                    AuthPinInput(
+                      getPinErrors: () => null,
+                      onPinChanged: _onPinChanged,
+                      autoFocus: true,
+                    ),
+                    const SizedBox(height: 30),
+                    StatefulBuilder(builder: (context, setState) {
+                      return SubmitButton(
+                        isLoading: state is AuthFormSubmissionLoading,
+                        onSubmitted: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          bool verifiedPin = await _onSubmitted();
+                          String? userId = _getUserHelper();
+                          if (verifiedPin == false || userId == null) {
+                            showToast(S.current.pinLoginFailed);
+                            setState(() => isLoading = false);
+                            return;
+                          } else if (verifiedPin == true && userId != null) {
+                            setState(() => isLoading = false);
+                            bloc.add(AuthFormSignInDirectlySubmitted(
+                                userId: userId));
+                          }
+                        },
+                        buttonText: S.current.submit,
+                      );
+                    })
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

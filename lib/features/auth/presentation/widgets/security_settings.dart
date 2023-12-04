@@ -100,10 +100,10 @@ class SecuritySettings extends StatelessWidget {
                                   context: context,
                                   submitPassword: (newPassword) =>
                                       authenticationRepository.updatePassword(
-                                        authSessionBloc.state.user!.email,
-                                        result,
-                                        newPassword,
-                                      ),
+                                    authSessionBloc.state.user!.email,
+                                    result,
+                                    newPassword,
+                                  ),
                                 );
                               }
                             },
@@ -143,12 +143,12 @@ class SecuritySettings extends StatelessWidget {
                               if (result != null) {
                                 emailChanged = await emailChangePopup(
                                   context,
-                                      (newEmail) =>
+                                  (newEmail) =>
                                       authenticationRepository.updateEmail(
-                                        oldEmail: authSessionBloc.state.user!.email,
-                                        password: result,
-                                        newEmail: newEmail,
-                                      ),
+                                    oldEmail: authSessionBloc.state.user!.email,
+                                    password: result,
+                                    newEmail: newEmail,
+                                  ),
                                 );
                               }
 
@@ -212,8 +212,10 @@ class SecuritySettings extends StatelessWidget {
                           ),
                           value: isPINLoginEnabledValue ?? false,
                           onChanged: (value) async {
-                            if (userId == null || userId == GuestUserDetails.guestUserId) {
-                              showToast(S.current.pleaseSetupYourAccountToUseThisFeature);
+                            if (userId == null ||
+                                userId == GuestUserDetails.guestUserId) {
+                              showToast(S.current
+                                  .pleaseSetupYourAccountToUseThisFeature);
                               return;
                             }
 
@@ -232,7 +234,9 @@ class SecuritySettings extends StatelessWidget {
                                     value,
                                   );
                                 } on Exception catch (e) {
-                                  showToast(e.toString().replaceAll("Exception: ", ""));
+                                  showToast(e
+                                      .toString()
+                                      .replaceAll("Exception: ", ""));
                                 }
                               }
                             } else {

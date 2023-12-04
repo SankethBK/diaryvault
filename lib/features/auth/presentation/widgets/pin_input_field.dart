@@ -23,8 +23,8 @@ class _AuthPinInputState extends State<AuthPinInput> {
   bool _pinVisibility = true;
 
   void _togglePinVisibility() => setState(() {
-    _pinVisibility = !_pinVisibility;
-  });
+        _pinVisibility = !_pinVisibility;
+      });
 
   @override
   Widget build(BuildContext context) {

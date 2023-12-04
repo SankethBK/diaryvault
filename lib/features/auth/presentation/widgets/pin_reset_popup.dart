@@ -68,13 +68,15 @@ Future<bool> pinResetPopup({
                   if (newPin != confirmNewPin) {
                     showToast(S.current.pinsDontMatch);
                     setState(() => isLoading = false);
-                    Navigator.pop(context, false); // Return false if pins don't match
+                    Navigator.pop(
+                        context, false); // Return false if pins don't match
                     return; // Ensure that the function exits here and doesn't proceed further
                   }
                   try {
                     // Use the provided submitPin function to handle the new PIN
                     await pinAuthRepository.savePIN(userId, newPin);
-                    Navigator.pop(context, true); // Return true on successful save
+                    Navigator.pop(
+                        context, true); // Return true on successful save
                   } catch (e) {
                     showToast(e.toString());
                     Navigator.pop(context, false); // Return false on error
