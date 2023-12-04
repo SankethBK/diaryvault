@@ -8,8 +8,10 @@ import 'pin_input_field.dart';
 import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 
-Future<dynamic> pinResetPopup(
-    {required BuildContext context, required String userPinId}) {
+Future<bool> pinResetPopup({
+  required BuildContext context,
+  required String userPinId,
+}) async {
   String newPin = "";
   String confirmNewPin = "";
   String userId = userPinId;
@@ -28,7 +30,8 @@ Future<dynamic> pinResetPopup(
   final mainTextColor =
       Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
 
-  return showCustomDialog(
+  // Using 'await' with 'showCustomDialog' to get the result when the dialog is closed
+  return await showCustomDialog(
     context: context,
     child: Container(
       width: 300,
@@ -64,15 +67,20 @@ Future<dynamic> pinResetPopup(
                   });
                   if (newPin != confirmNewPin) {
                     showToast(S.current.pinsDontMatch);
-                    // ensures that isn't stuck in loading
                     setState(() => isLoading = false);
-                    return;
+                    Navigator.pop(context, false); // Return false if pins don't match
+                    return; // Ensure that the function exits here and doesn't proceed further
                   }
-                  // Use the provided submitPin function to handle the new PIN
-                  await pinAuthRepository.savePIN(userId, newPin);
-
-                  setState(() => isLoading = false);
-                  Navigator.pop(context);
+                  try {
+                    // Use the provided submitPin function to handle the new PIN
+                    await pinAuthRepository.savePIN(userId, newPin);
+                    Navigator.pop(context, true); // Return true on successful save
+                  } catch (e) {
+                    showToast(e.toString());
+                    Navigator.pop(context, false); // Return false on error
+                  } finally {
+                    setState(() => isLoading = false);
+                  }
                 },
                 buttonText: S.current.submit);
           })
