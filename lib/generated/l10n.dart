@@ -1030,6 +1030,86 @@ class S {
     );
   }
 
+  /// `Reset PIN`
+  String get resetPin {
+    return Intl.message(
+      'Reset PIN',
+      name: 'resetPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your PIN`
+  String get enterPin {
+    return Intl.message(
+      'Enter your PIN',
+      name: 'enterPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PIN confirmation feeling`
+  String get pinResetSuccessful {
+    return Intl.message(
+      'PIN confirmation feeling',
+      name: 'pinResetSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm your new PIN`
+  String get confirmNewPin {
+    return Intl.message(
+      'Confirm your new PIN',
+      name: 'confirmNewPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The PINs don't match`
+  String get pinsDontMatch {
+    return Intl.message(
+      'The PINs don\'t match',
+      name: 'pinsDontMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pin login failed`
+  String get pinLoginFailed {
+    return Intl.message(
+      'Pin login failed',
+      name: 'pinLoginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Pin login`
+  String get enablePINLogin {
+    return Intl.message(
+      'Enable Pin login',
+      name: 'enablePINLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An up 4 to digit PIN will be prompted on lock screen`
+  String get pinLoginSetupInstructions {
+    return Intl.message(
+      'An up to 4 digit PIN will be prompted on lock screen',
+      name: 'pinLoginSetupInstructions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Font Family`
   String get fontFamily {
     return Intl.message(

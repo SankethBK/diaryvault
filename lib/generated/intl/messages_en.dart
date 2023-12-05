@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "closeTheApp": MessageLookupByLibrary.simpleMessage("Close the App?"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirm new password"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("Confirm your new PIN"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("Continue as guest"),
         "dailyReminders":
@@ -75,10 +77,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enable Daily Reminders"),
         "enableFingerPrintLogin":
             MessageLookupByLibrary.simpleMessage("Enable fingerprint login"),
+        "enablePINLogin":
+            MessageLookupByLibrary.simpleMessage("Enable Pin login"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("Enter current password"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("Enter new email"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Enter your PIN"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
         "exportNotes":
@@ -142,11 +147,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password verified"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "pinLoginFailed":
+            MessageLookupByLibrary.simpleMessage("Pin login failed"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "An up 4 to digit PIN will be prompted on lock screen"),
+        "pinResetSuccessful":
+            MessageLookupByLibrary.simpleMessage("PIN confirmation feeling"),
+        "pinsDontMatch":
+            MessageLookupByLibrary.simpleMessage("The PINs don\'t match"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Please setup your account to use this feature"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Security Settings"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),

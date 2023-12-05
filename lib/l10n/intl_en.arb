@@ -108,5 +108,13 @@
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV URL",
   "moreInfo": "More Info",
+  "resetPin": "Reset PIN",
+  "enterPin": "Enter your PIN",
+  "pinResetSuccessful": "PIN confirmation feeling",
+  "confirmNewPin": "Confirm your new PIN",
+  "pinsDontMatch": "The PINs don't match",
+  "pinLoginFailed": "Pin login failed",
+  "enablePINLogin": "Enable Pin login",
+  "pinLoginSetupInstructions": "An up 4 to digit PIN will be prompted on lock screen",
   "fontFamily": "Font Family"
 }

@@ -10,6 +10,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_confi
 import 'package:dairy_app/features/auth/presentation/widgets/email_change_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/pin_reset_popup.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,7 @@ class SecuritySettings extends StatelessWidget {
       builder: (context, state) {
         var isFingerPrintLoginEnabledValue =
             state.userConfigModel!.isFingerPrintLoginEnabled;
+        var isPINLoginEnabledValue = state.userConfigModel!.isPINLoginEnabled;
 
         final userId = state.userConfigModel?.userId;
         return SimpleAccordion(
@@ -193,6 +195,56 @@ class SecuritySettings extends StatelessWidget {
                             } on Exception catch (e) {
                               showToast(
                                   e.toString().replaceAll("Exception: ", ""));
+                            }
+                          },
+                        ),
+                        SwitchListTile(
+                          inactiveTrackColor: inactiveTrackColor,
+                          activeColor: activeColor,
+                          contentPadding: const EdgeInsets.all(0.0),
+                          title: Text(
+                            S.current.enablePINLogin,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          subtitle: Text(
+                            S.current.pinLoginSetupInstructions,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          value: isPINLoginEnabledValue ?? false,
+                          onChanged: (value) async {
+                            if (userId == null ||
+                                userId == GuestUserDetails.guestUserId) {
+                              showToast(S.current
+                                  .pleaseSetupYourAccountToUseThisFeature);
+                              return;
+                            }
+
+                            if (value == true) {
+                              // Call the PIN reset popup and await its result
+                              bool pinSetSuccessfully = await pinResetPopup(
+                                context: context,
+                                userPinId: userId,
+                              );
+
+                              // Only update the switch state if PIN was set successfully
+                              if (pinSetSuccessfully == true) {
+                                try {
+                                  userConfigCubit.setUserConfig(
+                                    UserConfigConstants.isPINLoginEnabled,
+                                    value,
+                                  );
+                                } on Exception catch (e) {
+                                  showToast(e
+                                      .toString()
+                                      .replaceAll("Exception: ", ""));
+                                }
+                              }
+                            } else {
+                              // Handle the logic for turning off PIN login
+                              userConfigCubit.setUserConfig(
+                                UserConfigConstants.isPINLoginEnabled,
+                                value,
+                              );
                             }
                           },
                         ),
