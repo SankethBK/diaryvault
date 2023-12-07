@@ -126,7 +126,7 @@ class _SignInFormState extends State<SignInForm> {
                       SubmitButton(
                         isLoading: (state is AuthFormSubmissionLoading),
                         onSubmitted: _onSubmitted,
-                        buttonText: "Submit",
+                        buttonText: S.current.submit,
                       )
                     ],
                   ),
