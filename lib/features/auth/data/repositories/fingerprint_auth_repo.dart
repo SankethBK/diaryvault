@@ -111,7 +111,7 @@ class FingerPrintAuthRepository {
           fingerPrintAuthStreamSubscription?.cancel();
           isFingerPrintAuthActivated = false;
 
-          showToast("fingerprint login failed");
+          showToast(S.current.fingerprintLoginFailed);
         }
       });
     }
