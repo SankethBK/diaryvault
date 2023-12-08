@@ -66,6 +66,101 @@ class SecuritySettings extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SwitchListTile(
+                          inactiveTrackColor: inactiveTrackColor,
+                          activeColor: activeColor,
+                          contentPadding: const EdgeInsets.all(0.0),
+                          title: Text(
+                            S.current.enableFingerPrintLogin,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          subtitle: Text(
+                            S.current
+                                .fingerPrintAthShouldBeEnabledInDeviceSettings,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          value: isFingerPrintLoginEnabledValue ?? false,
+                          onChanged: (value) async {
+                            if (userId == null) {
+                              showToast(S.current.unexpectedErrorOccured);
+                              return;
+                            }
+
+                            if (userId == GuestUserDetails.guestUserId) {
+                              showToast(S.current
+                                  .pleaseSetupYourAccountToUseThisFeature);
+                              return;
+                            }
+
+                            try {
+                              await authenticationRepository
+                                  .isFingerprintAuthPossible();
+                              userConfigCubit.setUserConfig(
+                                UserConfigConstants.isFingerPrintLoginEnabled,
+                                value,
+                              );
+                            } on Exception catch (e) {
+                              showToast(
+                                  e.toString().replaceAll("Exception: ", ""));
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        SwitchListTile(
+                          inactiveTrackColor: inactiveTrackColor,
+                          activeColor: activeColor,
+                          contentPadding: const EdgeInsets.all(0.0),
+                          title: Text(
+                            S.current.enablePINLogin,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          subtitle: Text(
+                            S.current.pinLoginSetupInstructions,
+                            style: TextStyle(color: mainTextColor),
+                          ),
+                          value: isPINLoginEnabledValue ?? false,
+                          onChanged: (value) async {
+                            if (userId == null) {
+                              showToast(S.current.unexpectedErrorOccured);
+                              return;
+                            }
+
+                            if (userId == GuestUserDetails.guestUserId) {
+                              showToast(S.current
+                                  .pleaseSetupYourAccountToUseThisFeature);
+                              return;
+                            }
+
+                            if (value == true) {
+                              // Call the PIN reset popup and await its result
+                              bool pinSetSuccessfully = await pinResetPopup(
+                                context: context,
+                                userPinId: userId,
+                              );
+
+                              // Only update the switch state if PIN was set successfully
+                              if (pinSetSuccessfully == true) {
+                                try {
+                                  userConfigCubit.setUserConfig(
+                                    UserConfigConstants.isPINLoginEnabled,
+                                    value,
+                                  );
+                                } on Exception catch (e) {
+                                  showToast(e
+                                      .toString()
+                                      .replaceAll("Exception: ", ""));
+                                }
+                              }
+                            } else {
+                              // Handle the logic for turning off PIN login
+                              userConfigCubit.setUserConfig(
+                                UserConfigConstants.isPINLoginEnabled,
+                                value,
+                              );
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 10),
                         Material(
                           color: Colors.transparent,
                           child: SettingsTile(
@@ -157,96 +252,6 @@ class SecuritySettings extends StatelessWidget {
                               }
                             },
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        SwitchListTile(
-                          inactiveTrackColor: inactiveTrackColor,
-                          activeColor: activeColor,
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: Text(
-                            S.current.enableFingerPrintLogin,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          subtitle: Text(
-                            S.current
-                                .fingerPrintAthShouldBeEnabledInDeviceSettings,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          value: isFingerPrintLoginEnabledValue ?? false,
-                          onChanged: (value) async {
-                            if (userId == null) {
-                              showToast(S.current.unexpectedErrorOccured);
-                              return;
-                            }
-
-                            if (userId == GuestUserDetails.guestUserId) {
-                              showToast(S.current
-                                  .pleaseSetupYourAccountToUseThisFeature);
-                              return;
-                            }
-
-                            try {
-                              await authenticationRepository
-                                  .isFingerprintAuthPossible();
-                              userConfigCubit.setUserConfig(
-                                UserConfigConstants.isFingerPrintLoginEnabled,
-                                value,
-                              );
-                            } on Exception catch (e) {
-                              showToast(
-                                  e.toString().replaceAll("Exception: ", ""));
-                            }
-                          },
-                        ),
-                        SwitchListTile(
-                          inactiveTrackColor: inactiveTrackColor,
-                          activeColor: activeColor,
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: Text(
-                            S.current.enablePINLogin,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          subtitle: Text(
-                            S.current.pinLoginSetupInstructions,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          value: isPINLoginEnabledValue ?? false,
-                          onChanged: (value) async {
-                            if (userId == null ||
-                                userId == GuestUserDetails.guestUserId) {
-                              showToast(S.current
-                                  .pleaseSetupYourAccountToUseThisFeature);
-                              return;
-                            }
-
-                            if (value == true) {
-                              // Call the PIN reset popup and await its result
-                              bool pinSetSuccessfully = await pinResetPopup(
-                                context: context,
-                                userPinId: userId,
-                              );
-
-                              // Only update the switch state if PIN was set successfully
-                              if (pinSetSuccessfully == true) {
-                                try {
-                                  userConfigCubit.setUserConfig(
-                                    UserConfigConstants.isPINLoginEnabled,
-                                    value,
-                                  );
-                                } on Exception catch (e) {
-                                  showToast(e
-                                      .toString()
-                                      .replaceAll("Exception: ", ""));
-                                }
-                              }
-                            } else {
-                              // Handle the logic for turning off PIN login
-                              userConfigCubit.setUserConfig(
-                                UserConfigConstants.isPINLoginEnabled,
-                                value,
-                              );
-                            }
-                          },
                         ),
                       ],
                     ),

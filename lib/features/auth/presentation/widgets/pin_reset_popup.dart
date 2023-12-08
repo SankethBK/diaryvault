@@ -68,9 +68,13 @@ Future<bool> pinResetPopup({
                   if (newPin != confirmNewPin) {
                     showToast(S.current.pinsDontMatch);
                     setState(() => isLoading = false);
-                    Navigator.pop(
-                        context, false); // Return false if pins don't match
-                    return; // Ensure that the function exits here and doesn't proceed further
+                    return;
+                  }
+
+                  if (newPin.length < 4) {
+                    showToast(S.current.pinMustBe4Digit);
+                    setState(() => isLoading = false);
+                    return;
                   }
                   try {
                     // Use the provided submitPin function to handle the new PIN

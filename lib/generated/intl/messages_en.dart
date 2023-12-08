@@ -78,7 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableFingerPrintLogin":
             MessageLookupByLibrary.simpleMessage("Enable fingerprint login"),
         "enablePINLogin":
-            MessageLookupByLibrary.simpleMessage("Enable Pin login"),
+            MessageLookupByLibrary.simpleMessage("Enable PIN login"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("Enter current password"),
         "enterNewEmail":
@@ -148,13 +148,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
         "pinLoginFailed":
-            MessageLookupByLibrary.simpleMessage("Pin login failed"),
+            MessageLookupByLibrary.simpleMessage("PIN login failed"),
         "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
             "An up 4 to digit PIN will be prompted on lock screen"),
+        "pinMustBe4Digit":
+            MessageLookupByLibrary.simpleMessage("Please enter a 4-digit PIN"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("PIN confirmation feeling"),
         "pinsDontMatch":
-            MessageLookupByLibrary.simpleMessage("The PINs don\'t match"),
+            MessageLookupByLibrary.simpleMessage("PINs don\'t match"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Please setup your account to use this feature"),

@@ -1070,30 +1070,30 @@ class S {
     );
   }
 
-  /// `The PINs don't match`
+  /// `PINs don't match`
   String get pinsDontMatch {
     return Intl.message(
-      'The PINs don\'t match',
+      'PINs don\'t match',
       name: 'pinsDontMatch',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pin login failed`
+  /// `PIN login failed`
   String get pinLoginFailed {
     return Intl.message(
-      'Pin login failed',
+      'PIN login failed',
       name: 'pinLoginFailed',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enable Pin login`
+  /// `Enable PIN login`
   String get enablePINLogin {
     return Intl.message(
-      'Enable Pin login',
+      'Enable PIN login',
       name: 'enablePINLogin',
       desc: '',
       args: [],
@@ -1103,7 +1103,7 @@ class S {
   /// `An up 4 to digit PIN will be prompted on lock screen`
   String get pinLoginSetupInstructions {
     return Intl.message(
-      'An up to 4 digit PIN will be prompted on lock screen',
+      'An up 4 to digit PIN will be prompted on lock screen',
       name: 'pinLoginSetupInstructions',
       desc: '',
       args: [],
@@ -1115,6 +1115,16 @@ class S {
     return Intl.message(
       'Font Family',
       name: 'fontFamily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a 4-digit PIN`
+  String get pinMustBe4Digit {
+    return Intl.message(
+      'Please enter a 4-digit PIN',
+      name: 'pinMustBe4Digit',
       desc: '',
       args: [],
     );

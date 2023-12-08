@@ -61,6 +61,7 @@ class _AuthPinInputState extends State<AuthPinInput> {
               Icons.lock,
               color: prefixIconColor,
             ),
+            counterStyle: TextStyle(color: textColor),
             suffixIcon: InkWell(
               onTap: _togglePinVisibility,
               child: Icon(
