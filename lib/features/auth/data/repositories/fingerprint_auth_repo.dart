@@ -9,7 +9,6 @@ import 'package:dairy_app/features/auth/domain/repositories/authentication_repos
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/generated/l10n.dart';
-import 'package:flutter/widgets.dart';
 
 final log = printer("FingerPrintAuthRepo");
 
@@ -109,7 +108,10 @@ class FingerPrintAuthRepository {
 
           showToast(S.current.tooManyWrongAttempts);
         } else if (value == FingerPrintAuthState.fail) {
-          // showToast("fingerprint not recognized");
+          fingerPrintAuthStreamSubscription?.cancel();
+          isFingerPrintAuthActivated = false;
+
+          showToast("fingerprint login failed");
         }
       });
     }

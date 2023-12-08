@@ -219,8 +219,6 @@ class AuthenticationRepository implements IAuthenticationRepository {
   Stream<FingerPrintAuthState> processFingerPrintAuth() async* {
     log.i("Started processing fingerprint auth");
 
-    int wrongAttempts = 0;
-
     while (true) {
       try {
         var authenticationResult = await auth.authenticate(
@@ -230,17 +228,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
         );
 
         if (authenticationResult == false) {
-          wrongAttempts += 1;
           yield FingerPrintAuthState.fail;
         } else if (authenticationResult == true) {
           await auth.stopAuthentication();
           yield FingerPrintAuthState.success;
-        }
-
-        if (wrongAttempts == 5) {
-          await auth.stopAuthentication();
-          yield FingerPrintAuthState.attemptsExceeded;
-          break;
         }
 
         // need to free the thread for other tasks

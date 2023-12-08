@@ -5,6 +5,7 @@ import 'package:dairy_app/core/animations/flip_card_animation.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/fingerprint_button.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/privacy_policy.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/sign_in_form.dart';
@@ -109,14 +110,8 @@ class _AuthPageState extends State<AuthPage> {
                         },
                       ),
                       const SizedBox(height: 40),
-                      if (widget.fingerPrintAuthRepository
-                              .shouldActivateFingerPrint() &&
-                          MediaQuery.of(context).viewInsets.bottom == 0)
-                        Icon(
-                          Icons.fingerprint,
-                          size: 50,
-                          color: Colors.white.withOpacity(0.5),
-                        ),
+                      if (MediaQuery.of(context).viewInsets.bottom == 0)
+                        FingerprintButton(),
                       SizedBox(
                         height: MediaQuery.of(context).viewInsets.bottom,
                       ),
