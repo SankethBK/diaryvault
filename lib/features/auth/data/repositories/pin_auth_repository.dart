@@ -9,7 +9,7 @@ import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_da
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:crypto/crypto.dart';
 
-final log = printer("PinAuthRepo");
+final log = printer("PINAuthRepository");
 
 class PINAuthRepository {
   final IKeyValueDataSource keyValueDataSource;

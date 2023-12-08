@@ -60,7 +60,7 @@ class FingerPrintAuthRepository {
     }
   }
 
-  void startFingerPrintAuthIfNeeded(BuildContext context) {
+  void startFingerPrintAuthIfNeeded() {
     if (shouldActivateFingerPrint()) {
       if (isFingerPrintAuthActivated == true) {
         log.i("Finger print auth was previously running, disabling it");
@@ -94,7 +94,7 @@ class FingerPrintAuthRepository {
               //! since a feature is removed, freshlogin is true to avoid breaking changes
               authSessionBloc.add(UserLoggedIn(user: user, freshLogin: true));
 
-              // no need to update lastLoggedInUser as it was already present and we used sa,e
+              // no need to update lastLoggedInUser as it was already present and we used same
             });
           } else {
             log.e("lastLoginUser not found");
