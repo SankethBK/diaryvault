@@ -88,8 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Export your notes"),
-        "exportToPDF":
-            MessageLookupByLibrary.simpleMessage("Export to PDF (beta)"),
+        "exportToPDF": MessageLookupByLibrary.simpleMessage("Export to PDF"),
         "exportToPlainText":
             MessageLookupByLibrary.simpleMessage("Export to Plain Text"),
         "failedToFetchNote":
@@ -172,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("Share with Friends"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "signInWithEmail":
+            MessageLookupByLibrary.simpleMessage("Sign in with Email"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Signed in as"),
         "sortByAtoZ": MessageLookupByLibrary.simpleMessage("Sort by A-Z"),
@@ -193,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("You have unsaved changes"),
         "youWillBeNotifiedAt": m0

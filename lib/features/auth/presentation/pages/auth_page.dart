@@ -3,6 +3,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/animations/flip_card_animation.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/fingerprint_button.dart';
@@ -13,13 +14,11 @@ import 'package:dairy_app/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 
 class AuthPage extends StatefulWidget {
   // user id of last logged in user to determine if it is a fresh login or not
   final String? lastLoggedInUserId;
   late final FingerPrintAuthRepository fingerPrintAuthRepository;
-  final PINAuthRepository pinAuthRepository = sl<PINAuthRepository>();
 
   AuthPage({Key? key, this.lastLoggedInUserId}) : super(key: key) {
     fingerPrintAuthRepository = sl<FingerPrintAuthRepository>();
@@ -99,7 +98,6 @@ class _AuthPageState extends State<AuthPage> {
                         frontWidget: (void Function() flipCard) {
                           return SignUpForm(
                             flipCard: flipCard,
-                            pinAuthRepository: widget.pinAuthRepository,
                           );
                         },
                         rearWidget: (void Function() flipCard) {
@@ -127,6 +125,24 @@ class _AuthPageState extends State<AuthPage> {
               bottom: 20,
               right: 0,
               left: 0,
+            ),
+            Positioned(
+              top: 20,
+              left: 20,
+              child: Navigator.of(context).canPop()
+                  ? GlassMorphismCover(
+                      borderRadius: BorderRadius.circular(50),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    )
+                  : SizedBox.shrink(),
             ),
           ],
         ),

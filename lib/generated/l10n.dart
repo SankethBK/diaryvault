@@ -920,10 +920,10 @@ class S {
     );
   }
 
-  /// `Export to PDF (beta)`
+  /// `Export to PDF`
   String get exportToPDF {
     return Intl.message(
-      'Export to PDF (beta)',
+      'Export to PDF',
       name: 'exportToPDF',
       desc: '',
       args: [],
@@ -1125,6 +1125,26 @@ class S {
     return Intl.message(
       'Please enter a 4-digit PIN',
       name: 'pinMustBe4Digit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong PIN`
+  String get wrongPIN {
+    return Intl.message(
+      'Wrong PIN',
+      name: 'wrongPIN',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with Email`
+  String get signInWithEmail {
+    return Intl.message(
+      'Sign in with Email',
+      name: 'signInWithEmail',
       desc: '',
       args: [],
     );

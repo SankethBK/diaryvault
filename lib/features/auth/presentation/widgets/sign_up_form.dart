@@ -10,18 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'auth_change.dart';
 import 'email_input_field.dart';
-import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/pin_login_form.dart';
 
 class SignUpForm extends StatefulWidget {
   static String get route => '/auth';
-  final PINAuthRepository pinAuthRepository;
   final void Function() flipCard;
 
   const SignUpForm({
     Key? key,
     required this.flipCard,
-    required this.pinAuthRepository,
   }) : super(key: key);
 
   @override
@@ -56,8 +52,6 @@ class _SignUpFormState extends State<SignUpForm> {
         }
       },
       builder: (context, state) {
-        bool showPinButton =
-            widget.pinAuthRepository.shouldredirectToPINAuthScreen();
         String? _getEmailErrors() {
           if (state is AuthFormSubmissionFailed &&
               state.errors.containsKey("email")) {
@@ -123,22 +117,6 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                   Column(
                     children: [
-                      if (showPinButton)
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed(PinSignInForm.route);
-                          },
-                          child: Text(
-                            S.current.enterPin,
-                            style: const TextStyle(
-                              color: Colors
-                                  .white, // Use the same color as in the Text widget
-                              fontWeight:
-                                  FontWeight.bold, // Apply bold font weight
-                            ),
-                          ),
-                        ),
                       const GuestSignUp(),
                       AuthChangePage(
                         infoText: S.current.alreadyHaveAnAccount,
