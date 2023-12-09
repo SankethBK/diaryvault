@@ -23,7 +23,6 @@ import 'auth_form_test.mocks.dart';
   SignInWithEmailAndPassword,
   KeyValueDataSource,
   FingerPrintAuthRepository,
-  PINAuthRepository
 ])
 void main() {
   late MockAuthenticationRepository authenticationRepository;
@@ -32,7 +31,6 @@ void main() {
   late MockSignInWithEmailAndPassword signInWithEmailAndPassword;
   late MockKeyValueDataSource mockKeyValueDataSource;
   late MockFingerPrintAuthRepository mockFingerPrintAuthRepository;
-  late MockPINAuthRepository mockPinAuthRepository;
 
   late AuthFormBloc authFormBloc;
   const String testEmail = "test@email";
@@ -47,7 +45,6 @@ void main() {
     signInWithEmailAndPassword = MockSignInWithEmailAndPassword();
     mockKeyValueDataSource = MockKeyValueDataSource();
     mockFingerPrintAuthRepository = MockFingerPrintAuthRepository();
-    mockPinAuthRepository = MockPINAuthRepository();
 
     authFormBloc = AuthFormBloc(
       authSessionBloc: authSessionBloc,
@@ -56,7 +53,6 @@ void main() {
       authenticationRepository: authenticationRepository,
       keyValueDataSource: mockKeyValueDataSource,
       fingerPrintAuthRepository: mockFingerPrintAuthRepository,
-      pinAuthRepository: mockPinAuthRepository,
     );
   });
 

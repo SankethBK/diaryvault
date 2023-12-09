@@ -110,7 +110,7 @@ class PINAuthRepository {
       return;
     }
 
-    var result = await authenticationRepository.signInDirectly(userId: userId!);
+    var result = await authenticationRepository.signInDirectly(userId: userId);
 
     result.fold((e) {
       log.e(e);
