@@ -13,7 +13,6 @@ import 'email_input_field.dart';
 
 class SignUpForm extends StatefulWidget {
   static String get route => '/auth';
-
   final void Function() flipCard;
 
   const SignUpForm({

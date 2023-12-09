@@ -7,6 +7,7 @@ import 'package:dairy_app/app/themes/plain_dark.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
@@ -14,6 +15,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.da
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
+import 'package:dairy_app/features/auth/presentation/pages/pin_auth_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -143,8 +145,13 @@ class _AppViewState extends State<AppView> {
                 //! Rememeber to pass lastloggedinuser id as parameter to AuthPage
 
                 if (state is Unauthenticated) {
-                  if (state.sessionTimeoutLogout == true) {
-                    _navigator.pushNamed(AuthPage.route);
+                  bool isPINLoginEnabled =
+                      sl<PINAuthRepository>().isPINAuthEnabled();
+
+                  if (isPINLoginEnabled == true) {
+                    _navigator.pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (_) => const PINAuthPage()),
+                        (route) => false);
                   } else {
                     _navigator.pushAndRemoveUntil(
                         MaterialPageRoute(builder: (_) => AuthPage()),

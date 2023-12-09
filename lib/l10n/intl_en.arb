@@ -97,7 +97,7 @@
   "sortByAtoZ": "Sort by A-Z",
   "exportNotes": "Export your notes",
   "exportToPlainText": "Export to Plain Text",
-  "exportToPDF": "Export to PDF (beta)",
+  "exportToPDF": "Export to PDF",
   "tagAlreadyExists": "Tag already exists",
   "securitySettings": "Security Settings",
   "leave": "Leave",
@@ -108,5 +108,16 @@
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV URL",
   "moreInfo": "More Info",
-  "fontFamily": "Font Family"
+  "resetPin": "Reset PIN",
+  "enterPin": "Enter your PIN",
+  "pinResetSuccessful": "PIN confirmation feeling",
+  "confirmNewPin": "Confirm your new PIN",
+  "pinsDontMatch": "PINs don't match",
+  "pinLoginFailed": "PIN login failed",
+  "enablePINLogin": "Enable PIN login",
+  "pinLoginSetupInstructions": "An up 4 to digit PIN will be prompted on lock screen",
+  "fontFamily": "Font Family",
+  "pinMustBe4Digit": "Please enter a 4-digit PIN",
+  "wrongPIN": "Wrong PIN",
+  "signInWithEmail": "Sign in with Email"
 }

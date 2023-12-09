@@ -9,6 +9,10 @@ class UserConfigConstants {
   static String dropBoxUserInfo = "dropbox_user_info";
   static String isAutoSyncEnabled = "is_auto_sync_enabled";
   static String isFingerPrintLoginEnabled = "is_finger_print_log_enabled";
+  static String isPINPrintLoginEnabled = "is_pin_print_log_enabled";
+  static String isPINLoginEnabled = "is_pin_log_enabled";
+  static String enablePINLogin = "enable_pin_login";
+
   static String isAutoSaveEnabled = "is_auto_save_enabled";
   static String isDailyReminderEnabled = "is_daily_reminder_enabled";
   static String reminderTime = "reminder_time";
