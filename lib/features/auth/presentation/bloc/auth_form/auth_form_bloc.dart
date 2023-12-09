@@ -11,7 +11,6 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 
 part 'auth_form_event.dart';
 part 'auth_form_state.dart';
@@ -27,7 +26,6 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
   final IAuthenticationRepository authenticationRepository;
   final IKeyValueDataSource keyValueDataSource;
   final FingerPrintAuthRepository fingerPrintAuthRepository;
-  final PINAuthRepository pinAuthRepository;
 
   AuthFormBloc({
     required this.signInWithEmailAndPassword,
@@ -35,7 +33,6 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
     required this.authenticationRepository,
     required this.keyValueDataSource,
     required this.fingerPrintAuthRepository,
-    required this.pinAuthRepository,
     required AuthSessionBloc authSessionBloc,
   })  : _authSessionBloc = authSessionBloc,
         super(const AuthFormInitial(email: '', password: '')) {
@@ -60,24 +57,6 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
             .add(UserLoggedIn(user: LoggedInUser.getGuestUserModel()));
       },
     );
-    on<AuthFormSignInDirectlySubmitted>(((event, emit) async {
-      // emit(AuthFormSubmissionLoading());
-
-      var result =
-          await authenticationRepository.signInDirectly(userId: event.userId);
-
-      result.fold(
-        (failure) {
-          // Handle the failure case
-          // Emit a failure state, log the error, show an error message, etc.
-        },
-        (user) {
-          // Now we have a LoggedInUser and can add it to the _authSessionBloc
-          _authSessionBloc.add(UserLoggedIn(user: user));
-          // Continue with any additional logic after successful login
-        },
-      );
-    }));
 
     on<AuthFormSignUpSubmitted>(((event, emit) async {
       emit(AuthFormSubmissionLoading(

@@ -89,7 +89,6 @@ Future<void> init() async {
       authenticationRepository: sl(),
       keyValueDataSource: sl(),
       fingerPrintAuthRepository: sl(),
-      pinAuthRepository: sl(),
     ),
   );
   sl.registerSingleton<UserConfigCubit>(
