@@ -1149,6 +1149,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Project on Github`
+  String get projectOnGithub {
+    return Intl.message(
+      'Project on Github',
+      name: 'projectOnGithub',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
