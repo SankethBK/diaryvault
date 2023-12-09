@@ -1,10 +1,11 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/widgets/font_customization.dart';
+import 'package:dairy_app/core/widgets/font_dropdown.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/language_dropdown.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
+import 'package:dairy_app/core/widgets/project_on_github.dart';
 import 'package:dairy_app/core/widgets/send_feedback.dart';
 import 'package:dairy_app/core/widgets/share_with_friends.dart';
 import 'package:dairy_app/core/widgets/theme_dropdown.dart';
@@ -126,24 +127,26 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 const SetupAccount(),
                 const SyncSettings(),
-                const SizedBox(height: 15.0),
+                const SizedBox(height: 25),
                 SecuritySettings(),
                 const SizedBox(height: 15),
                 const AutoSaveToggleButton(),
                 const SizedBox(height: 15),
                 const DailyReminders(),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 const ThemeDropdown(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 const ExportNotes(),
-                const SizedBox(height: 10),
-                const FontCustomization(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
+                const FontDropdown(),
+                const SizedBox(height: 20),
                 const LanguageDropDown(),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
                 const SendFeedBack(),
                 const SizedBox(height: 15),
                 const ShareWithFriends(),
+                const SizedBox(height: 15),
+                const ProjectOnGithub(),
                 const SizedBox(height: 15),
                 const VersionNumber(),
                 const SizedBox(height: 15),

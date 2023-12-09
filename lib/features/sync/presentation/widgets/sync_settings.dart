@@ -83,9 +83,9 @@ class SyncSettings extends StatelessWidget {
               const SizedBox(width: 8.0),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
           const SyncSourceDropdown(),
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
           Text(S.current.availablePlatformsForSync,
               style: TextStyle(
                 fontSize: 16.0,

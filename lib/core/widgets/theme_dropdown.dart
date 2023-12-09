@@ -1,5 +1,4 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +15,6 @@ class ThemeDropdown extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
 
-    final dropDownBackgroundColor = Theme.of(context)
-        .extension<SettingsPageThemeExtensions>()!
-        .dropDownBackgroundColor;
-
     return Row(
       children: [
         Text(
@@ -30,25 +25,14 @@ class ThemeDropdown extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        DropdownButton<Themes>(
+        PopupMenuButton<Themes>(
           padding: const EdgeInsets.only(bottom: 0.0),
-          iconEnabledColor: mainTextColor,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(16),
-          ),
-          focusColor: mainTextColor,
-          underline: Container(
-            height: 1,
-            color: mainTextColor,
-          ),
-          dropdownColor: dropDownBackgroundColor,
-          value: themeCubit.state.theme,
-          onChanged: (value) async {
+          onSelected: (value) async {
             // Update the selected value
             await themeCubit.setTheme(value);
           },
-          items: Themes.values.map((item) {
-            return DropdownMenuItem<Themes>(
+          itemBuilder: (context) => Themes.values.map((item) {
+            return PopupMenuItem<Themes>(
               value: item,
               child: Text(
                 item.enumToStr(),
@@ -56,6 +40,23 @@ class ThemeDropdown extends StatelessWidget {
               ),
             );
           }).toList(),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                themeCubit.state.theme.enumToStr(),
+                style: TextStyle(
+                  color: mainTextColor,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Icon(
+                Icons.keyboard_arrow_down,
+                color: mainTextColor,
+              ),
+            ],
+          ),
         ),
       ],
     );
