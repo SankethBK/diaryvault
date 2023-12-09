@@ -41,8 +41,6 @@ class PrivacyPolicy extends StatelessWidget {
                     Text(
                       S.current.byContinuingYouAgree,
                       style: TextStyle(
-                        // fontSize: 16,
-                        // fontWeight: FontWeight.bold,
                         color: linkColor,
                       ),
                     ),
@@ -50,7 +48,6 @@ class PrivacyPolicy extends StatelessWidget {
                       child: Text(
                         S.current.privacyPolicy,
                         style: TextStyle(
-                          // fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: linkColor,
                         ),

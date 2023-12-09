@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "closeTheApp": MessageLookupByLibrary.simpleMessage("Close the App?"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirm new password"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("Confirm your new PIN"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("Continue as guest"),
         "dailyReminders":
@@ -75,16 +77,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enable Daily Reminders"),
         "enableFingerPrintLogin":
             MessageLookupByLibrary.simpleMessage("Enable fingerprint login"),
+        "enablePINLogin":
+            MessageLookupByLibrary.simpleMessage("Enable PIN login"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("Enter current password"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("Enter new email"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Enter your PIN"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("Enter Registered Email"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Export your notes"),
-        "exportToPDF":
-            MessageLookupByLibrary.simpleMessage("Export to PDF (beta)"),
+        "exportToPDF": MessageLookupByLibrary.simpleMessage("Export to PDF"),
         "exportToPlainText":
             MessageLookupByLibrary.simpleMessage("Export to Plain Text"),
         "failedToFetchNote":
@@ -142,11 +146,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password verified"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "pinLoginFailed":
+            MessageLookupByLibrary.simpleMessage("PIN login failed"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "An up 4 to digit PIN will be prompted on lock screen"),
+        "pinMustBe4Digit":
+            MessageLookupByLibrary.simpleMessage("Please enter a 4-digit PIN"),
+        "pinResetSuccessful":
+            MessageLookupByLibrary.simpleMessage("PIN confirmation feeling"),
+        "pinsDontMatch":
+            MessageLookupByLibrary.simpleMessage("PINs don\'t match"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Please setup your account to use this feature"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Security Settings"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
@@ -156,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("Share with Friends"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "signInWithEmail":
+            MessageLookupByLibrary.simpleMessage("Sign in with Email"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Signed in as"),
         "sortByAtoZ": MessageLookupByLibrary.simpleMessage("Sort by A-Z"),
@@ -177,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("You have unsaved changes"),
         "youWillBeNotifiedAt": m0

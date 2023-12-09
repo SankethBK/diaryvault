@@ -21,7 +21,7 @@ import 'auth_form_test.mocks.dart';
   SignUpWithEmailAndPassword,
   SignInWithEmailAndPassword,
   KeyValueDataSource,
-  FingerPrintAuthRepository
+  FingerPrintAuthRepository,
 ])
 void main() {
   late MockAuthenticationRepository authenticationRepository;

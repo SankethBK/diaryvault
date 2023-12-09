@@ -920,10 +920,10 @@ class S {
     );
   }
 
-  /// `Export to PDF (beta)`
+  /// `Export to PDF`
   String get exportToPDF {
     return Intl.message(
-      'Export to PDF (beta)',
+      'Export to PDF',
       name: 'exportToPDF',
       desc: '',
       args: [],
@@ -1030,11 +1030,121 @@ class S {
     );
   }
 
+  /// `Reset PIN`
+  String get resetPin {
+    return Intl.message(
+      'Reset PIN',
+      name: 'resetPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your PIN`
+  String get enterPin {
+    return Intl.message(
+      'Enter your PIN',
+      name: 'enterPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PIN confirmation feeling`
+  String get pinResetSuccessful {
+    return Intl.message(
+      'PIN confirmation feeling',
+      name: 'pinResetSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm your new PIN`
+  String get confirmNewPin {
+    return Intl.message(
+      'Confirm your new PIN',
+      name: 'confirmNewPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PINs don't match`
+  String get pinsDontMatch {
+    return Intl.message(
+      'PINs don\'t match',
+      name: 'pinsDontMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PIN login failed`
+  String get pinLoginFailed {
+    return Intl.message(
+      'PIN login failed',
+      name: 'pinLoginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable PIN login`
+  String get enablePINLogin {
+    return Intl.message(
+      'Enable PIN login',
+      name: 'enablePINLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An up 4 to digit PIN will be prompted on lock screen`
+  String get pinLoginSetupInstructions {
+    return Intl.message(
+      'An up 4 to digit PIN will be prompted on lock screen',
+      name: 'pinLoginSetupInstructions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Font Family`
   String get fontFamily {
     return Intl.message(
       'Font Family',
       name: 'fontFamily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a 4-digit PIN`
+  String get pinMustBe4Digit {
+    return Intl.message(
+      'Please enter a 4-digit PIN',
+      name: 'pinMustBe4Digit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong PIN`
+  String get wrongPIN {
+    return Intl.message(
+      'Wrong PIN',
+      name: 'wrongPIN',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with Email`
+  String get signInWithEmail {
+    return Intl.message(
+      'Sign in with Email',
+      name: 'signInWithEmail',
       desc: '',
       args: [],
     );

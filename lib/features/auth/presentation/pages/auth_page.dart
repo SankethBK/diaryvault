@@ -3,8 +3,10 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/animations/flip_card_animation.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/fingerprint_button.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/privacy_policy.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/sign_in_form.dart';
@@ -49,7 +51,7 @@ class _AuthPageState extends State<AuthPage> {
       final currentAuthState = BlocProvider.of<AuthSessionBloc>(context).state;
 
       if (currentAuthState is Unauthenticated) {
-        widget.fingerPrintAuthRepository.startFingerPrintAuthIfNeeded(context);
+        widget.fingerPrintAuthRepository.startFingerPrintAuthIfNeeded();
       }
 
       _isInitialized = true;
@@ -100,19 +102,14 @@ class _AuthPageState extends State<AuthPage> {
                         },
                         rearWidget: (void Function() flipCard) {
                           return SignInForm(
-                              flipCard: flipCard,
-                              lastLoggedInUserId: widget.lastLoggedInUserId);
+                            flipCard: flipCard,
+                            lastLoggedInUserId: widget.lastLoggedInUserId,
+                          );
                         },
                       ),
                       const SizedBox(height: 40),
-                      if (widget.fingerPrintAuthRepository
-                              .shouldActivateFingerPrint() &&
-                          MediaQuery.of(context).viewInsets.bottom == 0)
-                        Icon(
-                          Icons.fingerprint,
-                          size: 50,
-                          color: Colors.white.withOpacity(0.5),
-                        ),
+                      if (MediaQuery.of(context).viewInsets.bottom == 0)
+                        FingerprintButton(),
                       SizedBox(
                         height: MediaQuery.of(context).viewInsets.bottom,
                       ),
@@ -128,6 +125,24 @@ class _AuthPageState extends State<AuthPage> {
               bottom: 20,
               right: 0,
               left: 0,
+            ),
+            Positioned(
+              top: 20,
+              left: 20,
+              child: Navigator.of(context).canPop()
+                  ? GlassMorphismCover(
+                      borderRadius: BorderRadius.circular(50),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    )
+                  : SizedBox.shrink(),
             ),
           ],
         ),
