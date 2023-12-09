@@ -160,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Please setup your account to use this feature"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("Project on Github"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
         "securitySettings":
