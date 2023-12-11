@@ -108,5 +108,17 @@
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV URL",
   "moreInfo": "Więcej informacji",
-  "fontFamily": "Czcionka"
+  "resetPin": "Reset PIN",
+  "enterPin": "Wprowadź PIN",
+  "pinResetSuccessful": "PIN zresetowany pomyślnie",
+  "confirmNewPin": "Potwierdź nowy PIN",
+  "pinsDontMatch": "PIN się nie zgadza",
+  "pinLoginFailed": "Logowanie kodem PIN niepomyślne",
+  "enablePINLogin": "Logowanie kodem PIN",
+  "pinLoginSetupInstructions": "Odblokuj aplikację 4-cyfrowym kodem PIN",
+  "fontFamily": "Czcionka",
+  "pinMustBe4Digit": "Wprowadź 4-cyfrowy kod PIN",
+  "wrongPIN": "Nieprawidłowy PIN",
+  "signInWithEmail": "Zaloguj się używając email",
+  "projectOnGithub": "Projekt na GitHub"
 }

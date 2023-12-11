@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wyłączyć aplikację?"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Potwierdź nowe hasło"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("Potwierdź nowy PIN"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("Kontynuuj jako gość"),
         "dailyReminders":
@@ -76,10 +78,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Włącz codzienne przypomnienia"),
         "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
             "Logowanie czytnikiem linii papilarnych"),
+        "enablePINLogin":
+            MessageLookupByLibrary.simpleMessage("Logowanie kodem PIN"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("Wprowadź aktualne hasło"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("Wprowadź nowy email"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Wprowadź PIN"),
         "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage(
             "Wprowadź zarejestrowany email"),
         "exportNotes":
@@ -145,12 +150,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hasło zweryfikowane"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Hasła nie są takie same"),
+        "pinLoginFailed": MessageLookupByLibrary.simpleMessage(
+            "Logowanie kodem PIN niepomyślne"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "Odblokuj aplikację 4-cyfrowym kodem PIN"),
+        "pinMustBe4Digit":
+            MessageLookupByLibrary.simpleMessage("Wprowadź 4-cyfrowy kod PIN"),
+        "pinResetSuccessful":
+            MessageLookupByLibrary.simpleMessage("PIN zresetowany pomyślnie"),
+        "pinsDontMatch":
+            MessageLookupByLibrary.simpleMessage("PIN się nie zgadza"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Zaloguj się, aby użyć tej funkcji"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Politykę Prywatności"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("Projekt na GitHub"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Zmień hasło"),
+        "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Ustawienia bezpieczeństwa"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Wyślij opinię"),
@@ -160,6 +178,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("Udostępnij znajomym"),
         "signIn": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
+        "signInWithEmail":
+            MessageLookupByLibrary.simpleMessage("Zaloguj się używając email"),
         "signUp": MessageLookupByLibrary.simpleMessage("Zarejestruj się"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Zalogowany jako"),
         "sortByAtoZ":
@@ -182,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Niespodziewany błąd"),
         "video": MessageLookupByLibrary.simpleMessage("Kamera"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("Nieprawidłowy PIN"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("Masz niezapisane zmiany"),
         "youWillBeNotifiedAt": m0
