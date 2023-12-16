@@ -146,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password verified"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("Pick From Files"),
         "pinLoginFailed":
             MessageLookupByLibrary.simpleMessage("PIN login failed"),
         "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
@@ -162,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "projectOnGithub":
             MessageLookupByLibrary.simpleMessage("Project on Github"),
+        "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
         "securitySettings":

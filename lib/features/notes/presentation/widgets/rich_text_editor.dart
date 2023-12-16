@@ -272,6 +272,53 @@ class Toolbar extends StatelessWidget {
     return futureResult.then((result) => result);
   }
 
+  Future<AudioPickSetting?> _selectAudioPickSetting(
+      BuildContext context) async {
+    final quillPopupTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .quillPopupTextColor;
+
+    final futureResult = showCustomDialog(
+      context: context,
+      child: SizedBox(
+        width: 290,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton.icon(
+                icon: Icon(
+                  Icons.mic,
+                  color: quillPopupTextColor,
+                ),
+                label: Text(
+                  S.current.recordAudio,
+                  style: TextStyle(color: quillPopupTextColor),
+                ),
+                onPressed: () =>
+                    Navigator.pop(context, AudioPickSetting.Record),
+              ),
+              TextButton.icon(
+                icon: Icon(
+                  Icons.folder,
+                  color: quillPopupTextColor,
+                ),
+                label: Text(
+                  S.current.pickFromFileManager,
+                  style: TextStyle(color: quillPopupTextColor),
+                ),
+                onPressed: () => Navigator.pop(context, AudioPickSetting.File),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+
+    return futureResult.then((result) => result);
+  }
+
   @override
   Widget build(BuildContext context) {
     QuillIconTheme quillIconTheme = Theme.of(context)
@@ -293,6 +340,7 @@ class Toolbar extends StatelessWidget {
         onVideoPickCallback: _onVideoPickCallback,
         mediaPickSettingSelector: _selectMediaPickSetting,
         cameraPickSettingSelector: _selectCameraPickSetting,
+        audioPickSetting: _selectAudioPickSetting,
         showImageButton: true,
         showVideoButton: true,
         showCameraButton: true,
