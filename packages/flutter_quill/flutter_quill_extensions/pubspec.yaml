@@ -9,21 +9,20 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  file_picker: ^5.3.4
   flutter:
     sdk: flutter
-
   flutter_quill:
     path: ../
-  image_picker: ^1.0.2
-  photo_view: ^0.14.0
-  video_player: ^2.7.0
-  youtube_player_flutter: ^8.1.2
   gallery_saver: ^2.3.2
+  image_picker: ^1.0.2
   math_keyboard: ^0.2.1
+  photo_view: ^0.14.0
   string_validator: ^1.0.0
   universal_html: ^2.2.3
   url_launcher: ^6.1.12
-
+  video_player: ^2.7.0
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:
@@ -31,4 +30,4 @@ dev_dependencies:
   pedantic: ^1.11.1
 
 # The following section is specific to Flutter packages.
-flutter:
+flutter: null
