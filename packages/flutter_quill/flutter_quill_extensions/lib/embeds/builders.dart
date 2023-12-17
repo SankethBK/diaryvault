@@ -11,6 +11,7 @@ import 'package:universal_html/html.dart' as html;
 
 import '../shims/dart_ui_fake.dart'
     if (dart.library.html) '../shims/dart_ui_real.dart' as ui;
+import 'audio_player.dart';
 import 'utils.dart';
 import 'widgets/image.dart';
 import 'widgets/image_resizer.dart';
@@ -217,6 +218,27 @@ class VideoEmbedBuilder extends EmbedBuilder {
       context: context,
       readOnly: readOnly,
       onVideoInit: onVideoInit,
+    );
+  }
+}
+
+class AudioBuilder extends EmbedBuilder {
+  @override
+  String get key => BlockEmbed.audioType;
+
+  @override
+  Widget build(
+    BuildContext context,
+    QuillController controller,
+    base.Embed node,
+    bool readOnly,
+    bool inline,
+    TextStyle textStyle,
+  ) {
+    final audioUrl = node.value.data;
+
+    return AudioPlaybackWidget(
+      audioUrl: audioUrl,
     );
   }
 }

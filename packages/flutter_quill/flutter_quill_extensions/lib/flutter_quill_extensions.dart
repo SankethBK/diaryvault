@@ -28,6 +28,7 @@ class FlutterQuillEmbeds {
         ImageEmbedBuilder(),
         VideoEmbedBuilder(onVideoInit: onVideoInit),
         FormulaEmbedBuilder(),
+        AudioBuilder()
       ];
 
   static List<EmbedBuilder> webBuilders() => [
@@ -75,6 +76,7 @@ class FlutterQuillEmbeds {
                 icon: Icons.mic,
                 iconTheme: iconTheme,
                 audioPickSetting: audioPickSetting,
+                controller: controller,
               ),
         if (showVideoButton)
           (controller, toolbarIconSize, iconTheme, dialogTheme) => VideoButton(

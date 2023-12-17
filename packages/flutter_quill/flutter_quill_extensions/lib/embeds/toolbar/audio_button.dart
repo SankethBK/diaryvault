@@ -7,6 +7,7 @@ class AudioButton extends StatelessWidget {
   const AudioButton({
     required this.icon,
     required this.audioPickSetting,
+    required this.controller,
     this.fillColor,
     this.tooltip,
     this.iconTheme,
@@ -21,6 +22,7 @@ class AudioButton extends StatelessWidget {
   final QuillIconTheme? iconTheme;
   final OnAudioPickCallback? onAudioPickCallback;
   final AudioPickSettingSelector? audioPickSetting;
+  final QuillController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,13 @@ class AudioButton extends StatelessWidget {
     if (audioPickSetting != null) {
       final filePath = await audioPickSetting!(context);
       print('user selected $filePath');
+
+      if (filePath != null && filePath.isNotEmpty) {
+        final index = controller.selection.baseOffset;
+        final length = controller.selection.extentOffset - index;
+
+        controller.replaceText(index, length, BlockEmbed.audio(filePath), null);
+      }
     }
   }
 }
