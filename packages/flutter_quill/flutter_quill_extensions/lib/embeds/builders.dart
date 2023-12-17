@@ -237,8 +237,36 @@ class AudioBuilder extends EmbedBuilder {
   ) {
     final audioUrl = node.value.data;
 
-    return AudioPlaybackWidget(
-      audioUrl: audioUrl,
+    return GestureDetector(
+      onLongPress: () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              final removeOption = _SimpleDialogItem(
+                icon: Icons.delete_forever_outlined,
+                color: Colors.red.shade200,
+                text: 'Remove'.i18n,
+                onPressed: () {
+                  final offset =
+                      getEmbedNode(controller, controller.selection.start)
+                          .offset;
+                  controller.replaceText(
+                      offset, 1, '', TextSelection.collapsed(offset: offset));
+                  Navigator.pop(context);
+                },
+              );
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+                child: SimpleDialog(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    children: [removeOption]),
+              );
+            });
+      },
+      child: AudioPlaybackWidget(
+        audioUrl: audioUrl,
+      ),
     );
   }
 }
