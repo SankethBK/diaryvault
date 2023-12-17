@@ -13,7 +13,9 @@ typedef WebVideoPickImpl = Future<String?> Function(
     OnVideoPickCallback onImagePickCallback);
 typedef MediaPickSettingSelector = Future<MediaPickSetting?> Function(
     BuildContext context);
-typedef AudioPickSettingSelector = Future<AudioPickSetting?> Function(
+
+// Returns the path of audio file
+typedef AudioPickSettingSelector = Future<String?> Function(
     BuildContext context);
 
 enum MediaPickSetting {

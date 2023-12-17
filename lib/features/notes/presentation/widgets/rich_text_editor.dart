@@ -8,6 +8,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/generated/l10n.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
@@ -272,13 +273,12 @@ class Toolbar extends StatelessWidget {
     return futureResult.then((result) => result);
   }
 
-  Future<AudioPickSetting?> _selectAudioPickSetting(
-      BuildContext context) async {
+  Future<String?> _selectAudioPickSetting(BuildContext context) async {
     final quillPopupTextColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
         .quillPopupTextColor;
 
-    final futureResult = showCustomDialog(
+    final futureResult = await showCustomDialog(
       context: context,
       child: SizedBox(
         width: 290,
@@ -316,7 +316,32 @@ class Toolbar extends StatelessWidget {
       ),
     );
 
-    return futureResult.then((result) => result);
+    if (futureResult == AudioPickSetting.File) {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.audio,
+      );
+
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        File pickedFile = File(file.path!);
+
+        // Get the original file name
+        String originalFileName = file.name;
+
+        // Get the app's documents directory to save the file permanently
+        Directory appDir = await getApplicationDocumentsDirectory();
+        String newPath = '${appDir.path}/$originalFileName';
+
+        // Copy the file to the new permanent location
+        await pickedFile.copy(newPath);
+
+        return newPath;
+      }
+
+      return null;
+    }
+
+    return null;
   }
 
   @override

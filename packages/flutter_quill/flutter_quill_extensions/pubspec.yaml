@@ -9,7 +9,6 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  file_picker: ^5.3.4
   flutter:
     sdk: flutter
   flutter_quill:
