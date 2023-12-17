@@ -31,27 +31,35 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
     setAudio();
 
     audioPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        isPlaying = event == PlayerState.playing;
-      });
+      if (mounted) {
+        setState(() {
+          isPlaying = event == PlayerState.playing;
+        });
+      }
     });
 
     audioPlayer.onDurationChanged.listen((newDuratiom) {
-      setState(() {
-        totalDuration = newDuratiom;
-      });
+      if (mounted) {
+        setState(() {
+          totalDuration = newDuratiom;
+        });
+      }
     });
 
     audioPlayer.onPositionChanged.listen((newPosition) {
-      setState(() {
-        currentPosition = newPosition;
-      });
+      if (mounted) {
+        setState(() {
+          currentPosition = newPosition;
+        });
+      }
     });
 
     audioPlayer.onPlayerComplete.listen((event) {
-      setState(() {
-        isPlaying = false;
-      });
+      if (mounted) {
+        setState(() {
+          isPlaying = false;
+        });
+      }
     });
   }
 
@@ -62,9 +70,9 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
 
   @override
   void dispose() {
-    super.dispose();
-
     audioPlayer.dispose();
+
+    super.dispose();
   }
 
   @override

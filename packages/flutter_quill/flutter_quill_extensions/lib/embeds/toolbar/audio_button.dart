@@ -11,8 +11,8 @@ class AudioButton extends StatelessWidget {
     this.fillColor,
     this.tooltip,
     this.iconTheme,
-    this.iconSize = kDefaultIconSize,
     this.onAudioPickCallback,
+    this.iconSize = kDefaultIconSize,
   });
 
   final IconData icon;
@@ -46,13 +46,16 @@ class AudioButton extends StatelessWidget {
   Future<void> _onPressedHandler(BuildContext context) async {
     if (audioPickSetting != null) {
       final filePath = await audioPickSetting!(context);
-      print('user selected $filePath');
 
       if (filePath != null && filePath.isNotEmpty) {
         final index = controller.selection.baseOffset;
         final length = controller.selection.extentOffset - index;
 
         controller.replaceText(index, length, BlockEmbed.audio(filePath), null);
+
+        if (onAudioPickCallback != null) {
+          await onAudioPickCallback!(filePath);
+        }
       }
     }
   }

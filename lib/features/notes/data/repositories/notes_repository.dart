@@ -229,17 +229,32 @@ class NotesRepository implements INotesRepository {
     //! currently treats web images and videos also as assets, put a way to distinguish them
     //! Luckily parsed assets are only used to subtract from allAssets, since web images are not recorded in allAssets
     //! We don't need extra check for web images and videos
-
     for (var noteElement in noteBodyMap) {
       if (noteElement.containsKey("insert") &&
           noteElement["insert"].runtimeType != String) {
         var assetMap = noteElement["insert"];
-        String assetType = assetMap.containsKey("image") ? "image" : "video";
+        String? assetType = getAssetType(assetMap);
+
+        if (assetType == null) {
+          throw Exception("Invalid asset type");
+        }
         noteAssets.add(assetMap[assetType]);
       }
     }
 
     return noteAssets;
+  }
+
+  String? getAssetType(dynamic assetMap) {
+    if (assetMap.containsKey("image")) {
+      return "image";
+    } else if (assetMap.containsKey("video")) {
+      return "video";
+    } else if (assetMap.containsKey("audio")) {
+      return "audio";
+    }
+
+    return null;
   }
 
   /// used to replace absolute paths of assets by their asset names, so that hash values

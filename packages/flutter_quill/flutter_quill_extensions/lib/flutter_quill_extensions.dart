@@ -47,6 +47,7 @@ class FlutterQuillEmbeds {
     String? formulaButtonTooltip,
     OnImagePickCallback? onImagePickCallback,
     OnVideoPickCallback? onVideoPickCallback,
+    OnAudioPickCallback? onAudioPickCallback,
     MediaPickSettingSelector? mediaPickSettingSelector,
     MediaPickSettingSelector? cameraPickSettingSelector,
     AudioPickSettingSelector? audioPickSetting,
@@ -77,6 +78,7 @@ class FlutterQuillEmbeds {
                 iconTheme: iconTheme,
                 audioPickSetting: audioPickSetting,
                 controller: controller,
+                onAudioPickCallback: onAudioPickCallback,
               ),
         if (showVideoButton)
           (controller, toolbarIconSize, iconTheme, dialogTheme) => VideoButton(

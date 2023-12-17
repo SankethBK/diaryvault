@@ -187,6 +187,16 @@ class Toolbar extends StatelessWidget {
     return filepath;
   }
 
+  // Audio file is already sotred at right location, so no need to store it again
+
+  Future<void> _onAudioPickCallback(String filePath) async {
+    var noteId = notesBloc.state.id;
+
+    notesBloc.add(UpdateNote(
+        noteAsset: NoteAssetModel(
+            noteId: noteId, assetType: "audio", assetPath: filePath)));
+  }
+
   Future<MediaPickSetting?> _selectMediaPickSetting(
       BuildContext context) async {
     final quillPopupTextColor = Theme.of(context)
@@ -363,6 +373,7 @@ class Toolbar extends StatelessWidget {
         // same goes for videos.
         onImagePickCallback: _onImagePickCallback,
         onVideoPickCallback: _onVideoPickCallback,
+        onAudioPickCallback: _onAudioPickCallback,
         mediaPickSettingSelector: _selectMediaPickSetting,
         cameraPickSettingSelector: _selectCameraPickSetting,
         audioPickSetting: _selectAudioPickSetting,
