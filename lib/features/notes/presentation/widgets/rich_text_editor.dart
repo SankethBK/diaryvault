@@ -7,6 +7,7 @@ import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/audio_recorder_popup.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,20 @@ class RichTextEditor extends StatefulWidget {
 
 class _RichTextEditorState extends State<RichTextEditor> {
   late FocusNode _focusNode;
+
+  bool isAudioRecording = false;
+
+  void startAudioRecording() {
+    setState(() {
+      isAudioRecording = true;
+    });
+  }
+
+  void finishAudioRecording() {
+    setState(() {
+      isAudioRecording = false;
+    });
+  }
 
   @override
   void initState() {
@@ -283,6 +298,11 @@ class Toolbar extends StatelessWidget {
     return futureResult.then((result) => result);
   }
 
+  String uniqueFileName() {
+    DateTime now = DateTime.now();
+    return 'file_${now.year}${now.month}${now.day}_${now.hour}${now.minute}${now.second}';
+  }
+
   Future<String?> _selectAudioPickSetting(BuildContext context) async {
     final quillPopupTextColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
@@ -349,6 +369,24 @@ class Toolbar extends StatelessWidget {
       }
 
       return null;
+    } else if (futureResult == AudioPickSetting.Record) {
+      final res = await audioRecorderPopup(context);
+
+      if (res != null) {
+        File recordedFile = File(res);
+
+        // Get the original file name
+        String originalFileName = uniqueFileName();
+
+        // Get the app's documents directory to save the file permanently
+        Directory appDir = await getApplicationDocumentsDirectory();
+        String newPath = '${appDir.path}/$originalFileName';
+
+        // Copy the file to the new permanent location
+        await recordedFile.copy(newPath);
+
+        return newPath;
+      }
     }
 
     return null;

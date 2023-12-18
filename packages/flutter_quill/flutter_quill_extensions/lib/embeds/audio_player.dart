@@ -113,7 +113,7 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
                 await audioPlayer.resume();
               }),
           Text(formatTime(currentPosition)),
-          const Text(" / "),
+          const Text(' / '),
           Text(formatTime(totalDuration)),
         ],
       ),

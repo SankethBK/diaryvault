@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
@@ -84,6 +85,8 @@ class PINAuthRepository {
   }
 
   Future<void> verifyPINAndLogin(String pin) async {
+    AudioPlayer audioPlayer = AudioPlayer();
+
     // Hash the pin for verification
     var bytes = utf8.encode(pin); // data being hashed
     var hashedPIN = sha256.convert(bytes).toString();
@@ -92,6 +95,10 @@ class PINAuthRepository {
 
     if (userId == null) {
       log.i("lastlogged in user not found");
+
+      // play access denied sound
+      audioPlayer.play(AssetSource('sounds/access_denied.mp3'));
+
       showToast(S.current.pinLoginFailed);
       return;
     }
@@ -106,6 +113,9 @@ class PINAuthRepository {
     log.i("Result of PIN verification $res");
 
     if (res == false) {
+      // play access denied sound
+      audioPlayer.play(AssetSource('sounds/access_denied.mp3'));
+
       showToast(S.current.wrongPIN);
       return;
     }
@@ -114,8 +124,15 @@ class PINAuthRepository {
 
     result.fold((e) {
       log.e(e);
+
+      // play access denied sound
+      audioPlayer.play(AssetSource('sounds/access_denied.mp3'));
+
       showToast(S.current.pinLoginFailed);
     }, (user) {
+      // play access granted sound
+      audioPlayer.play(AssetSource('sounds/access_granted.wav'));
+
       authSessionBloc.add(UserLoggedIn(user: user, freshLogin: true));
     });
   }
