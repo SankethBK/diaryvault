@@ -112,9 +112,7 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
                 // resume if the audio was paused
                 await audioPlayer.resume();
               }),
-          Text(formatTime(currentPosition)),
-          const Text(' / '),
-          Text(formatTime(totalDuration)),
+          Text('${formatTime(currentPosition)} / ${formatTime(totalDuration)}'),
         ],
       ),
     );

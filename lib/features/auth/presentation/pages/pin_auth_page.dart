@@ -27,11 +27,6 @@ class _PINAuthPageState extends State<PINAuthPage> {
       setState(() {
         pin += digit;
       });
-
-      if (pin.length < 4) {
-        // play button click sound
-        audioPlayer.play(AssetSource('sounds/click_button.wav'));
-      }
     }
 
     if (pin.length == 4) {

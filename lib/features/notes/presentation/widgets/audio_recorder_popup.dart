@@ -45,13 +45,14 @@ Future<dynamic> audioRecorderPopup(BuildContext context) {
   Future stopRecording() async {
     if (!isRecorderReady) return;
 
-    // play start recording sound
+    final recordingFilePath = await recorder.stopRecorder();
+    recorder.closeRecorder();
+
+    // play end recording sound
     audioPlayer.play(AssetSource('sounds/recording_end.mp3'));
 
     await Future.delayed(const Duration(seconds: 1));
 
-    final recordingFilePath = await recorder.stopRecorder();
-    recorder.closeRecorder();
     audioPlayer.dispose();
 
     Navigator.of(context).pop(recordingFilePath);
