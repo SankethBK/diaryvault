@@ -29,20 +29,6 @@ class RichTextEditor extends StatefulWidget {
 class _RichTextEditorState extends State<RichTextEditor> {
   late FocusNode _focusNode;
 
-  bool isAudioRecording = false;
-
-  void startAudioRecording() {
-    setState(() {
-      isAudioRecording = true;
-    });
-  }
-
-  void finishAudioRecording() {
-    setState(() {
-      isAudioRecording = false;
-    });
-  }
-
   @override
   void initState() {
     _focusNode = FocusNode();
