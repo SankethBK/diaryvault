@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  audioplayers_windows
   file_selector_windows
   firebase_auth
   firebase_core
@@ -10,6 +11,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_tts
   local_auth_windows
   pasteboard
+  permission_handler_windows
   share_plus
   simple_accordion
   url_launcher_windows

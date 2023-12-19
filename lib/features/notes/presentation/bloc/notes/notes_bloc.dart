@@ -115,7 +115,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     });
 
     on<SaveNote>((event, emit) async {
-      // TODO: can add some validation like title and body can't be empty
       emit(NoteSaveLoading(
         newNote: state.newNote!,
         id: state.id,

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
@@ -18,6 +19,8 @@ class PINAuthPage extends StatefulWidget {
 class _PINAuthPageState extends State<PINAuthPage> {
   String pin = '';
   final int pinLength = 4;
+
+  AudioPlayer audioPlayer = AudioPlayer();
 
   void addPINDigit(String digit) {
     if (pin.length < pinLength) {
