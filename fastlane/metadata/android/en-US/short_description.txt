@@ -1,1 +1,1 @@
-DiaryVault supports rich text, images, videos, fingerprint lock, cloud sync.
+DiaryVault supports rich text, images, videos, audios, fingerprint lock, cloud sync.
