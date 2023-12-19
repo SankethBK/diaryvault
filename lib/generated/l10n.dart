@@ -1159,6 +1159,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Record Audio`
+  String get recordAudio {
+    return Intl.message(
+      'Record Audio',
+      name: 'recordAudio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick From Files`
+  String get pickFromFileManager {
+    return Intl.message(
+      'Pick From Files',
+      name: 'pickFromFileManager',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

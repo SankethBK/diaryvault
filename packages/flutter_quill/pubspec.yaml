@@ -9,6 +9,7 @@ environment:
   flutter: ">=3.10.0"
 
 dependencies:
+  audioplayers: ^5.2.1
   flutter:
     sdk: flutter
   collection: ^1.17.0

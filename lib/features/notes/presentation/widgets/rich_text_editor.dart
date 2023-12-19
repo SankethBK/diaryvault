@@ -7,7 +7,9 @@ import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/audio_recorder_popup.dart';
 import 'package:dairy_app/generated/l10n.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
@@ -186,6 +188,16 @@ class Toolbar extends StatelessWidget {
     return filepath;
   }
 
+  // Audio file is already sotred at right location, so no need to store it again
+
+  Future<void> _onAudioPickCallback(String filePath) async {
+    var noteId = notesBloc.state.id;
+
+    notesBloc.add(UpdateNote(
+        noteAsset: NoteAssetModel(
+            noteId: noteId, assetType: "audio", assetPath: filePath)));
+  }
+
   Future<MediaPickSetting?> _selectMediaPickSetting(
       BuildContext context) async {
     final quillPopupTextColor = Theme.of(context)
@@ -272,6 +284,100 @@ class Toolbar extends StatelessWidget {
     return futureResult.then((result) => result);
   }
 
+  String uniqueFileName() {
+    DateTime now = DateTime.now();
+    return 'file_${now.year}${now.month}${now.day}_${now.hour}${now.minute}${now.second}';
+  }
+
+  Future<String?> _selectAudioPickSetting(BuildContext context) async {
+    final quillPopupTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .quillPopupTextColor;
+
+    final futureResult = await showCustomDialog(
+      context: context,
+      child: SizedBox(
+        width: 290,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton.icon(
+                icon: Icon(
+                  Icons.mic,
+                  color: quillPopupTextColor,
+                ),
+                label: Text(
+                  S.current.recordAudio,
+                  style: TextStyle(color: quillPopupTextColor),
+                ),
+                onPressed: () =>
+                    Navigator.pop(context, AudioPickSetting.Record),
+              ),
+              TextButton.icon(
+                icon: Icon(
+                  Icons.folder,
+                  color: quillPopupTextColor,
+                ),
+                label: Text(
+                  S.current.pickFromFileManager,
+                  style: TextStyle(color: quillPopupTextColor),
+                ),
+                onPressed: () => Navigator.pop(context, AudioPickSetting.File),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+
+    if (futureResult == AudioPickSetting.File) {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.audio,
+      );
+
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        File pickedFile = File(file.path!);
+
+        // Get the original file name
+        String originalFileName = file.name;
+
+        // Get the app's documents directory to save the file permanently
+        Directory appDir = await getApplicationDocumentsDirectory();
+        String newPath = '${appDir.path}/$originalFileName';
+
+        // Copy the file to the new permanent location
+        await pickedFile.copy(newPath);
+
+        return newPath;
+      }
+
+      return null;
+    } else if (futureResult == AudioPickSetting.Record) {
+      final res = await audioRecorderPopup(context);
+
+      if (res != null) {
+        File recordedFile = File(res);
+
+        // Get the original file name
+        String originalFileName = uniqueFileName();
+
+        // Get the app's documents directory to save the file permanently
+        Directory appDir = await getApplicationDocumentsDirectory();
+        String newPath = '${appDir.path}/$originalFileName';
+
+        // Copy the file to the new permanent location
+        await recordedFile.copy(newPath);
+
+        return newPath;
+      }
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     QuillIconTheme quillIconTheme = Theme.of(context)
@@ -291,8 +397,10 @@ class Toolbar extends StatelessWidget {
         // same goes for videos.
         onImagePickCallback: _onImagePickCallback,
         onVideoPickCallback: _onVideoPickCallback,
+        onAudioPickCallback: _onAudioPickCallback,
         mediaPickSettingSelector: _selectMediaPickSetting,
         cameraPickSettingSelector: _selectCameraPickSetting,
+        audioPickSetting: _selectAudioPickSetting,
         showImageButton: true,
         showVideoButton: true,
         showCameraButton: true,

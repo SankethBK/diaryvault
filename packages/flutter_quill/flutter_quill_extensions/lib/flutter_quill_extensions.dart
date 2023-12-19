@@ -5,6 +5,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 
 import 'embeds/builders.dart';
 import 'embeds/embed_types.dart';
+import 'embeds/toolbar/audio_button.dart';
 import 'embeds/toolbar/camera_button.dart';
 import 'embeds/toolbar/formula_button.dart';
 import 'embeds/toolbar/image_button.dart';
@@ -27,6 +28,7 @@ class FlutterQuillEmbeds {
         ImageEmbedBuilder(),
         VideoEmbedBuilder(onVideoInit: onVideoInit),
         FormulaEmbedBuilder(),
+        AudioBuilder()
       ];
 
   static List<EmbedBuilder> webBuilders() => [
@@ -35,6 +37,7 @@ class FlutterQuillEmbeds {
 
   static List<EmbedButtonBuilder> buttons({
     bool showImageButton = true,
+    bool showAudioButton = true,
     bool showVideoButton = true,
     bool showCameraButton = true,
     bool showFormulaButton = false,
@@ -44,8 +47,10 @@ class FlutterQuillEmbeds {
     String? formulaButtonTooltip,
     OnImagePickCallback? onImagePickCallback,
     OnVideoPickCallback? onVideoPickCallback,
+    OnAudioPickCallback? onAudioPickCallback,
     MediaPickSettingSelector? mediaPickSettingSelector,
     MediaPickSettingSelector? cameraPickSettingSelector,
+    AudioPickSettingSelector? audioPickSetting,
     FilePickImpl? filePickImpl,
     WebImagePickImpl? webImagePickImpl,
     WebVideoPickImpl? webVideoPickImpl,
@@ -66,6 +71,14 @@ class FlutterQuillEmbeds {
                 iconTheme: iconTheme,
                 dialogTheme: dialogTheme,
                 linkRegExp: imageLinkRegExp,
+              ),
+        if (showAudioButton)
+          (controller, toolbarIconSize, iconTheme, dialogTheme) => AudioButton(
+                icon: Icons.mic,
+                iconTheme: iconTheme,
+                audioPickSetting: audioPickSetting,
+                controller: controller,
+                onAudioPickCallback: onAudioPickCallback,
               ),
         if (showVideoButton)
           (controller, toolbarIconSize, iconTheme, dialogTheme) => VideoButton(

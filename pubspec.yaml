@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   appwrite: ^11.0.0
+  audioplayers: ^5.2.1
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
@@ -51,6 +52,7 @@ dependencies:
   flutter_quill_extensions:
     path: ./packages/flutter_quill/flutter_quill_extensions
   flutter_secure_storage: ^9.0.0
+  flutter_sound: ^9.2.13
   flutter_timezone: ^1.0.8
   flutter_tts: ^3.8.3
   flutter_web_auth_2: ^2.2.1
@@ -65,6 +67,7 @@ dependencies:
   markdown: ^7.1.1
   package_info_plus: ^4.1.0
   path_provider: ^2.0.9
+  permission_handler: ^11.0.1
   provider: ^6.0.5
   share_plus: ^7.1.0
   shared_preferences: ^2.0.15
@@ -115,6 +118,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - assets/sounds/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
