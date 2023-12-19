@@ -14,6 +14,19 @@
   </a>
 </div>
 
+### Screenshots
+
+<div style="display:flex; flex-wrap: wrap;">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/3030fcb2-18eb-4fd9-abb5-bb8343524495" style = "padding: 1rem; height: 300px">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/d8d8cb28-6eef-4b99-83e9-096d32fa7233" style = "padding: 1rem; height: 300px">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/4551aab5-bdff-4db6-b632-d829bb4954c9" style = "padding: 1rem; height: 300px">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/b9816cfc-d0f7-4319-b1d2-c737afb7d8d0" style = "padding: 1rem; height: 300px">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/5eed68a2-ae46-4c7b-8e10-f2080057cb8d" style = "padding: 1rem; height: 300px">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/9f811ef8-35b5-4212-b8a9-5c96444ce4a4" style = "padding: 1rem; height: 300px">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/209849ac-e5bc-4b5d-ac5f-c6f4afd72dcb" style = "padding: 1rem; height: 300px">
+  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/adb2ee90-8097-40ba-9f37-eee7d4a708fc" style = "padding: 1rem; height: 300px">
+</div>
+
 ## Key Features
 
 1. Rich text editor with support for images and videos
@@ -32,19 +45,6 @@
 3. [Flutter Local Auth Invisible](https://pub.dev/packages/flutter_local_auth_invisible) for fingerprint login
 4. [Dartz](https://pub.dev/packages/dartz) for functional programming
 5. [SQFLite](https://pub.dev/packages/sqflite) as local database
-
-### Screenshots
-
-<div style="display:flex; flex-wrap: wrap;">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/3030fcb2-18eb-4fd9-abb5-bb8343524495" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/d8d8cb28-6eef-4b99-83e9-096d32fa7233" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/b9816cfc-d0f7-4319-b1d2-c737afb7d8d0" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/34c83cc0-e25e-4385-a55a-ef21f42c3be5" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/5eed68a2-ae46-4c7b-8e10-f2080057cb8d" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/9f811ef8-35b5-4212-b8a9-5c96444ce4a4" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/209849ac-e5bc-4b5d-ac5f-c6f4afd72dcb" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/SankethBK/diaryvault/assets/51091231/adb2ee90-8097-40ba-9f37-eee7d4a708fc" style = "padding: 1rem; height: 300px">
-</div>
 
 
 ### Motivation for building this app
