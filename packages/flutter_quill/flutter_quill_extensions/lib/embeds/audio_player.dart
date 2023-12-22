@@ -102,17 +102,20 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
                   icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow)),
             ],
           ),
-          Slider(
-              max: totalDuration.inSeconds.toDouble(),
-              value: currentPosition.inSeconds.toDouble(),
-              onChanged: (value) async {
-                final newPosition = Duration(seconds: value.toInt());
-                await audioPlayer.seek(newPosition);
+          Expanded(
+            child: Slider(
+                max: totalDuration.inSeconds.toDouble(),
+                value: currentPosition.inSeconds.toDouble(),
+                onChanged: (value) async {
+                  final newPosition = Duration(seconds: value.toInt());
+                  await audioPlayer.seek(newPosition);
 
-                // resume if the audio was paused
-                await audioPlayer.resume();
-              }),
+                  // resume if the audio was paused
+                  await audioPlayer.resume();
+                }),
+          ),
           Text('${formatTime(currentPosition)} / ${formatTime(totalDuration)}'),
+          const SizedBox(width: 15)
         ],
       ),
     );
