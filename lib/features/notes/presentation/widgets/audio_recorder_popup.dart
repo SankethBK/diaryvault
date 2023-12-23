@@ -98,7 +98,6 @@ Future<dynamic> audioRecorderPopup(BuildContext context) {
                     );
                   }),
               Container(
-                color: Colors.black.withOpacity(0.5),
                 margin: const EdgeInsets.only(bottom: 60),
                 child: Align(
                   alignment: Alignment.bottomCenter,
