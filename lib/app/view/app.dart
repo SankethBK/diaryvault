@@ -111,7 +111,7 @@ class _AppViewState extends State<AppView> {
         return DarkAcademia.getTheme(fontFamily);
 
       default:
-        return Cosmic.getTheme(fontFamily);
+        return CoralBubble.getTheme(fontFamily);
     }
   }
 

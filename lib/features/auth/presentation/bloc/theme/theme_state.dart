@@ -32,7 +32,7 @@ Themes getThemeFromString(String? themeString) {
     case 'plainDark':
       return Themes.plainDark;
     default:
-      return Themes.cosmic;
+      return Themes.coralBubbles;
   }
 }
 
