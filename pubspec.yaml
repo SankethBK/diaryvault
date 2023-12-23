@@ -100,11 +100,11 @@ dev_dependencies:
 #   android: 'launcher_icon'
 #   ios: true
 #   image_path: 'assets/images/test-logo.png'
-# flutter_native_splash:
-#   color: '#9e8bd9'
-#   image: 'assets/images/splash_screen.png'
-#   android_12:
-#     image: 'assets/images/splash_screen.png'
+flutter_native_splash:
+  color: '#9e8bd9'
+  image: 'assets/images/splash_icon_4.png'
+  android_12:
+    image: 'assets/images/splash_icon_4.png'
 dependency_overrides:
   # For information on the generic Dart part of this file, see the
   # following page: https://dart.dev/tools/pub/pubspec
