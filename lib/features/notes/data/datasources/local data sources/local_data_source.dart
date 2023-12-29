@@ -438,6 +438,16 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     return result.map((noteMap) => NotePreviewModel.fromJson(noteMap)).toList();
   }
 
+  @override
+  Future<List<String>> getAllTags() async {
+    final List<Map<String, dynamic>> result = await database.query(
+      Tags.TABLE_NAME,
+      columns: [Tags.NAME],
+      distinct: true,
+    );
+    return result.map((tag) => tag[Tags.NAME] as String).toList();
+  }
+
   //* Utils
 
   /// Generate a modifiable result set
