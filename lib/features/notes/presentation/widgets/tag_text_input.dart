@@ -1,8 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/chip_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -55,9 +53,7 @@ class _TagTextInputState extends State<TagTextInput> {
     final borderColor =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.borderColor;
 
-    final barrierColor =
-        Theme.of(context).extension<PopupThemeExtensions>()!.barrierColor;
-    print("allTags = $allTags");
+    final barrierColor = Theme.of(context).popupMenuTheme.color;
 
     return Autocomplete<String>(
       optionsBuilder: (textEditingValue) {
@@ -68,38 +64,41 @@ class _TagTextInputState extends State<TagTextInput> {
         return Align(
           alignment: Alignment.topLeft,
           child: Material(
-            elevation: 1.0,
-            color: barrierColor,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 216),
-              child: SizedBox(
-                height: options.length * 32,
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 3.0),
-                  itemCount: options.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final String option = options.elementAt(index);
-                    return GestureDetector(
-                      onTap: () {
-                        onSelected(option);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          option,
-                          style: TextStyle(color: textColor),
-                        ),
-                      ),
-                    );
-                  },
+            elevation: 0.0,
+            color: Colors.transparent,
+            child: Container(
+                decoration: BoxDecoration(
+                  color: barrierColor,
+                  border: Border.all(
+                    color: borderColor,
+                  ),
+                  borderRadius: BorderRadius.circular(5.0),
                 ),
-              ),
-            ),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.only(top: 10),
+                constraints: const BoxConstraints(maxHeight: 216),
+                child: SingleChildScrollView(
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: options.map((tag) {
+                        return GestureDetector(
+                          onTap: () => onSelected(tag),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 8),
+                            child: Text(
+                              tag,
+                              style: TextStyle(color: textColor),
+                            ),
+                          ),
+                        );
+                      }).toList()),
+                )),
           ),
         );
       },
       onSelected: (String? tag) {
-        print("onSelected tag = $tag");
         if (tag != null) {
           widget.onSubmit(tag);
           _textController.clear();
