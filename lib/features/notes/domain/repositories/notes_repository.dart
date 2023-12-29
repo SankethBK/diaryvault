@@ -35,4 +35,7 @@ abstract class INotesRepository {
 
   String replaceOldAssetPathsWithNewAssetPaths(
       String noteBody, Map<String, dynamic> assetPathMap);
+
+  /// Retrieve all tags from all notes to display autocompletion list for tag input field
+  Future<List<String>> getAllTags();
 }
