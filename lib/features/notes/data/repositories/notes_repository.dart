@@ -219,6 +219,13 @@ class NotesRepository implements INotesRepository {
     return jsonEncode(noteBodyMap);
   }
 
+  @override
+  Future<List<String>> getAllTags() async {
+    log.i("Fetching all tags");
+
+    return await notesLocalDataSource.getAllTags();
+  }
+
   //* utility functions
 
   /// Used to extract assets from note body
