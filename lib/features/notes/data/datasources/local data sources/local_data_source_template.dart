@@ -45,4 +45,7 @@ abstract class INotesLocalDataSource {
       DateTime? startDate,
       DateTime? endDate,
       List<String>? tags});
+
+  /// Retrieve all tags from all notes to display autocompletion list for tag input field
+  Future<List<String>> getAllTags();
 }
