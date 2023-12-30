@@ -108,7 +108,14 @@ class DailyReminders extends StatelessWidget {
                           },
                         ),
                         ListTile(
-                          contentPadding: const EdgeInsets.only(right: 10.0),
+                          visualDensity:
+                              const VisualDensity(horizontal: 0, vertical: -4),
+                          contentPadding: const EdgeInsets.only(
+                            right: 10.0,
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                          ),
                           title: Text(
                             S.current.chooseTime,
                             style: TextStyle(color: mainTextColor),
