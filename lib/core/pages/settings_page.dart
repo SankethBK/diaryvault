@@ -143,7 +143,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const LanguageDropDown(),
                 const SizedBox(height: 20),
                 const SendFeedBack(),
-                const SizedBox(height: 15),
+                const SizedBox(height: 17),
                 const ShareWithFriends(),
                 const SizedBox(height: 15),
                 const ProjectOnGithub(),

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:488976839921:android:0c4fa9529fee97d862e550",
         "android_client_info": {
-          "package_name": "me.sankethbk.dairyappdebug"
+          "package_name": "me.sankethbk.dairyapp"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "488976839921-1ekv4h4ilh535g0c7a2f3hq3grsuo897.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "me.sankethbk.dairyappdebug",
+            "package_name": "me.sankethbk.dairyapp",
             "certificate_hash": "688c5c6976f5c2167629e9799e048f5e6a994a86"
           }
         },
