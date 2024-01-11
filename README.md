@@ -100,7 +100,7 @@ To add missing translations or new language, refer to [this issue](https://githu
 
 ### Support
 
-If you have any questions or doubts, join our [Discord server](https://discord.gg/S4QkJbV9Vw).
+If you have any questions or doubts, join our [Discord server](https://discord.gg/8TTApFpNEA).
 
 ### Contributions
 
