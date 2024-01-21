@@ -106,6 +106,7 @@ class MonochromePink {
           backgroundGradientStartColor:
               const Color(0xFFd63484).withOpacity(0.5),
           backgroundGradientEndColor: const Color(0xFFd63484).withOpacity(0.2),
+ 
           previewTitleColor: Colors.white.withOpacity(1),
           previewBodyColor: Colors.white.withOpacity(1),
           dateColor: Colors.white.withOpacity(0.8),
