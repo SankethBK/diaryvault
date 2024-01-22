@@ -79,7 +79,7 @@ class MonochromePink {
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
           backgroundImage: "assets/images/monochrome.png",
-          linkColor: Colors.pink[300]!,
+          linkColor: const Color.fromARGB(255, 253, 157, 189),
           errorTextColor: Colors.pink[200]!,
           prefixIconColor: Colors.white.withOpacity(0.7),
           fillColor: const Color(0xFFff9bd2).withOpacity(0.2),
@@ -87,12 +87,13 @@ class MonochromePink {
           textColor: Colors.white.withOpacity(1),
           hintTextColor: Colors.white.withOpacity(0.7),
           authFormGradientStartColor: Colors.pink.withOpacity(0.5),
-          authFormGradientEndColor: Colors.black.withOpacity(0.3),
+          authFormGradientEndColor:
+              const Color.fromARGB(255, 83, 51, 51).withOpacity(0.3),
           infoTextColor: Colors.white.withOpacity(0.7),
         ),
         ChipThemeExtensions(
-          backgroundColor: const Color(0xFFff9bd2),
-          iconColor: Colors.pinkAccent,
+          backgroundColor: const Color.fromARGB(255, 248, 129, 194),
+          iconColor: Colors.pink.withOpacity(0.5),
           textColor: Colors.white,
         ),
         AppbarThemeExtensions(
@@ -106,7 +107,6 @@ class MonochromePink {
           backgroundGradientStartColor:
               const Color(0xFFd63484).withOpacity(0.5),
           backgroundGradientEndColor: const Color(0xFFd63484).withOpacity(0.2),
- 
           previewTitleColor: Colors.white.withOpacity(1),
           previewBodyColor: Colors.white.withOpacity(1),
           dateColor: Colors.white.withOpacity(0.8),
@@ -116,20 +116,21 @@ class MonochromePink {
           notePreviewUnselectedGradientStartColor:
               Colors.white.withOpacity(0.05),
           notePreviewUnselectedGradientEndColor: Colors.white.withOpacity(0.05),
-          notePreviewSelectedGradientStartColor: Colors.black.withOpacity(0.5),
-          notePreviewSelectedGradientEndColor: Colors.black.withOpacity(0.2),
+          notePreviewSelectedGradientStartColor:
+              const Color.fromARGB(255, 240, 92, 142).withOpacity(0.5),
+          notePreviewSelectedGradientEndColor: Colors.pink.withOpacity(0.2),
           checkBoxSelectedColor: Colors.pinkAccent,
         ),
         NoteCreatePageThemeExtensions(
           fallbackColor: const Color.fromARGB(255, 48, 140, 221),
-          titleTextBoxFillColor: const Color(0xFFd63484).withOpacity(0.2),
-          titleTextBoxBorderColor: const Color(0xFFff9bd2).withOpacity(0.4),
-          titleTextBoxFocussedBorderColor: Colors.white.withOpacity(0.3),
+          titleTextBoxFillColor: const Color(0xFFd63484).withOpacity(0.4),
+          titleTextBoxBorderColor: Colors.white.withOpacity(0.3),
+          titleTextBoxFocussedBorderColor: Colors.white.withOpacity(0.7),
           titlePlaceHolderColor: Colors.white.withOpacity(0.7),
           titleTextColor: Colors.white.withOpacity(0.9),
           suffixIconColor: Colors.white.withOpacity(0.8),
           toolbarGradientStartColor: const Color(0xFFd63484).withOpacity(0.5),
-          toolbarGradientEndColor: const Color(0xFFd63484).withOpacity(0.3),
+          toolbarGradientEndColor: const Color(0xFFd63484).withOpacity(0.45),
           toolbarTheme: QuillIconTheme(
             iconSelectedColor: Colors.white,
             iconUnselectedColor: Colors.white.withOpacity(0.8),
@@ -144,9 +145,11 @@ class MonochromePink {
           quillPopupTextColor: Colors.white,
         ),
         PopupThemeExtensions(
-          barrierColor: Colors.white.withOpacity(0.3),
-          popupGradientStartColor: Colors.black.withOpacity(0.6),
-          popupGradientEndColor: Colors.black.withOpacity(0.4),
+          barrierColor: Colors.black.withOpacity(0.5),
+          popupGradientStartColor:
+              const Color.fromARGB(255, 246, 118, 203).withOpacity(0.7),
+          popupGradientEndColor:
+              const Color.fromARGB(255, 246, 118, 203).withOpacity(0.4),
           mainTextColor: Colors.white,
         ),
         SettingsPageThemeExtensions(
