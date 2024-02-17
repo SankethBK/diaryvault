@@ -141,6 +141,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ಅನಿರೀಕ್ಷಿತ ದೋಷ ಸಂಭವಿಸಿದೆ"),
         "video": MessageLookupByLibrary.simpleMessage("ವೀಡಿಯೊ"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
-            "ನೀವು ಉಳಿಸದ ಬದಲಾವಣೆಗಳನ್ನು ಹೊಂದಿರುವಿರಿ")
+            "ನೀವು ಉಳಿಸದ ಬದಲಾವಣೆಗಳನ್ನು ಹೊಂದಿರುವಿರಿ"),
+        "aboutToDelete":
+            MessageLookupByLibrary.simpleMessage("ನೀವು ಅಳಿಸಲಿರುವಿರಿ"),
+        "item": MessageLookupByLibrary.simpleMessage("ಐಟಂ")
       };
 }

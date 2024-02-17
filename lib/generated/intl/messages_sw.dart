@@ -142,6 +142,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Hitilafu isiyotarajiwa ilitokea"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
-            "Una mabadiliko ambayo hayajahifadhiwa")
+            "Una mabadiliko ambayo hayajahifadhiwa"),
+        "aboutToDelete":
+            MessageLookupByLibrary.simpleMessage("Unakaribia kufuta"),
+        "item": MessageLookupByLibrary.simpleMessage("kipengee")
       };
 }

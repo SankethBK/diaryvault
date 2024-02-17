@@ -187,6 +187,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "webdavURL": MessageLookupByLibrary.simpleMessage("వెబ్DAV URL"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "మీరు సేవ్ చేయని మార్పులను కలిగి ఉన్నారు"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
+        "aboutToDelete":
+            MessageLookupByLibrary.simpleMessage("మీరు తొలగించబోతున్నారు"),
+        "item": MessageLookupByLibrary.simpleMessage("అంశం")
       };
 }

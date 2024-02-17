@@ -181,6 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "webdavURL": MessageLookupByLibrary.simpleMessage("वेबडीएवी यूआरएल"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("सहेजे न गए परिवर्तन"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
+        "aboutToDelete":
+            MessageLookupByLibrary.simpleMessage("आप हटाने वाले हैं"),
+        "item": MessageLookupByLibrary.simpleMessage("वस्तु")
       };
 }

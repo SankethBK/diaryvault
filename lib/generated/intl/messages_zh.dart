@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "video": MessageLookupByLibrary.simpleMessage("录像"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage("修改未保存"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
+        "aboutToDelete": MessageLookupByLibrary.simpleMessage("您即将删除"),
+        "item": MessageLookupByLibrary.simpleMessage("物品")
       };
 }

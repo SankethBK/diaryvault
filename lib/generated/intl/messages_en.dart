@@ -202,6 +202,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("You have unsaved changes"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
+        "aboutToDelete":
+            MessageLookupByLibrary.simpleMessage("You are about to delete"),
+        "item": MessageLookupByLibrary.simpleMessage("item")
       };
 }

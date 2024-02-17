@@ -60,6 +60,15 @@ class S {
     );
   }
 
+  String get aboutToDelete {
+    return Intl.message('You are about to delete',
+        name: 'aboutToDelete', desc: '', args: []);
+  }
+
+  String get item {
+    return Intl.message('item', name: 'item', desc: '', args: []);
+  }
+
   /// `Page not found`
   String get pageNotFound {
     return Intl.message(

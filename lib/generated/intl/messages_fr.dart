@@ -194,6 +194,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "webdavURL": MessageLookupByLibrary.simpleMessage("URL WebDAV"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Vous avez des changements non enregistrés"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
+        "aboutToDelete": MessageLookupByLibrary.simpleMessage(
+            "Vous êtes sur le point de supprimer"),
+        "item": MessageLookupByLibrary.simpleMessage("article")
       };
 }

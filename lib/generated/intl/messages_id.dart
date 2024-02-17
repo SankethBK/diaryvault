@@ -162,6 +162,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "video": MessageLookupByLibrary.simpleMessage("Video"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Anda memiliki perubahan yang belum disimpan"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
+        "aboutToDelete":
+            MessageLookupByLibrary.simpleMessage("Anda akan menghapus"),
+        "item": MessageLookupByLibrary.simpleMessage("barang")
       };
 }

@@ -210,6 +210,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Nesprávny PIN kód"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("Máte neuložené zmeny"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
+        "aboutToDelete":
+            MessageLookupByLibrary.simpleMessage("Chystáte sa odstrániť"),
+        "item": MessageLookupByLibrary.simpleMessage("položka")
       };
 }
