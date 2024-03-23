@@ -107,5 +107,7 @@
   "appLanguage": "ऐप भाषा",
   "nextCloud": "नेक्स्टक्लाउड",
   "webdavURL": "वेबडीएवी यूआरएल",
-  "moreInfo": "और जानकारी"
+  "moreInfo": "और जानकारी",
+  "aboutToDelete": "आप हटाने वाले हैं",
+  "item": "वस्तु"
 }

@@ -154,6 +154,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "video": MessageLookupByLibrary.simpleMessage("વિડિયો"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "તમારી પાસે વણસાચવેલા ફેરફારો છે"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
       };
 }

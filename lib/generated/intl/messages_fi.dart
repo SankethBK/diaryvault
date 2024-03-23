@@ -164,6 +164,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "video": MessageLookupByLibrary.simpleMessage("Video"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Muutoksia ei ole tallennettu"),
-        "youWillBeNotifiedAt": m0
+        "youWillBeNotifiedAt": m0,
       };
 }

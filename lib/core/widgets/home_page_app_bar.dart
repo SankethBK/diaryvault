@@ -547,7 +547,7 @@ class DeleteIcon extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "You are about to delete $deletionCount  item${deletionCount > 1 ? "s" : ""}",
+                        "${S.current.aboutToDelete} $deletionCount ${S.current.item}${deletionCount > 1 ? "s" : ""}",
                         style: TextStyle(
                           fontSize: 18.0,
                           color: mainTextColor,

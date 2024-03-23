@@ -132,6 +132,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("בעיה לא צפויה קרתה"),
         "video": MessageLookupByLibrary.simpleMessage("וידאו"),
         "youHaveUnsavedChanges":
-            MessageLookupByLibrary.simpleMessage("יש לך שינויים שלא נשמרו")
+            MessageLookupByLibrary.simpleMessage("יש לך שינויים שלא נשמרו"),
       };
 }

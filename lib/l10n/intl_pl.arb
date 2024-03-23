@@ -120,5 +120,7 @@
   "pinMustBe4Digit": "Wprowadź 4-cyfrowy kod PIN",
   "wrongPIN": "Nieprawidłowy PIN",
   "signInWithEmail": "Zaloguj się używając email",
-  "projectOnGithub": "Projekt na GitHub"
+  "projectOnGithub": "Projekt na GitHub",
+  "aboutToDelete": "Zamierzasz usunąć",
+  "item": "przedmiot"
 }

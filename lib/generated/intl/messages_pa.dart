@@ -137,6 +137,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ਅਚਾਨਕ ਗਲਤੀ ਆਈ ਹੈ"),
         "video": MessageLookupByLibrary.simpleMessage("ਵੀਡੀਓ"),
         "youHaveUnsavedChanges":
-            MessageLookupByLibrary.simpleMessage("ਅਣਰੱਖਿਅਤ ਤਬਦੀਲੀਆਂ")
+            MessageLookupByLibrary.simpleMessage("ਅਣਰੱਖਿਅਤ ਤਬਦੀਲੀਆਂ"),
       };
 }

@@ -107,5 +107,7 @@
   "appLanguage": "App-Sprache",
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV-URL",
-  "moreInfo": "Mehr Info"
+  "moreInfo": "Mehr Info",
+  "aboutToDelete": "Sie sind im Begriff, zu löschen",
+  "item": "Artikel"
 }

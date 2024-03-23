@@ -1,10 +1,10 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/sanketh.bk/sdk/flutter3
-FLUTTER_APPLICATION_PATH=/Users/sanketh.bk/my_projects/flutter/apps in production/dairy_app
+FLUTTER_ROOT=C:\Users\acer\fvm\versions\3.13.0
+FLUTTER_APPLICATION_PATH=C:\Freelance\diaryvault
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
-FLUTTER_BUILD_NAME=2.1.9
-FLUTTER_BUILD_NUMBER=15
+FLUTTER_BUILD_NAME=2.2.2
+FLUTTER_BUILD_NUMBER=18
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
