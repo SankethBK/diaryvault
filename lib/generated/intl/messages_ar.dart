@@ -138,9 +138,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("حدث خطأ غير متوقع"),
         "video": MessageLookupByLibrary.simpleMessage("فيديو"),
         "youHaveUnsavedChanges":
-            MessageLookupByLibrary.simpleMessage("لديك تغييرات غير محفوظة"),
-        "aboutToDelete":
-            MessageLookupByLibrary.simpleMessage("أنت على وشك الحذف"),
-        "item": MessageLookupByLibrary.simpleMessage("بند")
+            MessageLookupByLibrary.simpleMessage("لديك تغييرات غير محفوظة")
       };
 }

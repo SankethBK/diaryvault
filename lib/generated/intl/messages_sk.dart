@@ -211,8 +211,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("Máte neuložené zmeny"),
         "youWillBeNotifiedAt": m0,
-        "aboutToDelete":
-            MessageLookupByLibrary.simpleMessage("Chystáte sa odstrániť"),
-        "item": MessageLookupByLibrary.simpleMessage("položka")
       };
 }

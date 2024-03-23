@@ -133,7 +133,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "video": MessageLookupByLibrary.simpleMessage("וידאו"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("יש לך שינויים שלא נשמרו"),
-        "aboutToDelete": MessageLookupByLibrary.simpleMessage("אתה עומד למחוק"),
-        "item": MessageLookupByLibrary.simpleMessage("פריט")
       };
 }

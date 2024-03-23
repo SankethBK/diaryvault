@@ -1,7 +1,7 @@
 {
   "language": "Español",
   "@language": {
-  "description": "El idioma actual"
+    "description": "El idioma actual"
   },
   "pageNotFound": "Página no encontrada",
   "settings": "Configuraciones",
@@ -107,5 +107,7 @@
   "appLanguage": "Idioma de la aplicación",
   "nextCloud": "NextCloud",
   "webdavURL": "URL de WebDAV",
-  "moreInfo": "Más información"
+  "moreInfo": "Más información",
+  "aboutToDelete": "Está a punto de eliminar",
+  "item": "artículo"
 }

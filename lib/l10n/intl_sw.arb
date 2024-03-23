@@ -74,5 +74,7 @@
   "delete": "Futa",
   "cancel": "Ghairi",
   "submit": "Tuma",
-  "appDescription": "Gundua diaryVault - programu ya kumbukumbu iliyoundwa kukusaidia kukamata mawazo, kumbukumbu, na nyakati yako kwa urahisi. Sasa inapatikana kwenye Duka la Kucheza!"
+  "appDescription": "Gundua diaryVault - programu ya kumbukumbu iliyoundwa kukusaidia kukamata mawazo, kumbukumbu, na nyakati yako kwa urahisi. Sasa inapatikana kwenye Duka la Kucheza!",
+  "aboutToDelete": "Unakaribia kufuta",
+  "item": "kipengee"
 }

@@ -138,8 +138,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "video": MessageLookupByLibrary.simpleMessage("ਵੀਡੀਓ"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("ਅਣਰੱਖਿਅਤ ਤਬਦੀਲੀਆਂ"),
-        "aboutToDelete":
-            MessageLookupByLibrary.simpleMessage("ਤੁਸੀਂ ਮਿਟਾਉਣ ਜਾ ਰਹੇ ਹੋ"),
-        "item": MessageLookupByLibrary.simpleMessage("ਆਈਟਮ")
       };
 }

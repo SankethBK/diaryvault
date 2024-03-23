@@ -165,8 +165,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Muutoksia ei ole tallennettu"),
         "youWillBeNotifiedAt": m0,
-        "aboutToDelete":
-            MessageLookupByLibrary.simpleMessage("Olet poistamassa"),
-        "item": MessageLookupByLibrary.simpleMessage("kohde")
       };
 }

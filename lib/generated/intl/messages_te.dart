@@ -188,8 +188,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "మీరు సేవ్ చేయని మార్పులను కలిగి ఉన్నారు"),
         "youWillBeNotifiedAt": m0,
-        "aboutToDelete":
-            MessageLookupByLibrary.simpleMessage("మీరు తొలగించబోతున్నారు"),
-        "item": MessageLookupByLibrary.simpleMessage("అంశం")
       };
 }

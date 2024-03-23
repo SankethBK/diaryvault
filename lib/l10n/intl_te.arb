@@ -108,5 +108,7 @@
   "nextCloud": "నెక్స్ట్ క్లౌడ్",
   "webdavURL": "వెబ్DAV URL",
   "moreInfo": "మరింత సమాచారం",
-  "fontFamily": "ఫాంట్ కుటుంబం"
+  "fontFamily": "ఫాంట్ కుటుంబం",
+  "aboutToDelete": "మీరు తొలగించబోతున్నారు",
+  "item": "అంశం"
 }

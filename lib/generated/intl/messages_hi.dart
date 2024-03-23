@@ -182,8 +182,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("सहेजे न गए परिवर्तन"),
         "youWillBeNotifiedAt": m0,
-        "aboutToDelete":
-            MessageLookupByLibrary.simpleMessage("आप हटाने वाले हैं"),
-        "item": MessageLookupByLibrary.simpleMessage("वस्तु")
       };
 }

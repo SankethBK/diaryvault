@@ -143,8 +143,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "video": MessageLookupByLibrary.simpleMessage("Video"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Una mabadiliko ambayo hayajahifadhiwa"),
-        "aboutToDelete":
-            MessageLookupByLibrary.simpleMessage("Unakaribia kufuta"),
-        "item": MessageLookupByLibrary.simpleMessage("kipengee")
       };
 }

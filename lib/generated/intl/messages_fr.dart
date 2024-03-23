@@ -195,8 +195,5 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Vous avez des changements non enregistrés"),
         "youWillBeNotifiedAt": m0,
-        "aboutToDelete": MessageLookupByLibrary.simpleMessage(
-            "Vous êtes sur le point de supprimer"),
-        "item": MessageLookupByLibrary.simpleMessage("article")
       };
 }

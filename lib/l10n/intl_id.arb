@@ -94,5 +94,7 @@
   "notificationDescription1": "Luangkan beberapa menit untuk merenungkan hari Anda di buku harian Anda",
   "sortByLatestFirst": "Urutkan berdasarkan Terbaru Terlebih Dahulu",
   "sortByOldestFirst": "Urutkan berdasarkan Terlama Terlebih Dahulu",
-  "sortByAtoZ": "Urutkan berdasarkan A-Z"
+  "sortByAtoZ": "Urutkan berdasarkan A-Z",
+  "aboutToDelete": "Anda akan menghapus",
+  "item": "barang"
 }

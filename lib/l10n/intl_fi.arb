@@ -91,5 +91,7 @@
   "getDailyReminders": "Saat päivittäisen muistutuksen kirjoittaa muistikirjaan haluamanasi ajankohtana.",
   "chooseTime": "Valitse ajankohta",
   "notificationTitle1": "Aika kirjoittaa muistikirjaan!",
-  "notificationDescription1": "Pysähdy hetkeksi tallentamaan päivän ajatuksiasi muistikirjaan"
+  "notificationDescription1": "Pysähdy hetkeksi tallentamaan päivän ajatuksiasi muistikirjaan",
+  "aboutToDelete": "Olet poistamassa",
+  "item": "kohde"
 }
