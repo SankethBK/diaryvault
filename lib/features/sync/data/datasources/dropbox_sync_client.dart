@@ -5,11 +5,11 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
-import 'package:stateless_dropbox_client/stateless_dropbox_client.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+import 'package:stateless_dropbox_client/stateless_dropbox_client.dart';
 
 final log = printer("DropboxSyncClient");
 
@@ -20,7 +20,7 @@ class DropboxSyncClient implements ISyncClient {
   static const DROPBOX_SECRET = "DROPBOX_SECRET";
 
   final String dropboxClientId = 'diaryvault';
-  final String dropboxKey = 'rqndas0qvioj4f1';
+  final String dropboxKey = 'jgrid9k326jh3ge';
   String? dropboxSecret;
   late FlutterSecureStorage secureStorage;
 
