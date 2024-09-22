@@ -28,26 +28,6 @@
 </div>
 
 
-## Key Features
-
-1. Rich text editor with support for images and videos
-2. Your data is securely preserved on your Google Drive / Dropbox account, ensuring complete ownership and privacy
-3. Sync data between multiple devices
-4. Notes can be organized by attaching tags
-5. Notes can be exported to text files and PDF files
-6. Secure your notes with PIN and Fingerprint lock
-7. Daily reminder notifications to stay on track with writing
-8. Multiple Themes and languages
-
-## Libraries used
-
-1. [Flutter bloc](https://bloclibrary.dev) for state management
-2. [FlutterQuill](https://pub.dev/packages/flutter_quill) for rich text editor
-3. [Flutter Local Auth Invisible](https://pub.dev/packages/flutter_local_auth_invisible) for fingerprint login
-4. [Dartz](https://pub.dev/packages/dartz) for functional programming
-5. [SQFLite](https://pub.dev/packages/sqflite) as local database
-
-
 ### Motivation for building this app
 
 As someone who enjoys writing in a diary, I've tried out many diary apps on Google Play.
@@ -63,15 +43,28 @@ Through my own experiences and by reading what others have shared in their revie
 
 🌟 **If you like what we're building, please consider starring our repository on GitHub to show your support. It means a lot to us!** ⭐
 
+## Key Features
+
+1. Rich text editor with support for images, audio and videos
+2. Your data is securely preserved on your Google Drive / Dropbox account, ensuring complete ownership and privacy
+3. Sync data between multiple devices
+4. Notes can be organized by attaching tags
+5. Notes can be exported to text files and PDF files
+6. Secure your notes with PIN and Fingerprint lock
+7. Daily reminder notifications to stay on track with writing
+8. Multiple Themes and languages
+
+
 ### Features Planned for Future Releases
 
-* Adding OneDrive and Nextcloud as cloud backup sources.
-* Add support for embedding audio files in rich text editor
-* A simple todolist within the rich text editor
-* Support for embedding audio files
-* Organizing notes in the form of folders
+- Add OneDrive and Nextcloud as cloud backup sources.
+- Add support for embedding audio files in the rich text editor.
+- Implement a simple to-do list within the rich text editor.
+- Organize notes using smart folders.
+- Add support for stickers within the editor.
 
 ### Multi-Language Support
+
 DiaryVault is available in multiple languages. Following is the status of translation to different languages
 
 [English](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_en.arb) is the primary language
