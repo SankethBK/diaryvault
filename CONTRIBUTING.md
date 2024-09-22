@@ -6,6 +6,8 @@ Thank you for your interest in contributing to DiaryVault! We welcome contributi
 
 DiaryVault is written in Flutter. Even though Flutter is cross-platform, DiaryVault is currently focused on Android. So in order to setup and run the project locally, you need to have an Android emulator or a real device.
 
+DiaryVault currently runs only on **flutter 3.13.0** as some of the packages we are using have breaking changes with later versions of Flutter.
+
 Running the project is as simple as:
 
 ```
