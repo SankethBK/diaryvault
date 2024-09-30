@@ -84,32 +84,3 @@ For local setup and contribution guidelines, please visit [CONTRIBUTING.md](CONT
 
 
 Checkout our [wiki pages](https://github.com/SankethBK/diaryvault/wiki/) for documentation.
-
-### Multi-Language Support
-
-DiaryVault is available in multiple languages. Following is the status of translation to different languages
-
-[English](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_en.arb) is the primary language
-
-| Language | Translation Status 
-|----------|-------------------
-| [Arabic](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_ar.arb) | Incomplete
-| [Bahasa](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_id.arb) | Incomplete
-| [Chinese](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_zh.arb) | Complete
-| [English](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_en.arb) | Primary
-| [Finnish](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_fi.arb) | Incomplete
-| [French](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_fr.arb) | Complete
-| [German](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_de.arb) | Complete
-| [Gujarati](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_gu.arb) | Incomplete
-| [Hebrew](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_he.arb) | Incomplete
-| [Hindi](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_hi.arb) | Complete
-| [Kannada](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_kn.arb) | Incomplete
-| [Panjabi](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pa.arb) | Incomplete
-| [Polish](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pl.arb) | Complete
-| [Portuguese (Brazil)](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_pt.arb) | Complete
-| [Spanish](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_es.arb) | Complete
-| [Swahili](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_sw.arb) | Incomplete
-| [Telugu](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_te.arb) | Complete
-
-To add missing translations or new language, refer to [this issue](https://github.com/SankethBK/diaryvault/issues/75).
-
