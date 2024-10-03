@@ -16,6 +16,8 @@ import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:logger/logger.dart';
 
 class NoteCreatePage extends StatefulWidget {
   // display page growing animation
@@ -37,6 +39,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late Image neonImage;
   late double topPadding = 0;
   Timer? _saveTimer;
+
+  final Logger _logger = Logger(); // Initialize the logger
 
   @override
   void initState() {
@@ -83,6 +87,21 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
     super.didChangeDependencies();
   }
 
+  Future<void> showReviewPopup() async {
+    final InAppReview inAppReview = InAppReview.instance;
+
+    try {
+      // Check if in-app review is available
+      if (await inAppReview.isAvailable()) {
+        await inAppReview.requestReview();
+      } else {
+        _logger.w('In-app review is not available.'); // Log warning
+      }
+    } catch (e) {
+      _logger.e('Failed to show review popup: $e'); // Log error
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final backgroundImagePath =
@@ -126,12 +145,14 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
             ),
           ),
           padding: EdgeInsets.only(
-            top: topPadding, left: 10.0, right: 10.0,
+            top: topPadding,
+            left: 10.0,
+            right: 10.0,
             // bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: BlocListener<NotesBloc, NotesState>(
             bloc: notesBloc,
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is NoteFetchFailed) {
                 showToast(S.current.failedToFetchNote);
               } else if (state is NotesSavingFailed) {
@@ -140,6 +161,11 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                 showToast(state.newNote!
                     ? S.current.noteSavedSuccessfully
                     : S.current.noteUpdatedSuccessfully);
+                
+                // Call showReviewPopup after saving the note
+                await showReviewPopup();
+
+                // Navigate to home after showing the review dialog
                 _routeToHome();
               }
             },
