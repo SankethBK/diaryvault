@@ -21,14 +21,14 @@ We are participating in [Hacktoberfest 2024](https://hacktoberfest.com/)! Contri
 ### Screenshots
 
 <div style="display:flex; flex-wrap: wrap;">
-  <img src="https://github.com/user-attachments/assets/e910af76-5682-4d6b-940d-4131cd6d026c" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/user-attachments/assets/7ed08067-5146-40f5-99d0-e2c1b1031cd3" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/user-attachments/assets/e79f803c-c627-4cb8-baa4-926dad81c9a4" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/user-attachments/assets/21e1e8a3-06b4-4db0-8e2a-9be015957903" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/user-attachments/assets/aba7958a-1dbd-41c0-8ee0-d0980b7cfe80" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/user-attachments/assets/a2a3a17c-315c-4f5e-9613-8b87e4742ef4" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/user-attachments/assets/9ab61528-aa86-409c-9e6f-a76d0ecc131d" style = "padding: 1rem; height: 300px">
-  <img src="https://github.com/user-attachments/assets/086a7805-558d-4fe5-9263-0efc4c15ab22" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/1.webp" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/2.webp" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/3.webp" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/4.webp" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/5.webp" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/6.webp" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/7.webp" style = "padding: 1rem; height: 300px">
+  <img src="./readme_assets/8.webp" style = "padding: 1rem; height: 300px">
 </div>
 
 
