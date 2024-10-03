@@ -21,14 +21,14 @@ We are participating in [Hacktoberfest 2024](https://hacktoberfest.com/)! Contri
 ### Screenshots
 
 <div style="display:flex; flex-wrap: wrap;">
-  <img src="./readme_assets/1.webp" style = "padding: 1rem; height: 300px">
-  <img src="./readme_assets/2.webp" style = "padding: 1rem; height: 300px">
-  <img src="./readme_assets/3.webp" style = "padding: 1rem; height: 300px">
-  <img src="./readme_assets/4.webp" style = "padding: 1rem; height: 300px">
-  <img src="./readme_assets/5.webp" style = "padding: 1rem; height: 300px">
-  <img src="./readme_assets/6.webp" style = "padding: 1rem; height: 300px">
-  <img src="./readme_assets/7.webp" style = "padding: 1rem; height: 300px">
-  <img src="./readme_assets/8.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_1.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_2.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_3.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_4.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_5.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_6.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_7.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_8.webp" style = "padding: 1rem; height: 300px">
 </div>
 
 
