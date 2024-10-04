@@ -1,25 +1,18 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/widgets/font_dropdown.dart';
+import 'package:dairy_app/core/pages/settings_details.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
-import 'package:dairy_app/core/widgets/language_dropdown.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
 import 'package:dairy_app/core/widgets/project_on_github.dart';
 import 'package:dairy_app/core/widgets/send_feedback.dart';
+import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/core/widgets/share_with_friends.dart';
-import 'package:dairy_app/core/widgets/theme_dropdown.dart';
 import 'package:dairy_app/core/widgets/version_number.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
-import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../widgets/auto_save_enable.dart';
 
 class SettingsPage extends StatefulWidget {
   static String get route => '/settings';
@@ -58,6 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
+
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
@@ -68,6 +62,10 @@ class _SettingsPageState extends State<SettingsPage> {
     final richTextGradientEndColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
         .richTextGradientEndColor;
+
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -125,25 +123,70 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               padding: const EdgeInsets.all(0.0),
               children: [
-                const SetupAccount(),
-                const SyncSettings(),
-                const SizedBox(height: 25),
-                SecuritySettings(),
+                SettingsTile(
+                  child: Text(
+                    "Cloud Backup",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: mainTextColor,
+                    ),
+                  ),
+                  onTap: () => _navigateToSettingsDetails("Cloud Backup"),
+                ),
                 const SizedBox(height: 15),
-                const AutoSaveToggleButton(),
+                SettingsTile(
+                  child: Text(
+                    "Security",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: mainTextColor,
+                    ),
+                  ),
+                  onTap: () => _navigateToSettingsDetails("Security"),
+                ),
                 const SizedBox(height: 15),
-                const DailyReminders(),
-                const SizedBox(height: 25),
-                const ThemeDropdown(),
-                const SizedBox(height: 20),
-                const ExportNotes(),
-                const SizedBox(height: 20),
-                const FontDropdown(),
-                const SizedBox(height: 20),
-                const LanguageDropDown(),
-                const SizedBox(height: 20),
+                SettingsTile(
+                  child: Text(
+                    "Reminders",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: mainTextColor,
+                    ),
+                  ),
+                  onTap: () => _navigateToSettingsDetails("Reminders"),
+                ),
+                const SizedBox(height: 15),
+                SettingsTile(
+                  child: Text(
+                    "Customize Theme, Fonts and Language",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: mainTextColor,
+                    ),
+                  ),
+                  onTap: () => _navigateToSettingsDetails(
+                      "Customize Theme, Fonts and Language"),
+                ),
+                const SizedBox(height: 15),
+                // const SetupAccount(),
+                // const SyncSettings(),
+                // const SizedBox(height: 25),
+                // SecuritySettings(),
+                // const SizedBox(height: 15),
+                // const AutoSaveToggleButton(),
+                // const SizedBox(height: 15),
+                // const DailyReminders(),
+                // const SizedBox(height: 25),
+                // const ThemeDropdown(),
+                // const SizedBox(height: 20),
+                // const ExportNotes(),
+                // const SizedBox(height: 20),
+                // const FontDropdown(),
+                // const SizedBox(height: 20),
+                // const LanguageDropDown(),
+                // const SizedBox(height: 20),
                 const SendFeedBack(),
-                const SizedBox(height: 17),
+                const SizedBox(height: 15),
                 const ShareWithFriends(),
                 const SizedBox(height: 15),
                 const ProjectOnGithub(),
@@ -155,6 +198,13 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _navigateToSettingsDetails(String settingsCategory) {
+    Navigator.of(context).pushNamed(
+      SettingsDetailPage.route,
+      arguments: settingsCategory,
     );
   }
 }
