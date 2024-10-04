@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -17,7 +18,6 @@ import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:logger/logger.dart';
 
 class NoteCreatePage extends StatefulWidget {
   // display page growing animation
@@ -40,16 +40,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late double topPadding = 0;
   Timer? _saveTimer;
 
-  final log = Logger(
-    printer: PrettyPrinter(
-      methodCount: 0, // Don't show method call trace for simplicity
-      errorMethodCount: 5, // Number of methods for error trace
-      lineLength: 80, // Max length for each line in the log
-      colors: true, // Enable colorful log output
-      printEmojis: true, // Include emojis in logs
-      printTime: true, // Include timestamps in logs
-    ),
-  );
+  final log = printer("NoteCreatePage");
 
   @override
   void initState() {
