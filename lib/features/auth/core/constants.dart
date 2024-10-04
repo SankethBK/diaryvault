@@ -35,3 +35,10 @@ class GuestUserDetails {
   static String guestUserEmail = "guest@guest.com";
   static String guestUserId = "guest_user_id";
 }
+
+class SettingCategoriesConstants {
+  static const String cloudBackup = "cloud-backup";
+  static const String security = "security";
+  static const String reminders = "reminders";
+  static const String themeFontAndLanguage = "theme-font-and-language";
+}

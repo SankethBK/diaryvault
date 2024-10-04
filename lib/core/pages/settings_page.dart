@@ -9,6 +9,7 @@ import 'package:dairy_app/core/widgets/send_feedback.dart';
 import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/core/widgets/share_with_friends.dart';
 import 'package:dairy_app/core/widgets/version_number.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +132,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: mainTextColor,
                     ),
                   ),
-                  onTap: () => _navigateToSettingsDetails("Cloud Backup"),
+                  onTap: () => _navigateToSettingsDetails(
+                      SettingCategoriesConstants.cloudBackup),
                 ),
                 const SizedBox(height: 15),
                 SettingsTile(
@@ -142,7 +144,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: mainTextColor,
                     ),
                   ),
-                  onTap: () => _navigateToSettingsDetails("Security"),
+                  onTap: () => _navigateToSettingsDetails(
+                      SettingCategoriesConstants.security),
                 ),
                 const SizedBox(height: 15),
                 SettingsTile(
@@ -153,7 +156,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: mainTextColor,
                     ),
                   ),
-                  onTap: () => _navigateToSettingsDetails("Reminders"),
+                  onTap: () => _navigateToSettingsDetails(
+                      SettingCategoriesConstants.reminders),
                 ),
                 const SizedBox(height: 15),
                 SettingsTile(
@@ -165,7 +169,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                   onTap: () => _navigateToSettingsDetails(
-                      "Customize Theme, Fonts and Language"),
+                    SettingCategoriesConstants.themeFontAndLanguage,
+                  ),
                 ),
                 const SizedBox(height: 15),
                 // const SetupAccount(),

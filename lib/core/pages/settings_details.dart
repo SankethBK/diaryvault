@@ -6,6 +6,7 @@ import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/language_dropdown.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
 import 'package:dairy_app/core/widgets/theme_dropdown.dart';
+import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
@@ -134,21 +135,21 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
 
   List<Widget> _getSettingsWidgets() {
     switch (widget.settingsCategory) {
-      case "Cloud Backup":
+      case SettingCategoriesConstants.cloudBackup:
         return [
           const SetupAccount(),
           const SyncSettings(),
         ];
-      case "Security":
+      case SettingCategoriesConstants.security:
         return [
           SecuritySettings(),
         ];
-      case "Reminders":
+      case SettingCategoriesConstants.reminders:
         return [
           const AutoSaveToggleButton(),
           const DailyReminders(),
         ];
-      case "Customize Theme, Fonts and Language":
+      case SettingCategoriesConstants.themeFontAndLanguage:
         return [
           const ThemeDropdown(),
           const SizedBox(height: 20),
