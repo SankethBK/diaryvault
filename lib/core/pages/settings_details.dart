@@ -12,6 +12,7 @@ import 'package:dairy_app/features/auth/presentation/widgets/security_settings.d
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -78,7 +79,7 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: Text(widget.settingsCategory),
+        title: Text(_getAppBarTitle()),
         actions: [LogoutButton(authSessionBloc: authSessionBloc)],
       ),
       body: Container(
@@ -147,6 +148,7 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
       case SettingCategoriesConstants.reminders:
         return [
           const AutoSaveToggleButton(),
+          const SizedBox(height: 20),
           const DailyReminders(),
         ];
       case SettingCategoriesConstants.themeFontAndLanguage:
@@ -160,6 +162,21 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
 
       default:
         return [];
+    }
+  }
+
+  String _getAppBarTitle() {
+    switch (widget.settingsCategory) {
+      case SettingCategoriesConstants.cloudBackup:
+        return S.current.cloudBackup;
+      case SettingCategoriesConstants.security:
+        return S.current.security;
+      case SettingCategoriesConstants.reminders:
+        return S.current.reminders;
+      case SettingCategoriesConstants.themeFontAndLanguage:
+        return S.current.themeFontsAndLanguage;
+      default:
+        return '';
     }
   }
 }

@@ -1179,6 +1179,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Cloud Backup`
+  String get cloudBackup {
+    return Intl.message(
+      'Cloud Backup',
+      name: 'cloudBackup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security`
+  String get security {
+    return Intl.message(
+      'Security',
+      name: 'security',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminders`
+  String get reminders {
+    return Intl.message(
+      'Reminders',
+      name: 'reminders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize Theme, Fonts and Language`
+  String get themeFontsAndLanguage {
+    return Intl.message(
+      'Customize Theme, Fonts and Language',
+      name: 'themeFontsAndLanguage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -1188,6 +1228,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'bn'),
       Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'es'),
       Locale.fromSubtags(languageCode: 'fi'),
@@ -1200,9 +1241,11 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'pa'),
       Locale.fromSubtags(languageCode: 'pl'),
       Locale.fromSubtags(languageCode: 'pt'),
+      Locale.fromSubtags(languageCode: 'ru'),
       Locale.fromSubtags(languageCode: 'sk'),
       Locale.fromSubtags(languageCode: 'sw'),
       Locale.fromSubtags(languageCode: 'te'),
+      Locale.fromSubtags(languageCode: 'tr'),
       Locale.fromSubtags(languageCode: 'zh'),
     ];
   }

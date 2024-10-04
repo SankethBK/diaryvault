@@ -122,5 +122,9 @@
   "signInWithEmail": "Sign in with Email",
   "projectOnGithub": "Project on Github",
   "recordAudio": "Record Audio",
-  "pickFromFileManager": "Pick From Files"
+  "pickFromFileManager": "Pick From Files",
+  "cloudBackup": "Cloud Backup",
+  "security": "Security",
+  "reminders": "Reminders",
+  "themeFontsAndLanguage": "Customize Theme, Fonts and Language"
 }

@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 SettingsTile(
                   child: Text(
-                    "Cloud Backup",
+                    S.current.cloudBackup,
                     style: TextStyle(
                       fontSize: 16,
                       color: mainTextColor,
@@ -138,7 +138,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
-                    "Security",
+                    S.current.security,
                     style: TextStyle(
                       fontSize: 16,
                       color: mainTextColor,
@@ -150,7 +150,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
-                    "Reminders",
+                    S.current.reminders,
                     style: TextStyle(
                       fontSize: 16,
                       color: mainTextColor,
@@ -162,7 +162,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
-                    "Customize Theme, Fonts and Language",
+                    S.current.themeFontsAndLanguage,
                     style: TextStyle(
                       fontSize: 16,
                       color: mainTextColor,
