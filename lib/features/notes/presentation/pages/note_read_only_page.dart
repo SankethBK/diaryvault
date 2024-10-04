@@ -5,25 +5,25 @@ import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_read_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_tags.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
-import 'package:flutter/gestures.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:dairy_app/generated/l10n.dart';
+
 import '../widgets/notes_close_button.dart';
 
 class NotesReadOnlyPage extends StatefulWidget {
   // display open container animation
   static String get routeThroughHome => '/note-read-page-through-home';
   final String? id;
-  final int? index;
-  final List<String> notesIds;
+
   // display fade transition animaiton
   static String get routeThoughNotesCreate =>
       '/note-read-page-though-note-create-page';
@@ -31,8 +31,6 @@ class NotesReadOnlyPage extends StatefulWidget {
   const NotesReadOnlyPage({
     Key? key,
     required this.id,
-    required this.index,
-    required this.notesIds,
   }) : super(key: key);
 
   @override
@@ -49,7 +47,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: widget.index ?? 0);
   }
 
   @override
@@ -59,6 +56,22 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
       if (notesBloc.state is NoteDummyState) {
         notesBloc.add(InitializeNote(id: widget.id));
       }
+
+      final _notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+
+      final _notePreviewList = _notesFetchCubit.state.notePreviewList;
+
+      // Find the index of the current note based on the ID to set it as _initialPageIndex
+      var _initialPageIndex =
+          _notePreviewList.indexWhere((note) => note.id == widget.id);
+
+      // If the note is not found, default to the first page (index 0)
+      if (_initialPageIndex == -1) {
+        _initialPageIndex = 0;
+      }
+
+      // Initialize the PageController with the found index
+      _pageController = PageController(initialPage: _initialPageIndex);
 
       final backgroundImagePath = Theme.of(context)
           .extension<AuthPageThemeExtensions>()!
@@ -79,6 +92,10 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
   @override
   Widget build(BuildContext context) {
     final notesBloc = BlocProvider.of<NotesBloc>(context);
+
+    final _notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+
+    final _notePreviewList = _notesFetchCubit.state.notePreviewList;
 
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
@@ -130,7 +147,11 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
           ),
           body: Container(
             padding: EdgeInsets.only(
-              top: topPadding, left: 10.0, right: 10.0, bottom: 10.0,),
+              top: topPadding,
+              left: 10.0,
+              right: 10.0,
+              bottom: 10.0,
+            ),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
@@ -141,13 +162,21 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
             ),
             child: PageView.builder(
               controller: _pageController,
-              itemCount: widget.notesIds.length,
+              itemCount: _notePreviewList.length,
+              onPageChanged: (pageIndex) {
+                // PageView has snapped, load the note for the current pageIndex
+                final _notePreview = _notePreviewList[pageIndex];
+
+                // Only load the note when the page has fully changed
+                notesBloc.add(InitializeNote(id: _notePreview.id));
+                print(
+                    "Page Snapped to $pageIndex, loading note ${_notePreview.id}");
+              },
               itemBuilder: (context, pageIndex) {
                 print("Custom Index PAGE CHANGED to $pageIndex");
 
-                final noteId = widget.notesIds[pageIndex];
-                notesBloc.add(InitializeNote(id: noteId));
-
+                final _notePreview = _notePreviewList[pageIndex];
+                notesBloc.add(InitializeNote(id: _notePreview.id));
 
                 return BlocListener<NotesBloc, NotesState>(
                   bloc: notesBloc,
@@ -195,6 +224,17 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
                       ),
                       child: BlocBuilder<NotesBloc, NotesState>(
                         bloc: notesBloc,
+                        buildWhen: (previousState, currentState) {
+                          print(
+                              "previousState = $previousState, currentState = $currentState");
+                          print(
+                              "currentstateid = ${currentState.id}, notepreviewid = ${_notePreview.id}");
+                          if (currentState.safe) {
+                            // Rebuild only if the note in the bloc matches the note ID of this page
+                            return currentState.id == _notePreview.id;
+                          }
+                          return false; // Don't rebuild for other states or mismatched note IDs
+                        },
                         builder: (context, state) {
                           if (state.safe) {
                             return ListView(

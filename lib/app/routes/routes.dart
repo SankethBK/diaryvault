@@ -24,23 +24,13 @@ class RouteGenerator {
     } else if (settings.name == NoteCreatePage.routeThroughNoteReadOnly) {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());
     } else if (settings.name == NotesReadOnlyPage.routeThroughHome) {
-      if (args is Set && args.length == 3) {
-        final List<dynamic> argsList = args.toList();
-        final String id = argsList[0] as String;
-        final int? index = argsList[1] as int?;
-        final List<String> notesIds = argsList[2] as List<String>;
-
-        return MaterialPageRoute(
+      return MaterialPageRoute(
           builder: (_) => NotesReadOnlyPage(
-            id: id,
-            index: index,
-            notesIds: notesIds,
-          ),
-        );
-      }
+                id: settings.arguments as String,
+              ));
     } else if (settings.name == NotesReadOnlyPage.routeThoughNotesCreate) {
       return MaterialPageRoute(
-          builder: (_) => const NotesReadOnlyPage(id: null, index: null, notesIds: [],));
+          builder: (_) => const NotesReadOnlyPage(id: null));
     } else if (settings.name == SettingsPage.route) {
       return MaterialPageRoute(builder: (_) => const SettingsPage());
     } else if (settings.name == PINAuthPage.route) {
@@ -54,6 +44,3 @@ class RouteGenerator {
     );
   }
 }
-
-
-

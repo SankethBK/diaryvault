@@ -15,12 +15,10 @@ class NotePreviewCard extends StatelessWidget {
     required this.first,
     required this.last,
     required this.index,
-    required this.notesIds,
   }) : super(key: key);
 
   final NotePreview note;
   final int index;
-  final List<String> notesIds;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +42,9 @@ class NotePreviewCard extends StatelessWidget {
     return BlocBuilder<SelectableListCubit, SelectableListState>(
       builder: (context, state) {
         final selectableListCubit =
-        BlocProvider.of<SelectableListCubit>(context);
+            BlocProvider.of<SelectableListCubit>(context);
         final isSelected =
-        selectableListCubit.state.selectedItems.contains(note.id);
+            selectableListCubit.state.selectedItems.contains(note.id);
 
         return GestureDetector(
           onLongPress: () {
@@ -62,26 +60,26 @@ class NotePreviewCard extends StatelessWidget {
             } else {
               Navigator.of(context).pushNamed(
                 NotesReadOnlyPage.routeThroughHome,
-                arguments: {note.id, index, notesIds},
+                arguments: note.id,
               );
             }
           },
           child: Container(
             width: double.infinity,
             padding:
-            const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
+                const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
             decoration: BoxDecoration(
               border: last
                   ? Border(
-                bottom:
-                BorderSide(width: 1.3, color: notePreviewBorderColor),
-                top:
-                BorderSide(width: 1.3, color: notePreviewBorderColor),
-              )
+                      bottom:
+                          BorderSide(width: 1.3, color: notePreviewBorderColor),
+                      top:
+                          BorderSide(width: 1.3, color: notePreviewBorderColor),
+                    )
                   : Border(
-                top:
-                BorderSide(width: 1.3, color: notePreviewBorderColor),
-              ),
+                      top:
+                          BorderSide(width: 1.3, color: notePreviewBorderColor),
+                    ),
               gradient: LinearGradient(
                 colors: [
                   isSelected
@@ -106,7 +104,7 @@ class NotePreviewCard extends StatelessWidget {
                 TitleAndDescription(
                     note: note,
                     selectModeEnabled:
-                    (selectableListCubit.state is SelectableListEnabled)),
+                        (selectableListCubit.state is SelectableListEnabled)),
                 DisplayDate(note: note),
               ],
             ),
@@ -141,15 +139,15 @@ class SelectBox extends StatelessWidget {
 
     return StatefulBuilder(
       builder: ((context, setState) => Checkbox(
-        side: BorderSide(color: previewTitleColor),
-        value: isSelected,
-        activeColor: checkBoxSelectedColor,
-        onChanged: (val) {
-          val!
-              ? selectableListCubit.addItemToSelection(note.id)
-              : selectableListCubit.removeItemFromSelection(note.id);
-        },
-      )),
+            side: BorderSide(color: previewTitleColor),
+            value: isSelected,
+            activeColor: checkBoxSelectedColor,
+            onChanged: (val) {
+              val!
+                  ? selectableListCubit.addItemToSelection(note.id)
+                  : selectableListCubit.removeItemFromSelection(note.id);
+            },
+          )),
     );
   }
 }
