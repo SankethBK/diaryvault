@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
-
     final log = printer("Router");
 
     log.i("routing to ${settings.name} with args $args");
@@ -25,11 +24,23 @@ class RouteGenerator {
     } else if (settings.name == NoteCreatePage.routeThroughNoteReadOnly) {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());
     } else if (settings.name == NotesReadOnlyPage.routeThroughHome) {
-      return MaterialPageRoute(
-          builder: (_) => NotesReadOnlyPage(id: settings.arguments as String));
+      if (args is Set && args.length == 3) {
+        final List<dynamic> argsList = args.toList();
+        final String id = argsList[0] as String;
+        final int? index = argsList[1] as int?;
+        final List<String> notesIds = argsList[2] as List<String>;
+
+        return MaterialPageRoute(
+          builder: (_) => NotesReadOnlyPage(
+            id: id,
+            index: index,
+            notesIds: notesIds,
+          ),
+        );
+      }
     } else if (settings.name == NotesReadOnlyPage.routeThoughNotesCreate) {
       return MaterialPageRoute(
-          builder: (_) => const NotesReadOnlyPage(id: null));
+          builder: (_) => const NotesReadOnlyPage(id: null, index: null, notesIds: [],));
     } else if (settings.name == SettingsPage.route) {
       return MaterialPageRoute(builder: (_) => const SettingsPage());
     } else if (settings.name == PINAuthPage.route) {
@@ -43,3 +54,6 @@ class RouteGenerator {
     );
   }
 }
+
+
+
