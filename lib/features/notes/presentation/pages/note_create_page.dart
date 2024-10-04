@@ -40,7 +40,16 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late double topPadding = 0;
   Timer? _saveTimer;
 
-  final Logger _logger = Logger(); // Initialize the logger
+  final log = Logger(
+    printer: PrettyPrinter(
+      methodCount: 0, // Don't show method call trace for simplicity
+      errorMethodCount: 5, // Number of methods for error trace
+      lineLength: 80, // Max length for each line in the log
+      colors: true, // Enable colorful log output
+      printEmojis: true, // Include emojis in logs
+      printTime: true, // Include timestamps in logs
+    ),
+  );
 
   @override
   void initState() {
@@ -90,15 +99,16 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   Future<void> showReviewPopup() async {
     final InAppReview inAppReview = InAppReview.instance;
 
+    log.d("Checking if in-app review is available");
     try {
-      // Check if in-app review is available
       if (await inAppReview.isAvailable()) {
+        log.i("In-app review available, requesting review");
         await inAppReview.requestReview();
       } else {
-        _logger.w('In-app review is not available.'); // Log warning
+        log.w('In-app review is not available.');
       }
     } catch (e) {
-      _logger.e('Failed to show review popup: $e'); // Log error
+      log.e('Failed to show review popup: $e');
     }
   }
 
@@ -163,6 +173,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                     : S.current.noteUpdatedSuccessfully);
                 
                 // Call showReviewPopup after saving the note
+                log.d("Showing review popup after note save");
                 await showReviewPopup();
 
                 // Navigate to home after showing the review dialog
