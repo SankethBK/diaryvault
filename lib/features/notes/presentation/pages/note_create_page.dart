@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -16,6 +17,7 @@ import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class NoteCreatePage extends StatefulWidget {
   // display page growing animation
@@ -37,6 +39,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
   late Image neonImage;
   late double topPadding = 0;
   Timer? _saveTimer;
+
+  final log = printer("NoteCreatePage");
 
   @override
   void initState() {
@@ -83,6 +87,22 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
     super.didChangeDependencies();
   }
 
+  Future<void> showReviewPopup() async {
+    final InAppReview inAppReview = InAppReview.instance;
+
+    log.d("Checking if in-app review is available");
+    try {
+      if (await inAppReview.isAvailable()) {
+        log.i("In-app review available, requesting review");
+        await inAppReview.requestReview();
+      } else {
+        log.w('In-app review is not available.');
+      }
+    } catch (e) {
+      log.e('Failed to show review popup: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final backgroundImagePath =
@@ -126,12 +146,14 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
             ),
           ),
           padding: EdgeInsets.only(
-            top: topPadding, left: 10.0, right: 10.0,
+            top: topPadding,
+            left: 10.0,
+            right: 10.0,
             // bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: BlocListener<NotesBloc, NotesState>(
             bloc: notesBloc,
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is NoteFetchFailed) {
                 showToast(S.current.failedToFetchNote);
               } else if (state is NotesSavingFailed) {
@@ -140,6 +162,12 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                 showToast(state.newNote!
                     ? S.current.noteSavedSuccessfully
                     : S.current.noteUpdatedSuccessfully);
+                
+                // Call showReviewPopup after saving the note
+                log.d("Showing review popup after note save");
+                await showReviewPopup();
+
+                // Navigate to home after showing the review dialog
                 _routeToHome();
               }
             },
