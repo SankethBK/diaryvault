@@ -69,7 +69,7 @@ class DarkAcademia {
       ),
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/dark-academia.png",
+          backgroundImage: "assets/images/dark-academia.webp",
           linkColor: const Color(0xFFD39E70),
           prefixIconColor: const Color.fromARGB(255, 87, 57, 58),
           fillColor: const Color(0xFFA89C94),

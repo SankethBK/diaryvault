@@ -71,7 +71,7 @@ class LushGreen {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/lush_green.png",
+          backgroundImage: "assets/images/lush_green.webp",
           linkColor: Colors.green[300]!,
           errorTextColor: Colors.green[200]!,
           prefixIconColor: Colors.white.withOpacity(0.5),

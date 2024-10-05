@@ -64,7 +64,7 @@ class _NextCloudUserInfoState extends State<NextCloudUserInfo>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/nextcloud_logo.png",
+                      "assets/images/nextcloud_logo.webp",
                       width: 25,
                       height: 25,
                     ),
