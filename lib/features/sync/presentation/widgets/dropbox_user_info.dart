@@ -66,7 +66,7 @@ class _DropboxUserInfoState extends State<DropboxUserInfo>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/images/dropbox_logo.png",
+                            "assets/images/dropbox_logo.webp",
                             width: 25,
                             height: 25,
                           ),
