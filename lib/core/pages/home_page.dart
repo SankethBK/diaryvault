@@ -122,8 +122,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is NotesFetchSuccessful ||
                       state is NotesSortSuccessful) {
-                    final noteIds =
-                    state.notePreviewList.map((note) => note.id).toList();
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
@@ -137,7 +135,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           last: index == state.notePreviewList.length,
                           note: note,
                           index: index - 1,
-                          notesIds: noteIds,
                         );
                       },
                       itemCount: state.notePreviewList.length + 1,

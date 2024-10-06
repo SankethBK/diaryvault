@@ -15,12 +15,10 @@ class NotePreviewCard extends StatelessWidget {
     required this.first,
     required this.last,
     required this.index,
-    required this.notesIds,
   }) : super(key: key);
 
   final NotePreview note;
   final int index;
-  final List<String> notesIds;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +60,7 @@ class NotePreviewCard extends StatelessWidget {
             } else {
               Navigator.of(context).pushNamed(
                 NotesReadOnlyPage.routeThroughHome,
-                arguments: {note.id, index, notesIds},
+                arguments: note.id,
               );
             }
           },
