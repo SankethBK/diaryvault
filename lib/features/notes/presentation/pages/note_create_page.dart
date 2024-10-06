@@ -162,7 +162,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                 showToast(state.newNote!
                     ? S.current.noteSavedSuccessfully
                     : S.current.noteUpdatedSuccessfully);
-                
+
                 // Call showReviewPopup after saving the note
                 log.d("Showing review popup after note save");
                 await showReviewPopup();
