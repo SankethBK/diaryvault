@@ -113,7 +113,7 @@ class SyncSettings extends StatelessWidget {
                         // decoration: const BoxDecoration(color: Colors.pinkAccent),
                       ),
                       Image.asset(
-                        "assets/images/google_drive_icon.png.webp",
+                        "assets/images/google_drive_icon.webp",
                         width: 35,
                         height: 35,
                       ),

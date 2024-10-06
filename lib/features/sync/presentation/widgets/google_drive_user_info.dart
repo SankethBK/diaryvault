@@ -64,7 +64,7 @@ class _GoogleDriveUserInfoState extends State<GoogleDriveUserInfo> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/images/google_drive_icon.png.webp",
+                            "assets/images/google_drive_icon.webp",
                             width: 25,
                             height: 25,
                           ),
