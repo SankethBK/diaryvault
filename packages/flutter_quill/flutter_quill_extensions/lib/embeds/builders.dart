@@ -239,7 +239,7 @@ class AudioBuilder extends EmbedBuilder {
     final audioUrl = node.value.data;
 
     String getFileNameFromUrl(String url) {
-      return url.split('/').last;  // Extract the file name from the URL.
+      return url.split('/').last; // Extract the file name from the URL.
     }
 
     String fileName;

@@ -2,7 +2,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class AudioPlaybackWidget extends StatefulWidget {
-  const AudioPlaybackWidget({required this.audioUrl, required this.fileName, super.key});
+  const AudioPlaybackWidget(
+      {required this.audioUrl, required this.fileName, super.key});
   final audioUrl;
   final String fileName;
 
@@ -79,23 +80,23 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30), // Adjust the value as needed
-        border: Border.all(
-          color: Colors.grey, // Border color
-        ),
-        color: Colors.white.withOpacity(0.1),
-      ), // height: 50,
-      child: SizedBox(
-        height: 55,
-        child: isPlaying ? _buildPlayer() : _buildInitialView(),
-      )  // Use isPlaying to toggle between views
-    );
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30), // Adjust the value as needed
+          border: Border.all(
+            color: Colors.grey, // Border color
+          ),
+          color: Colors.white.withOpacity(0.1),
+        ), // height: 50,
+        child: SizedBox(
+          height: 55,
+          child: isPlaying ? _buildPlayer() : _buildInitialView(),
+        ) // Use isPlaying to toggle between views
+        );
   }
 
   // Audio player view that appears after the audio starts playing
-   Widget _buildInitialView() {
+  Widget _buildInitialView() {
     return ListTile(
       leading: Icon(Icons.audiotrack, color: Colors.grey.shade700),
       title: Row(
@@ -104,8 +105,9 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
           Expanded(
             child: Text(
               widget.fileName,
-              maxLines: 1,  // Ensures only one line
-              overflow: TextOverflow.ellipsis,  // Clip text with ellipsis if too long
+              maxLines: 1, // Ensures only one line
+              overflow:
+                  TextOverflow.ellipsis, // Clip text with ellipsis if too long
             ),
           ),
           const SizedBox(width: 15),
