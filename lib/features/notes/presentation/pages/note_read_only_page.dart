@@ -1,21 +1,21 @@
-
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
-import 'package:dairy_app/core/utils/note_helper.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_read_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_tags.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:dairy_app/generated/l10n.dart';
+
 import '../widgets/notes_close_button.dart';
 
 class NotesReadOnlyPage extends StatefulWidget {
@@ -33,7 +33,8 @@ class NotesReadOnlyPage extends StatefulWidget {
   State<NotesReadOnlyPage> createState() => _NotesReadOnlyPageState();
 }
 
-class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
+class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
+    with NoteHelperMixin {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
   late Image neonImage;
@@ -92,7 +93,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage> {
         .titleTextBoxBorderColor;
 
     return WillPopScope(
-      onWillPop: () => NoteHelper.handleWillPop(context, notesBloc),
+      onWillPop: () => handleWillPop(context, notesBloc),
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();

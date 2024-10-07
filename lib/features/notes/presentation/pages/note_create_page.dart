@@ -3,22 +3,22 @@ import 'dart:async';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/core/utils/note_helper.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
-
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dairy_app/generated/l10n.dart';
+import 'package:in_app_review/in_app_review.dart';
+
 import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
-import 'package:in_app_review/in_app_review.dart';
 
 class NoteCreatePage extends StatefulWidget {
   // display page growing animation
@@ -34,7 +34,7 @@ class NoteCreatePage extends StatefulWidget {
   State<NoteCreatePage> createState() => _NoteCreatePageState();
 }
 
-class _NoteCreatePageState extends State<NoteCreatePage> {
+class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
   late Image neonImage;
@@ -114,7 +114,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         .fallbackColor;
 
     return WillPopScope(
-      onWillPop: () => NoteHelper.handleWillPop(context, notesBloc),
+      onWillPop: () => handleWillPop(context, notesBloc),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
@@ -155,7 +155,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                 showToast(state.newNote!
                     ? S.current.noteSavedSuccessfully
                     : S.current.noteUpdatedSuccessfully);
-                
+
                 // Call showReviewPopup after saving the note
                 log.d("Showing review popup after note save");
                 await showReviewPopup();
