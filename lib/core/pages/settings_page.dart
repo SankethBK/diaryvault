@@ -125,6 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               padding: const EdgeInsets.all(0.0),
               children: [
+                const SizedBox(height: 10),
                 const SetupAccount(),
                 const SizedBox(height: 15),
                 SettingsTile(

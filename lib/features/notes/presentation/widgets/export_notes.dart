@@ -23,7 +23,7 @@ class ExportNotes extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 15.0),
+        const SizedBox(height: 10.0),
         SettingsTile(
           onTap: () async {
             // create a text file from the notes

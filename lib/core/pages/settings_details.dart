@@ -144,6 +144,7 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         ];
       case SettingCategoriesConstants.security:
         return [
+          const SizedBox(height: 10),
           SecuritySettings(),
         ];
       case SettingCategoriesConstants.reminders:
@@ -153,6 +154,7 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         ];
       case SettingCategoriesConstants.themeFontAndLanguage:
         return [
+          const SizedBox(height: 10),
           const ThemeDropdown(),
           const SizedBox(height: 20),
           const FontDropdown(),
