@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
-
     final log = printer("Router");
 
     log.i("routing to ${settings.name} with args $args");
@@ -27,7 +26,9 @@ class RouteGenerator {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());
     } else if (settings.name == NotesReadOnlyPage.routeThroughHome) {
       return MaterialPageRoute(
-          builder: (_) => NotesReadOnlyPage(id: settings.arguments as String));
+          builder: (_) => NotesReadOnlyPage(
+            id: settings.arguments as String,
+          ));
     } else if (settings.name == NotesReadOnlyPage.routeThoughNotesCreate) {
       return MaterialPageRoute(
           builder: (_) => const NotesReadOnlyPage(id: null));
