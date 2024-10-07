@@ -8,9 +8,9 @@ import 'package:dairy_app/features/sync/presentation/widgets/dropbox_user_info.d
 import 'package:dairy_app/features/sync/presentation/widgets/nextcloud_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_source_dropdown.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dairy_app/generated/l10n.dart';
 
 class SyncSettings extends StatelessWidget {
   const SyncSettings({Key? key}) : super(key: key);

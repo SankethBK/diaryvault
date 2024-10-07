@@ -10,14 +10,15 @@ import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_f
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dairy_app/generated/l10n.dart';
+import 'package:in_app_review/in_app_review.dart';
+
 import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
 import '../widgets/note_save_button.dart';
 import '../widgets/notes_close_button.dart';
-import 'package:in_app_review/in_app_review.dart';
 
 class NoteCreatePage extends StatefulWidget {
   // display page growing animation
@@ -162,7 +163,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
                 showToast(state.newNote!
                     ? S.current.noteSavedSuccessfully
                     : S.current.noteUpdatedSuccessfully);
-
                 // Call showReviewPopup after saving the note
                 log.d("Showing review popup after note save");
                 await showReviewPopup();
