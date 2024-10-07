@@ -9,9 +9,6 @@ import 'package:dairy_app/features/notes/domain/repositories/notifications_repos
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
-import 'package:simple_accordion/widgets/AccordionItem.dart';
-import 'package:simple_accordion/widgets/AccordionWidget.dart';
 
 class DailyReminders extends StatelessWidget {
   const DailyReminders({Key? key}) : super(key: key);
@@ -55,113 +52,88 @@ class DailyReminders extends StatelessWidget {
       final INotificationsRepository notificationsRepository =
           sl<INotificationsRepository>();
 
-      return SimpleAccordion(
-          headerColor: mainTextColor,
-          headerTextStyle: TextStyle(
-            color: mainTextColor,
-            fontSize: 16,
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SwitchListTile(
+            inactiveTrackColor: inactiveTrackColor,
+            activeColor: activeColor,
+            contentPadding: const EdgeInsets.all(0.0),
+            title: Text(
+              S.current.enableDailyReminders,
+              style: TextStyle(color: mainTextColor),
+            ),
+            subtitle: Text(
+              S.current.getDailyReminders,
+              style: TextStyle(color: mainTextColor),
+            ),
+            value: isDailyReminderEnabled ?? false,
+            onChanged: (value) async {
+              try {
+                if (value == true) {
+                  if (reminderTime != null) {
+                    await notificationsRepository
+                        .zonedScheduleNotification(reminderTime);
+                  }
+                } else {
+                  await notificationsRepository.cancelAllNotifications();
+                }
+
+                userConfigCubit.setUserConfig(
+                  UserConfigConstants.isDailyReminderEnabled,
+                  value,
+                );
+              } on Exception catch (e) {
+                showToast(e.toString().replaceAll("Exception: ", ""));
+              }
+            },
           ),
-          children: [
-            AccordionHeaderItem(
-              title: S.current.dailyReminders,
-              children: [
-                AccordionItem(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SwitchListTile(
-                          inactiveTrackColor: inactiveTrackColor,
-                          activeColor: activeColor,
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: Text(
-                            S.current.enableDailyReminders,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          subtitle: Text(
-                            S.current.getDailyReminders,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          value: isDailyReminderEnabled ?? false,
-                          onChanged: (value) async {
-                            try {
-                              if (value == true) {
-                                if (reminderTime != null) {
-                                  await notificationsRepository
-                                      .zonedScheduleNotification(reminderTime);
-                                }
-                              } else {
-                                await notificationsRepository
-                                    .cancelAllNotifications();
-                              }
+          ListTile(
+            visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+            contentPadding: const EdgeInsets.only(
+              right: 10.0,
+              top: 0,
+              left: 0,
+              bottom: 0,
+            ),
+            title: Text(
+              S.current.chooseTime,
+              style: TextStyle(color: mainTextColor),
+            ),
+            subtitle: Text(
+              getSubtitle(isDailyReminderEnabled, reminderTime, context),
+              style: TextStyle(color: mainTextColor),
+            ),
+            trailing: Icon(
+              Icons.alarm,
+              color: mainTextColor,
+            ),
+            onTap: () async {
+              TimeOfDay selectedTime = TimeOfDay.now();
 
-                              userConfigCubit.setUserConfig(
-                                UserConfigConstants.isDailyReminderEnabled,
-                                value,
-                              );
-                            } on Exception catch (e) {
-                              showToast(
-                                  e.toString().replaceAll("Exception: ", ""));
-                            }
-                          },
-                        ),
-                        ListTile(
-                          visualDensity:
-                              const VisualDensity(horizontal: 0, vertical: -4),
-                          contentPadding: const EdgeInsets.only(
-                            right: 10.0,
-                            top: 0,
-                            left: 0,
-                            bottom: 0,
-                          ),
-                          title: Text(
-                            S.current.chooseTime,
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          subtitle: Text(
-                            getSubtitle(
-                                isDailyReminderEnabled, reminderTime, context),
-                            style: TextStyle(color: mainTextColor),
-                          ),
-                          trailing: Icon(
-                            Icons.alarm,
-                            color: mainTextColor,
-                          ),
-                          onTap: () async {
-                            TimeOfDay selectedTime = TimeOfDay.now();
+              final TimeOfDay? pickedTime = await showTimePicker(
+                context: context,
+                initialTime: selectedTime,
+              );
 
-                            final TimeOfDay? pickedTime = await showTimePicker(
-                              context: context,
-                              initialTime: selectedTime,
-                            );
-
-                            if (pickedTime != null) {
-                              // Handle the selected time
-                              userConfigCubit.setUserConfig(
-                                UserConfigConstants.reminderTime,
-                                UserConfigModel.getTimeOfDayToString(
-                                    pickedTime),
-                              );
-                              try {
-                                // if notifications are enabled, then new schedule new notification at this time
-                                notificationsRepository
-                                    .zonedScheduleNotification(pickedTime);
-                              } on Exception catch (e) {
-                                showToast(
-                                    e.toString().replaceAll("Exception: ", ""));
-                              }
-                            }
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ]);
+              if (pickedTime != null) {
+                // Handle the selected time
+                userConfigCubit.setUserConfig(
+                  UserConfigConstants.reminderTime,
+                  UserConfigModel.getTimeOfDayToString(pickedTime),
+                );
+                try {
+                  // if notifications are enabled, then new schedule new notification at this time
+                  notificationsRepository.zonedScheduleNotification(pickedTime);
+                } on Exception catch (e) {
+                  showToast(e.toString().replaceAll("Exception: ", ""));
+                }
+              }
+            },
+          )
+        ],
+      );
     });
   }
 }

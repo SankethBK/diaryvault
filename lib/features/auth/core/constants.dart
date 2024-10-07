@@ -41,4 +41,5 @@ class SettingCategoriesConstants {
   static const String security = "security";
   static const String reminders = "reminders";
   static const String themeFontAndLanguage = "theme-font-and-language";
+  static const String importAndExport = "import-and-export";
 }

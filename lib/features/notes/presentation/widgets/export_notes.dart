@@ -9,9 +9,6 @@ import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:simple_accordion/widgets/AccordionHeaderItem.dart';
-import 'package:simple_accordion/widgets/AccordionItem.dart';
-import 'package:simple_accordion/widgets/AccordionWidget.dart';
 
 class ExportNotes extends StatelessWidget {
   const ExportNotes({super.key});
@@ -22,83 +19,61 @@ class ExportNotes extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: SimpleAccordion(
-          headerColor: mainTextColor,
-          headerTextStyle: TextStyle(
-            color: mainTextColor,
-            fontSize: 16,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 15.0),
+        SettingsTile(
+          onTap: () async {
+            // create a text file from the notes
+            final directory = await getApplicationDocumentsDirectory();
+            final file = File('${directory.path}/diaryvault_notes_export.txt');
+
+            try {
+              String filePath = await sl<IExportNotesRepository>()
+                  .exportNotesToTextFile(file: file);
+
+              // Share the file and await its completion
+              await Share.shareXFiles([XFile(filePath)],
+                  text: 'diaryvault_notes_export');
+
+              await file.delete();
+            } on Exception catch (e) {
+              showToast(e.toString().replaceAll("Exception: ", ""));
+            }
+          },
+          child: Text(
+            S.current.exportToPlainText,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: mainTextColor,
+            ),
           ),
-          children: [
-            AccordionHeaderItem(
-              title: S.current.exportNotes,
-              children: [
-                AccordionItem(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 15.0),
-                      SettingsTile(
-                        onTap: () async {
-                          // create a text file from the notes
-                          final directory =
-                              await getApplicationDocumentsDirectory();
-                          final file = File(
-                              '${directory.path}/diaryvault_notes_export.txt');
+        ),
+        const SizedBox(height: 20.0),
+        SettingsTile(
+          onTap: () async {
+            try {
+              String filePath =
+                  await sl<IExportNotesRepository>().exportNotesToPDF();
 
-                          try {
-                            String filePath = await sl<IExportNotesRepository>()
-                                .exportNotesToTextFile(file: file);
-
-                            // Share the file and await its completion
-                            await Share.shareXFiles([XFile(filePath)],
-                                text: 'diaryvault_notes_export');
-
-                            await file.delete();
-                          } on Exception catch (e) {
-                            showToast(
-                                e.toString().replaceAll("Exception: ", ""));
-                          }
-                        },
-                        child: Text(
-                          S.current.exportToPlainText,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: mainTextColor,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20.0),
-                      SettingsTile(
-                        onTap: () async {
-                          try {
-                            String filePath = await sl<IExportNotesRepository>()
-                                .exportNotesToPDF();
-
-                            // Share the file and await its completion
-                            await Share.shareXFiles([XFile(filePath)],
-                                text: 'diaryvault_notes_export');
-                          } on Exception catch (e) {
-                            showToast(
-                                e.toString().replaceAll("Exception: ", ""));
-                          }
-                        },
-                        child: Text(
-                          S.current.exportToPDF,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: mainTextColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ]),
+              // Share the file and await its completion
+              await Share.shareXFiles([XFile(filePath)],
+                  text: 'diaryvault_notes_export');
+            } on Exception catch (e) {
+              showToast(e.toString().replaceAll("Exception: ", ""));
+            }
+          },
+          child: Text(
+            S.current.exportToPDF,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: mainTextColor,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

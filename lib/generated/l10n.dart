@@ -1219,6 +1219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Import and Export Notes`
+  String get importAndExportNotes {
+    return Intl.message(
+      'Import and Export Notes',
+      name: 'importAndExportNotes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

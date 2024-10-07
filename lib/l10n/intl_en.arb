@@ -126,5 +126,6 @@
   "cloudBackup": "Cloud Backup",
   "security": "Security",
   "reminders": "Reminders",
-  "themeFontsAndLanguage": "Customize Theme, Fonts and Language"
+  "themeFontsAndLanguage": "Customize Theme, Fonts and Language",
+  "importAndExportNotes": "Import and Export Notes"
 }

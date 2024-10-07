@@ -11,6 +11,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -140,6 +141,8 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         return [
           const SetupAccount(),
           const SyncSettings(),
+          const SizedBox(height: 20),
+          const AutoSaveToggleButton(),
         ];
       case SettingCategoriesConstants.security:
         return [
@@ -147,7 +150,6 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         ];
       case SettingCategoriesConstants.reminders:
         return [
-          const AutoSaveToggleButton(),
           const SizedBox(height: 20),
           const DailyReminders(),
         ];
@@ -158,6 +160,11 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
           const FontDropdown(),
           const SizedBox(height: 20),
           const LanguageDropDown(),
+        ];
+
+      case SettingCategoriesConstants.importAndExport:
+        return [
+          const ExportNotes(),
         ];
 
       default:
@@ -175,6 +182,8 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         return S.current.reminders;
       case SettingCategoriesConstants.themeFontAndLanguage:
         return S.current.themeFontsAndLanguage;
+      case SettingCategoriesConstants.importAndExport:
+        return S.current.importAndExportNotes;
       default:
         return '';
     }

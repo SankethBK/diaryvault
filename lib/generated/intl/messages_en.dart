@@ -109,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Get daily reminders at your chosen time to keep your journal up to date."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes":
+            MessageLookupByLibrary.simpleMessage("Import and Export Notes"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect password"),
         "language": MessageLookupByLibrary.simpleMessage("English"),
