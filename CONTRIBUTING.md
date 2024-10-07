@@ -36,3 +36,5 @@ flutter --version
 
 
 If you are contributing for any specific issue, make sure to reference the issue in your PR so that we can help with additional information.
+
+Note: If you face linter issues while submitting PR, run this command `dart format .`
