@@ -6,9 +6,9 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/rich_text_editor.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class NoteCreatePage extends StatefulWidget {
   State<NoteCreatePage> createState() => _NoteCreatePageState();
 }
 
-class _NoteCreatePageState extends State<NoteCreatePage> {
+class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
   late bool _isInitialized = false;
   late final NotesBloc notesBloc;
   late Image neonImage;
@@ -114,15 +114,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         .fallbackColor;
 
     return WillPopScope(
-      onWillPop: () async {
-        bool? result = await showCloseDialog(context);
-
-        if (result == true) {
-          notesBloc.add(RefreshNote());
-          return true;
-        }
-        return false;
-      },
+      onWillPop: () => handleWillPop(context, notesBloc),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,

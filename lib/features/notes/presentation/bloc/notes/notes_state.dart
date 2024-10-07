@@ -4,6 +4,7 @@ abstract class NotesState extends Equatable {
   final bool? newNote;
   final String id;
   final String? title;
+  final String? hash;
   final QuillController? controller;
   final DateTime? createdAt;
   final List<NoteAssetModel>? allNoteAssets;
@@ -16,6 +17,7 @@ abstract class NotesState extends Equatable {
   // from old state only
   const NotesState({
     this.title,
+    this.hash,
     this.createdAt,
     this.controller,
     this.newNote,
@@ -51,11 +53,13 @@ class NoteInitialState extends NotesState {
     required String title,
     required List<NoteAssetModel> allNoteAssets,
     required String id,
+    required String hash,
     required List<String> tags,
   }) : super(
           newNote: newNote,
           controller: controller,
           id: id,
+          hash: hash,
           title: title,
           createdAt: createdAt,
           allNoteAssets: allNoteAssets,
@@ -65,7 +69,7 @@ class NoteInitialState extends NotesState {
 
   @override
   String toString() {
-    return "NoteInitialState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()}, tags: $tags)";
+    return "NoteInitialState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()}, tags: $tags, hash: $hash,)";
   }
 }
 
