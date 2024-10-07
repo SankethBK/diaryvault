@@ -62,7 +62,7 @@ class CoralBubble {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/coral-bubbles.png",
+          backgroundImage: "assets/images/coral-bubbles.webp",
           linkColor: Colors.pink[300]!,
           errorTextColor: Colors.pink[200]!,
           prefixIconColor: Colors.black.withOpacity(0.5),

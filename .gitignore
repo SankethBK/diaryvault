@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+.fvm/
 # *.env
 
 # IntelliJ related
@@ -31,6 +32,14 @@
 .pub-cache/
 .pub/
 /build/
+
+# macOS
+**/Flutter/ephemeral/
+**/Pods/
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral
+**/xcuserdata/
+
 
 # Web related
 lib/generated_plugin_registrant.dart

@@ -17,6 +17,7 @@ import 'package:intl/message_lookup_by_library.dart';
 import 'package:intl/src/intl_helpers.dart';
 
 import 'messages_ar.dart' as messages_ar;
+import 'messages_bn.dart' as messages_bn;
 import 'messages_de.dart' as messages_de;
 import 'messages_en.dart' as messages_en;
 import 'messages_es.dart' as messages_es;
@@ -30,14 +31,17 @@ import 'messages_kn.dart' as messages_kn;
 import 'messages_pa.dart' as messages_pa;
 import 'messages_pl.dart' as messages_pl;
 import 'messages_pt.dart' as messages_pt;
+import 'messages_ru.dart' as messages_ru;
 import 'messages_sk.dart' as messages_sk;
 import 'messages_sw.dart' as messages_sw;
 import 'messages_te.dart' as messages_te;
+import 'messages_tr.dart' as messages_tr;
 import 'messages_zh.dart' as messages_zh;
 
 typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
   'ar': () => new SynchronousFuture(null),
+  'bn': () => new SynchronousFuture(null),
   'de': () => new SynchronousFuture(null),
   'en': () => new SynchronousFuture(null),
   'es': () => new SynchronousFuture(null),
@@ -51,9 +55,11 @@ Map<String, LibraryLoader> _deferredLibraries = {
   'pa': () => new SynchronousFuture(null),
   'pl': () => new SynchronousFuture(null),
   'pt': () => new SynchronousFuture(null),
+  'ru': () => new SynchronousFuture(null),
   'sk': () => new SynchronousFuture(null),
   'sw': () => new SynchronousFuture(null),
   'te': () => new SynchronousFuture(null),
+  'tr': () => new SynchronousFuture(null),
   'zh': () => new SynchronousFuture(null),
 };
 
@@ -61,6 +67,8 @@ MessageLookupByLibrary? _findExact(String localeName) {
   switch (localeName) {
     case 'ar':
       return messages_ar.messages;
+    case 'bn':
+      return messages_bn.messages;
     case 'de':
       return messages_de.messages;
     case 'en':
@@ -87,12 +95,16 @@ MessageLookupByLibrary? _findExact(String localeName) {
       return messages_pl.messages;
     case 'pt':
       return messages_pt.messages;
+    case 'ru':
+      return messages_ru.messages;
     case 'sk':
       return messages_sk.messages;
     case 'sw':
       return messages_sw.messages;
     case 'te':
       return messages_te.messages;
+    case 'tr':
+      return messages_tr.messages;
     case 'zh':
       return messages_zh.messages;
     default:

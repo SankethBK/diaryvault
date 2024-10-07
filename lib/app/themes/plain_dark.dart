@@ -74,7 +74,7 @@ class PlainDark {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/blackbg.png",
+          backgroundImage: "assets/images/blackbg.webp",
           linkColor: const Color.fromARGB(255, 125, 199, 192),
           errorTextColor: Colors.blue[200]!,
           prefixIconColor: Colors.white.withOpacity(0.5),

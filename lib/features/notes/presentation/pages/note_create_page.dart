@@ -155,7 +155,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
                 showToast(state.newNote!
                     ? S.current.noteSavedSuccessfully
                     : S.current.noteUpdatedSuccessfully);
-
                 // Call showReviewPopup after saving the note
                 log.d("Showing review popup after note save");
                 await showReviewPopup();
