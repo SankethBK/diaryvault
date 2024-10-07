@@ -63,7 +63,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             createdAt: note.createdAt,
             controller: _controller,
             allNoteAssets: note.assetDependencies,
-            tags: note.tags, hash: note.hash,
+            tags: note.tags,
+            hash: note.hash,
           ));
         },
       );

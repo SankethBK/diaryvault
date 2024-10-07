@@ -260,7 +260,3 @@ class NoteDeletionFailed extends NotesState {
 class FetchAfterAutoSave extends NotesState {
   const FetchAfterAutoSave({required String id}) : super(id: id, safe: false);
 }
-
-
-
-
