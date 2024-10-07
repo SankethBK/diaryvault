@@ -11,6 +11,7 @@ import 'package:dairy_app/core/widgets/share_with_friends.dart';
 import 'package:dairy_app/core/widgets/version_number.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -124,6 +125,8 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               padding: const EdgeInsets.all(0.0),
               children: [
+                const SetupAccount(),
+                const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
                     S.current.cloudBackup,

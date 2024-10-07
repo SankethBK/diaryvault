@@ -9,7 +9,6 @@ import 'package:dairy_app/core/widgets/theme_dropdown.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
@@ -139,7 +138,6 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
     switch (widget.settingsCategory) {
       case SettingCategoriesConstants.cloudBackup:
         return [
-          const SetupAccount(),
           const SyncSettings(),
           const SizedBox(height: 20),
           const AutoSaveToggleButton(),
