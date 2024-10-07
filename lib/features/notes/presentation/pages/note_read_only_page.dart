@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
@@ -12,7 +11,6 @@ import 'package:dairy_app/features/notes/presentation/widgets/note_read_button.d
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_tags.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/read_only_editor.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
