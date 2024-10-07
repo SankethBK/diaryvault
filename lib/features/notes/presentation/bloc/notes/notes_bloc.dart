@@ -36,7 +36,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             // ignore: prefer_const_literals_to_create_immutables
             allNoteAssets: [],
             // ignore: prefer_const_literals_to_create_immutables
-            tags: [],
+            tags: [], hash: '',
           ),
         );
         return;
@@ -64,6 +64,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             controller: _controller,
             allNoteAssets: note.assetDependencies,
             tags: note.tags,
+            hash: note.hash,
           ));
         },
       );

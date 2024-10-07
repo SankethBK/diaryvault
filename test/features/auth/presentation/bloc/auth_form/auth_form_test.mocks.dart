@@ -511,23 +511,24 @@ class MockAuthenticationRepository extends _i1.Mock
             )),
           ) as _i13.Future<_i10.Either<_i16.SignInFailure, _i17.LoggedInUser>>);
   @override
-  _i13.Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>
-      submitForgotPasswordEmail(String? forgotPasswordEmail) =>
-          (super.noSuchMethod(
-            Invocation.method(
-              #submitForgotPasswordEmail,
-              [forgotPasswordEmail],
-            ),
-            returnValue: _i13
-                .Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>.value(
+  _i13.Future<
+      _i10.Either<_i16.ForgotPasswordFailure, bool>> submitForgotPasswordEmail(
+          String? forgotPasswordEmail) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #submitForgotPasswordEmail,
+          [forgotPasswordEmail],
+        ),
+        returnValue:
+            _i13.Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>.value(
                 _FakeEither_8<_i16.ForgotPasswordFailure, bool>(
-              this,
-              Invocation.method(
-                #submitForgotPasswordEmail,
-                [forgotPasswordEmail],
-              ),
-            )),
-          ) as _i13.Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>);
+          this,
+          Invocation.method(
+            #submitForgotPasswordEmail,
+            [forgotPasswordEmail],
+          ),
+        )),
+      ) as _i13.Future<_i10.Either<_i16.ForgotPasswordFailure, bool>>);
   @override
   _i13.Future<_i10.Either<_i16.SignUpFailure, bool>> updateEmail({
     required String? oldEmail,
