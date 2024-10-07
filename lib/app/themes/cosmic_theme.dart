@@ -72,7 +72,7 @@ class Cosmic {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/space-image.jpeg",
+          backgroundImage: "assets/images/space-image.webp",
           linkColor: Colors.blue[300]!,
           errorTextColor: Colors.blue[200]!,
           prefixIconColor: Colors.white.withOpacity(0.5),

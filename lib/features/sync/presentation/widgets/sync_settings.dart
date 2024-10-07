@@ -110,7 +110,7 @@ class SyncSettings extends StatelessWidget {
                       // decoration: const BoxDecoration(color: Colors.pinkAccent),
                     ),
                     Image.asset(
-                      "assets/images/google_drive_icon.png",
+                      "assets/images/google_drive_icon.webp",
                       width: 35,
                       height: 35,
                     ),
@@ -137,7 +137,7 @@ class SyncSettings extends StatelessWidget {
                       // decoration: const BoxDecoration(color: Colors.pinkAccent),
                     ),
                     Image.asset(
-                      "assets/images/dropbox_logo.png",
+                      "assets/images/dropbox_logo.webp",
                       width: 35,
                       height: 35,
                     ),
@@ -164,7 +164,7 @@ class SyncSettings extends StatelessWidget {
                       // decoration: const BoxDecoration(color: Colors.pinkAccent),
                     ),
                     Image.asset(
-                      "assets/images/nextcloud_logo.png",
+                      "assets/images/nextcloud_logo.webp",
                       width: 35,
                       height: 35,
                     ),
