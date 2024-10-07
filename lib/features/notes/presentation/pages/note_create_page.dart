@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/core/utils/note_helper.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -113,15 +114,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> {
         .fallbackColor;
 
     return WillPopScope(
-      onWillPop: () async {
-        bool? result = await showCloseDialog(context);
-
-        if (result == true) {
-          notesBloc.add(RefreshNote());
-          return true;
-        }
-        return false;
-      },
+      onWillPop: () => NoteHelper.handleWillPop(context, notesBloc),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
