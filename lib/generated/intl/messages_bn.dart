@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a bn locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,7 +18,7 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'bn';
 
   static String m0(time) => "You will be notified at ${time}";
 
@@ -53,7 +53,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose Theme"),
         "chooseTime": MessageLookupByLibrary.simpleMessage("Choose Time"),
         "closeTheApp": MessageLookupByLibrary.simpleMessage("Close the App?"),
-        "cloudBackup": MessageLookupByLibrary.simpleMessage("Cloud Backup"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirm new password"),
         "confirmNewPin":
@@ -109,11 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Get daily reminders at your chosen time to keep your journal up to date."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
-        "importAndExportNotes":
-            MessageLookupByLibrary.simpleMessage("Import and Export Notes"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect password"),
-        "language": MessageLookupByLibrary.simpleMessage("English"),
+        "language": MessageLookupByLibrary.simpleMessage("Bengali/Bangla"),
         "lastSynced": MessageLookupByLibrary.simpleMessage("Last synced: "),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
         "link": MessageLookupByLibrary.simpleMessage("Link"),
@@ -168,10 +165,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "projectOnGithub":
             MessageLookupByLibrary.simpleMessage("Project on Github"),
         "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
-        "reminders": MessageLookupByLibrary.simpleMessage("Reminders"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
-        "security": MessageLookupByLibrary.simpleMessage("Security"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Security Settings"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
@@ -197,8 +192,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tag already exists"),
         "tapToExpandTitle":
             MessageLookupByLibrary.simpleMessage("Tap here to expand title"),
-        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
-            "Customize Theme, Fonts and Language"),
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Too many wrong attempts, please login with password"),
