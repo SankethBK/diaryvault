@@ -2,8 +2,10 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class AudioPlaybackWidget extends StatefulWidget {
-  const AudioPlaybackWidget({required this.audioUrl, super.key});
+  const AudioPlaybackWidget(
+      {required this.audioUrl, required this.fileName, super.key});
   final audioUrl;
+  final String fileName;
 
   @override
   State<AudioPlaybackWidget> createState() => _AudioPlaybackWidgetState();
@@ -78,46 +80,84 @@ class _AudioPlaybackWidgetState extends State<AudioPlaybackWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30), // Adjust the value as needed
-        border: Border.all(
-          color: Colors.grey, // Border color
-        ),
-        color: Colors.white.withOpacity(0.1),
-      ), // height: 50,
-      child: Row(
-        children: [
-          Column(
-            children: [
-              IconButton(
-                  onPressed: () async {
-                    if (isPlaying) {
-                      await audioPlayer.pause();
-                    } else {
-                      await audioPlayer.resume();
-                    }
-                  },
-                  color: Colors.white,
-                  icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow)),
-            ],
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30), // Adjust the value as needed
+          border: Border.all(
+            color: Colors.grey, // Border color
           ),
-          Expanded(
-            child: Slider(
-                max: totalDuration.inSeconds.toDouble(),
-                value: currentPosition.inSeconds.toDouble(),
-                onChanged: (value) async {
-                  final newPosition = Duration(seconds: value.toInt());
-                  await audioPlayer.seek(newPosition);
+          color: Colors.white.withOpacity(0.1),
+        ), // height: 50,
+        child: SizedBox(
+          height: 55,
+          child: isPlaying ? _buildPlayer() : _buildInitialView(),
+        ) // Use isPlaying to toggle between views
+        );
+  }
 
-                  // resume if the audio was paused
-                  await audioPlayer.resume();
-                }),
+  // Audio player view that appears after the audio starts playing
+  Widget _buildInitialView() {
+    return ListTile(
+      leading: Icon(Icons.audiotrack, color: Colors.grey.shade700),
+      title: Row(
+        children: [
+          // Clipped file name with ellipsis
+          Expanded(
+            child: Text(
+              widget.fileName,
+              maxLines: 1, // Ensures only one line
+              overflow:
+                  TextOverflow.ellipsis, // Clip text with ellipsis if too long
+            ),
           ),
-          Text('${formatTime(currentPosition)} / ${formatTime(totalDuration)}'),
-          const SizedBox(width: 15)
+          const SizedBox(width: 15),
+          // Display the total duration of the audio file
+          Text(
+            formatTime(totalDuration),
+            style: TextStyle(color: Colors.black),
+          ),
         ],
       ),
+      onTap: () async {
+        await audioPlayer.play(DeviceFileSource(widget.audioUrl));
+        setState(() {
+          isPlaying = true;
+        });
+      },
+    );
+  }
+
+  // Audio player view that appears after the audio starts playing
+  Widget _buildPlayer() {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () async {
+            if (isPlaying) {
+              await audioPlayer.pause();
+            } else {
+              await audioPlayer.resume();
+            }
+          },
+          color: Colors.white,
+          icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+        ),
+        Expanded(
+          child: Slider(
+            max: totalDuration.inSeconds.toDouble(),
+            value: currentPosition.inSeconds.toDouble(),
+            onChanged: (value) async {
+              final newPosition = Duration(seconds: value.toInt());
+              await audioPlayer.seek(newPosition);
+
+              // resume if the audio was paused
+              await audioPlayer.resume();
+            },
+          ),
+        ),
+        Text('${formatTime(currentPosition)} / ${formatTime(totalDuration)}'),
+        const SizedBox(width: 15),
+      ],
     );
   }
 }
