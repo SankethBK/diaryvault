@@ -17,6 +17,7 @@ import 'widgets/image.dart';
 import 'widgets/image_resizer.dart';
 import 'widgets/video_app.dart';
 import 'widgets/youtube_video_app.dart';
+import 'package:path/path.dart' as path;
 
 class ImageEmbedBuilder extends EmbedBuilder {
   @override
@@ -237,6 +238,19 @@ class AudioBuilder extends EmbedBuilder {
   ) {
     final audioUrl = node.value.data;
 
+    String getFileNameFromUrl(String url) {
+      return url.split('/').last; // Extract the file name from the URL.
+    }
+
+    String fileName;
+    if (audioUrl.startsWith('file://')) {
+      // This is a local file, extract the file name from the path
+      fileName = path.basename(audioUrl);
+    } else {
+      // For remote URLs, we can still extract the name from the URL
+      fileName = getFileNameFromUrl(audioUrl);
+    }
+
     return GestureDetector(
       onLongPress: () {
         showDialog(
@@ -266,6 +280,7 @@ class AudioBuilder extends EmbedBuilder {
       },
       child: AudioPlaybackWidget(
         audioUrl: audioUrl,
+        fileName: fileName,
       ),
     );
   }
