@@ -4,11 +4,9 @@ import 'dart:io';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
-import 'package:delta_markdown/delta_markdown.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:intl/intl.dart';
-import 'package:markdown/markdown.dart';
 import 'package:path_provider/path_provider.dart';
 
 final log = printer("ExportNotesRepository");
@@ -103,9 +101,37 @@ class ExportNotesRepository implements IExportNotesRepository {
   // utils
 
   String quillDeltaToHtml(String delta) {
-    final markdown = deltaToMarkdown(delta);
-    final html = markdownToHtml(markdown);
-    return html;
+    var deltaMap = jsonDecode(delta);
+    var html = StringBuffer();
+
+    for (var op in deltaMap) {
+      if (op["insert"] is String) {
+        var text = op["insert"] as String;
+        var attributes = op["attributes"] as Map<String, dynamic>?;
+
+        if (attributes != null) {
+          if (attributes.containsKey("bold")) {
+            text = "<strong>$text</strong>";
+          }
+          if (attributes.containsKey("italic")) {
+            text = "<em>$text</em>";
+          }
+          // Add more attribute handling as needed
+        }
+
+        html.write(text);
+      } else if (op["insert"] is Map) {
+        var insert = op["insert"] as Map<String, dynamic>;
+        if (insert.containsKey("image")) {
+          var image = insert["image"] as Map<String, dynamic>;
+          html.write(
+              '<img src="${image['src']}" width="${image['width']}" height="${image['height']}" style="max-width: 100%; height: auto;">');
+        }
+        // Handle other insert types as needed
+      }
+    }
+
+    return html.toString();
   }
 
   String formatDate(DateTime date) {
@@ -129,38 +155,44 @@ class ExportNotesRepository implements IExportNotesRepository {
     var deltaMap = jsonDecode(delta);
 
     for (Map<String, dynamic> deltaElement in deltaMap) {
-      // Local images needs to be prefixed with file:///
-
+      // Handle image elements
       if (deltaElement.containsKey("insert") &&
-          deltaElement["insert"].runtimeType != String &&
-          deltaElement["insert"].containsKey("image") &&
-          !(deltaElement["insert"]["image"] as String).startsWith("http")) {
-        deltaElement["insert"]["image"] =
-            "file://" + deltaElement["insert"]["image"];
+          deltaElement["insert"] is Map &&
+          deltaElement["insert"].containsKey("image")) {
+        var imageUrl = deltaElement["insert"]["image"] as String;
+
+        // Prefix local images with file:///
+        if (!imageUrl.startsWith("http")) {
+          imageUrl = "file://" + imageUrl;
+        }
+
+        // Add width and height attributes to limit image size
+        deltaElement["insert"]["image"] = {
+          "src": imageUrl,
+          "width": "500", // You can adjust this value as needed
+          "height": "auto" // This maintains the aspect ratio
+        };
       }
 
       // Remove unsupported attributes on text
-
       if (deltaElement.containsKey("insert") &&
-          deltaElement["insert"].runtimeType == String) {
-        if (deltaElement.containsKey("attributes")) {
-          // 1. Remove underline
-          deltaElement["attributes"].remove("underline");
+          deltaElement["insert"] is String &&
+          deltaElement.containsKey("attributes")) {
+        var attributes = deltaElement["attributes"] as Map<String, dynamic>;
 
-          // 2. Remove Strikethrough
-          deltaElement["attributes"].remove("strike");
+        // Remove specific unsupported attributes
+        attributes.removeWhere((key, value) => [
+              "underline",
+              "strike",
+              "color",
+              "background",
+              "list",
+              "script"
+            ].contains(key));
 
-          // 3. Remove color
-          deltaElement["attributes"].remove("color");
-
-          // 4. Remove background color
-          deltaElement["attributes"].remove("background");
-
-          // 5. Remove checklist
-          deltaElement["attributes"].remove("list");
-
-          // 6. Remove subscript and superscript
-          deltaElement["attributes"].remove("script");
+        // If all attributes are removed, remove the attributes key entirely
+        if (attributes.isEmpty) {
+          deltaElement.remove("attributes");
         }
       }
     }
