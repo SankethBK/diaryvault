@@ -147,6 +147,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                     itemBuilder: (context, pageIndex) {
                       final _notePreview = _notePreviewList[pageIndex];
 
+                      // Don't refresh the bloc if the current note is already edited
                       if (notesBloc.state is! NoteUpdatedState) {
                         notesBloc.add(InitializeNote(id: _notePreview.id));
                       }
