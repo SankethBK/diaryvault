@@ -27,8 +27,8 @@ class RouteGenerator {
     } else if (settings.name == NotesReadOnlyPage.routeThroughHome) {
       return MaterialPageRoute(
           builder: (_) => NotesReadOnlyPage(
-            id: settings.arguments as String,
-          ));
+                id: settings.arguments as String,
+              ));
     } else if (settings.name == NotesReadOnlyPage.routeThoughNotesCreate) {
       return MaterialPageRoute(
           builder: (_) => const NotesReadOnlyPage(id: null));
