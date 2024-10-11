@@ -266,7 +266,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                 return ListView(
                   padding: const EdgeInsets.only(top: 10),
                   children: [
-                    Text(notesBloc.state.title ?? 'Null title',
+                    Text(state.title ?? 'Null title',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20.0,
@@ -279,8 +279,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          DateFormat.yMMMEd()
-                              .format(notesBloc.state.createdAt!),
+                          DateFormat.yMMMEd().format(state.createdAt!),
                           style: TextStyle(
                             color: dateColor,
                             fontStyle: FontStyle.italic,
@@ -288,7 +287,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          DateFormat.jm().format(notesBloc.state.createdAt!),
+                          DateFormat.jm().format(state.createdAt!),
                           style: TextStyle(
                             color: dateColor,
                             fontStyle: FontStyle.italic,
@@ -300,7 +299,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                     NoteTags(noteId: state.id),
                     const SizedBox(height: 20),
                     ReadOnlyEditor(
-                      controller: notesBloc.state.controller,
+                      controller: state.controller,
                     )
                   ],
                 );
