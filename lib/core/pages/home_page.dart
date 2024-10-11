@@ -134,6 +134,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           first: index == 1,
                           last: index == state.notePreviewList.length,
                           note: note,
+                          index: index - 1,
                         );
                       },
                       itemCount: state.notePreviewList.length + 1,
