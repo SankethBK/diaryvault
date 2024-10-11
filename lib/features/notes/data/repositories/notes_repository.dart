@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:crypto/crypto.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/notes/core/failures/failure.dart';
@@ -8,12 +7,13 @@ import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
 
 final log = printer("NotesRepository");
 
-class NotesRepository implements INotesRepository {
+class NotesRepository with NoteHelperMixin implements INotesRepository {
   final INotesLocalDataSource notesLocalDataSource;
   final AuthSessionBloc authSessionBloc;
 
@@ -68,9 +68,9 @@ class NotesRepository implements INotesRepository {
 
         // calculate note hash
         String noteBodyWithAssetPathsRemoved =
-            _replaceAssetPathsByAssetNames(noteMap["body"]);
+            replaceAssetPathsByAssetNames(noteMap["body"]);
 
-        var _hash = _generateHash(noteMap["title"] +
+        var _hash = generateHash(noteMap["title"] +
             noteMap["created_at"].toString() +
             noteBodyWithAssetPathsRemoved +
             noteMap["tags"].join(","));
@@ -107,9 +107,9 @@ class NotesRepository implements INotesRepository {
 
       // calculate note hash
       String noteBodyWithAssetPathsRemoved =
-          _replaceAssetPathsByAssetNames(noteMap["body"]);
+          replaceAssetPathsByAssetNames(noteMap["body"]);
 
-      var _hash = _generateHash(noteMap["title"] +
+      var _hash = generateHash(noteMap["title"] +
           noteMap["created_at"].toString() +
           noteBodyWithAssetPathsRemoved +
           noteMap["tags"].join(","));
@@ -262,37 +262,5 @@ class NotesRepository implements INotesRepository {
     }
 
     return null;
-  }
-
-  /// used to replace absolute paths of assets by their asset names, so that hash values
-  /// are same in all devices
-  String _replaceAssetPathsByAssetNames(String noteBody) {
-    var noteBodyMap = jsonDecode(noteBody);
-
-    for (Map<String, dynamic> noteElement in noteBodyMap) {
-      if (noteElement.containsKey("insert") &&
-          noteElement["insert"].runtimeType != String) {
-        // check for image and video types and replace their absolute paths with file names
-        // Assuming all web images and videos start with http (even https starts with http)
-
-        if (noteElement["insert"].containsKey("image") &&
-            !(noteElement["insert"]["image"] as String).startsWith("http")) {
-          noteElement["insert"]["image"] =
-              p.basename(noteElement["insert"]["image"]);
-        } else if (noteElement["insert"].containsKey("video") &&
-            !(noteElement["insert"]["video"] as String).startsWith("http")) {
-          noteElement["insert"]["video"] =
-              p.basename(noteElement["insert"]["video"]);
-        }
-      }
-    }
-
-    return jsonEncode(noteBodyMap);
-  }
-
-  String _generateHash(String text) {
-    var bytes = utf8.encode(text);
-    var digest = sha1.convert(bytes);
-    return digest.toString();
   }
 }

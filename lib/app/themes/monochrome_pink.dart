@@ -78,7 +78,7 @@ class MonochromePink {
       // theme extensions
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
-          backgroundImage: "assets/images/monochrome.png",
+          backgroundImage: "assets/images/monochrome.webp",
           linkColor: const Color.fromARGB(255, 253, 157, 189),
           errorTextColor: Colors.pink[200]!,
           prefixIconColor: Colors.white.withOpacity(0.7),

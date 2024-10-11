@@ -36,7 +36,7 @@ class ProjectOnGithub extends StatelessWidget {
             height: 25,
             width: 25,
             child: Image.asset(
-              "assets/images/github-logo.png",
+              "assets/images/github-logo.webp",
               color: mainTextColor,
             ),
           )

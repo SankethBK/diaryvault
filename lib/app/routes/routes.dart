@@ -1,5 +1,6 @@
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/pages/settings_details.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/pin_auth_page.dart';
@@ -35,6 +36,12 @@ class RouteGenerator {
       return MaterialPageRoute(builder: (_) => const SettingsPage());
     } else if (settings.name == PINAuthPage.route) {
       return MaterialPageRoute(builder: (_) => const PINAuthPage());
+    } else if (settings.name == SettingsDetailPage.route) {
+      return MaterialPageRoute(
+        builder: (_) => SettingsDetailPage(
+          settingsCategory: args as String,
+        ),
+      );
     }
 
     return MaterialPageRoute(

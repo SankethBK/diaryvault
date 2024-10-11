@@ -67,7 +67,7 @@ class ExportNotesRepository implements IExportNotesRepository {
         var fileContent = "";
 
         String watermarkFile =
-            await getImageFileFromAssets('assets/images/watermark.png');
+            await getImageFileFromAssets('assets/images/watermark.webp');
 
         fileContent +=
             "<img width=\"1000\" src=\"$watermarkFile\"  alt=\"web-img\">";
