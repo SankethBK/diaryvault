@@ -56,7 +56,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
     if (!_isInitialized) {
       notesBloc = BlocProvider.of<NotesBloc>(context);
       if (notesBloc.state is NoteDummyState) {
-        print("note fetch triggered from here 1");
         notesBloc.add(InitializeNote(id: widget.id));
       }
 
@@ -102,7 +101,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
 
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
-
     return WillPopScope(
       onWillPop: () => handleWillPop(context, notesBloc),
       child: GestureDetector(
@@ -144,20 +142,14 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                       // PageView has snapped, load the note for the current pageIndex
                       final _notePreview = _notePreviewList[pageIndex];
 
-                      print("note fetch triggered from here 2");
-
-                      // Only load the note when the page has fully changed
                       notesBloc.add(InitializeNote(id: _notePreview.id));
-                      print(
-                          "Page Snapped to $pageIndex, loading note ${_notePreview.id}");
                     },
                     itemBuilder: (context, pageIndex) {
-                      print("Custom Index PAGE CHANGED to $pageIndex");
-
-                      print("note fetch triggered from here 3");
-
                       final _notePreview = _notePreviewList[pageIndex];
-                      notesBloc.add(InitializeNote(id: _notePreview.id));
+
+                      if (notesBloc.state is! NoteUpdatedState) {
+                        notesBloc.add(InitializeNote(id: _notePreview.id));
+                      }
 
                       return readOnlyEditor(
                         notePreview: _notePreview,
@@ -242,13 +234,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
           child: BlocBuilder<NotesBloc, NotesState>(
             bloc: notesBloc,
             buildWhen: (previousState, currentState) {
-              print(
-                  "previousState = ${previousState}, safe: ${previousState.safe}");
-              print(
-                  "currentState = ${currentState}, safe: ${currentState.safe}");
               if (currentState.safe) {
                 // Rebuild only if the note in the bloc matches the note ID of this page
-
                 if (notePreview != null) {
                   return currentState.id == notePreview.id;
                 }
@@ -258,11 +245,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
               return false; // Don't rebuild for other states or mismatched note IDs
             },
             builder: (context, state) {
-              print(
-                  "entered build method when state = ${state}, safe = ${state.safe}");
               if (state.safe) {
-                print(
-                    "rendering rich text editor, when state = ${state}, safe = ${state.safe}");
                 return ListView(
                   padding: const EdgeInsets.only(top: 10),
                   children: [
@@ -296,7 +279,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                       ],
                     ),
                     const SizedBox(height: 20),
-                    NoteTags(noteId: state.id),
+                    NoteTags(tags: state.tags ?? []),
                     const SizedBox(height: 20),
                     ReadOnlyEditor(
                       controller: state.controller,

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NoteTags extends StatefulWidget {
-  const NoteTags({super.key, required this.noteId});
+  const NoteTags({super.key, required this.tags});
 
-  final String noteId;
+  final List<String> tags;
 
   @override
   State<NoteTags> createState() => _NoteTagsState();
@@ -18,7 +18,6 @@ class _NoteTagsState extends State<NoteTags> {
   @override
   Widget build(BuildContext context) {
     final notesBloc = BlocProvider.of<NotesBloc>(context);
-    print("notesBloc in tags = ${notesBloc.state}");
     void addNewTag(String newTag) {
       notesBloc.add(AddTag(newTag: newTag));
     }
@@ -27,22 +26,10 @@ class _NoteTagsState extends State<NoteTags> {
       notesBloc.add(DeleteTag(tagIndex: index));
     }
 
-    return BlocBuilder<NotesBloc, NotesState>(
-      buildWhen: (previous, current) {
-        if (current.id != widget.noteId) {
-          return false;
-        }
-
-        return true;
-      },
-      builder: (context, state) {
-        final tags = state.tags ?? [];
-        return TagList(
-          tags: tags,
-          addNewTag: addNewTag,
-          removeTag: removeTag,
-        );
-      },
+    return TagList(
+      tags: widget.tags,
+      addNewTag: addNewTag,
+      removeTag: removeTag,
     );
   }
 }
