@@ -69,7 +69,7 @@ class NoteInitialState extends NotesState {
 
   @override
   String toString() {
-    return "NoteInitialState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()}, tags: $tags, hash: $hash,)";
+    return "NoteInitialState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, tags: $tags, hash: $hash,)";
   }
 }
 
@@ -99,7 +99,7 @@ class NoteUpdatedState extends NotesState {
 
   @override
   String toString() {
-    return "NoteUpdatedState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, controller: ${controller!.document.toDelta().toJson()}, allNoteAssets: $allNoteAssets)";
+    return "NoteUpdatedState(newNote: $newNote,createdAt: $createdAt, id: ${this.id}, title: $title, allNoteAssets: $allNoteAssets)";
   }
 }
 

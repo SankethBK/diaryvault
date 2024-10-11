@@ -14,9 +14,11 @@ class NotePreviewCard extends StatelessWidget {
     required this.note,
     required this.first,
     required this.last,
+    required this.index,
   }) : super(key: key);
 
   final NotePreview note;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
