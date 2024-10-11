@@ -4,6 +4,7 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
@@ -55,6 +56,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
     if (!_isInitialized) {
       notesBloc = BlocProvider.of<NotesBloc>(context);
       if (notesBloc.state is NoteDummyState) {
+        print("note fetch triggered from here 1");
         notesBloc.add(InitializeNote(id: widget.id));
       }
 
@@ -64,7 +66,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
 
       // Find the index of the current note based on the ID to set it as _initialPageIndex
       var _initialPageIndex =
-      _notePreviewList.indexWhere((note) => note.id == widget.id);
+          _notePreviewList.indexWhere((note) => note.id == widget.id);
 
       // If the note is not found, default to the first page (index 0)
       if (_initialPageIndex == -1) {
@@ -101,25 +103,6 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
-    final richTextGradientStartColor = Theme.of(context)
-        .extension<NoteCreatePageThemeExtensions>()!
-        .richTextGradientStartColor;
-
-    final richTextGradientEndColor = Theme.of(context)
-        .extension<NoteCreatePageThemeExtensions>()!
-        .richTextGradientEndColor;
-
-    final mainTextColor = Theme.of(context)
-        .extension<NoteCreatePageThemeExtensions>()!
-        .mainTextColor;
-
-    final dateColor =
-        Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
-
-    final borderColor = Theme.of(context)
-        .extension<NoteCreatePageThemeExtensions>()!
-        .titleTextBoxBorderColor;
-
     return WillPopScope(
       onWillPop: () => handleWillPop(context, notesBloc),
       child: GestureDetector(
@@ -153,134 +136,177 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                 fit: BoxFit.cover,
               ),
             ),
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: _notePreviewList.length,
-              onPageChanged: (pageIndex) {
-                // PageView has snapped, load the note for the current pageIndex
-                final _notePreview = _notePreviewList[pageIndex];
+            child: widget.id != null
+                ? PageView.builder(
+                    controller: _pageController,
+                    itemCount: _notePreviewList.length,
+                    onPageChanged: (pageIndex) {
+                      // PageView has snapped, load the note for the current pageIndex
+                      final _notePreview = _notePreviewList[pageIndex];
 
-                // Only load the note when the page has fully changed
-                notesBloc.add(InitializeNote(id: _notePreview.id));
-                print(
-                    "Page Snapped to $pageIndex, loading note ${_notePreview.id}");
-              },
-              itemBuilder: (context, pageIndex) {
-                print("Custom Index PAGE CHANGED to $pageIndex");
+                      print("note fetch triggered from here 2");
 
-                final _notePreview = _notePreviewList[pageIndex];
-                notesBloc.add(InitializeNote(id: _notePreview.id));
+                      // Only load the note when the page has fully changed
+                      notesBloc.add(InitializeNote(id: _notePreview.id));
+                      print(
+                          "Page Snapped to $pageIndex, loading note ${_notePreview.id}");
+                    },
+                    itemBuilder: (context, pageIndex) {
+                      print("Custom Index PAGE CHANGED to $pageIndex");
 
-                return BlocListener<NotesBloc, NotesState>(
-                  bloc: notesBloc,
-                  listener: (context, state) {
-                    if (state is NoteFetchFailed) {
-                      showToast(S.current.failedToFetchNote);
-                    } else if (state is NotesSavingFailed) {
-                      showToast(S.current.failedToSaveNote);
-                    } else if (state is NoteSavedSuccesfully) {
-                      showToast(state.newNote!
-                          ? S.current.noteSavedSuccessfully
-                          : S.current.noteUpdatedSuccessfully);
-                      _routeToHome();
-                    }
-                  },
-                  child: GlassMorphismCover(
-                    displayShadow: false,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      topRight: Radius.circular(16.0),
-                    ),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 0, bottom: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                          bottomLeft: Radius.circular(16),
-                          bottomRight: Radius.circular(16),
-                        ),
-                        border: Border.all(
-                          color: borderColor,
-                          width: 0.5,
-                        ),
-                        gradient: LinearGradient(
-                          colors: [
-                            richTextGradientStartColor,
-                            richTextGradientEndColor,
-                          ],
-                          begin: AlignmentDirectional.topStart,
-                          end: AlignmentDirectional.bottomEnd,
-                        ),
-                      ),
-                      child: BlocBuilder<NotesBloc, NotesState>(
-                        bloc: notesBloc,
-                        buildWhen: (previousState, currentState) {
-                          print(
-                              "previousState = $previousState, currentState = $currentState");
-                          print(
-                              "currentstateid = ${currentState.id}, notepreviewid = ${_notePreview.id}");
-                          if (currentState.safe) {
-                            // Rebuild only if the note in the bloc matches the note ID of this page
-                            return currentState.id == _notePreview.id;
-                          }
-                          return false; // Don't rebuild for other states or mismatched note IDs
-                        },
-                        builder: (context, state) {
-                          if (state.safe) {
-                            return ListView(
-                              padding: const EdgeInsets.only(top: 10),
-                              children: [
-                                Text(notesBloc.state.title!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20.0,
-                                      color: mainTextColor,
-                                    )),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      DateFormat.yMMMEd()
-                                          .format(notesBloc.state.createdAt!),
-                                      style: TextStyle(
-                                        color: dateColor,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      DateFormat.jm()
-                                          .format(notesBloc.state.createdAt!),
-                                      style: TextStyle(
-                                        color: dateColor,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                const NoteTags(),
-                                const SizedBox(height: 20),
-                                ReadOnlyEditor(
-                                  controller: notesBloc.state.controller,
-                                )
-                              ],
-                            );
-                          }
-                          return Container();
-                        },
-                      ),
-                    ),
-                  ),
-                );
-              },
+                      print("note fetch triggered from here 3");
+
+                      final _notePreview = _notePreviewList[pageIndex];
+                      notesBloc.add(InitializeNote(id: _notePreview.id));
+
+                      return readOnlyEditor(
+                        notePreview: _notePreview,
+                      );
+                    },
+                  )
+                : readOnlyEditor(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget readOnlyEditor({
+    NotePreview? notePreview,
+  }) {
+    final notesBloc = BlocProvider.of<NotesBloc>(context);
+
+    final richTextGradientStartColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientStartColor;
+
+    final richTextGradientEndColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .richTextGradientEndColor;
+
+    final mainTextColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
+
+    final dateColor =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
+
+    final borderColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .titleTextBoxBorderColor;
+
+    return BlocListener<NotesBloc, NotesState>(
+      bloc: notesBloc,
+      listener: (context, state) {
+        if (state is NoteFetchFailed) {
+          showToast(S.current.failedToFetchNote);
+        } else if (state is NotesSavingFailed) {
+          showToast(S.current.failedToSaveNote);
+        } else if (state is NoteSavedSuccesfully) {
+          showToast(state.newNote!
+              ? S.current.noteSavedSuccessfully
+              : S.current.noteUpdatedSuccessfully);
+          _routeToHome();
+        }
+      },
+      child: GlassMorphismCover(
+        displayShadow: false,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+        child: Container(
+          width: double.infinity,
+          padding:
+              const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 5),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
             ),
+            border: Border.all(
+              color: borderColor,
+              width: 0.5,
+            ),
+            gradient: LinearGradient(
+              colors: [
+                richTextGradientStartColor,
+                richTextGradientEndColor,
+              ],
+              begin: AlignmentDirectional.topStart,
+              end: AlignmentDirectional.bottomEnd,
+            ),
+          ),
+          child: BlocBuilder<NotesBloc, NotesState>(
+            bloc: notesBloc,
+            buildWhen: (previousState, currentState) {
+              print(
+                  "previousState = ${previousState}, safe: ${previousState.safe}");
+              print(
+                  "currentState = ${currentState}, safe: ${currentState.safe}");
+              if (currentState.safe) {
+                // Rebuild only if the note in the bloc matches the note ID of this page
+
+                if (notePreview != null) {
+                  return currentState.id == notePreview.id;
+                }
+
+                return true;
+              }
+              return false; // Don't rebuild for other states or mismatched note IDs
+            },
+            builder: (context, state) {
+              print(
+                  "entered build method when state = ${state}, safe = ${state.safe}");
+              if (state.safe) {
+                print(
+                    "rendering rich text editor, when state = ${state}, safe = ${state.safe}");
+                return ListView(
+                  padding: const EdgeInsets.only(top: 10),
+                  children: [
+                    Text(notesBloc.state.title ?? 'Null title',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20.0,
+                          color: mainTextColor,
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          DateFormat.yMMMEd()
+                              .format(notesBloc.state.createdAt!),
+                          style: TextStyle(
+                            color: dateColor,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          DateFormat.jm().format(notesBloc.state.createdAt!),
+                          style: TextStyle(
+                            color: dateColor,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    NoteTags(noteId: state.id),
+                    const SizedBox(height: 20),
+                    ReadOnlyEditor(
+                      controller: notesBloc.state.controller,
+                    )
+                  ],
+                );
+              }
+              return Container();
+            },
           ),
         ),
       ),
