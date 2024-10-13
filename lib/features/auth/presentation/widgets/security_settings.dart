@@ -71,11 +71,12 @@ class SecuritySettings extends StatelessWidget {
                 }
 
                 if (userId == GuestUserDetails.guestUserId) {
-                  await applockWarningPopup(
+                  final checkboxAccepted = await applockWarningPopup(
                     context: context,
                     warningMessage: S.current.fingerprintWarningMessage,
                   );
-                  return;
+
+                  if (!checkboxAccepted) return;
                 }
 
                 try {
@@ -110,11 +111,12 @@ class SecuritySettings extends StatelessWidget {
                 }
 
                 if (userId == GuestUserDetails.guestUserId) {
-                  await applockWarningPopup(
+                  final checkboxAccepted = await applockWarningPopup(
                     context: context,
                     warningMessage: S.current.pinWarningMessage,
                   );
-                  return;
+
+                  if (!checkboxAccepted) return;
                 }
 
                 if (value == true) {
