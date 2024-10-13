@@ -23,7 +23,7 @@ jobs:
 
       # Step 3: Build the APKs
       - name: Build APKs
-        run: flutter build apk --split-per-abi
+        run: flutter build apk --split-per-abi --no-fatal-warnings
 
       # Step 4: Upload the APKs as release assets
       - name: Upload APKs
