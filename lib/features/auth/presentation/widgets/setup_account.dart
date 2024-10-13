@@ -60,92 +60,91 @@ class _SetupAccountState extends State<SetupAccount> {
                           showToast(state.errors["general"]![0]);
                         }
 
-                        if (state is AuthFormSubmissionSuccessful) {
-                          showToast(S.current.accountSetupSuccessful);
-                          Navigator.pop(context);
+                      if (state is AuthFormSubmissionSuccessful) {
+                        showToast(S.current.accountSetupSuccessful);
+                        Navigator.pop(context);
+                      }
+                    },
+                    builder: (context, state) {
+                      String? _getEmailErrors() {
+                        if (state is AuthFormSubmissionFailed &&
+                            state.errors.containsKey("email")) {
+                          return state.errors["email"]![0];
                         }
-                      },
-                      builder: (context, state) {
-                        String? _getEmailErrors() {
-                          if (state is AuthFormSubmissionFailed &&
-                              state.errors.containsKey("email")) {
-                            return state.errors["email"]![0];
-                          }
-                          return null;
+                        return null;
+                      }
+
+                      String? _getPasswordErrors() {
+                        if (state is AuthFormSubmissionFailed &&
+                            state.errors.containsKey("password")) {
+                          return state.errors["password"]?[0];
                         }
+                        return null;
+                      }
 
-                        String? _getPasswordErrors() {
-                          if (state is AuthFormSubmissionFailed &&
-                              state.errors.containsKey("password")) {
-                            return state.errors["password"]?[0];
-                          }
-                          return null;
-                        }
+                      void _onEmailChanged(String email) =>
+                          bloc.add(AuthFormInputsChangedEvent(email: email));
 
-                        void _onEmailChanged(String email) =>
-                            bloc.add(AuthFormInputsChangedEvent(email: email));
+                      void _onPasswordChanged(String password) => bloc
+                          .add(AuthFormInputsChangedEvent(password: password));
 
-                        void _onPasswordChanged(String password) => bloc.add(
-                            AuthFormInputsChangedEvent(password: password));
-
-                        void _onSubmitted() =>
-                            bloc.add(AuthFormSignUpSubmitted());
-                        return Container(
-                          width: 300,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                S.current.setupYourAccount,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: mainTextColor,
+                      void _onSubmitted() =>
+                          bloc.add(AuthFormSignUpSubmitted());
+                      return Container(
+                        width: 300,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              S.current.setupYourAccount,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: mainTextColor,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                AuthEmailInput(
+                                  getEmailErrors: _getEmailErrors,
+                                  onEmailChanged: _onEmailChanged,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  AuthEmailInput(
-                                    getEmailErrors: _getEmailErrors,
-                                    onEmailChanged: _onEmailChanged,
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  AuthPasswordInput(
-                                    getPasswordErrors: _getPasswordErrors,
-                                    onPasswordChanged: _onPasswordChanged,
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  SubmitButton(
-                                    isLoading:
-                                        (state is AuthFormSubmissionLoading),
-                                    onSubmitted: _onSubmitted,
-                                    buttonText: S.current.submit,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-                child: Text(
-                  S.current.setupYourAccount,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: mainTextColor,
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                AuthPasswordInput(
+                                  getPasswordErrors: _getPasswordErrors,
+                                  onPasswordChanged: _onPasswordChanged,
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                SubmitButton(
+                                  isLoading:
+                                      (state is AuthFormSubmissionLoading),
+                                  onSubmitted: _onSubmitted,
+                                  buttonText: S.current.submit,
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
+                );
+              },
+              child: Text(
+                S.current.setupYourAccount,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: mainTextColor,
                 ),
               ),
             ),
