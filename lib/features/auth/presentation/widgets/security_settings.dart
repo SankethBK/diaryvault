@@ -7,7 +7,6 @@ import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import 'package:dairy_app/features/auth/presentation/widgets/applock_warning_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_change_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
@@ -71,10 +70,7 @@ class SecuritySettings extends StatelessWidget {
                 }
 
                 if (userId == GuestUserDetails.guestUserId) {
-                  await applockWarningPopup(
-                    context: context,
-                    warningMessage: S.current.fingerprintWarningMessage,
-                  );
+                  showToast(S.current.pleaseSetupYourAccountToUseThisFeature);
                   return;
                 }
 
@@ -110,10 +106,7 @@ class SecuritySettings extends StatelessWidget {
                 }
 
                 if (userId == GuestUserDetails.guestUserId) {
-                  await applockWarningPopup(
-                    context: context,
-                    warningMessage: S.current.pinWarningMessage,
-                  );
+                  showToast(S.current.pleaseSetupYourAccountToUseThisFeature);
                   return;
                 }
 
