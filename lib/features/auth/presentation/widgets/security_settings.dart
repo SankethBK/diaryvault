@@ -7,6 +7,7 @@ import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/widgets/applock_warning_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/email_change_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_enter_popup.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/password_reset_popup.dart';
@@ -70,8 +71,12 @@ class SecuritySettings extends StatelessWidget {
                 }
 
                 if (userId == GuestUserDetails.guestUserId) {
-                  showToast(S.current.pleaseSetupYourAccountToUseThisFeature);
-                  return;
+                  final checkboxAccepted = await applockWarningPopup(
+                    context: context,
+                    warningMessage: S.current.fingerprintWarningMessage,
+                  );
+
+                  if (!checkboxAccepted) return;
                 }
 
                 try {
@@ -106,8 +111,12 @@ class SecuritySettings extends StatelessWidget {
                 }
 
                 if (userId == GuestUserDetails.guestUserId) {
-                  showToast(S.current.pleaseSetupYourAccountToUseThisFeature);
-                  return;
+                  final checkboxAccepted = await applockWarningPopup(
+                    context: context,
+                    warningMessage: S.current.pinWarningMessage,
+                  );
+
+                  if (!checkboxAccepted) return;
                 }
 
                 if (value == true) {

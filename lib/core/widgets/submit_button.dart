@@ -4,18 +4,20 @@ class SubmitButton extends StatelessWidget {
   final bool isLoading;
   final Function() onSubmitted;
   final String buttonText;
+  final bool isDisabled;
   const SubmitButton({
     Key? key,
     required this.isLoading,
     required this.onSubmitted,
     required this.buttonText,
+    this.isDisabled = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       icon: const SizedBox.shrink(),
-      onPressed: isLoading ? null : onSubmitted,
+      onPressed: isLoading || isDisabled ? null : onSubmitted,
       label: Text(
         buttonText,
         style: const TextStyle(
