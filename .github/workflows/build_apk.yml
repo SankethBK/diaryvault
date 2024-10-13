@@ -1,0 +1,51 @@
+name: Build and Attach APKs on Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository at the release's tag
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history to get the release tag
+          ref: ${{ github.event.release.tag_name }}
+
+      # Step 2: Set up Flutter 3.13.0
+      - name: Install Flutter 3.13.0
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.0'
+
+      # Step 3: Build the APKs
+      - name: Build APKs
+        run: flutter build apk --split-per-abi
+
+      # Step 4: Upload the APKs as release assets
+      - name: Upload APKs
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          asset_name: app-arm64-v8a-release.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload APK (armeabi-v7a)
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          asset_name: app-armeabi-v7a-release.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload APK (x86_64)
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/app/outputs/flutter-apk/app-x86_64-release.apk
+          asset_name: app-x86_64-release.apk
+          asset_content_type: application/vnd.android.package-archive
