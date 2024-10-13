@@ -46,7 +46,7 @@ class _SetupAccountState extends State<SetupAccount> {
       builder: (context, state) {
         if (state.userConfigModel?.userId == GuestUserDetails.guestUserId) {
           return Padding(
-            padding: const EdgeInsets.only(top: 5.0),
+            padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
             child: Material(
               color: Colors.transparent,
               child: SettingsTile(
@@ -60,91 +60,92 @@ class _SetupAccountState extends State<SetupAccount> {
                           showToast(state.errors["general"]![0]);
                         }
 
-                      if (state is AuthFormSubmissionSuccessful) {
-                        showToast(S.current.accountSetupSuccessful);
-                        Navigator.pop(context);
-                      }
-                    },
-                    builder: (context, state) {
-                      String? _getEmailErrors() {
-                        if (state is AuthFormSubmissionFailed &&
-                            state.errors.containsKey("email")) {
-                          return state.errors["email"]![0];
+                        if (state is AuthFormSubmissionSuccessful) {
+                          showToast(S.current.accountSetupSuccessful);
+                          Navigator.pop(context);
                         }
-                        return null;
-                      }
-
-                      String? _getPasswordErrors() {
-                        if (state is AuthFormSubmissionFailed &&
-                            state.errors.containsKey("password")) {
-                          return state.errors["password"]?[0];
+                      },
+                      builder: (context, state) {
+                        String? _getEmailErrors() {
+                          if (state is AuthFormSubmissionFailed &&
+                              state.errors.containsKey("email")) {
+                            return state.errors["email"]![0];
+                          }
+                          return null;
                         }
-                        return null;
-                      }
 
-                      void _onEmailChanged(String email) =>
-                          bloc.add(AuthFormInputsChangedEvent(email: email));
+                        String? _getPasswordErrors() {
+                          if (state is AuthFormSubmissionFailed &&
+                              state.errors.containsKey("password")) {
+                            return state.errors["password"]?[0];
+                          }
+                          return null;
+                        }
 
-                      void _onPasswordChanged(String password) => bloc
-                          .add(AuthFormInputsChangedEvent(password: password));
+                        void _onEmailChanged(String email) =>
+                            bloc.add(AuthFormInputsChangedEvent(email: email));
 
-                      void _onSubmitted() =>
-                          bloc.add(AuthFormSignUpSubmitted());
-                      return Container(
-                        width: 300,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              S.current.setupYourAccount,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: mainTextColor,
+                        void _onPasswordChanged(String password) => bloc.add(
+                            AuthFormInputsChangedEvent(password: password));
+
+                        void _onSubmitted() =>
+                            bloc.add(AuthFormSignUpSubmitted());
+                        return Container(
+                          width: 300,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                S.current.setupYourAccount,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: mainTextColor,
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                AuthEmailInput(
-                                  getEmailErrors: _getEmailErrors,
-                                  onEmailChanged: _onEmailChanged,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                AuthPasswordInput(
-                                  getPasswordErrors: _getPasswordErrors,
-                                  onPasswordChanged: _onPasswordChanged,
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                SubmitButton(
-                                  isLoading:
-                                      (state is AuthFormSubmissionLoading),
-                                  onSubmitted: _onSubmitted,
-                                  buttonText: S.current.submit,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  AuthEmailInput(
+                                    getEmailErrors: _getEmailErrors,
+                                    onEmailChanged: _onEmailChanged,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  AuthPasswordInput(
+                                    getPasswordErrors: _getPasswordErrors,
+                                    onPasswordChanged: _onPasswordChanged,
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SubmitButton(
+                                    isLoading:
+                                        (state is AuthFormSubmissionLoading),
+                                    onSubmitted: _onSubmitted,
+                                    buttonText: S.current.submit,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: Text(
+                  S.current.setupYourAccount,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: mainTextColor,
                   ),
-                );
-              },
-              child: Text(
-                S.current.setupYourAccount,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: mainTextColor,
                 ),
               ),
             ),
