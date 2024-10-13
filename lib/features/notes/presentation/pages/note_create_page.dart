@@ -13,7 +13,6 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_app_review/in_app_review.dart';
 
 import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 import '../widgets/note_date_time_picker.dart';
@@ -88,22 +87,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
     super.didChangeDependencies();
   }
 
-  Future<void> showReviewPopup() async {
-    final InAppReview inAppReview = InAppReview.instance;
-
-    log.d("Checking if in-app review is available");
-    try {
-      if (await inAppReview.isAvailable()) {
-        log.i("In-app review available, requesting review");
-        await inAppReview.requestReview();
-      } else {
-        log.w('In-app review is not available.');
-      }
-    } catch (e) {
-      log.e('Failed to show review popup: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final backgroundImagePath =
@@ -155,9 +138,6 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
                 showToast(state.newNote!
                     ? S.current.noteSavedSuccessfully
                     : S.current.noteUpdatedSuccessfully);
-                // Call showReviewPopup after saving the note
-                log.d("Showing review popup after note save");
-                await showReviewPopup();
 
                 // Navigate to home after showing the review dialog
                 _routeToHome();

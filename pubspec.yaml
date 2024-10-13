@@ -80,7 +80,6 @@ dependencies:
   uuid: ^3.0.6
   webdav_client:
     path: ./packages/webdav_client
-  in_app_review: ^2.0.4+2
 
 dev_dependencies:
   bloc_test: ^9.0.3
