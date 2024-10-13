@@ -21,7 +21,6 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
 
   @override
   void initState() {
-    _getAvailableVoices();
     super.initState();
     flutterTts.setCompletionHandler(() {
       isPlayingNotifier.value = false;
@@ -34,12 +33,6 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
     flutterTts.setContinueHandler(() {
       isPlayingNotifier.value = true;
     });
-  }
-
-  Future<void> _getAvailableVoices() async {
-    List<dynamic> voices = await flutterTts.getVoices;
-    print("Number of voices available: ${voices.length}");
-    voices.forEach((voice) => print(voice));
   }
 
   @override
