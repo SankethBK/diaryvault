@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
               padding: const EdgeInsets.all(0.0),
               children: [
                 const SetupAccount(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
                     S.current.cloudBackup,
