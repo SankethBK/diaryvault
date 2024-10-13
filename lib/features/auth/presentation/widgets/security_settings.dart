@@ -71,7 +71,10 @@ class SecuritySettings extends StatelessWidget {
                 }
 
                 if (userId == GuestUserDetails.guestUserId) {
-                  showToast(S.current.pleaseSetupYourAccountToUseThisFeature);
+                  await applockWarningPopup(
+                    context: context,
+                    warningMessage: S.current.fingerprintWarningMessage,
+                  );
                   return;
                 }
 
@@ -108,7 +111,9 @@ class SecuritySettings extends StatelessWidget {
 
                 if (userId == GuestUserDetails.guestUserId) {
                   await applockWarningPopup(
-                      context: context, warningMessage: S.current);
+                    context: context,
+                    warningMessage: S.current.pinWarningMessage,
+                  );
                   return;
                 }
 
