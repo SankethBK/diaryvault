@@ -18,6 +18,7 @@ class SettingsTile extends StatelessWidget {
     );
 
     return SizedBox(
+      height: 30,
       width: double.infinity,
       child: null == onTap
           ? widget
