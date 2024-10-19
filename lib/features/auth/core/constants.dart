@@ -12,7 +12,7 @@ class UserConfigConstants {
   static String isPINPrintLoginEnabled = "is_pin_print_log_enabled";
   static String isPINLoginEnabled = "is_pin_log_enabled";
   static String enablePINLogin = "enable_pin_login";
-
+  static const String prefKeyVoice = 'pref_key_voice';
   static String isAutoSaveEnabled = "is_auto_save_enabled";
   static String isDailyReminderEnabled = "is_daily_reminder_enabled";
   static String reminderTime = "reminder_time";
@@ -41,5 +41,6 @@ class SettingCategoriesConstants {
   static const String security = "security";
   static const String reminders = "reminders";
   static const String themeFontAndLanguage = "theme-font-and-language";
+  static const String textToSpeech = "text-to-speech";
   static const String importAndExport = "import-and-export";
 }

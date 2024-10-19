@@ -6,6 +6,7 @@ import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/language_dropdown.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
 import 'package:dairy_app/core/widgets/theme_dropdown.dart';
+import 'package:dairy_app/core/widgets/voice_dropdown.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
@@ -161,7 +162,10 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
           const SizedBox(height: 20),
           const LanguageDropDown(),
         ];
-
+      case SettingCategoriesConstants.textToSpeech:
+        return [
+          const VoiceDropDown(),
+        ];
       case SettingCategoriesConstants.importAndExport:
         return [
           const ExportNotes(),

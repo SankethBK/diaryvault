@@ -2,6 +2,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import '../../../auth/presentation/bloc/user_config/user_config_cubit.dart';
 
 class NoteReadIconButton extends StatefulWidget {
   const NoteReadIconButton({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
   ValueNotifier<bool> isPlayingNotifier = ValueNotifier(false);
 
   final flutterTts = FlutterTts()
-    ..setLanguage("en-US")
+    //..setLanguage("en-US")
     ..setSpeechRate(0.5)
     ..setVolume(1)
     ..setPitch(1.0);
@@ -34,7 +35,6 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
       isPlayingNotifier.value = true;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     final notesBloc = BlocProvider.of<NotesBloc>(context);
@@ -61,8 +61,22 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
     );
   }
 
-  Future _speak(String text) async => await flutterTts.speak(text);
+  Future<void> _speak(String text) async {
+    // Get selected voice from UserConfigCubit
+    final userConfigCubit = context.read<UserConfigCubit>();
+    final selectedVoice = userConfigCubit.state.selectedVoice;
 
+    // Set voice if available, and await completion
+    if (selectedVoice != null) {
+      await flutterTts.setVoice({
+        'name': selectedVoice['name'],
+        'locale': selectedVoice['locale'],
+      });
+    }
+
+    // Now start speaking
+    await flutterTts.speak(text);
+  }
   @override
   void dispose() {
     flutterTts.stop();

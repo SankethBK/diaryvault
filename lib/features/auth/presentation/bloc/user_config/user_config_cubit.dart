@@ -5,6 +5,10 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
 import 'package:dairy_app/features/auth/data/repositories/user_config_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/constants.dart';
 
 part 'user_config_state.dart';
 
@@ -52,6 +56,12 @@ class UserConfigCubit extends Cubit<UserConfigState> {
       log.i("userId is null");
     }
   }
+  Future<void> setVoice(Map<String, dynamic> voice) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(UserConfigConstants.prefKeyVoice, voice['name']);
+    emit(state.copyWith(selectedVoice: voice));
+  }
+
 
   @override
   void onChange(Change<UserConfigState> change) {
