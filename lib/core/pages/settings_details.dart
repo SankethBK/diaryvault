@@ -161,9 +161,7 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
           const FontDropdown(),
           const SizedBox(height: 20),
           const LanguageDropDown(),
-        ];
-      case SettingCategoriesConstants.textToSpeech:
-        return [
+          const SizedBox(height: 5),
           const VoiceDropDown(),
         ];
       case SettingCategoriesConstants.importAndExport:

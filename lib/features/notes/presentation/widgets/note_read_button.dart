@@ -35,6 +35,7 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
       isPlayingNotifier.value = true;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final notesBloc = BlocProvider.of<NotesBloc>(context);
@@ -64,7 +65,7 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
   Future<void> _speak(String text) async {
     // Get selected voice from UserConfigCubit
     final userConfigCubit = context.read<UserConfigCubit>();
-    final selectedVoice = userConfigCubit.state.selectedVoice;
+    final selectedVoice = userConfigCubit.state.userConfigModel?.prefKeyVoice;
 
     // Set voice if available, and await completion
     if (selectedVoice != null) {
@@ -77,6 +78,7 @@ class _NoteReadIconButtonState extends State<NoteReadIconButton> {
     // Now start speaking
     await flutterTts.speak(text);
   }
+
   @override
   void dispose() {
     flutterTts.stop();

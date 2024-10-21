@@ -178,19 +178,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
-                    S.current.textToSpeech,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: mainTextColor,
-                    ),
-                  ),
-                  onTap: () => _navigateToSettingsDetails(
-                    SettingCategoriesConstants.textToSpeech,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                SettingsTile(
-                  child: Text(
                     S.current.importAndExportNotes,
                     style: TextStyle(
                       fontSize: 16,

@@ -61,10 +61,7 @@ class LanguageDropDown extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: mainTextColor,
-                ),
+                Icon(Icons.keyboard_arrow_down,color: mainTextColor,),
               ],
             ),
           ),

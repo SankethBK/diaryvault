@@ -1219,15 +1219,6 @@ class S {
       args: [],
     );
   }
-  /// `Preferred voice for Text to Speech`
-  String get textToSpeech {
-    return Intl.message(
-      'Preferred voice for Text to Speech',
-      name: 'textToSpeech',
-      desc: '',
-      args: [],
-    );
-  }
 
   /// `Import and Export Notes`
   String get importAndExportNotes {

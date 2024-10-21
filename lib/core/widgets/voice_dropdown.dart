@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import '../../features/auth/core/constants.dart';
 import '../../features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 
 class VoiceDropDown extends StatefulWidget {
@@ -12,9 +13,9 @@ class VoiceDropDown extends StatefulWidget {
 }
 
 class _VoiceDropDownState extends State<VoiceDropDown> {
-  FlutterTts _flutterTts = FlutterTts();
+  final FlutterTts _flutterTts = FlutterTts();
   List<Map>? _voices;
-  Map? _selectedVoice;
+  Map? selectedVoice;
 
   @override
   void initState() {
@@ -24,7 +25,8 @@ class _VoiceDropDownState extends State<VoiceDropDown> {
 
   void _initTts() {
     final userConfigCubit = context.read<UserConfigCubit>(); // Access Cubit
-    final currentSelectedVoice = userConfigCubit.state.selectedVoice; // Get current voice
+    final currentSelectedVoice = userConfigCubit
+        .state.userConfigModel?.prefKeyVoice; // Get current voice
 
     _flutterTts.getVoices.then((data) {
       try {
@@ -32,10 +34,12 @@ class _VoiceDropDownState extends State<VoiceDropDown> {
         voices = voices.where((voice) => voice["name"].contains("en")).toList();
         setState(() {
           _voices = voices;
-          // Set _selectedVoice based on currentSelectedVoice
-          _selectedVoice = voices.firstWhere(
-                (voice) => voice['name'] == currentSelectedVoice?['name'],
-            orElse: () => voices.isNotEmpty ? voices.first : {'name': 'Default', 'locale': 'en-US'},
+          // Set selectedVoice based on currentSelectedVoice
+          selectedVoice = voices.firstWhere(
+            (voice) => voice['name'] == currentSelectedVoice?['name'],
+            orElse: () => voices.isNotEmpty
+                ? voices.first
+                : {'name': 'Default', 'locale': 'en-US'},
           );
         });
       } catch (e) {
@@ -66,8 +70,12 @@ class _VoiceDropDownState extends State<VoiceDropDown> {
             ),
           ),
           DropdownButton<Map>(
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: mainTextColor,
+            ),
             borderRadius: const BorderRadius.all(Radius.circular(15)),
-            value: _selectedVoice,
+            value: selectedVoice,
             hint: Text(
               'Default',
               style: TextStyle(color: mainTextColor),
@@ -83,15 +91,11 @@ class _VoiceDropDownState extends State<VoiceDropDown> {
             }).toList(),
             onChanged: (value) async {
               setState(() {
-                _selectedVoice = value;
+                selectedVoice = value;
               });
               if (value != null) {
-                // Ensure to extract the necessary fields before saving
-                final voiceToSave = {
-                  'name': value['name'],
-                  'locale': value['locale'],
-                };
-                userConfigCubit.setVoice(voiceToSave); // Save to UserConfigCubit
+                userConfigCubit.setUserConfig(UserConfigConstants.prefKeyVoice,
+                    selectedVoice); // Save to UserConfigCubit
               }
             },
           ),

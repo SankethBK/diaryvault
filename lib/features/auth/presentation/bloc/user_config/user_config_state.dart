@@ -1,20 +1,8 @@
 part of 'user_config_cubit.dart';
-class UserConfigState  extends Equatable{
+
+abstract class UserConfigState {
   final UserConfigModel? userConfigModel;
-  final Map<String, dynamic>? selectedVoice;
-
-  const UserConfigState({required this.userConfigModel,this.selectedVoice});
-  @override
-  List<Object?> get props => [
-    userConfigModel,
-    selectedVoice,
-  ];
-
-  UserConfigState copyWith({required Map<String, dynamic> selectedVoice}) {
-    return UserConfigState(
-        userConfigModel: userConfigModel,
-        selectedVoice: selectedVoice,);
-  }
+  const UserConfigState({required this.userConfigModel});
 }
 
 class UserConfigDataState extends UserConfigState {
