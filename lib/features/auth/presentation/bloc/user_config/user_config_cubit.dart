@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
