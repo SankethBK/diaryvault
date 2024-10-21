@@ -41,6 +41,7 @@ class UserConfigModel extends Equatable {
   final NoteSortType? noteSortType;
   final String? nextCloudUserInfo;
   final DateTime? lastNextCloudSync;
+  final Map<String, dynamic>? prefKeyVoice;
 
   const UserConfigModel({
     required this.userId,
@@ -58,6 +59,7 @@ class UserConfigModel extends Equatable {
     this.noteSortType,
     this.nextCloudUserInfo,
     this.lastNextCloudSync,
+    this.prefKeyVoice,
   });
   @override
   List<Object?> get props => [
@@ -75,7 +77,8 @@ class UserConfigModel extends Equatable {
         reminderTime,
         noteSortType,
         nextCloudUserInfo,
-        lastNextCloudSync
+        lastNextCloudSync,
+        prefKeyVoice,
       ];
 
   static TimeOfDay? getTimeOfDayFromTimeString(String? timeString) {
@@ -109,6 +112,7 @@ class UserConfigModel extends Equatable {
 
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
     return UserConfigModel(
+      prefKeyVoice: jsonMap[UserConfigConstants.prefKeyVoice],
       userId: jsonMap[UserConfigConstants.userId],
       preferredSyncOption: jsonMap[UserConfigConstants.preferredSyncOption],
       lastGoogleDriveSync:
@@ -145,6 +149,7 @@ class UserConfigModel extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      UserConfigConstants.prefKeyVoice: prefKeyVoice,
       UserConfigConstants.userId: userId,
       UserConfigConstants.preferredSyncOption: preferredSyncOption,
       UserConfigConstants.lastGoogleDriveSync:
