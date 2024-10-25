@@ -76,12 +76,19 @@ class NotificationsRepository implements INotificationsRepository {
   }
 
   Future<bool> areNotificationsEnabled() async {
-    final bool granted = await flutterLocalNotificationsPlugin
+    final bool notificationAllowed = await flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<
                 AndroidFlutterLocalNotificationsPlugin>()
             ?.areNotificationsEnabled() ??
         false;
-    return granted;
+
+    final bool scheduleAllowed = await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.canScheduleExactNotifications() ??
+        false;
+
+    return notificationAllowed && scheduleAllowed;
   }
 
   Future<bool> requestPermission() async {
@@ -92,7 +99,10 @@ class NotificationsRepository implements INotificationsRepository {
     final bool grantedNotificationPermission =
         await androidImplementation?.requestNotificationsPermission() ?? false;
 
-    return grantedNotificationPermission;
+    final bool allowedSchedulingPermission =
+        await androidImplementation?.requestExactAlarmsPermission() ?? false;
+
+    return grantedNotificationPermission && allowedSchedulingPermission;
   }
 
   @override
