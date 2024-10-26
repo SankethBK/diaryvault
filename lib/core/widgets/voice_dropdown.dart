@@ -45,8 +45,6 @@ class _VoiceDropdownState extends State<VoiceDropdown> {
               voice["name"].contains(localeCubit.currentLocale.toString()))
           .toList();
 
-      print("voices = $voices");
-
       setState(() {
         _voices = voices;
 
