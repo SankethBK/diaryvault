@@ -46,6 +46,13 @@ android {
         jvmTarget = '1.8'
     }
 
+    dependenciesInfo {
+        // Disables dependency metadata when building APKs.
+        includeInApk = false
+        // Disables dependency metadata when building Android App Bundles.
+        includeInBundle = false
+    }
+    
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -73,7 +80,6 @@ android {
            signingConfig signingConfigs.release
        }
    }
-
 }
 
 flutter {
