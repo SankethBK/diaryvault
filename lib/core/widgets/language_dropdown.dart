@@ -16,60 +16,57 @@ class LanguageDropDown extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              S.current.appLanguage,
-              style: TextStyle(
-                fontSize: 16.0,
-                color: mainTextColor,
-              ),
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            S.current.appLanguage,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: mainTextColor,
             ),
           ),
-          PopupMenuButton<Locale>(
-            itemBuilder: (context) {
-              return S.delegate.supportedLocales.map((Locale locale) {
-                return PopupMenuItem(
-                  value: locale,
-                  child: Text(
-                    LanguageLocal
-                        .isoLangs[locale.toLanguageTag()]!["nativeName"]!,
-                    style: TextStyle(
-                      color: mainTextColor,
-                    ),
-                  ),
-                );
-              }).toList();
-            },
-            padding: const EdgeInsets.only(bottom: 0.0),
-            onSelected: (value) async {
-              // Update the selected value
-              await localeCubit.setLocale(value);
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  LanguageLocal.isoLangs[localeCubit.state.currentLocale
-                      .toLanguageTag()]!["nativeName"]!,
+        ),
+        PopupMenuButton<Locale>(
+          itemBuilder: (context) {
+            return S.delegate.supportedLocales.map((Locale locale) {
+              return PopupMenuItem(
+                value: locale,
+                child: Text(
+                  LanguageLocal
+                      .isoLangs[locale.toLanguageTag()]!["nativeName"]!,
                   style: TextStyle(
                     color: mainTextColor,
-                    fontSize: 16,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_drop_down,
+              );
+            }).toList();
+          },
+          padding: const EdgeInsets.only(bottom: 0.0),
+          onSelected: (value) async {
+            // Update the selected value
+            await localeCubit.setLocale(value);
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                LanguageLocal.isoLangs[localeCubit.state.currentLocale
+                    .toLanguageTag()]!["nativeName"]!,
+                style: TextStyle(
                   color: mainTextColor,
+                  fontSize: 16,
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(width: 10),
+              Icon(
+                Icons.keyboard_arrow_down,
+                color: mainTextColor,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
