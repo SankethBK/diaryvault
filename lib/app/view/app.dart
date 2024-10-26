@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
@@ -22,9 +26,6 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fet
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
 import 'package:dairy_app/generated/l10n.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 final log = printer("App");
 
@@ -34,47 +35,29 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthSessionBloc>(
-          create: (context) => sl<AuthSessionBloc>(),
-        ),
-        BlocProvider<AuthFormBloc>(
-          create: (context) => sl<AuthFormBloc>(),
-        ),
-        BlocProvider<NotesBloc>(
-          create: (context) => sl<NotesBloc>(),
-        ),
-        BlocProvider<NotesFetchCubit>(
-          create: (context) => sl<NotesFetchCubit>(),
-        ),
-        BlocProvider<SelectableListCubit>(
-          create: (context) => sl<SelectableListCubit>(),
-        ),
-        BlocProvider<NoteSyncCubit>(
-          create: (context) => sl<NoteSyncCubit>(),
-        ),
-        BlocProvider<UserConfigCubit>(
-          create: (context) => sl<UserConfigCubit>(),
-        ),
-        BlocProvider<ThemeCubit>(
-          create: (context) => sl<ThemeCubit>(),
-        ),
-        BlocProvider<LocaleCubit>(
-          create: (context) => sl<LocaleCubit>(),
-        ),
-        BlocProvider<FontCubit>(
-          create: (context) => sl<FontCubit>(),
-        )
-      ],
+      providers: _createBlocProviders(),
       child: const AppView(),
     );
+  }
+
+  List<BlocProvider> _createBlocProviders() {
+    return [
+      BlocProvider<AuthSessionBloc>(create: (_) => sl<AuthSessionBloc>()),
+      BlocProvider<AuthFormBloc>(create: (_) => sl<AuthFormBloc>()),
+      BlocProvider<NotesBloc>(create: (_) => sl<NotesBloc>()),
+      BlocProvider<NotesFetchCubit>(create: (_) => sl<NotesFetchCubit>()),
+      BlocProvider<SelectableListCubit>(create: (_) => sl<SelectableListCubit>()),
+      BlocProvider<NoteSyncCubit>(create: (_) => sl<NoteSyncCubit>()),
+      BlocProvider<UserConfigCubit>(create: (_) => sl<UserConfigCubit>()),
+      BlocProvider<ThemeCubit>(create: (_) => sl<ThemeCubit>()),
+      BlocProvider<LocaleCubit>(create: (_) => sl<LocaleCubit>()),
+      BlocProvider<FontCubit>(create: (_) => sl<FontCubit>()),
+    ];
   }
 }
 
 class AppView extends StatefulWidget {
-  const AppView({
-    Key? key,
-  }) : super(key: key);
+  const AppView({Key? key}) : super(key: key);
 
   @override
   State<AppView> createState() => _AppViewState();
@@ -87,18 +70,15 @@ class _AppViewState extends State<AppView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     if (!_isInitialized) {
-      // trigger the initialization of lastLoggedinUserId
-      BlocProvider.of<AuthSessionBloc>(context)
-          .add(InitalizeLastLoggedInUser());
+      BlocProvider.of<AuthSessionBloc>(context).add(InitalizeLastLoggedInUser());
       _isInitialized = true;
     }
   }
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
-  ThemeData getThemeData(Themes currentTheme, FontFamily fontFamily) {
+  ThemeData _getThemeData(Themes currentTheme, FontFamily fontFamily) {
     switch (currentTheme) {
       case Themes.coralBubbles:
         return CoralBubble.getTheme(fontFamily);
@@ -112,7 +92,6 @@ class _AppViewState extends State<AppView> {
         return DarkAcademia.getTheme(fontFamily);
       case Themes.monochromePink:
         return MonochromePink.getTheme(fontFamily);
-
       default:
         return CoralBubble.getTheme(fontFamily);
     }
@@ -120,64 +99,68 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final themeState = context.watch<ThemeCubit>().state;
-        final localeCubit = context.watch<LocaleCubit>().state;
-        final fontCubit = context.watch<FontCubit>().state;
-
-        return MaterialApp(
-          navigatorKey: _navigatorKey,
-          debugShowCheckedModeBanner: false,
-          title: "My Dairy",
-          locale: localeCubit.currentLocale,
-          supportedLocales: S.delegate.supportedLocales,
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate
-          ],
-          theme: getThemeData(themeState.theme, fontCubit.currentFontFamily),
-          builder: (BuildContext context, child) {
-            return BlocListener<AuthSessionBloc, AuthSessionState>(
-              listener: (context, state) {
-                log.d("Auth session state is $state");
-
-                //! Currently we are not passing lastLoggedinUser anywhere, if you implement session
-                //! Rememeber to pass lastloggedinuser id as parameter to AuthPage
-
-                if (state is Unauthenticated) {
-                  bool isPINLoginEnabled =
-                      sl<PINAuthRepository>().isPINAuthEnabled();
-
-                  if (isPINLoginEnabled == true) {
-                    _navigator.pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (_) => const PINAuthPage()),
-                        (route) => false);
-                  } else {
-                    _navigator.pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (_) => AuthPage()),
-                        (route) => false);
-                  }
-                } else if (state is Authenticated) {
-                  log.d("freshLogin = ${state.freshLogin}");
-
-                  if (state.freshLogin == true) {
-                    _navigator.pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (_) => const HomePage()),
-                        (route) => false);
-                  } else {
-                    _navigator.pop();
-                  }
-                }
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, themeState) {
+        return BlocBuilder<LocaleCubit, LocaleState>(
+          builder: (context, localeState) {
+            return BlocBuilder<FontCubit, FontState>(
+              builder: (context, fontState) {
+                return MaterialApp(
+                  navigatorKey: _navigatorKey,
+                  debugShowCheckedModeBanner: false,
+                  title: "My Dairy",
+                  locale: localeState.currentLocale,
+                  supportedLocales: S.delegate.supportedLocales,
+                  localizationsDelegates: const [
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  theme: _getThemeData(themeState.theme, fontState.currentFontFamily),
+                  builder: _buildAuthSessionListener,
+                  onGenerateRoute: RouteGenerator.generateRoute,
+                );
               },
-              child: child,
             );
           },
-          onGenerateRoute: RouteGenerator.generateRoute,
         );
       },
     );
+  }
+
+  Widget _buildAuthSessionListener(BuildContext context, Widget? child) {
+    return BlocListener<AuthSessionBloc, AuthSessionState>(
+      listener: (context, state) {
+        log.d("Auth session state is $state");
+        if (state is Unauthenticated) {
+          _navigateToAuthPage();
+        } else if (state is Authenticated) {
+          _navigateToHomePage(state.freshLogin);
+        }
+      },
+      child: child,
+    );
+  }
+
+  void _navigateToAuthPage() {
+    final isPINLoginEnabled = sl<PINAuthRepository>().isPINAuthEnabled();
+    _navigator.pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => isPINLoginEnabled ? const PINAuthPage() : const AuthPage(),
+      ),
+          (route) => false,
+    );
+  }
+
+  void _navigateToHomePage(bool freshLogin) {
+    if (freshLogin) {
+      _navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const HomePage()),
+            (route) => false,
+      );
+    } else {
+      _navigator.pop();
+    }
   }
 }
