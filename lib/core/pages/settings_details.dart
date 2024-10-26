@@ -149,16 +149,16 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         ];
       case SettingCategoriesConstants.reminders:
         return [
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           const DailyReminders(),
         ];
       case SettingCategoriesConstants.themeFontAndLanguage:
         return [
           const SizedBox(height: 10),
           const ThemeDropdown(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           const FontDropdown(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           const LanguageDropDown(),
         ];
 
