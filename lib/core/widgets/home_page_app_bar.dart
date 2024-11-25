@@ -195,12 +195,12 @@ class Action extends StatelessWidget {
         } else if (selectableListState is SelectableListEnabled) {
           return Row(
             children: [
+              DeletionCount(
+                deletionCount: selectableListCubit.state.selectedItems.length,
+              ),
               // @Procos12 change: Added export icon segment below
               ExportIcon(
                 exportCount: selectableListCubit.state.selectedItems.length,
-              ),
-              DeletionCount(
-                deletionCount: selectableListCubit.state.selectedItems.length,
               ),
               DeleteIcon(
                 deletionCount: selectableListCubit.state.selectedItems.length,
