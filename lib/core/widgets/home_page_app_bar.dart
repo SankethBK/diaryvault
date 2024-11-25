@@ -141,9 +141,9 @@ class Action extends StatelessWidget {
 
   const Action(
       {Key? key,
-      required this.isSearchEnabled,
-      required this.openSearchAppBar,
-      required this.closeSearchAppBar})
+        required this.isSearchEnabled,
+        required this.openSearchAppBar,
+        required this.closeSearchAppBar})
       : super(key: key);
 
   @override
@@ -195,6 +195,10 @@ class Action extends StatelessWidget {
         } else if (selectableListState is SelectableListEnabled) {
           return Row(
             children: [
+              // @Procos12 change: Added export icon segment below
+              ExportIcon(
+                exportCount: selectableListCubit.state.selectedItems.length,
+              ),
               DeletionCount(
                 deletionCount: selectableListCubit.state.selectedItems.length,
               ),
@@ -319,127 +323,127 @@ class Title extends StatelessWidget {
       duration: const Duration(milliseconds: 300),
       child: isSearchEnabled
           ? TextField(
-              autofocus: true,
-              cursorColor: Colors.white,
-              style:
-                  TextStyle(color: Colors.white.withOpacity(1), fontSize: 16.0),
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                hintStyle: const TextStyle(color: Colors.white),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.0),
-                    width: 0.1,
+        autofocus: true,
+        cursorColor: Colors.white,
+        style:
+        TextStyle(color: Colors.white.withOpacity(1), fontSize: 16.0),
+        decoration: InputDecoration(
+          contentPadding:
+          const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          hintStyle: const TextStyle(color: Colors.white),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(
+              color: Colors.black.withOpacity(0.0),
+              width: 0.1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(17.0),
+            borderSide: BorderSide(
+              color: Colors.black.withOpacity(0.0),
+              width: 0.1,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(17.0),
+            borderSide: BorderSide(
+              color: Colors.black.withOpacity(0.0),
+              width: 0.1,
+            ),
+          ),
+          filled: true,
+          fillColor: searchBarFillColor,
+          suffixIcon: IconButton(
+            onPressed: () {
+              showCustomDialog(
+                context: context,
+                child: Container(
+                  width: 290,
+                  padding: const EdgeInsets.only(
+                    top: 13,
+                    bottom: 13,
+                    left: 20,
+                    right: 15,
                   ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.0),
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.0),
-                    width: 0.1,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.0),
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.0),
-                    width: 0.1,
-                  ),
-                ),
-                filled: true,
-                fillColor: searchBarFillColor,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    showCustomDialog(
-                      context: context,
-                      child: Container(
-                        width: 290,
-                        padding: const EdgeInsets.only(
-                          top: 13,
-                          bottom: 13,
-                          left: 20,
-                          right: 15,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        S.current.dateFilter,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: mainTextColor,
                         ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              S.current.dateFilter,
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            flex: 2,
+                            child: Text(
+                              S.current.from,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 16.0,
                                 color: mainTextColor,
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  flex: 2,
-                                  child: Text(
-                                    S.current.from,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: mainTextColor,
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 4,
-                                  child: DateInputField(
-                                    displayDate: startDate,
-                                    assignDate: assignStartDate,
-                                  ),
-                                ),
-                              ],
+                          ),
+                          Flexible(
+                            flex: 4,
+                            child: DateInputField(
+                              displayDate: startDate,
+                              assignDate: assignStartDate,
                             ),
-                            const SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  flex: 2,
-                                  child: Text(
-                                    S.current.to,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: mainTextColor,
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 4,
-                                  child: DateInputField(
-                                    displayDate: endDate,
-                                    assignDate: assignEndDate,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            SubmitButton(
-                              isLoading: false,
-                              onSubmitted: () => Navigator.of(context).pop(),
-                              buttonText: S.current.done,
-                            )
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.calendar_month,
-                    color: Colors.white,
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            flex: 2,
+                            child: Text(
+                              S.current.to,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: mainTextColor,
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 4,
+                            child: DateInputField(
+                              displayDate: endDate,
+                              assignDate: assignEndDate,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      SubmitButton(
+                        isLoading: false,
+                        onSubmitted: () => Navigator.of(context).pop(),
+                        buttonText: S.current.done,
+                      )
+                    ],
                   ),
                 ),
-              ),
-              onChanged: assignSearchText,
-            )
+              );
+            },
+            icon: const Icon(
+              Icons.calendar_month,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        onChanged: assignSearchText,
+      )
           : const SizedBox(),
     );
   }
@@ -506,14 +510,39 @@ class _CancelButton extends StatelessWidget {
   }
 }
 
+// @Procos12: Added code section below for export icon:
+class ExportIcon extends StatelessWidget {
+  final int exportCount;
+
+  const ExportIcon({
+    Key? key,
+    required this.exportCount,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 13.0),
+      child: IconButton(
+        icon: const Icon(Icons.upload), // Export icon
+        onPressed: () {
+          // Add functionality for pop-up to export notes here
+          // Similar to delete function
+        },
+        tooltip: 'Export Selected Notes',
+      ),
+    );
+  }
+}
+
 class DeleteIcon extends StatelessWidget {
   final int deletionCount;
   final Function() disableSelectedList;
 
   const DeleteIcon(
       {Key? key,
-      required this.deletionCount,
-      required this.disableSelectedList})
+        required this.deletionCount,
+        required this.disableSelectedList})
       : super(key: key);
 
   @override
@@ -541,7 +570,7 @@ class DeleteIcon extends StatelessWidget {
                 return Container(
                   color: Colors.transparent,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
