@@ -525,15 +525,88 @@ class ExportIcon extends StatelessWidget {
       padding: const EdgeInsets.only(right: 13.0),
       child: IconButton(
         icon: const Icon(Icons.upload), // Export icon
-        onPressed: () {
-          // Add functionality for pop-up to export notes here
-          // Similar to delete function
+        onPressed: () async {
+          if (exportCount == 0) {
+            showToast('No items selected to export');
+            return;
+          }
+
+          final mainTextColor = Theme.of(context)
+              .extension<PopupThemeExtensions>()!
+              .mainTextColor;
+
+          // Show the popup dialog for exporting
+          await showCustomDialog(
+            context: context,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Container(
+                  color: Colors.transparent,
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "You are about to export $exportCount item${exportCount > 1 ? "s" : ""}.",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: mainTextColor,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CancelButton(
+                            buttonText: 'Cancel',
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Close the popup
+                              showToast('Export canceled');
+                            },
+                          ),
+                          const SizedBox(width: 10),
+                          SubmitButton(
+                            isLoading: false,
+                            onSubmitted: () {
+                              Navigator.of(context).pop(); // Close the popup
+                              exportToPDF(); // added empty function for export to PDF
+                              // Add export to PDF logic here
+                              showToast(
+                                  '$exportCount item${exportCount > 1 ? "s" : ""} exported to PDF');
+                            },
+                            buttonText: 'PDF',
+                          ),
+                          const SizedBox(width: 10),
+                          SubmitButton(
+                            isLoading: false,
+                            onSubmitted: () {
+                              Navigator.of(context).pop(); // Close the popup
+                              exportToTextFile(); // added empty function for export to text
+                              // Add export to text file logic here
+                              showToast(
+                                  '$exportCount item${exportCount > 1 ? "s" : ""} exported to Text File');
+                            },
+                            buttonText: 'Text File',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
         },
         tooltip: 'Export Selected Notes',
       ),
     );
   }
 }
+
+
 
 class DeleteIcon extends StatelessWidget {
   final int deletionCount;
