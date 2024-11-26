@@ -572,8 +572,8 @@ class ExportIcon extends StatelessWidget {
                             isLoading: false,
                             onSubmitted: () {
                               Navigator.of(context).pop(); // Close the popup
-                              exportToPDF(); // added empty function for export to PDF
                               // Add export to PDF logic here
+
                               showToast(
                                   '$exportCount item${exportCount > 1 ? "s" : ""} exported to PDF');
                             },
@@ -584,8 +584,8 @@ class ExportIcon extends StatelessWidget {
                             isLoading: false,
                             onSubmitted: () {
                               Navigator.of(context).pop(); // Close the popup
-                              exportToTextFile(); // added empty function for export to text
                               // Add export to text file logic here
+
                               showToast(
                                   '$exportCount item${exportCount > 1 ? "s" : ""} exported to Text File');
                             },
