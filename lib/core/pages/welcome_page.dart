@@ -59,15 +59,22 @@ Widget build(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           // Application logo
-         /*  Image.asset(
-            'assets/images/splash_icon_4.webp',
-            errorBuilder: (context, error, stackTrace) {
-              return const Text(
-                'Error loading image',
-                style: TextStyle(color: Colors.red),
-              );
-            },
-          ), */
+         SizedBox(
+           width: 200, 
+           height: 200, 
+           child: ClipOval( // Crop image in oval shape to match homepage logo
+             child: Image.asset(
+              'assets/images/splash_icon_4.webp',
+              errorBuilder: (context, error, stackTrace) {
+                return const Text(
+                  'Error loading image',
+                  style: TextStyle(color: Colors.red),
+                ); 
+              },
+              fit: BoxFit.cover, // Ensures the image fills the circular frame
+              ),
+            ),
+          ), 
           const SizedBox(height: 20),
           // Display the random quote
           Padding(
