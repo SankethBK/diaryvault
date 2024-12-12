@@ -8,6 +8,7 @@ import 'package:dairy_app/app/themes/plain_dark.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/pages/welcome_page.dart';
 import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_form/auth_form_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
@@ -15,7 +16,6 @@ import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
-import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/pin_auth_page.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
@@ -157,7 +157,7 @@ class _AppViewState extends State<AppView> {
                         (route) => false);
                   } else {
                     _navigator.pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (_) => AuthPage()),
+                        MaterialPageRoute(builder: (_) => const WelcomePage()),
                         (route) => false);
                   }
                 } else if (state is Authenticated) {
