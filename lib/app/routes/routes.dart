@@ -8,6 +8,7 @@ import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dar
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:dairy_app/core/pages/welcome_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -15,8 +16,9 @@ class RouteGenerator {
     final log = printer("Router");
 
     log.i("routing to ${settings.name} with args $args");
-
-    if (settings.name == HomePage.route) {
+    if (settings.name == WelcomePage.route) {
+      return MaterialPageRoute(builder: (_) => const WelcomePage());
+    } else if (settings.name == HomePage.route) {
       return MaterialPageRoute(builder: (_) => const HomePage());
     } else if (settings.name == AuthPage.route) {
       return MaterialPageRoute(builder: (_) => AuthPage());

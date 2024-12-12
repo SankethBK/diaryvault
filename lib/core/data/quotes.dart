@@ -1,0 +1,66 @@
+class Quotes {
+  static const List<String> quotes = [
+    // Writing and Journaling Specific Quotes
+    "Every page is a new beginning, waiting to be written.",
+    "Your story matters. Write it with courage and honesty.",
+    "In the quiet moments of reflection, truth emerges.",
+    "This journal is a map of your journey, with blank spaces yet to be explored.",
+    "Memories fade, but words preserve the essence of who we are.",
+    "Writing is how we listen to ourselves.",
+    "Today's thoughts become tomorrow's memories.",
+    "Your experiences are the ink, and this journal is your canvas.",
+    "Breathe life into your thoughts, one page at a time.",
+    "Vulnerability is strength when written in truth.",
+    "Every entry is a conversation with your future self.",
+    "Words are the bridges between your present and your potential.",
+    "Your journal is a sanctuary of unfiltered truth.",
+    "Write without fear, edit without mercy.",
+    "Each page is a step towards understanding yourself.",
+
+    // Motivational and Inspirational Quotes
+    "Believe you can and you're halfway there.",
+    "The only way to do great work is to love what you do.",
+    "Your life is your story. Write well. Edit often.",
+    "Every day is a chance to begin again.",
+    "You are capable of amazing things.",
+    "The future belongs to those who believe in the beauty of their dreams.",
+    "Start where you are. Use what you have. Do what you can.",
+    "Your potential is limited only by your imagination.",
+    "Small steps every day lead to big changes.",
+    "You are stronger than you think.",
+    "Growth happens outside of your comfort zone.",
+    "Your journey is unique and beautiful.",
+    "Embrace the glorious mess that you are.",
+    "Progress, not perfection.",
+    "You are the author of your own life.",
+
+    // Self-Reflection and Personal Growth Quotes
+    "Know yourself. Love yourself. Be yourself.",
+    "Reflection is the lamp of the heart.",
+    "Understanding yourself is the beginning of wisdom.",
+    "Your thoughts are the architects of your destiny.",
+    "Honesty with yourself is the foundation of all growth.",
+    "Healing begins with a single honest word.",
+    "Every challenge is an opportunity to grow.",
+    "Listen to your inner voice.",
+    "Self-discovery is the greatest adventure.",
+    "Your emotions are valid. Your experiences matter.",
+    "Kindness begins with being kind to yourself.",
+    "Transform your narrative, transform your life.",
+    "In silence, you'll find your truest self.",
+    "Vulnerability is not weakness, it's courage.",
+    "You are constantly becoming.",
+
+    // Additional Motivational Quotes
+    "Dream big. Start small. Begin now.",
+    "Your attitude determines your direction.",
+    "Every day is a gift, that's why it's called the present.",
+    "Courage doesn't always roar. Sometimes it's the quiet voice saying 'I'll try again tomorrow'.",
+    "You are enough, just as you are.",
+    "Create the things you wish existed.",
+    "Life is 10% what happens to you and 90% how you react to it.",
+    "The best time to plant a tree was 20 years ago. The second best time is now.",
+    "Your limitations are only in your mind.",
+    "Keep going. Every step counts."
+  ];
+}
