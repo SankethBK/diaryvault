@@ -50,9 +50,37 @@ class ExportNotesRepository implements IExportNotesRepository {
     }
   }
 
+  String addMarginsToHTML(String htmlContent) {
+    return '''
+    <html>
+      <head>
+        <style>
+          @page {
+            margin: 40px;
+          }
+          body {
+            margin: 20px;
+          }
+          h2, h3, p {
+            margin: 0 0 10px;
+          }
+          img {
+            max-width: 100%;
+            height: auto;
+            page-break-inside: avoid;
+            max-height: 500px;
+          }
+        </style>
+      </head>
+      <body>
+        $htmlContent
+      </body>
+    </html>
+  ''';
+  }
+
   @override
   Future<String> exportNotesToPDF({List<String>? noteList}) async {
-    // create a text file from the notes
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/diaryvault_notes_export.txt');
 
@@ -62,15 +90,13 @@ class ExportNotesRepository implements IExportNotesRepository {
 
         final result = await notesRepository.fetchNotes();
 
-        // Add watermark
-
         var fileContent = "";
 
         String watermarkFile =
             await getImageFileFromAssets('assets/images/watermark.webp');
 
         fileContent +=
-            "<img width=\"1000\" src=\"$watermarkFile\"  alt=\"web-img\">";
+            "<img width=\"1000\" src=\"$watermarkFile\" alt=\"web-img\">";
 
         result.fold((l) => null, (allNotes) async {
           for (var note in allNotes) {
@@ -86,9 +112,13 @@ class ExportNotesRepository implements IExportNotesRepository {
           }
         });
 
-        await file.writeAsString(fileContent);
+        // Add margins to the HTML content
+        final htmlWithMargins = addMarginsToHTML(fileContent);
+
+        await file.writeAsString(htmlWithMargins);
+
         var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlFile(
-            file, directory.path, "diayvault_pdf_export");
+            file, directory.path, "diaryvault_pdf_export");
 
         return generatedPdfFile.path;
       }
