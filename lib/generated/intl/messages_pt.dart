@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTime": MessageLookupByLibrary.simpleMessage("Escolha a hora"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("Deseja fechar o app?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage("Backup na nuvem"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirmar nova senha"),
         "continueAsGues":
@@ -105,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Receba lembretes diários no horário escolhido para manter seu diário atualizado."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes":
+            MessageLookupByLibrary.simpleMessage("Importar e Exportar Notas"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Senha incorreta"),
         "language": MessageLookupByLibrary.simpleMessage("Português - Brasil"),
@@ -150,16 +153,20 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Por favor, configure sua conta para usar essa funcionalidade"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Políticas de privacidade"),
+        "projectOnGithub": MessageLookupByLibrary.simpleMessage(
+            "Visite nosso projeto no Github"),
+        "reminders": MessageLookupByLibrary.simpleMessage("Lembretes"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Resetar senhar"),
+        "security": MessageLookupByLibrary.simpleMessage("Segurança"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Configurações de segurança"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Mande um feedback"),
-        "settings": MessageLookupByLibrary.simpleMessage("COnfigurações"),
+        "settings": MessageLookupByLibrary.simpleMessage("Configurações"),
         "setupYourAccount":
             MessageLookupByLibrary.simpleMessage("Configure sua conta"),
-        "shareWithFriends":
-            MessageLookupByLibrary.simpleMessage("Compartilhar com os amigos"),
+        "shareWithFriends": MessageLookupByLibrary.simpleMessage(
+            "Compartilhe o app com seus amigos"),
         "signIn": MessageLookupByLibrary.simpleMessage("Entrar"),
         "signUp": MessageLookupByLibrary.simpleMessage("Cadastre-se"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Logado como"),
@@ -176,6 +183,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("A etiqueta já existe"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "Clique aqui para expandir o título"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "Customize Tema, Fontes e Idioma"),
         "to": MessageLookupByLibrary.simpleMessage("Para"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Muitas tentativas incorretas, tente o login utilizando a senha"),

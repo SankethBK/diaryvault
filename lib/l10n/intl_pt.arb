@@ -4,7 +4,7 @@
     "description": "Idioma atual"
   },
   "pageNotFound": "Página não encontrada",
-  "settings": "COnfigurações",
+  "settings": "Configurações",
   "enterNewEmail": "Insira um novo email",
   "enterRegisteredEmail": "Insira o email cadastrado",
   "enterCurrentPassword": "Insira a senha atual",
@@ -40,7 +40,7 @@
   "to": "Para",
   "areYouSureAboutLoggingOut": "Deseja sair do aplicativo?",
   "sendFeedback": "Mande um feedback",
-  "shareWithFriends": "Compartilhar com os amigos",
+  "shareWithFriends": "Compartilhe o app com seus amigos",
   "chooseTheme": "Escolha um tema",
   "appVersion": "Versão do app",
   "continueAsGues": "Continuar como convidado",
@@ -105,7 +105,13 @@
   "automaticallySave": "Salva automaticamente suas anotações a cada 10 segundos",
   "logOut2": "Sair",
   "appLanguage": "Idioma do aplicativo",
+  "cloudBackup": "Backup na nuvem",
   "nextCloud": "NextCloud",
   "webdavURL": "URL do WebDAV",
+  "security": "Segurança",
+  "reminders": "Lembretes",
+  "themeFontsAndLanguage": "Customize Tema, Fontes e Idioma",
+  "importAndExportNotes": "Importar e Exportar Notas",
+  "projectOnGithub": "Visite nosso projeto no Github",
   "moreInfo": "Mais informações"
 }
