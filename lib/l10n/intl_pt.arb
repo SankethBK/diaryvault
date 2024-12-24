@@ -4,7 +4,7 @@
     "description": "Idioma atual"
   },
   "pageNotFound": "Página não encontrada",
-  "settings": "COnfigurações",
+  "settings": "Configurações",
   "enterNewEmail": "Insira um novo email",
   "enterRegisteredEmail": "Insira o email cadastrado",
   "enterCurrentPassword": "Insira a senha atual",
@@ -40,7 +40,7 @@
   "to": "Para",
   "areYouSureAboutLoggingOut": "Deseja sair do aplicativo?",
   "sendFeedback": "Mande um feedback",
-  "shareWithFriends": "Compartilhar com os amigos",
+  "shareWithFriends": "Compartilhe o app com seus amigos",
   "chooseTheme": "Escolha um tema",
   "appVersion": "Versão do app",
   "continueAsGues": "Continuar como convidado",
@@ -74,5 +74,44 @@
   "delete": "Excluir",
   "cancel": "Cancelar",
   "submit": "Enviar",
-  "appDescription": "Discover diaryVault - um aplicativo de diário feito para te ajudar a salvar seus pensamentos, suas memórias e seus momentos sem maiores esforços. Disponível agora na Play Store!"
+  "appDescription": "Discover diaryVault - um aplicativo de diário feito para te ajudar a salvar seus pensamentos, suas memórias e seus momentos sem maiores esforços. Disponível agora na Play Store!",
+  "notificationsNotEnabled": "As notificações não estão ativadas",
+  "notificationTimeNotEnabled": "Você não selecionou um horário de notificação",
+  "youWillBeNotifiedAt": "Você será notificado às {time}",
+  "@youWillBeNotifiedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "in sometime"
+      }
+    }
+  },
+  "enableDailyReminders": "Ativar lembretes diários",
+  "dailyReminders": "Lembretes diários",
+  "getDailyReminders": "Receba lembretes diários no horário escolhido para manter seu diário atualizado.",
+  "chooseTime": "Escolha a hora",
+  "notificationTitle1": "Hora de registrar no diário!",
+  "notificationDescription1": "Reserve alguns minutos para refletir sobre o seu dia em seu diário",
+  "sortByLatestFirst": "Classificar por mais recente primeiro",
+  "sortByOldestFirst": "Classificar por mais antigo primeiro",
+  "sortByAtoZ": "Classificar por A-Z",
+  "exportNotes": "Exporte suas notas",
+  "exportToPlainText": "Exportar para texto simples",
+  "exportToPDF": "Exportar para PDF",
+  "tagAlreadyExists": "A etiqueta já existe",
+  "securitySettings": "Configurações de segurança",
+  "leave": "Deixar",
+  "stay": "Ficar",
+  "automaticallySave": "Salva automaticamente suas anotações a cada 10 segundos",
+  "logOut2": "Sair",
+  "appLanguage": "Idioma do aplicativo",
+  "cloudBackup": "Backup na nuvem",
+  "nextCloud": "NextCloud",
+  "webdavURL": "URL do WebDAV",
+  "security": "Segurança",
+  "reminders": "Lembretes",
+  "themeFontsAndLanguage": "Customize Tema, Fontes e Idioma",
+  "importAndExportNotes": "Importar e Exportar Notas",
+  "projectOnGithub": "Visite nosso projeto no Github",
+  "moreInfo": "Mais informações"
 }
