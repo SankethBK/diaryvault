@@ -53,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTime": MessageLookupByLibrary.simpleMessage("Wybierz godzinę"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("Wyłączyć aplikację?"),
+        "cloudBackup":
+            MessageLookupByLibrary.simpleMessage("Kopia zapasowa w chmurze"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Potwierdź nowe hasło"),
         "confirmNewPin":
@@ -89,8 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wprowadź zarejestrowany email"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Eksportuj notatki"),
-        "exportToPDF":
-            MessageLookupByLibrary.simpleMessage("Eksportuj do PDF (beta)"),
+        "exportToPDF": MessageLookupByLibrary.simpleMessage("Eksportuj do PDF"),
         "exportToPlainText":
             MessageLookupByLibrary.simpleMessage("Eksportuj jako tekst"),
         "failedToFetchNote": MessageLookupByLibrary.simpleMessage(
@@ -110,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Otrzymuj codzienne przypomnienia o wybranej porze, aby aktualizować pamiętnik."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
+            "Importuj i Eksportuj notatki"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Nieprawidłowe hasło"),
         "language": MessageLookupByLibrary.simpleMessage("Polski"),
@@ -150,6 +153,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hasło zweryfikowane"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Hasła nie są takie same"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("Wybierz z Pliki"),
         "pinLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Logowanie kodem PIN niepomyślne"),
         "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
@@ -167,8 +172,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Politykę Prywatności"),
         "projectOnGithub":
             MessageLookupByLibrary.simpleMessage("Projekt na GitHub"),
+        "recordAudio": MessageLookupByLibrary.simpleMessage("Nagraj dźwięk"),
+        "reminders": MessageLookupByLibrary.simpleMessage("Przypomnienia"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Zmień hasło"),
         "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
+        "security": MessageLookupByLibrary.simpleMessage("Bezpieczeństwo"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Ustawienia bezpieczeństwa"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Wyślij opinię"),
@@ -195,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Etykieta już istnieje"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "Kliknij tutaj, aby rozwinąć tytuł"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "Personalizuj motyw, czcionki i język"),
         "to": MessageLookupByLibrary.simpleMessage("Do"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Za dużo nieudanych prób, zaloguj się hasłem"),

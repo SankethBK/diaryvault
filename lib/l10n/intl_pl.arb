@@ -97,7 +97,7 @@
   "sortByAtoZ": "Sortuj alfabetycznie",
   "exportNotes": "Eksportuj notatki",
   "exportToPlainText": "Eksportuj jako tekst",
-  "exportToPDF": "Eksportuj do PDF (beta)",
+  "exportToPDF": "Eksportuj do PDF",
   "tagAlreadyExists": "Etykieta już istnieje",
   "securitySettings": "Ustawienia bezpieczeństwa",
   "leave": "Wyjdź",
@@ -120,5 +120,12 @@
   "pinMustBe4Digit": "Wprowadź 4-cyfrowy kod PIN",
   "wrongPIN": "Nieprawidłowy PIN",
   "signInWithEmail": "Zaloguj się używając email",
-  "projectOnGithub": "Projekt na GitHub"
+  "projectOnGithub": "Projekt na GitHub",
+  "recordAudio": "Nagraj dźwięk",
+  "pickFromFileManager": "Wybierz z Pliki",
+  "cloudBackup": "Kopia zapasowa w chmurze",
+  "security": "Bezpieczeństwo",
+  "reminders": "Przypomnienia",
+  "themeFontsAndLanguage": "Personalizuj motyw, czcionki i język",
+  "importAndExportNotes": "Importuj i Eksportuj notatki"
 }
