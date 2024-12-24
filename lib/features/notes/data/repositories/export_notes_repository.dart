@@ -64,6 +64,12 @@ class ExportNotesRepository implements IExportNotesRepository {
           h2, h3, p {
             margin: 0 0 10px;
           }
+          img {
+            max-width: 100%;
+            height: auto;
+            page-break-inside: avoid;
+            max-height: 500px;
+          }
         </style>
       </head>
       <body>
