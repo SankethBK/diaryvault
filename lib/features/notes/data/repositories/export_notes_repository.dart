@@ -135,7 +135,6 @@ class ExportNotesRepository implements IExportNotesRepository {
   String quillDeltaToHtml(String delta) {
     final markdown = deltaToMarkdown(delta);
     final html = markdownToHtml(markdown);
-    print("html = $html");
     return html;
   }
 
