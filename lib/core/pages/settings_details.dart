@@ -157,11 +157,11 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         return [
           const SizedBox(height: 10),
           const ThemeDropdown(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           const FontDropdown(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           const LanguageDropDown(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           const VoiceDropdown(),
         ];
       case SettingCategoriesConstants.importAndExport:
