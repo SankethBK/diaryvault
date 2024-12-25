@@ -174,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "security": MessageLookupByLibrary.simpleMessage("Security"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Security Settings"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("Select Voice"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "setupYourAccount":

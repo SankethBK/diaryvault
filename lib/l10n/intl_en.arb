@@ -127,5 +127,6 @@
   "security": "Security",
   "reminders": "Reminders",
   "themeFontsAndLanguage": "Customize Theme, Fonts and Language",
-  "importAndExportNotes": "Import and Export Notes"
+  "importAndExportNotes": "Import and Export Notes",
+  "selectVoice": "Select Voice"
 }

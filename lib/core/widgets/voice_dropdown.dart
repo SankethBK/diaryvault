@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -68,7 +69,7 @@ class _VoiceDropdownState extends State<VoiceDropdown> {
     return Row(
       children: [
         Text(
-          'Select Voice',
+          S.current.selectVoice,
           style: TextStyle(
             fontSize: 16.0,
             color: mainTextColor,

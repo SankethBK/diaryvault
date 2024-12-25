@@ -1229,6 +1229,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Select Voice`
+  String get selectVoice {
+    return Intl.message(
+      'Select Voice',
+      name: 'selectVoice',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
