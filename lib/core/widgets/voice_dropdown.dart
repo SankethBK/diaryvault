@@ -19,7 +19,7 @@ class _VoiceDropdownState extends State<VoiceDropdown> {
   final FlutterTts _flutterTts = FlutterTts();
   List<Map>? _voices;
   Map? selectedVoice;
-  final bool _isInitialized = false;
+  bool _isInitialized = false;
 
   @override
   void didChangeDependencies() {
@@ -27,7 +27,7 @@ class _VoiceDropdownState extends State<VoiceDropdown> {
 
     if (!_isInitialized) {
       _initTts();
-      // _isInitialized = true;
+      _isInitialized = true;
     }
   }
 
