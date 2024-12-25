@@ -12,6 +12,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/toolbar_position_dropdown.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -157,12 +158,14 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         return [
           const SizedBox(height: 10),
           const ThemeDropdown(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           const FontDropdown(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           const LanguageDropDown(),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           const VoiceDropdown(),
+          const SizedBox(height: 20),
+          const ToolbarPositionDropdown()
         ];
       case SettingCategoriesConstants.importAndExport:
         return [

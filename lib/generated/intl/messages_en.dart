@@ -174,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "security": MessageLookupByLibrary.simpleMessage("Security"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Security Settings"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("Select Voice"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "setupYourAccount":
@@ -202,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Too many wrong attempts, please login with password"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("Toolbar Position"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),

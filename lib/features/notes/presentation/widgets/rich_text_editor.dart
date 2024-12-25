@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/audio_recorder_popup.dart';
@@ -86,6 +88,11 @@ class _RichTextEditorState extends State<RichTextEditor> {
         .extension<NoteCreatePageThemeExtensions>()!
         .titleTextBoxBorderColor;
 
+    final userConfigCubit = context.watch<UserConfigCubit>();
+
+    final _isToolbarPositionTop =
+        userConfigCubit.state.userConfigModel?.toolbarPosition != 'Bottom';
+
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -102,12 +109,17 @@ class _RichTextEditorState extends State<RichTextEditor> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          verticalDirection: _isToolbarPositionTop
+              ? VerticalDirection.down
+              : VerticalDirection.up,
           children: [
             GlassMorphismCover(
               displayShadow: false,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(16.0),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
+                topRight: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
+                bottomLeft: Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
+                bottomRight: Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
               ),
               child: Container(
                 child: Toolbar(
@@ -115,9 +127,13 @@ class _RichTextEditorState extends State<RichTextEditor> {
                   notesBloc: notesBloc,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16.0),
-                    topRight: Radius.circular(16.0),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
+                    topRight: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
+                    bottomLeft:
+                        Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
+                    bottomRight:
+                        Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
                   ),
                   gradient: LinearGradient(
                     colors: [
@@ -469,19 +485,28 @@ class GlassPaneForEditor extends StatelessWidget {
 
     final fontCubit = BlocProvider.of<FontCubit>(context);
 
+    final userConfigCubit = context.watch<UserConfigCubit>();
+
+    final _isToolbarPositionTop =
+        userConfigCubit.state.userConfigModel?.toolbarPosition != 'Bottom';
+
     return GlassMorphismCover(
       displayShadow: false,
-      borderRadius: const BorderRadius.only(
-        bottomLeft: Radius.circular(16.0),
-        bottomRight: Radius.circular(16.0),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
+        topRight: Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
+        bottomLeft: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
+        bottomRight: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
       ),
       child: Container(
         height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 5),
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 5),
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(16.0),
-            bottomRight: Radius.circular(16.0),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
+            topRight: Radius.circular(_isToolbarPositionTop ? 0 : 16.0),
+            bottomLeft: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
+            bottomRight: Radius.circular(_isToolbarPositionTop ? 16.0 : 0),
           ),
           gradient: LinearGradient(
             colors: [
