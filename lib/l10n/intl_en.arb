@@ -131,5 +131,7 @@
   "warning": "Warning",
   "pinWarningMessage": "You are about to enable PIN lock without creating account, if you forget your PIN you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes",
   "fingerprintWarningMessage": "You are about to enable fingerprint without creating account, if there is any hardware damage to fingerprint sensor you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes",
-  "acceptRisk": "I accept the risk to continue"
+  "acceptRisk": "I accept the risk to continue",
+  "selectVoice": "Select Voice",
+  "toolbarPosition": "Toolbar Position"
 }
