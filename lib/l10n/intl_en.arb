@@ -128,5 +128,6 @@
   "reminders": "Reminders",
   "themeFontsAndLanguage": "Customize Theme, Fonts and Language",
   "importAndExportNotes": "Import and Export Notes",
-  "selectVoice": "Select Voice"
+  "selectVoice": "Select Voice",
+  "toolbarPosition": "Toolbar Position"
 }

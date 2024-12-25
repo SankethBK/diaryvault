@@ -1239,6 +1239,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Toolbar Position`
+  String get toolbarPosition {
+    return Intl.message(
+      'Toolbar Position',
+      name: 'toolbarPosition',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

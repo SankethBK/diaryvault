@@ -203,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Too many wrong attempts, please login with password"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("Toolbar Position"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),

@@ -42,6 +42,7 @@ class UserConfigModel extends Equatable {
   final String? nextCloudUserInfo;
   final DateTime? lastNextCloudSync;
   final Map<String, dynamic>? prefKeyVoice;
+  final String? toolbarPosition;
 
   const UserConfigModel({
     required this.userId,
@@ -60,6 +61,7 @@ class UserConfigModel extends Equatable {
     this.nextCloudUserInfo,
     this.lastNextCloudSync,
     this.prefKeyVoice,
+    this.toolbarPosition,
   });
   @override
   List<Object?> get props => [
@@ -79,6 +81,7 @@ class UserConfigModel extends Equatable {
         nextCloudUserInfo,
         lastNextCloudSync,
         prefKeyVoice,
+        toolbarPosition,
       ];
 
   static TimeOfDay? getTimeOfDayFromTimeString(String? timeString) {
@@ -112,39 +115,40 @@ class UserConfigModel extends Equatable {
 
   factory UserConfigModel.fromJson(Map<String, dynamic> jsonMap) {
     return UserConfigModel(
-      prefKeyVoice: jsonMap[UserConfigConstants.prefKeyVoice],
-      userId: jsonMap[UserConfigConstants.userId],
-      preferredSyncOption: jsonMap[UserConfigConstants.preferredSyncOption],
-      lastGoogleDriveSync:
-          jsonMap[UserConfigConstants.lastGoogleDriveSync] != null
-              ? DateTime.fromMillisecondsSinceEpoch(
-                  jsonMap[UserConfigConstants.lastGoogleDriveSync])
-              : null,
-      lastDropboxSync: jsonMap[UserConfigConstants.lastDropboxSync] != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-              jsonMap[UserConfigConstants.lastDropboxSync])
-          : null,
-      googleDriveUserInfo: jsonMap[UserConfigConstants.googleDriveUserInfo],
-      dropBoxUserInfo: jsonMap[UserConfigConstants.dropBoxUserInfo],
-      isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
-      isFingerPrintLoginEnabled:
-          jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
-      isPINLoginEnabled: jsonMap[UserConfigConstants.isPINLoginEnabled],
-      isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
-      isDailyReminderEnabled:
-          jsonMap[UserConfigConstants.isDailyReminderEnabled],
-      reminderTime:
-          getTimeOfDayFromTimeString(jsonMap[UserConfigConstants.reminderTime]),
-      noteSortType: jsonMap[UserConfigConstants.noteSortType] != null
-          ? NoteSortType.fromStringValue(
-              jsonMap[UserConfigConstants.noteSortType])
-          : null,
-      nextCloudUserInfo: jsonMap[UserConfigConstants.nextCloudUserInfo],
-      lastNextCloudSync: jsonMap[UserConfigConstants.lastNextCloudSync] != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-              jsonMap[UserConfigConstants.lastNextCloudSync])
-          : null,
-    );
+        prefKeyVoice: jsonMap[UserConfigConstants.prefKeyVoice],
+        userId: jsonMap[UserConfigConstants.userId],
+        preferredSyncOption: jsonMap[UserConfigConstants.preferredSyncOption],
+        lastGoogleDriveSync:
+            jsonMap[UserConfigConstants.lastGoogleDriveSync] != null
+                ? DateTime.fromMillisecondsSinceEpoch(
+                    jsonMap[UserConfigConstants.lastGoogleDriveSync])
+                : null,
+        lastDropboxSync: jsonMap[UserConfigConstants.lastDropboxSync] != null
+            ? DateTime.fromMillisecondsSinceEpoch(
+                jsonMap[UserConfigConstants.lastDropboxSync])
+            : null,
+        googleDriveUserInfo: jsonMap[UserConfigConstants.googleDriveUserInfo],
+        dropBoxUserInfo: jsonMap[UserConfigConstants.dropBoxUserInfo],
+        isAutoSyncEnabled: jsonMap[UserConfigConstants.isAutoSyncEnabled],
+        isFingerPrintLoginEnabled:
+            jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
+        isPINLoginEnabled: jsonMap[UserConfigConstants.isPINLoginEnabled],
+        isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
+        isDailyReminderEnabled:
+            jsonMap[UserConfigConstants.isDailyReminderEnabled],
+        reminderTime: getTimeOfDayFromTimeString(
+            jsonMap[UserConfigConstants.reminderTime]),
+        noteSortType: jsonMap[UserConfigConstants.noteSortType] != null
+            ? NoteSortType.fromStringValue(
+                jsonMap[UserConfigConstants.noteSortType])
+            : null,
+        nextCloudUserInfo: jsonMap[UserConfigConstants.nextCloudUserInfo],
+        lastNextCloudSync:
+            jsonMap[UserConfigConstants.lastNextCloudSync] != null
+                ? DateTime.fromMillisecondsSinceEpoch(
+                    jsonMap[UserConfigConstants.lastNextCloudSync])
+                : null,
+        toolbarPosition: jsonMap[UserConfigConstants.toolbarPosition]);
   }
 
   Map<String, dynamic> toJson() {
@@ -168,6 +172,7 @@ class UserConfigModel extends Equatable {
       UserConfigConstants.nextCloudUserInfo: nextCloudUserInfo,
       UserConfigConstants.lastNextCloudSync:
           lastNextCloudSync?.millisecondsSinceEpoch,
+      UserConfigConstants.toolbarPosition: toolbarPosition
     };
   }
 }
