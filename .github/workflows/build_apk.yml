@@ -3,7 +3,7 @@ name: Build and Attach APKs on Release
 on:
   release:
     types: [created]
-  workflow_dispatch:   # This allows the workflow to be triggered manually
+  workflow_dispatch: # Allows manual trigger
 
 jobs:
   build:
@@ -13,27 +13,44 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Fetch all history to get the release tag
+          fetch-depth: 0
           ref: ${{ github.event.release.tag_name }}
 
-      # Step 2: Set up Java 17
-      - name: Set up JDK 17
+      # Step 2: Set up Java 11
+      - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
 
-      # Step 3: Set up Flutter 3.13.0
+      # Step 3: Install Flutter 3.13.0
       - name: Install Flutter 3.13.0
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.0'
 
-      # Step 4: Build the APKs
+      # Step 4: Install Kotlin Gradle Plugin
+      - name: Install Kotlin Gradle Plugin
+        run: |
+          echo "kotlin.version=1.9.0" >> gradle.properties
+
+      # Step 5: Set up Gradle
+      - name: Set up Gradle
+        run: echo "distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-all.zip" > android/gradle/wrapper/gradle-wrapper.properties
+
+      # Step 6: Create key.properties for signing
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=${{ secrets.KEY_PATH }}" >> android/key.properties
+
+      # Step 7: Build APKs
       - name: Build APKs
         run: flutter build apk --split-per-abi --no-fatal-warnings
 
-      # Step 5: Upload the APKs as release assets
+      # Step 8: Upload APKs
       - name: Upload APKs
         uses: actions/upload-release-asset@v1
         with:
