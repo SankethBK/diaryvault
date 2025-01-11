@@ -13,7 +13,7 @@ class SettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widget = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
       child: child,
     );
 
