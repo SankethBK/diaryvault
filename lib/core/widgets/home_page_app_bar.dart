@@ -14,6 +14,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
   const HomePageAppBar({
@@ -195,8 +196,12 @@ class Action extends StatelessWidget {
         } else if (selectableListState is SelectableListEnabled) {
           return Row(
             children: [
-              DeletionCount(
-                deletionCount: selectableListCubit.state.selectedItems.length,
+              SelectionCount(
+                selectionCount: selectableListCubit.state.selectedItems.length,
+              ),
+              ExportIcon(
+                exportCount: selectableListCubit.state.selectedItems.length,
+                disableSelectedList: selectableListCubit.disableSelectableList,
               ),
               DeleteIcon(
                 deletionCount: selectableListCubit.state.selectedItems.length,
@@ -446,9 +451,9 @@ class Title extends StatelessWidget {
 }
 
 class _DeleteButton extends StatelessWidget {
-  final int deleteCount;
-
-  const _DeleteButton({Key? key, required this.deleteCount}) : super(key: key);
+  const _DeleteButton({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -554,15 +559,13 @@ class DeleteIcon extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const _CancelButton(),
-                          const SizedBox(width: 10),
-                          _DeleteButton(
-                            deleteCount: deletionCount,
-                          ),
+                          _CancelButton(),
+                          SizedBox(width: 10),
+                          _DeleteButton(),
                         ],
                       ),
                     ],
@@ -588,9 +591,93 @@ class DeleteIcon extends StatelessWidget {
   }
 }
 
-class DeletionCount extends StatelessWidget {
-  final int deletionCount;
-  const DeletionCount({Key? key, required this.deletionCount})
+class ExportIcon extends StatelessWidget {
+  final int exportCount;
+  final Function() disableSelectedList;
+
+  const ExportIcon(
+      {Key? key, required this.exportCount, required this.disableSelectedList})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 0.0),
+      child: IconButton(
+        icon: SvgPicture.asset(
+          'assets/logo/file_export.svg',
+          height: 25.0,
+          width: 25.0,
+          colorFilter: const ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
+          ),
+        ),
+        onPressed: () async {
+          if (exportCount == 0) {
+            disableSelectedList();
+            return;
+          }
+
+          final mainTextColor = Theme.of(context)
+              .extension<PopupThemeExtensions>()!
+              .mainTextColor;
+
+          bool? result = await showCustomDialog(
+            context: context,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Container(
+                  color: Colors.transparent,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "You are about to delete $exportCount  item${exportCount > 1 ? "s" : ""}",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: mainTextColor,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _CancelButton(),
+                          SizedBox(width: 10),
+                          _DeleteButton(),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+
+          disableSelectedList();
+
+          if (result != null) {
+            if (result == true) {
+              showToast(
+                  "$exportCount item${exportCount > 1 ? "s" : ""} deleted");
+            } else {
+              showToast(S.current.deletionFailed);
+            }
+          }
+        },
+      ),
+    );
+  }
+}
+
+class SelectionCount extends StatelessWidget {
+  final int selectionCount;
+  const SelectionCount({Key? key, required this.selectionCount})
       : super(key: key);
 
   @override
@@ -598,7 +685,7 @@ class DeletionCount extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 13.0),
       child: Text(
-        "$deletionCount",
+        "$selectionCount",
         style: const TextStyle(fontSize: 18.0),
       ),
     );
