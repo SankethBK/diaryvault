@@ -9,7 +9,8 @@ abstract class INotesLocalDataSource {
   /// Fetches all notes
   ///
   /// Throws [DatabaseQueryException] if something goes wrong
-  Future<List<NoteModel>> fetchNotes(String authorId);
+  Future<List<NoteModel>> fetchNotes(
+      {required String authorId, List<String>? noteIds});
 
   // Fetch all notes with only columns required to diplay the preview
   Future<List<NotePreviewModel>> fetchNotesPreview(String authorId);

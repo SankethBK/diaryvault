@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/date_input_field.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
+import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -15,6 +20,9 @@ import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
   const HomePageAppBar({
@@ -623,34 +631,85 @@ class ExportIcon extends StatelessWidget {
               .extension<PopupThemeExtensions>()!
               .mainTextColor;
 
+          final selectableListCubit =
+              BlocProvider.of<SelectableListCubit>(context);
+
           bool? result = await showCustomDialog(
             context: context,
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return Container(
                   color: Colors.transparent,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        "You are about to delete $exportCount  item${exportCount > 1 ? "s" : ""}",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: mainTextColor,
+                      SettingsTile(
+                        onTap: () async {
+                          // create a text file from the notes
+                          final directory =
+                              await getApplicationDocumentsDirectory();
+
+                          final now = DateTime.now();
+                          final formattedTimestamp =
+                              DateFormat('yyyyMMdd_HHmmss').format(now);
+
+                          final file = File(
+                            '${directory.path}/diaryvault_notes_export_$formattedTimestamp.txt',
+                          );
+
+                          try {
+                            String filePath = await sl<IExportNotesRepository>()
+                                .exportNotesToTextFile(
+                                    file: file,
+                                    noteList: selectableListCubit
+                                        .state.selectedItems);
+
+                            // Share the file and await its completion
+                            await Share.shareXFiles([XFile(filePath)],
+                                text: 'diaryvault_notes_export');
+
+                            await file.delete();
+                          } on Exception catch (e) {
+                            showToast(
+                                e.toString().replaceAll("Exception: ", ""));
+                          }
+                        },
+                        child: Text(
+                          S.current.exportToPlainText,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: mainTextColor,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _CancelButton(),
-                          SizedBox(width: 10),
-                          _DeleteButton(),
-                        ],
+                      SettingsTile(
+                        onTap: () async {
+                          try {
+                            String filePath = await sl<IExportNotesRepository>()
+                                .exportNotesToPDF(
+                                    noteList: selectableListCubit
+                                        .state.selectedItems);
+
+                            // Share the file and await its completion
+                            await Share.shareXFiles([XFile(filePath)],
+                                text: 'diaryvault_notes_export');
+                          } on Exception catch (e) {
+                            showToast(
+                                e.toString().replaceAll("Exception: ", ""));
+                          }
+                        },
+                        child: Text(
+                          S.current.exportToPDF,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: mainTextColor,
+                          ),
+                        ),
                       ),
                     ],
                   ),
