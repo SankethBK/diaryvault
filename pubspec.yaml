@@ -61,7 +61,6 @@ dependencies:
   get_it: ^7.2.0
   google_fonts: ^4.0.4
   http: 0.13.6
-  in_app_review: ^2.0.4+2
   internet_connection_checker: ^0.0.1+4
   intl: ^0.18.0
   local_auth: ^2.1.6
