@@ -53,6 +53,7 @@ dependencies:
     path: ./packages/flutter_quill/flutter_quill_extensions
   flutter_secure_storage: ^9.0.0
   flutter_sound: ^9.2.13
+  flutter_svg: ^2.0.9
   flutter_timezone: ^1.0.8
   flutter_tts: ^3.8.3
   flutter_web_auth_2: ^2.2.1
@@ -99,10 +100,10 @@ dev_dependencies:
 #   ios: true
 #   image_path: 'assets/images/test-logo.png'
 flutter_native_splash:
-  color: '#9e8bd9'
-  image: 'assets/images/splash_icon_4.webp'
+  color: "#9e8bd9"
+  image: "assets/images/splash_icon_4.webp"
   android_12:
-    image: 'assets/images/splash_icon_4.webp'
+    image: "assets/images/splash_icon_4.webp"
 dependency_overrides:
   # For information on the generic Dart part of this file, see the
   # following page: https://dart.dev/tools/pub/pubspec
@@ -119,6 +120,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/sounds/
+    - assets/logo/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
