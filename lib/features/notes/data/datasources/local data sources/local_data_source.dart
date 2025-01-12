@@ -103,14 +103,26 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   }
 
   @override
-  Future<List<NoteModel>> fetchNotes(String authorId) async {
+  Future<List<NoteModel>> fetchNotes(
+      {required String authorId, List<String>? noteIds}) async {
     List<Map<String, dynamic>> result;
     try {
-      result = await database.query(
-        Notes.TABLE_NAME,
-        where:
-            "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
-      );
+      if (noteIds != null && noteIds.isNotEmpty) {
+        // Format the noteIds list for the SQL query
+        String noteIdsString = noteIds.map((id) => "'$id'").join(', ');
+
+        result = await database.query(
+          Notes.TABLE_NAME,
+          where:
+              "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' ) AND ${Notes.ID} IN ($noteIdsString)",
+        );
+      } else {
+        result = await database.query(
+          Notes.TABLE_NAME,
+          where:
+              "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
+        );
+      }
     } catch (e) {
       log.e("Local database query for fetching notes failed $e");
       throw const DatabaseQueryException();

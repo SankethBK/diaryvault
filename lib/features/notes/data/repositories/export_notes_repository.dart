@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/features/notes/core/failures/failure.dart';
+import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dartz/dartz.dart';
 import 'package:delta_markdown/delta_markdown.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
@@ -22,28 +25,33 @@ class ExportNotesRepository implements IExportNotesRepository {
   Future<String> exportNotesToTextFile(
       {required File file, List<String>? noteList}) async {
     try {
+      Either<NotesFailure, List<NoteModel>> result;
+
       if (noteList == null) {
         log.i("Generating text file for all notes");
 
-        final result = await notesRepository.fetchNotes();
+        result = await notesRepository.fetchNotes();
+      } else {
+        log.i("Generating text file for $noteList");
 
-        var fileContent = "";
-
-        result.fold((l) => null, (allNotes) async {
-          for (var note in allNotes) {
-            fileContent += note.title + "\n";
-
-            fileContent += "Created at: " + formatDate(note.createdAt) + "\n";
-            fileContent += note.plainText;
-            fileContent += "\n\n---------------------------------\n\n";
-          }
-        });
-        await file.writeAsString(fileContent);
-
-        return file.path;
+        result = await notesRepository.fetchNotes(noteIds: noteList);
       }
 
-      return "";
+      var fileContent = "";
+
+      result.fold((l) => null, (allNotes) async {
+        for (var note in allNotes) {
+          fileContent += note.title + "\n";
+
+          fileContent += "Created at: " + formatDate(note.createdAt) + "\n";
+          fileContent += note.plainText;
+          fileContent += "\n\n---------------------------------\n\n";
+        }
+      });
+
+      await file.writeAsString(fileContent);
+
+      return file.path;
     } catch (e) {
       log.e(e);
       rethrow;
@@ -85,45 +93,49 @@ class ExportNotesRepository implements IExportNotesRepository {
     final file = File('${directory.path}/diaryvault_notes_export.txt');
 
     try {
+      Either<NotesFailure, List<NoteModel>> result;
+
       if (noteList == null) {
         log.i("Generating PDF for all notes");
 
-        final result = await notesRepository.fetchNotes();
+        result = await notesRepository.fetchNotes();
+      } else {
+        log.i("Generating PDF for $noteList");
 
-        var fileContent = "";
-
-        String watermarkFile =
-            await getImageFileFromAssets('assets/images/watermark.webp');
-
-        fileContent +=
-            "<img width=\"1000\" src=\"$watermarkFile\" alt=\"web-img\">";
-
-        result.fold((l) => null, (allNotes) async {
-          for (var note in allNotes) {
-            fileContent += "<h2>${note.title}</h2>";
-
-            fileContent += "<i>Created at: ${formatDate(note.createdAt)} </i>";
-            fileContent += "<br>";
-
-            final preprocessedDelta = preprocessDeltaForPDFExport(note.body);
-            fileContent += quillDeltaToHtml(preprocessedDelta);
-
-            fileContent += "<hr><br>";
-          }
-        });
-
-        // Add margins to the HTML content
-        final htmlWithMargins = addMarginsToHTML(fileContent);
-
-        await file.writeAsString(htmlWithMargins);
-
-        var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlFile(
-            file, directory.path, "diaryvault_pdf_export");
-
-        return generatedPdfFile.path;
+        result = await notesRepository.fetchNotes(noteIds: noteList);
       }
 
-      return "";
+      var fileContent = "";
+
+      String watermarkFile =
+          await getImageFileFromAssets('assets/images/watermark.webp');
+
+      fileContent +=
+          "<img width=\"1000\" src=\"$watermarkFile\" alt=\"web-img\">";
+
+      result.fold((l) => null, (allNotes) async {
+        for (var note in allNotes) {
+          fileContent += "<h2>${note.title}</h2>";
+
+          fileContent += "<i>Created at: ${formatDate(note.createdAt)} </i>";
+          fileContent += "<br>";
+
+          final preprocessedDelta = preprocessDeltaForPDFExport(note.body);
+          fileContent += quillDeltaToHtml(preprocessedDelta);
+
+          fileContent += "<hr><br>";
+        }
+      });
+
+      // Add margins to the HTML content
+      final htmlWithMargins = addMarginsToHTML(fileContent);
+
+      await file.writeAsString(htmlWithMargins);
+
+      var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlFile(
+          file, directory.path, "diaryvault_pdf_export");
+
+      return generatedPdfFile.path;
     } catch (e) {
       log.e(e);
       rethrow;
