@@ -13,7 +13,8 @@ abstract class INotesRepository {
     bool dontModifyAnyParameters = false,
   });
 
-  Future<Either<NotesFailure, List<NoteModel>>> fetchNotes();
+  Future<Either<NotesFailure, List<NoteModel>>> fetchNotes(
+      {List<String>? noteIds});
 
   Future<Either<NotesFailure, NoteModel>> getNote(String id);
 

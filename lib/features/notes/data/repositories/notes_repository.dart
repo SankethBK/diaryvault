@@ -23,11 +23,13 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
   });
 
   @override
-  Future<Either<NotesFailure, List<NoteModel>>> fetchNotes() async {
+  Future<Either<NotesFailure, List<NoteModel>>> fetchNotes(
+      {List<String>? noteIds}) async {
     try {
       // since userId is fetched asynchronously, it will be null first time
       final userId = authSessionBloc.state.user?.id ?? "";
-      var notesList = await notesLocalDataSource.fetchNotes(userId);
+      var notesList = await notesLocalDataSource.fetchNotes(
+          authorId: userId, noteIds: noteIds);
       return Right(notesList);
     } catch (e) {
       log.e(e);
