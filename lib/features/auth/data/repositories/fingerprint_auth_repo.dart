@@ -5,6 +5,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
@@ -81,6 +82,18 @@ class FingerPrintAuthRepository {
 
           String? lastLoggedInUser =
               keyValueDataSource.getValue(Global.lastLoggedInUser);
+
+          // sign in is not possible for guest user
+          if (lastLoggedInUser == GuestUserDetails.guestUserId) {
+            return authSessionBloc.add(UserLoggedIn(
+              user: LoggedInUser(
+                email: GuestUserDetails.guestUserEmail,
+                id: lastLoggedInUser!,
+              ),
+              freshLogin: true,
+            ));
+          }
+
           if (lastLoggedInUser != null) {
             var result = await authenticationRepository.signInDirectly(
                 userId: lastLoggedInUser);

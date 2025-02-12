@@ -1,16 +1,18 @@
-import 'dart:convert';
 import 'dart:async';
+import 'dart:convert';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:crypto/crypto.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:crypto/crypto.dart';
 
 final log = printer("PINAuthRepository");
 
@@ -118,6 +120,14 @@ class PINAuthRepository {
 
       showToast(S.current.wrongPIN);
       return;
+    }
+
+    // sign in is not possible for guest user
+    if (userId == GuestUserDetails.guestUserId) {
+      return authSessionBloc.add(UserLoggedIn(
+        user: LoggedInUser(email: GuestUserDetails.guestUserEmail, id: userId),
+        freshLogin: true,
+      ));
     }
 
     var result = await authenticationRepository.signInDirectly(userId: userId);
