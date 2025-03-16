@@ -6,7 +6,8 @@ enum Themes {
   lushGreen,
   plainDark,
   darkAcademia,
-  monochromePink
+  monochromePink,
+  twilightGold
 }
 
 String themeKey = "current_theme";
@@ -26,6 +27,8 @@ extension ThemeExtension on Themes {
         return "Dark Academia";
       case Themes.monochromePink:
         return "Monochrome Pink";
+      case Themes.twilightGold:
+        return "Twilight Gold";
     }
   }
 }
@@ -42,6 +45,8 @@ Themes getThemeFromString(String? themeString) {
       return Themes.plainDark;
     case 'monochromePink':
       return Themes.monochromePink;
+    case 'twilightGold':
+      return Themes.twilightGold;
     default:
       return Themes.coralBubbles;
   }
