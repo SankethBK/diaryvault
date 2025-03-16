@@ -30,7 +30,7 @@ class TwilightGold {
         todayForegroundColor: const MaterialStatePropertyAll(Colors.white),
         yearForegroundColor: const MaterialStatePropertyAll(accentGold),
       ),
-      timePickerTheme: TimePickerThemeData(
+      timePickerTheme: const TimePickerThemeData(
         backgroundColor: primaryPurple,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -58,12 +58,12 @@ class TwilightGold {
           ),
         ),
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: primaryPurple,
         foregroundColor: accentGold,
         elevation: 4,
       ),
-      bottomSheetTheme: BottomSheetThemeData(
+      bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: primaryPurple,
       ),
       canvasColor: primaryPurple.withOpacity(0.9),
@@ -98,7 +98,7 @@ class TwilightGold {
           iconColor: accentGold,
           appBarGradientStartColor: primaryPurple,
           appBarGradientEndColor: primaryPurple.withOpacity(0.95),
-          searchBarFillColor: Color(0xFF3D2A59),
+          searchBarFillColor: const Color(0xFF3D2A59),
         ),
         HomePageThemeExtensions(
           borderColor: accentGold.withOpacity(0.2),
