@@ -5,7 +5,7 @@ import 'package:dairy_app/app/themes/dark_academia.dart';
 import 'package:dairy_app/app/themes/lush_green_theme.dart';
 import 'package:dairy_app/app/themes/monochrome_pink.dart';
 import 'package:dairy_app/app/themes/plain_dark.dart';
-import 'package:dairy_app/app/themes/duotone_dark_theme.dart';
+import 'package:dairy_app/app/themes/twilight_gold_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
@@ -113,9 +113,8 @@ class _AppViewState extends State<AppView> {
         return DarkAcademia.getTheme(fontFamily);
       case Themes.monochromePink:
         return MonochromePink.getTheme(fontFamily);
-      case Themes.duotoneDark:
-        return DuotoneDark.getTheme(fontFamily);
-
+      case Themes.twilightGold:
+        return TwilightGold.getTheme(fontFamily);
       default:
         return CoralBubble.getTheme(fontFamily);
     }

@@ -10,7 +10,7 @@ import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dar
 import 'package:dairy_app/app/themes/theme_extensions/settings_page_theme_extensions.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 
-class DuotoneDark {
+class TwilightGold {
   static ThemeData getTheme(FontFamily fontFamily) {
     // Primary colors
     const primaryPurple = Color(0xFF2A1B3D);
@@ -98,7 +98,7 @@ class DuotoneDark {
           iconColor: accentGold,
           appBarGradientStartColor: primaryPurple,
           appBarGradientEndColor: primaryPurple.withOpacity(0.95),
-          searchBarFillColor: primaryPurple.withOpacity(0.5),
+          searchBarFillColor: Color(0xFF3D2A59),
         ),
         HomePageThemeExtensions(
           borderColor: accentGold.withOpacity(0.2),
