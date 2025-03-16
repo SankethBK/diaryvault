@@ -77,7 +77,7 @@ class TwilightGold {
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
           backgroundImage:
-              "assets/images/duotone-dark.webp", // TODO: Verify this image exists in assets folder
+              "assets/images/twilight-gold.webp",
           linkColor: accentGold,
           errorTextColor: Colors.redAccent,
           prefixIconColor: accentGold.withOpacity(0.7),
