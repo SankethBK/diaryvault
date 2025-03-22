@@ -360,6 +360,16 @@ class S {
     );
   }
 
+  /// `Notes synced in {duration} seconds`
+  String notesSyncSuccessfullWithDuration(String duration) {
+    return Intl.message(
+      'Notes synced in $duration seconds',
+      name: 'notesSyncSuccessfullWithDuration',
+      desc: '',
+      args: [duration],
+    );
+  }
+
   /// `Please login to enable auto-sync`
   String get loginToEnableAutoSync {
     return Intl.message(

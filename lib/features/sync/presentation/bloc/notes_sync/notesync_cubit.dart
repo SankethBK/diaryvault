@@ -37,6 +37,8 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
     }
     emit(NoteSyncOnGoing());
 
+    final startTime = DateTime.now();
+
     // Initialize notes sync repository
     var res = await syncRepository.initializeSyncRepository();
 
@@ -58,7 +60,8 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
         emit(NoteSyncInitial());
         return;
       }, (_) async {
-        emit(NoteSyncSuccessful());
+        final duration = DateTime.now().difference(startTime).inSeconds;
+        emit(NoteSyncSuccessful(duration));
         await Future.delayed(const Duration(milliseconds: 100));
         emit(NoteSyncInitial());
       });
