@@ -33,6 +33,7 @@
   "noteSavedSuccessfully": "Note saved successfully",
   "noteUpdatedSuccessfully": "Note updated successfully",
   "notesSyncSuccessfull": "Notes sync successful",
+  "notesSyncSuccessfullWithDuration": "Notes synced in {duration} seconds",
   "loginToEnableAutoSync": "Please login to enable auto-sync",
   "enableAutoSave": "Enable auto save",
   "dateFilter": "Date Filter",
@@ -129,5 +130,13 @@
   "themeFontsAndLanguage": "Customize Theme, Fonts and Language",
   "importAndExportNotes": "Import and Export Notes",
   "selectVoice": "Select Voice",
-  "toolbarPosition": "Toolbar Position"
+  "toolbarPosition": "Toolbar Position",
+  "@notesSyncSuccessfullWithDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "example": "2"
+      }
+    }
+  }
 }

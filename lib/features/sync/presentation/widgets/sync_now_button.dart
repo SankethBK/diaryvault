@@ -43,7 +43,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
     return BlocBuilder<NoteSyncCubit, NoteSyncState>(
       builder: (contextn, state) {
         if (state is NoteSyncSuccessful) {
-          showToast(S.current.notesSyncSuccessfull);
+          showToast(S.current.notesSyncSuccessfullWithDuration(state.durationInSeconds.toString()));
           _rotationAnimationController.reset();
         } else if (state is NoteSyncFailed) {
           showToast(state.errorMessage);

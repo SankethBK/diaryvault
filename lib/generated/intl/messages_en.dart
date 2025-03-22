@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m1(duration) => "Notes synced in ${duration} seconds";
+
   static String m0(time) => "You will be notified at ${time}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -132,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Note updated successfully"),
         "notesSyncSuccessfull":
             MessageLookupByLibrary.simpleMessage("Notes sync successful"),
+        "notesSyncSuccessfullWithDuration": m1,
         "notificationDescription1": MessageLookupByLibrary.simpleMessage(
             "Take a few minutes to reflect on your day in your diary"),
         "notificationTimeNotEnabled": MessageLookupByLibrary.simpleMessage(

@@ -17,4 +17,11 @@ class NoteSyncFailed extends NoteSyncState {
   const NoteSyncFailed(this.errorMessage);
 }
 
-class NoteSyncSuccessful extends NoteSyncState {}
+class NoteSyncSuccessful extends NoteSyncState {
+  final int durationInSeconds;
+
+  const NoteSyncSuccessful(this.durationInSeconds);
+
+  @override
+  List<Object> get props => [durationInSeconds];
+}
