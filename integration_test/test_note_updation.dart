@@ -1,4 +1,6 @@
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/pages/welcome_page.dart';
+import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
@@ -23,6 +25,12 @@ Future<void> main() async {
       (WidgetTester tester) async {
     await tester.pumpWidget(const App());
     await tester.pumpAndSettle();
+
+    expect(find.byType(WelcomePage), findsOneWidget);
+    await Future.delayed(const Duration(seconds: 2)); /**Waiting if(mounted) of initState() in WelcomePage**/
+    await tester.pumpAndSettle();
+    expect(find.byType(AuthPage), findsOneWidget);
+
     await tester.tap(find.text('Continue as guest'));
     await tester.pumpAndSettle();
     expect(find.byType(HomePage), findsOneWidget);
@@ -53,6 +61,11 @@ Future<void> main() async {
     await tester.pumpAndSettle();
     await tester.tap(find.byType(ToggleReadWriteButton));
     await tester.pumpAndSettle();
+
+    await tester.enterText(
+        find.byType(NoteTitleInputField), '');
+    await tester.pumpAndSettle();
+
     await tester.enterText(
         find.byType(NoteTitleInputField), 'Test Title Updated');
     await tester.pumpAndSettle();
