@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:dairy_app/app/view/app.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/pages/welcome_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
@@ -18,8 +19,10 @@ const noteTitles = (
 final finders = (
   groceries: find.text(noteTitles.groceries),
   books: find.text(noteTitles.books),
-  homePage: find.byType(HomePage),
   titleField: find.byType(NoteTitleInputField),
+  homePage: find.byType(HomePage),
+  settingsPage: find.byType(SettingsPage),
+  backButton: find.byIcon(Icons.arrow_back)
 );
 
 Future<void> launchGuestSession(WidgetTester tester) async {

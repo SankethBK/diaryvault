@@ -3,7 +3,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart'
     as di;
 
-import 'test_helpers.dart';
+import '../test_helpers.dart';
 
 Future<void> main() async {
   setUpAll(() async {

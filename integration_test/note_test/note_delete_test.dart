@@ -1,11 +1,10 @@
-import 'package:dairy_app/features/notes/presentation/widgets/note_save_button.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_button.dart';
+import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart'
     as di;
 
-import 'test_helpers.dart';
+import '../test_helpers.dart';
 
 Future<void> main() async {
   setUpAll(() async {
@@ -13,26 +12,24 @@ Future<void> main() async {
     await di.init();
   });
 
-  testWidgets('Edit existing note and verify that changes are saved',
+  testWidgets('Delete a note and verify that it no longer exists',
       (WidgetTester tester) async {
     await launchGuestSession(tester);
 
-    await createTestNote(tester: tester, note: noteTitles.books);
     await createTestNote(tester: tester, note: noteTitles.groceries);
+    await createTestNote(tester: tester, note: noteTitles.books);
     await Future.delayed(const Duration(seconds: 2));
 
-    await tester.tap(finders.groceries);
+    await tester.longPress(finders.groceries);
     await tester.pumpAndSettle();
-    await tester.tap(find.byType(ToggleReadWriteButton));
+    await tester.tap(find.byType(DeleteIcon));
     await tester.pumpAndSettle();
-    await tester.enterText(finders.titleField, '');
-    await tester.enterText(finders.titleField, 'Picnic Items');
-    await tester.tap(find.byType(NoteSaveButton));
+    await tester.tap(find.text('Delete'));
     await tester.pumpAndSettle();
     await Future.delayed(const Duration(seconds: 2));
 
     expect(finders.homePage, findsOneWidget);
-    expect(find.text('Picnic Items'), findsOneWidget);
+    expect(finders.books, findsOneWidget);
     expect(finders.groceries, findsNothing);
   });
 }
