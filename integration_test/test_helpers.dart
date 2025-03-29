@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:dairy_app/app/view/app.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
+import 'package:dairy_app/core/pages/settings_details.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/pages/welcome_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
@@ -22,7 +23,9 @@ final finders = (
   titleField: find.byType(NoteTitleInputField),
   homePage: find.byType(HomePage),
   settingsPage: find.byType(SettingsPage),
-  backButton: find.byIcon(Icons.arrow_back)
+  detailsPage: find.byType(SettingsDetailPage),
+  dropDownButton: find.byIcon(Icons.keyboard_arrow_down),
+  backButton: find.byIcon(Icons.arrow_back),
 );
 
 Future<void> launchGuestSession(WidgetTester tester) async {
