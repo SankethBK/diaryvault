@@ -26,6 +26,7 @@ final finders = (
   detailsPage: find.byType(SettingsDetailPage),
   dropDownButton: find.byIcon(Icons.keyboard_arrow_down),
   backButton: find.byIcon(Icons.arrow_back),
+  sortIcon: find.byIcon(Icons.sort)
 );
 
 Future<void> launchGuestSession(WidgetTester tester) async {
