@@ -98,6 +98,7 @@
   "exportNotes": "तपाईंका नोटहरू निर्यात गर्नुहोस्",
   "exportToPlainText": "प्लेन टेक्स्टमा निर्यात गर्नुहोस्",
   "exportToPDF": "PDF मा निर्यात गर्नुहोस्",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "ट्याग पहिले नै अवस्थित छ",
   "securitySettings": "सुरक्षा सेटिङहरू",
   "leave": "छोड्नुहोस्",

@@ -98,6 +98,7 @@
   "exportNotes": "Exporta tus notas",
   "exportToPlainText": "Exportar a texto plano",
   "exportToPDF": "Exportar a PDF (beta)",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "La etiqueta ya existe",
   "securitySettings": "Configuraciones de seguridad",
   "leave": "Salir",

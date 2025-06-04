@@ -73,6 +73,33 @@ class ExportNotes extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 20.0),
+        SettingsTile(
+          onTap: () async {
+            try {
+              // Call exportNotesToJsonFile without passing a file
+              String filePath = await sl<IExportNotesRepository>().exportNotesToJsonFile();
+
+              // Share the JSON file
+              await Share.shareXFiles([XFile(filePath)], text: 'diaryvault_notes_export');
+
+              // Optionally delete the file after sharing to avoid leftover files
+              final file = File(filePath);
+              if (await file.exists()) {
+                await file.delete();
+              }
+            } catch (e) {
+              showToast(e.toString().replaceAll("Exception: ", ""));
+            }
+          },
+          child: Text(
+            S.current.exportToJSON,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: mainTextColor,
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -98,6 +98,7 @@
   "exportNotes": "导出笔记",
   "exportToPlainText": "导出为文本",
   "exportToPDF": "导出为PDF （测试功能）",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "标签已存在",
   "securitySettings": "安全设置",
   "leave": "离开",

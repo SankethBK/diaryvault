@@ -98,6 +98,7 @@
   "exportNotes": "ನಿಮ್ಮ ಟಿಪ್ಪಣಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿ",
   "exportToPlainText": "ಸರಳ ಪಠ್ಯಕ್ಕೆ ರಫ್ತು ಮಾಡಿ",
   "exportToPDF": "PDF ಗೆ ರಫ್ತು ಮಾಡಿ",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "ಟ್ಯಾಗ್ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ",
   "securitySettings": "ಭದ್ರತಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
   "leave": "ಬಿಡು",

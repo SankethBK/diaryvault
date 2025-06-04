@@ -98,6 +98,7 @@
   "exportNotes": "Notları dışa aktar",
   "exportToPlainText": "Düz Metin Olarak Dışa Aktar",
   "exportToPDF": "PDF Olarak Dışa Aktar",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "Etiket zaten mevcut",
   "securitySettings": "Güvenlik Ayarları",
   "leave": "Ayrıl",

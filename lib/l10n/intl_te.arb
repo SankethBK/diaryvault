@@ -98,6 +98,7 @@
   "exportNotes": "మీ గమనికలను ఎగుమతి చేయండి",
   "exportToPlainText": "సాదా వచనానికి ఎగుమతి చేయండి",
   "exportToPDF": "PDF (బీటా)కి ఎగుమతి చేయండి",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "ట్యాగ్ ఇప్పటికే ఉంది",
   "securitySettings": "భద్రతా సెట్టింగులు",
   "leave": "వదిలేయండి",

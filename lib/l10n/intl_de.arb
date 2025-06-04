@@ -98,6 +98,7 @@
   "exportNotes": "Exportieren Sie Ihre Notizen",
   "exportToPlainText": "Export to Plain Text",
   "exportToPDF": "In einfachen Text exportieren",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "Tag existiert bereits",
   "securitySettings": "Sicherheitseinstellungen",
   "leave": "Verlassen",

@@ -98,6 +98,7 @@
   "exportNotes": "Exportovať poznámky",
   "exportToPlainText": "Exportovať do formátu Text",
   "exportToPDF": "Exportovať do formátu PDF",
+  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "Označenie už existuje",
   "securitySettings": "Bezpečnostné nastavenia",
   "leave": "Odísť",

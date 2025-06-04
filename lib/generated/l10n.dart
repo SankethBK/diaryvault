@@ -930,6 +930,16 @@ class S {
     );
   }
 
+  /// `Export to JSON`
+  String get exportToJSON {
+    return Intl.message(
+      'Export to JSON',
+      name: 'exportToJSON',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tag already exists`
   String get tagAlreadyExists {
     return Intl.message(

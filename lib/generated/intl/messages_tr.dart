@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Kayıtlı e-posta adresini girin"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Notları dışa aktar"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
         "exportToPDF":
             MessageLookupByLibrary.simpleMessage("PDF Olarak Dışa Aktar"),
         "exportToPlainText":

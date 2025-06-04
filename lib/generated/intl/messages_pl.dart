@@ -91,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wprowadź zarejestrowany email"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Eksportuj notatki"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
         "exportToPDF": MessageLookupByLibrary.simpleMessage("Eksportuj do PDF"),
         "exportToPlainText":
             MessageLookupByLibrary.simpleMessage("Eksportuj jako tekst"),
