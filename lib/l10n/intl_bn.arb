@@ -98,7 +98,6 @@
     "exportNotes": "Export your notes",
     "exportToPlainText": "Export to Plain Text",
     "exportToPDF": "Export to PDF",
-    "exportToJSON": "Export to JSON",
     "tagAlreadyExists": "Tag already exists",
     "securitySettings": "Security Settings",
     "leave": "Leave",
@@ -123,5 +122,6 @@
     "signInWithEmail": "Sign in with Email",
     "projectOnGithub": "Project on Github",
     "recordAudio": "Record Audio",
-    "pickFromFileManager": "Pick From Files"
+    "pickFromFileManager": "Pick From Files",
+    "exportToJSON": "Export to JSON"
 }  

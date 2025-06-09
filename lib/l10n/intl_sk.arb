@@ -98,7 +98,6 @@
   "exportNotes": "Exportovať poznámky",
   "exportToPlainText": "Exportovať do formátu Text",
   "exportToPDF": "Exportovať do formátu PDF",
-  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "Označenie už existuje",
   "securitySettings": "Bezpečnostné nastavenia",
   "leave": "Odísť",
@@ -123,5 +122,6 @@
   "signInWithEmail": "Prihlásenie pomocou emailu",
   "projectOnGithub": "Projekt na Githube",
   "recordAudio": "Záznam zvuku",
-  "pickFromFileManager": "Vybrať zo súborov"
+  "pickFromFileManager": "Vybrať zo súborov",
+  "exportToJSON": "Export to JSON"
 }

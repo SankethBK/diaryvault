@@ -98,7 +98,6 @@
   "exportNotes": "Notları dışa aktar",
   "exportToPlainText": "Düz Metin Olarak Dışa Aktar",
   "exportToPDF": "PDF Olarak Dışa Aktar",
-  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "Etiket zaten mevcut",
   "securitySettings": "Güvenlik Ayarları",
   "leave": "Ayrıl",
@@ -128,5 +127,6 @@
   "security": "Güvenlik",
   "reminders": "Hatırlatmalar",
   "themeFontsAndLanguage": "Temayı, Yazı Tiplerini ve Dili Özelleştir",
-  "importAndExportNotes": "Notları İçe ve Dışa Aktar"
+  "importAndExportNotes": "Notları İçe ve Dışa Aktar",
+  "exportToJSON": "Export to JSON"
 }

@@ -98,7 +98,6 @@
   "exportNotes": "ನಿಮ್ಮ ಟಿಪ್ಪಣಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿ",
   "exportToPlainText": "ಸರಳ ಪಠ್ಯಕ್ಕೆ ರಫ್ತು ಮಾಡಿ",
   "exportToPDF": "PDF ಗೆ ರಫ್ತು ಮಾಡಿ",
-  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "ಟ್ಯಾಗ್ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ",
   "securitySettings": "ಭದ್ರತಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
   "leave": "ಬಿಡು",
@@ -123,5 +122,6 @@
   "signInWithEmail": "ಇಮೇಲ್ ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿ",
   "projectOnGithub": "ಗಿಥಬ್‌ನಲ್ಲಿ ಪ್ರಾಜೆಕ್ಟ್",
   "recordAudio": "ರೆಕಾರ್ಡ್ ಆಡಿಯೋ",
-  "pickFromFileManager": "ಫೈಲ್‌ಗಳಿಂದ ಆರಿಸಿ"
+  "pickFromFileManager": "ಫೈಲ್‌ಗಳಿಂದ ಆರಿಸಿ",
+  "exportToJSON": "Export to JSON"
 }

@@ -98,7 +98,6 @@
   "exportNotes": "మీ గమనికలను ఎగుమతి చేయండి",
   "exportToPlainText": "సాదా వచనానికి ఎగుమతి చేయండి",
   "exportToPDF": "PDF (బీటా)కి ఎగుమతి చేయండి",
-  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "ట్యాగ్ ఇప్పటికే ఉంది",
   "securitySettings": "భద్రతా సెట్టింగులు",
   "leave": "వదిలేయండి",
@@ -109,5 +108,6 @@
   "nextCloud": "నెక్స్ట్ క్లౌడ్",
   "webdavURL": "వెబ్DAV URL",
   "moreInfo": "మరింత సమాచారం",
-  "fontFamily": "ఫాంట్ కుటుంబం"
+  "fontFamily": "ఫాంట్ కుటుంబం",
+  "exportToJSON": "Export to JSON"
 }

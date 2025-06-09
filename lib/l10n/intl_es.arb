@@ -98,7 +98,6 @@
   "exportNotes": "Exporta tus notas",
   "exportToPlainText": "Exportar a texto plano",
   "exportToPDF": "Exportar a PDF (beta)",
-  "exportToJSON": "Export to JSON",
   "tagAlreadyExists": "La etiqueta ya existe",
   "securitySettings": "Configuraciones de seguridad",
   "leave": "Salir",
@@ -108,5 +107,6 @@
   "appLanguage": "Idioma de la aplicación",
   "nextCloud": "NextCloud",
   "webdavURL": "URL de WebDAV",
-  "moreInfo": "Más información"
+  "moreInfo": "Más información",
+  "exportToJSON": "Export to JSON"
 }
