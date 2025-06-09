@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:dairy_app/app/view/app.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
+
 import 'package:dairy_app/core/pages/settings_details.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/core/pages/welcome_page.dart';
