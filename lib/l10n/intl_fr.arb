@@ -1,5 +1,5 @@
 {
-  "language": "English",
+  "language": "French",
   "@language": {
     "description": "La langue actuelle"
   },
@@ -107,5 +107,6 @@
   "appLanguage": "Langue de l'application",
   "nextCloud": "NextCloud",
   "webdavURL": "URL WebDAV",
-  "moreInfo": "Plus d'informations"
+  "moreInfo": "Plus d'informations",
+  "exportToJSON": "Export to JSON"
 }

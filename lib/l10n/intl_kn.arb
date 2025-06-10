@@ -122,5 +122,6 @@
   "signInWithEmail": "ಇಮೇಲ್ ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿ",
   "projectOnGithub": "ಗಿಥಬ್‌ನಲ್ಲಿ ಪ್ರಾಜೆಕ್ಟ್",
   "recordAudio": "ರೆಕಾರ್ಡ್ ಆಡಿಯೋ",
-  "pickFromFileManager": "ಫೈಲ್‌ಗಳಿಂದ ಆರಿಸಿ"
+  "pickFromFileManager": "ಫೈಲ್‌ಗಳಿಂದ ಆರಿಸಿ",
+  "exportToJSON": "Export to JSON"
 }

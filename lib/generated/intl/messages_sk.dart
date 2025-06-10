@@ -89,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zadajte registrovaný email"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Exportovať poznámky"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
         "exportToPDF":
             MessageLookupByLibrary.simpleMessage("Exportovať do formátu PDF"),
         "exportToPlainText":

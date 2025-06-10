@@ -86,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "నమోదు చేసిన ఈమెయిలును ఇవ్వండి"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("మీ గమనికలను ఎగుమతి చేయండి"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
         "exportToPDF":
             MessageLookupByLibrary.simpleMessage("PDF (బీటా)కి ఎగుమతి చేయండి"),
         "exportToPlainText":

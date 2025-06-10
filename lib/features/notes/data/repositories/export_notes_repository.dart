@@ -21,6 +21,46 @@ class ExportNotesRepository implements IExportNotesRepository {
 
   ExportNotesRepository({required this.notesRepository});
 
+ @override 
+  Future<String> exportNotesToJsonFile({List<String>? noteList}) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/diaryvault_notes_export_${DateTime.now().millisecondsSinceEpoch}.json');
+
+    try {
+      Either<NotesFailure, List<NoteModel>> result;
+
+      if (noteList == null) {
+        log.i("Generating JSON for all notes");
+        result = await notesRepository.fetchNotes();
+      } else {
+        log.i("Generating JSON for $noteList");
+        result = await notesRepository.fetchNotes(noteIds: noteList);
+      }
+
+      // On success, convert notes to JSON array
+      String jsonString = "";
+      await result.fold(
+        (failure) async {
+          // Handle failure - log and throw
+          log.e("Failed to fetch notes for JSON export");
+          throw Exception("Failed to fetch notes");
+        },
+        (allNotes) async {
+          // Convert list of NoteModel to list of JSON maps
+          final List<Map<String, dynamic>> notesJson = allNotes.map((note) => note.toJson()).toList();
+          jsonString = jsonEncode(notesJson);
+        },
+      );
+
+      await file.writeAsString(jsonString);
+
+      return file.path;
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
+  }
+
   @override
   Future<String> exportNotesToTextFile(
       {required File file, List<String>? noteList}) async {

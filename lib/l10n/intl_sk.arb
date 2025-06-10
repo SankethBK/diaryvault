@@ -122,5 +122,6 @@
   "signInWithEmail": "Prihlásenie pomocou emailu",
   "projectOnGithub": "Projekt na Githube",
   "recordAudio": "Záznam zvuku",
-  "pickFromFileManager": "Vybrať zo súborov"
+  "pickFromFileManager": "Vybrať zo súborov",
+  "exportToJSON": "Export to JSON"
 }

@@ -127,5 +127,6 @@
   "security": "Güvenlik",
   "reminders": "Hatırlatmalar",
   "themeFontsAndLanguage": "Temayı, Yazı Tiplerini ve Dili Özelleştir",
-  "importAndExportNotes": "Notları İçe ve Dışa Aktar"
+  "importAndExportNotes": "Notları İçe ve Dışa Aktar",
+  "exportToJSON": "Export to JSON"
 }

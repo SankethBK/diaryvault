@@ -113,5 +113,6 @@
   "themeFontsAndLanguage": "Customize Tema, Fontes e Idioma",
   "importAndExportNotes": "Importar e Exportar Notas",
   "projectOnGithub": "Visite nosso projeto no Github",
-  "moreInfo": "Mais informações"
+  "moreInfo": "Mais informações",
+  "exportToJSON": "Export to JSON"
 }

@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterNewEmail": MessageLookupByLibrary.simpleMessage("输入新邮箱"),
         "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage("输入邮箱"),
         "exportNotes": MessageLookupByLibrary.simpleMessage("导出笔记"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
         "exportToPDF": MessageLookupByLibrary.simpleMessage("导出为PDF （测试功能）"),
         "exportToPlainText": MessageLookupByLibrary.simpleMessage("导出为文本"),
         "failedToFetchNote": MessageLookupByLibrary.simpleMessage("获取笔记失败"),

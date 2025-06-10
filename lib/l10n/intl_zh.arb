@@ -107,5 +107,6 @@
   "appLanguage": "语言",
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV URL",
-  "moreInfo": "更多信息"
+  "moreInfo": "更多信息",
+  "exportToJSON": "Export to JSON"
 }

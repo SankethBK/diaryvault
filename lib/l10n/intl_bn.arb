@@ -122,5 +122,6 @@
     "signInWithEmail": "Sign in with Email",
     "projectOnGithub": "Project on Github",
     "recordAudio": "Record Audio",
-    "pickFromFileManager": "Pick From Files"
+    "pickFromFileManager": "Pick From Files",
+    "exportToJSON": "Export to JSON"
 }  
