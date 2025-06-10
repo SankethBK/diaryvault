@@ -9,4 +9,6 @@ abstract class IExportNotesRepository {
       {required File file, List<String> noteList});
 
   Future<String> exportNotesToPDF({List<String> noteList});
+
+  Future<String> exportNotesToJsonFile({List<String>? noteList});
 }

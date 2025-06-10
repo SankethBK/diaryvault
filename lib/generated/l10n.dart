@@ -1289,6 +1289,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Export to JSON`
+  String get exportToJSON {
+    return Intl.message(
+      'Export to JSON',
+      name: 'exportToJSON',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

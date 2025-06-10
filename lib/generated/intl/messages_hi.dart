@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("पंजीकृत ईमेल दर्ज करें"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("अपने नोट्स निर्यात करें"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
         "exportToPDF":
             MessageLookupByLibrary.simpleMessage("पीडीएफ में निर्यात करें "),
         "exportToPlainText":

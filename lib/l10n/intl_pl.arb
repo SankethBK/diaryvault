@@ -127,5 +127,6 @@
   "security": "Bezpieczeństwo",
   "reminders": "Przypomnienia",
   "themeFontsAndLanguage": "Personalizuj motyw, czcionki i język",
-  "importAndExportNotes": "Importuj i Eksportuj notatki"
+  "importAndExportNotes": "Importuj i Eksportuj notatki",
+  "exportToJSON": "Export to JSON"
 }

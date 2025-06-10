@@ -127,5 +127,6 @@
   "security": "सुरक्षा",
   "reminders": "स्मरणपत्र",
   "themeFontsAndLanguage": "थिम, फन्ट र भाषा अनुकूलित गर्नुहोस्",
-  "importAndExportNotes": "नोटहरू आयात र निर्यात गर्नुहोस्"
+  "importAndExportNotes": "नोटहरू आयात र निर्यात गर्नुहोस्",
+  "exportToJSON": "Export to JSON"
   }

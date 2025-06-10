@@ -89,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Entrez l\'e-mail enregistré"),
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Exportez vos notes"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
         "exportToPDF": MessageLookupByLibrary.simpleMessage(
             "Exporter au format PDF (bêta)"),
         "exportToPlainText":
@@ -111,7 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Mot de passe incorrect"),
-        "language": MessageLookupByLibrary.simpleMessage("English"),
+        "language": MessageLookupByLibrary.simpleMessage("French"),
         "lastSynced":
             MessageLookupByLibrary.simpleMessage("Dernière synchronisation : "),
         "leave": MessageLookupByLibrary.simpleMessage("Partir"),

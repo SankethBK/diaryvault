@@ -107,5 +107,6 @@
   "appLanguage": "Idioma de la aplicación",
   "nextCloud": "NextCloud",
   "webdavURL": "URL de WebDAV",
-  "moreInfo": "Más información"
+  "moreInfo": "Más información",
+  "exportToJSON": "Export to JSON"
 }
