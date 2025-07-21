@@ -223,7 +223,7 @@ class NextCloudSyncClient extends ISyncClient {
       rethrow;
     }
 
-    return false;
+    return true;
   }
 
   @override
