@@ -117,7 +117,7 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                       Container(
                         padding: const EdgeInsets.all(3.0),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: suffixIconColor,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(12.0),
                           ),
@@ -132,7 +132,7 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                       Text(
                         S.current.tapToExpandTitle,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
+                          color: suffixIconColor,
                         ),
                       )
                     ],

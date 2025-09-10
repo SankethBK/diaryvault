@@ -81,7 +81,7 @@ class LushGreen {
           hintTextColor: Colors.white.withOpacity(0.7),
           authFormGradientStartColor: Colors.black.withOpacity(0.5),
           authFormGradientEndColor: Colors.black.withOpacity(0.3),
-          infoTextColor: Colors.white.withOpacity(0.7),
+          infoTextColor: Colors.white.withOpacity(0.8),
         ),
         AppbarThemeExtensions(
           iconColor: Colors.white.withOpacity(1),

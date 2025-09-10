@@ -72,7 +72,7 @@ class CoralBubble {
           hintTextColor: Colors.black.withOpacity(0.7),
           authFormGradientStartColor: Colors.white.withOpacity(0.4),
           authFormGradientEndColor: Colors.white.withOpacity(0.2),
-          infoTextColor: Colors.white.withOpacity(0.7),
+          infoTextColor: Colors.white.withOpacity(0.8),
         ),
         ChipThemeExtensions(
           backgroundColor: const Color.fromARGB(255, 219, 127, 158),

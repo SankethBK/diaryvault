@@ -82,7 +82,7 @@ class Cosmic {
           hintTextColor: Colors.white.withOpacity(0.7),
           authFormGradientStartColor: Colors.black.withOpacity(0.5),
           authFormGradientEndColor: Colors.black.withOpacity(0.3),
-          infoTextColor: Colors.white.withOpacity(0.7),
+          infoTextColor: Colors.white.withOpacity(0.8),
         ),
         ChipThemeExtensions(
           backgroundColor: const Color.fromARGB(255, 36, 46, 178),

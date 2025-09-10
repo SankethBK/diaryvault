@@ -5,6 +5,7 @@ enum Themes {
   cosmic,
   lushGreen,
   plainDark,
+  plainLight,
   darkAcademia,
   monochromePink,
   twilightGold
@@ -23,6 +24,8 @@ extension ThemeExtension on Themes {
         return 'Lush Green';
       case Themes.plainDark:
         return "Plain Dark";
+      case Themes.plainLight:
+        return "Plain Light";
       case Themes.darkAcademia:
         return "Dark Academia";
       case Themes.monochromePink:
@@ -43,6 +46,10 @@ Themes getThemeFromString(String? themeString) {
       return Themes.lushGreen;
     case 'plainDark':
       return Themes.plainDark;
+    case 'plainLight':
+      return Themes.plainLight;
+    case 'darkAcademia':
+      return Themes.darkAcademia;
     case 'monochromePink':
       return Themes.monochromePink;
     case 'twilightGold':
