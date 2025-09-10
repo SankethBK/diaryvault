@@ -52,8 +52,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTheme": MessageLookupByLibrary.simpleMessage("थीम चुनें"),
         "chooseTime": MessageLookupByLibrary.simpleMessage("समय चुनें"),
         "closeTheApp": MessageLookupByLibrary.simpleMessage("ऐप बंद करें?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage("क्लाउड बैकअप"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("नए पासवर्ड की पुष्टि करें"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("नओं पिन पको कयो"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("अतिथि के रूप में जारी रखें"),
         "dailyReminders":
@@ -74,10 +77,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("दैनिक अनुस्मारक सक्षम करें"),
         "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
             "फ़िंगरप्रिंट लॉगिन सक्षम करें"),
+        "enablePINLogin":
+            MessageLookupByLibrary.simpleMessage("पिन लॉग इन सक्षम करें"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("वर्तमान पासवर्ड दर्ज करें"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("नया ईमेल दर्ज करें"),
+        "enterPin":
+            MessageLookupByLibrary.simpleMessage("अपना पिन (PIN) डालें"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("पंजीकृत ईमेल दर्ज करें"),
         "exportNotes":
@@ -96,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "डिवाइस सेटिंग्स में फ़िंगरप्रिंट प्रमाणीकरण सक्षम होना चाहिए"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("फ़िंगरप्रिंट लॉगिन विफल रहा"),
+        "fontFamily": MessageLookupByLibrary.simpleMessage("फ़ॉन्ट परिवार"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("पासवर्ड भूल गए"),
         "from": MessageLookupByLibrary.simpleMessage("से"),
@@ -103,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "अपनी पत्रिका को अद्यतन रखने के लिए अपने चुने हुए समय पर दैनिक अनुस्मारक प्राप्त करें।"),
         "googleDrive": MessageLookupByLibrary.simpleMessage("गूगल ड्राइव"),
+        "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
+            "नोट्स इम्पोर्ट और एक्सपोर्ट करें"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("गलत पासवर्ड"),
         "language": MessageLookupByLibrary.simpleMessage("Hindi"),
@@ -142,13 +152,33 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("पासवर्ड सत्यापित"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("पासवर्ड मेल नहीं खाते"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("फ़ाइलों में से चुनें"),
+        "pinLoginFailed":
+            MessageLookupByLibrary.simpleMessage("लॉग इन विफल रहा"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "लॉक स्क्रीन पर 4 से लेकर 4 अंकों तक का पिन (PIN) दिखाया जाएगा"),
+        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+            "कृपया 4 अंकों का पिन दर्ज करें"),
+        "pinResetSuccessful":
+            MessageLookupByLibrary.simpleMessage("पिन कन्फ़र्मेशन फीलिंग"),
+        "pinsDontMatch":
+            MessageLookupByLibrary.simpleMessage("पिन मेल नहीं खाते"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "कृपया इस सुविधा का उपयोग करने के लिए अपना खाता सेटअप करें"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("गोपनीयता नीति"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("Github पर प्रोजेक्ट"),
+        "recordAudio":
+            MessageLookupByLibrary.simpleMessage("गेम ऑडियो रिकॉर्ड करें"),
+        "reminders": MessageLookupByLibrary.simpleMessage("स्मरण"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("पासवर्ड रीसेट"),
+        "resetPin": MessageLookupByLibrary.simpleMessage("PIN रीसेट करें"),
+        "security": MessageLookupByLibrary.simpleMessage("सुरक्षा"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("सुरक्षा सेटिंग्स"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("आवाज़ चुनें"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("प्रतिक्रिया भेजें"),
         "settings": MessageLookupByLibrary.simpleMessage("समायोजन"),
@@ -157,6 +187,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("दोस्तों के साथ बांटें"),
         "signIn": MessageLookupByLibrary.simpleMessage("साइन इन करें"),
+        "signInWithEmail":
+            MessageLookupByLibrary.simpleMessage("Email से साइन इन करें"),
         "signUp": MessageLookupByLibrary.simpleMessage("साइन अप करें"),
         "signedInAs":
             MessageLookupByLibrary.simpleMessage("इस रूप में साइन इन किया"),
@@ -173,13 +205,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("टैग पहले से मौजूद है"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "शीर्षक का विस्तार करने के लिए यहां टैप करें"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "थीम, फ़ॉन्ट और भाषा को कस्टमाइज़ करें"),
         "to": MessageLookupByLibrary.simpleMessage("को"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "बहुत सारे गलत प्रयास, कृपया पासवर्ड से लॉगिन करें"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("टूलबार की स्थिति"),
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "अनपेक्षित त्रुटि उत्पन्न हुई"),
         "video": MessageLookupByLibrary.simpleMessage("वीडियो"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("वेबडीएवी यूआरएल"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("गोरोन्थि पिन ।"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("सहेजे न गए परिवर्तन"),
         "youWillBeNotifiedAt": m0

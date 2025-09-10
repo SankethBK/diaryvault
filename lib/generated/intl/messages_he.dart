@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'he';
 
+  static String m0(time) => "תקבל הודעה בשעה ${time}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accountSetupSuccessful":
@@ -28,10 +30,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("האם יש לך כבר חשבון?"),
         "appDescription": MessageLookupByLibrary.simpleMessage(
             "גלה את diaryVault - יישומון יומן שעוצב לעזור לך לתפוס את מחשבותיך, זכרונותיך, ורגעים ללא מאמץ. עכשיו זמין בחנות Play!"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("שפת האפליקציה"),
         "appVersion": MessageLookupByLibrary.simpleMessage("גרסת ישומון"),
         "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
             "האם אתה בטוח שאתה רוצה להתנתק?"),
         "autoSync": MessageLookupByLibrary.simpleMessage("סנכרון אוטומטי"),
+        "automaticallySave": MessageLookupByLibrary.simpleMessage(
+            "שומר את ההערות שלך באופן אוטומטי לאחר כל 10 שניות"),
         "automaticallySyncNotesWithCloud":
             MessageLookupByLibrary.simpleMessage("סנכרן פתקים אוטמטית עם הענן"),
         "availablePlatformsForSync":
@@ -45,11 +50,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTheSyncSource":
             MessageLookupByLibrary.simpleMessage("בחר מקור סנכרון"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("בחר נושא"),
+        "chooseTime": MessageLookupByLibrary.simpleMessage("לבחור זמן"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("לסגור את היישומון?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage("גיבוי בענן"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("אשר סיסמה חדשה"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("יש לאשר את קוד ה - PIN החדש"),
         "continueAsGues": MessageLookupByLibrary.simpleMessage("המשך כאורח"),
+        "dailyReminders":
+            MessageLookupByLibrary.simpleMessage("תזכורות יומיות"),
         "dateFilter": MessageLookupByLibrary.simpleMessage("סינון תאריך"),
         "delete": MessageLookupByLibrary.simpleMessage("מחק"),
         "deletionFailed": MessageLookupByLibrary.simpleMessage("מחיקה נכשלה"),
@@ -61,14 +72,25 @@ class MessageLookup extends MessageLookupByLibrary {
             "אימייל עודכן בהצלחה, אנא התחבר שוב"),
         "enableAutoSave":
             MessageLookupByLibrary.simpleMessage("הפעל שמירה אוטומטית"),
+        "enableDailyReminders":
+            MessageLookupByLibrary.simpleMessage("אפשר תזכורות יומיות"),
         "enableFingerPrintLogin":
             MessageLookupByLibrary.simpleMessage("אפשר התחברות דרך טביעת אצבע"),
+        "enablePINLogin":
+            MessageLookupByLibrary.simpleMessage("אפשר כניסה באמצעות קוד PIN"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("הכנס סיסמה עכשווית"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("הכנס אימייל חדש"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("יש להזין את קוד ה -"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("הכנס אימייל רשום"),
+        "exportNotes":
+            MessageLookupByLibrary.simpleMessage("ייצוא ההערות שלכם"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("ייצא ל - JSON"),
+        "exportToPDF": MessageLookupByLibrary.simpleMessage("ייצוא ל- PDF"),
+        "exportToPlainText":
+            MessageLookupByLibrary.simpleMessage("ייצא לטקסט רגיל"),
         "failedToFetchNote":
             MessageLookupByLibrary.simpleMessage("נכשל בלהביא פתק"),
         "failedToSaveNote":
@@ -78,21 +100,30 @@ class MessageLookup extends MessageLookupByLibrary {
                 "אימות על ידי טביעת אצבע צריך להיות מופעל בהגדרות המכשיר"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("התחברות עם טביעת אצבע נכשלה"),
+        "fontFamily": MessageLookupByLibrary.simpleMessage("משפחת גופן"),
         "forgotPassword": MessageLookupByLibrary.simpleMessage("שכחתי סיסמה"),
         "from": MessageLookupByLibrary.simpleMessage("מאת"),
         "gallery": MessageLookupByLibrary.simpleMessage("גלריה"),
+        "getDailyReminders": MessageLookupByLibrary.simpleMessage(
+            "קבלו תזכורות יומיות במועד שבחרתם כדי לשמור על היומן שלכם מעודכן."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("גוגל דרייב"),
+        "importAndExportNotes":
+            MessageLookupByLibrary.simpleMessage("ייבוא וייצוא הערות"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("סיסמה לא נכונה"),
         "language": MessageLookupByLibrary.simpleMessage("Hebrew"),
         "lastSynced":
             MessageLookupByLibrary.simpleMessage("סונכרן בפעם האחרונה ב: "),
+        "leave": MessageLookupByLibrary.simpleMessage("עזיבה"),
         "link": MessageLookupByLibrary.simpleMessage("קישור"),
         "logIn": MessageLookupByLibrary.simpleMessage("התחברות"),
         "logOut": MessageLookupByLibrary.simpleMessage("התנתק"),
+        "logOut2": MessageLookupByLibrary.simpleMessage("התנתקות מהמערכת"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "אנא התחבר כדי לאפשר סנכרון אוטומטי"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("מידע נוסף"),
         "newPassword": MessageLookupByLibrary.simpleMessage("סיסמה חדשה"),
+        "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("לא זמין"),
         "noteSavedSuccessfully":
             MessageLookupByLibrary.simpleMessage("פתק נשמר בהצלחה"),
@@ -100,6 +131,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("פתק עודכן בהצלחה"),
         "notesSyncSuccessfull":
             MessageLookupByLibrary.simpleMessage("סנכרון פתקים התבצע בהצלחה"),
+        "notificationDescription1": MessageLookupByLibrary.simpleMessage(
+            "הקדש כמה דקות כדי לשקף את היום שלך ביומן שלך"),
+        "notificationTimeNotEnabled":
+            MessageLookupByLibrary.simpleMessage("לא בחרתם שעת התראה"),
+        "notificationTitle1":
+            MessageLookupByLibrary.simpleMessage("הגיע הזמן ל - Journal!"),
+        "notificationsNotEnabled":
+            MessageLookupByLibrary.simpleMessage("ההתראות לא מופעלות"),
         "pageNotFound": MessageLookupByLibrary.simpleMessage("דף לא נמצא"),
         "passwordResetMailSent":
             MessageLookupByLibrary.simpleMessage("אימייל איפוס סיסמה נשלח"),
@@ -108,30 +147,69 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordVerified": MessageLookupByLibrary.simpleMessage("סיסמה אומתה"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("הסיסמאות לא תואמות"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("בחר מתוך קבצים"),
+        "pinLoginFailed": MessageLookupByLibrary.simpleMessage("התחברות נכשלה"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "תתבקש להזין קוד PIN של עד 4 ספרות במסך הנעילה"),
+        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+            "יש להזין קוד PIN בן ארבע ספרות"),
+        "pinResetSuccessful":
+            MessageLookupByLibrary.simpleMessage("תחושת אישור קוד PIN"),
+        "pinsDontMatch": MessageLookupByLibrary.simpleMessage(
+            "מספרי הזיהוי האישי לא תואמים"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "אנא הקם את חשבונך כדי להשתמש באפשרות הזאת"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("מדיניות פרטיות"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("פרויקט ב - Github"),
+        "recordAudio": MessageLookupByLibrary.simpleMessage("הקלט קול "),
+        "reminders": MessageLookupByLibrary.simpleMessage("תזכורות"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("אפס סיסמה"),
+        "resetPin":
+            MessageLookupByLibrary.simpleMessage("איפוס מספר זיהוי אישי"),
+        "security": MessageLookupByLibrary.simpleMessage("אבטחה"),
+        "securitySettings":
+            MessageLookupByLibrary.simpleMessage("הגדרות אבטחה"),
+        "selectVoice":
+            MessageLookupByLibrary.simpleMessage("בחר “Voice” (קול)."),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("שלח משוב"),
         "settings": MessageLookupByLibrary.simpleMessage("הגדרות"),
         "setupYourAccount": MessageLookupByLibrary.simpleMessage("הקמת חשבון"),
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("שתף עם חברים"),
         "signIn": MessageLookupByLibrary.simpleMessage("התחבר"),
+        "signInWithEmail": MessageLookupByLibrary.simpleMessage(
+            "התחברות באמצעות כתובת אימייל"),
         "signUp": MessageLookupByLibrary.simpleMessage("הירשם"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("מחובר כ-"),
+        "sortByAtoZ": MessageLookupByLibrary.simpleMessage("מיון לפי א - ת"),
+        "sortByLatestFirst": MessageLookupByLibrary.simpleMessage(
+            "מיין לפי המילה האחרונה תחילה"),
+        "sortByOldestFirst":
+            MessageLookupByLibrary.simpleMessage("מיון לפי תאריך (ישנים קודם)"),
+        "stay": MessageLookupByLibrary.simpleMessage("הישארו"),
         "submit": MessageLookupByLibrary.simpleMessage("שלח"),
         "syncNow": MessageLookupByLibrary.simpleMessage("סנכרן עכשיו"),
+        "tagAlreadyExists":
+            MessageLookupByLibrary.simpleMessage("שם תג קיים כבר"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "הקש כאן כדי להרחיב את הכותרת"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "התאמה אישית של ערכת עיצוב, גופנים ושפה"),
         "to": MessageLookupByLibrary.simpleMessage("ל"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "יותר מדי התחברויות כושלות, אנא התחבר עם סיסמה"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("מיקום סרגל הכלים"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("בעיה לא צפויה קרתה"),
         "video": MessageLookupByLibrary.simpleMessage("וידאו"),
+        "webdavURL": MessageLookupByLibrary.simpleMessage("כתובת WebDAV"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("קוד PIN שגוי"),
         "youHaveUnsavedChanges":
-            MessageLookupByLibrary.simpleMessage("יש לך שינויים שלא נשמרו")
+            MessageLookupByLibrary.simpleMessage("יש לך שינויים שלא נשמרו"),
+        "youWillBeNotifiedAt": m0
       };
 }

@@ -128,5 +128,7 @@
   "reminders": "स्मरणपत्र",
   "themeFontsAndLanguage": "थिम, फन्ट र भाषा अनुकूलित गर्नुहोस्",
   "importAndExportNotes": "नोटहरू आयात र निर्यात गर्नुहोस्",
-  "exportToJSON": "Export to JSON"
-  }
+  "exportToJSON": "Export to JSON",
+  "selectVoice": "à¤¬à¥à¤²à¤¾à¤¯à¤¤à¥ à¤ªà¥à¤°à¥à¤·FestivalVoiceName",
+  "toolbarPosition": "उपकरणपट्टी स्थिति"
+}

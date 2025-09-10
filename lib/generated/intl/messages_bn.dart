@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose Theme"),
         "chooseTime": MessageLookupByLibrary.simpleMessage("Choose Time"),
         "closeTheApp": MessageLookupByLibrary.simpleMessage("Close the App?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage("ক্লাউড ব্যাকআপ"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirm new password"),
         "confirmNewPin":
@@ -109,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Get daily reminders at your chosen time to keep your journal up to date."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes":
+            MessageLookupByLibrary.simpleMessage("নোট আমদানি ও রফতানি করুন"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect password"),
         "language": MessageLookupByLibrary.simpleMessage("Bengali/Bangla"),
@@ -166,10 +169,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "projectOnGithub":
             MessageLookupByLibrary.simpleMessage("Project on Github"),
         "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
+        "reminders": MessageLookupByLibrary.simpleMessage("স্মরণ রাখা জরুরী"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
+        "security": MessageLookupByLibrary.simpleMessage("নিরাপত্তা"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Security Settings"),
+        "selectVoice":
+            MessageLookupByLibrary.simpleMessage("ভয়েস নির্বাচন করুন"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "setupYourAccount":
@@ -193,9 +200,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tag already exists"),
         "tapToExpandTitle":
             MessageLookupByLibrary.simpleMessage("Tap here to expand title"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "থিম, ফন্ট এবং ভাষা কাস্টমাইজ করুন"),
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Too many wrong attempts, please login with password"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("টুলবারের অবস্থান"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),

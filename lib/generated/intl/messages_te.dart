@@ -57,8 +57,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("సమయాన్ని ఎంచుకోండి"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("యాప్‌ను మూసివేయాలా?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage("క్లౌడ్ బ్యాకప్"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "కొత్త పాస్‌వర్డ్‌ను నిర్ధారించండి"),
+        "confirmNewPin": MessageLookupByLibrary.simpleMessage(
+            "మీ కొత్త పిన్ ‌ ను నిర్ధారించండి"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("అతిథిగా కొనసాగండి"),
         "dailyReminders":
@@ -78,10 +81,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "రోజువారీ రిమైండర్‌లను ప్రారంభించండి"),
         "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
             "ఫింగర్‌ప్రింట్‌లాగిన్‌ని ప్రారంభించండి"),
+        "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+            "పిన్ లాగిన్ ‌ ను ప్రారంభించండి"),
         "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
             "ప్రస్తుత పాస్‌వర్డ్‌న్ని ప్రవేశపెట్టండి"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("కొత్త ఈమెయిలును ఇవ్వండి"),
+        "enterPin":
+            MessageLookupByLibrary.simpleMessage("మీ పిన్ ‌ ను నమోదు చేయండి"),
         "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage(
             "నమోదు చేసిన ఈమెయిలును ఇవ్వండి"),
         "exportNotes":
@@ -108,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "మీ జర్నల్‌ను తాజాగా ఉంచడానికి మీరు ఎంచుకున్న సమయంలో రోజువారీ రిమైండర్‌లను పొందండి."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("గూగుల్ డ్రైవ్"),
+        "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
+            "గమనికలను దిగుమతి చేయండి మరియు ఎగుమతి చేయండి"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("సరికాని పాస్వర్డ్"),
         "language": MessageLookupByLibrary.simpleMessage("Telugu"),
@@ -147,14 +156,35 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("పాస్‌వర్డ్ ధృవీకరించబడింది"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("పాస్‌వర్డ్‌లు సరిపోలడం లేదు"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("ఫైళ్ళ నుండి ఎంచుకోండి"),
+        "pinLoginFailed":
+            MessageLookupByLibrary.simpleMessage("PIN లాగిన్ విఫలమైంది"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "లాక్ స్క్రీన్ ‌ పై 4 నుండి అంకెల పిన్ ప్రాంప్ట్ చేయబడుతుంది"),
+        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+            "దయచేసి 4-అంకెల పిన్ ‌ ను నమోదు చేయండి"),
+        "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
+            "ధృవీకరణ ఫీలింగ్ ‌ ను PIN చేయండి"),
+        "pinsDontMatch":
+            MessageLookupByLibrary.simpleMessage("పిన్ ‌ లు సరిపోలడం లేదు"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "దయచేసి ఈ ఫీచర్‌ని ఉపయోగించడానికి మీ ఖాతాను సెటప్ చేయండి"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("గోప్యతా విధానం"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("Githubలో ప్రాజెక్ట్"),
+        "recordAudio":
+            MessageLookupByLibrary.simpleMessage("ఆడియోను రికార్డ్ చేయండి"),
+        "reminders": MessageLookupByLibrary.simpleMessage("రిమైండర్ ‌ లు"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("పాస్‌వర్డ్‌న్ని మార్చుకోండి"),
+        "resetPin":
+            MessageLookupByLibrary.simpleMessage("పిన్ ‌ ను రీసెట్ చేయండి"),
+        "security": MessageLookupByLibrary.simpleMessage("భద్రత"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("భద్రతా సెట్టింగులు"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("వాయిస్ ఎంచుకోండి"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("అభిప్రాయాన్ని పంపండి"),
         "settings": MessageLookupByLibrary.simpleMessage("సెట్టింగులు"),
@@ -163,6 +193,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("మిత్రులతో పంచుకొనుట"),
         "signIn": MessageLookupByLibrary.simpleMessage("సైన్ ఇన్ చేయండి"),
+        "signInWithEmail": MessageLookupByLibrary.simpleMessage(
+            "ఇమెయిల్ ‌ తో సైన్ ఇన్ చేయండి"),
         "signUp": MessageLookupByLibrary.simpleMessage("సైన్ అప్ చేయండి"),
         "signedInAs":
             MessageLookupByLibrary.simpleMessage("గా సైన్ ఇన్ చేసారు"),
@@ -179,13 +211,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ట్యాగ్ ఇప్పటికే ఉంది"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "శీర్షికను విస్తరించడానికి ఇక్కడ నొక్కండి"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "థీమ్, ఫాంట్ ‌ లు మరియు భాషను అనుకూలీకరించండి"),
         "to": MessageLookupByLibrary.simpleMessage("కు"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "చాలా తప్పు ప్రయత్నాలు ఉన్నాయి, దయచేసి పాస్‌వర్డ్‌తో లాగిన్ చేయండి"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("టూల్ ‌ బార్ స్థానం"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("ఊహించని లోపం సంభవించింది"),
         "video": MessageLookupByLibrary.simpleMessage("వీడియో"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("వెబ్DAV URL"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("తప్పు PIN"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "మీరు సేవ్ చేయని మార్పులను కలిగి ఉన్నారు"),
         "youWillBeNotifiedAt": m0

@@ -114,5 +114,21 @@
   "importAndExportNotes": "Importar e Exportar Notas",
   "projectOnGithub": "Visite nosso projeto no Github",
   "moreInfo": "Mais informações",
-  "exportToJSON": "Export to JSON"
+  "exportToJSON": "Export to JSON",
+  "confirmNewPin": "Confirmar o novo PIN",
+  "enablePINLogin": "Ativar início DE sessão com PIN",
+  "enterPin": "Insira seu PIN",
+  "fontFamily": "Tipo de Letra",
+  "pickFromFileManager": "Escolher a partir de ficheiros",
+  "pinLoginFailed": "Falha ao iniciar sessão",
+  "pinLoginSetupInstructions": "Um PIN de até 4 dígitos será solicitado na tela de bloqueio",
+  "pinMustBe4Digit": "Introduza um ano com 4 dígitos",
+  "pinResetSuccessful": "Sensação DE confirmação do PIN",
+  "pinsDontMatch": "Os PINs não correspondem",
+  "recordAudio": "הקלט אודיו",
+  "resetPin": "Redefinir PIN",
+  "selectVoice": "Escolha a voz:",
+  "signInWithEmail": "Iniciar sessão com o e-mail",
+  "toolbarPosition": "Bloquear posi~ção da barra de ferramentas",
+  "wrongPIN": "PIN errado"
 }

@@ -70,8 +70,27 @@ Through my own experiences and by reading what others have shared in their revie
 * Support for embedding audio files
 * Organizing notes in the form of folders
 
-### Multi-Language Support
-DiaryVault is available in multiple languages. Following is the status of translation to different languages
+## 🌍 Translations
+
+DiaryVault supports **22 languages** with automated translation management:
+
+- **Complete Coverage**: Arabic, Bengali, German, Spanish, Finnish, French, Gujarati, Hebrew, Hindi, Indonesian, Kannada, Nepali, Punjabi, Polish, Portuguese, Russian, Slovak, Swahili, Telugu, Turkish, Chinese
+- **Automated System**: Missing translations are automatically generated using AI translation services
+- **Community Contributions**: Native speakers welcome to review and improve translations
+
+### For Contributors: Adding/Updating Translations
+
+We have an automated translation system that makes contributing translations easy:
+
+```bash
+cd python
+./setup.sh
+source venv/bin/activate
+python translate_all.py --dry-run  # Check what's missing
+python translate_all.py            # Generate all missing translations
+```
+
+For detailed instructions, see [`python/README.md`](python/README.md).
 
 [English](https://github.com/SankethBK/diaryvault/blob/master/lib/l10n/intl_en.arb) is the primary language
 
