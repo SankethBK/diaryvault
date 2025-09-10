@@ -180,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "security": MessageLookupByLibrary.simpleMessage("Bezpieczeństwo"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Ustawienia bezpieczeństwa"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("Wybierz głos"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Wyślij opinię"),
         "settings": MessageLookupByLibrary.simpleMessage("Ustawienia"),
         "setupYourAccount":
@@ -209,6 +210,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("Do"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Za dużo nieudanych prób, zaloguj się hasłem"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("Pozycja paska narzędzi"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Niespodziewany błąd"),
         "video": MessageLookupByLibrary.simpleMessage("Kamera"),

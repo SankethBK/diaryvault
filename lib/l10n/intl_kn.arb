@@ -77,7 +77,7 @@
   "appDescription": "ಡೈರಿವಾಲ್ಟ್ ಅನ್ನು ಅನ್ವೇಷಿಸಿ - ನಿಮ್ಮ ಆಲೋಚನೆಗಳು, ನೆನಪುಗಳು ಮತ್ತು ಕ್ಷಣಗಳನ್ನು ಸಲೀಸಾಗಿ ಸೆರೆಹಿಡಿಯಲು ಸಹಾಯ ಮಾಡಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಡೈರಿ ಅಪ್ಲಿಕೇಶನ್. ಪ್ಲೇ ಸ್ಟೋರ್‌ನಲ್ಲಿ ಈಗ ಲಭ್ಯವಿದೆ!",
   "notificationsNotEnabled": "ಅಧಿಸೂಚನೆಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿಲ್ಲ",
   "notificationTimeNotEnabled": "ಅಧಿಸೂಚನೆ ಸಮಯವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿಲ್ಲ",
-  "youWillBeNotifiedAt": "ನಿಮಗೆ {time} ಸಮಯದಲ್ಲಿ ಸೂಚಿಸಲಾಗುವುದು", 
+  "youWillBeNotifiedAt": "ನಿಮಗೆ {time} ಸಮಯದಲ್ಲಿ ಸೂಚಿಸಲಾಗುವುದು",
   "@youWillBeNotifiedAt": {
     "placeholders": {
       "time": {
@@ -123,5 +123,12 @@
   "projectOnGithub": "ಗಿಥಬ್‌ನಲ್ಲಿ ಪ್ರಾಜೆಕ್ಟ್",
   "recordAudio": "ರೆಕಾರ್ಡ್ ಆಡಿಯೋ",
   "pickFromFileManager": "ಫೈಲ್‌ಗಳಿಂದ ಆರಿಸಿ",
-  "exportToJSON": "Export to JSON"
+  "exportToJSON": "Export to JSON",
+  "cloudBackup": "ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್",
+  "importAndExportNotes": "ಟಿಪ್ಪಣಿಗಳನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ ಮತ್ತು ರಫ್ತು ಮಾಡಿ",
+  "reminders": "ಜ್ಞಾಪನೆ",
+  "security": "ಭದ್ರತೆ",
+  "selectVoice": "ಧ್ವನಿ ಆಯ್ಕೆಮಾಡಿ",
+  "themeFontsAndLanguage": "ಥೀಮ್, ಫಾಂಟ್‌ಗಳು ಮತ್ತು ಭಾಷೆಯನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಿ",
+  "toolbarPosition": "ಉಪಕರಣಪಟ್ಟಿಯ ಸ್ಥಾನ"
 }

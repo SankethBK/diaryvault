@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cloudBackup": MessageLookupByLibrary.simpleMessage("Backup na nuvem"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Confirmar nova senha"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("Confirmar o novo PIN"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("Continuar como convidado"),
         "dailyReminders":
@@ -78,10 +80,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ativar lembretes diários"),
         "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
             "Habilitar login por biometria"),
+        "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+            "Ativar início DE sessão com PIN"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("Insira a senha atual"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("Insira um novo email"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Insira seu PIN"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("Insira o email cadastrado"),
         "exportNotes":
@@ -100,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "O login por biometria deve ser habilitado nas configurações do dispositivo"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Falha no login por biometria"),
+        "fontFamily": MessageLookupByLibrary.simpleMessage("Tipo de Letra"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueci minha senha"),
         "from": MessageLookupByLibrary.simpleMessage("De"),
@@ -149,6 +155,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Senha verificada"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("As senhas não são iguais"),
+        "pickFromFileManager": MessageLookupByLibrary.simpleMessage(
+            "Escolher a partir de ficheiros"),
+        "pinLoginFailed":
+            MessageLookupByLibrary.simpleMessage("Falha ao iniciar sessão"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "Um PIN de até 4 dígitos será solicitado na tela de bloqueio"),
+        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+            "Introduza um ano com 4 dígitos"),
+        "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
+            "Sensação DE confirmação do PIN"),
+        "pinsDontMatch":
+            MessageLookupByLibrary.simpleMessage("Os PINs não correspondem"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Por favor, configure sua conta para usar essa funcionalidade"),
@@ -156,11 +174,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Políticas de privacidade"),
         "projectOnGithub": MessageLookupByLibrary.simpleMessage(
             "Visite nosso projeto no Github"),
+        "recordAudio": MessageLookupByLibrary.simpleMessage("הקלט אודיו"),
         "reminders": MessageLookupByLibrary.simpleMessage("Lembretes"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Resetar senhar"),
+        "resetPin": MessageLookupByLibrary.simpleMessage("Redefinir PIN"),
         "security": MessageLookupByLibrary.simpleMessage("Segurança"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Configurações de segurança"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("Escolha a voz:"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Mande um feedback"),
         "settings": MessageLookupByLibrary.simpleMessage("Configurações"),
@@ -169,6 +190,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends": MessageLookupByLibrary.simpleMessage(
             "Compartilhe o app com seus amigos"),
         "signIn": MessageLookupByLibrary.simpleMessage("Entrar"),
+        "signInWithEmail":
+            MessageLookupByLibrary.simpleMessage("Iniciar sessão com o e-mail"),
         "signUp": MessageLookupByLibrary.simpleMessage("Cadastre-se"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Logado como"),
         "sortByAtoZ":
@@ -189,10 +212,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("Para"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Muitas tentativas incorretas, tente o login utilizando a senha"),
+        "toolbarPosition": MessageLookupByLibrary.simpleMessage(
+            "Bloquear posi~ção da barra de ferramentas"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Ocorreu um erro inesperado"),
         "video": MessageLookupByLibrary.simpleMessage("Vídeo"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("URL do WebDAV"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN errado"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Você possui alterações não salvas"),
         "youWillBeNotifiedAt": m0

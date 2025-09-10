@@ -1,7 +1,7 @@
 {
   "language": "Español",
   "@language": {
-  "description": "El idioma actual"
+    "description": "El idioma actual"
   },
   "pageNotFound": "Página no encontrada",
   "settings": "Configuraciones",
@@ -108,5 +108,27 @@
   "nextCloud": "NextCloud",
   "webdavURL": "URL de WebDAV",
   "moreInfo": "Más información",
-  "exportToJSON": "Export to JSON"
+  "exportToJSON": "Export to JSON",
+  "cloudBackup": "Copia de seguridad en la nube",
+  "confirmNewPin": "Confirme su nuevo PIN",
+  "enablePINLogin": "Habilitar inicio DE sesión con PIN",
+  "enterPin": "Introduce tu PIN",
+  "fontFamily": "Tipo de letra",
+  "importAndExportNotes": "Importar y exportar notas",
+  "pickFromFileManager": "Elegir de archivos",
+  "pinLoginFailed": "Login Failed",
+  "pinLoginSetupInstructions": "Se mostrará un PIN de hasta 4 dígitos en la pantalla de bloqueo",
+  "pinMustBe4Digit": "Introduzca un año en formato de 4 dígitos",
+  "pinResetSuccessful": "Sensación DE confirmación de PIN",
+  "pinsDontMatch": "Los números PIN no coinciden",
+  "projectOnGithub": "Proyecto en GitHub",
+  "recordAudio": "Burn Image to Disc",
+  "reminders": "Recordatorios",
+  "resetPin": "Restablecer el PIN",
+  "security": "Seguridad",
+  "selectVoice": "Seleccionar voz",
+  "signInWithEmail": "Iniciar sesión con email",
+  "themeFontsAndLanguage": "Personalizar tema, fuentes e idioma",
+  "toolbarPosition": "~Bloquear posición de la barra de herramientas",
+  "wrongPIN": "PIN incorrecto"
 }

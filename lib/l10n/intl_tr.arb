@@ -128,5 +128,7 @@
   "reminders": "Hatırlatmalar",
   "themeFontsAndLanguage": "Temayı, Yazı Tiplerini ve Dili Özelleştir",
   "importAndExportNotes": "Notları İçe ve Dışa Aktar",
-  "exportToJSON": "Export to JSON"
+  "exportToJSON": "Export to JSON",
+  "selectVoice": "SeÃ§enekli. Buraya herhangi sunucu komut satÄ±r seÃ§enekleri girin. Mevcut seÃ§enekleri gÃ¶rmek iÃ§in, uÃ§birim iÃ§inde \"epos - h\" girin. \"- o\" kullanmayÄ±n.",
+  "toolbarPosition": "Araç Çubuğu Konumu"
 }

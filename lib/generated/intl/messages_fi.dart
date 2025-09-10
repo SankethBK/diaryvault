@@ -30,12 +30,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Oletko jo rekisteröitynyt?"),
         "appDescription": MessageLookupByLibrary.simpleMessage(
             "Tutustu diaryVaultiin – muistikirjasovellukseen, joka auttaa säilömään ajatukset, muistot ja hetket vaivattomasti. Saatavilla nyt Play Store -kaupasta!"),
+        "appLanguage":
+            MessageLookupByLibrary.simpleMessage("Sovelluksen kieli"),
         "appVersion":
             MessageLookupByLibrary.simpleMessage("Sovelluksen versio"),
         "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
             "Haluatko varmasti kirjautua ulos?"),
         "autoSync":
             MessageLookupByLibrary.simpleMessage("Automaattinen synkronointi"),
+        "automaticallySave": MessageLookupByLibrary.simpleMessage(
+            "Tallentaa muistiinpanosi automaattisesti 10 sekunnin välein"),
         "automaticallySyncNotesWithCloud": MessageLookupByLibrary.simpleMessage(
             "Synkronoi muistiinpanot pilvipalveluun automaattisesti"),
         "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
@@ -54,8 +58,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTime": MessageLookupByLibrary.simpleMessage("Valitse ajankohta"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("Suljetaanko sovellus?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage("Pilvivarmennus"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Vahvista uusi salasana"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("Vahvista uusi PIN-koodi"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("Jatka vieraskäyttäjänä"),
         "dailyReminders":
@@ -77,12 +84,21 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ota päivittäiset muistutukset käyttöön"),
         "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
             "Ota sormenjälkitunnistus käyttöön"),
+        "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+            "Ota PIN-KIRJAUTUMINEN KÄYTTÖÖN"),
         "enterCurrentPassword":
             MessageLookupByLibrary.simpleMessage("Anna nykyinen salasana"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("Anna uusi sähköpostiosoite"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Syötä PIN-koodisi"),
         "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage(
             "Anna rekisteröity sähköpostiosoite"),
+        "exportNotes":
+            MessageLookupByLibrary.simpleMessage("Vie muistiinpanosi"),
+        "exportToJSON": MessageLookupByLibrary.simpleMessage("Vie kohteeseen"),
+        "exportToPDF": MessageLookupByLibrary.simpleMessage("Vie PDF:ksi"),
+        "exportToPlainText":
+            MessageLookupByLibrary.simpleMessage("Vie pelkkään tekstiin"),
         "failedToFetchNote": MessageLookupByLibrary.simpleMessage(
             "Muistiinpanon haku ei onnistunut"),
         "failedToSaveNote": MessageLookupByLibrary.simpleMessage(
@@ -92,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Sormenjälkitunnistus on otettava käyttöön laitteen asetuksissa"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Sormenjälkitunnistus ei onnistunut"),
+        "fontFamily": MessageLookupByLibrary.simpleMessage("Fontti"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Unohtuiko salasana?"),
         "from": MessageLookupByLibrary.simpleMessage("Alku"),
@@ -99,17 +116,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Saat päivittäisen muistutuksen kirjoittaa muistikirjaan haluamanasi ajankohtana."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes":
+            MessageLookupByLibrary.simpleMessage("Tuo ja vie muistiinpanoja"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Salasana on väärä"),
         "language": MessageLookupByLibrary.simpleMessage("Finnish"),
         "lastSynced":
             MessageLookupByLibrary.simpleMessage("Viimeksi synkronoitu: "),
+        "leave": MessageLookupByLibrary.simpleMessage("Poistu"),
         "link": MessageLookupByLibrary.simpleMessage("Linkki"),
         "logIn": MessageLookupByLibrary.simpleMessage("Kirjaudu sisään"),
         "logOut": MessageLookupByLibrary.simpleMessage("Kirjaudu ulos"),
+        "logOut2": MessageLookupByLibrary.simpleMessage("Kirjaudu ulos"),
         "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
             "Ota automaattinen synkronointi käyttöön kirjautumalla sisään"),
+        "moreInfo": MessageLookupByLibrary.simpleMessage("Lisätietoja"),
         "newPassword": MessageLookupByLibrary.simpleMessage("Uusi salasana"),
+        "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
         "notAvailable":
             MessageLookupByLibrary.simpleMessage("Ei käytettävissä"),
         "noteSavedSuccessfully":
@@ -135,13 +158,34 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Salasana on vahvistettu"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Salasanat eivät täsmää"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("Valitse tiedostoista"),
+        "pinLoginFailed": MessageLookupByLibrary.simpleMessage(
+            "Sisäänkirjautuminen epäonnistui"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "Lukitusnäytöllä näytetään enintään 4-numeroinen PIN-KOODI"),
+        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+            "Anna nelinumeroinen PIN-koodi"),
+        "pinResetSuccessful":
+            MessageLookupByLibrary.simpleMessage("PIN-VAHVISTUKSEN TUNNE"),
+        "pinsDontMatch":
+            MessageLookupByLibrary.simpleMessage("PIN-koodit eivät täsmää"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Ominaisuus edellyttää, että tili on määritetty"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage(
             "sovelluksen tietosuojakäytännön"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("Projekti Githubissa"),
+        "recordAudio": MessageLookupByLibrary.simpleMessage("Nauhoita ääntä"),
+        "reminders": MessageLookupByLibrary.simpleMessage("Muistutukset"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Nollaa salasana"),
+        "resetPin": MessageLookupByLibrary.simpleMessage("Nollaa PIN-KOODI"),
+        "security": MessageLookupByLibrary.simpleMessage("Turvallisuus"),
+        "securitySettings":
+            MessageLookupByLibrary.simpleMessage("Suojausasetukset"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("Valitse ääni:"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Lähetä palautetta"),
         "settings": MessageLookupByLibrary.simpleMessage("Asetukset"),
@@ -150,18 +194,35 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends": MessageLookupByLibrary.simpleMessage(
             "Kerro sovelluksesta ystäville"),
         "signIn": MessageLookupByLibrary.simpleMessage("Rekisteröidy"),
+        "signInWithEmail": MessageLookupByLibrary.simpleMessage(
+            "Kirjaudu sisään sähköpostiosoitteella"),
         "signUp": MessageLookupByLibrary.simpleMessage("Rekisteröidy"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Kirjautuneena:"),
+        "sortByAtoZ":
+            MessageLookupByLibrary.simpleMessage("Lajitteluperuste: A-Z"),
+        "sortByLatestFirst": MessageLookupByLibrary.simpleMessage(
+            "Lajittele uusimman mukaan ensin"),
+        "sortByOldestFirst":
+            MessageLookupByLibrary.simpleMessage("Lajittele vanhin ensin"),
+        "stay": MessageLookupByLibrary.simpleMessage("Jää"),
         "submit": MessageLookupByLibrary.simpleMessage("Lähetä"),
         "syncNow": MessageLookupByLibrary.simpleMessage("Synkronoi nyt"),
+        "tagAlreadyExists":
+            MessageLookupByLibrary.simpleMessage("Tunniste on jo olemassa"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "Laajenna otsikko napauttamalla tätä"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "Muokkaa teemaa, fontteja ja kieltä"),
         "to": MessageLookupByLibrary.simpleMessage("Loppu"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Tunnistus epäonnistui liian monta kertaa. Anna salasana."),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("Työkalurivin sijainti"),
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "On ilmennyt odottamaton virhe"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV-URL-osoite"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("Väärä PIN-koodi"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Muutoksia ei ole tallennettu"),
         "youWillBeNotifiedAt": m0
