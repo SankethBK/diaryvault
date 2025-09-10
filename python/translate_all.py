@@ -21,30 +21,28 @@ class DiaryVaultTranslator:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
         })
         
-        # Language mappings for MyMemory API
-        self.language_map = {
-            'ar': 'ar',     # Arabic
-            'bn': 'bn',     # Bengali
-            'de': 'de',     # German
-            'es': 'es',     # Spanish
-            'fi': 'fi',     # Finnish
-            'fr': 'fr',     # French
-            'gu': 'gu',     # Gujarati
-            'he': 'he',     # Hebrew
-            'hi': 'hi',     # Hindi
-            'id': 'id',     # Indonesian
-            'kn': 'kn',     # Kannada
-            'ne': 'ne',     # Nepali
-            'pa': 'pa',     # Punjabi
-            'pl': 'pl',     # Polish
-            'pt': 'pt',     # Portuguese
-            'ru': 'ru',     # Russian
-            'sk': 'sk',     # Slovak
-            'sw': 'sw',     # Swahili
-            'te': 'te',     # Telugu
-            'tr': 'tr',     # Turkish
-            'zh': 'zh'      # Chinese
-        }
+        # Discover languages dynamically from files like intl_<code>.arb
+        self.language_map = self.discover_languages()
+        if not self.language_map:
+            print("Warning: No language files discovered. Ensure ARB files exist in lib/l10n.")
+    
+    def discover_languages(self) -> Dict[str, str]:
+        """Scan l10n directory for intl_*.arb files and build a language map dynamically."""
+        mapping: Dict[str, str] = {}
+        if not self.l10n_dir.exists():
+            return mapping
+        for f in self.l10n_dir.glob("intl_*.arb"):
+            name = f.stem  # e.g., intl_en
+            if not name.startswith("intl_"):
+                continue
+            code = name[len("intl_"):]
+            # Skip the English reference for target list, but keep file for reference
+            if code == "en":
+                continue
+            # Map code to itself for MyMemory default; special cases can be added here if needed
+            mapping[code] = code
+        # Also include languages that don't have a file yet (optional). We keep it to discovered ones only.
+        return mapping
     
     def load_arb_file(self, file_path: Path) -> Dict:
         """Load and parse an ARB file."""
@@ -161,10 +159,10 @@ class DiaryVaultTranslator:
             language_names = {
                 'ar': 'العربية', 'bn': 'বাংলা', 'de': 'Deutsch', 'es': 'Español',
                 'fi': 'Suomi', 'fr': 'Français', 'gu': 'ગુજરાતી', 'he': 'עברית',
-                'hi': 'हिन्दी', 'id': 'Bahasa Indonesia', 'kn': 'ಕನ್ನಡ', 'ne': 'नेपाली',
-                'pa': 'ਪੰਜਾਬੀ', 'pl': 'Polski', 'pt': 'Português', 'ru': 'Русский',
-                'sk': 'Slovenčina', 'sw': 'Kiswahili', 'te': 'తెలుగు', 'tr': 'Türkçe',
-                'zh': '中文'
+                'hi': 'हिन्दी', 'id': 'Bahasa Indonesia', 'ja': '日本語', 'ko': '한국어',
+                'kn': 'ಕನ್ನಡ', 'ne': 'नेपाली', 'pa': 'ਪੰਜਾਬੀ', 'pl': 'Polski', 'pt': 'Português',
+                'ru': 'Русский', 'sk': 'Slovenčina', 'sw': 'Kiswahili', 'te': 'తెలుగు',
+                'tr': 'Türkçe', 'zh': '中文'
             }
             existing_data['language'] = language_names.get(lang_code, lang_code.upper())
             existing_data['@language'] = {"description": "The current Language"}
@@ -189,20 +187,24 @@ class DiaryVaultTranslator:
         print("🌍 DiaryVault Translation Generator")
         print("=" * 50)
         
+        # Refresh discovered languages in case new files were added (e.g., ko)
+        self.language_map = self.discover_languages()
+        if languages:
+            # Keep only requested languages that are discovered, but allow new targets not yet discovered
+            requested = {lang: lang for lang in languages}
+            self.language_map.update(requested)
+        
         missing_by_lang = self.analyze_missing_keys()
         
         if not missing_by_lang:
             print("✅ All translations are complete!")
             return
         
-        # Filter languages if specified
-        if languages:
-            missing_by_lang = {k: v for k, v in missing_by_lang.items() if k in languages}
-        
         total_languages = len(missing_by_lang)
         total_keys = sum(len(keys) for keys in missing_by_lang.values())
         
         print(f"Found {total_keys} missing translations across {total_languages} languages")
+        print("Languages:", ", ".join(sorted(missing_by_lang.keys())))
         print()
         
         for i, (lang_code, missing_keys) in enumerate(missing_by_lang.items(), 1):
@@ -233,9 +235,11 @@ def main():
     translator = DiaryVaultTranslator()
     
     if args.dry_run:
+        # Refresh discovered languages and report
+        translator.language_map = translator.discover_languages()
         missing = translator.analyze_missing_keys()
         print("Missing translations by language:")
-        for lang, keys in missing.items():
+        for lang, keys in sorted(missing.items()):
             print(f"  {lang}: {len(keys)} keys")
     else:
         translator.generate_all_translations(args.languages)
