@@ -66,6 +66,9 @@ class _AuthPageState extends State<AuthPage> {
 
     final linkColor =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.linkColor;
+
+    final infoTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.infoTextColor;
     return WillPopScope(
       onWillPop: () async {
         bool res = await quitAppDialog(context);
@@ -135,7 +138,7 @@ class _AuthPageState extends State<AuthPage> {
                       child: IconButton(
                         icon: Icon(
                           Icons.arrow_back,
-                          color: Colors.white,
+                          color: infoTextColor,
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();

@@ -89,7 +89,7 @@ class MonochromePink {
           authFormGradientStartColor: Colors.pink.withOpacity(0.5),
           authFormGradientEndColor:
               const Color.fromARGB(255, 83, 51, 51).withOpacity(0.3),
-          infoTextColor: Colors.white.withOpacity(0.7),
+          infoTextColor: Colors.white.withOpacity(0.8),
         ),
         ChipThemeExtensions(
           backgroundColor: const Color.fromARGB(255, 248, 129, 194),
