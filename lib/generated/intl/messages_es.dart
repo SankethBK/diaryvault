@@ -58,8 +58,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTime": MessageLookupByLibrary.simpleMessage("Elige la hora"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("¿Cerrar la aplicación?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage(
+            "Copia de seguridad en la nube"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "Confirma la nueva contraseña"),
+        "confirmNewPin":
+            MessageLookupByLibrary.simpleMessage("Confirme su nuevo PIN"),
         "continueAsGues":
             MessageLookupByLibrary.simpleMessage("Continuar como invitado"),
         "dailyReminders":
@@ -80,10 +84,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Habilitar recordatorios diarios"),
         "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
             "Habilitar inicio de sesión con huella digital"),
+        "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+            "Habilitar inicio DE sesión con PIN"),
         "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
             "Introduce la contraseña actual"),
         "enterNewEmail": MessageLookupByLibrary.simpleMessage(
             "Introduce un nuevo correo electrónico"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Introduce tu PIN"),
         "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage(
             "Introduce correo electrónico registrado"),
         "exportNotes":
@@ -102,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La autenticación con huella digital debe estar habilitada en la configuración del dispositivo"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Falló el inicio de sesión con huella digital"),
+        "fontFamily": MessageLookupByLibrary.simpleMessage("Tipo de letra"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Olvidé mi contraseña"),
         "from": MessageLookupByLibrary.simpleMessage("Desde"),
@@ -109,6 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Recibe recordatorios diarios a la hora que elijas para mantener tu diario al día."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes":
+            MessageLookupByLibrary.simpleMessage("Importar y exportar notas"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Contraseña incorrecta"),
         "language": MessageLookupByLibrary.simpleMessage("Español"),
@@ -149,15 +159,34 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Contraseña verificada"),
         "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
             "Las contraseñas no coinciden"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("Elegir de archivos"),
+        "pinLoginFailed": MessageLookupByLibrary.simpleMessage("Login Failed"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "Se mostrará un PIN de hasta 4 dígitos en la pantalla de bloqueo"),
+        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+            "Introduzca un año en formato de 4 dígitos"),
+        "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
+            "Sensación DE confirmación de PIN"),
+        "pinsDontMatch": MessageLookupByLibrary.simpleMessage(
+            "Los números PIN no coinciden"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Por favor configura tu cuenta para usar esta función"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Política de privacidad"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("Proyecto en GitHub"),
+        "recordAudio":
+            MessageLookupByLibrary.simpleMessage("Burn Image to Disc"),
+        "reminders": MessageLookupByLibrary.simpleMessage("Recordatorios"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Restablecer contraseña"),
+        "resetPin": MessageLookupByLibrary.simpleMessage("Restablecer el PIN"),
+        "security": MessageLookupByLibrary.simpleMessage("Seguridad"),
         "securitySettings": MessageLookupByLibrary.simpleMessage(
             "Configuraciones de seguridad"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("Seleccionar voz"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Enviar comentarios"),
         "settings": MessageLookupByLibrary.simpleMessage("Configuraciones"),
@@ -166,6 +195,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("Compartir con amigos"),
         "signIn": MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
+        "signInWithEmail":
+            MessageLookupByLibrary.simpleMessage("Iniciar sesión con email"),
         "signUp": MessageLookupByLibrary.simpleMessage("Registrarse"),
         "signedInAs": MessageLookupByLibrary.simpleMessage("Ingresado como"),
         "sortByAtoZ":
@@ -181,13 +212,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("La etiqueta ya existe"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "Toca aquí para expandir el título"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "Personalizar tema, fuentes e idioma"),
         "to": MessageLookupByLibrary.simpleMessage("Hasta"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Demasiados intentos incorrectos, por favor inicia sesión con contraseña"),
+        "toolbarPosition": MessageLookupByLibrary.simpleMessage(
+            "~Bloquear posición de la barra de herramientas"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Ocurrió un error inesperado"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("URL de WebDAV"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN incorrecto"),
         "youHaveUnsavedChanges":
             MessageLookupByLibrary.simpleMessage("Tienes cambios sin guardar"),
         "youWillBeNotifiedAt": m0

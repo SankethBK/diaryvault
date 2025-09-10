@@ -59,8 +59,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choisissez l\'heure"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("Fermer l\'application ?"),
+        "cloudBackup":
+            MessageLookupByLibrary.simpleMessage("Sauvegarde dans le Cloud"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "Confirmer le nouveau mot de passe"),
+        "confirmNewPin": MessageLookupByLibrary.simpleMessage(
+            "Confirmez votre nouveau code PIN"),
         "continueAsGues": MessageLookupByLibrary.simpleMessage(
             "Continuer en tant qu\'invité"),
         "dailyReminders":
@@ -81,10 +85,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Activer les rappels quotidiens"),
         "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
             "Activer la connexion par empreinte digitale"),
+        "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+            "Activer la connexion PAR CODE PIN"),
         "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
             "Entrer le mot de passe actuel"),
         "enterNewEmail":
             MessageLookupByLibrary.simpleMessage("Entrez un nouvel e-mail"),
+        "enterPin":
+            MessageLookupByLibrary.simpleMessage("Saisissez votre code"),
         "enterRegisteredEmail":
             MessageLookupByLibrary.simpleMessage("Entrez l\'e-mail enregistré"),
         "exportNotes":
@@ -103,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "L\'authentification par empreinte digitale doit être activée dans les paramètres de l\'appareil"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "La connexion par empreinte digitale a échoué"),
+        "fontFamily":
+            MessageLookupByLibrary.simpleMessage("Famille de Polices"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Mot de passe oublié"),
         "from": MessageLookupByLibrary.simpleMessage("Depuis"),
@@ -110,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Recevez des rappels quotidiens à l\'heure que vous avez choisie pour garder votre journal à jour."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
+            "Importer et exporter des notes"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Mot de passe incorrect"),
         "language": MessageLookupByLibrary.simpleMessage("French"),
@@ -152,15 +164,37 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mot de passe vérifié"),
         "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
             "Les mots de passe ne correspondent pas"),
+        "pickFromFileManager":
+            MessageLookupByLibrary.simpleMessage("Choisir dans les fichiers"),
+        "pinLoginFailed":
+            MessageLookupByLibrary.simpleMessage("La connexion a échoué"),
+        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+            "Un code PIN allant jusqu\'à 4 chiffres sera demandé sur l\'écran de verrouillage"),
+        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+            "Veuillez entrer une année au format de 4 chiffres"),
+        "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
+            "Sensation DE confirmation du NIP"),
+        "pinsDontMatch": MessageLookupByLibrary.simpleMessage(
+            "Les PIN ne correspondent pas."),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage(
                 "Veuillez configurer votre compte pour utiliser cette fonctionnalité"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage(
             "politique de confidentialité"),
+        "projectOnGithub":
+            MessageLookupByLibrary.simpleMessage("Projet sur Github"),
+        "recordAudio":
+            MessageLookupByLibrary.simpleMessage("Enregistrer l’audio"),
+        "reminders": MessageLookupByLibrary.simpleMessage("Rappels"),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Réinitialiser le mot de passe"),
+        "resetPin":
+            MessageLookupByLibrary.simpleMessage("Réinitialiser le NIP"),
+        "security": MessageLookupByLibrary.simpleMessage("Sécurité"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Les paramètres de sécurité"),
+        "selectVoice":
+            MessageLookupByLibrary.simpleMessage("Sélectionnez la voix"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Envoyer des commentaires"),
         "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
@@ -169,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareWithFriends":
             MessageLookupByLibrary.simpleMessage("Partager avec des amis"),
         "signIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
+        "signInWithEmail": MessageLookupByLibrary.simpleMessage(
+            "Connectez-vous avec une adresse électronique"),
         "signUp": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
         "signedInAs":
             MessageLookupByLibrary.simpleMessage("Connecté en tant que"),
@@ -186,13 +222,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("La balise existe déjà"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "Appuyez ici pour développer le titre"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "Personnaliser le thème, les polices et la langue"),
         "to": MessageLookupByLibrary.simpleMessage("À"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Trop de mauvaises tentatives, veuillez vous connecter avec votre mot de passe"),
+        "toolbarPosition": MessageLookupByLibrary.simpleMessage(
+            "Position de la barre d\'outils"),
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Une erreur inattendue s\'est produite"),
         "video": MessageLookupByLibrary.simpleMessage("Vidéo"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("URL WebDAV"),
+        "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN incorrect"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
             "Vous avez des changements non enregistrés"),
         "youWillBeNotifiedAt": m0

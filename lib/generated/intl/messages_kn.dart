@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTime": MessageLookupByLibrary.simpleMessage("ಸಮಯವನ್ನು ಆರಿಸಿ"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("ಅಪ್ಲಿಕೇಶನ್ ಮುಚ್ಚುವುದೇ?"),
+        "cloudBackup": MessageLookupByLibrary.simpleMessage("ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("ಹೊಸ ಗುಪ್ತಪದವನ್ನು ಖಚಿತಪಡಿಸಿ"),
         "confirmNewPin": MessageLookupByLibrary.simpleMessage(
@@ -111,6 +112,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "ನಿಮ್ಮ ಜರ್ನಲ್ ಅನ್ನು ನವೀಕೃತವಾಗಿರಿಸಲು ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಸಮಯದಲ್ಲಿ ದೈನಂದಿನ ಜ್ಞಾಪನೆಗಳನ್ನು ಪಡೆಯಿರಿ"),
         "googleDrive": MessageLookupByLibrary.simpleMessage("ಗೂಗಲ್ ಡ್ರೈವ್"),
+        "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
+            "ಟಿಪ್ಪಣಿಗಳನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ ಮತ್ತು ರಫ್ತು ಮಾಡಿ"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("ತಪ್ಪಾದ ಪಾಸ್ವರ್ಡ್"),
         "language": MessageLookupByLibrary.simpleMessage("Kannada"),
@@ -169,11 +172,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "projectOnGithub":
             MessageLookupByLibrary.simpleMessage("ಗಿಥಬ್‌ನಲ್ಲಿ ಪ್ರಾಜೆಕ್ಟ್"),
         "recordAudio": MessageLookupByLibrary.simpleMessage("ರೆಕಾರ್ಡ್ ಆಡಿಯೋ"),
+        "reminders": MessageLookupByLibrary.simpleMessage("ಜ್ಞಾಪನೆ"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸಿ"),
         "resetPin": MessageLookupByLibrary.simpleMessage("ಪಿನ್ ಮರುಹೊಂದಿಸಿ"),
+        "security": MessageLookupByLibrary.simpleMessage("ಭದ್ರತೆ"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("ಭದ್ರತಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("ಧ್ವನಿ ಆಯ್ಕೆಮಾಡಿ"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ"),
         "settings": MessageLookupByLibrary.simpleMessage("ಸಂಯೋಜನೆಗಳು"),
@@ -200,9 +206,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "ಟ್ಯಾಗ್ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "ಶೀರ್ಷಿಕೆಯನ್ನು ವಿಸ್ತರಿಸಲು ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "ಥೀಮ್, ಫಾಂಟ್‌ಗಳು ಮತ್ತು ಭಾಷೆಯನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಿ"),
         "to": MessageLookupByLibrary.simpleMessage("ಗೆ"),
         "tooManyWrongAttempts":
             MessageLookupByLibrary.simpleMessage("ತುಂಬಾ ತಪ್ಪು ಪ್ರಯತ್ನಗಳು"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("ಉಪಕರಣಪಟ್ಟಿಯ ಸ್ಥಾನ"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("ಅನಿರೀಕ್ಷಿತ ದೋಷ ಸಂಭವಿಸಿದೆ"),
         "video": MessageLookupByLibrary.simpleMessage("ವೀಡಿಯೊ"),

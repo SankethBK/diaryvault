@@ -182,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "security": MessageLookupByLibrary.simpleMessage("Güvenlik"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Güvenlik Ayarları"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage(
+            "SeÃ§enekli. Buraya herhangi sunucu komut satÄ±r seÃ§enekleri girin. Mevcut seÃ§enekleri gÃ¶rmek iÃ§in, uÃ§birim iÃ§inde \"epos - h\" girin. \"- o\" kullanmayÄ±n."),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Geri bildirim gönder"),
         "settings": MessageLookupByLibrary.simpleMessage("Ayarlar"),
@@ -213,6 +215,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("Bitiş"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Çok fazla hatalı deneme, lütfen şifre ile giriş yapın"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("Araç Çubuğu Konumu"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Beklenmeyen bir hata oluştu"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),

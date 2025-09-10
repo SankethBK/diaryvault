@@ -179,6 +179,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "security": MessageLookupByLibrary.simpleMessage("सुरक्षा"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("सुरक्षा सेटिङहरू"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage(
+            "à¤¬à¥à¤²à¤¾à¤¯à¤¤à¥ à¤ªà¥à¤°à¥à¤·FestivalVoiceName"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("प्रतिक्रिया पठाउनुहोस्"),
         "settings": MessageLookupByLibrary.simpleMessage("सेटिङहरू"),
@@ -210,6 +212,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("सम्म"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "धेरै गलत प्रयासहरू, कृपया पासवर्डको साथ लगइन गर्नुहोस्"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("उपकरणपट्टी स्थिति"),
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("अनपेक्षित त्रुटि भयो"),
         "video": MessageLookupByLibrary.simpleMessage("भिडियो"),
