@@ -117,7 +117,7 @@ class PlainLight {
           notePreviewUnselectedGradientStartColor: Colors.white,
           notePreviewUnselectedGradientEndColor: Colors.grey[50]!,
           notePreviewSelectedGradientStartColor: Colors.blue[50]!,
-          notePreviewSelectedGradientEndColor: Colors.blue[100]!,
+          notePreviewSelectedGradientEndColor: Colors.blue[50]!,
           checkBoxSelectedColor: Colors.blue[300]!,
         ),
         NoteCreatePageThemeExtensions(
