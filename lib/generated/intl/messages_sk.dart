@@ -53,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTime": MessageLookupByLibrary.simpleMessage("Vybrať čas"),
         "closeTheApp":
             MessageLookupByLibrary.simpleMessage("Zavrieť aplikáciu?"),
+        "cloudBackup":
+            MessageLookupByLibrary.simpleMessage("Zálohovanie do cloudu"),
         "confirmNewPassword":
             MessageLookupByLibrary.simpleMessage("Potvrdiť nové heslo"),
         "confirmNewPin":
@@ -111,6 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "getDailyReminders": MessageLookupByLibrary.simpleMessage(
             "Nastaviť denné upozornenia vo zvolenom čase, aby bol denník aktuálny."),
         "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
+        "importAndExportNotes":
+            MessageLookupByLibrary.simpleMessage("Import a export poznámok"),
         "incorrectPassword":
             MessageLookupByLibrary.simpleMessage("Nesprávne heslo"),
         "language": MessageLookupByLibrary.simpleMessage("Slovenčina"),
@@ -172,11 +176,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "projectOnGithub":
             MessageLookupByLibrary.simpleMessage("Projekt na Githube"),
         "recordAudio": MessageLookupByLibrary.simpleMessage("Záznam zvuku"),
+        "reminders": MessageLookupByLibrary.simpleMessage("Pripomenutie:"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Resetovať heslo"),
         "resetPin": MessageLookupByLibrary.simpleMessage("Resetovať PIN kód"),
+        "security": MessageLookupByLibrary.simpleMessage("Bezpečnosť"),
         "securitySettings":
             MessageLookupByLibrary.simpleMessage("Bezpečnostné nastavenia"),
+        "selectVoice": MessageLookupByLibrary.simpleMessage("Zvolte hlas:"),
         "sendFeedback":
             MessageLookupByLibrary.simpleMessage("Poslať spätnú väzbu"),
         "settings": MessageLookupByLibrary.simpleMessage("Nastavenia"),
@@ -201,9 +208,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Označenie už existuje"),
         "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
             "Ťuknutím sem rozviniete titul"),
+        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+            "Prispôsobiť tému, písma a jazyk"),
         "to": MessageLookupByLibrary.simpleMessage("Do"),
         "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
             "Príliš veľa nesprávnych pokusov, prihláste sa pomocou hesla"),
+        "toolbarPosition":
+            MessageLookupByLibrary.simpleMessage("Pozícia panela s nástrojmi"),
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Vyskytla sa neočakávaná chyba"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
