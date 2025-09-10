@@ -128,5 +128,7 @@
   "reminders": "Przypomnienia",
   "themeFontsAndLanguage": "Personalizuj motyw, czcionki i język",
   "importAndExportNotes": "Importuj i Eksportuj notatki",
-  "exportToJSON": "Export to JSON"
+  "exportToJSON": "Export to JSON",
+  "selectVoice": "Wybierz głos",
+  "toolbarPosition": "Pozycja paska narzędzi"
 }

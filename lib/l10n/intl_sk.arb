@@ -123,5 +123,12 @@
   "projectOnGithub": "Projekt na Githube",
   "recordAudio": "Záznam zvuku",
   "pickFromFileManager": "Vybrať zo súborov",
-  "exportToJSON": "Export to JSON"
+  "exportToJSON": "Export to JSON",
+  "cloudBackup": "Zálohovanie do cloudu",
+  "importAndExportNotes": "Import a export poznámok",
+  "reminders": "Pripomenutie:",
+  "security": "Bezpečnosť",
+  "selectVoice": "Zvolte hlas:",
+  "themeFontsAndLanguage": "Prispôsobiť tému, písma a jazyk",
+  "toolbarPosition": "Pozícia panela s nástrojmi"
 }

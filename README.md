@@ -58,6 +58,27 @@ Through my own experiences and by reading what others have shared in their revie
 7. Daily reminder notifications to stay on track with writing
 8. Multiple Themes and languages
 
+## 🌍 Translations
+
+DiaryVault supports **22 languages** with automated translation management:
+
+- **Complete Coverage**: Arabic, Bengali, German, Spanish, Finnish, French, Gujarati, Hebrew, Hindi, Indonesian, Kannada, Nepali, Punjabi, Polish, Portuguese, Russian, Slovak, Swahili, Telugu, Turkish, Chinese
+- **Automated System**: Missing translations are automatically generated using AI translation services
+- **Community Contributions**: Native speakers welcome to review and improve translations
+
+### For Contributors: Adding/Updating Translations
+
+We have an automated translation system that makes contributing translations easy:
+
+```bash
+cd python
+./setup.sh
+source venv/bin/activate
+python translate_all.py --dry-run  # Check what's missing
+python translate_all.py            # Generate all missing translations
+```
+
+For detailed instructions, see [`python/README.md`](python/README.md).
 
 ### Features Planned for Future Releases
 
