@@ -130,5 +130,9 @@
   "themeFontsAndLanguage": "Sesuaikan Tema, Font, dan Bahasa",
   "toolbarPosition": "Posisi Bilah Alat",
   "webdavURL": "URL WebDAV",
-  "wrongPIN": "PIN SALAH"
+  "wrongPIN": "PIN SALAH",
+  "acceptRisk": "Saya menerima risiko untuk melanjutkan",
+  "fingerprintWarningMessage": "Anda akan mengaktifkan sidik jari tanpa membuat akun, jika ada kerusakan perangkat keras pada sensor sidik jari, Anda akan dikunci dari aplikasi. Jika ini tidak disengaja, silakan atur akun Anda dari opsi pertama di menu pengaturan, jika ini disengaja, pastikan untuk mengaktifkan pencadangan cloud untuk catatan Anda",
+  "pinWarningMessage": "Anda akan mengaktifkan kunci PIN tanpa membuat akun, jika Anda lupa PIN Anda, Anda akan dikunci dari aplikasi. Jika ini tidak disengaja, silakan atur akun Anda dari opsi pertama di menu pengaturan, jika ini disengaja, pastikan untuk mengaktifkan pencadangan cloud untuk catatan Anda",
+  "warning": "Peringatan"
 }

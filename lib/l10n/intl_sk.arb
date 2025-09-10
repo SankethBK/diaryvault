@@ -130,5 +130,9 @@
   "security": "Bezpečnosť",
   "selectVoice": "Zvolte hlas:",
   "themeFontsAndLanguage": "Prispôsobiť tému, písma a jazyk",
-  "toolbarPosition": "Pozícia panela s nástrojmi"
+  "toolbarPosition": "Pozícia panela s nástrojmi",
+  "acceptRisk": "Prijímam riziko pokračovať",
+  "fingerprintWarningMessage": "Chystáte sa povoliť odtlačok prsta bez vytvorenia účtu. Ak dôjde k poškodeniu hardvéru snímača odtlačkov prstov, aplikácia vás zablokuje. Ak to nie je úmyselné, nastavte svoj účet z prvej možnosti v ponuke nastavení. Ak je to úmyselné, nezabudnite povoliť zálohovanie poznámok do cloudu.",
+  "pinWarningMessage": "Chystáte sa povoliť uzamknutie PIN bez vytvorenia účtu. Ak zabudnete svoj PIN, budete z aplikácie vylúčení. Ak to nie je úmyselné, nastavte svoj účet z prvej možnosti v ponuke nastavení. Ak je to úmyselné, nezabudnite povoliť zálohovanie poznámok do cloudu.",
+  "warning": "Upozornenie"
 }

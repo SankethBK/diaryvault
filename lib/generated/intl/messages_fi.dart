@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk":
+            MessageLookupByLibrary.simpleMessage("Hyväksyn riskin jatkaakseni"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("Tilin määritys onnistui"),
         "alreadyHaveAnAccount":
@@ -108,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Sormenjälkitunnistus on otettava käyttöön laitteen asetuksissa"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Sormenjälkitunnistus ei onnistunut"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Olet ottamassa sormenjäljen käyttöön luomatta tiliä. Jos sormenjälkitunnistimessa on laitteistovaurioita, sinut lukitaan ulos sovelluksesta. Jos tämä ei ole tarkoituksellista, määritä tilisi asetusvalikon ensimmäisestä vaihtoehdosta. Jos tämä on tarkoituksellista, varmista, että otat pilvivarmuuskopion käyttöön muistiinpanoillesi"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Fontti"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Unohtuiko salasana?"),
@@ -168,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Anna nelinumeroinen PIN-koodi"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("PIN-VAHVISTUKSEN TUNNE"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Olet ottamassa käyttöön PIN-KOODIN lukituksen luomatta tiliä. Jos unohdat PIN-KOODISI, sinut lukitaan pois sovelluksesta. Jos tämä ei ole tarkoituksellista, määritä tilisi asetusvalikon ensimmäisestä vaihtoehdosta. Jos tämä on tarkoituksellista, varmista, että otat pilvivarmuuskopion käyttöön muistiinpanoillesi"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("PIN-koodit eivät täsmää"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -221,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "On ilmennyt odottamaton virhe"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("Varoitus"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV-URL-osoite"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Väärä PIN-koodi"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

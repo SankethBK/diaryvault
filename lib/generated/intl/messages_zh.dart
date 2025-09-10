@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage("我接受风险以继续"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("账户创建成功"),
         "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage("已有帐户？"),
@@ -81,6 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请先在系统设置中开启指纹解锁"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("指纹登陆失败"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "您即将在不创建帐户的情况下启用指纹，如果指纹传感器有任何硬件损坏，您将被锁定在应用程序之外。如果这不是故意的，请从设置菜单中的第一个选项设置您的帐户，如果这是有意的，请确保为您的笔记启用云备份"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("字体"),
         "forgotPassword": MessageLookupByLibrary.simpleMessage("忘记密码"),
         "from": MessageLookupByLibrary.simpleMessage("从"),
@@ -127,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("锁定屏幕上将提示最多4位数的PIN码"),
         "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage("请输入4到8位的PIN。"),
         "pinResetSuccessful": MessageLookupByLibrary.simpleMessage("PIN码确认感觉"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "您即将在不创建帐户的情况下启用PIN码锁定，如果您忘记了PIN码，您将被锁定在应用程序之外。如果这不是故意的，请从设置菜单中的第一个选项设置您的帐户，如果这是有意的，请确保为您的笔记启用云备份"),
         "pinsDontMatch": MessageLookupByLibrary.simpleMessage("PIN码不匹配"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage("请创建账户以使用此功能"),
@@ -163,6 +168,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "toolbarPosition": MessageLookupByLibrary.simpleMessage("工具栏菜单位置"),
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage("未知错误"),
         "video": MessageLookupByLibrary.simpleMessage("录像"),
+        "warning": MessageLookupByLibrary.simpleMessage("警告"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("错误的PIN码"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage("修改未保存"),

@@ -130,5 +130,9 @@
   "signInWithEmail": "Anmelden mit E-Mail",
   "themeFontsAndLanguage": "Theme, Schriftarten und Sprache anpassen",
   "toolbarPosition": "Mini Toolbar Position",
-  "wrongPIN": "Falsche PIN"
+  "wrongPIN": "Falsche PIN",
+  "acceptRisk": "Ich akzeptiere das Risiko, fortzufahren",
+  "fingerprintWarningMessage": "Sie sind dabei, den Fingerabdruck zu aktivieren, ohne ein Konto zu erstellen. Wenn es einen Hardware-Schaden am Fingerabdrucksensor gibt, werden Sie aus der App ausgeschlossen. Wenn dies nicht beabsichtigt ist, richten Sie bitte Ihr Konto von der ersten Option im Einstellungsmenü aus ein. Wenn dies beabsichtigt ist, stellen Sie bitte sicher, dass Sie das Cloud-Backup für Ihre Notizen aktivieren",
+  "pinWarningMessage": "Sie sind dabei, die PIN-Sperre zu aktivieren, ohne ein Konto zu erstellen. Wenn Sie Ihre PIN vergessen, werden Sie aus der App ausgeschlossen. Wenn dies nicht beabsichtigt ist, richten Sie bitte Ihr Konto von der ersten Option im Einstellungsmenü aus ein. Wenn dies beabsichtigt ist, stellen Sie bitte sicher, dass Sie das Cloud-Backup für Ihre Notizen aktivieren",
+  "warning": "Warnung"
 }

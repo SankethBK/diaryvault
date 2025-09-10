@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "আমি চালিয়ে যাওয়ার ঝুঁকি গ্রহণ করি"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("Account setup successful"),
         "alreadyHaveAnAccount":
@@ -102,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Fingerprint auth should be enabled in device settings"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("Fingerprint login failed"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "আপনি অ্যাকাউন্ট তৈরি না করেই ফিঙ্গারপ্রিন্ট সক্ষম করতে চলেছেন, যদি ফিঙ্গারপ্রিন্ট সেন্সরের কোনও হার্ডওয়্যার ক্ষতিগ্রস্থ হয় তবে আপনাকে অ্যাপ থেকে লক করা হবে । যদি এটি ইচ্ছাকৃত না হয়, অনুগ্রহ করে সেটিংস মেনুতে প্রথম বিকল্প থেকে আপনার অ্যাকাউন্ট সেটআপ করুন, যদি এটি ইচ্ছাকৃত হয়, তাহলে অনুগ্রহ করে আপনার নোটের জন্য ক্লাউড ব্যাকআপ সক্ষম করুন"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Font Family"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
@@ -160,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter a 4-digit PIN"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("PIN confirmation feeling"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "আপনি অ্যাকাউন্ট তৈরি না করেই পিন লক সক্ষম করতে চলেছেন, আপনি যদি আপনার পিন ভুলে যান তবে আপনাকে অ্যাপ থেকে লক করা হবে । যদি এটি ইচ্ছাকৃত না হয়, অনুগ্রহ করে সেটিংস মেনুতে প্রথম বিকল্প থেকে আপনার অ্যাকাউন্ট সেটআপ করুন, যদি এটি ইচ্ছাকৃত হয়, তাহলে অনুগ্রহ করে আপনার নোটের জন্য ক্লাউড ব্যাকআপ সক্ষম করুন"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("PINs don\'t match"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -210,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("সতর্কীকরণ "),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
         "youHaveUnsavedChanges":

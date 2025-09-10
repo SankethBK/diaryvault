@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "ਮੈਂ ਜਾਰੀ ਰੱਖਣ ਦੇ ਜੋਖਮ ਨੂੰ ਸਵੀਕਾਰ ਕਰਦਾ ਹਾਂ"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("ਖਾਤਾ ਸੈੱਟਅੱਪ ਸਫਲ ਰਿਹਾ"),
         "alreadyHaveAnAccount":
@@ -104,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "ਡਿਵਾਈਸ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਫਿੰਗਰਪ੍ਰਿੰਟ ਪ੍ਰਮਾਣੀਕਰਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਇਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("ਫਿੰਗਰਪ੍ਰਿੰਟ ਲਾਗਇਨ ਅਸਫਲ ਰਿਹਾ"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "ਤੁਸੀਂ ਖਾਤਾ ਬਣਾਏ ਬਿਨਾਂ ਫਿੰਗਰਪ੍ਰਿੰਟ ਨੂੰ ਸਮਰੱਥ ਕਰਨ ਜਾ ਰਹੇ ਹੋ, ਜੇ ਫਿੰਗਰਪ੍ਰਿੰਟ ਸੈਂਸਰ ਨੂੰ ਕੋਈ ਹਾਰਡਵੇਅਰ ਨੁਕਸਾਨ ਹੋਇਆ ਹੈ ਤਾਂ ਤੁਹਾਨੂੰ ਐਪ ਤੋਂ ਬਾਹਰ ਲੌਕ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ. ਜੇ ਇਹ ਜਾਣਬੁੱਝ ਕੇ ਨਹੀਂ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸੈਟਿੰਗਜ਼ ਮੀਨੂ ਵਿੱਚ ਪਹਿਲੇ ਵਿਕਲਪ ਤੋਂ ਆਪਣਾ ਖਾਤਾ ਸੈਟਅਪ ਕਰੋ, ਜੇ ਇਹ ਜਾਣ ਬੁੱਝ ਕੇ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਨੋਟਾਂ ਲਈ ਕਲਾਉਡ ਬੈਕਅੱਪ ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਣਾ ਨਿਸ਼ਚਤ ਕਰੋ"),
         "fontFamily": MessageLookupByLibrary.simpleMessage(
             "à¨¸à¨²à¨¾à¨à¨¡ à¨ªà¨¿à©±à¨ à¨­à©à¨®à©"),
         "forgotPassword":
@@ -163,6 +167,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ 4-ਅੰਕਾਂ ਦਾ ਪਿੰਨ ਦਰਜ ਕਰੋ"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("ਪਿੰਨ ਪੁਸ਼ਟੀ ਭਾਵਨਾ"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "ਤੁਸੀਂ ਖਾਤਾ ਬਣਾਏ ਬਿਨਾਂ ਪਿੰਨ ਲਾਕ ਨੂੰ ਸਮਰੱਥ ਕਰਨ ਜਾ ਰਹੇ ਹੋ, ਜੇ ਤੁਸੀਂ ਆਪਣਾ ਪਿੰਨ ਭੁੱਲ ਜਾਂਦੇ ਹੋ ਤਾਂ ਤੁਹਾਨੂੰ ਐਪ ਤੋਂ ਬਾਹਰ ਲੌਕ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ । ਜੇ ਇਹ ਜਾਣਬੁੱਝ ਕੇ ਨਹੀਂ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸੈਟਿੰਗਜ਼ ਮੀਨੂ ਵਿੱਚ ਪਹਿਲੇ ਵਿਕਲਪ ਤੋਂ ਆਪਣਾ ਖਾਤਾ ਸੈਟਅਪ ਕਰੋ, ਜੇ ਇਹ ਜਾਣ ਬੁੱਝ ਕੇ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਨੋਟਾਂ ਲਈ ਕਲਾਉਡ ਬੈਕਅੱਪ ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਣਾ ਨਿਸ਼ਚਤ ਕਰੋ"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("ਪਿੰਨ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -213,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("ਅਚਾਨਕ ਗਲਤੀ ਆਈ ਹੈ"),
         "video": MessageLookupByLibrary.simpleMessage("ਵੀਡੀਓ"),
+        "warning": MessageLookupByLibrary.simpleMessage("ਚੇਤਾਵਨੀ"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("ਗਲਤ ਪਿੰਨ"),
         "youHaveUnsavedChanges":

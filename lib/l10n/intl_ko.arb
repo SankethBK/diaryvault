@@ -130,5 +130,9 @@
   "importAndExportNotes": "노트 가져오기 및 내보내기",
   "selectVoice": "음성 선택",
   "toolbarPosition": "툴바 위치",
-  "exportToJSON": "JSON으로 내보내기"
+  "exportToJSON": "JSON으로 내보내기",
+  "acceptRisk": "계속 진행할 수 있는 위험에 동의합니다.",
+  "fingerprintWarningMessage": "계정을 만들지 않고 지문을 활성화하려고 합니다. 지문 센서에 하드웨어 손상이 있으면 앱에서 잠깁니다. 의도하지 않은 경우 설정 메뉴의 첫 번째 옵션에서 계정을 설정하십시오. 의도적인 경우 메모에 대해 클라우드 백업을 사용하도록 설정하십시오.",
+  "pinWarningMessage": "계정을 만들지 않고 PIN 잠금을 활성화하려고 합니다. PIN을 잊어버리면 앱에서 잠깁니다. 의도하지 않은 경우 설정 메뉴의 첫 번째 옵션에서 계정을 설정하십시오. 의도적인 경우 메모에 대해 클라우드 백업을 사용하도록 설정하십시오.",
+  "warning": "경고"
 }

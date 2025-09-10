@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "Ninakubali hatari ya kuendelea"),
         "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
             "Kuanzisha akaunti kumefanikiwa"),
         "alreadyHaveAnAccount":
@@ -108,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Uthibitisho wa alama za vidole unapaswa kuwezeshwa katika mipangilio ya kifaa"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Kuingia kwa alama za vidole kushindikana"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Unakaribia kuwezesha alama za vidole bila kufungua akaunti, ikiwa kuna uharibifu wowote wa vifaa kwenye sensa ya alama za vidole utafungiwa nje ya programu. Ikiwa hii si kwa makusudi, tafadhali weka mipangilio ya akaunti yako kutoka kwenye chaguo la kwanza katika menyu ya mipangilio, ikiwa hii ni kwa makusudi, tafadhali hakikisha umewezesha chelezo ya wingu kwa madokezo yako"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Familia ya Fonti"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Umesahau Nenosiri"),
@@ -168,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tafadhali weka PIN yenye tarakimu 4"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("Hisia ya uthibitisho wa PIN"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Unakaribia kuwasha PIN lock bila kufungua akaunti, ukisahau PIN yako utafungiwa nje ya programu. Ikiwa hii si kwa makusudi, tafadhali weka mipangilio ya akaunti yako kutoka kwenye chaguo la kwanza katika menyu ya mipangilio, ikiwa hii ni kwa makusudi, tafadhali hakikisha umewezesha chelezo ya wingu kwa madokezo yako"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("PIN hazilingani"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -219,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Hitilafu isiyotarajiwa ilitokea"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("Tahadhari"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("URL ya WebDAV"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN isiyo sahihi"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

@@ -130,5 +130,9 @@
   "signInWithEmail": "Connectez-vous avec une adresse électronique",
   "themeFontsAndLanguage": "Personnaliser le thème, les polices et la langue",
   "toolbarPosition": "Position de la barre d'outils",
-  "wrongPIN": "PIN incorrect"
+  "wrongPIN": "PIN incorrect",
+  "acceptRisk": "J'accepte le risque de continuer",
+  "fingerprintWarningMessage": "Vous êtes sur le point d'activer les empreintes digitales sans créer de compte, s'il y a des dommages matériels au capteur d'empreintes digitales, vous serez verrouillé hors de l'application. Si ce n'est pas intentionnel, veuillez configurer votre compte à partir de la première option dans le menu des paramètres, si c'est intentionnel, assurez-vous d'activer la sauvegarde dans le cloud pour vos notes",
+  "pinWarningMessage": "Vous êtes sur le point d'activer le verrouillage du CODE PIN sans créer de compte. Si vous oubliez votre CODE PIN, vous serez verrouillé hors de l'application. Si ce n'est pas intentionnel, veuillez configurer votre compte à partir de la première option dans le menu des paramètres, si c'est intentionnel, assurez-vous d'activer la sauvegarde dans le cloud pour vos notes",
+  "warning": "Avertissement"
 }

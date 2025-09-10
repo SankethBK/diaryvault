@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk":
+            MessageLookupByLibrary.simpleMessage("계속 진행할 수 있는 위험에 동의합니다."),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("계정 설정이 완료되었습니다"),
         "alreadyHaveAnAccount":
@@ -90,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("지문 인증은 기기 설정에서 활성화되어야 합니다"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("지문 로그인 실패"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "계정을 만들지 않고 지문을 활성화하려고 합니다. 지문 센서에 하드웨어 손상이 있으면 앱에서 잠깁니다. 의도하지 않은 경우 설정 메뉴의 첫 번째 옵션에서 계정을 설정하십시오. 의도적인 경우 메모에 대해 클라우드 백업을 사용하도록 설정하십시오."),
         "fontFamily": MessageLookupByLibrary.simpleMessage("글꼴"),
         "forgotPassword": MessageLookupByLibrary.simpleMessage("비밀번호 찾기"),
         "from": MessageLookupByLibrary.simpleMessage("시작일"),
@@ -143,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("4자리 PIN을 입력하세요"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("PIN이 성공적으로 재설정되었습니다"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "계정을 만들지 않고 PIN 잠금을 활성화하려고 합니다. PIN을 잊어버리면 앱에서 잠깁니다. 의도하지 않은 경우 설정 메뉴의 첫 번째 옵션에서 계정을 설정하십시오. 의도적인 경우 메모에 대해 클라우드 백업을 사용하도록 설정하십시오."),
         "pinsDontMatch": MessageLookupByLibrary.simpleMessage("PIN이 일치하지 않습니다"),
         "pleaseSetupYourAccountToUseThisFeature":
             MessageLookupByLibrary.simpleMessage("이 기능을 사용하려면 계정을 설정하세요"),
@@ -183,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("예기치 않은 오류 발생"),
         "video": MessageLookupByLibrary.simpleMessage("비디오"),
+        "warning": MessageLookupByLibrary.simpleMessage("경고"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("잘못된 PIN입니다"),
         "youHaveUnsavedChanges":

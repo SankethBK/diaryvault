@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "Saya menerima risiko untuk melanjutkan"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("Penyiapan akun berhasil"),
         "alreadyHaveAnAccount":
@@ -101,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Otentikasi sidik jari harus diaktifkan di pengaturan perangkat"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("Login sidik jari gagal"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Anda akan mengaktifkan sidik jari tanpa membuat akun, jika ada kerusakan perangkat keras pada sensor sidik jari, Anda akan dikunci dari aplikasi. Jika ini tidak disengaja, silakan atur akun Anda dari opsi pertama di menu pengaturan, jika ini disengaja, pastikan untuk mengaktifkan pencadangan cloud untuk catatan Anda"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Font Keluarga"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Lupa Kata Sandi"),
@@ -160,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Masukkan PIN 4 digit baru"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("Perasaan konfirmasi PIN"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Anda akan mengaktifkan kunci PIN tanpa membuat akun, jika Anda lupa PIN Anda, Anda akan dikunci dari aplikasi. Jika ini tidak disengaja, silakan atur akun Anda dari opsi pertama di menu pengaturan, jika ini disengaja, pastikan untuk mengaktifkan pencadangan cloud untuk catatan Anda"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("PIN tidak cocok"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -208,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Terjadi kesalahan tak terduga"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("Peringatan"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("URL WebDAV"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN SALAH"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

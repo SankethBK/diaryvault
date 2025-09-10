@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "Acepto el riesgo de continuar"),
         "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
             "Configuración de la cuenta exitosa"),
         "alreadyHaveAnAccount":
@@ -109,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La autenticación con huella digital debe estar habilitada en la configuración del dispositivo"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Falló el inicio de sesión con huella digital"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Está a punto de habilitar la huella dactilar sin crear una cuenta, si hay algún daño de hardware en el sensor de huellas dactilares, se le bloqueará la aplicación. Si esto no es intencional, configure su cuenta desde la primera opción en el menú de configuración. Si es intencional, asegúrese de habilitar la copia de seguridad en la nube para sus notas."),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Tipo de letra"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Olvidé mi contraseña"),
@@ -168,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Introduzca un año en formato de 4 dígitos"),
         "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
             "Sensación DE confirmación de PIN"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Está a punto de habilitar el bloqueo de PIN sin crear una cuenta. Si olvida su PIN, se le bloqueará la aplicación. Si esto no es intencional, configure su cuenta desde la primera opción en el menú de configuración. Si es intencional, asegúrese de habilitar la copia de seguridad en la nube para sus notas."),
         "pinsDontMatch": MessageLookupByLibrary.simpleMessage(
             "Los números PIN no coinciden"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -222,6 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Ocurrió un error inesperado"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("Advertencia"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("URL de WebDAV"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN incorrecto"),
         "youHaveUnsavedChanges":

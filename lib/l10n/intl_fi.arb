@@ -130,5 +130,9 @@
   "themeFontsAndLanguage": "Muokkaa teemaa, fontteja ja kieltä",
   "toolbarPosition": "Työkalurivin sijainti",
   "webdavURL": "WebDAV-URL-osoite",
-  "wrongPIN": "Väärä PIN-koodi"
+  "wrongPIN": "Väärä PIN-koodi",
+  "acceptRisk": "Hyväksyn riskin jatkaakseni",
+  "fingerprintWarningMessage": "Olet ottamassa sormenjäljen käyttöön luomatta tiliä. Jos sormenjälkitunnistimessa on laitteistovaurioita, sinut lukitaan ulos sovelluksesta. Jos tämä ei ole tarkoituksellista, määritä tilisi asetusvalikon ensimmäisestä vaihtoehdosta. Jos tämä on tarkoituksellista, varmista, että otat pilvivarmuuskopion käyttöön muistiinpanoillesi",
+  "pinWarningMessage": "Olet ottamassa käyttöön PIN-KOODIN lukituksen luomatta tiliä. Jos unohdat PIN-KOODISI, sinut lukitaan pois sovelluksesta. Jos tämä ei ole tarkoituksellista, määritä tilisi asetusvalikon ensimmäisestä vaihtoehdosta. Jos tämä on tarkoituksellista, varmista, että otat pilvivarmuuskopion käyttöön muistiinpanoillesi",
+  "warning": "Varoitus"
 }

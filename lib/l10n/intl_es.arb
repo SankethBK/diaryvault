@@ -130,5 +130,9 @@
   "signInWithEmail": "Iniciar sesión con email",
   "themeFontsAndLanguage": "Personalizar tema, fuentes e idioma",
   "toolbarPosition": "~Bloquear posición de la barra de herramientas",
-  "wrongPIN": "PIN incorrecto"
+  "wrongPIN": "PIN incorrecto",
+  "acceptRisk": "Acepto el riesgo de continuar",
+  "fingerprintWarningMessage": "Está a punto de habilitar la huella dactilar sin crear una cuenta, si hay algún daño de hardware en el sensor de huellas dactilares, se le bloqueará la aplicación. Si esto no es intencional, configure su cuenta desde la primera opción en el menú de configuración. Si es intencional, asegúrese de habilitar la copia de seguridad en la nube para sus notas.",
+  "pinWarningMessage": "Está a punto de habilitar el bloqueo de PIN sin crear una cuenta. Si olvida su PIN, se le bloqueará la aplicación. Si esto no es intencional, configure su cuenta desde la primera opción en el menú de configuración. Si es intencional, asegúrese de habilitar la copia de seguridad en la nube para sus notas.",
+  "warning": "Advertencia"
 }

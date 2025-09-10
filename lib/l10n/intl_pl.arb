@@ -130,5 +130,9 @@
   "importAndExportNotes": "Importuj i Eksportuj notatki",
   "exportToJSON": "Export to JSON",
   "selectVoice": "Wybierz głos",
-  "toolbarPosition": "Pozycja paska narzędzi"
+  "toolbarPosition": "Pozycja paska narzędzi",
+  "acceptRisk": "Akceptuję ryzyko, aby kontynuować",
+  "fingerprintWarningMessage": "Zamierzasz włączyć funkcję odcisku palca bez tworzenia konta. Jeśli dojdzie do uszkodzenia sprzętu czujnika odcisku palca, zostaniesz zablokowany w aplikacji. Jeśli nie jest to zamierzone, skonfiguruj swoje konto od pierwszej opcji w menu ustawień, jeśli jest to zamierzone, upewnij się, że włączyłeś tworzenie kopii zapasowych notatek w chmurze",
+  "pinWarningMessage": "Zamierzasz włączyć blokadę PIN bez tworzenia konta. Jeśli zapomnisz KODU PIN, zostaniesz zablokowany w aplikacji. Jeśli nie jest to zamierzone, skonfiguruj swoje konto od pierwszej opcji w menu ustawień, jeśli jest to zamierzone, upewnij się, że włączyłeś tworzenie kopii zapasowych notatek w chmurze",
+  "warning": "Ostrzeżenie"
 }

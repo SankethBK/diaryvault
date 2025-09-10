@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "ಮುಂದುವರಿಯುವ ಅಪಾಯವನ್ನು ನಾನು ಸ್ವೀಕರಿಸುತ್ತೇನೆ"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("ಖಾತೆ ಸೆಟಪ್ ಯಶಸ್ವಿಯಾಗಿದೆ"),
         "alreadyHaveAnAccount":
@@ -104,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "ಸಾಧನ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ದೃಢೀಕರಣವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಬೇಕು"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ಲಾಗಿನ್ ವಿಫಲವಾಗಿದೆ"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "ಖಾತೆಯನ್ನು ರಚಿಸದೆ ನೀವು ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಿದ್ದೀರಿ, ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ಸಂವೇದಕಕ್ಕೆ ಯಾವುದೇ ಹಾರ್ಡ್‌ವೇರ್ ಹಾನಿಯಾಗಿದ್ದರೆ ನಿಮ್ಮನ್ನು ಆ್ಯಪ್‌ನಿಂದ ಲಾಕ್ ಮಾಡಲಾಗುತ್ತದೆ. ಇದು ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿಲ್ಲದಿದ್ದರೆ, ದಯವಿಟ್ಟು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಮೆನುವಿನಲ್ಲಿ ಮೊದಲ ಆಯ್ಕೆಯಿಂದ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಹೊಂದಿಸಿ, ಇದು ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿದ್ದರೆ, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಟಿಪ್ಪಣಿಗಳಿಗೆ ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("ಫಾಂಟ್ ಕುಟುಂಬ"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("ಪಾಸ್ವರ್ಡ್ ಮರೆತಿರಾ"),
@@ -163,6 +167,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "ದಯವಿಟ್ಟು 4-ಅಂಕಿಯ ಪಿನ್ ನಮೂದಿಸಿ"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("ಪಿನ್ ದೃಢೀಕರಣ ಭಾವನೆ"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "ಖಾತೆಯನ್ನು ರಚಿಸದೆ ನೀವು ಪಿನ್ ಲಾಕ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಿದ್ದೀರಿ, ನಿಮ್ಮ ಪಿನ್ ಅನ್ನು ನೀವು ಮರೆತರೆ ನಿಮ್ಮನ್ನು ಆ್ಯಪ್‌ನಿಂದ ಲಾಕ್ ಮಾಡಲಾಗುತ್ತದೆ. ಇದು ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿಲ್ಲದಿದ್ದರೆ, ದಯವಿಟ್ಟು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಮೆನುವಿನಲ್ಲಿ ಮೊದಲ ಆಯ್ಕೆಯಿಂದ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಹೊಂದಿಸಿ, ಇದು ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿದ್ದರೆ, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಟಿಪ್ಪಣಿಗಳಿಗೆ ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("ಪಿನ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -216,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("ಅನಿರೀಕ್ಷಿತ ದೋಷ ಸಂಭವಿಸಿದೆ"),
         "video": MessageLookupByLibrary.simpleMessage("ವೀಡಿಯೊ"),
+        "warning": MessageLookupByLibrary.simpleMessage("ಎಚ್ಚರಿಕೆ"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("ವೆಬ್ಡಾವ್ url"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("ತಪ್ಪಾದ ಪಿನ್"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

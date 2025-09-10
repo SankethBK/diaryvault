@@ -130,5 +130,9 @@
   "signInWithEmail": "使用电子邮件登录",
   "themeFontsAndLanguage": "自定义主题、字体和语言",
   "toolbarPosition": "工具栏菜单位置",
-  "wrongPIN": "错误的PIN码"
+  "wrongPIN": "错误的PIN码",
+  "acceptRisk": "我接受风险以继续",
+  "fingerprintWarningMessage": "您即将在不创建帐户的情况下启用指纹，如果指纹传感器有任何硬件损坏，您将被锁定在应用程序之外。如果这不是故意的，请从设置菜单中的第一个选项设置您的帐户，如果这是有意的，请确保为您的笔记启用云备份",
+  "pinWarningMessage": "您即将在不创建帐户的情况下启用PIN码锁定，如果您忘记了PIN码，您将被锁定在应用程序之外。如果这不是故意的，请从设置菜单中的第一个选项设置您的帐户，如果这是有意的，请确保为您的笔记启用云备份",
+  "warning": "警告"
 }

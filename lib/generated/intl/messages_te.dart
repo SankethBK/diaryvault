@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "కొనసాగించే రిస్క్ ‌ ను నేను అంగీకరిస్తున్నాను"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("ఖాతా సెటప్ విజయవంతమైంది"),
         "alreadyHaveAnAccount":
@@ -107,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "పరికర సెట్టింగ్‌లలో వేలిముద్ర ప్రమాణీకరణను ప్రారంభించాలి"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "ఫింగర్ ప్రింట్ లాగిన్ విఫలమైంది"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "మీరు ఖాతాను సృష్టించకుండా వేలిముద్రను ప్రారంభించబోతున్నారు, వేలిముద్ర సెన్సార్ ‌ కు ఏదైనా హార్డ్ ‌ వేర్ నష్టం జరిగితే మీరు యాప్ నుండి లాక్ చేయబడతారు. ఇది ఉద్దేశపూర్వకంగా కాకపోతే, దయచేసి సెట్టింగ్ ‌ ల మెనులో మొదటి ఎంపిక నుండి మీ ఖాతాను సెటప్ చేయండి, ఇది ఉద్దేశపూర్వకంగా ఉంటే, దయచేసి మీ గమనికల కోసం క్లౌడ్ బ్యాకప్ ‌ ను ప్రారంభించేలా చూసుకోండి"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("ఫాంట్ కుటుంబం"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("పాస్‌వర్డ్ మర్చిపోయారా"),
@@ -166,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "దయచేసి 4-అంకెల పిన్ ‌ ను నమోదు చేయండి"),
         "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
             "ధృవీకరణ ఫీలింగ్ ‌ ను PIN చేయండి"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "మీరు ఖాతాను సృష్టించకుండా పిన్ లాక్ ‌ ను ప్రారంభించబోతున్నారు, మీరు మీ పిన్ ‌ ను మరచిపోయినట్లయితే మీరు యాప్ నుండి లాక్ చేయబడతారు. ఇది ఉద్దేశపూర్వకంగా కాకపోతే, దయచేసి సెట్టింగ్ ‌ ల మెనులో మొదటి ఎంపిక నుండి మీ ఖాతాను సెటప్ చేయండి, ఇది ఉద్దేశపూర్వకంగా ఉంటే, దయచేసి మీ గమనికల కోసం క్లౌడ్ బ్యాకప్ ‌ ను ప్రారంభించేలా చూసుకోండి"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("పిన్ ‌ లు సరిపోలడం లేదు"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -221,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("ఊహించని లోపం సంభవించింది"),
         "video": MessageLookupByLibrary.simpleMessage("వీడియో"),
+        "warning": MessageLookupByLibrary.simpleMessage("హెచ్చరిక"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("వెబ్DAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("తప్పు PIN"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

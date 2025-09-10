@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "હું ચાલુ રાખવાનું જોખમ સ્વીકારું છું"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("એકાઉન્ટ સેટઅપ સફળ"),
         "alreadyHaveAnAccount":
@@ -102,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "ઉપકરણ સેટિંગ્સમાં ફિંગરપ્રિન્ટ પ્રમાણીકરણ સક્ષમ હોવું જોઈએ"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "ફિંગરપ્રિન્ટ લોગિન નિષ્ફળ થયું"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "તમે એકાઉન્ટ બનાવ્યા વિના ફિંગરપ્રિન્ટને સક્ષમ કરવા જઈ રહ્યા છો, જો ફિંગરપ્રિન્ટ સેન્સરને કોઈ હાર્ડવેર નુકસાન થયું હોય તો તમને એપ્લિકેશનમાંથી લૉક કરવામાં આવશે. જો આ ઇરાદાપૂર્વક નથી, તો કૃપા કરીને સેટિંગ્સ મેનૂમાં પ્રથમ વિકલ્પથી તમારું એકાઉન્ટ સેટઅપ કરો, જો આ ઇરાદાપૂર્વક છે, તો કૃપા કરીને તમારી નોંધો માટે ક્લાઉડ બેકઅપ સક્ષમ કરવાની ખાતરી કરો"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("ફોન્ટ કુળ"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("પાસવર્ડ ભૂલી ગયા છો"),
@@ -159,6 +163,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "કૃપા કરીને 4-અંકનો PIN દાખલ કરો"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("પિન પુષ્ટિ લાગણી"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "તમે એકાઉન્ટ બનાવ્યા વિના પિન લોકને સક્ષમ કરવા જઈ રહ્યા છો, જો તમે તમારો પિન ભૂલી જાઓ છો તો તમને એપ્લિકેશનમાંથી લૉક કરવામાં આવશે. જો આ ઇરાદાપૂર્વક નથી, તો કૃપા કરીને સેટિંગ્સ મેનૂમાં પ્રથમ વિકલ્પથી તમારું એકાઉન્ટ સેટઅપ કરો, જો આ ઇરાદાપૂર્વક છે, તો કૃપા કરીને તમારી નોંધો માટે ક્લાઉડ બેકઅપ સક્ષમ કરવાની ખાતરી કરો"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("PINs મેળ ખાતા નથી"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -212,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("અનપેક્ષિત ભૂલ આવી"),
         "video": MessageLookupByLibrary.simpleMessage("વિડિયો"),
+        "warning": MessageLookupByLibrary.simpleMessage("ચેતવણી"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("ખોટી પિન"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

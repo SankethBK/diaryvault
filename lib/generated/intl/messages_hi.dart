@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "मुझे जारी रखने का जोखिम स्वीकार है"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("खाता सेटअप सफल"),
         "alreadyHaveAnAccount":
@@ -103,6 +105,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "डिवाइस सेटिंग्स में फ़िंगरप्रिंट प्रमाणीकरण सक्षम होना चाहिए"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("फ़िंगरप्रिंट लॉगिन विफल रहा"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "आप अकाउंट बनाए बिना फ़िंगरप्रिंट चालू करने वाले हैं, अगर फ़िंगरप्रिंट सेंसर को कोई हार्डवेयर नुकसान होता है, तो आपको ऐप से लॉक कर दिया जाएगा। यदि यह जानबूझकर नहीं है, तो कृपया सेटिंग मेनू में पहले विकल्प से अपना खाता सेटअप करें, यदि यह जानबूझकर है, तो कृपया अपने नोट्स के लिए क्लाउड बैकअप सक्षम करना सुनिश्चित करें"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("फ़ॉन्ट परिवार"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("पासवर्ड भूल गए"),
@@ -162,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "कृपया 4 अंकों का पिन दर्ज करें"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("पिन कन्फ़र्मेशन फीलिंग"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "आप अकाउंट बनाए बिना पिन (PIN) लॉक चालू करने वाले हैं, अगर आप अपना पिन (PIN) भूल जाते हैं, तो आपको ऐप से लॉक कर दिया जाएगा। यदि यह जानबूझकर नहीं है, तो कृपया सेटिंग मेनू में पहले विकल्प से अपना खाता सेटअप करें, यदि यह जानबूझकर है, तो कृपया अपने नोट्स के लिए क्लाउड बैकअप सक्षम करना सुनिश्चित करें"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("पिन मेल नहीं खाते"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -215,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "अनपेक्षित त्रुटि उत्पन्न हुई"),
         "video": MessageLookupByLibrary.simpleMessage("वीडियो"),
+        "warning": MessageLookupByLibrary.simpleMessage("यह संपत्ति उसकी है।"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("वेबडीएवी यूआरएल"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("गोरोन्थि पिन ।"),
         "youHaveUnsavedChanges":

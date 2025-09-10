@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk":
+            MessageLookupByLibrary.simpleMessage("أقبل المخاطرة بالمتابعة"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("تم إعداد الحساب بنجاح"),
         "alreadyHaveAnAccount":
@@ -102,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "يجب تفعيل تسجيل الدخول ببصمة الإصبع في إعدادات الجهاز"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "فشل تسجيل الدخول ببصمة الإصبع"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "أنت على وشك تمكين بصمة الإصبع دون إنشاء حساب، إذا كان هناك أي تلف في الأجهزة لمستشعر بصمة الإصبع، فسيتم قفلك خارج التطبيق. إذا لم يكن هذا مقصودًا، فيرجى إعداد حسابك من الخيار الأول في قائمة الإعدادات، وإذا كان هذا مقصودًا، فيرجى التأكد من تمكين النسخ الاحتياطي السحابي لملاحظاتك"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("نوع الخط"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور"),
@@ -161,6 +165,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "يرجى إدخال رقم سري مكون من 4 أرقام"),
         "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
             "تمّ إعادة تعيين رقمك السري بنجاح"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "أنت على وشك تمكين قفل رقم التعريف الشخصي (PIN) دون إنشاء حساب، وإذا نسيت رقم التعريف الشخصي (PIN)، فسيتم قفلك خارج التطبيق. إذا لم يكن هذا مقصودًا، فيرجى إعداد حسابك من الخيار الأول في قائمة الإعدادات، وإذا كان هذا مقصودًا، فيرجى التأكد من تمكين النسخ الاحتياطي السحابي لملاحظاتك"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("الأرقام السرية غير متطابقة"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -213,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("حدث خطأ غير متوقع"),
         "video": MessageLookupByLibrary.simpleMessage("فيديو"),
+        "warning": MessageLookupByLibrary.simpleMessage("إنذار."),
         "webdavURL": MessageLookupByLibrary.simpleMessage("رابط WebDAV"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("رقم سري خاطئ"),
         "youHaveUnsavedChanges":

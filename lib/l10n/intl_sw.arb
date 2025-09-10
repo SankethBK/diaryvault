@@ -130,5 +130,9 @@
         "example": "in sometime"
       }
     }
-  }
+  },
+  "acceptRisk": "Ninakubali hatari ya kuendelea",
+  "fingerprintWarningMessage": "Unakaribia kuwezesha alama za vidole bila kufungua akaunti, ikiwa kuna uharibifu wowote wa vifaa kwenye sensa ya alama za vidole utafungiwa nje ya programu. Ikiwa hii si kwa makusudi, tafadhali weka mipangilio ya akaunti yako kutoka kwenye chaguo la kwanza katika menyu ya mipangilio, ikiwa hii ni kwa makusudi, tafadhali hakikisha umewezesha chelezo ya wingu kwa madokezo yako",
+  "pinWarningMessage": "Unakaribia kuwasha PIN lock bila kufungua akaunti, ukisahau PIN yako utafungiwa nje ya programu. Ikiwa hii si kwa makusudi, tafadhali weka mipangilio ya akaunti yako kutoka kwenye chaguo la kwanza katika menyu ya mipangilio, ikiwa hii ni kwa makusudi, tafadhali hakikisha umewezesha chelezo ya wingu kwa madokezo yako",
+  "warning": "Tahadhari"
 }

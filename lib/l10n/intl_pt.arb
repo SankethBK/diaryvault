@@ -130,5 +130,9 @@
   "selectVoice": "Escolha a voz:",
   "signInWithEmail": "Iniciar sessão com o e-mail",
   "toolbarPosition": "Bloquear posi~ção da barra de ferramentas",
-  "wrongPIN": "PIN errado"
+  "wrongPIN": "PIN errado",
+  "acceptRisk": "Aceito o risco de continuar",
+  "fingerprintWarningMessage": "Está prestes a ativar a impressão digital sem criar uma conta. Se houver algum dano de hardware no sensor de impressão digital, ficará bloqueado na aplicação. Se não for intencional, configure a sua conta a partir da primeira opção no menu de definições. Se for intencional, certifique-se de que ativa a cópia de segurança na nuvem para as suas notas",
+  "pinWarningMessage": "Está prestes a ativar o bloqueio de PIN sem criar uma conta. Se se esquecer DO SEU PIN, ficará bloqueado na aplicação. Se isto não for intencional, configure a sua conta a partir da primeira opção no menu de definições. Se for intencional, certifique-se de que ativa a cópia de segurança na nuvem para as suas notas",
+  "warning": "Aviso"
 }

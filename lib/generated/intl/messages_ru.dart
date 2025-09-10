@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "Я принимаю риск, чтобы продолжить"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("Account setup successful"),
         "alreadyHaveAnAccount":
@@ -103,6 +105,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Fingerprint auth should be enabled in device settings"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("Fingerprint login failed"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Вы собираетесь включить отпечаток пальца без создания учетной записи, если есть какие-либо аппаратные повреждения датчика отпечатков пальцев, вы будете заблокированы в приложении. Если это не преднамеренно, настройте свою учетную запись с первого варианта в меню настроек. Если это преднамеренно, обязательно включите резервное копирование в облаке для заметок."),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Font Family"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
@@ -161,6 +165,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter a 4-digit PIN"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("PIN confirmation feeling"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Вы собираетесь включить блокировку PIN-КОДА без создания учетной записи. Если вы забудете свой PIN-КОД, вы будете заблокированы в приложении. Если это не преднамеренно, настройте свою учетную запись с первого варианта в меню настроек. Если это преднамеренно, обязательно включите резервное копирование в облаке для заметок."),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("PINs don\'t match"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -211,6 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Unexpected error occured"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
         "youHaveUnsavedChanges":

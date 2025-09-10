@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "אני מקבל את הסיכון כדי להמשיך"),
         "accountSetupSuccessful":
             MessageLookupByLibrary.simpleMessage("הקמת חשבון נעשתה בהצלחה"),
         "alreadyHaveAnAccount":
@@ -100,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "אימות על ידי טביעת אצבע צריך להיות מופעל בהגדרות המכשיר"),
         "fingerprintLoginFailed":
             MessageLookupByLibrary.simpleMessage("התחברות עם טביעת אצבע נכשלה"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "אתה עומד לאפשר טביעת אצבע מבלי ליצור חשבון, אם יש נזק לחומרה לחיישן טביעות האצבע, תינעל מחוץ לאפליקציה. אם זה לא מכוון, אנא הגדר את חשבונך מהאפשרות הראשונה בתפריט ההגדרות, אם זה מכוון, הקפד לאפשר גיבוי בענן להערות שלך"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("משפחת גופן"),
         "forgotPassword": MessageLookupByLibrary.simpleMessage("שכחתי סיסמה"),
         "from": MessageLookupByLibrary.simpleMessage("מאת"),
@@ -156,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "יש להזין קוד PIN בן ארבע ספרות"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("תחושת אישור קוד PIN"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "אתה עומד להפעיל נעילת PIN מבלי ליצור חשבון. אם שכחת את קוד ה - PIN, תינעל מחוץ לאפליקציה. אם זה לא מכוון, אנא הגדר את חשבונך מהאפשרות הראשונה בתפריט ההגדרות, אם זה מכוון, הקפד לאפשר גיבוי בענן להערות שלך"),
         "pinsDontMatch": MessageLookupByLibrary.simpleMessage(
             "מספרי הזיהוי האישי לא תואמים"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -206,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("בעיה לא צפויה קרתה"),
         "video": MessageLookupByLibrary.simpleMessage("וידאו"),
+        "warning": MessageLookupByLibrary.simpleMessage("אזהרה"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("כתובת WebDAV"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("קוד PIN שגוי"),
         "youHaveUnsavedChanges":

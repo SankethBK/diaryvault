@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk":
+            MessageLookupByLibrary.simpleMessage("Prijímam riziko pokračovať"),
         "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
             "Konfigurácia účtu bola úspešná"),
         "alreadyHaveAnAccount":
@@ -105,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Autentifikácia odtlačkom prsta potrebuje povolenie v nastaveniach zariadenia"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Prihlásenie odtlačkom prsta zlyhalo"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Chystáte sa povoliť odtlačok prsta bez vytvorenia účtu. Ak dôjde k poškodeniu hardvéru snímača odtlačkov prstov, aplikácia vás zablokuje. Ak to nie je úmyselné, nastavte svoj účet z prvej možnosti v ponuke nastavení. Ak je to úmyselné, nezabudnite povoliť zálohovanie poznámok do cloudu."),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Typ písma"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Zabudli ste heslo?"),
@@ -166,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Prosím, zadajte 4-ciferný kód PIN"),
         "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
             "Resetovanie PIN kódu úspešné"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Chystáte sa povoliť uzamknutie PIN bez vytvorenia účtu. Ak zabudnete svoj PIN, budete z aplikácie vylúčení. Ak to nie je úmyselné, nastavte svoj účet z prvej možnosti v ponuke nastavení. Ak je to úmyselné, nezabudnite povoliť zálohovanie poznámok do cloudu."),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("Kódy PIN sa nezhodujú"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -218,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Vyskytla sa neočakávaná chyba"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("Upozornenie"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Nesprávny PIN kód"),
         "youHaveUnsavedChanges":

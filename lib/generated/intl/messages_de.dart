@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "Ich akzeptiere das Risiko, fortzufahren"),
         "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
             "Kontoeinrichtung erfolgreich"),
         "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage(
@@ -106,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Die Fingerabdruck authentifizierung sollte in den Geräteeinstellungen aktiviert sein"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Die Anmeldung per Fingerabdruck ist fehlgeschlagen"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Sie sind dabei, den Fingerabdruck zu aktivieren, ohne ein Konto zu erstellen. Wenn es einen Hardware-Schaden am Fingerabdrucksensor gibt, werden Sie aus der App ausgeschlossen. Wenn dies nicht beabsichtigt ist, richten Sie bitte Ihr Konto von der ersten Option im Einstellungsmenü aus ein. Wenn dies beabsichtigt ist, stellen Sie bitte sicher, dass Sie das Cloud-Backup für Ihre Notizen aktivieren"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Schriftname"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Passwort vergessen"),
@@ -166,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte geben Sie ein 4-stelliges Jahr ein"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("Pin-Bestätigungsgefühl"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Sie sind dabei, die PIN-Sperre zu aktivieren, ohne ein Konto zu erstellen. Wenn Sie Ihre PIN vergessen, werden Sie aus der App ausgeschlossen. Wenn dies nicht beabsichtigt ist, richten Sie bitte Ihr Konto von der ersten Option im Einstellungsmenü aus ein. Wenn dies beabsichtigt ist, stellen Sie bitte sicher, dass Sie das Cloud-Backup für Ihre Notizen aktivieren"),
         "pinsDontMatch": MessageLookupByLibrary.simpleMessage(
             "S-PINs stimmen nicht überein"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -221,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
             "Es ist ein unerwarteter Fehler aufgetreten"),
         "video": MessageLookupByLibrary.simpleMessage("Video"),
+        "warning": MessageLookupByLibrary.simpleMessage("Warnung"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV-URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Falsche PIN"),
         "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "acceptRisk": MessageLookupByLibrary.simpleMessage(
+            "Akceptuję ryzyko, aby kontynuować"),
         "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
             "Konfiguracja konta ukończona sukcesem"),
         "alreadyHaveAnAccount":
@@ -104,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Logowanie czytnikiem linii papilarnych musi zostać włączone w ustawieniach urządzenia"),
         "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
             "Logowanie czytnikiem papilarnym nie powiodło się"),
+        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Zamierzasz włączyć funkcję odcisku palca bez tworzenia konta. Jeśli dojdzie do uszkodzenia sprzętu czujnika odcisku palca, zostaniesz zablokowany w aplikacji. Jeśli nie jest to zamierzone, skonfiguruj swoje konto od pierwszej opcji w menu ustawień, jeśli jest to zamierzone, upewnij się, że włączyłeś tworzenie kopii zapasowych notatek w chmurze"),
         "fontFamily": MessageLookupByLibrary.simpleMessage("Czcionka"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Nie pamiętasz hasła?"),
@@ -164,6 +168,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wprowadź 4-cyfrowy kod PIN"),
         "pinResetSuccessful":
             MessageLookupByLibrary.simpleMessage("PIN zresetowany pomyślnie"),
+        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Zamierzasz włączyć blokadę PIN bez tworzenia konta. Jeśli zapomnisz KODU PIN, zostaniesz zablokowany w aplikacji. Jeśli nie jest to zamierzone, skonfiguruj swoje konto od pierwszej opcji w menu ustawień, jeśli jest to zamierzone, upewnij się, że włączyłeś tworzenie kopii zapasowych notatek w chmurze"),
         "pinsDontMatch":
             MessageLookupByLibrary.simpleMessage("PIN się nie zgadza"),
         "pleaseSetupYourAccountToUseThisFeature":
@@ -215,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unexpectedErrorOccured":
             MessageLookupByLibrary.simpleMessage("Niespodziewany błąd"),
         "video": MessageLookupByLibrary.simpleMessage("Kamera"),
+        "warning": MessageLookupByLibrary.simpleMessage("Ostrzeżenie"),
         "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
         "wrongPIN": MessageLookupByLibrary.simpleMessage("Nieprawidłowy PIN"),
         "youHaveUnsavedChanges":
