@@ -17,6 +17,9 @@ class AuthChangePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final linkColor =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.linkColor;
+
+    final infoTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.infoTextColor;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +27,7 @@ class AuthChangePage extends StatelessWidget {
         Text(
           infoText,
           style: TextStyle(
-            color: Colors.white.withOpacity(1),
+            color: infoTextColor,
           ),
         ),
         GestureDetector(
