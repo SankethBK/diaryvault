@@ -85,8 +85,8 @@ class Mediterranean {
         ),
         HomePageThemeExtensions(
           borderColor: Colors.white,
-          backgroundGradientStartColor: Colors.indigo[800]!.withOpacity(0.6),
-          backgroundGradientEndColor: Colors.orangeAccent.withOpacity(0.3),
+          backgroundGradientStartColor: Colors.white.withOpacity(0.6),
+          backgroundGradientEndColor: Colors.white.withOpacity(0.4),
           previewTitleColor: Colors.black87,
           previewBodyColor: Colors.black87,
           dateColor: Colors.black54,
