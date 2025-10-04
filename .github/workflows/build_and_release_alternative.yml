@@ -83,8 +83,9 @@ jobs:
           echo "Installing main project dependencies..."
           flutter pub get
 
+      # Setup keystore only if ALL secrets are set, to avoid errors
       - name: Setup keystore
-        if: ${{ secrets.KEYSTORE_BASE64 }}
+        if: ${{ secrets.KEYSTORE_BASE64 && secrets.STORE_PASSWORD && secrets.KEY_PASSWORD && secrets.KEY_ALIAS }}
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore.jks
           cat > android/key.properties << EOF
