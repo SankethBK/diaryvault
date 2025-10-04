@@ -2,75 +2,175 @@ name: Build and Attach APKs on Release
 
 on:
   release:
-    types: [created]
+    types: [created, published]
   workflow_dispatch: # Allows manual trigger
+    inputs:
+      tag_name:
+        description: 'Tag name to build (optional, uses latest release if not provided)'
+        required: false
+        type: string
+
+env:
+  FLUTTER_VERSION: '3.13.0'
+  JAVA_VERSION: '11'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
     steps:
       # Step 1: Check out the repository at the release's tag
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ github.event.release.tag_name || inputs.tag_name || github.ref }}
 
-      # Step 2: Set up Java 11
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
+      # Step 2: Set up Java
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
         with:
-          java-version: '11'
+          java-version: ${{ env.JAVA_VERSION }}
           distribution: 'temurin'
 
-      # Step 3: Install Flutter 3.13.0
-      - name: Install Flutter 3.13.0
+      # Step 3: Install Flutter
+      - name: Install Flutter ${{ env.FLUTTER_VERSION }}
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.0'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
 
-      # Step 4: Install Kotlin Gradle Plugin
-      - name: Install Kotlin Gradle Plugin
+      # Step 3.5: Verify Flutter installation
+      - name: Verify Flutter installation
         run: |
-          echo "kotlin.version=1.9.0" >> gradle.properties
+          flutter --version
+          flutter doctor -v
+          echo "Current directory: $(pwd)"
+          echo "Contents: $(ls -la)"
 
-      # Step 5: Set up Gradle
-      - name: Set up Gradle
-        run: echo "distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-all.zip" > android/gradle/wrapper/gradle-wrapper.properties
+      # Step 4: Cache dependencies
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            **/.packages
+            **/.flutter-plugins
+            **/.flutter-plugin-dependencies
+            **/.dart_tool
+          key: flutter-${{ hashFiles('**/pubspec.lock', 'packages/**/pubspec.yaml') }}
+          restore-keys: |
+            flutter-${{ hashFiles('**/pubspec.lock') }}
+            flutter-
 
-      # Step 6: Create key.properties for signing
-      - name: Create key.properties
+      # Step 5: Get Flutter dependencies
+      - name: Get Flutter dependencies
         run: |
-          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=${{ secrets.KEY_PATH }}" >> android/key.properties
+          echo "Installing dependencies for local packages first..."
+          
+          # Install dependencies for local packages
+          for package_dir in packages/*/; do
+            if [ -f "$package_dir/pubspec.yaml" ]; then
+              echo "Installing dependencies for $package_dir"
+              cd "$package_dir"
+              flutter pub get
+              cd ../..
+            fi
+          done
+          
+          echo "Installing main project dependencies..."
+          flutter pub get
 
-      # Step 7: Build APKs
+      # Step 6 & 7: Create keystore and key.properties if ALL signing secrets are present
+      - name: Create keystore and key.properties
+        if: ${{ secrets.KEYSTORE_BASE64 && secrets.STORE_PASSWORD && secrets.KEY_PASSWORD && secrets.KEY_ALIAS }}
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore.jks
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.STORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=keystore.jks
+          EOF
+
+      # Step 8: Build APKs (signed if keystore is available, debug otherwise)
       - name: Build APKs
-        run: flutter build apk --split-per-abi --no-fatal-warnings
+        run: |
+          if [ -f "android/key.properties" ]; then
+            echo "Building signed APKs"
+            flutter build apk --split-per-abi --release
+          else
+            echo "Building debug APKs (no signing configuration found)"
+            flutter build apk --split-per-abi --debug
+          fi
 
-      # Step 8: Upload APKs
-      - name: Upload APKs
+      # Step 9: List built APKs for debugging
+      - name: List built APKs
+        run: |
+          ls -la build/app/outputs/flutter-apk/
+          echo "APK files found:"
+          find build/app/outputs/flutter-apk/ -name "*.apk" -type f
+
+      # Step 10: Get release info
+      - name: Get release info
+        id: release_info
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "upload_url=${{ github.event.release.upload_url }}" >> $GITHUB_OUTPUT
+            echo "release_id=${{ github.event.release.id }}" >> $GITHUB_OUTPUT
+          else
+            # For manual trigger, get the latest release
+            release_info=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/latest")
+            upload_url=$(echo "$release_info" | jq -r '.upload_url')
+            release_id=$(echo "$release_info" | jq -r '.id')
+            echo "upload_url=$upload_url" >> $GITHUB_OUTPUT
+            echo "release_id=$release_id" >> $GITHUB_OUTPUT
+          fi
+
+      # Step 11: Upload arm64-v8a APK
+      - name: Upload arm64-v8a APK
+        if: steps.release_info.outputs.upload_url
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ steps.release_info.outputs.upload_url }}
           asset_path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-          asset_name: app-arm64-v8a-release.apk
+          asset_name: diaryvault-arm64-v8a-${{ github.event.release.tag_name || inputs.tag_name || 'latest' }}.apk
           asset_content_type: application/vnd.android.package-archive
 
-      - name: Upload APK (armeabi-v7a)
+      # Step 11: Upload armeabi-v7a APK
+      - name: Upload armeabi-v7a APK
+        if: steps.release_info.outputs.upload_url
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ steps.release_info.outputs.upload_url }}
           asset_path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
-          asset_name: app-armeabi-v7a-release.apk
+          asset_name: diaryvault-armeabi-v7a-${{ github.event.release.tag_name || inputs.tag_name || 'latest' }}.apk
           asset_content_type: application/vnd.android.package-archive
 
-      - name: Upload APK (x86_64)
+      # Step 11: Upload x86_64 APK
+      - name: Upload x86_64 APK
+        if: steps.release_info.outputs.upload_url
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ steps.release_info.outputs.upload_url }}
           asset_path: build/app/outputs/flutter-apk/app-x86_64-release.apk
-          asset_name: app-x86_64-release.apk
+          asset_name: diaryvault-x86_64-${{ github.event.release.tag_name || inputs.tag_name || 'latest' }}.apk
           asset_content_type: application/vnd.android.package-archive
+
+      # Step 12: Upload APKs as workflow artifacts (backup)
+      - name: Upload APKs as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: diaryvault-apks-${{ github.event.release.tag_name || inputs.tag_name || github.sha }}
+          path: build/app/outputs/flutter-apk/*.apk
+          retention-days: 30
