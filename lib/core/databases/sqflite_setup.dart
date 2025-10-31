@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -68,6 +68,15 @@ class DBProvider {
               ${Tags.NAME} TEXT
             )""");
 
+          await db.execute("""
+          CREATE TABLE ${SmartFolders.TABLE_NAME} (
+            ${SmartFolders.FOLDER_ID} TEXT, 
+            ${SmartFolders.CREATED_AT} DATETIME,
+            ${SmartFolders.FOLDER_NAME} TEXT,
+            ${SmartFolders.FOLDER_TAGS} TEXT
+          )
+          """);
+
           log.i("All create queries executed successfully");
           log.i("Inserting welcome note");
 
@@ -99,6 +108,17 @@ class DBProvider {
               ${Tags.NOTE_ID} TEXT,
               ${Tags.NAME} TEXT
             )""");
+        }
+
+        if (oldVersion < 3) {
+          await db.execute("""
+          CREATE TABLE ${SmartFolders.TABLE_NAME} (
+            ${SmartFolders.FOLDER_ID} TEXT, 
+            ${SmartFolders.CREATED_AT} DATETIME,
+            ${SmartFolders.FOLDER_NAME} TEXT,
+            ${SmartFolders.FOLDER_TAGS} TEXT
+          )
+          """);
         }
       },
     );
