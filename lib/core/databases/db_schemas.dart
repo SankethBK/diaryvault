@@ -48,4 +48,5 @@ class SmartFolders {
   static const FOLDER_NAME = "folder_name";
   static const FOLDER_TAGS = "folder_tags";
   static const CREATED_AT = "created_at";
+  static const AUTHOR_ID = "author_id";
 }

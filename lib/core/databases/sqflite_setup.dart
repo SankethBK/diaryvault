@@ -73,7 +73,8 @@ class DBProvider {
             ${SmartFolders.FOLDER_ID} TEXT, 
             ${SmartFolders.CREATED_AT} DATETIME,
             ${SmartFolders.FOLDER_NAME} TEXT,
-            ${SmartFolders.FOLDER_TAGS} TEXT
+            ${SmartFolders.FOLDER_TAGS} TEXT,
+            ${SmartFolders.AUTHOR_ID} TEXT
           )
           """);
 
@@ -116,7 +117,8 @@ class DBProvider {
             ${SmartFolders.FOLDER_ID} TEXT, 
             ${SmartFolders.CREATED_AT} DATETIME,
             ${SmartFolders.FOLDER_NAME} TEXT,
-            ${SmartFolders.FOLDER_TAGS} TEXT
+            ${SmartFolders.FOLDER_TAGS} TEXT,
+            ${SmartFolders.AUTHOR_ID} TEXT
           )
           """);
         }
