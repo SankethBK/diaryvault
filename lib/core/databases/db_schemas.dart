@@ -39,3 +39,14 @@ class Tags {
   static const NOTE_ID = "note_id";
   static const NAME = "name";
 }
+
+class SmartFolders {
+  static const TABLE_NAME = "Smart_folders";
+
+  // Columns
+  static const FOLDER_ID = "folder_id";
+  static const FOLDER_NAME = "folder_name";
+  static const FOLDER_TAGS = "folder_tags";
+  static const CREATED_AT = "created_at";
+  static const AUTHOR_ID = "author_id";
+}
