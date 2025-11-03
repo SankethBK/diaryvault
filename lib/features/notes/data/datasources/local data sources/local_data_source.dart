@@ -463,7 +463,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
   //* Utils
 
   /// Generate a modifiable result set
-  List<Map<String, dynamic>> makeModifiableResults(
+  static List<Map<String, dynamic>> makeModifiableResults(
       List<Map<String, dynamic>> results) {
     // Generate modifiable
     return List<Map<String, dynamic>>.generate(
