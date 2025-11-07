@@ -8,6 +8,7 @@ import 'package:dairy_app/app/themes/plain_dark.dart';
 import 'package:dairy_app/app/themes/plain_light.dart';
 import 'package:dairy_app/app/themes/mediterranean_theme.dart';
 import 'package:dairy_app/app/themes/twilight_gold_theme.dart';
+import 'package:dairy_app/app/themes/fuji_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
@@ -121,6 +122,8 @@ class _AppViewState extends State<AppView> {
         return PlainLight.getTheme(fontFamily);
       case Themes.mediterranean:
         return Mediterranean.getTheme(fontFamily);
+      case Themes.fuji:
+        return Fuji.getTheme(fontFamily);
       default:
         return CoralBubble.getTheme(fontFamily);
     }

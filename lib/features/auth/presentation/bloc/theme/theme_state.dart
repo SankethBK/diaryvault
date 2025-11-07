@@ -9,7 +9,8 @@ enum Themes {
   darkAcademia,
   monochromePink,
   twilightGold,
-  mediterranean
+  mediterranean,
+  fuji
 }
 
 String themeKey = "current_theme";
@@ -35,6 +36,8 @@ extension ThemeExtension on Themes {
         return "Twilight Gold";
       case Themes.mediterranean:
         return "Mediterranean";
+      case Themes.fuji:
+        return "Fuji";
     }
   }
 }
@@ -59,6 +62,8 @@ Themes getThemeFromString(String? themeString) {
       return Themes.twilightGold;
     case 'mediterranean':
       return Themes.mediterranean;
+    case 'fuji':
+      return Themes.fuji;
     default:
       return Themes.coralBubbles;
   }
