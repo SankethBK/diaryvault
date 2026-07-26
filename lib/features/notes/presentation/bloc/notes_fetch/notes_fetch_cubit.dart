@@ -69,8 +69,6 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
         notePreviewList.sort(
             (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
         break;
-      default:
-        break;
     }
 
     emit(NotesSortSuccessful(

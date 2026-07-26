@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.3
-  flutter_web_auth_2: ^2.2.1
+  flutter_web_auth_2: ^4.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -175,4 +175,16 @@ mixin RawEditorStateSelectionDelegateMixin on EditorState
 
   @override
   bool get selectAllEnabled => widget.contextMenuBuilder != null;
+
+  // Look up / search web / share were added to TextSelectionDelegate after this
+  // editor was vendored. This editor builds its own toolbar and does not expose
+  // these actions, so report them as unavailable.
+  @override
+  bool get lookUpEnabled => false;
+
+  @override
+  bool get searchWebEnabled => false;
+
+  @override
+  bool get shareEnabled => false;
 }

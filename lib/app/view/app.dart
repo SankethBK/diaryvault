@@ -124,8 +124,6 @@ class _AppViewState extends State<AppView> {
         return Mediterranean.getTheme(fontFamily);
       case Themes.fuji:
         return Fuji.getTheme(fontFamily);
-      default:
-        return CoralBubble.getTheme(fontFamily);
     }
   }
 
