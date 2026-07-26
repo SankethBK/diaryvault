@@ -703,7 +703,7 @@ packages:
     source: hosted
     version: "0.7.4"
   flutter_native_splash:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_native_splash
       sha256: "6777a3abb974021a39b5fdd2d46a03ca390e03903b6351f21d10e7ecc969f12d"
@@ -875,13 +875,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  gallery_saver:
+  gallery_saver_plus:
     dependency: transitive
     description:
-      path: "packages/gallery_saver"
-      relative: true
-    source: path
-    version: "2.3.2"
+      name: gallery_saver_plus
+      sha256: fd4a50eb7b90b1dd8d926ab34dc62abd428feb72f780d4aaf17dcaae12f6743f
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.9"
   get_it:
     dependency: "direct main"
     description:
@@ -902,10 +903,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: "6b6f10f0ce3c42f6552d1c70d2c28d764cf22bb487f50f66cca31dcd5194f4d6"
+      sha256: "2776c66b3e97c6cdd58d1bd3281548b074b64f1fd5c8f82391f7456e38849567"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.4"
+    version: "4.0.5"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -950,10 +951,10 @@ packages:
     dependency: "direct main"
     description:
       name: googleapis
-      sha256: dfea9984f0785ed445ba78e2aa8c55dadd86d6a60ea9e0ffbadad51edb5e7e36
+      sha256: "692fb9e90c321b61a7a2123de0353ec8a20691cd979db2553d8d732f710f6535"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.0"
+    version: "15.0.0"
   graphs:
     dependency: transitive
     description:
@@ -982,10 +983,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
+      sha256: "87721a4a50b19c7f1d49001e51409bddc46303966ce89a65af4f4e6004896412"
       url: "https://pub.dev"
     source: hosted
-    version: "0.13.6"
+    version: "1.6.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -1099,7 +1100,7 @@ packages:
     source: hosted
     version: "2.0.5"
   integration_test:
-    dependency: "direct dev"
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"

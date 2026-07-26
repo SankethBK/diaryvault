@@ -47,6 +47,14 @@ dependencies:
   flutter_local_notifications: ^17.2.1
   flutter_localizations:
     sdk: flutter
+  # Kept in (non-dev) dependencies on purpose: Flutter 3.32.0 still emits
+  # dev_dependency plugins into GeneratedPluginRegistrant.java, while the AGP 8
+  # flutter-plugin-loader strips dev plugin AARs from --release builds -> the
+  # registrant references a class that isn't on the release classpath and javac
+  # fails (flutter#169336). Listing it as a regular dependency keeps its AAR in
+  # release so the generated registrant compiles. Build-time splash config is
+  # still under the `flutter_native_splash:` block below.
+  flutter_native_splash: ^2.1.0
   flutter_quill:
     path: ./packages/flutter_quill
   flutter_quill_extensions:
@@ -61,9 +69,14 @@ dependencies:
   get_it: ^7.2.0
   google_fonts: ^4.0.4
   google_sign_in: ^5.3.3
-  googleapis: ^9.0.0
-  http: 0.13.6
+  googleapis: ^15.0.0
+  http: ^1.2.2
   in_app_review: ^2.0.4+2
+  # See the flutter_native_splash note above: integration_test also ships an
+  # Android plugin class that Flutter 3.32.0 writes into the registrant, so it
+  # must stay a regular dependency to survive --release dev-dependency stripping.
+  integration_test:
+    sdk: flutter
   internet_connection_checker: ^0.0.1+4
   intl: ^0.20.2
   local_auth: ^2.1.6
@@ -88,10 +101,7 @@ dev_dependencies:
   build_runner: ^2.1.7
   flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.0
-  flutter_native_splash: ^2.1.0
   flutter_test:
-    sdk: flutter
-  integration_test:
     sdk: flutter
   mockito: ^5.1.0
 
@@ -128,7 +138,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
