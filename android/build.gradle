@@ -1,17 +1,3 @@
-buildscript {
-    ext.kotlin_version = '1.9.0'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.14'
-    }
-}
-
 allprojects {
     repositories {
         google()
@@ -24,6 +10,26 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
+    // Flutter 3.32 / AGP 8 require every Android module to declare a `namespace`.
+    // Several transitive plugins pinned in pub-cache (flutter_inappwebview via
+    // youtube_player_flutter, flutter_sound, qr_code_scanner, ...) predate this
+    // and only set the legacy `package` attribute in their AndroidManifest.xml.
+    // Derive the namespace from that package for any subproject that lacks one,
+    // so they build under AGP 8 without editing pub-cache (which `pub get`
+    // overwrites). Registered before evaluationDependsOn so the hook is attached
+    // while the subproject is still being configured.
+    afterEvaluate { project ->
+        def android = project.extensions.findByName('android')
+        if (android != null && android.namespace == null) {
+            def manifest = file("${project.projectDir}/src/main/AndroidManifest.xml")
+            if (manifest.exists()) {
+                def pkg = new groovy.util.XmlSlurper().parse(manifest).@package.text()
+                if (pkg) {
+                    android.namespace = pkg
+                }
+            }
+        }
+    }
     project.evaluationDependsOn(':app')
 }
 
