@@ -123,15 +123,16 @@ jobs:
           storeFile=keystore.jks
           EOF
 
-      # Step 8: Build APKs (signed if keystore is available, debug otherwise)
+      # Step 8: Build signed APKs. This workflow uploads release artifacts, so
+      # do not silently substitute debug APKs when signing is unavailable.
       - name: Build APKs
         run: |
           if [ -f "android/key.properties" ]; then
             echo "Building signed APKs"
             flutter build apk --split-per-abi --release
           else
-            echo "Building debug APKs (no signing configuration found)"
-            flutter build apk --split-per-abi --debug
+            echo "Signing configuration is missing; refusing to upload debug APKs as release artifacts" >&2
+            exit 1
           fi
 
       # Step 9: List built APKs for debugging

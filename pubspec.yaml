@@ -60,7 +60,7 @@ dependencies:
   flutter_quill_extensions:
     path: ./packages/flutter_quill/flutter_quill_extensions
   flutter_secure_storage: ^9.0.0
-  flutter_sound: ^9.17.0
+  flutter_sound: ^9.30.0
   flutter_svg: ^2.0.9
   flutter_timezone: ^3.0.1
   flutter_tts: ^3.8.3
@@ -116,7 +116,7 @@ dependency_overrides:
   # For information on the generic Dart part of this file, see the
   # following page: https://dart.dev/tools/pub/pubspec
   # The following section is specific to Flutter.
-  analyzer:
+  analyzer: 8.1.1
   # flutter_localizations (Flutter 3.32 SDK) pins intl 0.20.2, but the local
   # flutter_quill_extensions -> math_keyboard 0.2.1 still requests intl ^0.18.0.
   # math_keyboard only uses intl's stable NumberFormat API, so force 0.20.2.
