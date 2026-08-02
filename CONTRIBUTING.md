@@ -6,7 +6,7 @@ Thank you for your interest in contributing to DiaryVault! We welcome contributi
 
 DiaryVault is written in Flutter. Even though Flutter is cross-platform, DiaryVault is currently focused on Android. So in order to setup and run the project locally, you need to have an Android emulator or a real device.
 
-DiaryVault currently runs only on **flutter 3.13.0** as some of the packages we are using have breaking changes with later versions of Flutter.
+DiaryVault is built with **flutter 3.32.0**, which is pinned in `.fvmrc`. Use that version — the Android build requires AGP 8.7.3 / Gradle 8.12 and JDK 17.
 
 Running the project is as simple as:
 
@@ -18,7 +18,7 @@ $ flutter pub get
 $ flutter run
 ```
 
-### In case you're installing flutter from the flutter repo, run the following commands to down-grade your version:
+### In case you're installing flutter from the flutter repo, run the following commands to switch to the correct version:
 
 1. cd into the path where you cloned flutter to install it into your machine.
 2. Fetch all the tags from the flutter repo: 
@@ -27,7 +27,7 @@ git fetch --tags
 ```
 3. Checkout to the correct flutter version: 
 ```
-git checkout 3.13.0
+git checkout 3.32.0
 ```
 4. Ensure flutter's version updated: 
 ```
