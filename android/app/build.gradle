@@ -33,11 +33,14 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace 'com.example.dairy_app'
     compileSdkVersion 35
-    // Pinned to a locally-installed NDK that is 16 KB page-aligned by default
-    // (NDK r27+). Flutter 3.32's default (flutter.ndkVersion = 26.3.11579264)
-    // requires a ~945 MB download and only aligns to 16 KB via linker flags.
-    // This app ships no native C/C++, so the NDK only governs prebuilt-lib
-    // packaging — r27 gives correct 16 KB alignment with no extra download.
+    // Pinned only to avoid Flutter 3.32's default (flutter.ndkVersion =
+    // 26.3.11579264) triggering a ~945 MB NDK download. The NDK plays no part
+    // in this app's 16 KB page-size compliance: no dependency compiles native
+    // C/C++ from source (no CMakeLists.txt / Android.mk anywhere in the plugin
+    // tree), so every shipped .so is a prebuilt from an AAR or the Flutter
+    // engine and is already 16 KB aligned upstream. Compliance comes from
+    // AGP 8.7.3 (>= 8.5.1), which packages native libs uncompressed and
+    // zip-aligns them to 16 KB by default.
     ndkVersion "27.0.12077973"
 
     compileOptions {
