@@ -15,7 +15,8 @@ class Mediterranean {
       textTheme: fontFamily.getGoogleFontTextTheme(),
 
       // used only for elements whose colors can't be directly controlled
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(
+      colorScheme:
+          ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(
         secondary: Colors.orangeAccent,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -95,11 +96,11 @@ class Mediterranean {
           notePreviewBorderColor: Colors.white.withOpacity(0.4),
           notePreviewUnselectedGradientStartColor: Colors.transparent,
           notePreviewUnselectedGradientEndColor:
-          const Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
+              const Color.fromARGB(255, 210, 161, 238).withOpacity(0.2),
           notePreviewSelectedGradientStartColor:
-          Colors.orangeAccent.withOpacity(0.5),
+              Colors.orangeAccent.withOpacity(0.5),
           notePreviewSelectedGradientEndColor:
-          Colors.indigo[700]!.withOpacity(0.2),
+              Colors.indigo[700]!.withOpacity(0.2),
           checkBoxSelectedColor: Colors.orangeAccent,
         ),
         NoteCreatePageThemeExtensions(

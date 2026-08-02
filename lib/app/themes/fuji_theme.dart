@@ -101,9 +101,12 @@ class Fuji {
           sigmaY: 3.0,
           notePreviewBorderColor: Colors.white.withOpacity(0.5),
           notePreviewUnselectedGradientStartColor: Colors.transparent,
-          notePreviewUnselectedGradientEndColor: Color(0xFFE6D7B8).withOpacity(0.2),
-          notePreviewSelectedGradientStartColor: Color(0xFFB3001B).withOpacity(0.3),
-          notePreviewSelectedGradientEndColor: Color(0xFF5D8AA8).withOpacity(0.2),
+          notePreviewUnselectedGradientEndColor:
+              Color(0xFFE6D7B8).withOpacity(0.2),
+          notePreviewSelectedGradientStartColor:
+              Color(0xFFB3001B).withOpacity(0.3),
+          notePreviewSelectedGradientEndColor:
+              Color(0xFF5D8AA8).withOpacity(0.2),
           checkBoxSelectedColor: Color(0xFFB3001B),
         ),
         NoteCreatePageThemeExtensions(
