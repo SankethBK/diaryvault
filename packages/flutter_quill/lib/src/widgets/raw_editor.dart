@@ -361,6 +361,11 @@ class RawEditorState extends EditorState
       onSelectAll: selectAllEnabled
           ? () => selectAll(SelectionChangedCause.toolbar)
           : null,
+      // onLookUp/onSearchWeb/onShare became required after this editor was
+      // vendored; this editor's toolbar does not surface them.
+      onLookUp: null,
+      onSearchWeb: null,
+      onShare: null,
     );
   }
 

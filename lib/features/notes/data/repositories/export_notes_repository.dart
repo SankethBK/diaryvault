@@ -21,10 +21,11 @@ class ExportNotesRepository implements IExportNotesRepository {
 
   ExportNotesRepository({required this.notesRepository});
 
- @override 
+  @override
   Future<String> exportNotesToJsonFile({List<String>? noteList}) async {
     final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/diaryvault_notes_export_${DateTime.now().millisecondsSinceEpoch}.json');
+    final file = File(
+        '${directory.path}/diaryvault_notes_export_${DateTime.now().millisecondsSinceEpoch}.json');
 
     try {
       Either<NotesFailure, List<NoteModel>> result;
@@ -47,7 +48,8 @@ class ExportNotesRepository implements IExportNotesRepository {
         },
         (allNotes) async {
           // Convert list of NoteModel to list of JSON maps
-          final List<Map<String, dynamic>> notesJson = allNotes.map((note) => note.toJson()).toList();
+          final List<Map<String, dynamic>> notesJson =
+              allNotes.map((note) => note.toJson()).toList();
           jsonString = jsonEncode(notesJson);
         },
       );

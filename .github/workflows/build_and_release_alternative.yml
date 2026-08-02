@@ -16,15 +16,26 @@ on:
         default: false
 
 env:
-  FLUTTER_VERSION: '3.13.0'
-  JAVA_VERSION: '11'
+  # Keep FLUTTER_VERSION in sync with .fvmrc.
+  # JAVA_VERSION must be 17+: the Android build uses AGP 8.7.3 / Gradle 8.12.
+  FLUTTER_VERSION: '3.32.0'
+  JAVA_VERSION: '17'
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      
+    # `secrets` is NOT an available context inside a step-level `if:`
+    # (see GitHub's context-availability table), so the signing secrets are
+    # surfaced as job env vars and the steps below branch on those instead.
+    env:
+      KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+      STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -83,15 +94,31 @@ jobs:
           echo "Installing main project dependencies..."
           flutter pub get
 
+      # Install the exact NDK the app pins. AGP strips debug symbols from the
+      # prebuilt .so files with llvm-strip, so the NDK must be present even
+      # though nothing here compiles native code. Version is read from
+      # build.gradle so the two can't drift apart.
+      # build-tools 35.0.0 matches compileSdkVersion 35 in build.gradle.
+      - name: Install pinned NDK and build-tools
+        run: |
+          NDK_VERSION=$(sed -n 's/^[[:space:]]*ndkVersion[[:space:]]*"\([^"]*\)".*/\1/p' android/app/build.gradle)
+          if [ -z "$NDK_VERSION" ]; then
+            echo "could not parse ndkVersion from android/app/build.gradle" >&2
+            exit 1
+          fi
+          echo "Installing ndk;$NDK_VERSION"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "ndk;$NDK_VERSION" "build-tools;35.0.0"
+
       # Setup keystore only if ALL secrets are set, to avoid errors
       - name: Setup keystore
-        if: ${{ secrets.KEYSTORE_BASE64 && secrets.STORE_PASSWORD && secrets.KEY_PASSWORD && secrets.KEY_ALIAS }}
+        if: env.KEYSTORE_BASE64 != '' && env.STORE_PASSWORD != '' && env.KEY_PASSWORD != '' && env.KEY_ALIAS != ''
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore.jks
+          echo "$KEYSTORE_BASE64" | base64 -d > android/app/keystore.jks
           cat > android/key.properties << EOF
-          storePassword=${{ secrets.STORE_PASSWORD }}
-          keyPassword=${{ secrets.KEY_PASSWORD }}
-          keyAlias=${{ secrets.KEY_ALIAS }}
+          storePassword=$STORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
           storeFile=keystore.jks
           EOF
 
