@@ -20,7 +20,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 2.2.11+27
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -37,34 +37,47 @@ dependencies:
   delta_markdown:
     path: ./packages/delta_markdown
   equatable: ^2.0.3
-  file_picker: ^5.3.4
+  file_picker: ^8.0.4
   filesystem_picker: ^2.0.0-nullsafety.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_html_to_pdf:
     path: ./packages/flutter_html_to_pdf
-  flutter_local_notifications: ^16.1.0
+  flutter_local_notifications: ^17.2.1
   flutter_localizations:
     sdk: flutter
+  # Kept in (non-dev) dependencies on purpose: Flutter 3.32.0 still emits
+  # dev_dependency plugins into GeneratedPluginRegistrant.java, while the AGP 8
+  # flutter-plugin-loader strips dev plugin AARs from --release builds -> the
+  # registrant references a class that isn't on the release classpath and javac
+  # fails (flutter#169336). Listing it as a regular dependency keeps its AAR in
+  # release so the generated registrant compiles. Build-time splash config is
+  # still under the `flutter_native_splash:` block below.
+  flutter_native_splash: ^2.1.0
   flutter_quill:
     path: ./packages/flutter_quill
   flutter_quill_extensions:
     path: ./packages/flutter_quill/flutter_quill_extensions
   flutter_secure_storage: ^9.0.0
-  flutter_sound: ^9.2.13
+  flutter_sound: ^9.17.0
   flutter_svg: ^2.0.9
-  flutter_timezone: ^1.0.8
+  flutter_timezone: ^3.0.1
   flutter_tts: ^3.8.3
-  flutter_web_auth_2: ^2.2.1
+  flutter_web_auth_2: ^4.0.0
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^4.0.4
-  http: 0.13.6
+  http: ^1.2.2
+  # See the flutter_native_splash note above: integration_test also ships an
+  # Android plugin class that Flutter 3.32.0 writes into the registrant, so it
+  # must stay as a regular dependency to survive --release dev-dependency stripping.
+  integration_test:
+    sdk: flutter
   internet_connection_checker: ^0.0.1+4
-  intl: ^0.18.0
+  intl: ^0.20.2
   local_auth: ^2.1.6
-  logger: ^1.1.0
+  logger: ^2.0.2
   markdown: ^7.1.1
   package_info_plus: ^4.1.0
   path_provider: ^2.0.9
@@ -72,8 +85,6 @@ dependencies:
   provider: ^6.0.5
   share_plus: ^7.1.0
   shared_preferences: ^2.0.15
-  simple_accordion:
-    path: ./packages/simple_accordion
   sqflite: ^2.0.2
   stateless_dropbox_client:
     path: ./packages/stateless_dropbox_client/
@@ -87,10 +98,7 @@ dev_dependencies:
   build_runner: ^2.1.7
   flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.0
-  flutter_native_splash: ^2.1.0
   flutter_test:
-    sdk: flutter
-  integration_test:
     sdk: flutter
   mockito: ^5.1.0
 
@@ -109,12 +117,24 @@ dependency_overrides:
   # following page: https://dart.dev/tools/pub/pubspec
   # The following section is specific to Flutter.
   analyzer:
+  # flutter_localizations (Flutter 3.32 SDK) pins intl 0.20.2, but the local
+  # flutter_quill_extensions -> math_keyboard 0.2.1 still requests intl ^0.18.0.
+  # math_keyboard only uses intl's stable NumberFormat API, so force 0.20.2.
+  intl: ^0.20.2
+  # The following transitive deps shipped versions that predate Dart 3 / Flutter
+  # 3.x and fail to compile under the Flutter 3.32 SDK. Force forward-compatible
+  # releases that keep the same public API their parents rely on:
+  #   win32 5.1.1            -> UnmodifiableUint8ListView removed in Dart 3.4
+  #   flutter_colorpicker    -> TextTheme.bodyText1/2 removed (now bodyLarge/Medium)
+  #   flutter_math_fork      -> hashValues removed; Flutter 3.32 render API changes
+  win32: ^5.5.0
+  flutter_colorpicker: ^1.1.0
+  flutter_math_fork: ^0.7.4
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/

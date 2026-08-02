@@ -81,7 +81,7 @@
   "@youWillBeNotifiedAt": {
     "placeholders": {
       "time": {
-        "type": "స్ట్రింగ్",
+        "type": "String",
         "example": "కొంత సమయం లో"
       }
     }
