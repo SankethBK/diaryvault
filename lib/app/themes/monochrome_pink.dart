@@ -60,9 +60,28 @@ class MonochromePink {
 // ############## Change color to Color.fromARGB and add const value
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color(0xFFd63484),
+        foregroundColor: Colors.white,
         // Color.fromARGB(213, 255, 0, 191),
         elevation: 4,
+        shape: CircleBorder(),
       ),
+      appBarTheme: const AppBarTheme(
+        foregroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.white),
+        actionsIconTheme: IconThemeData(color: Colors.white),
+      ),
+      chipTheme: const ChipThemeData(
+        shape: StadiumBorder(),
+        side: BorderSide.none,
+        padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+        labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(foregroundColor: Colors.white),
+      ),
+
+
+
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.white,
       ),

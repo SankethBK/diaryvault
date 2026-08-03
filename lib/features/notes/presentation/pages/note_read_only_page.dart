@@ -1,5 +1,4 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
-import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
@@ -182,7 +181,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
         .mainTextColor;
 
     final dateColor =
-        Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
+        Theme.of(context).extension<NoteCreatePageThemeExtensions>()!.mainTextColor;
 
     final borderColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
