@@ -129,7 +129,7 @@ jobs:
         run: |
           if [ -f "android/key.properties" ]; then
             echo "Building signed APKs"
-            flutter build apk --split-per-abi --release
+            flutter build apk --flavor prod --split-per-abi --release
           else
             echo "Signing configuration is missing; refusing to upload debug APKs as release artifacts" >&2
             exit 1
@@ -167,7 +167,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_info.outputs.upload_url }}
-          asset_path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          asset_path: build/app/outputs/flutter-apk/app-arm64-v8a-prod-release.apk
           asset_name: diaryvault-arm64-v8a-${{ github.event.release.tag_name || inputs.tag_name || 'latest' }}.apk
           asset_content_type: application/vnd.android.package-archive
 
@@ -179,7 +179,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_info.outputs.upload_url }}
-          asset_path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          asset_path: build/app/outputs/flutter-apk/app-armeabi-v7a-prod-release.apk
           asset_name: diaryvault-armeabi-v7a-${{ github.event.release.tag_name || inputs.tag_name || 'latest' }}.apk
           asset_content_type: application/vnd.android.package-archive
 
@@ -191,7 +191,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_info.outputs.upload_url }}
-          asset_path: build/app/outputs/flutter-apk/app-x86_64-release.apk
+          asset_path: build/app/outputs/flutter-apk/app-x86_64-prod-release.apk
           asset_name: diaryvault-x86_64-${{ github.event.release.tag_name || inputs.tag_name || 'latest' }}.apk
           asset_content_type: application/vnd.android.package-archive
 

@@ -15,8 +15,21 @@ $ git clone https://github.com/SankethBK/diaryvault
 
 $ flutter pub get
 
-$ flutter run
+$ make run-staging
 ```
+
+### Firebase environments
+
+Firebase configuration is selected by the Android flavor. Do not replace `google-services.json` manually.
+
+```bash
+make run-staging  # uses the staging Firebase project
+make run-prod     # uses the production Firebase project
+make apk-staging  # builds a staging release APK
+make apk-prod     # builds a production release APK
+make aab-prod     # builds the production Play Store bundle
+```
+
 
 ### In case you're installing flutter from the flutter repo, run the following commands to switch to the correct version:
 

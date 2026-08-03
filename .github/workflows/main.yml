@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          flutter build apk --split-per-abi --release
+          flutter build apk --flavor prod --split-per-abi --release
           zipalign="$ANDROID_HOME/build-tools/35.0.0/zipalign"
           readelf_bin="$(command -v llvm-readelf || command -v readelf)"
 

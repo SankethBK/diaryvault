@@ -126,11 +126,11 @@ jobs:
         run: |
           if [ -f "android/key.properties" ]; then
             echo "Building signed release APKs"
-            flutter build apk --split-per-abi --release
+            flutter build apk --flavor prod --split-per-abi --release
             BUILD_TYPE="release"
           else
             echo "Building debug APKs (no keystore configured)"
-            flutter build apk --split-per-abi --debug
+            flutter build apk --flavor prod --split-per-abi --debug
             BUILD_TYPE="debug"
           fi
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
@@ -147,9 +147,9 @@ jobs:
       - name: Rename APKs
         run: |
           cd build/app/outputs/flutter-apk/
-          mv app-arm64-v8a-${{ env.BUILD_TYPE }}.apk ${{ steps.apk_names.outputs.arm64_name }}
-          mv app-armeabi-v7a-${{ env.BUILD_TYPE }}.apk ${{ steps.apk_names.outputs.armv7_name }}
-          mv app-x86_64-${{ env.BUILD_TYPE }}.apk ${{ steps.apk_names.outputs.x86_name }}
+          mv app-arm64-v8a-prod-${{ env.BUILD_TYPE }}.apk ${{ steps.apk_names.outputs.arm64_name }}
+          mv app-armeabi-v7a-prod-${{ env.BUILD_TYPE }}.apk ${{ steps.apk_names.outputs.armv7_name }}
+          mv app-x86_64-prod-${{ env.BUILD_TYPE }}.apk ${{ steps.apk_names.outputs.x86_name }}
           ls -la
 
       - name: Create release if needed

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "630089514479",
+    "project_id": "my-dairy-ba5e5",
+    "storage_bucket": "my-dairy-ba5e5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630089514479:android:c95d1451edee751e3f0a1a",
+        "android_client_info": {
+          "package_name": "me.sankethbk.dairyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630089514479-0cc0eiumso2fmil5713cm5dau2hv1u4k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.sankethbk.dairyapp",
+            "certificate_hash": "6bd4c60e9b18d64ac1ab7b04730b7f40bb9d61c5"
+          }
+        },
+        {
+          "client_id": "630089514479-387131d890gl4r3ag7qlia56dh56e41k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.sankethbk.dairyapp",
+            "certificate_hash": "1365b5757b884594558cdae41a7a2dae261f282b"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1dpuSQVwvjypQ4RzmpdfJCh1ogMjmgZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630089514479-p3ksr3j9rpsp02obbdbbdi81cqnh6jjp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.sankethbk.dairyapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

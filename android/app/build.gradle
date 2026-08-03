@@ -52,6 +52,16 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    flavorDimensions "environment"
+    productFlavors {
+        staging {
+            dimension "environment"
+        }
+        prod {
+            dimension "environment"
+        }
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "me.sankethbk.dairyapp"
