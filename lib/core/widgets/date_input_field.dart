@@ -33,14 +33,14 @@ class _DateInputFieldState extends State<DateInputField> {
             : "Select",
         prefixIcon: Icon(
           Icons.calendar_month,
-          color: Colors.black.withOpacity(0.6),
+          color: Colors.black.withValues(alpha: 0.6),
         ),
-        fillColor: Colors.white.withOpacity(0.6),
+        fillColor: Colors.white.withValues(alpha: 0.6),
         filled: true,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             width: 0.4,
           ),
         ),
@@ -51,14 +51,14 @@ class _DateInputFieldState extends State<DateInputField> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             width: 0.4,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             width: 0.4,
           ),
         ),

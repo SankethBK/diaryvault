@@ -125,7 +125,7 @@ class _NoteTitleInputFieldState extends State<NoteTitleInputField> {
                         child: Icon(
                           Icons.arrow_downward,
                           size: 15,
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                         ),
                       ),
                       const SizedBox(width: 6),

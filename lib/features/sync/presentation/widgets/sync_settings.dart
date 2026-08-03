@@ -106,7 +106,7 @@ class SyncSettings extends StatelessWidget {
                     Container(
                       width: 50,
                       height: 50,
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       // decoration: const BoxDecoration(color: Colors.pinkAccent),
                     ),
                     Image.asset(
@@ -133,7 +133,7 @@ class SyncSettings extends StatelessWidget {
                     Container(
                       width: 50,
                       height: 50,
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       // decoration: const BoxDecoration(color: Colors.pinkAccent),
                     ),
                     Image.asset(
@@ -160,7 +160,7 @@ class SyncSettings extends StatelessWidget {
                     Container(
                       width: 50,
                       height: 50,
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       // decoration: const BoxDecoration(color: Colors.pinkAccent),
                     ),
                     Image.asset(

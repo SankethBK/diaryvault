@@ -40,7 +40,7 @@ class PlainLight {
           ),
           elevation: 2,
           side: BorderSide(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withValues(alpha: 0.3),
             width: 1,
           ),
         ).copyWith(
@@ -70,7 +70,7 @@ class PlainLight {
         backgroundColor: Colors.white,
       ),
       // used for dialogs in flutter_quill
-      canvasColor: Colors.white.withOpacity(0.95),
+      canvasColor: Colors.white.withValues(alpha: 0.95),
       popupMenuTheme: PopupMenuThemeData(
         color: Colors.white,
         textStyle: const TextStyle(color: Colors.black87),
@@ -89,8 +89,8 @@ class PlainLight {
           borderColor: Colors.grey[300]!,
           textColor: Colors.black87,
           hintTextColor: Colors.grey[600]!,
-          authFormGradientStartColor: Colors.white.withOpacity(0.9),
-          authFormGradientEndColor: Colors.white.withOpacity(0.95),
+          authFormGradientStartColor: Colors.white.withValues(alpha: 0.9),
+          authFormGradientEndColor: Colors.white.withValues(alpha: 0.95),
           infoTextColor: Colors.grey[700]!,
         ),
         ChipThemeExtensions(
@@ -144,7 +144,7 @@ class PlainLight {
           quillPopupTextColor: Colors.black87,
         ),
         PopupThemeExtensions(
-          barrierColor: Colors.black.withOpacity(0.3),
+          barrierColor: Colors.black.withValues(alpha: 0.3),
           popupGradientStartColor: Colors.white,
           popupGradientEndColor: Colors.grey[50]!,
           mainTextColor: Colors.black87,
