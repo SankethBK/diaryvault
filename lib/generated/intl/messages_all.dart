@@ -32,12 +32,14 @@ import 'messages_ko.dart' as messages_ko;
 import 'messages_ne.dart' as messages_ne;
 import 'messages_pa.dart' as messages_pa;
 import 'messages_pl.dart' as messages_pl;
+import 'messages_ps.dart' as messages_ps;
 import 'messages_pt.dart' as messages_pt;
 import 'messages_ru.dart' as messages_ru;
 import 'messages_sk.dart' as messages_sk;
 import 'messages_sw.dart' as messages_sw;
 import 'messages_te.dart' as messages_te;
 import 'messages_tr.dart' as messages_tr;
+import 'messages_ur.dart' as messages_ur;
 import 'messages_zh.dart' as messages_zh;
 
 typedef Future<dynamic> LibraryLoader();
@@ -58,12 +60,14 @@ Map<String, LibraryLoader> _deferredLibraries = {
   'ne': () => new SynchronousFuture(null),
   'pa': () => new SynchronousFuture(null),
   'pl': () => new SynchronousFuture(null),
+  'ps': () => new SynchronousFuture(null),
   'pt': () => new SynchronousFuture(null),
   'ru': () => new SynchronousFuture(null),
   'sk': () => new SynchronousFuture(null),
   'sw': () => new SynchronousFuture(null),
   'te': () => new SynchronousFuture(null),
   'tr': () => new SynchronousFuture(null),
+  'ur': () => new SynchronousFuture(null),
   'zh': () => new SynchronousFuture(null),
 };
 
@@ -101,6 +105,8 @@ MessageLookupByLibrary? _findExact(String localeName) {
       return messages_pa.messages;
     case 'pl':
       return messages_pl.messages;
+    case 'ps':
+      return messages_ps.messages;
     case 'pt':
       return messages_pt.messages;
     case 'ru':
@@ -113,6 +119,8 @@ MessageLookupByLibrary? _findExact(String localeName) {
       return messages_te.messages;
     case 'tr':
       return messages_tr.messages;
+    case 'ur':
+      return messages_ur.messages;
     case 'zh':
       return messages_zh.messages;
     default:
