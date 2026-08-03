@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace 'com.example.dairy_app'
-    compileSdkVersion 35
+    compileSdkVersion 36
     // Keep the NDK explicit so local and CI builds use the same toolchain. AGP
     // handles APK zip alignment, but every packaged ELF must still be checked
     // separately for 16 KB LOAD-segment alignment, including prebuilt AARs.
@@ -56,7 +56,7 @@ android {
         applicationId "me.sankethbk.dairyapp"
         // flutter_sound 9.x requires a minimum Android SDK of 24 (Android 7.0).
         minSdkVersion 24
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
