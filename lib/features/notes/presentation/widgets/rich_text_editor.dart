@@ -400,7 +400,16 @@ class Toolbar extends StatelessWidget {
         .extension<NoteCreatePageThemeExtensions>()!
         .toolbarTheme;
 
-    return QuillToolbar.basic(
+    return Theme(
+      data: Theme.of(context).copyWith(
+        iconTheme: IconThemeData(color: quillIconTheme.iconUnselectedColor),
+        iconButtonTheme: IconButtonThemeData(
+          style: IconButton.styleFrom(
+            foregroundColor: quillIconTheme.iconUnselectedColor,
+          ),
+        ),
+      ),
+      child: QuillToolbar.basic(
       controller: controller,
       color: Colors.transparent,
       showSearchButton: true,
@@ -457,6 +466,7 @@ class Toolbar extends StatelessWidget {
       multiRowsDisplay: false,
       showDirection: false,
       iconTheme: quillIconTheme,
+      ),
     );
   }
 }

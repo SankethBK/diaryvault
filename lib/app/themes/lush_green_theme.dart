@@ -54,8 +54,27 @@ class LushGreen {
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color.fromARGB(255, 35, 151, 44),
+        foregroundColor: Colors.white,
         elevation: 4,
+        shape: CircleBorder(),
       ),
+      appBarTheme: const AppBarTheme(
+        foregroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.white),
+        actionsIconTheme: IconThemeData(color: Colors.white),
+      ),
+      chipTheme: const ChipThemeData(
+        shape: StadiumBorder(),
+        side: BorderSide.none,
+        padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+        labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(foregroundColor: Colors.white),
+      ),
+
+
+
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.white,
       ),

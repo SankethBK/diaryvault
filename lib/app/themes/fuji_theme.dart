@@ -52,8 +52,27 @@ class Fuji {
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color(0xFFB3001B),
+        foregroundColor: Colors.white,
         elevation: 4,
+        shape: CircleBorder(),
       ),
+      appBarTheme: const AppBarTheme(
+        foregroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.white),
+        actionsIconTheme: IconThemeData(color: Colors.white),
+      ),
+      chipTheme: const ChipThemeData(
+        shape: StadiumBorder(),
+        side: BorderSide.none,
+        padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+        labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(foregroundColor: Colors.white),
+      ),
+
+
+
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.white,
       ),
@@ -92,11 +111,11 @@ class Fuji {
         ),
         HomePageThemeExtensions(
           borderColor: Colors.white,
-          backgroundGradientStartColor: Color(0xFF5D8AA8).withValues(alpha: 0.3),
-          backgroundGradientEndColor: Color(0xFF7BA05B).withValues(alpha: 0.2),
+          backgroundGradientStartColor: Color(0xFF5D8AA8).withValues(alpha: 0.6),
+          backgroundGradientEndColor: Color(0xFF7BA05B).withValues(alpha: 0.5),
           previewTitleColor: Colors.white,
           previewBodyColor: Colors.white.withValues(alpha: 0.9),
-          dateColor: Color(0xFFB3001B),
+          dateColor: Colors.white.withValues(alpha: 0.8),
           sigmaX: 3.0,
           sigmaY: 3.0,
           notePreviewBorderColor: Colors.white.withValues(alpha: 0.5),

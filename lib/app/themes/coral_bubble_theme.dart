@@ -50,6 +50,7 @@ class CoralBubble {
         foregroundColor: Colors.white,
       ),
       appBarTheme: const AppBarTheme(
+        foregroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.white),
         actionsIconTheme: IconThemeData(color: Colors.white),
       ),
@@ -59,6 +60,10 @@ class CoralBubble {
         padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
         labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
       ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(foregroundColor: Colors.white),
+      ),
+
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.white,
       ),
