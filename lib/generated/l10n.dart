@@ -1230,46 +1230,6 @@ class S {
     );
   }
 
-  /// `Warning`
-  String get warning {
-    return Intl.message(
-      'Warning',
-      name: 'warning',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You are about to enable PIN lock without creating account, if you forget your PIN you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes`
-  String get pinWarningMessage {
-    return Intl.message(
-      'You are about to enable PIN lock without creating account, if you forget your PIN you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes',
-      name: 'pinWarningMessage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You are about to enable fingerprint without creating account, if there is any hardware damage to fingerprint sensor you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes`
-  String get fingerprintWarningMessage {
-    return Intl.message(
-      'You are about to enable fingerprint without creating account, if there is any hardware damage to fingerprint sensor you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes',
-      name: 'fingerprintWarningMessage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `I accept the risk to continue`
-  String get acceptRisk {
-    return Intl.message(
-      'I accept the risk to continue',
-      name: 'acceptRisk',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Select Voice`
   String get selectVoice {
     return Intl.message(
@@ -1322,11 +1282,14 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'ne'),
       Locale.fromSubtags(languageCode: 'pa'),
       Locale.fromSubtags(languageCode: 'pl'),
+      Locale.fromSubtags(languageCode: 'ps'),
       Locale.fromSubtags(languageCode: 'pt'),
       Locale.fromSubtags(languageCode: 'ru'),
       Locale.fromSubtags(languageCode: 'sk'),
       Locale.fromSubtags(languageCode: 'sw'),
       Locale.fromSubtags(languageCode: 'te'),
+      Locale.fromSubtags(languageCode: 'tr'),
+      Locale.fromSubtags(languageCode: 'ur'),
       Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
