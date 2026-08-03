@@ -62,7 +62,7 @@ Future<dynamic> audioRecorderPopup(BuildContext context) {
 
   return showGeneralDialog(
     context: context,
-    barrierColor: Colors.black.withOpacity(0.5),
+    barrierColor: Colors.black.withValues(alpha: 0.5),
     pageBuilder: (context, anim1, anim2) {
       return Material(
         child: StatefulBuilder(builder: (context, setState) {
@@ -82,11 +82,11 @@ Future<dynamic> audioRecorderPopup(BuildContext context) {
                       width: 150,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: primaryColor.withOpacity(0.2),
+                        color: primaryColor.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(
                             150), // Adjust the radius as needed
                         border: Border.all(
-                          color: primaryColor.withOpacity(0.7),
+                          color: primaryColor.withValues(alpha: 0.7),
                         ),
                       ),
                       child: Center(
@@ -116,11 +116,11 @@ Future<dynamic> audioRecorderPopup(BuildContext context) {
                       width: 80,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: primaryColor.withOpacity(0.2),
+                        color: primaryColor.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(
                             50), // Adjust the radius as needed
                         border: Border.all(
-                          color: primaryColor.withOpacity(0.7),
+                          color: primaryColor.withValues(alpha: 0.7),
                         ),
                       ),
                       child: Icon(

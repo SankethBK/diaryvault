@@ -28,7 +28,7 @@ class GlassMorphismCover extends StatelessWidget {
           BoxShadow(
             blurRadius: 24,
             spreadRadius: 16,
-            color: Colors.black.withOpacity(displayShadow ? 0.1 : 0.0),
+            color: Colors.black.withValues(alpha: displayShadow ? 0.1 : 0.0),
           )
         ]),
         child: ClipRRect(

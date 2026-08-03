@@ -59,7 +59,7 @@ class _SyncNowButtonState extends State<SyncNowButton>
           child: Container(
             padding: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
               border: Border.all(
                 color: syncButtonColor,
               ),

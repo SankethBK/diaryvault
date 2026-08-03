@@ -28,7 +28,7 @@ class NumberButton extends StatelessWidget {
                 borderRadius:
                     BorderRadius.circular(50), // Adjust the radius as needed
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                 ),
               ),
               child: Center(

@@ -60,13 +60,13 @@ class _PINAuthPageState extends State<PINAuthPage> {
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             color: i < pin.length
-                ? Colors.white.withOpacity(0.4)
+                ? Colors.white.withValues(alpha: 0.4)
                 : Colors.transparent,
 
             borderRadius:
                 BorderRadius.circular(50), // Adjust the radius as needed
             border: Border.all(
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
             ),
           ),
         ),
@@ -81,7 +81,7 @@ class _PINAuthPageState extends State<PINAuthPage> {
           borderRadius:
               BorderRadius.circular(50), // Adjust the radius as needed
           border: Border.all(
-            color: Colors.white.withOpacity(0.5),
+            color: Colors.white.withValues(alpha: 0.5),
           ),
         ),
         child: Column(

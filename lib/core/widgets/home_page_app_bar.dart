@@ -113,7 +113,7 @@ class LeadingIcon extends StatelessWidget {
           if (isSearchEnabled) {
             return Icon(
               Icons.search,
-              color: Colors.white.withOpacity(1),
+              color: Colors.white.withValues(alpha: 1),
             );
           } else if (state is SelectableListEnabled) {
             return CancelDeletion(
@@ -178,7 +178,7 @@ class Action extends StatelessWidget {
                   onPressed: () {
                     notesFetchCubit.toggleTagSearch();
                   },
-                  color: Colors.white.withOpacity(1),
+                  color: Colors.white.withValues(alpha: 1),
                 ),
               ),
               Padding(
@@ -196,7 +196,7 @@ class Action extends StatelessWidget {
 
                     closeSearchAppBar();
                   },
-                  color: Colors.white.withOpacity(1),
+                  color: Colors.white.withValues(alpha: 1),
                 ),
               ),
             ],
@@ -335,7 +335,7 @@ class Title extends StatelessWidget {
               autofocus: true,
               cursorColor: Colors.white,
               style:
-                  TextStyle(color: Colors.white.withOpacity(1), fontSize: 16.0),
+                  TextStyle(color: Colors.white.withValues(alpha: 1), fontSize: 16.0),
               decoration: InputDecoration(
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -343,21 +343,21 @@ class Title extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                   borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.0),
+                    color: Colors.black.withValues(alpha: 0.0),
                     width: 0.1,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(17.0),
                   borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.0),
+                    color: Colors.black.withValues(alpha: 0.0),
                     width: 0.1,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(17.0),
                   borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.0),
+                    color: Colors.black.withValues(alpha: 0.0),
                     width: 0.1,
                   ),
                 ),

@@ -134,7 +134,7 @@ class DarkAcademia {
           quillPopupTextColor: Colors.white,
         ),
         PopupThemeExtensions(
-          barrierColor: Colors.white.withOpacity(0.3),
+          barrierColor: Colors.white.withValues(alpha: 0.3),
           popupGradientStartColor: const Color.fromARGB(222, 45, 31, 22),
           popupGradientEndColor: const Color.fromARGB(200, 45, 31, 22),
           mainTextColor: Colors.white,

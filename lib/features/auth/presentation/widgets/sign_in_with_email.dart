@@ -25,7 +25,7 @@ class SignInWithEmail extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
             border: Border.all(
               width: 1.5,
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
             ),
           ),
           padding: const EdgeInsets.all(10.0),
