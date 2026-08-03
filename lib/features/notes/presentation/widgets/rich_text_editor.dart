@@ -434,7 +434,7 @@ class Toolbar extends StatelessWidget {
       showFontFamily: false,
       showSubscript: true,
       showSuperscript: true,
-      showFontSize: false,
+      showFontSize: true,
       toolbarIconSize: 23,
       toolbarSectionSpacing: 4,
       toolbarIconAlignment: WrapAlignment.center,
