@@ -59,6 +59,9 @@ class AuthenticationRepository implements IAuthenticationRepository {
           default:
             return Left(SignUpFailure.unknownError());
         }
+      } catch (e, st) {
+        log.e("unexpected signup error: $e\n$st");
+        return Left(SignUpFailure.unknownError());
       }
 
       try {
@@ -120,6 +123,9 @@ class AuthenticationRepository implements IAuthenticationRepository {
           default:
             return Left(SignInFailure.unknownError());
         }
+      } catch (e, st) {
+        log.e("unexpected sign in error: $e\n$st");
+        return Left(SignInFailure.unknownError());
       }
     }
     log.w("sign in failed because of no internet");
