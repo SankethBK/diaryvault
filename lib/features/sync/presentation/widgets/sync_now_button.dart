@@ -44,12 +44,22 @@ class _SyncNowButtonState extends State<SyncNowButton>
       builder: (contextn, state) {
         if (state is NoteSyncSuccessful) {
           showToast(S.current.notesSyncSuccessfull);
-          _rotationAnimationController.reset();
+          if (_rotationAnimationController.isAnimating) {
+            _rotationAnimationController.reset();
+          }
         } else if (state is NoteSyncFailed) {
           showToast(state.errorMessage);
-          _rotationAnimationController.reset();
+          if (_rotationAnimationController.isAnimating) {
+            _rotationAnimationController.reset();
+          }
         } else if (state is NoteSyncOnGoing) {
-          _rotationAnimationController.repeat();
+          if (!_rotationAnimationController.isAnimating) {
+            _rotationAnimationController.repeat();
+          }
+        } else {
+          if (_rotationAnimationController.isAnimating) {
+            _rotationAnimationController.reset();
+          }
         }
 
         return GestureDetector(

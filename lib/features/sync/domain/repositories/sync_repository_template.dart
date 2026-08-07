@@ -4,7 +4,8 @@ import 'package:dartz/dartz.dart';
 abstract class ISyncRepository {
   Future<Either<SyncFailure, bool>> initializeSyncRepository();
 
-  Future<Either<SyncFailure, bool>> initializeNewFolderStructure();
+  Future<Either<SyncFailure, bool>> initializeNewFolderStructure(
+      {void Function(double progress)? onProgress});
 
   Future<bool> diffEachNoteAndSync();
 
