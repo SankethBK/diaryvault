@@ -71,13 +71,14 @@ class SyncRepository implements ISyncRepository {
   ///
   /// returns true if everything works, false if somethign goes wrong
   @override
-  Future<Either<SyncFailure, bool>> initializeNewFolderStructure() async {
+  Future<Either<SyncFailure, bool>> initializeNewFolderStructure(
+      {void Function(double progress)? onProgress}) async {
     try {
       bool isAppFolderPresent = await syncClient.isFilePresent(appFolderName,
           folder: true, fullFilePath: "/$appFolderName");
       if (!isAppFolderPresent) {
         log.i("app folder is not present, starting bulk upload");
-        final res = await bulkUploadEverything();
+        final res = await bulkUploadEverything(onProgress: onProgress);
         if (res) {
           return Right(res);
         }
@@ -107,7 +108,7 @@ class SyncRepository implements ISyncRepository {
         fullFilePath: "/$appFolderName/$lockFileName",
       );
 
-      bool isNotesSynced = await diffEachNoteAndSync();
+      bool isNotesSynced = await diffEachNoteAndSync(onProgress: onProgress);
 
       log.i("Removing lockfile for diff and sync");
       await syncClient.deleteFile(lockFileName,
@@ -128,7 +129,8 @@ class SyncRepository implements ISyncRepository {
   /// Deletes the app folder if exists and bul uploads everything from local database
   ///
   /// ideally should be done only the first time
-  Future<bool> bulkUploadEverything() async {
+  Future<bool> bulkUploadEverything(
+      {void Function(double progress)? onProgress}) async {
     try {
       // delete the main app folder
       bool isAppFolderDeleted = await syncClient.deleteFile(appFolderName,
@@ -162,9 +164,15 @@ class SyncRepository implements ISyncRepository {
         log.i("failed to fetch note ID's, aborting bulk upload");
         return false;
       }, (data) async {
+        int totalOperations = data.length + 1;
+        int processedOperations = 0;
+
         for (var noteId in data) {
           // upload all notes and their assets
           await _uploadSingleNote(noteId);
+
+          processedOperations++;
+          onProgress?.call(processedOperations / totalOperations);
         }
 
         // upload index
@@ -187,6 +195,9 @@ class SyncRepository implements ISyncRepository {
               parentFolder: appFolderName,
               fullFilePath: "/$appFolderName/$indexFileName.json");
 
+          processedOperations++;
+          onProgress?.call(processedOperations / totalOperations);
+
           log.i("removing lockfile");
           await syncClient.deleteFile(lockFileName,
               fullFilePath: "/$appFolderName/$lockFileName");
@@ -207,7 +218,8 @@ class SyncRepository implements ISyncRepository {
   }
 
   @override
-  Future<bool> diffEachNoteAndSync() async {
+  Future<bool> diffEachNoteAndSync(
+      {void Function(double progress)? onProgress}) async {
     try {
       // Download the index file
       log.i("Started diffEachNoteAndSync");
@@ -238,9 +250,19 @@ class SyncRepository implements ISyncRepository {
       // updated index in globalNotesIndex as we should not change array while iterating it
       var globalNotesIndexCopy = globalNotesIndex.map((e) => {...e}).toList();
 
+      int newNotesToUpload = localNotesIndex
+          .where((noteIndex) => noteIndex["deleted"] == 0)
+          .length;
+      int totalNotes = globalNotesIndex.length + newNotesToUpload;
+      int processedNotes = 0;
+
       // first iterate through the global notes map and sort out and all the stuff with
       // corresponding local notes index, then deal with the remaining notes in local notes index
       for (var globalNote in globalNotesIndex) {
+        processedNotes++;
+        onProgress?.call(
+            totalNotes > 0 ? processedNotes / totalNotes : 0.0);
+
         var localNote = _findNoteWithGivenId(localNotesIndex, globalNote["id"]);
 
         log.d("globalNote = $globalNote");
@@ -349,12 +371,17 @@ class SyncRepository implements ISyncRepository {
           log.i("fresh upload of ${noteIndex["id"]} to cloud");
           globalNotesIndexCopy = await createNoteInCloud(
               noteIndex: noteIndex, globalIndex: globalNotesIndexCopy);
+
+          processedNotes++;
+          onProgress?.call(
+              totalNotes > 0 ? processedNotes / totalNotes : 0.0);
         }
       }
 
       log.i("global notes index at end = \n $globalNotesIndexCopy");
 
       await syncClient.updateLastSynced();
+      onProgress?.call(1.0);
       return true;
     } catch (e) {
       log.e(e);

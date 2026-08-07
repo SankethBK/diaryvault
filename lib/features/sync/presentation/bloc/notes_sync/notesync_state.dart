@@ -9,7 +9,14 @@ abstract class NoteSyncState extends Equatable {
 
 class NoteSyncInitial extends NoteSyncState {}
 
-class NoteSyncOnGoing extends NoteSyncState {}
+class NoteSyncOnGoing extends NoteSyncState {
+  final double progress;
+
+  const NoteSyncOnGoing({this.progress = 0.0});
+
+  @override
+  List<Object> get props => [progress];
+}
 
 class NoteSyncFailed extends NoteSyncState {
   final String errorMessage;

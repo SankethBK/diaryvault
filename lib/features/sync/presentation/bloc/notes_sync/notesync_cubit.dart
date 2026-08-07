@@ -35,7 +35,7 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
     if (state is NoteSyncOnGoing) {
       return;
     }
-    emit(NoteSyncOnGoing());
+    emit(const NoteSyncOnGoing(progress: 0.0));
 
     // Initialize notes sync repository
     var res = await syncRepository.initializeSyncRepository();
@@ -48,7 +48,12 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
       await Future.delayed(const Duration(milliseconds: 100));
       emit(NoteSyncInitial());
     }, (_) async {
-      var res2 = await syncRepository.initializeNewFolderStructure();
+      emit(const NoteSyncOnGoing(progress: 0.15));
+      var res2 = await syncRepository.initializeNewFolderStructure(
+        onProgress: (progress) => emit(NoteSyncOnGoing(
+          progress: 0.15 + (progress * 0.8),
+        )),
+      );
 
       res2.fold((e) async {
         log.w("App folder could not be initialized");
