@@ -466,6 +466,17 @@ class SyncRepository implements ISyncRepository {
       // download the note body which was stored as JSON
 
       log.i("Downloading $noteId from cloud");
+
+      bool isNoteFilePresent = await syncClient.isFilePresent(
+        noteId + ".json",
+        fullFilePath: "/$appFolderName/$noteId/$noteId.json",
+      );
+
+      if (!isNoteFilePresent) {
+        log.w("Note $noteId file is missing on cloud, skipping download");
+        return;
+      }
+
       Map<String, dynamic> newNote = jsonDecode(await syncClient.downloadFile(
         noteId + ".json",
         fullFilePath: "/$appFolderName/$noteId/$noteId.json",
@@ -479,10 +490,22 @@ class SyncRepository implements ISyncRepository {
 
       for (var noteAsset in newNote["asset_dependencies"]) {
         String assetName = p.basename(noteAsset["asset_path"]);
+        String assetFileName = p.basename(assetName);
+
+        bool isAssetPresent = await syncClient.isFilePresent(
+          assetFileName,
+          fullFilePath: "/$appFolderName/$noteId/$assetFileName",
+        );
+
+        if (!isAssetPresent) {
+          log.w("Asset $assetFileName for note $noteId is missing, skipping");
+          continue;
+        }
+
         assetPathMap[assetName] = await syncClient.downloadFile(
           assetName,
           outputAsFile: true,
-          fullFilePath: "/$appFolderName/$noteId/${p.basename(assetName)}",
+          fullFilePath: "/$appFolderName/$noteId/$assetFileName",
         );
       }
 

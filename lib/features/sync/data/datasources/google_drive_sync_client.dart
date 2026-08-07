@@ -235,7 +235,10 @@ class GoogleDriveSyncClient implements ISyncClient {
     log.i(
         "Downloading file $fileName returning  ${outputAsFile ? "file content" : "file path"}");
     var fileId = await _getFileIdIfPresent(fileName);
-    drive.Media file = await driveApi.files.get(fileId!,
+    if (fileId == null) {
+      throw Exception('File $fileName not found on Google Drive');
+    }
+    drive.Media file = await driveApi.files.get(fileId,
         downloadOptions: drive.DownloadOptions.fullMedia) as drive.Media;
 
     log.i("Download successful");
