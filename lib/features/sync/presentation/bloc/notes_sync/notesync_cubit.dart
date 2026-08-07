@@ -48,10 +48,10 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
       await Future.delayed(const Duration(milliseconds: 100));
       emit(NoteSyncInitial());
     }, (_) async {
-      emit(const NoteSyncOnGoing(progress: 0.15));
+      emit(const NoteSyncOnGoing(progress: 0.05));
       var res2 = await syncRepository.initializeNewFolderStructure(
         onProgress: (progress) => emit(NoteSyncOnGoing(
-          progress: 0.15 + (progress * 0.8),
+          progress: 0.05 + (progress * 0.90),
         )),
       );
 
