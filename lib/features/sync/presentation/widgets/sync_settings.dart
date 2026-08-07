@@ -87,10 +87,28 @@ class SyncSettings extends StatelessWidget {
               current is NoteSyncOnGoing || previous is NoteSyncOnGoing,
           builder: (context, state) {
             if (state is NoteSyncOnGoing) {
-              return LinearProgressIndicator(
-                value: state.progress,
-                backgroundColor: inactiveTrackColor,
-                valueColor: AlwaysStoppedAnimation<Color>(activeColor!),
+              return Row(
+                children: [
+                  Expanded(
+                    child: LinearProgressIndicator(
+                      value: state.progress,
+                      backgroundColor: inactiveTrackColor,
+                      valueColor: AlwaysStoppedAnimation<Color>(activeColor!),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  SizedBox(
+                    width: 40,
+                    child: Text(
+                      '${(state.progress * 100).toStringAsFixed(0)}%',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: mainTextColor,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ],
               );
             }
             return const SizedBox.shrink();
