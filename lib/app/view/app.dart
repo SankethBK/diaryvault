@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
+import 'package:dairy_app/app/themes/custom_theme/custom_theme.dart';
 import 'package:dairy_app/app/themes/dark_academia.dart';
 import 'package:dairy_app/app/themes/lush_green_theme.dart';
 import 'package:dairy_app/app/themes/monochrome_pink.dart';
@@ -102,7 +103,13 @@ class _AppViewState extends State<AppView> {
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
-  ThemeData getThemeData(Themes currentTheme, FontFamily fontFamily) {
+  ThemeData getThemeData(ThemeState themeState, FontFamily fontFamily) {
+    final currentTheme = themeState.theme;
+
+    if (currentTheme == Themes.custom && themeState.customConfig != null) {
+      return CustomTheme.getTheme(fontFamily, themeState.customConfig!);
+    }
+
     switch (currentTheme) {
       case Themes.coralBubbles:
         return CoralBubble.getTheme(fontFamily);
@@ -124,6 +131,9 @@ class _AppViewState extends State<AppView> {
         return Mediterranean.getTheme(fontFamily);
       case Themes.fuji:
         return Fuji.getTheme(fontFamily);
+      case Themes.custom:
+        // unreachable safety net: custom theme without a stored config
+        return CoralBubble.getTheme(fontFamily);
     }
   }
 
@@ -147,7 +157,7 @@ class _AppViewState extends State<AppView> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate
           ],
-          theme: getThemeData(themeState.theme, fontCubit.currentFontFamily),
+          theme: getThemeData(themeState, fontCubit.currentFontFamily),
           builder: (BuildContext context, child) {
             return BlocListener<AuthSessionBloc, AuthSessionState>(
               listener: (context, state) {

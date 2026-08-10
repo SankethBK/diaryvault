@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/data/repositories/pin_auth_repository.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/number_pad.dart';
@@ -111,9 +112,7 @@ class _PINAuthPageState extends State<PINAuthPage> {
         constraints: const BoxConstraints.expand(),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              backgroundImagePath,
-            ),
+            image: getBackgroundImageProvider(backgroundImagePath),
             fit: BoxFit.cover,
           ),
         ),

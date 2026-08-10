@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/pages/settings_details.dart';
+import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/logout_button.dart';
@@ -41,7 +42,7 @@ class _SettingsPageState extends State<SettingsPage> {
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image.asset(backgroundImagePath);
+      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
       precacheImage(neonImage.image, context);
 
       _isInitialized = true;
@@ -91,9 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              backgroundImagePath,
-            ),
+            image: getBackgroundImageProvider(backgroundImagePath),
             fit: BoxFit.cover,
             // alignment: const Alignment(0.725, 0.1),
           ),
