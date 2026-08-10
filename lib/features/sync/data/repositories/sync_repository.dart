@@ -247,6 +247,15 @@ class SyncRepository implements ISyncRepository {
       log.d("global notes index = $globalNotesIndex");
       // log.d("local notes index = $localNotesIndex");
 
+      // Fast path for new/empty devices: download all active notes in parallel
+      if (localNotesIndex.isEmpty) {
+        log.i("Local notes are empty, starting bulk parallel download");
+        await _bulkDownloadNotes(globalNotesIndex, onProgress);
+        await syncClient.updateLastSynced();
+        onProgress?.call(1.0);
+        return true;
+      }
+
       // Copy of global notes index, as we have to update index for each diff and we cannot store
       // updated index in globalNotesIndex as we should not change array while iterating it
       var globalNotesIndexCopy = globalNotesIndex.map((e) => {...e}).toList();
@@ -529,6 +538,36 @@ class SyncRepository implements ISyncRepository {
     } catch (e) {
       log.e(e);
       rethrow;
+    }
+  }
+
+  /// Bulk download all active notes in parallel batches (used for new/empty devices)
+  Future<void> _bulkDownloadNotes(
+    List<Map<String, dynamic>> globalNotesIndex,
+    void Function(double progress)? onProgress,
+  ) async {
+    const int concurrency = 4;
+
+    final noteIds = globalNotesIndex
+        .where((note) => note["deleted"] == 0)
+        .map((note) => note["id"] as String)
+        .toList();
+
+    final int totalNotes = noteIds.length;
+    int processedNotes = 0;
+
+    for (int i = 0; i < totalNotes; i += concurrency) {
+      final batch = noteIds.sublist(
+        i,
+        i + concurrency > totalNotes ? totalNotes : i + concurrency,
+      );
+
+      await Future.wait(
+          batch.map((noteId) => downloadAndInsertNote(noteId)));
+
+      processedNotes += batch.length;
+      onProgress?.call(
+          totalNotes > 0 ? processedNotes / totalNotes : 0.0);
     }
   }
 
