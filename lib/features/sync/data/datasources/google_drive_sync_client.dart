@@ -40,6 +40,9 @@ class GoogleDriveSyncClient implements ISyncClient {
     try {
       Map<String, String> headers;
 
+      // drop any cached file ids, they belong to the previous account/session
+      _fileCache = null;
+
       // try to login silently, it will be successful if we already have the permission
       GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signInSilently();
@@ -77,6 +80,9 @@ class GoogleDriveSyncClient implements ISyncClient {
   Future<bool> signIn() async {
     try {
       Map<String, String> headers;
+
+      // drop any cached file ids, they belong to the previous account/session
+      _fileCache = null;
 
       // try to login silently, it will be successful if we already have the permission
       GoogleSignInAccount? googleSignInAccount =
