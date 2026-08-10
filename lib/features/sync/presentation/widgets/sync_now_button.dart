@@ -32,6 +32,16 @@ class _SyncNowButtonState extends State<SyncNowButton>
     super.dispose();
   }
 
+  String _formatDuration(Duration duration) {
+    if (duration.inMinutes > 0) {
+      return '${duration.inMinutes}m ${duration.inSeconds.remainder(60)}s';
+    }
+    if (duration.inSeconds > 0) {
+      return '${duration.inSeconds}s';
+    }
+    return '${duration.inMilliseconds}ms';
+  }
+
   @override
   Widget build(BuildContext context) {
     final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
@@ -43,7 +53,8 @@ class _SyncNowButtonState extends State<SyncNowButton>
     return BlocBuilder<NoteSyncCubit, NoteSyncState>(
       builder: (contextn, state) {
         if (state is NoteSyncSuccessful) {
-          showToast(S.current.notesSyncSuccessfull);
+          showToast(
+              '${S.current.notesSyncSuccessfull} (${_formatDuration(state.elapsed)})');
           if (_rotationAnimationController.isAnimating) {
             _rotationAnimationController.reset();
           }

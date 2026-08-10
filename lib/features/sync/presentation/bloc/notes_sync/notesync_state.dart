@@ -24,4 +24,11 @@ class NoteSyncFailed extends NoteSyncState {
   const NoteSyncFailed(this.errorMessage);
 }
 
-class NoteSyncSuccessful extends NoteSyncState {}
+class NoteSyncSuccessful extends NoteSyncState {
+  final Duration elapsed;
+
+  const NoteSyncSuccessful({required this.elapsed});
+
+  @override
+  List<Object> get props => [elapsed];
+}

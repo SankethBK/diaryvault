@@ -12,9 +12,21 @@ import 'package:path_provider/path_provider.dart';
 
 final log = printer("GoogleDriveSyncClient");
 
+class _CachedDriveFile {
+  final String id;
+  final DateTime? createdTime;
+  final bool isFolder;
+
+  _CachedDriveFile(this.id, this.createdTime, this.isFolder);
+}
+
 class GoogleDriveSyncClient implements ISyncClient {
   late GoogleSignIn googleSignIn;
   late drive.DriveApi driveApi;
+
+  /// In-memory cache of file name -> file metadata, populated with a single
+  /// paginated files.list call. Avoids an API call per file lookup.
+  Map<String, _CachedDriveFile>? _fileCache;
 
   final UserConfigCubit userConfigCubit;
   GoogleDriveSyncClient({required this.userConfigCubit}) {
@@ -97,19 +109,9 @@ class GoogleDriveSyncClient implements ISyncClient {
   @override
   Future<bool> isFilePresent(String fileName,
       {bool folder = false, String? fullFilePath}) async {
-    final mimeType = folder ? "application/vnd.google-apps.folder" : null;
-
     try {
       log.i("Searching for $fileName file");
-
-      // skipping mimeTypes for files as of now, as it is causing some issues
-      final String searchQuery = mimeType != null
-          ? "mimeType = '$mimeType' and name = '$fileName'"
-          : "name = '$fileName'";
-
-      const String fields = "files(id, name)";
-
-      return _isFilePresent(searchQuery, fields);
+      return await _getFileIdIfPresent(fileName, folder: folder) != null;
     } catch (e) {
       log.e(e);
       return false;
@@ -140,9 +142,11 @@ class GoogleDriveSyncClient implements ISyncClient {
         folder.parents = [parentFolderId];
       }
 
-      await driveApi.files.create(
+      final created = await driveApi.files.create(
         folder,
       );
+      _fileCache?[folderName] =
+          _CachedDriveFile(created.id!, created.createdTime, true);
       return true;
     } catch (e) {
       log.e(e);
@@ -161,6 +165,7 @@ class GoogleDriveSyncClient implements ISyncClient {
         return true;
       }
       await driveApi.files.delete(fileId);
+      _fileCache?.remove(fileName);
       log.i("$fileName deleted successfully");
 
       return true;
@@ -204,6 +209,9 @@ class GoogleDriveSyncClient implements ISyncClient {
         final response =
             await driveApi.files.create(driveFile, uploadMedia: media);
 
+        _fileCache?["$fileName"] =
+            _CachedDriveFile(response.id!, response.createdTime, false);
+
         log.i("file $fileName uploaded successfully $response");
       } else if (file != null) {
         // set file attributes from Flutter File objects
@@ -216,6 +224,8 @@ class GoogleDriveSyncClient implements ISyncClient {
           driveFile,
           uploadMedia: drive.Media(file.openRead(), file.lengthSync()),
         );
+        _fileCache?[p.basename(file.absolute.path)] =
+            _CachedDriveFile(response.id!, response.createdTime, false);
         log.i("file $fileName created successfully $response");
       }
 
@@ -238,8 +248,17 @@ class GoogleDriveSyncClient implements ISyncClient {
     if (fileId == null) {
       throw Exception('File $fileName not found on Google Drive');
     }
-    drive.Media file = await driveApi.files.get(fileId,
-        downloadOptions: drive.DownloadOptions.fullMedia) as drive.Media;
+    drive.Media file;
+    try {
+      file = await driveApi.files.get(fileId,
+          downloadOptions: drive.DownloadOptions.fullMedia) as drive.Media;
+    } catch (e) {
+      // cached file id might be stale, drop the cache so the next
+      // lookup re-fetches from the server
+      log.e(e);
+      _fileCache = null;
+      rethrow;
+    }
 
     log.i("Download successful");
 
@@ -282,7 +301,13 @@ class GoogleDriveSyncClient implements ISyncClient {
       var driveFile = drive.File();
       driveFile.name = fileName;
 
-      await driveApi.files.update(driveFile, fileId, uploadMedia: media);
+      try {
+        await driveApi.files.update(driveFile, fileId, uploadMedia: media);
+      } catch (e) {
+        // cached file id might be stale
+        _fileCache = null;
+        rethrow;
+      }
       log.i("$fileName updated successfully");
 
       return true;
@@ -295,6 +320,7 @@ class GoogleDriveSyncClient implements ISyncClient {
   @override
   Future<void> signOut() async {
     await googleSignIn.signOut();
+    _fileCache = null;
     userConfigCubit.setUserConfig(
         UserConfigConstants.googleDriveUserInfo, null);
     log.i("sign out successful");
@@ -346,67 +372,73 @@ class GoogleDriveSyncClient implements ISyncClient {
   }) async {
     log.i("Searching for createdTime of $fileName");
 
-    final mimeType = folder ? "application/vnd.google-apps.folder" : null;
+    await _ensureFileCache();
+    final cached = _fileCache?[fileName];
 
-    final String searchQuery = mimeType != null
-        ? "mimeType = '$mimeType' and name = '$fileName'"
-        : "name = '$fileName'";
-
-    const String fields = "files(id, name, createdTime)";
-
-    final found = await driveApi.files
-        .list(q: searchQuery, $fields: fields, spaces: 'appDataFolder');
-
-    final files = found.files;
-
-    if (files == null || files.isEmpty) {
+    if (cached == null || (folder && !cached.isFolder)) {
       log.i("File $fileName not found");
       return null;
     }
 
-    return files.first.createdTime;
+    return cached.createdTime;
   }
 
   //* Private util methods
 
-  Future<bool> _isFilePresent(String searchQuery, String fields) async {
-    final found = await driveApi.files
-        .list(q: searchQuery, $fields: fields, spaces: 'appDataFolder');
-
-    final files = found.files;
-
-    if (files == null || files.isEmpty) {
-      log.i("File not found");
-      return false;
+  /// Populates the file cache with a single paginated files.list call,
+  /// if it is not already populated
+  Future<void> _ensureFileCache() async {
+    if (_fileCache != null) {
+      return;
     }
 
-    log.i("File found");
-    return true;
+    log.i("Populating file cache");
+    final cache = <String, _CachedDriveFile>{};
+
+    String? pageToken;
+    do {
+      final found = await driveApi.files.list(
+        q: "trashed = false",
+        spaces: 'appDataFolder',
+        $fields: "nextPageToken, files(id, name, createdTime, mimeType)",
+        pageSize: 1000,
+        pageToken: pageToken,
+      );
+
+      for (final file in found.files ?? []) {
+        if (file.name == null || file.id == null) {
+          continue;
+        }
+        // keep the first match, mirroring the previous files.first behaviour
+        cache.putIfAbsent(
+          file.name!,
+          () => _CachedDriveFile(
+            file.id!,
+            file.createdTime,
+            file.mimeType == "application/vnd.google-apps.folder",
+          ),
+        );
+      }
+
+      pageToken = found.nextPageToken;
+    } while (pageToken != null);
+
+    _fileCache = cache;
+    log.i("File cache populated with ${cache.length} entries");
   }
 
   Future<String?> _getFileIdIfPresent(String fileName,
       {bool folder = false}) async {
-    final mimeType = folder ? "application/vnd.google-apps.folder" : null;
+    await _ensureFileCache();
+    final cached = _fileCache?[fileName];
 
-    final String searchQuery = mimeType != null
-        ? "mimeType = '$mimeType' and name = '$fileName'"
-        : "name = '$fileName'";
-
-    const String fields = "files(id, name)";
-
-    final found = await driveApi.files
-        .list(q: searchQuery, $fields: fields, spaces: 'appDataFolder');
-
-    final files = found.files;
-
-    if (files == null || files.isEmpty) {
+    if (cached == null || (folder && !cached.isFolder)) {
       log.i("File $fileName not found");
       return null;
     }
 
-    log.i(
-        "$fileName found file id = ${files.first.id}, number of files = ${files.length}");
-    return files.first.id;
+    log.i("$fileName found file id = ${cached.id}");
+    return cached.id;
   }
 }
 

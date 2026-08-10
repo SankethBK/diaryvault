@@ -35,6 +35,8 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
     if (state is NoteSyncOnGoing) {
       return;
     }
+
+    final stopwatch = Stopwatch()..start();
     emit(const NoteSyncOnGoing(progress: 0.0));
 
     // Initialize notes sync repository
@@ -63,7 +65,7 @@ class NoteSyncCubit extends Cubit<NoteSyncState> {
         emit(NoteSyncInitial());
         return;
       }, (_) async {
-        emit(NoteSyncSuccessful());
+        emit(NoteSyncSuccessful(elapsed: stopwatch.elapsed));
         await Future.delayed(const Duration(milliseconds: 100));
         emit(NoteSyncInitial());
       });
