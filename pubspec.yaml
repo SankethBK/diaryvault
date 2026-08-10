@@ -80,6 +80,7 @@ dependencies:
   logger: ^2.0.2
   markdown: ^7.1.1
   package_info_plus: ^4.1.0
+  palette_generator: ^0.3.3+4
   path_provider: ^2.0.9
   permission_handler: ^11.0.1
   provider: ^6.0.5

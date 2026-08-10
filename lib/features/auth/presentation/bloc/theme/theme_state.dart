@@ -10,10 +10,13 @@ enum Themes {
   monochromePink,
   twilightGold,
   mediterranean,
-  fuji
+  fuji,
+  custom
 }
 
 String themeKey = "current_theme";
+String customThemeConfigKey = "custom_theme_config";
+String customThemesKey = "custom_themes";
 
 extension ThemeExtension on Themes {
   String enumToStr() {
@@ -38,6 +41,8 @@ extension ThemeExtension on Themes {
         return "Mediterranean";
       case Themes.fuji:
         return "Fuji";
+      case Themes.custom:
+        return "Custom";
     }
   }
 }
@@ -64,6 +69,8 @@ Themes getThemeFromString(String? themeString) {
       return Themes.mediterranean;
     case 'fuji':
       return Themes.fuji;
+    case 'custom':
+      return Themes.custom;
     default:
       return Themes.coralBubbles;
   }
@@ -71,12 +78,33 @@ Themes getThemeFromString(String? themeString) {
 
 abstract class ThemeState extends Equatable {
   final Themes theme;
-  const ThemeState({required this.theme});
+
+  /// Active custom theme config, present only when [theme] is [Themes.custom]
+  final CustomThemeConfig? customConfig;
+
+  /// All saved custom themes
+  final List<CustomThemeConfig> customThemes;
+
+  const ThemeState(
+      {required this.theme,
+      this.customConfig,
+      this.customThemes = const []});
 
   @override
-  List<Object> get props => [theme.toString()];
+  List<Object> get props => [
+        theme.toString(),
+        customConfig?.encode() ?? "",
+        customThemes.map((t) => t.encode()).join("|")
+      ];
 }
 
 class ThemeChanged extends ThemeState {
-  const ThemeChanged({required Themes theme}) : super(theme: theme);
+  const ThemeChanged(
+      {required Themes theme,
+      CustomThemeConfig? customConfig,
+      List<CustomThemeConfig> customThemes = const []})
+      : super(
+            theme: theme,
+            customConfig: customConfig,
+            customThemes: customThemes);
 }

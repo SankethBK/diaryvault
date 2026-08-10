@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
@@ -78,7 +79,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image.asset(backgroundImagePath);
+      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
 
       precacheImage(neonImage.image, context);
 
@@ -127,9 +128,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
             ),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  backgroundImagePath,
-                ),
+                image: getBackgroundImageProvider(backgroundImagePath),
                 fit: BoxFit.cover,
               ),
             ),

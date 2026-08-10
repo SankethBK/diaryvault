@@ -31,15 +31,26 @@ class ThemeDropdown extends StatelessWidget {
             // Update the selected value
             await themeCubit.setTheme(value);
           },
-          itemBuilder: (context) => Themes.values.map((item) {
-            return PopupMenuItem<Themes>(
-              value: item,
-              child: Text(
-                item.enumToStr(),
-                style: TextStyle(color: mainTextColor),
+          itemBuilder: (context) => [
+            ...Themes.values
+                .where((item) => item != Themes.custom)
+                .map((item) => PopupMenuItem<Themes>(
+                      value: item,
+                      child: Text(
+                        item.enumToStr(),
+                        style: TextStyle(color: mainTextColor),
+                      ),
+                    )),
+            // saved custom theme, selectable once it exists
+            if (themeCubit.state.customConfig != null)
+              PopupMenuItem<Themes>(
+                value: Themes.custom,
+                child: Text(
+                  themeCubit.state.customConfig!.name,
+                  style: TextStyle(color: mainTextColor),
+                ),
               ),
-            );
-          }).toList(),
+          ],
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

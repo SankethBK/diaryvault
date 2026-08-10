@@ -2,6 +2,7 @@
 
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/animations/flip_card_animation.dart';
+import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/data/repositories/fingerprint_auth_repo.dart';
@@ -45,7 +46,7 @@ class _AuthPageState extends State<AuthPage> {
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image.asset(backgroundImagePath);
+      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
       precacheImage(neonImage.image, context);
 
       final currentAuthState = BlocProvider.of<AuthSessionBloc>(context).state;
@@ -86,9 +87,7 @@ class _AuthPageState extends State<AuthPage> {
               constraints: BoxConstraints.expand(),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    backgroundImagePath,
-                  ),
+                  image: getBackgroundImageProvider(backgroundImagePath),
                   fit: BoxFit.cover,
                 ),
               ),

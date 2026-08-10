@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
+import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
@@ -75,7 +76,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image.asset(backgroundImagePath);
+      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
 
       precacheImage(neonImage.image, context);
       topPadding =
@@ -114,9 +115,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
           decoration: BoxDecoration(
             color: fallbackColor,
             image: DecorationImage(
-              image: AssetImage(
-                backgroundImagePath,
-              ),
+              image: getBackgroundImageProvider(backgroundImagePath),
               fit: BoxFit.cover,
               // alignment: const Alignment(0.725, 0.1),
             ),

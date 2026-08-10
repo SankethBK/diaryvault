@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
@@ -85,9 +86,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(
-                backgroundImagePath,
-              ),
+              image: getBackgroundImageProvider(backgroundImagePath),
               fit: BoxFit.cover,
             ),
           ),
