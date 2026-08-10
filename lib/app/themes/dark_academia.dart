@@ -12,6 +12,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 class DarkAcademia {
   static ThemeData getTheme(FontFamily fontFamily) {
     return ThemeData(
+      useMaterial3: false,
       textTheme: fontFamily.getGoogleFontTextTheme(),
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.brown).copyWith(
         secondary: const Color.fromARGB(255, 217, 168, 149),
