@@ -12,6 +12,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 class PlainDark {
   static ThemeData getTheme(FontFamily fontFamily) {
     return ThemeData(
+      useMaterial3: false,
       textTheme: fontFamily.getGoogleFontTextTheme(),
 
       // used only for elements whose colors can't be directly controlled

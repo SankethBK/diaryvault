@@ -17,6 +17,7 @@ class TwilightGold {
     const accentGold = Color(0xFFE6B450);
 
     return ThemeData(
+      useMaterial3: false,
       textTheme: fontFamily.getGoogleFontTextTheme(),
       colorScheme:
           ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple).copyWith(
