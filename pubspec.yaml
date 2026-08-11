@@ -102,6 +102,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+  intl_utils: ^2.8.14
   mockito: ^5.1.0
 
 # not using this as of now

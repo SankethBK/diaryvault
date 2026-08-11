@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -141,7 +142,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text("Pick a color"),
+        title: Text(S.current.pickAColor),
         content: SingleChildScrollView(
           child: ColorPicker(
             pickerColor: initial,
@@ -151,11 +152,11 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text("Cancel"),
+            child: Text(S.current.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text("Select"),
+            child: Text(S.current.select),
           ),
         ],
       ),
@@ -183,7 +184,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
     final config = CustomThemeConfig(
       id: widget.existing?.id ?? const Uuid().v4(),
       name: _nameController.text.trim().isEmpty
-          ? 'My Theme'
+          ? S.current.defaultThemeName
           : _nameController.text.trim(),
       backgroundImagePath: _imagePath,
       backgroundColorValue: _backgroundColor?.toARGB32(),
@@ -203,7 +204,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.existing == null ? "Create your theme" : "Edit theme"),
+        title: Text(widget.existing == null ? S.current.createYourTheme : S.current.editTheme),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -231,7 +232,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "Pick a photo you love or choose a background color, and we'll build a theme around it.",
+                  S.current.customThemeIntro,
                   style: TextStyle(color: textColor, fontSize: 16),
                 ),
                 const SizedBox(height: 20),
@@ -239,26 +240,26 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
                   onPressed: _isProcessing ? null : _pickImage,
                   icon: const Icon(Icons.photo_library),
                   label: Text(_imagePath == null
-                      ? "Choose background image"
-                      : "Change image"),
+                      ? S.current.chooseBackgroundImage
+                      : S.current.changeImage),
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton.icon(
                   onPressed: _isProcessing ? null : _pickBackgroundColor,
                   icon: const Icon(Icons.format_color_fill),
                   label: Text(_backgroundColor == null
-                      ? "Pick a background color instead"
-                      : "Change background color"),
+                      ? S.current.pickBackgroundColorInstead
+                      : S.current.changeBackgroundColor),
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: _nameController,
                   style: TextStyle(color: textColor),
                   decoration: InputDecoration(
-                    labelText: "Theme name",
+                    labelText: S.current.themeName,
                     labelStyle:
                         TextStyle(color: textColor.withValues(alpha: 0.7)),
-                    hintText: "My Theme",
+                    hintText: S.current.themeNameHint,
                     hintStyle:
                         TextStyle(color: textColor.withValues(alpha: 0.4)),
                     enabledBorder: OutlineInputBorder(
@@ -275,7 +276,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
                   const Center(child: CircularProgressIndicator())
                 else if (_accentColor != null && _mutedColor != null) ...[
                   Text(
-                    "Palette (tap a swatch to edit)",
+                    S.current.paletteInstruction,
                     style: TextStyle(color: textColor, fontSize: 14),
                   ),
                   const SizedBox(height: 8),
@@ -283,12 +284,12 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
                     children: [
                       GestureDetector(
                         onTap: () => _editColor(isAccent: true),
-                        child: _swatch(_accentColor!, "Accent"),
+                        child: _swatch(_accentColor!, S.current.accent),
                       ),
                       const SizedBox(width: 12),
                       GestureDetector(
                         onTap: () => _editColor(isAccent: false),
-                        child: _swatch(_mutedColor!, "Muted"),
+                        child: _swatch(_mutedColor!, S.current.muted),
                       ),
                     ],
                   ),
@@ -296,7 +297,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Dark theme",
+                      Text(S.current.darkTheme,
                           style: TextStyle(color: textColor, fontSize: 16)),
                       Switch(
                         value: _isDark,
@@ -308,8 +309,8 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
                   ElevatedButton(
                     onPressed: _applyTheme,
                     child: Text(widget.existing == null
-                        ? "Save & apply theme"
-                        : "Save changes"),
+                        ? S.current.saveAndApplyTheme
+                        : S.current.saveChanges),
                   ),
                 ] else
                   Expanded(

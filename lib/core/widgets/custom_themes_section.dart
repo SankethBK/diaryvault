@@ -5,6 +5,7 @@ import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_ext
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/custom_theme_builder_page.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,7 +48,7 @@ class CustomThemesSection extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Custom themes",
+                  S.current.customThemes,
                   style: TextStyle(fontSize: 16.0, color: mainTextColor),
                 ),
                 const Spacer(),
@@ -59,25 +60,13 @@ class CustomThemesSection extends StatelessWidget {
                   ),
                   icon: Icon(Icons.add, color: mainTextColor),
                   label: Text(
-                    "Create",
+                    S.current.create,
                     style: TextStyle(color: mainTextColor),
                   ),
                 ),
               ],
             ),
-            if (state.customThemes.isEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(
-                  "Build a theme from your own photo",
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: mainTextColor.withValues(alpha: 0.6),
-                  ),
-                ),
-              )
-            else
-              ...state.customThemes.map((config) {
+            ...state.customThemes.map((config) {
                 final isActive = state.theme == Themes.custom &&
                     state.customConfig?.id == config.id;
 
@@ -89,7 +78,7 @@ class CustomThemesSection extends StatelessWidget {
                     style: TextStyle(color: mainTextColor),
                   ),
                   subtitle: Text(
-                    config.isDark ? "Dark" : "Light",
+                    config.isDark ? S.current.darkLabel : S.current.lightLabel,
                     style: TextStyle(
                       color: mainTextColor.withValues(alpha: 0.6),
                       fontSize: 12,

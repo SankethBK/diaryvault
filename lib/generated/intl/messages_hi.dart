@@ -20,212 +20,307 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'hi';
 
-  static String m0(time) => "आपको ${time} पर सूचित किया जाएगा";
+  static String m0(imported, skipped, failed) =>
+      "${imported} नोट इम्पोर्ट किए गए, मौजूदा ${skipped} को छोड़ दिया गया, ${failed} विफल रहा";
+
+  static String m1(imported, skipped) =>
+      "${imported} नोट्स इम्पोर्ट किए गए, ${skipped} मौजूदा नोट्स को छोड़ दिया";
+
+  static String m2(count) => "${count} नोट इंपोर्ट किए गए";
+
+  static String m3(time) => "आपको ${time} पर सूचित किया जाएगा";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "acceptRisk": MessageLookupByLibrary.simpleMessage(
-            "मुझे जारी रखने का जोखिम स्वीकार है"),
-        "accountSetupSuccessful":
-            MessageLookupByLibrary.simpleMessage("खाता सेटअप सफल"),
-        "alreadyHaveAnAccount":
-            MessageLookupByLibrary.simpleMessage("पहले से खाता मौजूद है?"),
-        "appDescription": MessageLookupByLibrary.simpleMessage(
-            "डायरीवॉल्ट - एक डायरी ऐप जिसे आपके विचारों, यादों और क्षणों को सहजता से समेटने में मदद करने के लिए डिज़ाइन किया गया है। अब प्ले स्टोर पर उपलब्ध है!"),
-        "appLanguage": MessageLookupByLibrary.simpleMessage("ऐप भाषा"),
-        "appVersion": MessageLookupByLibrary.simpleMessage("एप्लिकेशन वरज़न"),
-        "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
-            "क्या आप लॉग आउट करने के बारे में निश्चित हैं?"),
-        "autoSync": MessageLookupByLibrary.simpleMessage("स्वतः सिंक"),
-        "automaticallySave": MessageLookupByLibrary.simpleMessage(
-            "प्रत्येक 10 सेकंड के बाद स्वचालित रूप से आपके नोट्स सहेजता है"),
-        "automaticallySyncNotesWithCloud": MessageLookupByLibrary.simpleMessage(
-            "क्लाउड के साथ नोट्स को स्वचालित रूप से सिंक करें"),
-        "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
-            "सिंक के लिए उपलब्ध प्लेटफ़ॉर्म"),
-        "byContinuingYouAgree": MessageLookupByLibrary.simpleMessage(
-            "जारी रखकर, आप सहमत हैं हमारी "),
-        "camera": MessageLookupByLibrary.simpleMessage("कैमरा"),
-        "cancel": MessageLookupByLibrary.simpleMessage("रद्द करें"),
-        "changeEmail": MessageLookupByLibrary.simpleMessage("ई-मेल बदले"),
-        "changePassword": MessageLookupByLibrary.simpleMessage("पासवर्ड बदलें"),
-        "chooseTheSyncSource":
-            MessageLookupByLibrary.simpleMessage("सिंक स्रोत चुनें"),
-        "chooseTheme": MessageLookupByLibrary.simpleMessage("थीम चुनें"),
-        "chooseTime": MessageLookupByLibrary.simpleMessage("समय चुनें"),
-        "closeTheApp": MessageLookupByLibrary.simpleMessage("ऐप बंद करें?"),
-        "cloudBackup": MessageLookupByLibrary.simpleMessage("क्लाउड बैकअप"),
-        "confirmNewPassword":
-            MessageLookupByLibrary.simpleMessage("नए पासवर्ड की पुष्टि करें"),
-        "confirmNewPin":
-            MessageLookupByLibrary.simpleMessage("नओं पिन पको कयो"),
-        "continueAsGues":
-            MessageLookupByLibrary.simpleMessage("अतिथि के रूप में जारी रखें"),
-        "dailyReminders":
-            MessageLookupByLibrary.simpleMessage("दैनिक अनुस्मारक"),
-        "dateFilter": MessageLookupByLibrary.simpleMessage("दिनांक फ़िल्टर"),
-        "delete": MessageLookupByLibrary.simpleMessage("मिटायें"),
-        "deletionFailed":
-            MessageLookupByLibrary.simpleMessage("हटाना विफल रहा"),
-        "done": MessageLookupByLibrary.simpleMessage("हो गया"),
-        "dontHaveAccount":
-            MessageLookupByLibrary.simpleMessage("कोई खाता नहीं है?"),
-        "dropbox": MessageLookupByLibrary.simpleMessage("ड्रॉपबॉक्स"),
-        "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-            "ईमेल सफलतापूर्वक अपडेट किया गया, कृपया पुनः लॉगिन करें"),
-        "enableAutoSave":
-            MessageLookupByLibrary.simpleMessage("ऑटो सेव सक्षम करें"),
-        "enableDailyReminders":
-            MessageLookupByLibrary.simpleMessage("दैनिक अनुस्मारक सक्षम करें"),
-        "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
-            "फ़िंगरप्रिंट लॉगिन सक्षम करें"),
-        "enablePINLogin":
-            MessageLookupByLibrary.simpleMessage("पिन लॉग इन सक्षम करें"),
-        "enterCurrentPassword":
-            MessageLookupByLibrary.simpleMessage("वर्तमान पासवर्ड दर्ज करें"),
-        "enterNewEmail":
-            MessageLookupByLibrary.simpleMessage("नया ईमेल दर्ज करें"),
-        "enterPin":
-            MessageLookupByLibrary.simpleMessage("अपना पिन (PIN) डालें"),
-        "enterRegisteredEmail":
-            MessageLookupByLibrary.simpleMessage("पंजीकृत ईमेल दर्ज करें"),
-        "exportNotes":
-            MessageLookupByLibrary.simpleMessage("अपने नोट्स निर्यात करें"),
-        "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
-        "exportToPDF":
-            MessageLookupByLibrary.simpleMessage("पीडीएफ में निर्यात करें "),
-        "exportToPlainText":
-            MessageLookupByLibrary.simpleMessage("सादे पाठ में निर्यात करें"),
-        "failedToFetchNote":
-            MessageLookupByLibrary.simpleMessage("नोट लाने में विफल"),
-        "failedToSaveNote":
-            MessageLookupByLibrary.simpleMessage("नोट सहेजने में विफल"),
-        "fingerPrintAthShouldBeEnabledInDeviceSettings":
-            MessageLookupByLibrary.simpleMessage(
-                "डिवाइस सेटिंग्स में फ़िंगरप्रिंट प्रमाणीकरण सक्षम होना चाहिए"),
-        "fingerprintLoginFailed":
-            MessageLookupByLibrary.simpleMessage("फ़िंगरप्रिंट लॉगिन विफल रहा"),
-        "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
-            "आप अकाउंट बनाए बिना फ़िंगरप्रिंट चालू करने वाले हैं, अगर फ़िंगरप्रिंट सेंसर को कोई हार्डवेयर नुकसान होता है, तो आपको ऐप से लॉक कर दिया जाएगा। यदि यह जानबूझकर नहीं है, तो कृपया सेटिंग मेनू में पहले विकल्प से अपना खाता सेटअप करें, यदि यह जानबूझकर है, तो कृपया अपने नोट्स के लिए क्लाउड बैकअप सक्षम करना सुनिश्चित करें"),
-        "fontFamily": MessageLookupByLibrary.simpleMessage("फ़ॉन्ट परिवार"),
-        "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("पासवर्ड भूल गए"),
-        "from": MessageLookupByLibrary.simpleMessage("से"),
-        "gallery": MessageLookupByLibrary.simpleMessage("गैलरी"),
-        "getDailyReminders": MessageLookupByLibrary.simpleMessage(
-            "अपनी पत्रिका को अद्यतन रखने के लिए अपने चुने हुए समय पर दैनिक अनुस्मारक प्राप्त करें।"),
-        "googleDrive": MessageLookupByLibrary.simpleMessage("गूगल ड्राइव"),
-        "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
-            "नोट्स इम्पोर्ट और एक्सपोर्ट करें"),
-        "incorrectPassword":
-            MessageLookupByLibrary.simpleMessage("गलत पासवर्ड"),
-        "language": MessageLookupByLibrary.simpleMessage("Hindi"),
-        "lastSynced":
-            MessageLookupByLibrary.simpleMessage("अंतिम बार समन्वयित:"),
-        "leave": MessageLookupByLibrary.simpleMessage("बंद करें"),
-        "link": MessageLookupByLibrary.simpleMessage("लिंक"),
-        "logIn": MessageLookupByLibrary.simpleMessage("लॉग इन करें"),
-        "logOut": MessageLookupByLibrary.simpleMessage("लॉग आउट करें"),
-        "logOut2": MessageLookupByLibrary.simpleMessage("लॉग आउट"),
-        "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
-            "कृपया ऑटो-सिंक सक्षम करने के लिए लॉगिन करें"),
-        "moreInfo": MessageLookupByLibrary.simpleMessage("और जानकारी"),
-        "newPassword": MessageLookupByLibrary.simpleMessage("नया पासवर्ड"),
-        "nextCloud": MessageLookupByLibrary.simpleMessage("नेक्स्टक्लाउड"),
-        "notAvailable": MessageLookupByLibrary.simpleMessage("उपलब्ध नहीं है"),
-        "noteSavedSuccessfully":
-            MessageLookupByLibrary.simpleMessage("नोट सफलतापूर्वक सहेजा गया"),
-        "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-            "नोट सफलतापूर्वक अपडेट किया गया"),
-        "notesSyncSuccessfull":
-            MessageLookupByLibrary.simpleMessage("नोट्स सिंक सफल"),
-        "notificationDescription1": MessageLookupByLibrary.simpleMessage(
-            "अपनी डायरी में अपने दिन को प्रतिबिंबित करने के लिए कुछ मिनट निकालें"),
-        "notificationTimeNotEnabled": MessageLookupByLibrary.simpleMessage(
-            "आपने अधिसूचना समय का चयन नहीं किया है"),
-        "notificationTitle1":
-            MessageLookupByLibrary.simpleMessage("जर्नल करने का समय!"),
-        "notificationsNotEnabled":
-            MessageLookupByLibrary.simpleMessage("सूचनाएं सक्षम नहीं हैं"),
-        "pageNotFound": MessageLookupByLibrary.simpleMessage("पृष्ठ नहीं मिला"),
-        "passwordResetMailSent":
-            MessageLookupByLibrary.simpleMessage("पासवर्ड रीसेट ईमेल भेजा गया"),
-        "passwordResetSuccessful":
-            MessageLookupByLibrary.simpleMessage("पासवर्ड रीसेट सफल"),
-        "passwordVerified":
-            MessageLookupByLibrary.simpleMessage("पासवर्ड सत्यापित"),
-        "passwordsDontMatch":
-            MessageLookupByLibrary.simpleMessage("पासवर्ड मेल नहीं खाते"),
-        "pickFromFileManager":
-            MessageLookupByLibrary.simpleMessage("फ़ाइलों में से चुनें"),
-        "pinLoginFailed":
-            MessageLookupByLibrary.simpleMessage("लॉग इन विफल रहा"),
-        "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
-            "लॉक स्क्रीन पर 4 से लेकर 4 अंकों तक का पिन (PIN) दिखाया जाएगा"),
-        "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
-            "कृपया 4 अंकों का पिन दर्ज करें"),
-        "pinResetSuccessful":
-            MessageLookupByLibrary.simpleMessage("पिन कन्फ़र्मेशन फीलिंग"),
-        "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
-            "आप अकाउंट बनाए बिना पिन (PIN) लॉक चालू करने वाले हैं, अगर आप अपना पिन (PIN) भूल जाते हैं, तो आपको ऐप से लॉक कर दिया जाएगा। यदि यह जानबूझकर नहीं है, तो कृपया सेटिंग मेनू में पहले विकल्प से अपना खाता सेटअप करें, यदि यह जानबूझकर है, तो कृपया अपने नोट्स के लिए क्लाउड बैकअप सक्षम करना सुनिश्चित करें"),
-        "pinsDontMatch":
-            MessageLookupByLibrary.simpleMessage("पिन मेल नहीं खाते"),
-        "pleaseSetupYourAccountToUseThisFeature":
-            MessageLookupByLibrary.simpleMessage(
-                "कृपया इस सुविधा का उपयोग करने के लिए अपना खाता सेटअप करें"),
-        "privacyPolicy": MessageLookupByLibrary.simpleMessage("गोपनीयता नीति"),
-        "projectOnGithub":
-            MessageLookupByLibrary.simpleMessage("Github पर प्रोजेक्ट"),
-        "recordAudio":
-            MessageLookupByLibrary.simpleMessage("गेम ऑडियो रिकॉर्ड करें"),
-        "reminders": MessageLookupByLibrary.simpleMessage("स्मरण"),
-        "resetPassword": MessageLookupByLibrary.simpleMessage("पासवर्ड रीसेट"),
-        "resetPin": MessageLookupByLibrary.simpleMessage("PIN रीसेट करें"),
-        "security": MessageLookupByLibrary.simpleMessage("सुरक्षा"),
-        "securitySettings":
-            MessageLookupByLibrary.simpleMessage("सुरक्षा सेटिंग्स"),
-        "selectVoice": MessageLookupByLibrary.simpleMessage("आवाज़ चुनें"),
-        "sendFeedback":
-            MessageLookupByLibrary.simpleMessage("प्रतिक्रिया भेजें"),
-        "settings": MessageLookupByLibrary.simpleMessage("समायोजन"),
-        "setupYourAccount":
-            MessageLookupByLibrary.simpleMessage("अपना खाता स्थापित करें"),
-        "shareWithFriends":
-            MessageLookupByLibrary.simpleMessage("दोस्तों के साथ बांटें"),
-        "signIn": MessageLookupByLibrary.simpleMessage("साइन इन करें"),
-        "signInWithEmail":
-            MessageLookupByLibrary.simpleMessage("Email से साइन इन करें"),
-        "signUp": MessageLookupByLibrary.simpleMessage("साइन अप करें"),
-        "signedInAs":
-            MessageLookupByLibrary.simpleMessage("इस रूप में साइन इन किया"),
-        "sortByAtoZ":
-            MessageLookupByLibrary.simpleMessage("A-Z के अनुसार क्रमबद्ध करें"),
-        "sortByLatestFirst": MessageLookupByLibrary.simpleMessage(
-            "सबसे पहले नवीनतम के अनुसार क्रमबद्ध करें"),
-        "sortByOldestFirst": MessageLookupByLibrary.simpleMessage(
-            "सबसे पहले सबसे पुराने के अनुसार क्रमबद्ध करें"),
-        "stay": MessageLookupByLibrary.simpleMessage("रुके"),
-        "submit": MessageLookupByLibrary.simpleMessage("सबमिट करें"),
-        "syncNow": MessageLookupByLibrary.simpleMessage("सिंक करें"),
-        "tagAlreadyExists":
-            MessageLookupByLibrary.simpleMessage("टैग पहले से मौजूद है"),
-        "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
-            "शीर्षक का विस्तार करने के लिए यहां टैप करें"),
-        "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
-            "थीम, फ़ॉन्ट और भाषा को कस्टमाइज़ करें"),
-        "to": MessageLookupByLibrary.simpleMessage("को"),
-        "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
-            "बहुत सारे गलत प्रयास, कृपया पासवर्ड से लॉगिन करें"),
-        "toolbarPosition":
-            MessageLookupByLibrary.simpleMessage("टूलबार की स्थिति"),
-        "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
-            "अनपेक्षित त्रुटि उत्पन्न हुई"),
-        "video": MessageLookupByLibrary.simpleMessage("वीडियो"),
-        "warning": MessageLookupByLibrary.simpleMessage("यह संपत्ति उसकी है।"),
-        "webdavURL": MessageLookupByLibrary.simpleMessage("वेबडीएवी यूआरएल"),
-        "wrongPIN": MessageLookupByLibrary.simpleMessage("गोरोन्थि पिन ।"),
-        "youHaveUnsavedChanges":
-            MessageLookupByLibrary.simpleMessage("सहेजे न गए परिवर्तन"),
-        "youWillBeNotifiedAt": m0
-      };
+    "accent": MessageLookupByLibrary.simpleMessage("लहजा"),
+    "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
+      "खाता सेटअप सफल",
+    ),
+    "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage(
+      "पहले से खाता मौजूद है?",
+    ),
+    "appDescription": MessageLookupByLibrary.simpleMessage(
+      "डायरीवॉल्ट - एक डायरी ऐप जिसे आपके विचारों, यादों और क्षणों को सहजता से समेटने में मदद करने के लिए डिज़ाइन किया गया है। अब प्ले स्टोर पर उपलब्ध है!",
+    ),
+    "appLanguage": MessageLookupByLibrary.simpleMessage("ऐप भाषा"),
+    "appVersion": MessageLookupByLibrary.simpleMessage("एप्लिकेशन वरज़न"),
+    "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
+      "क्या आप लॉग आउट करने के बारे में निश्चित हैं?",
+    ),
+    "autoSync": MessageLookupByLibrary.simpleMessage("स्वतः सिंक"),
+    "automaticallySave": MessageLookupByLibrary.simpleMessage(
+      "प्रत्येक 10 सेकंड के बाद स्वचालित रूप से आपके नोट्स सहेजता है",
+    ),
+    "automaticallySyncNotesWithCloud": MessageLookupByLibrary.simpleMessage(
+      "क्लाउड के साथ नोट्स को स्वचालित रूप से सिंक करें",
+    ),
+    "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
+      "सिंक के लिए उपलब्ध प्लेटफ़ॉर्म",
+    ),
+    "byContinuingYouAgree": MessageLookupByLibrary.simpleMessage(
+      "जारी रखकर, आप सहमत हैं हमारी ",
+    ),
+    "camera": MessageLookupByLibrary.simpleMessage("कैमरा"),
+    "cancel": MessageLookupByLibrary.simpleMessage("रद्द करें"),
+    "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
+      "पृष्ठभूमि का रंग बदलें",
+    ),
+    "changeEmail": MessageLookupByLibrary.simpleMessage("ई-मेल बदले"),
+    "changeImage": MessageLookupByLibrary.simpleMessage("छवि बदलें"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("पासवर्ड बदलें"),
+    "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
+      "बैकग्राउंड फ़ोटो चुनें",
+    ),
+    "chooseTheSyncSource": MessageLookupByLibrary.simpleMessage(
+      "सिंक स्रोत चुनें",
+    ),
+    "chooseTheme": MessageLookupByLibrary.simpleMessage("थीम चुनें"),
+    "chooseTime": MessageLookupByLibrary.simpleMessage("समय चुनें"),
+    "closeTheApp": MessageLookupByLibrary.simpleMessage("ऐप बंद करें?"),
+    "cloudBackup": MessageLookupByLibrary.simpleMessage("क्लाउड बैकअप"),
+    "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+      "नए पासवर्ड की पुष्टि करें",
+    ),
+    "confirmNewPin": MessageLookupByLibrary.simpleMessage(
+      "नए पिन की पुष्टि करें",
+    ),
+    "continueAsGues": MessageLookupByLibrary.simpleMessage(
+      "अतिथि के रूप में जारी रखें",
+    ),
+    "create": MessageLookupByLibrary.simpleMessage("बनाएँ"),
+    "createYourTheme": MessageLookupByLibrary.simpleMessage("अपनी थीम बनाएँ"),
+    "customThemeIntro": MessageLookupByLibrary.simpleMessage(
+      "अपनी मनपसंद फ़ोटो चुनें या बैकग्राउंड का रंग चुनें और हम उसके इर्द - गिर्द एक थीम बनाएँगे।",
+    ),
+    "customThemes": MessageLookupByLibrary.simpleMessage("कस्टम थीम"),
+    "dailyReminders": MessageLookupByLibrary.simpleMessage("दैनिक अनुस्मारक"),
+    "darkLabel": MessageLookupByLibrary.simpleMessage("गहरा"),
+    "darkTheme": MessageLookupByLibrary.simpleMessage("डार्क थीम"),
+    "dateFilter": MessageLookupByLibrary.simpleMessage("दिनांक फ़िल्टर"),
+    "defaultThemeName": MessageLookupByLibrary.simpleMessage("मेरे प्रसंग"),
+    "delete": MessageLookupByLibrary.simpleMessage("मिटायें"),
+    "deletionFailed": MessageLookupByLibrary.simpleMessage("हटाना विफल रहा"),
+    "done": MessageLookupByLibrary.simpleMessage("हो गया"),
+    "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "कोई खाता नहीं है?",
+    ),
+    "dropbox": MessageLookupByLibrary.simpleMessage("ड्रॉपबॉक्स"),
+    "editTheme": MessageLookupByLibrary.simpleMessage("थीम में बदलाव करें"),
+    "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "ईमेल सफलतापूर्वक अपडेट किया गया, कृपया पुनः लॉगिन करें",
+    ),
+    "enableAutoSave": MessageLookupByLibrary.simpleMessage(
+      "ऑटो सेव सक्षम करें",
+    ),
+    "enableDailyReminders": MessageLookupByLibrary.simpleMessage(
+      "दैनिक अनुस्मारक सक्षम करें",
+    ),
+    "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
+      "फ़िंगरप्रिंट लॉगिन सक्षम करें",
+    ),
+    "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+      "पिन लॉग इन सक्षम करें",
+    ),
+    "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
+      "वर्तमान पासवर्ड दर्ज करें",
+    ),
+    "enterNewEmail": MessageLookupByLibrary.simpleMessage("नया ईमेल दर्ज करें"),
+    "enterPin": MessageLookupByLibrary.simpleMessage("अपना पिन (PIN) डालें"),
+    "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage(
+      "पंजीकृत ईमेल दर्ज करें",
+    ),
+    "exportNotes": MessageLookupByLibrary.simpleMessage(
+      "अपने नोट्स निर्यात करें",
+    ),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage(
+      "json पर निर्यात करें",
+    ),
+    "exportToPDF": MessageLookupByLibrary.simpleMessage(
+      "पीडीएफ में निर्यात करें ",
+    ),
+    "exportToPlainText": MessageLookupByLibrary.simpleMessage(
+      "सादे पाठ में निर्यात करें",
+    ),
+    "failedToFetchNote": MessageLookupByLibrary.simpleMessage(
+      "नोट लाने में विफल",
+    ),
+    "failedToSaveNote": MessageLookupByLibrary.simpleMessage(
+      "नोट सहेजने में विफल",
+    ),
+    "fingerPrintAthShouldBeEnabledInDeviceSettings":
+        MessageLookupByLibrary.simpleMessage(
+          "डिवाइस सेटिंग्स में फ़िंगरप्रिंट प्रमाणीकरण सक्षम होना चाहिए",
+        ),
+    "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
+      "फ़िंगरप्रिंट लॉगिन विफल रहा",
+    ),
+    "fontFamily": MessageLookupByLibrary.simpleMessage("फ़ॉन्ट परिवार"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("पासवर्ड भूल गए"),
+    "from": MessageLookupByLibrary.simpleMessage("से"),
+    "gallery": MessageLookupByLibrary.simpleMessage("गैलरी"),
+    "getDailyReminders": MessageLookupByLibrary.simpleMessage(
+      "अपनी पत्रिका को अद्यतन रखने के लिए अपने चुने हुए समय पर दैनिक अनुस्मारक प्राप्त करें।",
+    ),
+    "googleDrive": MessageLookupByLibrary.simpleMessage("गूगल ड्राइव"),
+    "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
+      "नोट्स इम्पोर्ट और एक्सपोर्ट करें",
+    ),
+    "importFromJSON": MessageLookupByLibrary.simpleMessage(
+      "JSON से इंपोर्ट करें",
+    ),
+    "incorrectPassword": MessageLookupByLibrary.simpleMessage("गलत पासवर्ड"),
+    "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
+      "अमान्य बैकअप फ़ाइल",
+    ),
+    "language": MessageLookupByLibrary.simpleMessage("Hindi"),
+    "lastSynced": MessageLookupByLibrary.simpleMessage("अंतिम बार समन्वयित:"),
+    "leave": MessageLookupByLibrary.simpleMessage("बंद करें"),
+    "lightLabel": MessageLookupByLibrary.simpleMessage("हल्का"),
+    "link": MessageLookupByLibrary.simpleMessage("लिंक"),
+    "logIn": MessageLookupByLibrary.simpleMessage("लॉग इन करें"),
+    "logOut": MessageLookupByLibrary.simpleMessage("लॉग आउट करें"),
+    "logOut2": MessageLookupByLibrary.simpleMessage("लॉग आउट"),
+    "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
+      "कृपया ऑटो-सिंक सक्षम करने के लिए लॉगिन करें",
+    ),
+    "moreInfo": MessageLookupByLibrary.simpleMessage("और जानकारी"),
+    "muted": MessageLookupByLibrary.simpleMessage("ब्रुश (B)"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("नया पासवर्ड"),
+    "nextCloud": MessageLookupByLibrary.simpleMessage("नेक्स्टक्लाउड"),
+    "notAvailable": MessageLookupByLibrary.simpleMessage("उपलब्ध नहीं है"),
+    "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "नोट सफलतापूर्वक सहेजा गया",
+    ),
+    "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "नोट सफलतापूर्वक अपडेट किया गया",
+    ),
+    "notesImportPartialFailure": m0,
+    "notesImportSkippedSummary": m1,
+    "notesImportSuccess": m2,
+    "notesSyncSuccessfull": MessageLookupByLibrary.simpleMessage(
+      "नोट्स सिंक सफल",
+    ),
+    "notificationDescription1": MessageLookupByLibrary.simpleMessage(
+      "अपनी डायरी में अपने दिन को प्रतिबिंबित करने के लिए कुछ मिनट निकालें",
+    ),
+    "notificationTimeNotEnabled": MessageLookupByLibrary.simpleMessage(
+      "आपने अधिसूचना समय का चयन नहीं किया है",
+    ),
+    "notificationTitle1": MessageLookupByLibrary.simpleMessage(
+      "जर्नल करने का समय!",
+    ),
+    "notificationsNotEnabled": MessageLookupByLibrary.simpleMessage(
+      "सूचनाएं सक्षम नहीं हैं",
+    ),
+    "pageNotFound": MessageLookupByLibrary.simpleMessage("पृष्ठ नहीं मिला"),
+    "paletteInstruction": MessageLookupByLibrary.simpleMessage(
+      "पैलेट (बदलाव करने के लिए किसी स्वैच पर टैप करें)",
+    ),
+    "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
+      "पासवर्ड रीसेट ईमेल भेजा गया",
+    ),
+    "passwordResetSuccessful": MessageLookupByLibrary.simpleMessage(
+      "पासवर्ड रीसेट सफल",
+    ),
+    "passwordVerified": MessageLookupByLibrary.simpleMessage(
+      "पासवर्ड सत्यापित",
+    ),
+    "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
+      "पासवर्ड मेल नहीं खाते",
+    ),
+    "pickAColor": MessageLookupByLibrary.simpleMessage("कोई रंग लें"),
+    "pickBackgroundColorInstead": MessageLookupByLibrary.simpleMessage(
+      "इसके बजाय बैकग्राउंड का रंग चुनें",
+    ),
+    "pickFromFileManager": MessageLookupByLibrary.simpleMessage(
+      "फ़ाइलों में से चुनें",
+    ),
+    "pinLoginFailed": MessageLookupByLibrary.simpleMessage("लॉग इन विफल रहा"),
+    "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
+      "लॉक स्क्रीन पर 4 से लेकर 4 अंकों तक का पिन (PIN) दिखाया जाएगा",
+    ),
+    "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
+      "कृपया 4 अंकों का पिन दर्ज करें",
+    ),
+    "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
+      "पिन सफलतापूर्वक रीसेट किया गया",
+    ),
+    "pinsDontMatch": MessageLookupByLibrary.simpleMessage("पिन मेल नहीं खाते"),
+    "pleaseSetupYourAccountToUseThisFeature":
+        MessageLookupByLibrary.simpleMessage(
+          "कृपया इस सुविधा का उपयोग करने के लिए अपना खाता सेटअप करें",
+        ),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("गोपनीयता नीति"),
+    "projectOnGithub": MessageLookupByLibrary.simpleMessage(
+      "Github पर प्रोजेक्ट",
+    ),
+    "recordAudio": MessageLookupByLibrary.simpleMessage("ऑडियो रिकॉर्ड करें"),
+    "reminders": MessageLookupByLibrary.simpleMessage("स्मरण"),
+    "resetPassword": MessageLookupByLibrary.simpleMessage("पासवर्ड रीसेट"),
+    "resetPin": MessageLookupByLibrary.simpleMessage("पिन रीसेट करें"),
+    "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
+      "थीम सेव करें और लागू करें",
+    ),
+    "saveChanges": MessageLookupByLibrary.simpleMessage("परिवर्तन सहेजें"),
+    "security": MessageLookupByLibrary.simpleMessage("सुरक्षा"),
+    "securitySettings": MessageLookupByLibrary.simpleMessage(
+      "सुरक्षा सेटिंग्स",
+    ),
+    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "selectVoice": MessageLookupByLibrary.simpleMessage("आवाज़ चुनें"),
+    "sendFeedback": MessageLookupByLibrary.simpleMessage("प्रतिक्रिया भेजें"),
+    "settings": MessageLookupByLibrary.simpleMessage("समायोजन"),
+    "setupYourAccount": MessageLookupByLibrary.simpleMessage(
+      "अपना खाता स्थापित करें",
+    ),
+    "shareWithFriends": MessageLookupByLibrary.simpleMessage(
+      "दोस्तों के साथ बांटें",
+    ),
+    "signIn": MessageLookupByLibrary.simpleMessage("साइन इन करें"),
+    "signInWithEmail": MessageLookupByLibrary.simpleMessage(
+      "ईमेल से साइन इन करें",
+    ),
+    "signUp": MessageLookupByLibrary.simpleMessage("साइन अप करें"),
+    "signedInAs": MessageLookupByLibrary.simpleMessage(
+      "इस रूप में साइन इन किया",
+    ),
+    "sortByAtoZ": MessageLookupByLibrary.simpleMessage(
+      "A-Z के अनुसार क्रमबद्ध करें",
+    ),
+    "sortByLatestFirst": MessageLookupByLibrary.simpleMessage(
+      "सबसे पहले नवीनतम के अनुसार क्रमबद्ध करें",
+    ),
+    "sortByOldestFirst": MessageLookupByLibrary.simpleMessage(
+      "सबसे पहले सबसे पुराने के अनुसार क्रमबद्ध करें",
+    ),
+    "stay": MessageLookupByLibrary.simpleMessage("रुके"),
+    "submit": MessageLookupByLibrary.simpleMessage("सबमिट करें"),
+    "syncNow": MessageLookupByLibrary.simpleMessage("सिंक करें"),
+    "tagAlreadyExists": MessageLookupByLibrary.simpleMessage(
+      "टैग पहले से मौजूद है",
+    ),
+    "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
+      "शीर्षक का विस्तार करने के लिए यहां टैप करें",
+    ),
+    "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
+      "थीम, फ़ॉन्ट और भाषा को कस्टमाइज़ करें",
+    ),
+    "themeName": MessageLookupByLibrary.simpleMessage("प्रसंग नाम"),
+    "themeNameHint": MessageLookupByLibrary.simpleMessage("मेरे प्रसंग"),
+    "to": MessageLookupByLibrary.simpleMessage("को"),
+    "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
+      "बहुत सारे गलत प्रयास, कृपया पासवर्ड से लॉगिन करें",
+    ),
+    "toolbarPosition": MessageLookupByLibrary.simpleMessage("टूलबार की स्थिति"),
+    "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
+      "अनपेक्षित त्रुटि उत्पन्न हुई",
+    ),
+    "video": MessageLookupByLibrary.simpleMessage("वीडियो"),
+    "webdavURL": MessageLookupByLibrary.simpleMessage("वेबडीएवी यूआरएल"),
+    "wrongPIN": MessageLookupByLibrary.simpleMessage("गलत पिन"),
+    "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
+      "सहेजे न गए परिवर्तन",
+    ),
+    "youWillBeNotifiedAt": m3,
+  };
 }
