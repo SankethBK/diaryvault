@@ -6,6 +6,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -24,6 +25,7 @@ class CustomThemeBuilderPage extends StatefulWidget {
 
 class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
   String? _imagePath;
+  Color? _backgroundColor;
   bool _isDark = true;
   Color? _accentColor;
   Color? _mutedColor;
@@ -38,6 +40,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
     _nameController = TextEditingController(text: existing?.name ?? '');
     if (existing != null) {
       _imagePath = existing.backgroundImagePath;
+      _backgroundColor = existing.backgroundColor;
       _isDark = existing.isDark;
       _accentColor = existing.accentColor;
       _mutedColor = existing.mutedColor;
@@ -77,6 +80,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
 
       setState(() {
         _imagePath = savedPath;
+        _backgroundColor = null;
         _accentColor = palette.accent;
         _mutedColor = palette.muted;
       });
@@ -87,9 +91,93 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
     }
   }
 
+  /// Lets the user pick a solid background color instead of an image, and
+  /// derives starter accent/muted colors from it (user can edit them after)
+  Future<void> _pickBackgroundColor() async {
+    final color = await _showColorPicker(
+        _backgroundColor ?? (_isDark ? Colors.black : Colors.white));
+    if (color == null) return;
+
+    final hsv = HSVColor.fromColor(color);
+    final isDarkColor = color.computeLuminance() < 0.4;
+
+    final accent = hsv
+        .withHue((hsv.hue + 30) % 360)
+        .withSaturation(0.75)
+        .withValue(0.9)
+        .toColor();
+    final muted = hsv
+        .withSaturation((hsv.saturation * 0.4).clamp(0.0, 1.0))
+        .withValue(
+            (hsv.value * (isDarkColor ? 1.6 : 0.55)).clamp(0.0, 1.0))
+        .toColor();
+
+    setState(() {
+      _imagePath = null;
+      _backgroundColor = color;
+      _isDark = isDarkColor;
+      _accentColor = accent;
+      _mutedColor = muted;
+    });
+  }
+
+  Future<void> _editColor({required bool isAccent}) async {
+    final current = (isAccent ? _accentColor : _mutedColor) ?? Colors.grey;
+    final color = await _showColorPicker(current);
+    if (color == null) return;
+
+    setState(() {
+      if (isAccent) {
+        _accentColor = color;
+      } else {
+        _mutedColor = color;
+      }
+    });
+  }
+
+  Future<Color?> _showColorPicker(Color initial) async {
+    Color picked = initial;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text("Pick a color"),
+        content: SingleChildScrollView(
+          child: ColorPicker(
+            pickerColor: initial,
+            onColorChanged: (color) => picked = color,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text("Select"),
+          ),
+        ],
+      ),
+    );
+
+    return confirmed == true ? picked : null;
+  }
+
   Future<void> _applyTheme() async {
-    if (_imagePath == null || _accentColor == null || _mutedColor == null) {
+    final hasBackground = _imagePath != null || _backgroundColor != null;
+    if (!hasBackground || _accentColor == null || _mutedColor == null) {
       return;
+    }
+
+    // clean up the old image file when it was replaced or dropped
+    final oldImagePath = widget.existing?.backgroundImagePath;
+    if (oldImagePath != null && oldImagePath != _imagePath) {
+      try {
+        await File(oldImagePath).delete();
+      } catch (e) {
+        log.w("could not delete replaced theme image: $e");
+      }
     }
 
     final config = CustomThemeConfig(
@@ -97,7 +185,8 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
       name: _nameController.text.trim().isEmpty
           ? 'My Theme'
           : _nameController.text.trim(),
-      backgroundImagePath: _imagePath!,
+      backgroundImagePath: _imagePath,
+      backgroundColorValue: _backgroundColor?.toARGB32(),
       isDark: _isDark,
       accentColorValue: _accentColor!.toARGB32(),
       mutedColorValue: _mutedColor!.toARGB32(),
@@ -122,7 +211,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
       body: Container(
         constraints: const BoxConstraints.expand(),
         decoration: BoxDecoration(
-          color: overlay,
+          color: _backgroundColor ?? overlay,
           image: _imagePath != null
               ? DecorationImage(
                   image: FileImage(File(_imagePath!)),
@@ -142,7 +231,7 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "Pick a photo you love, and we'll build a theme from its colors.",
+                  "Pick a photo you love or choose a background color, and we'll build a theme around it.",
                   style: TextStyle(color: textColor, fontSize: 16),
                 ),
                 const SizedBox(height: 20),
@@ -152,6 +241,14 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
                   label: Text(_imagePath == null
                       ? "Choose background image"
                       : "Change image"),
+                ),
+                const SizedBox(height: 10),
+                OutlinedButton.icon(
+                  onPressed: _isProcessing ? null : _pickBackgroundColor,
+                  icon: const Icon(Icons.format_color_fill),
+                  label: Text(_backgroundColor == null
+                      ? "Pick a background color instead"
+                      : "Change background color"),
                 ),
                 const SizedBox(height: 20),
                 TextField(
@@ -178,15 +275,21 @@ class _CustomThemeBuilderPageState extends State<CustomThemeBuilderPage> {
                   const Center(child: CircularProgressIndicator())
                 else if (_accentColor != null && _mutedColor != null) ...[
                   Text(
-                    "Extracted palette",
+                    "Palette (tap a swatch to edit)",
                     style: TextStyle(color: textColor, fontSize: 14),
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      _swatch(_accentColor!, "Accent"),
+                      GestureDetector(
+                        onTap: () => _editColor(isAccent: true),
+                        child: _swatch(_accentColor!, "Accent"),
+                      ),
                       const SizedBox(width: 12),
-                      _swatch(_mutedColor!, "Muted"),
+                      GestureDetector(
+                        onTap: () => _editColor(isAccent: false),
+                        child: _swatch(_mutedColor!, "Muted"),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),

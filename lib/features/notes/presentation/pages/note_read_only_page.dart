@@ -79,9 +79,10 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
-
-      precacheImage(neonImage.image, context);
+      if (backgroundImagePath != null) {
+        neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
+        precacheImage(neonImage.image, context);
+      }
 
       topPadding = MediaQuery.of(context).padding.top +
           AppBar().preferredSize.height +
@@ -101,6 +102,10 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
 
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
+
+    final backgroundColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .backgroundColor;
     return WillPopScope(
       onWillPop: () => handleWillPop(context, notesBloc),
       child: GestureDetector(
@@ -126,11 +131,9 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
               right: 10.0,
               bottom: 10.0,
             ),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: getBackgroundImageProvider(backgroundImagePath),
-                fit: BoxFit.cover,
-              ),
+            decoration: getBackgroundDecoration(
+              backgroundImagePath,
+              backgroundColor: backgroundColor,
             ),
             child: widget.id != null
                 ? PageView.builder(

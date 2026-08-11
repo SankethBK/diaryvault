@@ -111,6 +111,8 @@ class CustomTheme {
       extensions: <ThemeExtension<dynamic>>{
         AuthPageThemeExtensions(
           backgroundImage: config.backgroundImagePath,
+          backgroundColor:
+              config.backgroundColor ?? (isDark ? Colors.black : Colors.white),
           linkColor: accent,
           errorTextColor: isDark ? Colors.red[200]! : Colors.red[600]!,
           prefixIconColor: opposite.withValues(alpha: 0.5),

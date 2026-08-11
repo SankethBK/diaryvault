@@ -52,8 +52,10 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
-      precacheImage(neonImage.image, context);
+      if (backgroundImagePath != null) {
+        neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
+        precacheImage(neonImage.image, context);
+      }
 
       _isInitialized = true;
     }
@@ -66,6 +68,10 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
     final authSessionBloc = BlocProvider.of<AuthSessionBloc>(context);
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
+
+    final backgroundColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .backgroundColor;
 
     final richTextGradientStartColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
@@ -95,12 +101,9 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
           right: 10.0,
           bottom: 10.0,
         ),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: getBackgroundImageProvider(backgroundImagePath),
-            fit: BoxFit.cover,
-            // alignment: const Alignment(0.725, 0.1),
-          ),
+        decoration: getBackgroundDecoration(
+          backgroundImagePath,
+          backgroundColor: backgroundColor,
         ),
         child: GlassMorphismCover(
           displayShadow: false,

@@ -107,14 +107,16 @@ class _PINAuthPageState extends State<PINAuthPage> {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
+    final backgroundColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .backgroundColor;
+
     return Scaffold(
       body: Container(
         constraints: const BoxConstraints.expand(),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: getBackgroundImageProvider(backgroundImagePath),
-            fit: BoxFit.cover,
-          ),
+        decoration: getBackgroundDecoration(
+          backgroundImagePath,
+          backgroundColor: backgroundColor,
         ),
         child: Container(
           padding: const EdgeInsets.all(20),

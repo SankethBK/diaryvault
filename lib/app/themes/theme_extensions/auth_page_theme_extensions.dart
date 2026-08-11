@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
-  final String backgroundImage; // path for background image
+  final String? backgroundImage; // path for background image
+  final Color? backgroundColor; // solid background color, used when backgroundImage is null
   final Color linkColor; // color for clickable links (in auth page)
   final Color errorTextColor; // color for error messages in auth page
   final Color
@@ -20,7 +21,8 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
 
   AuthPageThemeExtensions({
     required this.linkColor,
-    required this.backgroundImage,
+    this.backgroundImage,
+    this.backgroundColor,
     required this.errorTextColor,
     required this.prefixIconColor,
     required this.hintTextColor,
@@ -35,6 +37,7 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
   @override
   ThemeExtension<AuthPageThemeExtensions> copyWith({
     String? backgroundImage,
+    Color? backgroundColor,
     Color? linkColor,
     Color? errorTextColor,
     Color? prefixIconColor,
@@ -48,6 +51,7 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
   }) {
     return AuthPageThemeExtensions(
         backgroundImage: backgroundImage ?? this.backgroundImage,
+        backgroundColor: backgroundColor ?? this.backgroundColor,
         linkColor: linkColor ?? this.linkColor,
         errorTextColor: errorTextColor ?? this.errorTextColor,
         prefixIconColor: prefixIconColor ?? this.prefixIconColor,
@@ -67,6 +71,7 @@ class AuthPageThemeExtensions extends ThemeExtension<AuthPageThemeExtensions> {
       covariant AuthPageThemeExtensions? other, double t) {
     return AuthPageThemeExtensions(
       backgroundImage: backgroundImage,
+      backgroundColor: Color.lerp(backgroundColor, other?.backgroundColor, t),
       linkColor: Color.lerp(linkColor, other?.linkColor, t)!,
       errorTextColor: Color.lerp(errorTextColor, other?.errorTextColor, t)!,
       prefixIconColor: Color.lerp(prefixIconColor, other?.prefixIconColor, t)!,

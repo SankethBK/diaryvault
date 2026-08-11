@@ -13,22 +13,27 @@ class CustomThemeConfig {
   /// User-facing name of the theme
   final String name;
 
-  /// Absolute file path of the background image (copied into app documents dir)
-  final String backgroundImagePath;
+  /// Absolute file path of the background image (copied into app documents
+  /// dir). Null when the theme uses a solid [backgroundColor] instead.
+  final String? backgroundImagePath;
+
+  /// Solid background color, used when [backgroundImagePath] is null
+  final int? backgroundColorValue;
 
   /// Whether the theme is a dark or light variant
   final bool isDark;
 
-  /// Main accent color (buttons, links, highlights) extracted from the image
+  /// Main accent color (buttons, links, highlights)
   final int accentColorValue;
 
-  /// Deeper/muted color extracted from the image, used for panels and fills
+  /// Deeper/muted color, used for panels and fills
   final int mutedColorValue;
 
   const CustomThemeConfig({
     required this.id,
     required this.name,
-    required this.backgroundImagePath,
+    this.backgroundImagePath,
+    this.backgroundColorValue,
     required this.isDark,
     required this.accentColorValue,
     required this.mutedColorValue,
@@ -36,11 +41,14 @@ class CustomThemeConfig {
 
   Color get accentColor => Color(accentColorValue);
   Color get mutedColor => Color(mutedColorValue);
+  Color? get backgroundColor =>
+      backgroundColorValue != null ? Color(backgroundColorValue!) : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'backgroundImagePath': backgroundImagePath,
+        'backgroundColorValue': backgroundColorValue,
         'isDark': isDark,
         'accentColorValue': accentColorValue,
         'mutedColorValue': mutedColorValue,
@@ -51,7 +59,8 @@ class CustomThemeConfig {
       // legacy configs (pre multi-theme) have no id/name
       id: json['id'] as String? ?? json['backgroundImagePath'] as String,
       name: json['name'] as String? ?? 'My Theme',
-      backgroundImagePath: json['backgroundImagePath'] as String,
+      backgroundImagePath: json['backgroundImagePath'] as String?,
+      backgroundColorValue: json['backgroundColorValue'] as int?,
       isDark: json['isDark'] as bool,
       accentColorValue: json['accentColorValue'] as int,
       mutedColorValue: json['mutedColorValue'] as int,

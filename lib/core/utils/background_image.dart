@@ -12,3 +12,24 @@ ImageProvider getBackgroundImageProvider(String path) {
   }
   return FileImage(File(path));
 }
+
+/// Builds the page background [BoxDecoration] for a theme.
+///
+/// Shows [backgroundColor] (falling back to [fallbackColor]) as the base
+/// color, and layers the background image on top when [imagePath] is set.
+/// For solid-color themes [imagePath] is null and only the color is shown.
+BoxDecoration getBackgroundDecoration(
+  String? imagePath, {
+  Color? backgroundColor,
+  Color? fallbackColor,
+}) {
+  return BoxDecoration(
+    color: backgroundColor ?? fallbackColor,
+    image: imagePath != null
+        ? DecorationImage(
+            image: getBackgroundImageProvider(imagePath),
+            fit: BoxFit.cover,
+          )
+        : null,
+  );
+}

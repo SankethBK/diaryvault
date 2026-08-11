@@ -43,6 +43,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_colorpicker: ^1.1.0
   flutter_html_to_pdf:
     path: ./packages/flutter_html_to_pdf
   flutter_local_notifications: ^17.2.1

@@ -77,9 +77,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
-
-      precacheImage(neonImage.image, context);
+      if (backgroundImagePath != null) {
+        neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
+        precacheImage(neonImage.image, context);
+      }
       topPadding =
           MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
 
@@ -110,6 +111,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
+    final backgroundColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .backgroundColor;
+
     final fallbackColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
         .fallbackColor;
@@ -129,13 +134,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
           ],
         ),
         body: Container(
-          decoration: BoxDecoration(
-            color: fallbackColor,
-            image: DecorationImage(
-              image: getBackgroundImageProvider(backgroundImagePath),
-              fit: BoxFit.cover,
-              // alignment: const Alignment(0.725, 0.1),
-            ),
+          decoration: getBackgroundDecoration(
+            backgroundImagePath,
+            backgroundColor: backgroundColor,
+            fallbackColor: fallbackColor,
           ),
           padding: EdgeInsets.only(
             top: topPadding,
