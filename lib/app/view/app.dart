@@ -2,14 +2,10 @@ import 'package:dairy_app/app/routes/routes.dart';
 import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
 import 'package:dairy_app/app/themes/custom_theme/custom_theme.dart';
-import 'package:dairy_app/app/themes/dark_academia.dart';
 import 'package:dairy_app/app/themes/lush_green_theme.dart';
-import 'package:dairy_app/app/themes/monochrome_pink.dart';
 import 'package:dairy_app/app/themes/plain_dark.dart';
 import 'package:dairy_app/app/themes/plain_light.dart';
-import 'package:dairy_app/app/themes/mediterranean_theme.dart';
 import 'package:dairy_app/app/themes/twilight_gold_theme.dart';
-import 'package:dairy_app/app/themes/fuji_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/pages/home_page.dart';
@@ -119,18 +115,10 @@ class _AppViewState extends State<AppView> {
         return LushGreen.getTheme(fontFamily);
       case Themes.plainDark:
         return PlainDark.getTheme(fontFamily);
-      case Themes.darkAcademia:
-        return DarkAcademia.getTheme(fontFamily);
-      case Themes.monochromePink:
-        return MonochromePink.getTheme(fontFamily);
       case Themes.twilightGold:
         return TwilightGold.getTheme(fontFamily);
       case Themes.plainLight:
         return PlainLight.getTheme(fontFamily);
-      case Themes.mediterranean:
-        return Mediterranean.getTheme(fontFamily);
-      case Themes.fuji:
-        return Fuji.getTheme(fontFamily);
       case Themes.custom:
         // unreachable safety net: custom theme without a stored config
         return CoralBubble.getTheme(fontFamily);
