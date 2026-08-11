@@ -19,7 +19,10 @@ class CustomThemesSection extends StatelessWidget {
       BuildContext context, CustomThemeConfig config) async {
     // best effort cleanup of the background image file
     try {
-      await File(config.backgroundImagePath).delete();
+      final imagePath = config.backgroundImagePath;
+      if (imagePath != null) {
+        await File(imagePath).delete();
+      }
     } catch (e) {
       log.w("could not delete custom theme image: $e");
     }
@@ -123,15 +126,19 @@ class CustomThemesSection extends StatelessWidget {
   }
 
   Widget _themePreview(CustomThemeConfig config) {
+    final imagePath = config.backgroundImagePath;
     return Container(
       width: 44,
       height: 44,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        image: DecorationImage(
-          image: FileImage(File(config.backgroundImagePath)),
-          fit: BoxFit.cover,
-        ),
+        color: imagePath == null ? config.backgroundColor : null,
+        image: imagePath != null
+            ? DecorationImage(
+                image: FileImage(File(imagePath)),
+                fit: BoxFit.cover,
+              )
+            : null,
         border: Border.all(color: config.accentColor, width: 2),
       ),
     );

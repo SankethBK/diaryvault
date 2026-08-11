@@ -46,8 +46,10 @@ class _AuthPageState extends State<AuthPage> {
           .extension<AuthPageThemeExtensions>()!
           .backgroundImage;
 
-      neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
-      precacheImage(neonImage.image, context);
+      if (backgroundImagePath != null) {
+        neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
+        precacheImage(neonImage.image, context);
+      }
 
       final currentAuthState = BlocProvider.of<AuthSessionBloc>(context).state;
 
@@ -64,6 +66,10 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
+
+    final backgroundColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .backgroundColor;
 
     final linkColor =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.linkColor;
@@ -85,11 +91,9 @@ class _AuthPageState extends State<AuthPage> {
           children: [
             Container(
               constraints: BoxConstraints.expand(),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: getBackgroundImageProvider(backgroundImagePath),
-                  fit: BoxFit.cover,
-                ),
+              decoration: getBackgroundDecoration(
+                backgroundImagePath,
+                backgroundColor: backgroundColor,
               ),
               child: Center(
                 child: SingleChildScrollView(

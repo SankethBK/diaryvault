@@ -53,6 +53,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
+    final backgroundColor = Theme.of(context)
+        .extension<AuthPageThemeExtensions>()!
+        .backgroundColor;
+
     final borderColor =
         Theme.of(context).extension<HomePageThemeExtensions>()!.borderColor;
 
@@ -84,11 +88,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         resizeToAvoidBottomInset: false,
         appBar: const HomePageAppBar(),
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: getBackgroundImageProvider(backgroundImagePath),
-              fit: BoxFit.cover,
-            ),
+          decoration: getBackgroundDecoration(
+            backgroundImagePath,
+            backgroundColor: backgroundColor,
           ),
           padding: EdgeInsets.only(
             top: topPadding,
