@@ -3,8 +3,6 @@ import 'package:dairy_app/app/themes/coral_bubble_theme.dart';
 import 'package:dairy_app/app/themes/cosmic_theme.dart';
 import 'package:dairy_app/app/themes/custom_theme/custom_theme.dart';
 import 'package:dairy_app/app/themes/lush_green_theme.dart';
-import 'package:dairy_app/app/themes/plain_dark.dart';
-import 'package:dairy_app/app/themes/plain_light.dart';
 import 'package:dairy_app/app/themes/twilight_gold_theme.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/logger/logger.dart';
@@ -113,12 +111,8 @@ class _AppViewState extends State<AppView> {
         return Cosmic.getTheme(fontFamily);
       case Themes.lushGreen:
         return LushGreen.getTheme(fontFamily);
-      case Themes.plainDark:
-        return PlainDark.getTheme(fontFamily);
       case Themes.twilightGold:
         return TwilightGold.getTheme(fontFamily);
-      case Themes.plainLight:
-        return PlainLight.getTheme(fontFamily);
       case Themes.custom:
         // unreachable safety net: custom theme without a stored config
         return CoralBubble.getTheme(fontFamily);

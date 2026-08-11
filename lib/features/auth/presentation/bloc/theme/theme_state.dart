@@ -4,8 +4,6 @@ enum Themes {
   coralBubbles,
   cosmic,
   lushGreen,
-  plainDark,
-  plainLight,
   twilightGold,
   custom
 }
@@ -23,10 +21,6 @@ extension ThemeExtension on Themes {
         return 'Cosmic';
       case Themes.lushGreen:
         return 'Lush Green';
-      case Themes.plainDark:
-        return "Plain Dark";
-      case Themes.plainLight:
-        return "Plain Light";
       case Themes.twilightGold:
         return "Twilight Gold";
       case Themes.custom:
@@ -43,10 +37,6 @@ Themes getThemeFromString(String? themeString) {
       return Themes.cosmic;
     case 'lushGreen':
       return Themes.lushGreen;
-    case 'plainDark':
-      return Themes.plainDark;
-    case 'plainLight':
-      return Themes.plainLight;
     case 'twilightGold':
       return Themes.twilightGold;
     case 'custom':
