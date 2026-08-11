@@ -127,7 +127,26 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       log.e("Local database query for fetching notes failed $e");
       throw const DatabaseQueryException();
     }
-    return result.map((noteMap) => NoteModel.fromJson(noteMap)).toList();
+    final List<NoteModel> notes = [];
+    final modifiableResults = makeModifiableResults(result);
+
+    for (var note in modifiableResults) {
+      var tagsResult = await database.query(
+        Tags.TABLE_NAME,
+        where: "${Tags.NOTE_ID} = ?",
+        whereArgs: [note[Notes.ID]],
+      );
+
+      final tags = tagsResult.map((tag) => tag[Tags.NAME] as String).toList();
+
+      notes.add(NoteModel.fromJson({
+        ...note,
+        "asset_dependencies": [],
+        "tags": tags,
+      }));
+    }
+
+    return notes;
   }
 
   @override

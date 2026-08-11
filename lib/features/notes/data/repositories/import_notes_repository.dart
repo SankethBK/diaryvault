@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dairy_app/core/logger/logger.dart';
-import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/import_notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 
@@ -72,11 +71,8 @@ class ImportNotesRepository implements IImportNotesRepository {
           "last_modified": noteJson["last_modified"],
           "plain_text": noteJson["plain_text"],
           "deleted": noteJson["deleted"] ?? 0,
-          "asset_dependencies": (noteJson["asset_dependencies"] as List?)
-                  ?.map((asset) => NoteAssetModel.fromJson(asset))
-                  .toList() ??
-              [],
-          "tags": noteJson["tags"] ?? [],
+          "asset_dependencies": [],
+          "tags": (noteJson["tags"] as List?)?.cast<String>().toList() ?? [],
         };
 
         final result = await notesRepository.saveNote(
