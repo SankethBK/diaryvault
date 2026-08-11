@@ -6,11 +6,7 @@ enum Themes {
   lushGreen,
   plainDark,
   plainLight,
-  darkAcademia,
-  monochromePink,
   twilightGold,
-  mediterranean,
-  fuji,
   custom
 }
 
@@ -31,16 +27,8 @@ extension ThemeExtension on Themes {
         return "Plain Dark";
       case Themes.plainLight:
         return "Plain Light";
-      case Themes.darkAcademia:
-        return "Dark Academia";
-      case Themes.monochromePink:
-        return "Monochrome Pink";
       case Themes.twilightGold:
         return "Twilight Gold";
-      case Themes.mediterranean:
-        return "Mediterranean";
-      case Themes.fuji:
-        return "Fuji";
       case Themes.custom:
         return "Custom";
     }
@@ -59,16 +47,8 @@ Themes getThemeFromString(String? themeString) {
       return Themes.plainDark;
     case 'plainLight':
       return Themes.plainLight;
-    case 'darkAcademia':
-      return Themes.darkAcademia;
-    case 'monochromePink':
-      return Themes.monochromePink;
     case 'twilightGold':
       return Themes.twilightGold;
-    case 'mediterranean':
-      return Themes.mediterranean;
-    case 'fuji':
-      return Themes.fuji;
     case 'custom':
       return Themes.custom;
     default:
