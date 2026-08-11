@@ -130,5 +130,32 @@
         "example": "in sometime"
       }
     }
-  }
+  },
+  "accent": "Accent",
+  "changeBackgroundColor": "شاليد رنګ بدل کړئ",
+  "changeImage": "undo-type",
+  "chooseBackgroundImage": "انځور ټاکل",
+  "create": "جوړول",
+  "createYourTheme": "خپله ویینه جوړه کړئ",
+  "customThemeIntro": "یو عکس غوره کړئ چې تاسو یې خوښوئ یا د شالید رنګ غوره کړئ، او موږ به یې شاوخوا یوه موضوع جوړ کړو.",
+  "customThemes": "دودیزې ویینې",
+  "darkLabel": "تاریک",
+  "darkTheme": "تیاره ویینه",
+  "defaultThemeName": "زما ویینه",
+  "editTheme": "ویینې پلورنځي سمون",
+  "importFromJSON": "له JSON څخه وارد کړئ",
+  "invalidBackupFile": "ناسمه شاتړ دوتنه",
+  "lightLabel": "روشن",
+  "muted": "تم شوی",
+  "notesImportPartialFailure": "وارد شوي {imported} یادښتونه، پریښودل شوی {skipped} موجوده، {failed}",
+  "notesImportSkippedSummary": "وارد شوي {imported} یادښتونه، له {skipped} شته یادښتونه",
+  "notesImportSuccess": "وارد شوي {count} یادښتونه",
+  "paletteInstruction": "رنګدبلی (د ترمیم لپاره یوه سویچ ټپ کړئ)",
+  "pickAColor": "رنګ اوچتول",
+  "pickBackgroundColorInstead": "پر ځای يې شاليد رنګ وټاکﺉ",
+  "saveAndApplyTheme": "ویینه خوندي او تطبیق کړئ",
+  "saveChanges": "بدلونونه خوندي کړه",
+  "themeName": "ویینه نوم",
+  "themeNameHint": "زما ویینه",
+  "select": "Select"
 }

@@ -130,5 +130,32 @@
         "example": "in sometime"
       }
     }
-  }
+  },
+  "accent": "Lafudhi",
+  "changeBackgroundColor": "Badilisha rangi ya mandharinyuma",
+  "changeImage": "Badilisha Picha ",
+  "chooseBackgroundImage": "Chagua picha ya mandharinyuma",
+  "create": "Unda",
+  "createYourTheme": "Unda mada yako",
+  "customThemeIntro": "Chagua picha unayopenda au uchague rangi ya mandharinyuma na tutaijenga mandhari.",
+  "customThemes": "Mada mahususi",
+  "darkLabel": "Giza",
+  "darkTheme": "Mada nyeusi",
+  "defaultThemeName": "Mada Yangu",
+  "editTheme": "Hariri mandhari",
+  "importFromJSON": "Ingiza kutoka JSON",
+  "invalidBackupFile": "Faili mbadala si sahihi",
+  "lightLabel": "Mwanga",
+  "muted": "Imetiwa doa",
+  "notesImportPartialFailure": "Maelezo {imported} yaliyoingizwa, {skipped} yaliyopo, {failed} hayajafaulu",
+  "notesImportSkippedSummary": "Vidokezo {imported} vilivyoingizwa, vimerukwa {skipped} vidokezo vilivyopo",
+  "notesImportSuccess": "Maelezo {count} yaliyoingizwa",
+  "paletteInstruction": "Palette (bofya saa ili kuhariri)",
+  "pickAColor": "Chagua rangi",
+  "pickBackgroundColorInstead": "Chagua rangi ya mandharinyuma badala yake",
+  "saveAndApplyTheme": "Hifadhi na utumie mada",
+  "saveChanges": "Hifadhi mabadiliko",
+  "themeName": "Jina la mada",
+  "themeNameHint": "Mada Yangu",
+  "select": "Select"
 }

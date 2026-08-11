@@ -130,5 +130,32 @@
         "example": "in sometime"
       }
     }
-  }
+  },
+  "accent": "لہجہ",
+  "changeBackgroundColor": "پس منظر کا رنگ تبدیل کریں",
+  "changeImage": "تصویر تبدیل کریں",
+  "chooseBackgroundImage": "پس منظر کی تصویر منتخب کریں",
+  "create": "بنائیں",
+  "createYourTheme": "اپنا تھیم بنائیں",
+  "customThemeIntro": "اپنی پسندیدہ تصویر منتخب کریں یا پس منظر کا رنگ منتخب کریں، اور ہم اس کے ارد گرد ایک تھیم بنائیں گے ۔",
+  "customThemes": "حسب ضرورت تھیمز",
+  "darkLabel": "تاریک",
+  "darkTheme": "ڈارک تھیم",
+  "defaultThemeName": "میرا تھیم",
+  "editTheme": "تھیم میں ترمیم کریں",
+  "importFromJSON": "JSON سے درآمد کریں",
+  "invalidBackupFile": "غلط بیک اپ فائل",
+  "lightLabel": "روشنی ",
+  "muted": "خاموش",
+  "notesImportPartialFailure": "درآمد شدہ {imported} نوٹ، موجودہ {skipped} کو چھوڑ دیا گیا، {failed} ناکام ہو گیا",
+  "notesImportSkippedSummary": "درآمد شدہ {imported} نوٹ، موجودہ نوٹوں کو {skipped} چھوڑ دیا",
+  "notesImportSuccess": "درآمد شدہ {count} نوٹس",
+  "paletteInstruction": "پیلیٹ (ترمیم کرنے کے لیے سویچ پر ٹیپ کریں)",
+  "pickAColor": "ایک رنگ منتخب کریں",
+  "pickBackgroundColorInstead": "اس کے بجائے پس منظر کا رنگ منتخب کریں",
+  "saveAndApplyTheme": "تھیم محفوظ کریں اور لاگو کریں",
+  "saveChanges": "تبدیلیاں محفوظ کرو",
+  "themeName": "تھیم کا نام",
+  "themeNameHint": "میرا تھیم",
+  "select": "Select"
 }

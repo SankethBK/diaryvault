@@ -130,5 +130,32 @@
         "example": "in sometime"
       }
     }
-  }
+  },
+  "accent": "ਲਹਿਜ਼ਾ",
+  "changeBackgroundColor": "ਬੈਕਗਰਾਊਂਡ ਰੰਗ ਬਦਲੋ( b):",
+  "changeImage": "ਚਿੱਤਰ ਬਦਲੋ",
+  "chooseBackgroundImage": "ਬੈਕਗਰਾਊਂਡ ਚਿੱਤਰ ਚੁਣੋ",
+  "create": "ਬਣਾਓ",
+  "createYourTheme": "ਆਪਣਾ ਥੀਮ ਬਣਾਓ",
+  "customThemeIntro": "ਇੱਕ ਫੋਟੋ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਪਸੰਦ ਕਰਦੇ ਹੋ ਜਾਂ ਬੈਕਗ੍ਰਾਉਂਡ ਰੰਗ ਦੀ ਚੋਣ ਕਰਦੇ ਹੋ, ਅਤੇ ਅਸੀਂ ਇਸਦੇ ਦੁਆਲੇ ਇੱਕ ਥੀਮ ਬਣਾਵਾਂਗੇ.",
+  "customThemes": "ਕਸਟਮ ਥੀਮ",
+  "darkLabel": "ਗੂੜਾ",
+  "darkTheme": "ਡਾਰਕ ਥੀਮ",
+  "defaultThemeName": "ਮੇਰਾ ਥੀਮ",
+  "editTheme": "ਥੀਮ ਸੋਧ",
+  "importFromJSON": "JSON ਤੋਂ ਆਯਾਤ ਕਰੋ",
+  "invalidBackupFile": "ਅਵੈਧ ਬੈਕਅੱਪ ਫਾਇਲ",
+  "lightLabel": "ਪ੍ਰਕਾਸ਼",
+  "muted": "ਚੁੱਪ",
+  "notesImportPartialFailure": "ਇੰਪੋਰਟ ਕੀਤੇ ਗਏ {imported} ਨੋਟ, ਛੱਡੇ ਗਏ {skipped} ਮੌਜੂਦ, {failed} ਫੇਲ੍ਹ ਹੋਏ",
+  "notesImportSkippedSummary": "{imported} ਨੋਟ ਇੰਪੋਰਟ ਕੀਤੇ ਗਏ, {skipped} ਮੌਜੂਦਾ ਨੋਟ ਛੱਡ ਦਿੱਤੇ ਗਏ",
+  "notesImportSuccess": "{count} ਨੋਟ ਇੰਪੋਰਟ ਕੀਤੇ ਗਏ",
+  "paletteInstruction": "ਪੈਲੇਟ (ਸੋਧਣ ਲਈ ਸਵਿੱਚ ਟੈਪ ਕਰੋ)",
+  "pickAColor": "ਰੰਗ ਚੁਣੋ",
+  "pickBackgroundColorInstead": "ਬੈਕਗਰਾਊਂਡ ਰੰਗ ਚੁਣੋ",
+  "saveAndApplyTheme": "ਥੀਮ ਸੰਭਾਲੋ ਅਤੇ ਲਾਗੂ ਕਰੋ",
+  "saveChanges": "ਬਦਲਾਅ ਸੰਭਾਲੋ",
+  "themeName": "ਥੀਮ ਨਾਂ",
+  "themeNameHint": "ਮੇਰਾ ਥੀਮ",
+  "select": "Select"
 }

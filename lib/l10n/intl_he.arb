@@ -130,5 +130,32 @@
         "example": "in sometime"
       }
     }
-  }
+  },
+  "accent": "הדגשה",
+  "changeBackgroundColor": "שנה צבע רקע.",
+  "changeImage": "שנה תמונה",
+  "chooseBackgroundImage": "انتخاب یک تصویر پس زمینه",
+  "create": "ליצור",
+  "createYourTheme": "יצירת ערכת עיצוב",
+  "customThemeIntro": "בחרו תמונה שאתם אוהבים או בחרו צבע רקע, ואנחנו נבנה נושא סביבו.",
+  "customThemes": "ערכות עיצוב מותאמות",
+  "darkLabel": "כהה",
+  "darkTheme": "ערכת נושא כהה",
+  "defaultThemeName": "ערכת נושא שלי",
+  "editTheme": "עריכת ערכת נושא",
+  "importFromJSON": "ייבוא מכתובת אתר",
+  "invalidBackupFile": "קובץ גיבוי לא חוקי",
+  "lightLabel": "בהיר",
+  "muted": "מושתק",
+  "notesImportPartialFailure": "יובא {imported} הערות, דילג על {skipped} קיים, {failed} נכשל",
+  "notesImportSkippedSummary": "יובא {imported} הערות, דילג על {skipped} הערות קיימות",
+  "notesImportSuccess": "{count} הערות יובאו",
+  "paletteInstruction": "לוח צבעים (הקש על דוגמית כדי לערוך)",
+  "pickAColor": "יש לבחור צבע",
+  "pickBackgroundColorInstead": "בחר צבע רקע במקום זאת",
+  "saveAndApplyTheme": "שמור והפעל ערכת נושא",
+  "saveChanges": "שמירת שינויים",
+  "themeName": "שם ערכת עיצוב.",
+  "themeNameHint": "ערכת נושא שלי",
+  "select": "Select"
 }

@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -72,12 +76,7 @@ class S {
 
   /// `Settings`
   String get settings {
-    return Intl.message(
-      'Settings',
-      name: 'settings',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
   }
 
   /// `Enter new email`
@@ -122,12 +121,7 @@ class S {
 
   /// `Auto sync`
   String get autoSync {
-    return Intl.message(
-      'Auto sync',
-      name: 'autoSync',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Auto sync', name: 'autoSync', desc: '', args: []);
   }
 
   /// `Already have an account?`
@@ -142,12 +136,7 @@ class S {
 
   /// `Sync now`
   String get syncNow {
-    return Intl.message(
-      'Sync now',
-      name: 'syncNow',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sync now', name: 'syncNow', desc: '', args: []);
   }
 
   /// `Available platforms for sync`
@@ -382,32 +371,17 @@ class S {
 
   /// `Date Filter`
   String get dateFilter {
-    return Intl.message(
-      'Date Filter',
-      name: 'dateFilter',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Date Filter', name: 'dateFilter', desc: '', args: []);
   }
 
   /// `From`
   String get from {
-    return Intl.message(
-      'From',
-      name: 'from',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('From', name: 'from', desc: '', args: []);
   }
 
   /// `To`
   String get to {
-    return Intl.message(
-      'To',
-      name: 'to',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('To', name: 'to', desc: '', args: []);
   }
 
   /// `Are you sure about logging out?`
@@ -452,12 +426,7 @@ class S {
 
   /// `App version`
   String get appVersion {
-    return Intl.message(
-      'App version',
-      name: 'appVersion',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('App version', name: 'appVersion', desc: '', args: []);
   }
 
   /// `Continue as guest`
@@ -532,32 +501,17 @@ class S {
 
   /// `Log In`
   String get logIn {
-    return Intl.message(
-      'Log In',
-      name: 'logIn',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Log In', name: 'logIn', desc: '', args: []);
   }
 
   /// `Log out`
   String get logOut {
-    return Intl.message(
-      'Log out',
-      name: 'logOut',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Log out', name: 'logOut', desc: '', args: []);
   }
 
   /// `Sign In`
   String get signIn {
-    return Intl.message(
-      'Sign In',
-      name: 'signIn',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sign In', name: 'signIn', desc: '', args: []);
   }
 
   /// `Forgot password`
@@ -602,12 +556,7 @@ class S {
 
   /// `Sign Up`
   String get signUp {
-    return Intl.message(
-      'Sign Up',
-      name: 'signUp',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sign Up', name: 'signUp', desc: '', args: []);
   }
 
   /// `Tap here to expand title`
@@ -622,42 +571,22 @@ class S {
 
   /// `Gallery`
   String get gallery {
-    return Intl.message(
-      'Gallery',
-      name: 'gallery',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Gallery', name: 'gallery', desc: '', args: []);
   }
 
   /// `Link`
   String get link {
-    return Intl.message(
-      'Link',
-      name: 'link',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Link', name: 'link', desc: '', args: []);
   }
 
   /// `Camera`
   String get camera {
-    return Intl.message(
-      'Camera',
-      name: 'camera',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Camera', name: 'camera', desc: '', args: []);
   }
 
   /// `Video`
   String get video {
-    return Intl.message(
-      'Video',
-      name: 'video',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Video', name: 'video', desc: '', args: []);
   }
 
   /// `You have unsaved changes`
@@ -672,22 +601,12 @@ class S {
 
   /// `Dropbox`
   String get dropbox {
-    return Intl.message(
-      'Dropbox',
-      name: 'dropbox',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dropbox', name: 'dropbox', desc: '', args: []);
   }
 
   /// `Signed in as`
   String get signedInAs {
-    return Intl.message(
-      'Signed in as',
-      name: 'signedInAs',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Signed in as', name: 'signedInAs', desc: '', args: []);
   }
 
   /// `Last synced: `
@@ -732,42 +651,22 @@ class S {
 
   /// `Done`
   String get done {
-    return Intl.message(
-      'Done',
-      name: 'done',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Done', name: 'done', desc: '', args: []);
   }
 
   /// `Delete`
   String get delete {
-    return Intl.message(
-      'Delete',
-      name: 'delete',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
   }
 
   /// `Cancel`
   String get cancel {
-    return Intl.message(
-      'Cancel',
-      name: 'cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
   /// `Submit`
   String get submit {
-    return Intl.message(
-      'Submit',
-      name: 'submit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Submit', name: 'submit', desc: '', args: []);
   }
 
   /// `Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!`
@@ -842,12 +741,7 @@ class S {
 
   /// `Choose Time`
   String get chooseTime {
-    return Intl.message(
-      'Choose Time',
-      name: 'chooseTime',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Choose Time', name: 'chooseTime', desc: '', args: []);
   }
 
   /// `Time to Journal!`
@@ -892,12 +786,7 @@ class S {
 
   /// `Sort by A-Z`
   String get sortByAtoZ {
-    return Intl.message(
-      'Sort by A-Z',
-      name: 'sortByAtoZ',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sort by A-Z', name: 'sortByAtoZ', desc: '', args: []);
   }
 
   /// `Export your notes`
@@ -952,22 +841,12 @@ class S {
 
   /// `Leave`
   String get leave {
-    return Intl.message(
-      'Leave',
-      name: 'leave',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Leave', name: 'leave', desc: '', args: []);
   }
 
   /// `Stay`
   String get stay {
-    return Intl.message(
-      'Stay',
-      name: 'stay',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Stay', name: 'stay', desc: '', args: []);
   }
 
   /// `Automatically saves your notes after every 10 seconds`
@@ -982,12 +861,7 @@ class S {
 
   /// `Logout`
   String get logOut2 {
-    return Intl.message(
-      'Logout',
-      name: 'logOut2',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Logout', name: 'logOut2', desc: '', args: []);
   }
 
   /// `App Language`
@@ -1002,52 +876,27 @@ class S {
 
   /// `NextCloud`
   String get nextCloud {
-    return Intl.message(
-      'NextCloud',
-      name: 'nextCloud',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('NextCloud', name: 'nextCloud', desc: '', args: []);
   }
 
   /// `WebDAV URL`
   String get webdavURL {
-    return Intl.message(
-      'WebDAV URL',
-      name: 'webdavURL',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('WebDAV URL', name: 'webdavURL', desc: '', args: []);
   }
 
   /// `More Info`
   String get moreInfo {
-    return Intl.message(
-      'More Info',
-      name: 'moreInfo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('More Info', name: 'moreInfo', desc: '', args: []);
   }
 
   /// `Reset PIN`
   String get resetPin {
-    return Intl.message(
-      'Reset PIN',
-      name: 'resetPin',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Reset PIN', name: 'resetPin', desc: '', args: []);
   }
 
   /// `Enter your PIN`
   String get enterPin {
-    return Intl.message(
-      'Enter your PIN',
-      name: 'enterPin',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Enter your PIN', name: 'enterPin', desc: '', args: []);
   }
 
   /// `PIN confirmation feeling`
@@ -1112,12 +961,7 @@ class S {
 
   /// `Font Family`
   String get fontFamily {
-    return Intl.message(
-      'Font Family',
-      name: 'fontFamily',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Font Family', name: 'fontFamily', desc: '', args: []);
   }
 
   /// `Please enter a 4-digit PIN`
@@ -1132,12 +976,7 @@ class S {
 
   /// `Wrong PIN`
   String get wrongPIN {
-    return Intl.message(
-      'Wrong PIN',
-      name: 'wrongPIN',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Wrong PIN', name: 'wrongPIN', desc: '', args: []);
   }
 
   /// `Sign in with Email`
@@ -1192,22 +1031,12 @@ class S {
 
   /// `Security`
   String get security {
-    return Intl.message(
-      'Security',
-      name: 'security',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Security', name: 'security', desc: '', args: []);
   }
 
   /// `Reminders`
   String get reminders {
-    return Intl.message(
-      'Reminders',
-      name: 'reminders',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Reminders', name: 'reminders', desc: '', args: []);
   }
 
   /// `Customize Theme, Fonts and Language`
@@ -1271,7 +1100,7 @@ class S {
   }
 
   /// `Imported {count} notes`
-  String notesImportSuccess(int count) {
+  String notesImportSuccess(Object count) {
     return Intl.message(
       'Imported $count notes',
       name: 'notesImportSuccess',
@@ -1281,7 +1110,7 @@ class S {
   }
 
   /// `Imported {imported} notes, skipped {skipped} existing notes`
-  String notesImportSkippedSummary(int imported, int skipped) {
+  String notesImportSkippedSummary(Object imported, Object skipped) {
     return Intl.message(
       'Imported $imported notes, skipped $skipped existing notes',
       name: 'notesImportSkippedSummary',
@@ -1291,7 +1120,11 @@ class S {
   }
 
   /// `Imported {imported} notes, skipped {skipped} existing, {failed} failed`
-  String notesImportPartialFailure(int imported, int skipped, int failed) {
+  String notesImportPartialFailure(
+    Object imported,
+    Object skipped,
+    Object failed,
+  ) {
     return Intl.message(
       'Imported $imported notes, skipped $skipped existing, $failed failed',
       name: 'notesImportPartialFailure',
@@ -1308,6 +1141,171 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Custom themes`
+  String get customThemes {
+    return Intl.message(
+      'Custom themes',
+      name: 'customThemes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create`
+  String get create {
+    return Intl.message('Create', name: 'create', desc: '', args: []);
+  }
+
+  /// `Dark`
+  String get darkLabel {
+    return Intl.message('Dark', name: 'darkLabel', desc: '', args: []);
+  }
+
+  /// `Light`
+  String get lightLabel {
+    return Intl.message('Light', name: 'lightLabel', desc: '', args: []);
+  }
+
+  /// `Pick a photo you love or choose a background color, and we'll build a theme around it.`
+  String get customThemeIntro {
+    return Intl.message(
+      'Pick a photo you love or choose a background color, and we\'ll build a theme around it.',
+      name: 'customThemeIntro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose background image`
+  String get chooseBackgroundImage {
+    return Intl.message(
+      'Choose background image',
+      name: 'chooseBackgroundImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change image`
+  String get changeImage {
+    return Intl.message(
+      'Change image',
+      name: 'changeImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick a background color instead`
+  String get pickBackgroundColorInstead {
+    return Intl.message(
+      'Pick a background color instead',
+      name: 'pickBackgroundColorInstead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change background color`
+  String get changeBackgroundColor {
+    return Intl.message(
+      'Change background color',
+      name: 'changeBackgroundColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme name`
+  String get themeName {
+    return Intl.message('Theme name', name: 'themeName', desc: '', args: []);
+  }
+
+  /// `My Theme`
+  String get themeNameHint {
+    return Intl.message('My Theme', name: 'themeNameHint', desc: '', args: []);
+  }
+
+  /// `My Theme`
+  String get defaultThemeName {
+    return Intl.message(
+      'My Theme',
+      name: 'defaultThemeName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick a color`
+  String get pickAColor {
+    return Intl.message('Pick a color', name: 'pickAColor', desc: '', args: []);
+  }
+
+  /// `Palette (tap a swatch to edit)`
+  String get paletteInstruction {
+    return Intl.message(
+      'Palette (tap a swatch to edit)',
+      name: 'paletteInstruction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accent`
+  String get accent {
+    return Intl.message('Accent', name: 'accent', desc: '', args: []);
+  }
+
+  /// `Muted`
+  String get muted {
+    return Intl.message('Muted', name: 'muted', desc: '', args: []);
+  }
+
+  /// `Dark theme`
+  String get darkTheme {
+    return Intl.message('Dark theme', name: 'darkTheme', desc: '', args: []);
+  }
+
+  /// `Save & apply theme`
+  String get saveAndApplyTheme {
+    return Intl.message(
+      'Save & apply theme',
+      name: 'saveAndApplyTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save changes`
+  String get saveChanges {
+    return Intl.message(
+      'Save changes',
+      name: 'saveChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create your theme`
+  String get createYourTheme {
+    return Intl.message(
+      'Create your theme',
+      name: 'createYourTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit theme`
+  String get editTheme {
+    return Intl.message('Edit theme', name: 'editTheme', desc: '', args: []);
+  }
+
+  /// `Select`
+  String get select {
+    return Intl.message('Select', name: 'select', desc: '', args: []);
   }
 }
 
