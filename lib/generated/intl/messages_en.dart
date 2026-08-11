@@ -22,6 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(time) => "You will be notified at ${time}";
 
+  static String m1(count) => "Imported ${count} notes";
+
+  static String m2(imported, skipped) =>
+      "Imported ${imported} notes, skipped ${skipped} existing notes";
+
+  static String m3(imported, skipped, failed) =>
+      "Imported ${imported} notes, skipped ${skipped} existing, ${failed} failed";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accountSetupSuccessful":
@@ -90,6 +98,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "exportNotes":
             MessageLookupByLibrary.simpleMessage("Export your notes"),
         "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+        "importFromJSON":
+            MessageLookupByLibrary.simpleMessage("Import from JSON"),
+        "invalidBackupFile":
+            MessageLookupByLibrary.simpleMessage("Invalid backup file"),
+        "notesImportSuccess": m1,
+        "notesImportSkippedSummary": m2,
+        "notesImportPartialFailure": m3,
         "exportToPDF": MessageLookupByLibrary.simpleMessage("Export to PDF"),
         "exportToPlainText":
             MessageLookupByLibrary.simpleMessage("Export to Plain Text"),

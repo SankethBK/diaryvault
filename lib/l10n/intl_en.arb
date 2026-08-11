@@ -130,5 +130,10 @@
   "importAndExportNotes": "Import and Export Notes",
   "selectVoice": "Select Voice",
   "toolbarPosition": "Toolbar Position",
-  "exportToJSON": "Export to JSON"
+  "exportToJSON": "Export to JSON",
+  "importFromJSON": "Import from JSON",
+  "notesImportSuccess": "Imported {count} notes",
+  "notesImportSkippedSummary": "Imported {imported} notes, skipped {skipped} existing notes",
+  "notesImportPartialFailure": "Imported {imported} notes, skipped {skipped} existing, {failed} failed",
+  "invalidBackupFile": "Invalid backup file"
 }

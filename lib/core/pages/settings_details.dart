@@ -14,6 +14,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_sess
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/import_notes.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/toolbar_position_dropdown.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_settings.dart';
 import 'package:dairy_app/generated/l10n.dart';
@@ -175,6 +176,8 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
       case SettingCategoriesConstants.importAndExport:
         return [
           const ExportNotes(),
+          const SizedBox(height: 20.0),
+          const ImportNotes(),
         ];
 
       default:
