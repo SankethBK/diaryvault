@@ -69,6 +69,7 @@ class _ImportNotesState extends State<ImportNotes> {
       onTap: isImporting ? null : _importFromJson,
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             S.current.importFromJSON,
