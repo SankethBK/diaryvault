@@ -1259,6 +1259,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Import from JSON`
+  String get importFromJSON {
+    return Intl.message(
+      'Import from JSON',
+      name: 'importFromJSON',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Imported {count} notes`
+  String notesImportSuccess(int count) {
+    return Intl.message(
+      'Imported $count notes',
+      name: 'notesImportSuccess',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Imported {imported} notes, skipped {skipped} existing notes`
+  String notesImportSkippedSummary(int imported, int skipped) {
+    return Intl.message(
+      'Imported $imported notes, skipped $skipped existing notes',
+      name: 'notesImportSkippedSummary',
+      desc: '',
+      args: [imported, skipped],
+    );
+  }
+
+  /// `Imported {imported} notes, skipped {skipped} existing, {failed} failed`
+  String notesImportPartialFailure(int imported, int skipped, int failed) {
+    return Intl.message(
+      'Imported $imported notes, skipped $skipped existing, $failed failed',
+      name: 'notesImportPartialFailure',
+      desc: '',
+      args: [imported, skipped, failed],
+    );
+  }
+
+  /// `Invalid backup file`
+  String get invalidBackupFile {
+    return Intl.message(
+      'Invalid backup file',
+      name: 'invalidBackupFile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
