@@ -6,6 +6,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
+import 'package:dairy_app/features/encryption/presentation/widgets/note_encrypt_toggle_button.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
@@ -128,6 +129,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
           automaticallyImplyLeading: false,
           leading: NotesCloseButton(onNotesClosed: _closeAfterAutoSave),
           actions: const [
+            NoteEncryptToggleButton(),
             NoteSaveButton(),
             DateTimePicker(),
             ToggleReadWriteButton(pageName: PageName.NoteCreatePage)

@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/features/encryption/core/crypto_service.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/key_manager.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -36,6 +39,28 @@ mixin NoteHelperMixin {
     return digest.toString();
   }
 
+  // Computes the hash of the note currently in [state], matching what the
+  // repository stored: SHA-1 for plain notes, keyed HMAC for encrypted ones.
+  // Falls back to state.hash (treat as unchanged) when the session is locked.
+  Future<String> computeCurrentHash(NotesState state) async {
+    String body = jsonEncode(state.controller!.document.toDelta().toJson());
+    String noteBodyWithAssetPathsRemoved = replaceAssetPathsByAssetNames(body);
+
+    final hashInput = state.title! +
+        state.createdAt!.millisecondsSinceEpoch.toString() +
+        noteBodyWithAssetPathsRemoved +
+        state.tags!.join(",");
+
+    if (state.isEncrypted) {
+      final keyManager = sl<IKeyManager>();
+      if (!keyManager.isUnlocked) return state.hash ?? "";
+      final masterKey = await keyManager.requireMasterKey();
+      return sl<CryptoService>().contentHmac(hashInput, masterKey);
+    }
+
+    return generateHash(hashInput);
+  }
+
   // Compares two notes based on their hash
   bool areNotesIdentical(NotesState state, String newHash) {
     return state.hash == newHash;
@@ -44,17 +69,7 @@ mixin NoteHelperMixin {
   // Handles the onWillPop event logic
   Future<bool> handleWillPop(BuildContext context, NotesBloc notesBloc) async {
     if (notesBloc.state.controller != null && notesBloc.state.title != null) {
-      String _body =
-          jsonEncode(notesBloc.state.controller!.document.toDelta().toJson());
-
-      // Calculate note hash
-      String noteBodyWithAssetPathsRemoved =
-          replaceAssetPathsByAssetNames(_body);
-
-      String _hash = generateHash(notesBloc.state.title! +
-          notesBloc.state.createdAt!.millisecondsSinceEpoch.toString() +
-          noteBodyWithAssetPathsRemoved +
-          notesBloc.state.tags!.join(","));
+      String _hash = await computeCurrentHash(notesBloc.state);
 
       // Compare old and new hash
       if (areNotesIdentical(notesBloc.state, _hash)) {

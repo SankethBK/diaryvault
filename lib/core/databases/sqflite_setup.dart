@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -42,15 +42,18 @@ class DBProvider {
 
           await db.execute("""
           CREATE TABLE ${Notes.TABLE_NAME} (
-            ${Notes.ID} TEXT, 
+            ${Notes.ID} TEXT,
             ${Notes.CREATED_AT} DATETIME,
             ${Notes.TITLE} TEXT,
-            ${Notes.BODY} TEXT, 
+            ${Notes.BODY} TEXT,
             ${Notes.HASH} TEXT,
-            ${Notes.LAST_MODIFIED} DATETIME, 
-            ${Notes.PLAIN_TEXT} TEXT, 
-            ${Notes.DELETED} INTEGER, 
-            ${Notes.AUTHOR_ID} TEXT
+            ${Notes.LAST_MODIFIED} DATETIME,
+            ${Notes.PLAIN_TEXT} TEXT,
+            ${Notes.DELETED} INTEGER,
+            ${Notes.AUTHOR_ID} TEXT,
+            ${Notes.IS_ENCRYPTED} INTEGER NOT NULL DEFAULT 0,
+            ${Notes.ENCRYPTION_VERSION} INTEGER NOT NULL DEFAULT 1,
+            ${Notes.WRAPPED_DEK} TEXT
           )
           """);
 
@@ -99,6 +102,14 @@ class DBProvider {
               ${Tags.NOTE_ID} TEXT,
               ${Tags.NAME} TEXT
             )""");
+        }
+        if (oldVersion < 3) {
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.IS_ENCRYPTED} INTEGER NOT NULL DEFAULT 0");
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.ENCRYPTION_VERSION} INTEGER NOT NULL DEFAULT 1");
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.WRAPPED_DEK} TEXT");
         }
       },
     );

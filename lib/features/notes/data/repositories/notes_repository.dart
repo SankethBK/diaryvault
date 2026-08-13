@@ -38,7 +38,8 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
   }
 
   @override
-  Future<Either<NotesFailure, NoteModel>> getNote(String id) async {
+  Future<Either<NotesFailure, NoteModel>> getNote(String id,
+      {bool decrypt = true}) async {
     try {
       var note = await notesLocalDataSource.getNote(
           id, authSessionBloc.state.user!.id);
@@ -68,16 +69,19 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
         noteMap["asset_dependencies"].removeWhere(
             (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
 
-        // calculate note hash
-        String noteBodyWithAssetPathsRemoved =
-            replaceAssetPathsByAssetNames(noteMap["body"]);
+        // calculate note hash, unless the encryption layer already set a
+        // keyed HMAC over the plaintext
+        if (noteMap["hash"] == null) {
+          String noteBodyWithAssetPathsRemoved =
+              replaceAssetPathsByAssetNames(noteMap["body"]);
 
-        var _hash = generateHash(noteMap["title"] +
-            noteMap["created_at"].toString() +
-            noteBodyWithAssetPathsRemoved +
-            noteMap["tags"].join(","));
+          var _hash = generateHash(noteMap["title"] +
+              noteMap["created_at"].toString() +
+              noteBodyWithAssetPathsRemoved +
+              noteMap["tags"].join(","));
 
-        noteMap["hash"] = _hash;
+          noteMap["hash"] = _hash;
+        }
       }
 
       //! bad but i don't have enough time to re-structure it
@@ -107,16 +111,19 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
       noteMap["asset_dependencies"].removeWhere(
           (noteAsset) => !usedNoteAssets.contains(noteAsset.assetPath));
 
-      // calculate note hash
-      String noteBodyWithAssetPathsRemoved =
-          replaceAssetPathsByAssetNames(noteMap["body"]);
+      // calculate note hash, unless the encryption layer already set a
+      // keyed HMAC over the plaintext
+      if (noteMap["hash"] == null) {
+        String noteBodyWithAssetPathsRemoved =
+            replaceAssetPathsByAssetNames(noteMap["body"]);
 
-      var _hash = generateHash(noteMap["title"] +
-          noteMap["created_at"].toString() +
-          noteBodyWithAssetPathsRemoved +
-          noteMap["tags"].join(","));
+        var _hash = generateHash(noteMap["title"] +
+            noteMap["created_at"].toString() +
+            noteBodyWithAssetPathsRemoved +
+            noteMap["tags"].join(","));
 
-      noteMap["hash"] = _hash;
+        noteMap["hash"] = _hash;
+      }
 
       await notesLocalDataSource.updateNote(
           noteMap, authSessionBloc.state.user!.id);

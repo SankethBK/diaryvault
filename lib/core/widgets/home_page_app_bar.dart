@@ -12,6 +12,9 @@ import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/auth/data/models/user_config_model.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/key_manager.dart';
+import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
+import 'package:dairy_app/features/encryption/presentation/widgets/unlock_dialog.dart';
 import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
@@ -220,6 +223,7 @@ class Action extends StatelessWidget {
         } else {
           return Row(
             children: [
+              const EncryptionLockIcon(),
               Padding(
                 key: const ValueKey("search icon"),
                 padding: const EdgeInsets.only(right: 5.0),
@@ -273,6 +277,53 @@ class Action extends StatelessWidget {
         child: getSuitableWidget(),
       );
     });
+  }
+}
+
+// Lock icon shown when encryption is set up.
+// Locked -> tap prompts for passphrase; Unlocked -> tap locks the session.
+class EncryptionLockIcon extends StatelessWidget {
+  const EncryptionLockIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final encryptionCubit = BlocProvider.of<EncryptionCubit>(context);
+    final notesFetchCubit = BlocProvider.of<NotesFetchCubit>(context);
+
+    return BlocBuilder<EncryptionCubit, EncryptionSessionState>(
+      bloc: encryptionCubit,
+      builder: (context, state) {
+        if (state is EncryptionNotSetUp) {
+          return const SizedBox.shrink();
+        }
+
+        final isUnlocked = state is EncryptionUnlocked;
+
+        return Padding(
+          key: const ValueKey("encryption lock icon"),
+          padding: const EdgeInsets.only(right: 5.0),
+          child: IconButton(
+            icon: Icon(
+              isUnlocked ? Icons.lock_open : Icons.lock,
+              color: Colors.white.withValues(alpha: 1),
+            ),
+            tooltip: isUnlocked ? "Lock encrypted notes" : "Unlock encrypted notes",
+            onPressed: () async {
+              if (isUnlocked) {
+                encryptionCubit.lock();
+                notesFetchCubit.fetchNotes();
+                return;
+              }
+
+              final unlocked = await showUnlockDialog(context);
+              if (unlocked == true) {
+                notesFetchCubit.fetchNotes();
+              }
+            },
+          ),
+        );
+      },
+    );
   }
 }
 

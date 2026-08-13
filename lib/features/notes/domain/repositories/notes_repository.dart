@@ -16,7 +16,11 @@ abstract class INotesRepository {
   Future<Either<NotesFailure, List<NoteModel>>> fetchNotes(
       {List<String>? noteIds});
 
-  Future<Either<NotesFailure, NoteModel>> getNote(String id);
+  /// [decrypt] controls whether encrypted notes are decrypted before being
+  /// returned (requires an unlocked encryption session). The sync layer must
+  /// pass decrypt: false so ciphertext - never plaintext - is uploaded.
+  Future<Either<NotesFailure, NoteModel>> getNote(String id,
+      {bool decrypt = true});
 
   Future<Either<NotesFailure, void>> updateNote(Map<String, dynamic> noteMap);
 

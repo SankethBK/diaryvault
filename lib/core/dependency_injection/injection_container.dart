@@ -18,6 +18,11 @@ import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/encryption/core/crypto_service.dart';
+import 'package:dairy_app/features/encryption/data/repositories/encryption_aware_notes_repository.dart';
+import 'package:dairy_app/features/encryption/data/repositories/key_manager.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/key_manager.dart';
+import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/repositories/export_notes_repository.dart';
@@ -130,6 +135,15 @@ Future<void> init() async {
     ),
   );
 
+  //* FEATURE: encryption
+
+  sl.registerLazySingleton<CryptoService>(() => CryptoService());
+  sl.registerSingleton<IKeyManager>(
+      KeyManager(cryptoService: sl(), keyValueDataSource: sl()));
+  await sl<IKeyManager>().initialize();
+  sl.registerLazySingleton<EncryptionCubit>(
+      () => EncryptionCubit(keyManager: sl()));
+
   //* FEATURE: notes
 
   //* Data sources
@@ -137,8 +151,10 @@ Future<void> init() async {
       await NotesLocalDataSource.create());
 
   //* Repository
-  sl.registerSingleton<INotesRepository>(
+  sl.registerSingleton<NotesRepository>(
       NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
+  sl.registerSingleton<INotesRepository>(EncryptionAwareNotesRepository(
+      inner: sl<NotesRepository>(), keyManager: sl(), cryptoService: sl()));
 
   sl.registerSingleton<IExportNotesRepository>(
       ExportNotesRepository(notesRepository: sl()));

@@ -50,6 +50,13 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           emit(const NoteFetchFailed(id: ""));
         },
         (note) {
+          // Never open a locked placeholder for editing - saving it would
+          // overwrite the real encrypted content with the placeholder
+          if (note.isLockedPlaceholder) {
+            emit(const NoteFetchFailed(id: ""));
+            return;
+          }
+
           final _doc = Document.fromJson(jsonDecode(note.body));
           QuillController _controller = QuillController(
             document: _doc,
@@ -65,9 +72,25 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             allNoteAssets: note.assetDependencies,
             tags: note.tags,
             hash: note.hash,
+            isEncrypted: note.isEncrypted,
+            wrappedDek: note.wrappedDek,
           ));
         },
       );
+    });
+
+    on<ToggleNoteEncryption>((event, emit) {
+      emit(NoteUpdatedState(
+        newNote: state.newNote!,
+        id: state.id,
+        title: state.title!,
+        controller: state.controller!,
+        createdAt: state.createdAt!,
+        allNoteAssets: state.allNoteAssets!,
+        tags: state.tags ?? [],
+        isEncrypted: event.encrypt,
+        wrappedDek: state.wrappedDek,
+      ));
     });
 
     on<UpdateNote>((event, emit) {
@@ -84,6 +107,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             ? [...state.allNoteAssets!, event.noteAsset!]
             : state.allNoteAssets!,
         tags: state.tags ?? [],
+        isEncrypted: state.isEncrypted,
+        wrappedDek: state.wrappedDek,
       ));
     });
 
@@ -96,6 +121,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         createdAt: state.createdAt!,
         allNoteAssets: state.allNoteAssets!,
         tags: [event.newTag, ...state.tags!],
+        isEncrypted: state.isEncrypted,
+        wrappedDek: state.wrappedDek,
       ));
     });
 
@@ -112,6 +139,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         createdAt: state.createdAt!,
         allNoteAssets: state.allNoteAssets!,
         tags: updatedTags,
+        isEncrypted: state.isEncrypted,
+        wrappedDek: state.wrappedDek,
       ));
     });
 
@@ -124,6 +153,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         createdAt: state.createdAt!,
         noteAssets: state.allNoteAssets!,
         tags: state.tags!,
+        isEncrypted: state.isEncrypted,
+        wrappedDek: state.wrappedDek,
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
@@ -142,6 +173,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "asset_dependencies": state.allNoteAssets,
         "deleted": 0,
         "tags": state.tags,
+        "is_encrypted": state.isEncrypted ? 1 : 0,
+        "wrapped_dek": state.wrappedDek,
       };
 
       Either<NotesFailure, void> result;
@@ -163,6 +196,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
           tags: state.tags ?? [],
+          isEncrypted: state.isEncrypted,
+          wrappedDek: state.wrappedDek,
         ));
       }, (_) {
         emit(NoteSavedSuccesfully(
@@ -173,6 +208,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
           tags: state.tags ?? [],
+          isEncrypted: state.isEncrypted,
+          wrappedDek: state.wrappedDek,
         ));
       });
     });
@@ -186,6 +223,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         createdAt: state.createdAt!,
         noteAssets: state.allNoteAssets!,
         tags: state.tags!,
+        isEncrypted: state.isEncrypted,
+        wrappedDek: state.wrappedDek,
       ));
 
       var _body = jsonEncode(state.controller!.document.toDelta().toJson());
@@ -202,6 +241,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         "asset_dependencies": state.allNoteAssets,
         "deleted": 0,
         "tags": state.tags,
+        "is_encrypted": state.isEncrypted ? 1 : 0,
+        "wrapped_dek": state.wrappedDek,
       };
 
       Either<NotesFailure, void> result;
@@ -223,6 +264,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
           tags: state.tags!,
+          isEncrypted: state.isEncrypted,
+          wrappedDek: state.wrappedDek,
         ));
       }, (_) {
         emit(NoteAutoSavedSuccesfully(
@@ -233,6 +276,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           createdAt: state.createdAt!,
           noteAssets: state.allNoteAssets!,
           tags: state.tags!,
+          isEncrypted: state.isEncrypted,
+          wrappedDek: state.wrappedDek,
         ));
       });
     });

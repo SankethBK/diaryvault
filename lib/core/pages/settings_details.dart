@@ -12,6 +12,7 @@ import 'package:dairy_app/core/widgets/voice_dropdown.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/security_settings.dart';
+import 'package:dairy_app/features/encryption/presentation/widgets/encryption_settings.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/daily_reminders.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/export_notes.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/import_notes.dart';
@@ -152,6 +153,8 @@ class _SettingsDetailPageState extends State<SettingsDetailPage> {
         return [
           const SizedBox(height: 10),
           SecuritySettings(),
+          const SizedBox(height: 10),
+          const EncryptionSettings(),
         ];
       case SettingCategoriesConstants.reminders:
         return [

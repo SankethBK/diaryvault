@@ -16,6 +16,7 @@ import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.da
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/pages/pin_auth_page.dart';
+import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
@@ -63,6 +64,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<FontCubit>(
           create: (context) => sl<FontCubit>(),
+        ),
+        BlocProvider<EncryptionCubit>(
+          create: (context) => sl<EncryptionCubit>(),
         )
       ],
       child: const AppView(),

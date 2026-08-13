@@ -1,5 +1,9 @@
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/key_manager.dart';
+import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
+import 'package:dairy_app/features/encryption/presentation/widgets/unlock_dialog.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:flutter/material.dart';
@@ -52,12 +56,20 @@ class NotePreviewCard extends StatelessWidget {
               selectableListCubit.enableSelectableList(note.id);
             }
           },
-          onTap: () {
+          onTap: () async {
             if (selectableListCubit.state is SelectableListEnabled) {
               isSelected
                   ? selectableListCubit.removeItemFromSelection(note.id)
                   : selectableListCubit.addItemToSelection(note.id);
             } else {
+              // Tapping a locked encrypted note prompts to unlock first
+              final encryptionState =
+                  BlocProvider.of<EncryptionCubit>(context).state;
+              if (note.isEncrypted && encryptionState is EncryptionLocked) {
+                final unlocked = await showUnlockDialog(context);
+                if (unlocked != true || !context.mounted) return;
+                BlocProvider.of<NotesFetchCubit>(context).fetchNotes();
+              }
               Navigator.of(context).pushNamed(
                 NotesReadOnlyPage.routeThroughHome,
                 arguments: note.id,
@@ -179,14 +191,25 @@ class TitleAndDescription extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(width: 7),
-            Text(
-              note.title,
-              style: TextStyle(
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.w500,
-                  color: previewTitleColor),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            Row(
+              children: [
+                if (note.isEncrypted)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Icon(Icons.lock, size: 15.0, color: previewTitleColor),
+                  ),
+                Flexible(
+                  child: Text(
+                    note.title,
+                    style: TextStyle(
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w500,
+                        color: previewTitleColor),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             Text(

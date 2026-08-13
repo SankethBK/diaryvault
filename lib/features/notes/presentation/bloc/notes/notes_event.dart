@@ -24,6 +24,14 @@ class UpdateNote extends NotesEvent {
   const UpdateNote({this.createdAt, this.title, this.body, this.noteAsset});
 }
 
+/// Toggles whether this note is stored encrypted. The UI is responsible for
+/// ensuring the encryption session is unlocked before enabling this.
+class ToggleNoteEncryption extends NotesEvent {
+  final bool encrypt;
+
+  const ToggleNoteEncryption({required this.encrypt});
+}
+
 /// if newNote is true, then create a new note, otherwise update the existing note
 class SaveNote extends NotesEvent {}
 

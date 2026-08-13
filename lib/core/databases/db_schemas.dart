@@ -21,6 +21,9 @@ class Notes {
   static const HASH = "hash";
   static const AUTHOR_ID = "author_id";
   static const TAGS = "tags";
+  static const IS_ENCRYPTED = "is_encrypted";
+  static const ENCRYPTION_VERSION = "encryption_version";
+  static const WRAPPED_DEK = "wrapped_dek";
 }
 
 class NoteDependencies {

@@ -90,7 +90,13 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     List<Map<String, Object?>> result;
     try {
       result = await database.query(Notes.TABLE_NAME,
-          columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
+          columns: [
+            Notes.ID,
+            Notes.TITLE,
+            Notes.PLAIN_TEXT,
+            Notes.CREATED_AT,
+            Notes.IS_ENCRYPTED,
+          ],
           where:
               "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
           orderBy: "${Notes.CREATED_AT} DESC");
@@ -456,9 +462,17 @@ class NotesLocalDataSource implements INotesLocalDataSource {
 
       result = await database.query(
         Notes.TABLE_NAME,
-        columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
+        columns: [
+          Notes.ID,
+          Notes.TITLE,
+          Notes.PLAIN_TEXT,
+          Notes.CREATED_AT,
+          Notes.IS_ENCRYPTED,
+        ],
+        // Encrypted notes are excluded from search: their title/plain_text
+        // hold ciphertext (or null) and must not match LIKE queries
         where:
-            "${Notes.DELETED} != 1 AND $searchQuery and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
+            "${Notes.DELETED} != 1 AND ${Notes.IS_ENCRYPTED} != 1 AND $searchQuery and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
         orderBy: "${Notes.CREATED_AT} DESC",
       );
     } catch (e) {

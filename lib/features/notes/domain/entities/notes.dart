@@ -12,6 +12,17 @@ class Note extends Equatable {
   final bool deleted;
   final String? authorId;
   final List<String> tags;
+  final bool isEncrypted;
+  final int encryptionVersion;
+
+  /// base64(nonce || ciphertext || mac) of the note's DEK wrapped with the
+  /// master key. Null for unencrypted notes.
+  final String? wrappedDek;
+
+  /// True when this instance is a redacted stand-in for an encrypted note
+  /// whose session is locked. Its title/body/plainText are placeholders,
+  /// NOT real content - editors must refuse to open it.
+  final bool isLockedPlaceholder;
 
   const Note({
     required this.id,
@@ -25,6 +36,10 @@ class Note extends Equatable {
     this.deleted = false,
     this.authorId,
     required this.tags,
+    this.isEncrypted = false,
+    this.encryptionVersion = 1,
+    this.wrappedDek,
+    this.isLockedPlaceholder = false,
   });
 
   String getHashingString() {
@@ -44,6 +59,9 @@ class Note extends Equatable {
       plainText,
       assetDependencies,
       deleted,
+      isEncrypted,
+      encryptionVersion,
+      wrappedDek ?? "",
     ];
   }
 
@@ -73,12 +91,14 @@ class NotePreview extends Equatable {
   final DateTime createdAt;
   final String title;
   final String plainText;
+  final bool isEncrypted;
 
   const NotePreview({
     required this.id,
     required this.createdAt,
     required this.title,
     required this.plainText,
+    this.isEncrypted = false,
   });
 
   @override

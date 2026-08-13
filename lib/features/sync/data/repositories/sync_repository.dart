@@ -401,8 +401,9 @@ class SyncRepository implements ISyncRepository {
 
   Future<void> _uploadSingleNote(String noteId) async {
     try {
-      // fetch the note from repository
-      var result = await notesRepository.getNote(noteId);
+      // fetch the note from repository; decrypt: false so encrypted notes
+      // are uploaded as ciphertext, never plaintext
+      var result = await notesRepository.getNote(noteId, decrypt: false);
       return result.fold((e) {
         log.e(e);
       }, (note) async {

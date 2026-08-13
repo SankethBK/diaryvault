@@ -9,6 +9,8 @@ abstract class NotesState extends Equatable {
   final DateTime? createdAt;
   final List<NoteAssetModel>? allNoteAssets;
   final List<String>? tags;
+  final bool isEncrypted;
+  final String? wrappedDek;
 
   // tells if it is safe to access the properties of this state
   final bool safe;
@@ -23,6 +25,8 @@ abstract class NotesState extends Equatable {
     this.newNote,
     this.allNoteAssets,
     this.tags,
+    this.isEncrypted = false,
+    this.wrappedDek,
     required this.id,
     required this.safe,
   });
@@ -55,6 +59,8 @@ class NoteInitialState extends NotesState {
     required String id,
     required String hash,
     required List<String> tags,
+    bool isEncrypted = false,
+    String? wrappedDek,
   }) : super(
           newNote: newNote,
           controller: controller,
@@ -65,6 +71,8 @@ class NoteInitialState extends NotesState {
           allNoteAssets: allNoteAssets,
           safe: true,
           tags: tags,
+          isEncrypted: isEncrypted,
+          wrappedDek: wrappedDek,
         );
 
   @override
@@ -83,6 +91,8 @@ class NoteUpdatedState extends NotesState {
     required List<NoteAssetModel> allNoteAssets,
     required String id,
     required List<String> tags,
+    bool isEncrypted = false,
+    String? wrappedDek,
   }) : super(
           newNote: newNote,
           controller: controller,
@@ -92,6 +102,8 @@ class NoteUpdatedState extends NotesState {
           allNoteAssets: allNoteAssets,
           safe: true,
           tags: tags,
+          isEncrypted: isEncrypted,
+          wrappedDek: wrappedDek,
         );
 
   @override
@@ -148,6 +160,8 @@ class NoteSaveLoading extends NotesState {
     required List<NoteAssetModel> noteAssets,
     required String id,
     required List<String> tags,
+    bool isEncrypted = false,
+    String? wrappedDek,
   }) : super(
           newNote: newNote,
           controller: controller,
@@ -157,6 +171,8 @@ class NoteSaveLoading extends NotesState {
           allNoteAssets: noteAssets,
           safe: true,
           tags: tags,
+          isEncrypted: isEncrypted,
+          wrappedDek: wrappedDek,
         );
 }
 
@@ -169,6 +185,8 @@ class NoteSavedSuccesfully extends NotesState {
     required List<NoteAssetModel> noteAssets,
     required String id,
     required List<String> tags,
+    bool isEncrypted = false,
+    String? wrappedDek,
   }) : super(
           newNote: newNote,
           controller: controller,
@@ -178,6 +196,8 @@ class NoteSavedSuccesfully extends NotesState {
           allNoteAssets: noteAssets,
           safe: true,
           tags: tags,
+          isEncrypted: isEncrypted,
+          wrappedDek: wrappedDek,
         );
 }
 
@@ -190,6 +210,8 @@ class NotesSavingFailed extends NotesState {
     required List<NoteAssetModel> noteAssets,
     required String id,
     required List<String> tags,
+    bool isEncrypted = false,
+    String? wrappedDek,
   }) : super(
           newNote: newNote,
           controller: controller,
@@ -199,6 +221,8 @@ class NotesSavingFailed extends NotesState {
           allNoteAssets: noteAssets,
           safe: true,
           tags: tags,
+          isEncrypted: isEncrypted,
+          wrappedDek: wrappedDek,
         );
 }
 
@@ -211,6 +235,8 @@ class NoteAutoSavedSuccesfully extends NotesState {
     required List<NoteAssetModel> noteAssets,
     required String id,
     required List<String> tags,
+    bool isEncrypted = false,
+    String? wrappedDek,
   }) : super(
           newNote: newNote,
           controller: controller,
@@ -220,6 +246,8 @@ class NoteAutoSavedSuccesfully extends NotesState {
           allNoteAssets: noteAssets,
           safe: true,
           tags: tags,
+          isEncrypted: isEncrypted,
+          wrappedDek: wrappedDek,
         );
 }
 
@@ -232,6 +260,8 @@ class NotesAutoSavingFailed extends NotesState {
     required List<NoteAssetModel> noteAssets,
     required String id,
     required List<String> tags,
+    bool isEncrypted = false,
+    String? wrappedDek,
   }) : super(
           newNote: newNote,
           controller: controller,
@@ -241,6 +271,8 @@ class NotesAutoSavingFailed extends NotesState {
           allNoteAssets: noteAssets,
           safe: true,
           tags: tags,
+          isEncrypted: isEncrypted,
+          wrappedDek: wrappedDek,
         );
 }
 
