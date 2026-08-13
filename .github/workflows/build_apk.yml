@@ -18,6 +18,8 @@ env:
 
 jobs:
   build:
+    # Disabled in favor of build_and_release_alternative.yml.
+    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: write

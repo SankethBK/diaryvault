@@ -23,6 +23,9 @@ env:
 
 jobs:
   build-and-release:
+    # Only auto-build releases that were created from the foss_master branch.
+    # Manual workflow_dispatch runs are always allowed for testing.
+    if: github.event_name == 'workflow_dispatch' || github.event.release.target_commitish == 'foss_master'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -134,6 +137,29 @@ jobs:
             BUILD_TYPE="debug"
           fi
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
+
+      - name: Verify 16 KB page alignment
+        if: env.BUILD_TYPE == 'release'
+        shell: bash
+        run: |
+          set -euo pipefail
+          zipalign="$ANDROID_HOME/build-tools/35.0.0/zipalign"
+          readelf_bin="$(command -v llvm-readelf || command -v readelf)"
+
+          for apk in build/app/outputs/flutter-apk/*.apk; do
+            "$zipalign" -c -P 16 4 "$apk"
+            while IFS= read -r lib; do
+              tmp_lib="$(mktemp)"
+              unzip -p "$apk" "$lib" > "$tmp_lib"
+              while IFS= read -r alignment; do
+                if (( alignment < 0x4000 )); then
+                  echo "$apk: $lib has ELF LOAD alignment $alignment" >&2
+                  exit 1
+                fi
+              done < <("$readelf_bin" -lW "$tmp_lib" | awk '$1 == "LOAD" { print $NF }')
+              rm -f "$tmp_lib"
+            done < <(unzip -Z1 "$apk" | grep '\.so$')
+          done
 
       - name: Prepare APK names
         id: apk_names
