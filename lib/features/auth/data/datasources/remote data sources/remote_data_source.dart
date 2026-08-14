@@ -42,7 +42,7 @@ class AuthRemoteDataSource implements IAuthRemoteDataSource {
     try {
       final account = Account(appwriteClient);
 
-      final session = await account.createEmailSession(
+      final session = await account.createEmailPasswordSession(
         email: email,
         password: password,
       );
@@ -64,7 +64,7 @@ class AuthRemoteDataSource implements IAuthRemoteDataSource {
       // 1. Login to Appwrite
       final account = Account(appwriteClient);
 
-      await account.createEmailSession(
+      await account.createEmailPasswordSession(
         email: email,
         password: oldPassword,
       );
@@ -98,7 +98,7 @@ class AuthRemoteDataSource implements IAuthRemoteDataSource {
     try {
       final account = Account(appwriteClient);
 
-      await account.createEmailSession(
+      await account.createEmailPasswordSession(
         email: oldEmail,
         password: password,
       );

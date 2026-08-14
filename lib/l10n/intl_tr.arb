@@ -157,5 +157,9 @@
   "saveChanges": "Değişiklikleri Kaydet",
   "themeName": "Tema adı",
   "themeNameHint": "Benim Temam",
-  "select": "Select"
+  "select": "Select",
+  "acceptRisk": "Devam etmek için riski kabul ediyorum",
+  "fingerprintWarningMessage": "Hesap oluşturmadan parmak izini etkinleştirmek üzeresiniz, parmak izi sensöründe herhangi bir donanım hasarı varsa uygulamanın dışında kalacaksınız. Bu kasıtlı değilse, lütfen hesabınızı ayarlar menüsündeki ilk seçenekten kurun, bu kasıtlıysa, lütfen notlarınız için bulut yedeklemesini etkinleştirdiğinizden emin olun",
+  "pinWarningMessage": "Hesap oluşturmadan PIN kilidini etkinleştirmek üzeresiniz, PIN KODUNUZU unutursanız uygulamada kilitleneceksiniz. Bu kasıtlı değilse, lütfen hesabınızı ayarlar menüsündeki ilk seçenekten kurun, bu kasıtlıysa, lütfen notlarınız için bulut yedeklemesini etkinleştirdiğinizden emin olun",
+  "warning": "Uyarı"
 }

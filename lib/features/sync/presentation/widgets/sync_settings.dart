@@ -5,7 +5,6 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/dropbox_user_info.dart';
-import 'package:dairy_app/features/sync/presentation/widgets/google_drive_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/nextcloud_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
 import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
@@ -125,33 +124,6 @@ class SyncSettings extends StatelessWidget {
         const SizedBox(height: 10.0),
         Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: GestureDetector(
-                onTap: () {
-                  showCustomDialog(
-                    context: context,
-                    child: const GoogleDriveUserInfo(),
-                  );
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      color: Colors.white.withValues(alpha: 0.2),
-                      // decoration: const BoxDecoration(color: Colors.pinkAccent),
-                    ),
-                    Image.asset(
-                      "assets/images/google_drive_icon.webp",
-                      width: 35,
-                      height: 35,
-                    ),
-                  ],
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: GestureDetector(

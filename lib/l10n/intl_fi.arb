@@ -157,5 +157,9 @@
   "saveChanges": "Tallenna muutokset",
   "themeName": "Teema",
   "themeNameHint": "Oma teema",
-  "select": "Select"
+  "select": "Select",
+  "acceptRisk": "Hyväksyn riskin jatkaakseni",
+  "fingerprintWarningMessage": "Olet ottamassa sormenjäljen käyttöön luomatta tiliä. Jos sormenjälkitunnistimessa on laitteistovaurioita, sinut lukitaan ulos sovelluksesta. Jos tämä ei ole tarkoituksellista, määritä tilisi asetusvalikon ensimmäisestä vaihtoehdosta. Jos tämä on tarkoituksellista, varmista, että otat pilvivarmuuskopion käyttöön muistiinpanoillesi",
+  "pinWarningMessage": "Olet ottamassa käyttöön PIN-KOODIN lukituksen luomatta tiliä. Jos unohdat PIN-KOODISI, sinut lukitaan pois sovelluksesta. Jos tämä ei ole tarkoituksellista, määritä tilisi asetusvalikon ensimmäisestä vaihtoehdosta. Jos tämä on tarkoituksellista, varmista, että otat pilvivarmuuskopion käyttöön muistiinpanoillesi",
+  "warning": "Varoitus"
 }

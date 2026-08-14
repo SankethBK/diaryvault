@@ -53,7 +53,6 @@ class Dropbox {
       url:
           "https://www.dropbox.com/oauth2/authorize?client_id=jgrid9k326jh3ge&response_type=code&token_access_type=offline&redirect_uri=https://sankethbk.netlify.app/oauth2redirect",
       callbackUrlScheme: "db-rqndas0qvioj4f1",
-      // flutter_web_auth_2 4.x moved preferEphemeral into FlutterWebAuth2Options.
       options: const FlutterWebAuth2Options(preferEphemeral: true),
     );
 

@@ -37,7 +37,6 @@ class SyncSourceDropdown extends StatelessWidget {
                     UserConfigConstants.preferredSyncOption, value);
               },
               itemBuilder: (context) => [
-                SyncConstants.googleDrive,
                 SyncConstants.dropbox,
                 SyncConstants.nextCloud,
                 "None"

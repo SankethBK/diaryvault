@@ -29,7 +29,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  appwrite: ^11.0.0
+  appwrite: ^25.4.0
   audioplayers: ^5.2.1
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
@@ -65,7 +65,7 @@ dependencies:
   flutter_svg: ^2.0.9
   flutter_timezone: ^3.0.1
   flutter_tts: ^3.8.3
-  flutter_web_auth_2: ^4.0.0
+  flutter_web_auth_2: ^5.0.1
   fluttertoast: ^8.0.9
   get_it: ^7.2.0
   google_fonts: ^4.0.4
@@ -80,17 +80,17 @@ dependencies:
   local_auth: ^2.1.6
   logger: ^2.0.2
   markdown: ^7.1.1
-  package_info_plus: ^4.1.0
+  package_info_plus: ^8.2.0
   palette_generator: ^0.3.3+4
-  path_provider: ^2.0.9
-  permission_handler: ^11.0.1
+  path_provider: ^2.1.4
+  permission_handler: ^12.0.0
   provider: ^6.0.5
   share_plus: ^7.1.0
   shared_preferences: ^2.0.15
   sqflite: ^2.0.2
   stateless_dropbox_client:
     path: ./packages/stateless_dropbox_client/
-  url_launcher: ^6.1.14
+  url_launcher: ^6.3.2
   uuid: ^3.0.6
   webdav_client:
     path: ./packages/webdav_client
@@ -123,7 +123,9 @@ dependency_overrides:
   # flutter_localizations (Flutter 3.32 SDK) pins intl 0.20.2, but the local
   # flutter_quill_extensions -> math_keyboard 0.2.1 still requests intl ^0.18.0.
   # math_keyboard only uses intl's stable NumberFormat API, so force 0.20.2.
-  intl: ^0.20.2
+  # Pinned exactly (no caret): intl 0.20.3 requires Dart 3.9 (language version
+  # 3.9), but Flutter 3.32.0 ships Dart 3.8.0 (max language version 3.8).
+  intl: 0.20.2
   # The following transitive deps shipped versions that predate Dart 3 / Flutter
   # 3.x and fail to compile under the Flutter 3.32 SDK. Force forward-compatible
   # releases that keep the same public API their parents rely on:

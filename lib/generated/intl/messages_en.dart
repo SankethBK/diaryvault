@@ -33,6 +33,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "accent": MessageLookupByLibrary.simpleMessage("Accent"),
+    "acceptRisk": MessageLookupByLibrary.simpleMessage(
+      "I accept the risk to continue",
+    ),
     "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
       "Account setup successful",
     ),
@@ -144,6 +147,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
       "Fingerprint login failed",
     ),
+    "fingerprintWarningMessage": MessageLookupByLibrary.simpleMessage(
+      "You are about to enable fingerprint without creating account, if there is any hardware damage to fingerprint sensor you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes",
+    ),
     "fontFamily": MessageLookupByLibrary.simpleMessage("Font Family"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password"),
     "from": MessageLookupByLibrary.simpleMessage("From"),
@@ -235,6 +241,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
       "PIN confirmation feeling",
     ),
+    "pinWarningMessage": MessageLookupByLibrary.simpleMessage(
+      "You are about to enable PIN lock without creating account, if you forget your PIN you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes",
+    ),
     "pinsDontMatch": MessageLookupByLibrary.simpleMessage("PINs don\'t match"),
     "pleaseSetupYourAccountToUseThisFeature":
         MessageLookupByLibrary.simpleMessage(
@@ -302,6 +311,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Unexpected error occured",
     ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
+    "warning": MessageLookupByLibrary.simpleMessage("Warning"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
