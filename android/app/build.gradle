@@ -83,6 +83,15 @@ android {
        includeInBundle = false
    }
 
+   // Compress native libraries and DEX inside the APK so download size stays
+   // small (AGP 8 / targetSdk 36 default to uncompressed for mmap, which
+   // roughly doubled the APK size vs 2.2.11 — see issue #318). 16 KB page
+   // alignment is unaffected since AGP aligns the .so files either way.
+   packaging {
+       dex.useLegacyPackaging = true
+       jniLibs.useLegacyPackaging = true
+   }
+
 }
 
 flutter {
