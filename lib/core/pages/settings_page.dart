@@ -13,6 +13,7 @@ import 'package:dairy_app/core/widgets/version_number.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
+import 'package:dairy_app/features/encryption/presentation/pages/encryption_settings_page.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -151,6 +152,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   onTap: () => _navigateToSettingsDetails(
                       SettingCategoriesConstants.security),
+                ),
+                const SizedBox(height: 15),
+                SettingsTile(
+                  child: Text(
+                    "Encryption",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: mainTextColor,
+                    ),
+                  ),
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(EncryptionSettingsPage.route),
                 ),
                 const SizedBox(height: 15),
                 SettingsTile(

@@ -4,6 +4,7 @@ import 'package:dairy_app/core/pages/settings_details.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/pin_auth_page.dart';
+import 'package:dairy_app/features/encryption/presentation/pages/encryption_settings_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:dairy_app/generated/l10n.dart';
@@ -44,6 +45,8 @@ class RouteGenerator {
           settingsCategory: args as String,
         ),
       );
+    } else if (settings.name == EncryptionSettingsPage.route) {
+      return MaterialPageRoute(builder: (_) => const EncryptionSettingsPage());
     }
 
     return MaterialPageRoute(
