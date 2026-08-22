@@ -32,6 +32,7 @@ dependencies:
   audioplayers: ^5.2.1
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
+  cryptography: ^2.9.0
   dartz: ^0.10.1
   delta_markdown:
     path: ./packages/delta_markdown
