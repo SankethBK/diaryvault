@@ -5,6 +5,7 @@ import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
+import 'package:dairy_app/features/encryption/presentation/widgets/encryption_fab.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
@@ -147,11 +148,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
-          },
+        floatingActionButton: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const EncryptionFab(),
+            const SizedBox(height: 10),
+            FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
+              },
+            ),
+          ],
         ),
       ),
     );

@@ -25,6 +25,7 @@ import 'package:dairy_app/features/encryption/data/repositories/encrypted_notes_
 import 'package:dairy_app/features/encryption/data/repositories/encryption_session_service.dart';
 import 'package:dairy_app/features/encryption/domain/repositories/encrypted_notes_repository.dart';
 import 'package:dairy_app/features/encryption/domain/repositories/encryption_session_service.dart';
+import 'package:dairy_app/features/encryption/presentation/bloc/encrypted_notes_cubit.dart';
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
@@ -173,6 +174,8 @@ Future<void> init() async {
   //* Blocs
   sl.registerLazySingleton<EncryptionCubit>(
       () => EncryptionCubit(sessionService: sl()));
+  sl.registerLazySingleton<EncryptedNotesCubit>(() => EncryptedNotesCubit(
+      encryptedNotesRepository: sl(), sessionService: sl()));
 
   sl.registerSingleton<IExportNotesRepository>(
       ExportNotesRepository(notesRepository: sl()));
@@ -196,7 +199,8 @@ Future<void> init() async {
   });
 
   //* Blocs
-  sl.registerLazySingleton(() => NotesBloc(notesRepository: sl()));
+  sl.registerLazySingleton(
+      () => NotesBloc(notesRepository: sl(), encryptedNotesRepository: sl()));
   sl.registerLazySingleton(() => NotesFetchCubit(
       notesRepository: sl(),
       notesBloc: sl(),
