@@ -38,6 +38,11 @@ class CryptoService {
         parallelism: parallelism,
       );
 
+  /// KDF params for a stored encryption version. Params are versioned
+  /// constants; only the salt travels on note rows.
+  KdfParams kdfParamsForVersion(int version, List<int> salt) =>
+      KdfParams.forVersion(version, salt);
+
   /// Derives a Key Encryption Key from a passphrase via Argon2id.
   Future<SecretKey> deriveKek(String passphrase, KdfParams params) {
     final algo = Argon2id(

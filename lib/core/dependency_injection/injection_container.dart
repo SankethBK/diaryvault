@@ -18,6 +18,13 @@ import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/locale/locale_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/theme/theme_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
+import 'package:dairy_app/features/encryption/core/crypto_service.dart';
+import 'package:dairy_app/features/encryption/data/datasources/encrypted_notes_local_data_source.dart';
+import 'package:dairy_app/features/encryption/data/datasources/encrypted_notes_local_data_source_template.dart';
+import 'package:dairy_app/features/encryption/data/repositories/encrypted_notes_repository.dart';
+import 'package:dairy_app/features/encryption/data/repositories/encryption_session_service.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/encrypted_notes_repository.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/encryption_session_service.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/repositories/export_notes_repository.dart';
@@ -139,6 +146,28 @@ Future<void> init() async {
   //* Repository
   sl.registerSingleton<INotesRepository>(
       NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
+
+  //* FEATURE: encryption
+
+  //* Data sources
+  sl.registerSingleton<IEncryptedNotesLocalDataSource>(
+      await EncryptedNotesLocalDataSource.create());
+
+  //* Services
+  sl.registerLazySingleton<CryptoService>(() => CryptoService());
+  sl.registerSingleton<IEncryptionSessionService>(EncryptionSessionService(
+      cryptoService: sl(),
+      keyValueDataSource: sl(),
+      encryptedNotesLocalDataSource: sl()));
+  await sl<IEncryptionSessionService>().initialize();
+
+  //* Repository
+  sl.registerSingleton<IEncryptedNotesRepository>(EncryptedNotesRepository(
+      encryptedNotesLocalDataSource: sl(),
+      notesLocalDataSource: sl(),
+      sessionService: sl(),
+      cryptoService: sl(),
+      authSessionBloc: sl()));
 
   sl.registerSingleton<IExportNotesRepository>(
       ExportNotesRepository(notesRepository: sl()));

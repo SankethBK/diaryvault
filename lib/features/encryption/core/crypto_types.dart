@@ -43,6 +43,18 @@ class KdfParams {
     );
   }
 
+  /// KDF params are versioned constants; only the salt is stored per note.
+  /// A future encryption_version bump can change these without migration.
+  factory KdfParams.forVersion(int version, List<int> salt) {
+    return KdfParams(
+      memory: 65536,
+      iterations: 3,
+      parallelism: 1,
+      hashLength: 32,
+      salt: salt,
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         "memory": memory,
         "iterations": iterations,
