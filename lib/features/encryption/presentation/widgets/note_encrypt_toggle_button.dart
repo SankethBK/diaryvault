@@ -39,20 +39,24 @@ class NoteEncryptToggleButton extends StatelessWidget {
                   : "Encrypt this note",
               onPressed: () async {
                 if (state.isEncrypted) {
-                  // decrypting back to a plain note needs no session
+                  final verified = await showUnlockDialog(
+                    context,
+                    title: "Unlock this note",
+                  );
+                  if (verified != true || !context.mounted) return;
+
                   BlocProvider.of<NotesBloc>(context)
                       .add(const ToggleNoteEncryption(encrypt: false));
                   showToast("Note will be saved unencrypted", context: context);
                   return;
                 }
 
-                if (encryptionState is EncryptionLocked) {
-                  final unlocked = await showUnlockDialog(
+                  final verified = await showUnlockDialog(
                     context,
                     title: "Lock this note",
+                    actionLabel: "Lock",
                   );
-                  if (unlocked != true || !context.mounted) return;
-                }
+                if (verified != true || !context.mounted) return;
 
                 BlocProvider.of<NotesBloc>(context)
                     .add(const ToggleNoteEncryption(encrypt: true));

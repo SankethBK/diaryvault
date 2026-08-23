@@ -22,12 +22,10 @@ class EncryptionFab extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        final isUnlocked = state is EncryptionUnlocked;
-
         return FloatingActionButton.small(
           heroTag: "encryption_fab",
-          tooltip: "Encrypted notes",
-          child: Icon(isUnlocked ? Icons.lock_open : Icons.lock),
+          tooltip: "Unlock encrypted notes",
+          child: const Icon(Icons.lock_open),
           onPressed: () async {
             // Read the session at tap time instead of relying on the value
             // captured when this button was last built. The session can

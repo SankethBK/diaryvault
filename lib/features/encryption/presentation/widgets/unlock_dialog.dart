@@ -13,19 +13,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Future<bool?> showUnlockDialog(
   BuildContext context, {
   String title = "Unlock encrypted notes",
+  String actionLabel = "Unlock",
 }) async {
   final result = await showCustomDialog(
     context: context,
-    child: UnlockDialog(title: title),
+    child: UnlockDialog(title: title, actionLabel: actionLabel),
   );
   return result is bool ? result : null;
 }
 
 class UnlockDialog extends StatefulWidget {
-  const UnlockDialog({Key? key, this.title = "Unlock encrypted notes"})
+  const UnlockDialog({
+    Key? key,
+    this.title = "Unlock encrypted notes",
+    this.actionLabel = "Unlock",
+  })
       : super(key: key);
 
   final String title;
+  final String actionLabel;
 
   @override
   State<UnlockDialog> createState() => _UnlockDialogState();
@@ -145,7 +151,7 @@ class _UnlockDialogState extends State<UnlockDialog> {
               SubmitButton(
                 isLoading: _isLoading,
                 onSubmitted: _submit,
-                buttonText: "Unlock",
+                buttonText: widget.actionLabel,
               ),
             ],
           ),
