@@ -90,12 +90,17 @@ class NotePreview extends Equatable {
   final String plainText;
   final bool isEncrypted;
 
+  /// The note's keychain was not opened by the current session (e.g. it was
+  /// created on another device with a different passphrase)
+  final bool isLocked;
+
   const NotePreview({
     required this.id,
     required this.createdAt,
     required this.title,
     required this.plainText,
     this.isEncrypted = false,
+    this.isLocked = false,
   });
 
   @override

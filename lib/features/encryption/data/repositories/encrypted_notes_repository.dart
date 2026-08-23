@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cryptography/cryptography.dart';
 import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
@@ -67,6 +69,7 @@ class EncryptedNotesRepository
             title: "🔒 Locked note",
             plainText: "Protected by a different passphrase",
             isEncrypted: true,
+            isLocked: true,
           ));
           continue;
         }
@@ -109,6 +112,41 @@ class EncryptedNotesRepository
       return Right(decrypted);
     } catch (e) {
       log.e("fetching encrypted note $id failed: $e");
+      return Left(EncryptionFailure.unknownError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<EncryptionFailure, void>> unlockNote(
+      String noteId, String passphrase) async {
+    try {
+      final raw =
+          await encryptedNotesLocalDataSource.getEncryptedNoteRaw(noteId);
+      if (raw == null) {
+        return Left(EncryptionFailure.unknownError("note not found"));
+      }
+      if (raw.encSalt == null || raw.encWrappedMkPass == null) {
+        return Left(EncryptionFailure.metaCorrupted());
+      }
+      final keychain = EncryptionKeychain(
+        kdfParams: cryptoService.kdfParamsForVersion(
+          raw.encryptionVersion,
+          base64Decode(raw.encSalt!),
+        ),
+        wrappedMkPass: WrappedKey.fromBase64(raw.encWrappedMkPass!),
+        wrappedMkRecovery:
+            WrappedKey.fromBase64(raw.encWrappedMkRecovery!),
+      );
+      final result =
+          await sessionService.unlockAdditionalKeychain(keychain, passphrase);
+      if (result.isRight()) {
+        // a previous failed/locked read may have cached nothing, but a stale
+        // decrypted entry must never survive a key change
+        _decryptedCache.remove(noteId);
+      }
+      return result;
+    } catch (e) {
+      log.e("unlocking note $noteId failed: $e");
       return Left(EncryptionFailure.unknownError(e.toString()));
     }
   }

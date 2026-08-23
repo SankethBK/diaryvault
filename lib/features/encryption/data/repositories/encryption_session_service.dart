@@ -274,6 +274,25 @@ class EncryptionSessionService implements IEncryptionSessionService {
       _masterKeys[wrappedMkPassB64];
 
   @override
+  Future<Either<EncryptionFailure, void>> unlockAdditionalKeychain(
+      EncryptionKeychain keychain, String passphrase) async {
+    try {
+      final kek =
+          await cryptoService.deriveKek(passphrase, keychain.kdfParams);
+      final mk =
+          await cryptoService.unwrapKey(keychain.wrappedMkPass, kek);
+      _masterKeys[keychain.wrappedMkPass.toBase64()] = mk;
+      log.i("additional keychain unlocked");
+      return const Right(null);
+    } on SecretBoxAuthenticationError {
+      return Left(EncryptionFailure.wrongPassphrase());
+    } catch (e) {
+      log.e("additional keychain unlock failed: $e");
+      return Left(EncryptionFailure.unknownError(e.toString()));
+    }
+  }
+
+  @override
   EncryptionKeychain requireKeychain() {
     final keychain = _keychain;
     if (keychain == null) {

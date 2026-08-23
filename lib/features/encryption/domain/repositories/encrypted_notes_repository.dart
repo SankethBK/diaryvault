@@ -50,4 +50,11 @@ abstract class IEncryptedNotesRepository {
     required List<String> tags,
     String? wrappedDek,
   });
+
+  /// Opens the keychain stamped on [noteId]'s row using [passphrase],
+  /// without changing the session's primary keychain. After this succeeds,
+  /// [getEncryptedNote] can decrypt the note. Used for notes protected by a
+  /// different passphrase (e.g. set on another device).
+  Future<Either<EncryptionFailure, void>> unlockNote(
+      String noteId, String passphrase);
 }

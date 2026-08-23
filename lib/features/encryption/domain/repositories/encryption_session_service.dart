@@ -41,6 +41,12 @@ abstract class IEncryptionSessionService {
 
   Future<Either<EncryptionFailure, void>> unlockWithRecovery(String code);
 
+  /// Opens an ADDITIONAL keychain with its own passphrase, without changing
+  /// the session's primary keychain. Used to read individual notes that
+  /// were protected with a different passphrase (e.g. on another device).
+  Future<Either<EncryptionFailure, void>> unlockAdditionalKeychain(
+      EncryptionKeychain keychain, String passphrase);
+
   /// Drops the master key from memory.
   void lock();
 

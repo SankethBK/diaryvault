@@ -152,12 +152,14 @@ class NotePreviewModel extends NotePreview {
     required String title,
     required String plainText,
     bool isEncrypted = false,
+    bool isLocked = false,
   }) : super(
             id: id,
             createdAt: createdAt,
             title: title,
             plainText: plainText,
-            isEncrypted: isEncrypted);
+            isEncrypted: isEncrypted,
+            isLocked: isLocked);
 
   factory NotePreviewModel.fromJson(Map<String, dynamic> jsonMap) {
     return NotePreviewModel(

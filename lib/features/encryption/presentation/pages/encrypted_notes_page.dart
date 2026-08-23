@@ -7,6 +7,7 @@ import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/encryption/presentation/bloc/encrypted_notes_cubit.dart';
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/features/encryption/presentation/widgets/unlock_dialog.dart';
+import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,26 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
     if (unlocked == true) {
       cubit.fetchNotes();
     }
+  }
+
+  /// A locked note is protected by a different passphrase: prompt for it,
+  /// open its keychain for this session, then open the note.
+  Future<void> _openLockedNote(NotePreviewModel note) async {
+    final unlocked = await showUnlockDialog(
+      context,
+      title: "This note is protected by a different passphrase",
+      actionLabel: "Unlock note",
+      onSubmit: (passphrase) => cubit.unlockNote(note.id, passphrase),
+    );
+    if (unlocked != true || !mounted) return;
+    await Navigator.of(context).pushNamed(
+      NoteCreatePage.routeThroughHome,
+      arguments: {
+        "id": note.id,
+        "encrypted": true,
+      },
+    );
+    cubit.fetchNotes();
   }
 
   @override
@@ -176,6 +197,10 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
                             final note = previews[index];
                             return GestureDetector(
                               onTap: () async {
+                                if (note.isLocked) {
+                                  await _openLockedNote(note);
+                                  return;
+                                }
                                 await Navigator.of(context).pushNamed(
                                   NoteCreatePage.routeThroughHome,
                                   arguments: {

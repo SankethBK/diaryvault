@@ -305,6 +305,65 @@ void main() {
       expect(service.isUnlocked, isTrue);
     });
 
+    test(
+        "unlockAdditionalKeychain opens a foreign keychain without changing "
+        "the primary keychain", () async {
+      // device A's keychain
+      final serviceA = EncryptionSessionService(
+        cryptoService: TestCryptoService(),
+        keyValueDataSource: InMemoryKeyValueDataSource(),
+        encryptedNotesLocalDataSource: FakeEncryptedNotesLocalDataSource(),
+      );
+      await serviceA.initialize();
+      await serviceA.enable("other passphrase");
+      final keychainA = serviceA.requireKeychain();
+      final mkA = await serviceA.requireMasterKey();
+
+      // this device has its own primary keychain
+      await service.initialize();
+      await service.enable("my passphrase");
+      final primaryBefore = service.requireKeychain();
+      final mkPrimary = await service.requireMasterKey();
+
+      final result =
+          await service.unlockAdditionalKeychain(keychainA, "other passphrase");
+
+      expect(result.isRight(), isTrue);
+      // primary keychain + master key unchanged
+      expect(service.requireKeychain().wrappedMkPass.toBase64(),
+          primaryBefore.wrappedMkPass.toBase64());
+      expect(await (await service.requireMasterKey()).extractBytes(),
+          await mkPrimary.extractBytes());
+      // foreign keychain's master key now available
+      final mkAonThis =
+          service.masterKeyForKeychain(keychainA.wrappedMkPass.toBase64());
+      expect(await mkAonThis!.extractBytes(), await mkA.extractBytes());
+    });
+
+    test("unlockAdditionalKeychain rejects a wrong passphrase", () async {
+      final serviceA = EncryptionSessionService(
+        cryptoService: TestCryptoService(),
+        keyValueDataSource: InMemoryKeyValueDataSource(),
+        encryptedNotesLocalDataSource: FakeEncryptedNotesLocalDataSource(),
+      );
+      await serviceA.initialize();
+      await serviceA.enable("right");
+      final keychainA = serviceA.requireKeychain();
+
+      await service.initialize();
+      await service.enable("mine");
+
+      final result =
+          await service.unlockAdditionalKeychain(keychainA, "wrong");
+
+      result.fold(
+        (f) => expect(f.code, EncryptionFailure.WRONG_PASSPHRASE),
+        (_) => fail("should have failed"),
+      );
+      expect(service.masterKeyForKeychain(keychainA.wrappedMkPass.toBase64()),
+          isNull);
+    });
+
     test("wrong recovery code is rejected", () async {
       await service.initialize();
       await service.enable("pass");

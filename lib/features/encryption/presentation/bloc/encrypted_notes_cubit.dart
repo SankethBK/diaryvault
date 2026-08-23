@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dairy_app/features/encryption/core/failures/encryption_failure.dart';
 import 'package:dairy_app/features/encryption/domain/repositories/encrypted_notes_repository.dart';
 import 'package:dairy_app/features/encryption/domain/repositories/encryption_session_service.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
@@ -56,6 +57,13 @@ class EncryptedNotesCubit extends Cubit<EncryptedNotesState> {
   Future<void> deleteNote(String id) async {
     await encryptedNotesRepository.deleteEncryptedNotes([id]);
     await fetchNotes();
+  }
+
+  /// Unlocks a note protected by a different passphrase (its keychain is
+  /// opened session-wide). Returns null on success, or the failure.
+  Future<EncryptionFailure?> unlockNote(String id, String passphrase) async {
+    final result = await encryptedNotesRepository.unlockNote(id, passphrase);
+    return result.fold((failure) => failure, (_) => null);
   }
 
   @override

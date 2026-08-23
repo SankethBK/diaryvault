@@ -446,6 +446,56 @@ void main() {
         (_) => fail("should not have decrypted"),
       );
     });
+
+    test("unlockNote with that note's passphrase makes it readable",
+        () async {
+      // device A creates the note with "test passphrase"
+      await enableEncryption();
+      await repo.saveEncryptedNote(plainNoteMap());
+      final stored = encryptedDs.rows["n1"]!;
+
+      // device B uses a different passphrase; the note syncs down
+      final kvB = InMemoryKeyValueDataSource();
+      final dsB = FakeEncryptedNotesLocalDataSource();
+      final sessionB = EncryptionSessionService(
+        cryptoService: TestCryptoService(),
+        keyValueDataSource: kvB,
+        encryptedNotesLocalDataSource: dsB,
+      );
+      await sessionB.initialize();
+      await sessionB.enable("other passphrase");
+      sessionB.lock();
+      dsB.rows["n1"] = Map<String, dynamic>.from(stored);
+
+      final repoB = EncryptedNotesRepository(
+        encryptedNotesLocalDataSource: dsB,
+        notesLocalDataSource: FakeNotesLocalDataSource(dsB),
+        sessionService: sessionB,
+        cryptoService: TestCryptoService(),
+        authSessionBloc: AuthSessionBloc(keyValueDataSource: kvB),
+      );
+      expect((await sessionB.unlock("other passphrase")).isRight(), isTrue);
+
+      // wrong passphrase for the note -> rejected, still locked
+      final wrong = await repoB.unlockNote("n1", "not it");
+      wrong.fold(
+        (f) => expect(f.code, EncryptionFailure.WRONG_PASSPHRASE),
+        (_) => fail("should have failed"),
+      );
+      expect((await repoB.getEncryptedNote("n1")).isLeft(), isTrue);
+
+      // the note's own passphrase opens it
+      expect((await repoB.unlockNote("n1", "test passphrase")).isRight(),
+          isTrue);
+      final note = await repoB.getEncryptedNote("n1");
+      note.fold(
+        (f) => fail("should have decrypted: $f"),
+        (n) => expect(n.title, "My secret entry"),
+      );
+
+      // B's primary keychain is untouched
+      expect((await sessionB.requireMasterKey()), isNotNull);
+    });
   });
 
   group("changePassphrase", () {

@@ -10,14 +10,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Prompts for the encryption passphrase (or recovery code) and unlocks the
 /// session. Pops with `true` on success.
+///
+/// [onSubmit] overrides the default session-unlock behavior — used to open
+/// an individual note's keychain when it was protected by a different
+/// passphrase. The recovery-code toggle is hidden in that mode.
 Future<bool?> showUnlockDialog(
   BuildContext context, {
   String title = "Unlock encrypted notes",
   String actionLabel = "Unlock",
+  Future<EncryptionFailure?> Function(String passphrase)? onSubmit,
 }) async {
   final result = await showCustomDialog(
     context: context,
-    child: UnlockDialog(title: title, actionLabel: actionLabel),
+    child: UnlockDialog(
+        title: title, actionLabel: actionLabel, onSubmit: onSubmit),
   );
   return result is bool ? result : null;
 }
@@ -27,11 +33,13 @@ class UnlockDialog extends StatefulWidget {
     Key? key,
     this.title = "Unlock encrypted notes",
     this.actionLabel = "Unlock",
+    this.onSubmit,
   })
       : super(key: key);
 
   final String title;
   final String actionLabel;
+  final Future<EncryptionFailure?> Function(String passphrase)? onSubmit;
 
   @override
   State<UnlockDialog> createState() => _UnlockDialogState();
@@ -58,10 +66,16 @@ class _UnlockDialogState extends State<UnlockDialog> {
       _errorText = null;
     });
 
-    final cubit = BlocProvider.of<EncryptionCubit>(context);
-    final failure = _useRecoveryCode
-        ? await cubit.unlockWithRecovery(input)
-        : await cubit.unlock(input);
+    final customSubmit = widget.onSubmit;
+    final EncryptionFailure? failure;
+    if (customSubmit != null) {
+      failure = await customSubmit(input);
+    } else {
+      final cubit = BlocProvider.of<EncryptionCubit>(context);
+      failure = _useRecoveryCode
+          ? await cubit.unlockWithRecovery(input)
+          : await cubit.unlock(input);
+    }
 
     if (!mounted) return;
 
@@ -72,7 +86,7 @@ class _UnlockDialogState extends State<UnlockDialog> {
 
     setState(() {
       _isLoading = false;
-      _errorText = failure.code == EncryptionFailure.WRONG_PASSPHRASE
+      _errorText = failure!.code == EncryptionFailure.WRONG_PASSPHRASE
           ? (_useRecoveryCode
               ? "Incorrect recovery code"
               : "Incorrect passphrase")
@@ -121,24 +135,26 @@ class _UnlockDialogState extends State<UnlockDialog> {
             ),
           ),
           const SizedBox(height: 8),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                _useRecoveryCode = !_useRecoveryCode;
-                _errorText = null;
-              });
-            },
-            child: Text(
-              _useRecoveryCode
-                  ? "Use passphrase instead"
-                  : "Forgot passphrase? Use recovery code",
-              style: TextStyle(
-                fontSize: 13.0,
-                color: mainTextColor,
-                decoration: TextDecoration.underline,
+          // custom submit (per-note unlock) is passphrase-only
+          if (widget.onSubmit == null)
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _useRecoveryCode = !_useRecoveryCode;
+                  _errorText = null;
+                });
+              },
+              child: Text(
+                _useRecoveryCode
+                    ? "Use passphrase instead"
+                    : "Forgot passphrase? Use recovery code",
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: mainTextColor,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
-          ),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
