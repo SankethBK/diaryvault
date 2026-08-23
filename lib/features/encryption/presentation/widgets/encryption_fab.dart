@@ -29,7 +29,12 @@ class EncryptionFab extends StatelessWidget {
           tooltip: "Encrypted notes",
           child: Icon(isUnlocked ? Icons.lock_open : Icons.lock),
           onPressed: () async {
-            if (!isUnlocked) {
+            // Read the session at tap time instead of relying on the value
+            // captured when this button was last built. The session can
+            // change while the home page is rebuilding after unlock/lock.
+            final currentlyUnlocked =
+                encryptionCubit.state is EncryptionUnlocked;
+            if (!currentlyUnlocked) {
               final unlocked = await showUnlockDialog(context);
               if (unlocked != true || !context.mounted) return;
             }
