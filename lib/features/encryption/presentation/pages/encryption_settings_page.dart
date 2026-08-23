@@ -154,22 +154,25 @@ class EncryptionSettingsPage extends StatelessWidget {
                       Material(
                         color: Colors.transparent,
                         child: SettingsTile(
-                          child: Row(
-                            children: [
-                              Icon(
-                                isUnlocked ? Icons.lock_open : Icons.lock,
-                                color: mainTextColor,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                isUnlocked
-                                    ? "Lock encrypted notes"
-                                    : "Unlock encrypted notes",
-                                style: TextStyle(
-                                    fontSize: 16.0, color: mainTextColor),
-                              ),
-                            ],
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  isUnlocked ? Icons.lock_open : Icons.lock,
+                                  color: mainTextColor,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  isUnlocked
+                                      ? "Lock encrypted notes"
+                                      : "Unlock encrypted notes",
+                                  style: TextStyle(
+                                      fontSize: 16.0, color: mainTextColor),
+                                ),
+                              ],
+                            ),
                           ),
                           onTap: () async {
                             if (isUnlocked) {
@@ -184,10 +187,13 @@ class EncryptionSettingsPage extends StatelessWidget {
                       Material(
                         color: Colors.transparent,
                         child: SettingsTile(
-                          child: Text(
-                            "Change encryption passphrase",
-                            style:
-                                TextStyle(fontSize: 16.0, color: mainTextColor),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Change encryption passphrase",
+                              style: TextStyle(
+                                  fontSize: 16.0, color: mainTextColor),
+                            ),
                           ),
                           onTap: () => showChangePassphraseDialog(context),
                         ),
@@ -196,10 +202,13 @@ class EncryptionSettingsPage extends StatelessWidget {
                       Material(
                         color: Colors.transparent,
                         child: SettingsTile(
-                          child: Text(
-                            "Regenerate recovery code",
-                            style:
-                                TextStyle(fontSize: 16.0, color: mainTextColor),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Regenerate recovery code",
+                              style: TextStyle(
+                                  fontSize: 16.0, color: mainTextColor),
+                            ),
                           ),
                           onTap: () => showRegenerateRecoveryDialog(context),
                         ),

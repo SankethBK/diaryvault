@@ -185,9 +185,11 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
 
                     if (!state.safe) {
                       return NoteTitleInputField(
+                          key: ValueKey(state.controller),
                           initialValue: "", onTitleChanged: _onTitleChanged);
                     }
                     return NoteTitleInputField(
+                      key: ValueKey(state.controller),
                       initialValue: state.title!,
                       onTitleChanged: _onTitleChanged,
                     );
@@ -196,7 +198,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
                 BlocBuilder<NotesBloc, NotesState>(
                   bloc: notesBloc,
                   buildWhen: (previousState, state) {
-                    return previousState is NoteDummyState;
+                    // Existing notes load asynchronously. Rebuild when the
+                    // loaded controller becomes available, not only when the
+                    // page starts from NoteDummyState.
+                    return previousState.controller != state.controller;
                   },
                   builder: (context, state) {
                     return RichTextEditor(

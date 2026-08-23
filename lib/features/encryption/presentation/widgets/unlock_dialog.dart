@@ -4,6 +4,7 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/encryption/core/failures/encryption_failure.dart';
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,6 +72,8 @@ class _UnlockDialogState extends State<UnlockDialog> {
   Widget build(BuildContext context) {
     final mainTextColor =
         Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
+    final inputTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.textColor;
 
     return Container(
       width: 300,
@@ -88,6 +91,8 @@ class _UnlockDialogState extends State<UnlockDialog> {
           const SizedBox(height: 16),
           TextField(
             controller: _controller,
+            style: TextStyle(color: inputTextColor),
+            cursorColor: inputTextColor,
             autofocus: true,
             obscureText: !_useRecoveryCode,
             autocorrect: false,
