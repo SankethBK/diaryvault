@@ -8,9 +8,9 @@ import 'package:dairy_app/features/encryption/presentation/bloc/encrypted_notes_
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/features/encryption/presentation/widgets/unlock_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 /// Separate view listing all encrypted notes. Entering requires an unlocked
 /// session; leaving the page locks it again, so the passphrase is never
@@ -26,12 +26,20 @@ class EncryptedNotesPage extends StatefulWidget {
 
 class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
   late final EncryptedNotesCubit cubit;
+  late double topPadding = 0;
 
   @override
   void initState() {
     super.initState();
     cubit = sl<EncryptedNotesCubit>();
     cubit.fetchNotes();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    topPadding =
+        MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
   }
 
   @override
@@ -55,6 +63,24 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
     final backgroundColor = Theme.of(context)
         .extension<AuthPageThemeExtensions>()!
         .backgroundColor;
+    final borderColor =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.borderColor;
+    final backgroundGradientStartColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .backgroundGradientStartColor;
+    final backgroundGradientEndColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .backgroundGradientEndColor;
+    final notePreviewGradientStartColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewUnselectedGradientStartColor;
+    final notePreviewGradientEndColor = Theme.of(context)
+        .extension<HomePageThemeExtensions>()!
+        .notePreviewUnselectedGradientEndColor;
+    final sigmaX =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.sigmaX;
+    final sigmaY =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.sigmaY;
     final mainTextColor =
         Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
 
@@ -76,25 +102,37 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.only(
-          top: AppBar().preferredSize.height +
-              MediaQuery.of(context).padding.top +
-              10.0,
-        ),
         decoration: getBackgroundDecoration(
           backgroundImagePath,
           backgroundColor: backgroundColor,
         ),
+        padding: EdgeInsets.only(
+          top: topPadding,
+          left: 5.0,
+          right: 5.0,
+        ),
         child: GlassMorphismCover(
-          displayShadow: false,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-          child: BlocBuilder<EncryptedNotesCubit, EncryptedNotesState>(
-            bloc: cubit,
-            builder: (context, state) {
-              return switch (state) {
+          sigmaX: sigmaX,
+          sigmaY: sigmaY,
+          borderRadius: BorderRadius.circular(0.0),
+          child: Container(
+            padding: const EdgeInsets.all(0.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(0.0),
+              border: Border.all(width: 1.0, color: borderColor),
+              gradient: LinearGradient(
+                colors: [
+                  backgroundGradientStartColor,
+                  backgroundGradientEndColor,
+                ],
+                begin: AlignmentDirectional.topStart,
+                end: AlignmentDirectional.bottomEnd,
+              ),
+            ),
+            child: BlocBuilder<EncryptedNotesCubit, EncryptedNotesState>(
+              bloc: cubit,
+              builder: (context, state) {
+                return switch (state) {
                 EncryptedNotesLocked() => Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -136,27 +174,7 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
                           itemCount: previews.length,
                           itemBuilder: (context, index) {
                             final note = previews[index];
-                            return ListTile(
-                              leading: Icon(Icons.lock,
-                                  size: 18, color: mainTextColor),
-                              title: Text(
-                                note.title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: mainTextColor),
-                              ),
-                              subtitle: Text(
-                                note.plainText,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: mainTextColor, fontSize: 13),
-                              ),
-                              trailing: Text(
-                                DateFormat.MMMd().format(note.createdAt),
-                                style: TextStyle(
-                                    color: mainTextColor, fontSize: 12),
-                              ),
+                            return GestureDetector(
                               onTap: () async {
                                 await Navigator.of(context).pushNamed(
                                   NoteCreatePage.routeThroughHome,
@@ -167,6 +185,15 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
                                 );
                                 cubit.fetchNotes();
                               },
+                              child: NoteTile(
+                                note: note,
+                                first: index == 0,
+                                last: index == previews.length - 1,
+                                gradientStartColor:
+                                    notePreviewGradientStartColor,
+                                gradientEndColor: notePreviewGradientEndColor,
+                                borderColor: borderColor,
+                              ),
                             );
                           },
                         ),
@@ -174,6 +201,7 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
             },
           ),
         ),
+      ),
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "encrypted_notes_fab",
