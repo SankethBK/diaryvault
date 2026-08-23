@@ -10,16 +10,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Prompts for the encryption passphrase (or recovery code) and unlocks the
 /// session. Pops with `true` on success.
-Future<bool?> showUnlockDialog(BuildContext context) async {
+Future<bool?> showUnlockDialog(
+  BuildContext context, {
+  String title = "Unlock encrypted notes",
+}) async {
   final result = await showCustomDialog(
     context: context,
-    child: const UnlockDialog(),
+    child: UnlockDialog(title: title),
   );
   return result is bool ? result : null;
 }
 
 class UnlockDialog extends StatefulWidget {
-  const UnlockDialog({Key? key}) : super(key: key);
+  const UnlockDialog({Key? key, this.title = "Unlock encrypted notes"})
+      : super(key: key);
+
+  final String title;
 
   @override
   State<UnlockDialog> createState() => _UnlockDialogState();
@@ -84,7 +90,7 @@ class _UnlockDialogState extends State<UnlockDialog> {
           Icon(Icons.lock_outline, size: 36, color: mainTextColor),
           const SizedBox(height: 12),
           Text(
-            "Unlock encrypted notes",
+            widget.title,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 19.0, color: mainTextColor),
           ),

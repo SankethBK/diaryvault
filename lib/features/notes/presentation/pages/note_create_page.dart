@@ -134,8 +134,8 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
           automaticallyImplyLeading: false,
           leading: NotesCloseButton(onNotesClosed: _closeAfterAutoSave),
           actions: const [
-            NoteEncryptToggleButton(),
             NoteSaveButton(),
+            NoteEncryptToggleButton(),
             DateTimePicker(),
             ToggleReadWriteButton(pageName: PageName.NoteCreatePage)
           ],

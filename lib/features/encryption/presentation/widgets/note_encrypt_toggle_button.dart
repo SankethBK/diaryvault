@@ -6,7 +6,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// Editor app-bar action that marks the current note as encrypted.
+/// Editor app-bar action that toggles encryption for the current note.
 /// Shown only when encryption is enabled. Enabling on a note while the
 /// session is locked prompts for the passphrase first.
 class NoteEncryptToggleButton extends StatelessWidget {
@@ -30,7 +30,8 @@ class NoteEncryptToggleButton extends StatelessWidget {
 
             return IconButton(
               icon: Icon(
-                state.isEncrypted ? Icons.lock : Icons.lock_open,
+                // Show the action that will happen when tapped.
+                state.isEncrypted ? Icons.lock_open : Icons.lock,
                 size: 22,
               ),
               tooltip: state.isEncrypted
@@ -46,7 +47,10 @@ class NoteEncryptToggleButton extends StatelessWidget {
                 }
 
                 if (encryptionState is EncryptionLocked) {
-                  final unlocked = await showUnlockDialog(context);
+                  final unlocked = await showUnlockDialog(
+                    context,
+                    title: "Lock this note",
+                  );
                   if (unlocked != true || !context.mounted) return;
                 }
 

@@ -107,7 +107,14 @@ class NoteUpdatedState extends NotesState {
         );
 
   @override
-  List<Object> get props => [id, title!, createdAt!, allNoteAssets!, tags!];
+  List<Object> get props => [
+        id,
+        title!,
+        createdAt!,
+        allNoteAssets!,
+        tags!,
+        isEncrypted,
+      ];
 
   @override
   String toString() {
