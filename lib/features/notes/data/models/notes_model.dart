@@ -19,6 +19,12 @@ class NoteModel extends Note {
     String? authorId,
     required this.assetDependencies,
     required this.tags,
+    bool isEncrypted = false,
+    int encryptionVersion = 1,
+    String? encSalt,
+    String? encWrappedMkPass,
+    String? encWrappedMkRecovery,
+    String? wrappedDek,
   }) : super(
           id: id,
           createdAt: createdAt,
@@ -30,18 +36,24 @@ class NoteModel extends Note {
           assetDependencies: assetDependencies,
           authorId: authorId,
           tags: tags,
+          isEncrypted: isEncrypted,
+          encryptionVersion: encryptionVersion,
+          encSalt: encSalt,
+          encWrappedMkPass: encWrappedMkPass,
+          encWrappedMkRecovery: encWrappedMkRecovery,
+          wrappedDek: wrappedDek,
         );
 
   factory NoteModel.fromJson(Map<String, dynamic> jsonMap) {
     return NoteModel(
       id: jsonMap["id"],
       createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
-      title: jsonMap["title"],
-      body: jsonMap["body"],
-      hash: jsonMap["hash"],
+      title: jsonMap["title"] ?? "",
+      body: jsonMap["body"] ?? "",
+      hash: jsonMap["hash"] ?? "",
       lastModified:
           DateTime.fromMillisecondsSinceEpoch(jsonMap["last_modified"]),
-      plainText: jsonMap["plain_text"],
+      plainText: jsonMap["plain_text"] ?? "",
       assetDependencies: jsonMap["asset_dependencies"] != null
           ? jsonMap["asset_dependencies"]
               .map<NoteAssetModel>(
@@ -50,6 +62,13 @@ class NoteModel extends Note {
               .toList()
           : [],
       tags: jsonMap["tags"] ?? [],
+      isEncrypted:
+          jsonMap["is_encrypted"] == 1 || jsonMap["is_encrypted"] == true,
+      encryptionVersion: jsonMap["encryption_version"] ?? 1,
+      encSalt: jsonMap["enc_salt"],
+      encWrappedMkPass: jsonMap["enc_wrapped_mk_pass"],
+      encWrappedMkRecovery: jsonMap["enc_wrapped_mk_recovery"],
+      wrappedDek: jsonMap["wrapped_dek"],
     );
   }
 
@@ -65,8 +84,40 @@ class NoteModel extends Note {
       "deleted": deleted ? 1 : 0,
       "asset_dependencies":
           assetDependencies.map((noteAsset) => noteAsset.toJson()).toList(),
-      "tags": tags
+      "tags": tags,
+      "is_encrypted": isEncrypted ? 1 : 0,
+      "encryption_version": encryptionVersion,
+      "enc_salt": encSalt,
+      "enc_wrapped_mk_pass": encWrappedMkPass,
+      "enc_wrapped_mk_recovery": encWrappedMkRecovery,
+      "wrapped_dek": wrappedDek,
     };
+  }
+
+  /// Copy with (re)decrypted content for display/editing of encrypted notes.
+  NoteModel copyWithContent({
+    required String title,
+    required String body,
+    required String plainText,
+  }) {
+    return NoteModel(
+      id: id,
+      createdAt: createdAt,
+      title: title,
+      body: body,
+      hash: hash,
+      lastModified: lastModified,
+      plainText: plainText,
+      authorId: authorId,
+      assetDependencies: assetDependencies,
+      tags: tags,
+      isEncrypted: isEncrypted,
+      encryptionVersion: encryptionVersion,
+      encSalt: encSalt,
+      encWrappedMkPass: encWrappedMkPass,
+      encWrappedMkRecovery: encWrappedMkRecovery,
+      wrappedDek: wrappedDek,
+    );
   }
 }
 
@@ -100,14 +151,24 @@ class NotePreviewModel extends NotePreview {
     required DateTime createdAt,
     required String title,
     required String plainText,
-  }) : super(id: id, createdAt: createdAt, title: title, plainText: plainText);
+    bool isEncrypted = false,
+    bool isLocked = false,
+  }) : super(
+            id: id,
+            createdAt: createdAt,
+            title: title,
+            plainText: plainText,
+            isEncrypted: isEncrypted,
+            isLocked: isLocked);
 
   factory NotePreviewModel.fromJson(Map<String, dynamic> jsonMap) {
     return NotePreviewModel(
       id: jsonMap["id"],
       createdAt: DateTime.fromMillisecondsSinceEpoch(jsonMap["created_at"]),
-      title: jsonMap["title"],
-      plainText: jsonMap["plain_text"],
+      title: jsonMap["title"] ?? "",
+      plainText: jsonMap["plain_text"] ?? "",
+      isEncrypted:
+          jsonMap["is_encrypted"] == 1 || jsonMap["is_encrypted"] == true,
     );
   }
 }

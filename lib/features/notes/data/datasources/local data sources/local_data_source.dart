@@ -91,8 +91,10 @@ class NotesLocalDataSource implements INotesLocalDataSource {
     try {
       result = await database.query(Notes.TABLE_NAME,
           columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
+          // Normal notes path: encrypted notes are handled separately and
+          // never shown in the regular home list
           where:
-              "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
+              "${Notes.DELETED} != 1 and ${Notes.IS_ENCRYPTED} = 0 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
           orderBy: "${Notes.CREATED_AT} DESC");
     } catch (e) {
       log.e("Local database query for fetching notes preview failed $e");
@@ -114,13 +116,13 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         result = await database.query(
           Notes.TABLE_NAME,
           where:
-              "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' ) AND ${Notes.ID} IN ($noteIdsString)",
+              "${Notes.DELETED} != 1 and ${Notes.IS_ENCRYPTED} = 0 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' ) AND ${Notes.ID} IN ($noteIdsString)",
         );
       } else {
         result = await database.query(
           Notes.TABLE_NAME,
           where:
-              "${Notes.DELETED} != 1 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
+              "${Notes.DELETED} != 1 and ${Notes.IS_ENCRYPTED} = 0 and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
         );
       }
     } catch (e) {
@@ -221,6 +223,11 @@ class NotesLocalDataSource implements INotesLocalDataSource {
             "hash": null,
             "last_modified": DateTime.now().millisecondsSinceEpoch,
             "deleted": 1,
+            Notes.IS_ENCRYPTED: 0,
+            Notes.ENC_SALT: null,
+            Notes.ENC_WRAPPED_MK_PASS: null,
+            Notes.ENC_WRAPPED_MK_RECOVERY: null,
+            Notes.WRAPPED_DEK: null,
           },
           where: "${Notes.ID} = ?",
           whereArgs: [id]);
@@ -458,7 +465,7 @@ class NotesLocalDataSource implements INotesLocalDataSource {
         Notes.TABLE_NAME,
         columns: [Notes.ID, Notes.TITLE, Notes.PLAIN_TEXT, Notes.CREATED_AT],
         where:
-            "${Notes.DELETED} != 1 AND $searchQuery and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
+            "${Notes.DELETED} != 1 AND ${Notes.IS_ENCRYPTED} = 0 AND $searchQuery and ( ${Notes.AUTHOR_ID} = '$authorId' or ${Notes.AUTHOR_ID} = '${GuestUserDetails.guestUserId}' )",
         orderBy: "${Notes.CREATED_AT} DESC",
       );
     } catch (e) {

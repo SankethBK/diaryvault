@@ -11,7 +11,10 @@ class InitializeNote extends NotesEvent {
   // if id is present, then we are updating an existing note else we are creating a new one
   final String? id;
 
-  const InitializeNote({this.id});
+  // encrypted notes are loaded through the encrypted notes repository
+  final bool encrypted;
+
+  const InitializeNote({this.id, this.encrypted = false});
 }
 
 class UpdateNote extends NotesEvent {
@@ -22,6 +25,14 @@ class UpdateNote extends NotesEvent {
   final NoteAssetModel? noteAsset;
 
   const UpdateNote({this.createdAt, this.title, this.body, this.noteAsset});
+}
+
+/// Toggles whether this note is stored encrypted. The UI is responsible for
+/// ensuring the encryption session is unlocked before enabling this.
+class ToggleNoteEncryption extends NotesEvent {
+  final bool encrypt;
+
+  const ToggleNoteEncryption({required this.encrypt});
 }
 
 /// if newNote is true, then create a new note, otherwise update the existing note

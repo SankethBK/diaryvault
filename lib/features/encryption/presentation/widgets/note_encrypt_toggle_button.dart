@@ -1,0 +1,72 @@
+import 'package:dairy_app/core/utils/utils.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/encryption_session_service.dart';
+import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
+import 'package:dairy_app/features/encryption/presentation/widgets/unlock_dialog.dart';
+import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+/// Editor app-bar action that toggles encryption for the current note.
+/// Shown only when encryption is enabled. Enabling on a note while the
+/// session is locked prompts for the passphrase first.
+class NoteEncryptToggleButton extends StatelessWidget {
+  const NoteEncryptToggleButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final encryptionCubit = BlocProvider.of<EncryptionCubit>(context);
+
+    return BlocBuilder<EncryptionCubit, EncryptionSessionState>(
+      bloc: encryptionCubit,
+      builder: (context, encryptionState) {
+        // lock button only appears once encryption is enabled
+        if (encryptionState is EncryptionDisabled) {
+          return const SizedBox.shrink();
+        }
+
+        return BlocBuilder<NotesBloc, NotesState>(
+          builder: (context, state) {
+            if (!state.safe) return const SizedBox.shrink();
+
+            return IconButton(
+              icon: Icon(
+                // Show the action that will happen when tapped.
+                state.isEncrypted ? Icons.lock_open : Icons.lock,
+                size: 22,
+              ),
+              tooltip: state.isEncrypted
+                  ? S.current.removeEncryptionFromThisNote
+                  : S.current.encryptThisNote,
+              onPressed: () async {
+                if (state.isEncrypted) {
+                  final verified = await showUnlockDialog(
+                    context,
+                    title: S.current.unlockThisNote,
+                  );
+                  if (verified != true || !context.mounted) return;
+
+                  BlocProvider.of<NotesBloc>(context)
+                      .add(const ToggleNoteEncryption(encrypt: false));
+                  showToast("Note will be saved unencrypted", context: context);
+                  return;
+                }
+
+                  final verified = await showUnlockDialog(
+                    context,
+                    title: S.current.lockThisNote,
+                    actionLabel: "Lock",
+                  );
+                if (verified != true || !context.mounted) return;
+
+                BlocProvider.of<NotesBloc>(context)
+                    .add(const ToggleNoteEncryption(encrypt: true));
+                showToast("Note will be saved encrypted", context: context);
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+}

@@ -13,6 +13,14 @@ class Note extends Equatable {
   final String? authorId;
   final List<String> tags;
 
+  // Encryption fields (null/absent for normal notes)
+  final bool isEncrypted;
+  final int encryptionVersion;
+  final String? encSalt;
+  final String? encWrappedMkPass;
+  final String? encWrappedMkRecovery;
+  final String? wrappedDek;
+
   const Note({
     required this.id,
     required this.createdAt,
@@ -25,6 +33,12 @@ class Note extends Equatable {
     this.deleted = false,
     this.authorId,
     required this.tags,
+    this.isEncrypted = false,
+    this.encryptionVersion = 1,
+    this.encSalt,
+    this.encWrappedMkPass,
+    this.encWrappedMkRecovery,
+    this.wrappedDek,
   });
 
   String getHashingString() {
@@ -44,6 +58,7 @@ class Note extends Equatable {
       plainText,
       assetDependencies,
       deleted,
+      isEncrypted,
     ];
   }
 
@@ -73,12 +88,19 @@ class NotePreview extends Equatable {
   final DateTime createdAt;
   final String title;
   final String plainText;
+  final bool isEncrypted;
+
+  /// The note's keychain was not opened by the current session (e.g. it was
+  /// created on another device with a different passphrase)
+  final bool isLocked;
 
   const NotePreview({
     required this.id,
     required this.createdAt,
     required this.title,
     required this.plainText,
+    this.isEncrypted = false,
+    this.isLocked = false,
   });
 
   @override

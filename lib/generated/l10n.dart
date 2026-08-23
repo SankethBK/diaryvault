@@ -1307,6 +1307,246 @@ class S {
   String get select {
     return Intl.message('Select', name: 'select', desc: '', args: []);
   }
+
+  /// `What's new`
+  String get whatsNew {
+    return Intl.message('What\'s new', name: 'whatsNew', desc: '', args: []);
+  }
+
+  /// `Creating and customizing themes`
+  String get whatsNewThemesTitle {
+    return Intl.message(
+      'Creating and customizing themes',
+      name: 'whatsNewThemesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personalize DiaryVault with your own colors and visual style.`
+  String get whatsNewThemesSubtitle {
+    return Intl.message(
+      'Personalize DiaryVault with your own colors and visual style.',
+      name: 'whatsNewThemesSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About encryption`
+  String get whatsNewEncryptionTitle {
+    return Intl.message(
+      'About encryption',
+      name: 'whatsNewEncryptionTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Protect sensitive notes with passphrase-based encryption and recovery options.`
+  String get whatsNewEncryptionSubtitle {
+    return Intl.message(
+      'Protect sensitive notes with passphrase-based encryption and recovery options.',
+      name: 'whatsNewEncryptionSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encryption`
+  String get encryption {
+    return Intl.message('Encryption', name: 'encryption', desc: '', args: []);
+  }
+
+  /// `Encrypted notes`
+  String get encryptedNotes {
+    return Intl.message(
+      'Encrypted notes',
+      name: 'encryptedNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlock encrypted notes`
+  String get unlockEncryptedNotes {
+    return Intl.message(
+      'Unlock encrypted notes',
+      name: 'unlockEncryptedNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock encrypted notes`
+  String get lockEncryptedNotes {
+    return Intl.message(
+      'Lock encrypted notes',
+      name: 'lockEncryptedNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encrypted notes are locked`
+  String get encryptedNotesLocked {
+    return Intl.message(
+      'Encrypted notes are locked',
+      name: 'encryptedNotesLocked',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No encrypted notes yet`
+  String get noEncryptedNotesYet {
+    return Intl.message(
+      'No encrypted notes yet',
+      name: 'noEncryptedNotesYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable note encryption`
+  String get enableNoteEncryption {
+    return Intl.message(
+      'Enable note encryption',
+      name: 'enableNoteEncryption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enabled`
+  String get encryptionEnabled {
+    return Intl.message(
+      'Enabled',
+      name: 'encryptionEnabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set up a passphrase and recovery code`
+  String get encryptionSetupPrompt {
+    return Intl.message(
+      'Set up a passphrase and recovery code',
+      name: 'encryptionSetupPrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change encryption passphrase`
+  String get changeEncryptionPassphrase {
+    return Intl.message(
+      'Change encryption passphrase',
+      name: 'changeEncryptionPassphrase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Regenerate recovery code`
+  String get regenerateRecoveryCode {
+    return Intl.message(
+      'Regenerate recovery code',
+      name: 'regenerateRecoveryCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encrypt sensitive notes with a passphrase only you know. Encrypted notes are protected on this device and in your cloud backup, and live in a separate locked view.`
+  String get encryptSensitiveNotesDescription {
+    return Intl.message(
+      'Encrypt sensitive notes with a passphrase only you know. Encrypted notes are protected on this device and in your cloud backup, and live in a separate locked view.',
+      name: 'encryptSensitiveNotesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect passphrase`
+  String get incorrectPassphrase {
+    return Intl.message(
+      'Incorrect passphrase',
+      name: 'incorrectPassphrase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect recovery code`
+  String get incorrectRecoveryCode {
+    return Intl.message(
+      'Incorrect recovery code',
+      name: 'incorrectRecoveryCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passphrase`
+  String get passphrase {
+    return Intl.message('Passphrase', name: 'passphrase', desc: '', args: []);
+  }
+
+  /// `Recovery code`
+  String get recoveryCode {
+    return Intl.message(
+      'Recovery code',
+      name: 'recoveryCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change`
+  String get change {
+    return Intl.message('Change', name: 'change', desc: '', args: []);
+  }
+
+  /// `Lock this note`
+  String get lockThisNote {
+    return Intl.message(
+      'Lock this note',
+      name: 'lockThisNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlock this note`
+  String get unlockThisNote {
+    return Intl.message(
+      'Unlock this note',
+      name: 'unlockThisNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encrypt this note`
+  String get encryptThisNote {
+    return Intl.message(
+      'Encrypt this note',
+      name: 'encryptThisNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove encryption from this note`
+  String get removeEncryptionFromThisNote {
+    return Intl.message(
+      'Remove encryption from this note',
+      name: 'removeEncryptionFromThisNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

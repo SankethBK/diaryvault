@@ -4,6 +4,8 @@ import 'package:dairy_app/core/pages/settings_details.dart';
 import 'package:dairy_app/core/pages/settings_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:dairy_app/features/auth/presentation/pages/pin_auth_page.dart';
+import 'package:dairy_app/features/encryption/presentation/pages/encrypted_notes_page.dart';
+import 'package:dairy_app/features/encryption/presentation/pages/encryption_settings_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
 import 'package:dairy_app/generated/l10n.dart';
@@ -23,7 +25,9 @@ class RouteGenerator {
     } else if (settings.name == AuthPage.route) {
       return MaterialPageRoute(builder: (_) => AuthPage());
     } else if (settings.name == NoteCreatePage.routeThroughHome) {
-      return MaterialPageRoute(builder: (_) => const NoteCreatePage());
+      return MaterialPageRoute(
+          builder: (_) => NoteCreatePage(
+              routeArgs: settings.arguments as Map<String, dynamic>?));
     } else if (settings.name == NoteCreatePage.routeThroughNoteReadOnly) {
       return MaterialPageRoute(builder: (_) => const NoteCreatePage());
     } else if (settings.name == NotesReadOnlyPage.routeThroughHome) {
@@ -44,6 +48,10 @@ class RouteGenerator {
           settingsCategory: args as String,
         ),
       );
+    } else if (settings.name == EncryptionSettingsPage.route) {
+      return MaterialPageRoute(builder: (_) => const EncryptionSettingsPage());
+    } else if (settings.name == EncryptedNotesPage.route) {
+      return MaterialPageRoute(builder: (_) => const EncryptedNotesPage());
     }
 
     return MaterialPageRoute(

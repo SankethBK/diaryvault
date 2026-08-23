@@ -62,11 +62,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+    "change": MessageLookupByLibrary.simpleMessage("التغيير"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "تغيير لون الخلفية",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage(
       "تغيير البريد الإلكتروني",
+    ),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "تغيير عبارة مرور التشفير",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("غير الصورة"),
     "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
@@ -122,8 +126,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "تفعيل تسجيل الدخول ببصمة الإصبع",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "تمكين تشفير الملاحظات",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "تفعيل تسجيل الدخول بالرقم السري",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "قم بتشفير الملاحظات الحساسة باستخدام عبارة مرور تعرفها أنت فقط. الملاحظات المشفرة محمية على هذا الجهاز وفي النسخ الاحتياطي السحابي، وتعيش في عرض مقفل منفصل.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "تشفير هذه الملاحظة",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("ملاحظات مشفرة"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "الملاحظات المشفرة مقفلة",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("التشفير"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("تفعيل"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "إعداد عبارة المرور ورمز الاسترداد",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "أدخل كلمة المرور الحالية",
@@ -162,8 +184,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "استيراد وتصدير الملاحظات",
     ),
     "importFromJSON": MessageLookupByLibrary.simpleMessage("استيراد من"),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "عبارة المرور غير صحيحة",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور غير صحيحة",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "رمز الاسترداد غير صحيح .",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "ملف نسخة احتياطية غير صحيح",
@@ -173,6 +201,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("مغادرة"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("الخفيفة"),
     "link": MessageLookupByLibrary.simpleMessage("رابط"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "قفل الملاحظات المشفرة",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("قفل هذه الملاحظة"),
     "logIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
     "logOut2": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
@@ -183,6 +215,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("الصامت"),
     "newPassword": MessageLookupByLibrary.simpleMessage("كلمة مرور جديدة"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "لا توجد ملاحظات مشفرة حتى الآن",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("غير متاح"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "تم حفظ المذكرة بنجاح",
@@ -212,6 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "لوحة الألوان (اضغط على حامل للتحرير)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("عبارة المرور"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "تم إرسال بريد إعادة تعيين كلمة المرور",
     ),
@@ -255,7 +291,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "المشروع على GitHub",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("تسجيل صوتي"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("رمز الاستعادة"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "إعادة إنشاء رمز الاسترداد",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("التذكيرات"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "إزالة التشفير من هذه الملاحظة",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "إعادة تعيين كلمة المرور",
     ),
@@ -311,8 +354,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ غير متوقع",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "إلغاء قفل الملاحظات المشفرة",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage("افتح هذه الملاحظة"),
     "video": MessageLookupByLibrary.simpleMessage("فيديو"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("رابط WebDAV"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("ما الجديد؟"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "قم بحماية الملاحظات الحساسة باستخدام خيارات التشفير والاسترداد المستندة إلى عبارة المرور.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "حول التشفير",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "خصص DiaryVault بألوانك وأسلوبك المرئي.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "إنشاء وتخصيص القوالب",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("رقم سري خاطئ"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "لديك تعديلات غير محفوظة",

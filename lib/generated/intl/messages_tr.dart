@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Kamera"),
     "cancel": MessageLookupByLibrary.simpleMessage("İptal"),
+    "change": MessageLookupByLibrary.simpleMessage("Değişim"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Arkaplan Rengini Değiştir",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("E-posta değiştir"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Şifreleme parolasını değiştir",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Görüntüyü değiştir"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Şifre değiştir"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
@@ -124,8 +128,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Parmak izi ile giriş yapmayı etkinleştir",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Not şifrelemesini etkinleştir",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "PIN ile giriş yapmayı etkinleştir",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Hassas notları yalnızca sizin bildiğiniz bir parola ile şifreleyin. Şifrelenmiş notlar bu cihazda ve bulut yedeklemenizde korunur ve ayrı bir kilitli görünümde bulunur.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage("Bu notu şifrele"),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Şifrelenmiş notlar",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Şifrelenmiş notlar kilitlendi",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Şifreleme"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Aktif"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Bir parola ve kurtarma kodu oluşturun",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Mevcut şifreyi girin",
@@ -168,7 +190,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Notları İçe ve Dışa Aktar",
     ),
     "importFromJSON": MessageLookupByLibrary.simpleMessage("Şuradan içe aktar"),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Yanlış parola",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage("Hatalı şifre"),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Hatalı kurtarma kodu.",
+    ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Geçersiz yedekleme dosyası",
     ),
@@ -177,6 +205,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Ayrıl"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Hafif"),
     "link": MessageLookupByLibrary.simpleMessage("Bağlantı"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Şifrelenmiş notları kilitle",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("Bu notu kilitle"),
     "logIn": MessageLookupByLibrary.simpleMessage("Giriş Yap"),
     "logOut": MessageLookupByLibrary.simpleMessage("Çıkış Yap"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Çıkış Yap"),
@@ -187,6 +219,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("sessiz"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Yeni Şifre"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "Henüz şifrelenmiş not yok",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Mevcut değil"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Not başarıyla kaydedildi",
@@ -216,6 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Palet (düzenlemek için bir örneğe dokunun)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Parola"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Şifre sıfırlama e-postası gönderildi",
     ),
@@ -259,7 +295,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "projectOnGithub": MessageLookupByLibrary.simpleMessage("Proje Github\'da"),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Ses Kaydet"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("Kurtarma kodu"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Kurtarma kodunu yeniden oluştur",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Hatırlatmalar"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Bu nottan şifrelemeyi kaldır",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Şifre sıfırla"),
     "resetPin": MessageLookupByLibrary.simpleMessage("PIN Sıfırla"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -323,8 +366,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Beklenmeyen bir hata oluştu",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Şifrelenmiş notların kilidini aç",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Bu notun kilidini aç",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL\'si"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("Yenilikler"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Parola tabanlı şifreleme ve kurtarma seçenekleriyle hassas notları koruyun.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "Şifreleme hakkında",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "DiaryVault\'u kendi renkleriniz ve görsel tarzınızla kişiselleştirin.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Tema oluşturma ve özelleştirme",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Hatalı PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Kaydedilmemiş değişiklikleriniz var",

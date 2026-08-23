@@ -7,107 +7,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class NotePreviewCard extends StatelessWidget {
+  const NotePreviewCard({Key? key, required this.note, required this.first, required this.last, required this.index}) : super(key: key);
+  final NotePreview note;
   final bool first;
   final bool last;
-  const NotePreviewCard({
-    Key? key,
-    required this.note,
-    required this.first,
-    required this.last,
-    required this.index,
-  }) : super(key: key);
-
-  final NotePreview note;
   final int index;
 
   @override
   Widget build(BuildContext context) {
-    final notePreviewBorderColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .notePreviewBorderColor;
-
-    final notePreviewUnselectedGradientStartColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .notePreviewUnselectedGradientStartColor;
-    final notePreviewUnselectedGradientEndColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .notePreviewUnselectedGradientEndColor;
-    final notePreviewSelectedGradientStartColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .notePreviewSelectedGradientStartColor;
-    final notePreviewSelectedGradientEndColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .notePreviewSelectedGradientEndColor;
-
+    final theme = Theme.of(context).extension<HomePageThemeExtensions>()!;
     return BlocBuilder<SelectableListCubit, SelectableListState>(
       builder: (context, state) {
-        final selectableListCubit =
-            BlocProvider.of<SelectableListCubit>(context);
-        final isSelected =
-            selectableListCubit.state.selectedItems.contains(note.id);
-
+        final cubit = BlocProvider.of<SelectableListCubit>(context);
+        final selected = cubit.state.selectedItems.contains(note.id);
+        final selecting = state is SelectableListEnabled;
         return GestureDetector(
           onLongPress: () {
-            if (selectableListCubit.state is SelectableListDisabled) {
-              selectableListCubit.enableSelectableList(note.id);
-            }
+            if (state is SelectableListDisabled) cubit.enableSelectableList(note.id);
           },
           onTap: () {
-            if (selectableListCubit.state is SelectableListEnabled) {
-              isSelected
-                  ? selectableListCubit.removeItemFromSelection(note.id)
-                  : selectableListCubit.addItemToSelection(note.id);
+            if (selecting) {
+              selected ? cubit.removeItemFromSelection(note.id) : cubit.addItemToSelection(note.id);
             } else {
-              Navigator.of(context).pushNamed(
-                NotesReadOnlyPage.routeThroughHome,
-                arguments: note.id,
-              );
+              Navigator.of(context).pushNamed(NotesReadOnlyPage.routeThroughHome, arguments: note.id);
             }
           },
-          child: Container(
-            width: double.infinity,
-            padding:
-                const EdgeInsets.only(right: 10, left: 0, top: 7, bottom: 10),
-            decoration: BoxDecoration(
-              border: last
-                  ? Border(
-                      bottom:
-                          BorderSide(width: 1.3, color: notePreviewBorderColor),
-                      top:
-                          BorderSide(width: 1.3, color: notePreviewBorderColor),
-                    )
-                  : Border(
-                      top:
-                          BorderSide(width: 1.3, color: notePreviewBorderColor),
-                    ),
-              gradient: LinearGradient(
-                colors: [
-                  isSelected
-                      ? notePreviewSelectedGradientStartColor
-                      : notePreviewUnselectedGradientStartColor,
-                  isSelected
-                      ? notePreviewSelectedGradientEndColor
-                      : notePreviewUnselectedGradientEndColor,
-                ],
-                begin: AlignmentDirectional.topStart,
-                end: AlignmentDirectional.bottomEnd,
-              ),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (selectableListCubit.state is SelectableListEnabled)
-                  SelectBox(
-                      isSelected: isSelected,
-                      selectableListCubit: selectableListCubit,
-                      note: note),
-                TitleAndDescription(
-                    note: note,
-                    selectModeEnabled:
-                        (selectableListCubit.state is SelectableListEnabled)),
-                DisplayDate(note: note),
-              ],
-            ),
+          child: NoteTile(
+            note: note,
+            first: first,
+            last: last,
+            gradientStartColor: selected ? theme.notePreviewSelectedGradientStartColor : theme.notePreviewUnselectedGradientStartColor,
+            gradientEndColor: selected ? theme.notePreviewSelectedGradientEndColor : theme.notePreviewUnselectedGradientEndColor,
+            borderColor: theme.notePreviewBorderColor,
+            leading: selecting ? SelectBox(isSelected: selected, selectableListCubit: cubit, note: note) : null,
+            selectModeEnabled: selecting,
           ),
         );
       },
@@ -115,86 +48,82 @@ class NotePreviewCard extends StatelessWidget {
   }
 }
 
-class SelectBox extends StatelessWidget {
-  const SelectBox({
-    Key? key,
-    required this.isSelected,
-    required this.selectableListCubit,
-    required this.note,
-  }) : super(key: key);
+class NoteTile extends StatelessWidget {
+  const NoteTile({Key? key, required this.note, required this.first, required this.last, required this.gradientStartColor, required this.gradientEndColor, required this.borderColor, this.leading, this.selectModeEnabled = false}) : super(key: key);
+  final NotePreview note;
+  final bool first;
+  final bool last;
+  final Color gradientStartColor;
+  final Color gradientEndColor;
+  final Color borderColor;
+  final Widget? leading;
+  final bool selectModeEnabled;
 
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<HomePageThemeExtensions>()!;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.only(right: 10, top: 7, bottom: 10),
+      decoration: BoxDecoration(
+        border: last
+            ? Border(
+                bottom: BorderSide(width: 1.3, color: borderColor),
+                top: BorderSide(width: 1.3, color: borderColor),
+              )
+            : Border(
+                top: BorderSide(width: 1.3, color: borderColor),
+              ),
+        gradient: LinearGradient(colors: [gradientStartColor, gradientEndColor], begin: AlignmentDirectional.topStart, end: AlignmentDirectional.bottomEnd),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (note.isEncrypted) Padding(padding: const EdgeInsets.only(left: 20, right: 10, top: 2), child: Icon(Icons.lock, size: 20, color: theme.previewTitleColor)),
+          if (leading != null) leading!,
+          TitleAndDescription(note: note, selectModeEnabled: selectModeEnabled || note.isEncrypted),
+          DisplayDate(note: note),
+        ],
+      ),
+    );
+  }
+}
+
+class SelectBox extends StatelessWidget {
+  const SelectBox({Key? key, required this.isSelected, required this.selectableListCubit, required this.note}) : super(key: key);
   final bool isSelected;
   final SelectableListCubit selectableListCubit;
   final NotePreview note;
 
   @override
   Widget build(BuildContext context) {
-    final checkBoxSelectedColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .checkBoxSelectedColor;
-
-    final previewTitleColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .previewTitleColor;
-
-    return StatefulBuilder(
-      builder: ((context, setState) => Checkbox(
-            side: BorderSide(color: previewTitleColor),
-            value: isSelected,
-            activeColor: checkBoxSelectedColor,
-            onChanged: (val) {
-              val!
-                  ? selectableListCubit.addItemToSelection(note.id)
-                  : selectableListCubit.removeItemFromSelection(note.id);
-            },
-          )),
+    final theme = Theme.of(context).extension<HomePageThemeExtensions>()!;
+    return Checkbox(
+      side: BorderSide(color: theme.previewTitleColor),
+      value: isSelected,
+      activeColor: theme.checkBoxSelectedColor,
+      onChanged: (value) => value! ? selectableListCubit.addItemToSelection(note.id) : selectableListCubit.removeItemFromSelection(note.id),
     );
   }
 }
 
 class TitleAndDescription extends StatelessWidget {
-  final bool selectModeEnabled;
-  const TitleAndDescription({
-    Key? key,
-    required this.note,
-    required this.selectModeEnabled,
-  }) : super(key: key);
-
+  const TitleAndDescription({Key? key, required this.note, required this.selectModeEnabled}) : super(key: key);
   final NotePreview note;
+  final bool selectModeEnabled;
 
   @override
   Widget build(BuildContext context) {
-    final previewTitleColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .previewTitleColor;
-
-    final previewBodyColor = Theme.of(context)
-        .extension<HomePageThemeExtensions>()!
-        .previewBodyColor;
-
+    final theme = Theme.of(context).extension<HomePageThemeExtensions>()!;
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.only(left: selectModeEnabled ? 0 : 10.0),
+        padding: EdgeInsets.only(left: selectModeEnabled ? 0 : 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(width: 7),
-            Text(
-              note.title,
-              style: TextStyle(
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.w500,
-                  color: previewTitleColor),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            Text(note.title, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: theme.previewTitleColor), maxLines: 1, overflow: TextOverflow.ellipsis),
             const SizedBox(height: 8),
-            Text(
-              note.plainText,
-              style: TextStyle(fontSize: 15.0, color: previewBodyColor),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
+            Text(note.plainText, style: TextStyle(fontSize: 15, color: theme.previewBodyColor), maxLines: 1, overflow: TextOverflow.ellipsis),
           ],
         ),
       ),
@@ -203,51 +132,22 @@ class TitleAndDescription extends StatelessWidget {
 }
 
 class DisplayDate extends StatelessWidget {
-  const DisplayDate({
-    Key? key,
-    required this.note,
-  }) : super(key: key);
-
+  const DisplayDate({Key? key, required this.note}) : super(key: key);
   final NotePreview note;
 
   @override
   Widget build(BuildContext context) {
-    final dateColor =
-        Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
-
+    final dateColor = Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
+    final style = TextStyle(color: dateColor, fontStyle: FontStyle.italic);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          DateFormat.EEEE().format(note.createdAt),
-          textAlign: TextAlign.end,
-          style: TextStyle(
-            color: dateColor,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              DateFormat.MMMd().format(note.createdAt) + ",",
-              textAlign: TextAlign.end,
-              style: TextStyle(
-                color: dateColor,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            Text(
-              " " + DateFormat.y().format(note.createdAt),
-              textAlign: TextAlign.end,
-              style: TextStyle(
-                color: dateColor,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ],
-        ),
+        Text(DateFormat.EEEE().format(note.createdAt), style: style),
+        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Text('${DateFormat.MMMd().format(note.createdAt)},', style: style),
+          Text(' ${DateFormat.y().format(note.createdAt)}', style: style),
+        ]),
       ],
     );
   }

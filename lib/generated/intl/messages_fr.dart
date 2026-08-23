@@ -68,10 +68,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Caméra"),
     "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
+    "change": MessageLookupByLibrary.simpleMessage("Change"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Modifier la couleur de l\'arrière-plan",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("Changer l\'e-mail"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Change encryption passphrase",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Modifier l\'image"),
     "changePassword": MessageLookupByLibrary.simpleMessage(
       "Changer le mot de passe",
@@ -138,8 +142,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Activer la connexion par empreinte digitale",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Enable note encryption",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "Activer la connexion PAR CODE PIN",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Encrypt sensitive notes with a passphrase only you know. Encrypted notes are protected on this device and in your cloud backup, and live in a separate locked view.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Encrypt this note",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("Encrypted notes"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Encrypted notes are locked",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Encryption"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Enabled"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Set up a passphrase and recovery code",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Entrer le mot de passe actuel",
@@ -188,8 +210,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "Importation de JSON",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Incorrect passphrase",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Mot de passe incorrect",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Incorrect recovery code",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Fichier de sauvegarde invalide",
@@ -201,6 +229,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Partir"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Legere"),
     "link": MessageLookupByLibrary.simpleMessage("Lien"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Lock encrypted notes",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("Lock this note"),
     "logIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
     "logOut": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
@@ -211,6 +243,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("Mis en sourdine"),
     "newPassword": MessageLookupByLibrary.simpleMessage("nouveau mot de passe"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "No encrypted notes yet",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Pas disponible"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note enregistrée avec succès",
@@ -240,6 +275,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Palette (tap a swatch to edit)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Passphrase"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "E-mail de réinitialisation du mot de passe envoyé",
     ),
@@ -285,7 +321,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Projet sur Github",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Enregistrer l’audio"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("Recovery code"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Regenerate recovery code",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Rappels"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Remove encryption from this note",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "Réinitialiser le mot de passe",
     ),
@@ -349,8 +392,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Une erreur inattendue s\'est produite",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Unlock encrypted notes",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage("Unlock this note"),
     "video": MessageLookupByLibrary.simpleMessage("Vidéo"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("URL WebDAV"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Protect sensitive notes with passphrase-based encryption and recovery options.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "About encryption",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Personalize DiaryVault with your own colors and visual style.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Creating and customizing themes",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN incorrect"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Vous avez des changements non enregistrés",
