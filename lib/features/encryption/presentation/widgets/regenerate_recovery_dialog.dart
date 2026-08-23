@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
@@ -80,6 +81,8 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
   }
 
   Widget _buildPassphraseStep(Color mainTextColor) {
+    final inputTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.textColor;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,6 +99,8 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
         const SizedBox(height: 14),
         TextField(
           controller: _passphraseController,
+          style: TextStyle(color: inputTextColor),
+          cursorColor: inputTextColor,
           obscureText: true,
           autocorrect: false,
           enableSuggestions: false,
@@ -103,6 +108,8 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
           onSubmitted: (_) => _submit(),
           decoration: InputDecoration(
             labelText: "Passphrase",
+            labelStyle: TextStyle(color: inputTextColor),
+            floatingLabelStyle: TextStyle(color: inputTextColor),
             errorText: _errorText,
             border: const OutlineInputBorder(),
           ),

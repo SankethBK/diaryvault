@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
@@ -159,6 +160,8 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
   }
 
   Widget _buildPassphraseForm(Color mainTextColor) {
+    final inputTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.textColor;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,23 +178,31 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
         const SizedBox(height: 14),
         TextField(
           controller: _passphraseController,
+          style: TextStyle(color: inputTextColor),
+          cursorColor: inputTextColor,
           obscureText: true,
           autocorrect: false,
           enableSuggestions: false,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: "Passphrase",
-            border: OutlineInputBorder(),
+            labelStyle: TextStyle(color: inputTextColor),
+            floatingLabelStyle: TextStyle(color: inputTextColor),
+            border: const OutlineInputBorder(),
           ),
         ),
         const SizedBox(height: 10),
         TextField(
           controller: _confirmController,
+          style: TextStyle(color: inputTextColor),
+          cursorColor: inputTextColor,
           obscureText: true,
           autocorrect: false,
           enableSuggestions: false,
           onSubmitted: (_) => _trySubmit(),
           decoration: InputDecoration(
             labelText: "Confirm passphrase",
+            labelStyle: TextStyle(color: inputTextColor),
+            floatingLabelStyle: TextStyle(color: inputTextColor),
             errorText: _errorText,
             border: const OutlineInputBorder(),
           ),

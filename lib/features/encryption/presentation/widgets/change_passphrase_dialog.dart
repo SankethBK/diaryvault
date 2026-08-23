@@ -5,6 +5,7 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/encryption/core/failures/encryption_failure.dart';
 import 'package:dairy_app/features/encryption/domain/repositories/encrypted_notes_repository.dart';
+import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 /// Changes the encryption passphrase. Only the passphrase key slot is
@@ -78,6 +79,18 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
   Widget build(BuildContext context) {
     final mainTextColor =
         Theme.of(context).extension<PopupThemeExtensions>()!.mainTextColor;
+    final inputTextColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.textColor;
+
+    InputDecoration inputDecoration(String label, {String? errorText}) {
+      return InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: inputTextColor),
+        floatingLabelStyle: TextStyle(color: inputTextColor),
+        errorText: errorText,
+        border: const OutlineInputBorder(),
+      );
+    }
 
     return Container(
       width: 300,
@@ -92,37 +105,36 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
           const SizedBox(height: 14),
           TextField(
             controller: _oldController,
+            style: TextStyle(color: inputTextColor),
+            cursorColor: inputTextColor,
             obscureText: true,
             autocorrect: false,
             enableSuggestions: false,
             autofocus: true,
-            decoration: const InputDecoration(
-              labelText: "Current passphrase",
-              border: OutlineInputBorder(),
-            ),
+            decoration: inputDecoration("Current passphrase"),
           ),
           const SizedBox(height: 10),
           TextField(
             controller: _newController,
+            style: TextStyle(color: inputTextColor),
+            cursorColor: inputTextColor,
             obscureText: true,
             autocorrect: false,
             enableSuggestions: false,
-            decoration: const InputDecoration(
-              labelText: "New passphrase",
-              border: OutlineInputBorder(),
-            ),
+            decoration: inputDecoration("New passphrase"),
           ),
           const SizedBox(height: 10),
           TextField(
             controller: _confirmController,
+            style: TextStyle(color: inputTextColor),
+            cursorColor: inputTextColor,
             obscureText: true,
             autocorrect: false,
             enableSuggestions: false,
             onSubmitted: (_) => _submit(),
-            decoration: InputDecoration(
-              labelText: "Confirm new passphrase",
+            decoration: inputDecoration(
+              "Confirm new passphrase",
               errorText: _errorText,
-              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 16),

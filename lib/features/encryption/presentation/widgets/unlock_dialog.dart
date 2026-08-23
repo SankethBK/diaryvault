@@ -101,6 +101,9 @@ class _UnlockDialogState extends State<UnlockDialog> {
             decoration: InputDecoration(
               labelText: _useRecoveryCode ? "Recovery code" : "Passphrase",
               hintText: _useRecoveryCode ? "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx" : null,
+              labelStyle: TextStyle(color: inputTextColor),
+              floatingLabelStyle: TextStyle(color: inputTextColor),
+              hintStyle: TextStyle(color: inputTextColor.withValues(alpha: 0.7)),
               errorText: _errorText,
               border: const OutlineInputBorder(),
             ),
