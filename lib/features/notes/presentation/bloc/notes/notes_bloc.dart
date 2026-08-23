@@ -119,6 +119,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         isEncrypted: event.encrypt,
         wrappedDek: state.wrappedDek,
       ));
+
+      // Persist the encryption-state change immediately using the same
+      // repository path as the regular autosave flow.
+      add(AutoSaveNote());
     });
 
     on<UpdateNote>((event, emit) {
