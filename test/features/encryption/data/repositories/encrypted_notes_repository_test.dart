@@ -64,6 +64,23 @@ class FakeEncryptedNotesLocalDataSource
   }
 
   @override
+  Future<List<Map<String, dynamic>>> fetchDistinctKeychainRows() async {
+    final seen = <String>{};
+    final result = <Map<String, dynamic>>[];
+    for (final row in rows.values) {
+      final key = row["enc_wrapped_mk_pass"] as String?;
+      if (key == null || !seen.add(key)) continue;
+      result.add({
+        "enc_salt": row["enc_salt"],
+        "enc_wrapped_mk_pass": row["enc_wrapped_mk_pass"],
+        "enc_wrapped_mk_recovery": row["enc_wrapped_mk_recovery"],
+        "encryption_version": row["encryption_version"],
+      });
+    }
+    return result;
+  }
+
+  @override
   Future<List<NoteModel>> fetchEncryptedNotes(String authorId) async {
     return rows.values
         .map((m) => NoteModel.fromJson({
@@ -91,6 +108,7 @@ class FakeEncryptedNotesLocalDataSource
       required String encSalt,
       required String encWrappedMkPass,
       String? encWrappedMkRecovery,
+      String? wrappedDek,
       required String hash}) async {
     rows[noteId] = {
       ...rows[noteId]!,
@@ -98,6 +116,7 @@ class FakeEncryptedNotesLocalDataSource
       "enc_wrapped_mk_pass": encWrappedMkPass,
       if (encWrappedMkRecovery != null)
         "enc_wrapped_mk_recovery": encWrappedMkRecovery,
+      if (wrappedDek != null) "wrapped_dek": wrappedDek,
       "hash": hash,
     };
   }
@@ -326,6 +345,106 @@ void main() {
 
       final result = await repo.getEncryptedNote("n1");
       expect(result.isLeft(), isTrue);
+    });
+  });
+
+  group("cross-device (same passphrase, independently generated keychains)",
+      () {
+    test("note created on device A decrypts on device B after sync",
+        () async {
+      // device A creates the note
+      await enableEncryption();
+      await repo.saveEncryptedNote(plainNoteMap());
+      final stored = encryptedDs.rows["n1"]!;
+      final keychainA = sessionService.requireKeychain();
+
+      // device B: same passphrase but its own keychain, set up BEFORE the
+      // synced note arrives
+      final kvB = InMemoryKeyValueDataSource();
+      final dsB = FakeEncryptedNotesLocalDataSource();
+      final sessionB = EncryptionSessionService(
+        cryptoService: TestCryptoService(),
+        keyValueDataSource: kvB,
+        encryptedNotesLocalDataSource: dsB,
+      );
+      await sessionB.initialize();
+      await sessionB.enable("test passphrase");
+      sessionB.lock();
+
+      // the note row syncs down afterwards, carrying A's keychain
+      dsB.rows["n1"] = Map<String, dynamic>.from(stored);
+      final repoB = EncryptedNotesRepository(
+        encryptedNotesLocalDataSource: dsB,
+        notesLocalDataSource: FakeNotesLocalDataSource(dsB),
+        sessionService: sessionB,
+        cryptoService: TestCryptoService(),
+        authSessionBloc: AuthSessionBloc(keyValueDataSource: kvB),
+      );
+
+      // B's own keychain differs from A's
+      expect(sessionB.requireKeychain().wrappedMkPass.toBase64(),
+          isNot(keychainA.wrappedMkPass.toBase64()));
+
+      expect((await sessionB.unlock("test passphrase")).isRight(), isTrue);
+
+      final note = await repoB.getEncryptedNote("n1");
+      note.fold(
+        (f) => fail("should have decrypted: $f"),
+        (n) {
+          expect(n.title, "My secret entry");
+          expect(n.body, body);
+          expect(n.plainText, "Dear diary...");
+        },
+      );
+
+      // B can also edit the note; it stays on A's keychain so A can still
+      // read it without any re-sync of key material
+      final decrypted = note.getOrElse(() => throw StateError(""));
+      await repoB.updateEncryptedNote(decrypted.toJson()
+        ..addAll({
+          "asset_dependencies": <NoteAssetModel>[],
+          "wrapped_dek": decrypted.wrappedDek,
+        }));
+      expect(dsB.rows["n1"]!["enc_wrapped_mk_pass"],
+          keychainA.wrappedMkPass.toBase64());
+    });
+
+    test("different passphrase leaves the synced note locked", () async {
+      // device A creates the note with "test passphrase"
+      await enableEncryption();
+      await repo.saveEncryptedNote(plainNoteMap());
+      final stored = encryptedDs.rows["n1"]!;
+
+      // device B set up encryption with a DIFFERENT passphrase before the
+      // note synced down
+      final kvB = InMemoryKeyValueDataSource();
+      final dsB = FakeEncryptedNotesLocalDataSource();
+      final sessionB = EncryptionSessionService(
+        cryptoService: TestCryptoService(),
+        keyValueDataSource: kvB,
+        encryptedNotesLocalDataSource: dsB,
+      );
+      await sessionB.initialize();
+      await sessionB.enable("other passphrase");
+      sessionB.lock();
+      dsB.rows["n1"] = Map<String, dynamic>.from(stored);
+
+      // B unlocks fine (its own keychain opens), but A's note stays locked
+      expect((await sessionB.unlock("other passphrase")).isRight(),
+          isTrue);
+
+      final repoB = EncryptedNotesRepository(
+        encryptedNotesLocalDataSource: dsB,
+        notesLocalDataSource: FakeNotesLocalDataSource(dsB),
+        sessionService: sessionB,
+        cryptoService: TestCryptoService(),
+        authSessionBloc: AuthSessionBloc(keyValueDataSource: kvB),
+      );
+      final result = await repoB.getEncryptedNote("n1");
+      result.fold(
+        (f) => expect(f.code, EncryptionFailure.DIFFERENT_PASSPHRASE),
+        (_) => fail("should not have decrypted"),
+      );
     });
   });
 

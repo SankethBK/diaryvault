@@ -6,6 +6,7 @@ class EncryptionFailure extends Failure {
   static const ALREADY_SET_UP = 3;
   static const LOCKED = 4;
   static const META_CORRUPTED = 5;
+  static const DIFFERENT_PASSPHRASE = 6;
   static const UNKNOWN_ERROR = -1;
 
   const EncryptionFailure._({required String message, required int code})
@@ -35,6 +36,12 @@ class EncryptionFailure extends Failure {
   factory EncryptionFailure.metaCorrupted() {
     return const EncryptionFailure._(
         message: "encryption metadata is corrupted", code: META_CORRUPTED);
+  }
+
+  factory EncryptionFailure.differentPassphrase() {
+    return const EncryptionFailure._(
+        message: "this note is protected by a different passphrase",
+        code: DIFFERENT_PASSPHRASE);
   }
 
   factory EncryptionFailure.unknownError([String? message]) {

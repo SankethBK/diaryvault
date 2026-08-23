@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
-import 'package:dairy_app/features/encryption/core/crypto_service.dart';
-import 'package:dairy_app/features/encryption/domain/repositories/encryption_session_service.dart';
+import 'package:dairy_app/features/encryption/domain/repositories/encrypted_notes_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -76,7 +75,7 @@ mixin NoteHelperMixin {
 
   /// Computes the hash of the note currently in [state], matching what was
   /// stored: SHA-1 for plain notes, keyed HMAC for encrypted ones. Falls back
-  /// to state.hash (treat as unchanged) when the session is locked.
+  /// to state.hash (treat as unchanged) when the hash can't be computed.
   Future<String> computeCurrentHash(NotesState state) async {
     String body = jsonEncode(state.controller!.document.toDelta().toJson());
     String noteBodyWithAssetPathsRemoved = replaceAssetPathsByAssetNames(body);
@@ -87,18 +86,19 @@ mixin NoteHelperMixin {
         state.tags!.join(",");
 
     if (state.isEncrypted) {
-      final sessionService = sl<IEncryptionSessionService>();
-      if (!sessionService.isUnlocked) return state.hash ?? "";
-      final masterKey = await sessionService.requireMasterKey();
-      final keychain = sessionService.requireKeychain();
-      // must match the composition in EncryptedNotesRepository._computeHash
-      final fullInput = hashInput +
-          "|enc|" +
-          (keychain.kdfParams.toJson()["salt"] as String) +
-          keychain.wrappedMkPass.toBase64() +
-          keychain.wrappedMkRecovery.toBase64() +
-          (state.wrappedDek ?? "");
-      return sl<CryptoService>().contentHmac(fullInput, masterKey);
+      // The repository reproduces the stored composition, using the
+      // keychain stamped on the note's row (which may originate from
+      // another device after sync)
+      final hash =
+          await sl<IEncryptedNotesRepository>().computeEditorHash(
+        noteId: state.id,
+        title: state.title!,
+        body: body,
+        createdAt: state.createdAt!,
+        tags: state.tags!,
+        wrappedDek: state.wrappedDek,
+      );
+      return hash ?? state.hash ?? "";
     }
 
     return generateHash(hashInput);

@@ -35,4 +35,19 @@ abstract class IEncryptedNotesRepository {
   /// slot. Returns the new recovery code to display exactly once.
   Future<Either<EncryptionFailure, String>> regenerateRecoveryCode(
       String passphrase);
+
+  /// Hash of a note's current editor content, matching the stored hash
+  /// composition (used for the close-dialog dirty check). Uses the keychain
+  /// the note's row is stamped with, which may differ from the session's
+  /// primary keychain for notes created on another device. Returns null
+  /// when it can't be computed (locked session / unopened keychain);
+  /// callers then fall back to the stored hash.
+  Future<String?> computeEditorHash({
+    required String noteId,
+    required String title,
+    required String body,
+    required DateTime createdAt,
+    required List<String> tags,
+    String? wrappedDek,
+  });
 }

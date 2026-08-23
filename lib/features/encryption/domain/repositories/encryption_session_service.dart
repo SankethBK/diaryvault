@@ -33,6 +33,10 @@ abstract class IEncryptionSessionService {
   /// First-time setup. Returns the recovery code to display exactly once.
   Future<Either<EncryptionFailure, String>> enable(String passphrase);
 
+  /// Unlocks with the passphrase. Tries EVERY keychain found locally (the
+  /// cached one plus any stamped on synced encrypted note rows) and caches
+  /// each master key it opens, so notes created on another device with the
+  /// same passphrase decrypt transparently.
   Future<Either<EncryptionFailure, void>> unlock(String passphrase);
 
   Future<Either<EncryptionFailure, void>> unlockWithRecovery(String code);
@@ -40,8 +44,15 @@ abstract class IEncryptionSessionService {
   /// Drops the master key from memory.
   void lock();
 
-  /// Master key for note encrypt/decrypt. Throws [StateError] if locked.
+  /// Primary master key for encrypting new notes. Throws [StateError] if
+  /// locked.
   Future<SecretKey> requireMasterKey();
+
+  /// Master key for the keychain identified by its wrapped-MK-pass blob
+  /// (the keychain stamped on a note row), or null if the current session
+  /// did not open that keychain (e.g. note protected by a different
+  /// passphrase).
+  SecretKey? masterKeyForKeychain(String wrappedMkPassB64);
 
   /// Keychain material stamped onto every encrypted note row. Throws
   /// [StateError] if encryption was never set up.

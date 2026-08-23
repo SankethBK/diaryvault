@@ -43,6 +43,30 @@ class EncryptedNotesLocalDataSource implements IEncryptedNotesLocalDataSource {
     return result.isEmpty ? null : result.first;
   }
 
+  /// Every distinct keychain across encrypted notes (a device can hold
+  /// notes stamped with keychains from other devices after sync).
+  @override
+  Future<List<Map<String, dynamic>>> fetchDistinctKeychainRows() async {
+    final result = await database.query(
+      Notes.TABLE_NAME,
+      distinct: true,
+      columns: [
+        Notes.ENC_SALT,
+        Notes.ENC_WRAPPED_MK_PASS,
+        Notes.ENC_WRAPPED_MK_RECOVERY,
+        Notes.ENCRYPTION_VERSION,
+      ],
+      where:
+          "${Notes.IS_ENCRYPTED} = 1 AND ${Notes.DELETED} != 1 AND ${Notes.WRAPPED_DEK} IS NOT NULL",
+    );
+    return result
+        .where((row) =>
+            row[Notes.ENC_SALT] != null &&
+            row[Notes.ENC_WRAPPED_MK_PASS] != null &&
+            row[Notes.ENC_WRAPPED_MK_RECOVERY] != null)
+        .toList();
+  }
+
   /// All encrypted notes (ciphertext form) with tags and asset dependencies.
   @override
   Future<List<NoteModel>> fetchEncryptedNotes(String authorId) async {
@@ -121,6 +145,7 @@ class EncryptedNotesLocalDataSource implements IEncryptedNotesLocalDataSource {
     required String encSalt,
     required String encWrappedMkPass,
     String? encWrappedMkRecovery,
+    String? wrappedDek,
     required String hash,
   }) async {
     final count = await database.update(
@@ -130,6 +155,7 @@ class EncryptedNotesLocalDataSource implements IEncryptedNotesLocalDataSource {
         Notes.ENC_WRAPPED_MK_PASS: encWrappedMkPass,
         if (encWrappedMkRecovery != null)
           Notes.ENC_WRAPPED_MK_RECOVERY: encWrappedMkRecovery,
+        if (wrappedDek != null) Notes.WRAPPED_DEK: wrappedDek,
         Notes.HASH: hash,
         Notes.LAST_MODIFIED: DateTime.now().millisecondsSinceEpoch,
       },

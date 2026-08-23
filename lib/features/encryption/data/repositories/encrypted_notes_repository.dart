@@ -58,6 +58,18 @@ class EncryptedNotesRepository
       final previews = <NotePreviewModel>[];
       for (final note in notes) {
         final decrypted = await _decryptNote(note);
+        if (decrypted == null) {
+          // keychain not opened by the current passphrase (e.g. note from a
+          // device where a different passphrase was used)
+          previews.add(NotePreviewModel(
+            id: note.id,
+            createdAt: note.createdAt,
+            title: "🔒 Locked note",
+            plainText: "Protected by a different passphrase",
+            isEncrypted: true,
+          ));
+          continue;
+        }
         _decryptedCache[note.id] = decrypted;
         previews.add(NotePreviewModel(
           id: note.id,
@@ -90,6 +102,9 @@ class EncryptedNotesRepository
         return Left(EncryptionFailure.unknownError("note not found"));
       }
       final decrypted = await _decryptNote(raw);
+      if (decrypted == null) {
+        return Left(EncryptionFailure.differentPassphrase());
+      }
       _decryptedCache[id] = decrypted;
       return Right(decrypted);
     } catch (e) {
@@ -98,8 +113,16 @@ class EncryptedNotesRepository
     }
   }
 
-  Future<NoteModel> _decryptNote(NoteModel note) async {
-    final masterKey = await sessionService.requireMasterKey();
+  /// Decrypts with the master key of the note's OWN keychain, so notes
+  /// created on another device (same passphrase, independently generated
+  /// keychain) decrypt transparently after sync. Returns null when the
+  /// session did not open the note's keychain.
+  Future<NoteModel?> _decryptNote(NoteModel note) async {
+    final noteKeychainId = note.encWrappedMkPass;
+    final masterKey = noteKeychainId != null
+        ? sessionService.masterKeyForKeychain(noteKeychainId)
+        : await sessionService.requireMasterKey();
+    if (masterKey == null) return null;
     final dek = await cryptoService.unwrapKey(
         WrappedKey.fromBase64(note.wrappedDek!), masterKey);
     final fields = await cryptoService.decryptNoteFields(note.body, dek);
@@ -146,8 +169,6 @@ class EncryptedNotesRepository
     if (!sessionService.isUnlocked) {
       throw StateError("cannot save encrypted note while session is locked");
     }
-    final masterKey = await sessionService.requireMasterKey();
-    final keychain = sessionService.requireKeychain();
 
     // Trim removed assets (plaintext body) and delete their files
     final usedNoteAssets = parseAssetPaths(noteMap["body"]);
@@ -161,23 +182,63 @@ class EncryptedNotesRepository
     (noteMap["asset_dependencies"] as List)
         .removeWhere((asset) => !usedNoteAssets.contains(asset.assetPath));
 
-    // Reuse the note's DEK on updates, else generate a fresh one
+    // An existing encrypted note stays on the keychain it was created with
+    // (possibly generated on another device); the stored row is the source
+    // of truth. New notes use the session's primary keychain.
+    final raw = isNew
+        ? null
+        : await encryptedNotesLocalDataSource
+            .getEncryptedNoteRaw(noteMap["id"]);
+
     SecretKey dek;
     String wrappedDek;
-    final existingWrappedDek = noteMap["wrapped_dek"];
-    if (existingWrappedDek != null) {
+    String encSalt;
+    String encWrappedMkPass;
+    String encWrappedMkRecovery;
+    SecretKey hashKey;
+
+    if (raw?.encWrappedMkPass != null) {
+      final masterKey =
+          sessionService.masterKeyForKeychain(raw!.encWrappedMkPass!);
+      if (masterKey == null) {
+        throw StateError(
+            "cannot re-encrypt note: its keychain is not unlocked");
+      }
       dek = await cryptoService.unwrapKey(
-          WrappedKey.fromBase64(existingWrappedDek), masterKey);
-      wrappedDek = existingWrappedDek;
+          WrappedKey.fromBase64(raw.wrappedDek!), masterKey);
+      wrappedDek = raw.wrappedDek!;
+      encSalt = raw.encSalt!;
+      encWrappedMkPass = raw.encWrappedMkPass!;
+      encWrappedMkRecovery = raw.encWrappedMkRecovery!;
+      hashKey = masterKey;
     } else {
-      dek = await cryptoService.generateKey();
-      wrappedDek = (await cryptoService.wrapKey(dek, masterKey)).toBase64();
+      final masterKey = await sessionService.requireMasterKey();
+      final keychain = sessionService.requireKeychain();
+      final existingWrappedDek = noteMap["wrapped_dek"];
+      if (existingWrappedDek != null) {
+        dek = await cryptoService.unwrapKey(
+            WrappedKey.fromBase64(existingWrappedDek), masterKey);
+        wrappedDek = existingWrappedDek;
+      } else {
+        dek = await cryptoService.generateKey();
+        wrappedDek = (await cryptoService.wrapKey(dek, masterKey)).toBase64();
+      }
+      encSalt = keychain.kdfParams.toJson()["salt"];
+      encWrappedMkPass = keychain.wrappedMkPass.toBase64();
+      encWrappedMkRecovery = keychain.wrappedMkRecovery.toBase64();
+      hashKey = masterKey;
     }
 
     // Keyed HMAC over plaintext content AND key material: key/passphrase
     // changes alter the hash, so sync propagates them like a normal edit
-    noteMap["hash"] = await _computeHash(noteMap, keychain, wrappedDek,
-        masterKey: masterKey);
+    noteMap["hash"] = await _computeHash(
+      noteMap,
+      encSalt: encSalt,
+      encWrappedMkPass: encWrappedMkPass,
+      encWrappedMkRecovery: encWrappedMkRecovery,
+      wrappedDek: wrappedDek,
+      masterKey: hashKey,
+    );
 
     final payload = await cryptoService.encryptNoteFields(
       title: noteMap["title"],
@@ -193,31 +254,85 @@ class EncryptedNotesRepository
     noteMap["body"] = payload;
     noteMap["is_encrypted"] = 1;
     noteMap["encryption_version"] = CryptoService.encryptionVersion;
-    noteMap["enc_salt"] = keychain.kdfParams.toJson()["salt"];
-    noteMap["enc_wrapped_mk_pass"] = keychain.wrappedMkPass.toBase64();
-    noteMap["enc_wrapped_mk_recovery"] =
-        keychain.wrappedMkRecovery.toBase64();
+    noteMap["enc_salt"] = encSalt;
+    noteMap["enc_wrapped_mk_pass"] = encWrappedMkPass;
+    noteMap["enc_wrapped_mk_recovery"] = encWrappedMkRecovery;
     noteMap["wrapped_dek"] = wrappedDek;
 
     return noteMap;
   }
 
   Future<String> _computeHash(
-      Map<String, dynamic> noteMap,
-      EncryptionKeychain keychain,
-      String wrappedDek,
-      {required SecretKey masterKey}) async {
+    Map<String, dynamic> noteMap, {
+    required String encSalt,
+    required String encWrappedMkPass,
+    required String encWrappedMkRecovery,
+    required String wrappedDek,
+    required SecretKey masterKey,
+  }) async {
     final bodyForHash = replaceAssetPathsByAssetNames(noteMap["body"]);
     final hashInput = (noteMap["title"] ?? "") +
         noteMap["created_at"].toString() +
         bodyForHash +
         (noteMap["tags"] as List).join(",") +
         "|enc|" +
-        (keychain.kdfParams.toJson()["salt"] as String) +
-        keychain.wrappedMkPass.toBase64() +
-        keychain.wrappedMkRecovery.toBase64() +
+        encSalt +
+        encWrappedMkPass +
+        encWrappedMkRecovery +
         wrappedDek;
     return cryptoService.contentHmac(hashInput, masterKey);
+  }
+
+  @override
+  Future<String?> computeEditorHash({
+    required String noteId,
+    required String title,
+    required String body,
+    required DateTime createdAt,
+    required List<String> tags,
+    String? wrappedDek,
+  }) async {
+    if (!sessionService.isUnlocked) return null;
+    try {
+      final noteMap = {
+        "title": title,
+        "body": body,
+        "created_at": createdAt.millisecondsSinceEpoch,
+        "tags": tags,
+      };
+
+      // Existing note: reproduce the stored hash exactly, using the
+      // keychain material on its row (may originate from another device)
+      final raw =
+          await encryptedNotesLocalDataSource.getEncryptedNoteRaw(noteId);
+      if (raw?.encWrappedMkPass != null) {
+        final masterKey =
+            sessionService.masterKeyForKeychain(raw!.encWrappedMkPass!);
+        if (masterKey == null) return null;
+        return _computeHash(
+          noteMap,
+          encSalt: raw.encSalt!,
+          encWrappedMkPass: raw.encWrappedMkPass!,
+          encWrappedMkRecovery: raw.encWrappedMkRecovery!,
+          wrappedDek: raw.wrappedDek!,
+          masterKey: masterKey,
+        );
+      }
+
+      // New note: hash as the primary keychain will store it
+      final keychain = sessionService.requireKeychain();
+      return _computeHash(
+        noteMap,
+        encSalt: keychain.kdfParams.toJson()["salt"],
+        encWrappedMkPass: keychain.wrappedMkPass.toBase64(),
+        encWrappedMkRecovery: keychain.wrappedMkRecovery.toBase64(),
+        wrappedDek: wrappedDek ?? "",
+        masterKey: await sessionService.requireMasterKey(),
+      );
+    } catch (e) {
+      log.e("computeEditorHash failed for $noteId: $e");
+      return null;
+    }
   }
 
   @override
@@ -300,29 +415,55 @@ class EncryptedNotesRepository
   }
 
   /// Re-stamps keychain columns on every encrypted note and recomputes
-  /// hashes so the change syncs to other devices.
+  /// hashes so the change syncs to other devices. Notes stamped with a
+  /// foreign keychain (created on another device) have their DEK re-wrapped
+  /// under the primary master key, converging everything onto the new
+  /// keychain. Notes whose keychain the session didn't open (different
+  /// passphrase) are left untouched.
   Future<void> _propagateKeychain(EncryptionKeychain oldKeychain,
       EncryptionKeychain newKeychain, SecretKey masterKey) async {
     final notes =
         await encryptedNotesLocalDataSource.fetchEncryptedNotes(_userId);
     for (final note in notes) {
-      // decrypt with the note's DEK to rebuild the hash over plaintext
+      final noteMasterKey = note.encWrappedMkPass != null
+          ? sessionService.masterKeyForKeychain(note.encWrappedMkPass!)
+          : masterKey;
+      if (noteMasterKey == null) {
+        log.w("skipping note ${note.id} in keychain propagation: "
+            "its keychain is not unlocked");
+        continue;
+      }
+
+      // decrypt with the note's own DEK to rebuild the hash over plaintext
       final dek = await cryptoService.unwrapKey(
-          WrappedKey.fromBase64(note.wrappedDek!), masterKey);
+          WrappedKey.fromBase64(note.wrappedDek!), noteMasterKey);
       final fields = await cryptoService.decryptNoteFields(note.body, dek);
+
+      // foreign notes converge onto the primary master key
+      String newWrappedDek = note.wrappedDek!;
+      if (note.encWrappedMkPass != oldKeychain.wrappedMkPass.toBase64()) {
+        newWrappedDek =
+            (await cryptoService.wrapKey(dek, masterKey)).toBase64();
+      }
 
       final newHash = await _computeHash({
         "title": fields.title,
         "body": fields.body,
         "created_at": note.createdAt.millisecondsSinceEpoch,
         "tags": note.tags,
-      }, newKeychain, note.wrappedDek!, masterKey: masterKey);
+      },
+          encSalt: newKeychain.kdfParams.toJson()["salt"],
+          encWrappedMkPass: newKeychain.wrappedMkPass.toBase64(),
+          encWrappedMkRecovery: newKeychain.wrappedMkRecovery.toBase64(),
+          wrappedDek: newWrappedDek,
+          masterKey: masterKey);
 
       await encryptedNotesLocalDataSource.updateKeychainColumns(
         noteId: note.id,
         encSalt: newKeychain.kdfParams.toJson()["salt"],
         encWrappedMkPass: newKeychain.wrappedMkPass.toBase64(),
         encWrappedMkRecovery: newKeychain.wrappedMkRecovery.toBase64(),
+        wrappedDek: newWrappedDek,
         hash: newHash,
       );
       _decryptedCache.remove(note.id);

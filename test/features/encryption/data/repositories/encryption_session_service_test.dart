@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dairy_app/features/encryption/core/crypto_service.dart';
 import 'package:dairy_app/features/encryption/core/crypto_types.dart';
+import 'package:dairy_app/features/encryption/core/encryption_keychain.dart';
 import 'package:dairy_app/features/encryption/core/failures/encryption_failure.dart';
 import 'package:dairy_app/features/encryption/data/datasources/encrypted_notes_local_data_source_template.dart';
 import 'package:dairy_app/features/encryption/data/repositories/encryption_session_service.dart';
@@ -49,8 +50,17 @@ class FakeEncryptedNotesLocalDataSource
     implements IEncryptedNotesLocalDataSource {
   Map<String, dynamic>? keychainRow;
 
+  /// Extra keychain rows stamped on notes from "other devices"
+  final List<Map<String, dynamic>> extraKeychainRows = [];
+
   @override
   Future<Map<String, dynamic>?> fetchKeychainRow() async => keychainRow;
+
+  @override
+  Future<List<Map<String, dynamic>>> fetchDistinctKeychainRows() async => [
+        if (keychainRow != null) keychainRow!,
+        ...extraKeychainRows,
+      ];
 
   @override
   Future<List<NoteModel>> fetchEncryptedNotes(String authorId) async => [];
@@ -64,6 +74,7 @@ class FakeEncryptedNotesLocalDataSource
       required String encSalt,
       required String encWrappedMkPass,
       String? encWrappedMkRecovery,
+      String? wrappedDek,
       required String hash}) async {}
 }
 
@@ -193,6 +204,94 @@ void main() {
         (_) => fail("should have failed"),
       );
       expect(service.currentState, isA<EncryptionLocked>());
+    });
+
+    test("unlock opens keychains from other devices sharing the passphrase",
+        () async {
+      // device A: sets up encryption independently (own salt + master key)
+      final kvA = InMemoryKeyValueDataSource();
+      final serviceA = EncryptionSessionService(
+        cryptoService: TestCryptoService(),
+        keyValueDataSource: kvA,
+        encryptedNotesLocalDataSource: FakeEncryptedNotesLocalDataSource(),
+      );
+      await serviceA.initialize();
+      await serviceA.enable("shared passphrase");
+      final keychainA = serviceA.requireKeychain();
+      final mkA = await serviceA.requireMasterKey();
+
+      // device B: also sets up encryption independently, same passphrase
+      await service.initialize();
+      await service.enable("shared passphrase");
+      final mkB = await service.requireMasterKey();
+      service.lock();
+
+      // sanity: the two keychains are DIFFERENT despite the same passphrase
+      expect(keychainA.wrappedMkPass.toBase64(),
+          isNot(service.requireKeychain().wrappedMkPass.toBase64()));
+
+      // a note created on device A syncs to device B, carrying A's keychain
+      dataSource.extraKeychainRows.add({
+        "enc_salt": keychainA.kdfParams.toJson()["salt"],
+        "enc_wrapped_mk_pass": keychainA.wrappedMkPass.toBase64(),
+        "enc_wrapped_mk_recovery": keychainA.wrappedMkRecovery.toBase64(),
+        "encryption_version": 1,
+      });
+
+      final result = await service.unlock("shared passphrase");
+
+      expect(result.isRight(), isTrue);
+      // primary master key is still B's own
+      expect(await (await service.requireMasterKey()).extractBytes(),
+          await mkB.extractBytes());
+      // but A's master key is also available for A's notes
+      final mkAonB =
+          service.masterKeyForKeychain(keychainA.wrappedMkPass.toBase64());
+      expect(mkAonB, isNotNull);
+      expect(await mkAonB!.extractBytes(), await mkA.extractBytes());
+    });
+
+    test(
+        "unlock adopts a synced keychain when the cached one does not open "
+        "(passphrase changed on another device)", () async {
+      // device A: set up, then its keychain as stamped on synced note rows
+      final kvA = InMemoryKeyValueDataSource();
+      final serviceA = EncryptionSessionService(
+        cryptoService: TestCryptoService(),
+        keyValueDataSource: kvA,
+        encryptedNotesLocalDataSource: FakeEncryptedNotesLocalDataSource(),
+      );
+      await serviceA.initialize();
+      await serviceA.enable("new passphrase");
+      final keychainA = serviceA.requireKeychain();
+      final mkA = await serviceA.requireMasterKey();
+
+      // device B: set up earlier with the OLD passphrase, then A's notes
+      // (stamped with the new keychain) sync down
+      await service.initialize();
+      await service.enable("old passphrase");
+      service.lock();
+      dataSource.extraKeychainRows.add({
+        "enc_salt": keychainA.kdfParams.toJson()["salt"],
+        "enc_wrapped_mk_pass": keychainA.wrappedMkPass.toBase64(),
+        "enc_wrapped_mk_recovery": keychainA.wrappedMkRecovery.toBase64(),
+        "encryption_version": 1,
+      });
+
+      // user enters the NEW passphrase on B: cached keychain doesn't open,
+      // but the synced one does, so it becomes the primary
+      final result = await service.unlock("new passphrase");
+
+      expect(result.isRight(), isTrue);
+      expect(service.requireKeychain().wrappedMkPass.toBase64(),
+          keychainA.wrappedMkPass.toBase64());
+      expect(await (await service.requireMasterKey()).extractBytes(),
+          await mkA.extractBytes());
+      // adoption is persisted
+      final cached =
+          EncryptionKeychain.deserialize(kv.store["encryption_keychain_cache"]!);
+      expect(cached.wrappedMkPass.toBase64(),
+          keychainA.wrappedMkPass.toBase64());
     });
 
     test("recovery code unlocks", () async {
