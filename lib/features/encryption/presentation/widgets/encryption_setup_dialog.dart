@@ -297,7 +297,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
                 tooltip: "Copy",
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: _recoveryCode ?? ""));
-                  showToast("Recovery code copied");
+                  showToast("Recovery code copied", context: context);
                 },
               ),
             ],

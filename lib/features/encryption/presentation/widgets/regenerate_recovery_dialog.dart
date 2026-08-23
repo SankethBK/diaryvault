@@ -174,7 +174,7 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
                 tooltip: "Copy",
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: _newCode!));
-                  showToast("Recovery code copied");
+                  showToast("Recovery code copied", context: context);
                 },
               ),
             ],

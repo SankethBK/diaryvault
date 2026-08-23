@@ -41,7 +41,7 @@ class NoteEncryptToggleButton extends StatelessWidget {
                   // decrypting back to a plain note needs no session
                   BlocProvider.of<NotesBloc>(context)
                       .add(const ToggleNoteEncryption(encrypt: false));
-                  showToast("Note will be saved unencrypted");
+                  showToast("Note will be saved unencrypted", context: context);
                   return;
                 }
 
@@ -52,7 +52,7 @@ class NoteEncryptToggleButton extends StatelessWidget {
 
                 BlocProvider.of<NotesBloc>(context)
                     .add(const ToggleNoteEncryption(encrypt: true));
-                showToast("Note will be saved encrypted");
+                showToast("Note will be saved encrypted", context: context);
               },
             );
           },
