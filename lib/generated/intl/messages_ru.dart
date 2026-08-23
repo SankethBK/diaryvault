@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "change": MessageLookupByLibrary.simpleMessage("Change"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Изменить цвет фона",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Change encryption passphrase",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Изменить изображение"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
@@ -120,7 +124,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Enable fingerprint login",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Enable note encryption",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage("Enable PIN login"),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Encrypt sensitive notes with a passphrase only you know. Encrypted notes are protected on this device and in your cloud backup, and live in a separate locked view.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Encrypt this note",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("Encrypted notes"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Encrypted notes are locked",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Encryption"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Enabled"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Set up a passphrase and recovery code",
+    ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Enter current password",
     ),
@@ -162,8 +184,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "Импорт из JSON файла",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Incorrect passphrase",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Incorrect password",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Incorrect recovery code",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Неверный файл резервной копии.",
@@ -173,6 +201,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Leave"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Легкий"),
     "link": MessageLookupByLibrary.simpleMessage("Link"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Lock encrypted notes",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("Lock this note"),
     "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
     "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -183,6 +215,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("Приглушенный"),
     "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "No encrypted notes yet",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note saved successfully",
@@ -212,6 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Палитра (коснитесь образца для редактирования)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Passphrase"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Password reset email sent",
     ),
@@ -251,7 +287,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Project on Github",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("Recovery code"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Regenerate recovery code",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Напоминания"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Remove encryption from this note",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage("Применить тему"),
@@ -309,8 +352,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Unexpected error occured",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Unlock encrypted notes",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage("Unlock this note"),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Protect sensitive notes with passphrase-based encryption and recovery options.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "About encryption",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Personalize DiaryVault with your own colors and visual style.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Creating and customizing themes",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "You have unsaved changes",

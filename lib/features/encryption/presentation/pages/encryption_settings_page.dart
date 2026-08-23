@@ -61,7 +61,7 @@ class EncryptionSettingsPage extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text("Encryption"),
+        title: Text(S.current.encryption),
       ),
       body: Container(
         padding: EdgeInsets.only(
@@ -111,10 +111,7 @@ class EncryptionSettingsPage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 10),
                     Text(
-                      "Encrypt sensitive notes with a passphrase only you "
-                      "know. Encrypted notes are protected on this device and "
-                      "in your cloud backup, and live in a separate locked "
-                      "view.",
+                        S.current.encryptSensitiveNotesDescription,
                       style: TextStyle(fontSize: 13.5, color: mainTextColor),
                     ),
                     const SizedBox(height: 16),
@@ -123,13 +120,13 @@ class EncryptionSettingsPage extends StatelessWidget {
                       activeColor: activeColor,
                       contentPadding: const EdgeInsets.all(0.0),
                       title: Text(
-                        "Enable note encryption",
+                        S.current.enableNoteEncryption,
                         style: TextStyle(color: mainTextColor),
                       ),
                       subtitle: Text(
                         isEnabled
-                            ? "Enabled"
-                            : "Set up a passphrase and recovery code",
+                            ? S.current.encryptionEnabled
+                            : S.current.encryptionSetupPrompt,
                         style: TextStyle(color: mainTextColor),
                       ),
                       value: isEnabled,
@@ -168,8 +165,8 @@ class EncryptionSettingsPage extends StatelessWidget {
                                 const SizedBox(width: 8),
                                 Text(
                                   isUnlocked
-                                      ? "Lock encrypted notes"
-                                      : "Unlock encrypted notes",
+                                      ? S.current.lockEncryptedNotes
+                                      : S.current.unlockEncryptedNotes,
                                   style: TextStyle(
                                       fontSize: 16.0, color: mainTextColor),
                                 ),
@@ -192,7 +189,7 @@ class EncryptionSettingsPage extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Change encryption passphrase",
+                              S.current.changeEncryptionPassphrase,
                               style: TextStyle(
                                   fontSize: 16.0, color: mainTextColor),
                             ),
@@ -207,7 +204,7 @@ class EncryptionSettingsPage extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Regenerate recovery code",
+                              S.current.regenerateRecoveryCode,
                               style: TextStyle(
                                   fontSize: 16.0, color: mainTextColor),
                             ),

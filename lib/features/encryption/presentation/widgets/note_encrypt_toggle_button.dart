@@ -3,6 +3,7 @@ import 'package:dairy_app/features/encryption/domain/repositories/encryption_ses
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/features/encryption/presentation/widgets/unlock_dialog.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,13 +36,13 @@ class NoteEncryptToggleButton extends StatelessWidget {
                 size: 22,
               ),
               tooltip: state.isEncrypted
-                  ? "Remove encryption from this note"
-                  : "Encrypt this note",
+                  ? S.current.removeEncryptionFromThisNote
+                  : S.current.encryptThisNote,
               onPressed: () async {
                 if (state.isEncrypted) {
                   final verified = await showUnlockDialog(
                     context,
-                    title: "Unlock this note",
+                    title: S.current.unlockThisNote,
                   );
                   if (verified != true || !context.mounted) return;
 
@@ -53,7 +54,7 @@ class NoteEncryptToggleButton extends StatelessWidget {
 
                   final verified = await showUnlockDialog(
                     context,
-                    title: "Lock this note",
+                    title: S.current.lockThisNote,
                     actionLabel: "Lock",
                   );
                 if (verified != true || !context.mounted) return;

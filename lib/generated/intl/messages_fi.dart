@@ -64,11 +64,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Kamera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Peruuta"),
+    "change": MessageLookupByLibrary.simpleMessage("Muuta"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Muuta taustaväriä",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage(
       "Vaihda sähköpostiosoite",
+    ),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Vaihda salaussalasana",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Vaihda kuva"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Vaihda salasana"),
@@ -128,8 +132,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Ota sormenjälkitunnistus käyttöön",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Ota muistiinpanojen salaus käyttöön",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "Ota PIN-kirjautuminen käyttöön",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Salaa arkaluonteiset muistiinpanot tunnuslauseella, jonka vain sinä tiedät. Salatut muistiinpanot on suojattu tällä laitteella ja pilvivarmistuksessasi, ja ne näkyvät erillisessä lukitussa näkymässä.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Salaa tämä huomautus",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Salatut muistiinpanot",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Salatut muistiinpanot on lukittu",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Salaus"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Käytössä"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Aseta tunnuslause ja palautuskoodi",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Anna nykyinen salasana",
@@ -174,8 +198,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tuo ja vie muistiinpanoja",
     ),
     "importFromJSON": MessageLookupByLibrary.simpleMessage("Tuo paikasta"),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Virheellinen tunnuslause",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Salasana on väärä",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Virheellinen palautuskoodi",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Virheellinen varmuuskopiotiedosto",
@@ -187,6 +217,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Poistu"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Kevyt"),
     "link": MessageLookupByLibrary.simpleMessage("Linkki"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Lukitse salatut muistiinpanot",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Lukitse tämä muistiinpano",
+    ),
     "logIn": MessageLookupByLibrary.simpleMessage("Kirjaudu sisään"),
     "logOut": MessageLookupByLibrary.simpleMessage("Kirjaudu ulos"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Kirjaudu ulos"),
@@ -197,6 +233,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("Mykistetty"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Uusi salasana"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "Ei vielä salattuja muistiinpanoja",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Ei käytettävissä"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Muistiinpano on tallennettu",
@@ -226,6 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Paletti (napauta värimallia muokataksesi)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Salauslause:"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Salasanan palautusviesti on lähetetty",
     ),
@@ -271,7 +311,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Projekti Githubissa",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Nauhoita ääntä"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("Palautuskoodi"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Luo palautuskoodi uudelleen",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Muistutukset"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Poista salaus tästä huomautuksesta",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Nollaa salasana"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Nollaa PIN-koodi"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -327,8 +374,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "On ilmennyt odottamaton virhe",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Avaa salattujen muistiinpanojen lukitus",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Avaa tämän muistiinpanon lukitus",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV-URL-osoite"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("Mitä uutta"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Suojaa arkaluonteiset muistiinpanot salasanafraasipohjaisella salauksella ja palautusvaihtoehdoilla.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "Tietoja salauksesta",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Tee DiaryVaultista yksilöllinen omilla väreilläsi ja visuaalisella tyylilläsi.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Teemojen luominen ja muokkaaminen",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Väärä PIN-koodi"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Muutoksia ei ole tallennettu",

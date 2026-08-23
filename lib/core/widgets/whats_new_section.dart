@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/widgets/settings_tile.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class WhatsNewSection extends StatefulWidget {
@@ -25,7 +26,7 @@ class _WhatsNewSectionState extends State<WhatsNewSection> {
           child: Row(
             children: [
               Text(
-                "What's new",
+                S.current.whatsNew,
                 style: TextStyle(fontSize: 16, color: mainTextColor),
               ),
               const Spacer(),
@@ -41,9 +42,8 @@ class _WhatsNewSectionState extends State<WhatsNewSection> {
           SettingsTile(
             height: 64,
             child: _UpdateTile(
-              title: "Creating and customizing themes",
-              subtitle:
-                  "Personalize DiaryVault with your own colors and visual style.",
+              title: S.current.whatsNewThemesTitle,
+              subtitle: S.current.whatsNewThemesSubtitle,
               color: mainTextColor,
             ),
           ),
@@ -51,9 +51,8 @@ class _WhatsNewSectionState extends State<WhatsNewSection> {
           SettingsTile(
             height: 64,
             child: _UpdateTile(
-              title: "About encryption",
-              subtitle:
-                  "Protect sensitive notes with passphrase-based encryption and recovery options.",
+              title: S.current.whatsNewEncryptionTitle,
+              subtitle: S.current.whatsNewEncryptionSubtitle,
               color: mainTextColor,
             ),
           ),

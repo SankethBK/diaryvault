@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Kamera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Ghairi"),
+    "change": MessageLookupByLibrary.simpleMessage("Badilisha"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Badilisha rangi ya mandharinyuma",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("Badilisha Barua pepe"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Badilisha nenosiri la usimbaji fiche",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Badilisha Picha "),
     "changePassword": MessageLookupByLibrary.simpleMessage(
       "Badilisha Nenosiri",
@@ -124,8 +128,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Wezesha kuingia kwa alama za vidole",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Wezesha usimbaji fiche wa maelezo",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "Wezesha kuingia kwenye PIN",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Ficha maelezo nyeti yenye fungu la maneno tu unalojua. Vidokezo vilivyosimbwa vinalindwa kwenye kifaa hiki na kwenye hifadhidata yako ya wingu na vinaishi katika mwonekano tofauti uliofungwa.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Ficha kidokezo hiki",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Maelezo yaliyosimbwa",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Vidokezo vilivyosimbwa vimefungwa",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("usimbaji fiche"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Imewezeshwa"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Weka msimbo wa pasipoti na kurejesha",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Ingiza nenosiri la sasa",
@@ -170,8 +194,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "Ingiza kutoka JSON",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Nenosiri lisilo sahihi",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Nenosiri sio sahihi",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Msimbo wa uokoaji usio sahihi",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Faili mbadala si sahihi",
@@ -183,6 +213,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Ondoka"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Mwanga"),
     "link": MessageLookupByLibrary.simpleMessage("Kiungo"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Funga vidokezo vilivyosimbwa",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("Funga kidokezo hiki"),
     "logIn": MessageLookupByLibrary.simpleMessage("Ingia"),
     "logOut": MessageLookupByLibrary.simpleMessage("Toka"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Jiondoe"),
@@ -193,6 +227,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("Imetiwa doa"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Nenosiri Jipya"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "Bado hakuna maelezo yaliyosimbwa",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Haipatikani"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Kumbukumbu imehifadhiwa kwa mafanikio",
@@ -224,6 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Palette (bofya saa ili kuhariri)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Nenosiri"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Barua pepe ya kuweka upya nenosiri imepelekwa",
     ),
@@ -265,7 +303,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Mradi kwenye Github",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Rekodi Sauti"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("Msimbo wa kurejesha"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Tengeneza upya msimbo wa kurejesha",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Vikumbusho:"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Ondoa usimbaji fiche kutoka kwenye kidokezo hiki",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Weka upya nenosiri"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Weka upya PIN"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -323,8 +368,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Hitilafu isiyotarajiwa ilitokea",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Fungua vidokezo vilivyosimbwa",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Fungua kidokezo hiki",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("URL ya WebDAV"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("Kuna nini kipya?"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Linda maelezo nyeti kwa kutumia usimbaji fiche unaotegemea maneno ya siri na machaguo ya kurejesha.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "Kuhusu usimbaji fiche",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Binafsisha DiaryVault na rangi zako mwenyewe na mtindo wa kuona.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Kuunda na kufanya mada ziwe mahususi",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN isiyo sahihi"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Una mabadiliko ambayo hayajahifadhiwa",

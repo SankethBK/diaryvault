@@ -12,6 +12,7 @@ import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dar
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dairy_app/generated/l10n.dart';
 
 /// Separate view listing all encrypted notes. Entering requires an unlocked
 /// session; leaving the page locks it again, so the passphrase is never
@@ -113,7 +114,7 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text("Encrypted notes"),
+        title: Text(S.current.encryptedNotes),
         actions: [
           IconButton(
             icon: const Icon(Icons.lock),
@@ -162,7 +163,7 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
                             size: 48, color: mainTextColor),
                         const SizedBox(height: 12),
                         Text(
-                          "Encrypted notes are locked",
+                          S.current.encryptedNotesLocked,
                           style: TextStyle(color: mainTextColor, fontSize: 16),
                         ),
                         const SizedBox(height: 16),
@@ -186,7 +187,7 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
                   previews.isEmpty
                       ? Center(
                           child: Text(
-                            "No encrypted notes yet",
+                            S.current.noEncryptedNotesYet,
                             style: TextStyle(color: mainTextColor),
                           ),
                         )

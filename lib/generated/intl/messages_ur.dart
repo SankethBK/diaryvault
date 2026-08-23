@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("کیمرا"),
     "cancel": MessageLookupByLibrary.simpleMessage("منسوخ کریں"),
+    "change": MessageLookupByLibrary.simpleMessage("تبدیل"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "پس منظر کا رنگ تبدیل کریں",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("ای میل تبدیل کریں"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "خفیہ کاری کا پاس فریز تبدیل کریں",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("تصویر تبدیل کریں"),
     "changePassword": MessageLookupByLibrary.simpleMessage(
       "پاس ورڈ تبدیل کریں",
@@ -124,8 +128,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "فنگر پرنٹ لاگ ان فعال کریں",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "نوٹ کی خفیہ کاری فعال کریں",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "PIN لاگ ان فعال کریں",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "حساس نوٹوں کو پاس فریز کے ساتھ صرف آپ جانتے ہیں انکرپٹ کریں ۔ مرموز کردہ نوٹ اس ڈیوائس پر اور آپ کے کلاؤڈ بیک اپ میں محفوظ ہیں، اور ایک علیحدہ لاکڈ ویو میں رہتے ہیں ۔",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "اس نوٹ کو خفیہ کریں",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("مرموز کردہ نوٹ"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "مرموز کردہ نوٹ مقفل ہیں",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("صفریت"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("فعال"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "پاس فریز اور ریکوری کوڈ سیٹ اپ کریں",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "موجودہ پاس ورڈ درج کریں",
@@ -172,7 +194,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "JSON سے درآمد کریں",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage("غلط پاس فریز"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage("غلط پاس ورڈ."),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "غلط بازیابی کوڈ",
+    ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "غلط بیک اپ فائل",
     ),
@@ -181,6 +207,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("چھوڑ دیں"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("روشنی "),
     "link": MessageLookupByLibrary.simpleMessage("لنک"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "مرموز کردہ نوٹوں کو لاک کریں",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("اس نوٹ کو لاک کریں"),
     "logIn": MessageLookupByLibrary.simpleMessage("لاگ ان"),
     "logOut": MessageLookupByLibrary.simpleMessage("لاگ آؤٹ کریں"),
     "logOut2": MessageLookupByLibrary.simpleMessage("لاگ آوٹ کریں"),
@@ -191,6 +221,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("خاموش"),
     "newPassword": MessageLookupByLibrary.simpleMessage("نیا پاس ورڈ"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("نیکسٹ کلاؤڈ"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "ابھی تک کوئی انکرپٹ شدہ نوٹ نہیں ہے",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("دستیاب نہیں"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "نوٹ کامیابی کے ساتھ محفوظ ہو گیا",
@@ -220,6 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "پیلیٹ (ترمیم کرنے کے لیے سویچ پر ٹیپ کریں)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("پاس فریز"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "پاس ورڈ ری سیٹ ای میل بھیج دیا گیا",
     ),
@@ -259,7 +293,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Github پر پروجیکٹ",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("آڈیو ریکارڈ کریں"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("بحالی کوڈ"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "بحالی کا کوڈ دوبارہ تخلیق کریں",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("یاد دہانیاں"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "اس نوٹ سے خفیہ کاری کو ہٹا دیں",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "پاس ورڈ دوبارہ ترتیب دیں",
     ),
@@ -319,8 +360,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "غیر متوقع خرابی پیش آگئی",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "خفیہ نوٹوں کو غیر مقفل کریں",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "اس نوٹ کو غیر مقفل کریں",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("ویڈیو"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("نیا کیا ہے؟ "),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "پاس فریز پر مبنی خفیہ کاری اور بازیابی کے اختیارات کے ساتھ حساس نوٹوں کی حفاظت کریں ۔",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "خفیہ کاری کے بارے میں",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "اپنے رنگوں اور بصری انداز کے ساتھ ڈائری والٹ کو ذاتی بنائیں ۔",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "تھیمز بنانا اور اپنی مرضی کے مطابق بنانا",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("غلط PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "آپ کی کچھ تبدیلیاں محفوظ نہیں کی گئیں۔",

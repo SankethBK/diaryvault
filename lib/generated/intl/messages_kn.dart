@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("ಕ್ಯಾಮೆರಾ"),
     "cancel": MessageLookupByLibrary.simpleMessage("ರದ್ದುಮಾಡು"),
+    "change": MessageLookupByLibrary.simpleMessage("ಬದಲಿಸು"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "ಹಿನ್ನೆಲೆ ಬಣ್ಣವನ್ನು ಬದಲಾಯಿಸಿ",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("ಇಮೇಲ್ ಬದಲಾಯಿಸಿ"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "ಎನ್‌ಕ್ರಿಪ್ಷನ್ ಪಾಸ್‌ಫ್ರೇಸ್ ಬದಲಾಯಿಸಿ",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("ಚಿತ್ರವನ್ನು ಬದಲಾಯಿಸಿ"),
     "changePassword": MessageLookupByLibrary.simpleMessage(
       "ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸಿ",
@@ -126,8 +130,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ಲಾಗಿನ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "ಟಿಪ್ಪಣಿ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "ಪಿನ್ ಲಾಗಿನ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "ನಿಮಗೆ ಮಾತ್ರ ತಿಳಿದಿರುವ ಪಾಸ್‌ಫ್ರೇಸ್‌ನೊಂದಿಗೆ ಸೂಕ್ಷ್ಮ ಟಿಪ್ಪಣಿಗಳನ್ನು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿ. ಗೂಢಲಿಪೀಕರಿಸಿದ ಟಿಪ್ಪಣಿಗಳನ್ನು ಈ ಸಾಧನದಲ್ಲಿ ಮತ್ತು ನಿಮ್ಮ ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್‌ನಲ್ಲಿ ರಕ್ಷಿಸಲಾಗಿದೆ ಮತ್ತು ಪ್ರತ್ಯೇಕ ಲಾಕ್ ಮಾಡಿದ ವೀಕ್ಷಣೆಯಲ್ಲಿ ಲೈವ್ ಮಾಡಲಾಗುತ್ತದೆ.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "ಈ ಟಿಪ್ಪಣಿಯನ್ನು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿ",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಟಿಪ್ಪಣಿಗಳು",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "ಗೂಢಲಿಪೀಕರಿಸಿದ ಟಿಪ್ಪಣಿಗಳನ್ನು ಲಾಕ್ ಮಾಡಲಾಗಿದೆ",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("ಗೂಢಲಿಪೀಕರಣ"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("ಶಕ್ತಗೊಳಿಸಲಾದ"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "ಪಾಸ್‌ಫ್ರೇಸ್ ಮತ್ತು ಮರುಪಡೆಯುವಿಕೆ ಕೋಡ್ ಅನ್ನು ಹೊಂದಿಸಿ",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "ಪ್ರಸ್ತುತ ಪಾಸ್ವರ್ಡ್ ನಮೂದಿಸಿ",
@@ -172,8 +196,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "JSON ನಿಂದ ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "ತಪ್ಪಾದ ಪಾಸ್‌ಫ್ರೇಸ್",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "ತಪ್ಪಾದ ಪಾಸ್ವರ್ಡ್",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "ತಪ್ಪಾದ ಮರುಪಡೆಯುವಿಕೆ ಕೋಡ್",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "ಅಮಾನ್ಯ ಬ್ಯಾಕಪ್ ಫೈಲ್",
@@ -185,6 +215,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("ಬಿಡು"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("ಬೆಳಕು"),
     "link": MessageLookupByLibrary.simpleMessage("ಲಿಂಕ್"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಟಿಪ್ಪಣಿಗಳನ್ನು ಲಾಕ್ ಮಾಡಿ",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage(
+      "ಈ ಟಿಪ್ಪಣಿಯನ್ನು ಲಾಕ್ ಮಾಡಿ",
+    ),
     "logIn": MessageLookupByLibrary.simpleMessage("ಲಾಗಿನ್ ಮಾಡಿ"),
     "logOut": MessageLookupByLibrary.simpleMessage("ಲಾಗ್ ಔಟ್"),
     "logOut2": MessageLookupByLibrary.simpleMessage("ಲಾಗ್ಔಟ್"),
@@ -195,6 +231,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("ಮ್ಯೂಟ್ ಮಾಡಲಾಗಿದೆ."),
     "newPassword": MessageLookupByLibrary.simpleMessage("ಹೊಸ ಪಾಸ್ವರ್ಡ್"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("ನೆಕ್ಸ್ಟ್ ಕ್ಲೌಡ್"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "ಇನ್ನೂ ಯಾವುದೇ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾದ ಟಿಪ್ಪಣಿಗಳು ಇಲ್ಲ",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("ಲಭ್ಯವಿಲ್ಲ"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "ಟಿಪ್ಪಣಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ",
@@ -224,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "ಪ್ಯಾಲೆಟ್ (ಸಂಪಾದಿಸಲು ಸ್ವ್ಯಾಚ್ ಟ್ಯಾಪ್ ಮಾಡಿ)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("ಪಾಸ್‌ಫ್ರೇಸ್"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸಿ ಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ",
     ),
@@ -269,7 +309,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "ಗಿಥಬ್‌ನಲ್ಲಿ ಪ್ರಾಜೆಕ್ಟ್",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("ರೆಕಾರ್ಡ್ ಆಡಿಯೋ"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("ರಿಕವರಿ ಕೋಡ್"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "ಮರುಪಡೆಯುವಿಕೆ ಕೋಡ್ ಅನ್ನು ಪುನರುತ್ಪಾದಿಸಿ",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("ಜ್ಞಾಪನೆ"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "ಈ ಟಿಪ್ಪಣಿಯಿಂದ ಗೂಢಲಿಪೀಕರಣವನ್ನು ತೆಗೆದುಹಾಕಿ",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸಿ",
     ),
@@ -331,8 +378,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "ಅನಿರೀಕ್ಷಿತ ದೋಷ ಸಂಭವಿಸಿದೆ",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಟಿಪ್ಪಣಿಗಳನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "ಈ ಟಿಪ್ಪಣಿಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("ವೀಡಿಯೊ"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("ವೆಬ್ಡಾವ್ url"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("ಹೊಸತೇನಿದೆ?"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "ಪಾಸ್‌ಫ್ರೇಸ್ ಆಧಾರಿತ ಎನ್‌ಕ್ರಿಪ್ಷನ್ ಮತ್ತು ಮರುಪಡೆಯುವಿಕೆ ಆಯ್ಕೆಗಳೊಂದಿಗೆ ಸೂಕ್ಷ್ಮ ಟಿಪ್ಪಣಿಗಳನ್ನು ರಕ್ಷಿಸಿ.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "ಗೂಢಲಿಪೀಕರಣದ ಬಗ್ಗೆ",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "ಡೈರಿವಾಲ್ಟ್ ಅನ್ನು ನಿಮ್ಮ ಸ್ವಂತ ಬಣ್ಣಗಳು ಮತ್ತು ದೃಶ್ಯ ಶೈಲಿಯೊಂದಿಗೆ ವೈಯಕ್ತೀಕರಿಸಿ.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "ಥೀಮ್‌ಗಳನ್ನು ರಚಿಸುವುದು ಮತ್ತು ಕಸ್ಟಮೈಸ್ ಮಾಡುವುದು",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("ತಪ್ಪಾದ ಪಿನ್"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "ನೀವು ಉಳಿಸದ ಬದಲಾವಣೆಗಳನ್ನು ಹೊಂದಿರುವಿರಿ",

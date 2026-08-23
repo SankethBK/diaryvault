@@ -62,11 +62,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("కెమెరా"),
     "cancel": MessageLookupByLibrary.simpleMessage("రద్దు చేయండి"),
+    "change": MessageLookupByLibrary.simpleMessage("మార్చు"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "బ్యాక్ ‌ గ్రౌండ్ రంగును మార్చండి",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage(
       "ఈ - మెయిల్ ను మార్చండి",
+    ),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "ఎన్ ‌ క్రిప్షన్ పాస్ ‌ ఫ్రేజ్ ‌ ని మార్చండి",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("ఇమేజిను మార్చండి"),
     "changePassword": MessageLookupByLibrary.simpleMessage(
@@ -124,8 +128,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "ఫింగర్‌ప్రింట్‌లాగిన్‌ని ప్రారంభించండి",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "గమనిక గుప్తీకరణను ప్రారంభించండి",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "పిన్ లాగిన్ ‌ ను ప్రారంభించండి",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "మీకు మాత్రమే తెలిసిన పాస్ ‌ ఫ్రేజ్ ‌ తో సున్నితమైన నోట్లను గుప్తీకరించండి. గుప్తీకరించిన గమనికలు ఈ పరికరంలో మరియు మీ క్లౌడ్ బ్యాకప్ ‌ లో రక్షించబడతాయి మరియు ప్రత్యేక లాక్ చేసిన వీక్షణలో నివసిస్తాయి.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "ఈ గమనికను గుప్తీకరించండి",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "గుప్తీకరించిన గమనికలు",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "గుప్తీకరించిన గమనికలు లాక్ చేయబడ్డాయి",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("ఎన్క్రిప్షన్"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("చేతనంచేసిన"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "పాస్ ‌ ఫ్రేజ్ మరియు రికవరీ కోడ్ ‌ ను సెటప్ చేయండి",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "ప్రస్తుత పాస్‌వర్డ్‌న్ని ప్రవేశపెట్టండి",
@@ -178,8 +202,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "JSON నుండి దిగుమతి చేయండి",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "తప్పు పాస్ ‌ ఫ్రేజ్",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "సరికాని పాస్వర్డ్",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "రికవరీ కోడ్ తప్పు",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "చెల్లని బ్యాకప్ ఫైల్",
@@ -191,6 +221,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("వదిలేయండి"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("లైట్"),
     "link": MessageLookupByLibrary.simpleMessage("లింక్"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "గుప్తీకరించిన గమనికలను లాక్ చేయండి",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage(
+      "ఈ గమనికను లాక్ చేయండి",
+    ),
     "logIn": MessageLookupByLibrary.simpleMessage("లాగిన్"),
     "logOut": MessageLookupByLibrary.simpleMessage("లాగ్ అవుట్ చేయండి"),
     "logOut2": MessageLookupByLibrary.simpleMessage("లాగ్అవుట్"),
@@ -201,6 +237,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("మ్యూట్ చేయబడింది"),
     "newPassword": MessageLookupByLibrary.simpleMessage("కొత్త పాస్‌వర్డ్"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("నెక్స్ట్ క్లౌడ్"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "ఇంకా గుప్తీకరించిన గమనికలు ఏవీ లేవు",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("అందుబాటులో లేదు"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "గమనిక విజయవంతంగా భద్రమైంది",
@@ -230,6 +269,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "పాలెట్ (సవరించడానికి స్వాచ్ ‌ ను తట్టండి)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("పాస్ ‌ ఫ్రేజ్"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "పాస్‌వర్డ్ రీసెట్ ఇమెయిల్ పంపబడింది",
     ),
@@ -275,7 +315,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordAudio": MessageLookupByLibrary.simpleMessage(
       "ఆడియోను రికార్డ్ చేయండి",
     ),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("రికవరీ కోడ్"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "రికవరీ కోడ్ ‌ ను పునరుత్పత్తి చేయండి",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("రిమైండర్ ‌ లు"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "ఈ గమనిక నుండి గుప్తీకరణను తొలగించండి",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "పాస్‌వర్డ్‌న్ని మార్చుకోండి",
     ),
@@ -339,8 +386,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "ఊహించని లోపం సంభవించింది",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "గుప్తీకరించిన గమనికలను అన్ ‌ లాక్ చేయండి",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "ఈ గమనికను అన్ ‌ లాక్ చేయండి",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("వీడియో"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("వెబ్DAV URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("కొత్తవి ఏమిటి"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "పాస్ ‌ ఫ్రేజ్ ఆధారిత ఎన్ ‌ క్రిప్షన్ మరియు రికవరీ ఎంపికలతో సున్నితమైన గమనికలను రక్షించండి.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "గుప్తీకరణ గురించి",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "డైరీవాల్ట్ ‌ ను మీ స్వంత రంగులు మరియు దృశ్య శైలితో వ్యక్తిగతీకరించండి.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "థీమ్ ‌ లను సృష్టించడం మరియు అనుకూలీకరించడం",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("తప్పు PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "మీరు సేవ్ చేయని మార్పులను కలిగి ఉన్నారు",

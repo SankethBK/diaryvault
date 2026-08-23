@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "change": MessageLookupByLibrary.simpleMessage("চেঞ্জ"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "পটভূমির বিকল্প রং",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপশন পাসফ্রেজ পরিবর্তন করুন",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("ছবি পরিবর্তন করুন"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
@@ -116,7 +120,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Enable fingerprint login",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "নোট এনক্রিপশন সক্ষম করুন",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage("Enable PIN login"),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "শুধুমাত্র আপনি জানেন এমন পাসফ্রেজ দিয়ে সংবেদনশীল নোট এনক্রিপ্ট করুন । এনক্রিপ্ট করা নোটগুলি এই ডিভাইসে এবং আপনার ক্লাউড ব্যাকআপে সুরক্ষিত থাকে এবং একটি পৃথক লক করা ভিউতে থাকে ।",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "এই নোটটি এনক্রিপ্ট করুন",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("এনক্রিপ্ট করা নোট"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট লক করা আছে",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("এনক্রিপশন প্রক্রিয়া"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("সক্রিয়"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "একটি পাসফ্রেজ এবং রিকভারি কোড সেট আপ করুন",
+    ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Enter current password",
     ),
@@ -158,8 +180,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "JSON থেকে আমদানি করুন",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage("ভুল পাসফ্রেজ"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Incorrect password",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "ভুল রিকভারি কোড",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "অবৈধ ব্যাকআপ ফাইল",
@@ -169,6 +195,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Leave"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("আলো"),
     "link": MessageLookupByLibrary.simpleMessage("Link"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট লক করুন",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("এই নোটটি লক করুন"),
     "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
     "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -179,6 +209,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("নিঃশব্দ"),
     "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "এখনও কোনও এনক্রিপ্ট করা নোট নেই",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note saved successfully",
@@ -208,6 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "প্যালেট (এডিট করতে একটি সোয়াচ ট্যাপ করুন)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("পাসফ্রেজ"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Password reset email sent",
     ),
@@ -247,7 +281,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Project on Github",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("রিকভারি কোড"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "রিকভারি কোড পুনরায় জেনারেট করুন",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("স্মরণ রাখা জরুরী"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "এই নোট থেকে এনক্রিপশন সরান",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -305,8 +346,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Unexpected error occured",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট আনলক করুন",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "এই নোটটি আনলক করুন",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("নতুন কী?"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "পাসফ্রেজ-ভিত্তিক এনক্রিপশন এবং পুনরুদ্ধারের বিকল্পগুলির সাথে সংবেদনশীল নোটগুলি রক্ষা করুন ।",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপশন সম্পর্কে",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "আপনার নিজস্ব রঙ এবং ভিজ্যুয়াল স্টাইলের সাথে ডায়রিভোল্টকে ব্যক্তিগতকৃত করুন ।",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "থিম তৈরি এবং কাস্টমাইজ করা",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "You have unsaved changes",
