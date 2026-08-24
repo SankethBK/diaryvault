@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "accent": MessageLookupByLibrary.simpleMessage("Accent"),
+    "accent": MessageLookupByLibrary.simpleMessage("ټینګار رنګ"),
     "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
       "د حساب تنظیم بریالی شو",
     ),
@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("کېمره"),
     "cancel": MessageLookupByLibrary.simpleMessage("لغوه کړل"),
+    "change": MessageLookupByLibrary.simpleMessage("بدلون"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "شاليد رنګ بدل کړئ",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("بریښنالیک بدل کړئ"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "د کوډه کښنې تېرنويې بدلول",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("undo-type"),
     "changePassword": MessageLookupByLibrary.simpleMessage("پاسورډ بدل کړه"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage("انځور ټاکل"),
@@ -118,8 +122,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "د ګوتو د نښو ننوتون فعال کړئ",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "د نوټ کوډه کول فعال کړئ",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "د PIN ننوتل فعال کړئ",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "یوازې تاسو پوهیږئ د پاس فارمیټ سره حساس یادښتونه کوډ کړئ. کوډ شوي یادښتونه پدې وسیله او ستاسو په کلاوډ بیک اپ کې خوندي دي، او په جلا تړل شوي لید کې ژوند کوي.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage("دا یادښت کوډ کړئ"),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("کوډ شوي یادښتونه"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "کوډ شوي یادښتونه تړل شوي دي",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("کوډه کښل"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("فعال شوی"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "د پاس احکام او د بیا رغونې کوډ تنظیم کړئ",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "اوسنی پاسورډ دننه کړئ",
@@ -168,7 +188,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "له JSON څخه وارد کړئ",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "غلط پاس لوستنه",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(".ناسمه تېرنويې"),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "د بیا رغونې غلط کوډ",
+    ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "ناسمه شاتړ دوتنه",
     ),
@@ -177,9 +203,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("رخصت"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("روشن"),
     "link": MessageLookupByLibrary.simpleMessage("اړیکه"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "کوډ شوي یادښتونه لاک کړئ",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("دا یاداشت قلف کړئ"),
     "logIn": MessageLookupByLibrary.simpleMessage("ننوځه"),
     "logOut": MessageLookupByLibrary.simpleMessage("ووځه"),
-    "logOut2": MessageLookupByLibrary.simpleMessage("Logout"),
+    "logOut2": MessageLookupByLibrary.simpleMessage("وتل"),
     "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
       "مهرباني وکړئ د اتوماتیک همغږۍ فعالولو لپاره ننوځئ",
     ),
@@ -187,6 +217,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("تم شوی"),
     "newPassword": MessageLookupByLibrary.simpleMessage("نوی پاسورډ"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "تر اوسه هیڅ کوډ شوي یادښتونه نشته",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("نیشته"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "یادښت په بریالیتوب سره خوندي شو",
@@ -216,6 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "رنګدبلی (د ترمیم لپاره یوه سویچ ټپ کړئ)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("پټ ټکي"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "د پټ نوم له سره تنظیم شوی بریښنالیک لیږل شوی",
     ),
@@ -255,7 +289,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("د محرميت پالیسي"),
     "projectOnGithub": MessageLookupByLibrary.simpleMessage("په Github پروژه"),
     "recordAudio": MessageLookupByLibrary.simpleMessage("غږ ثبت کړئ"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("د بیا رغونې کوډ"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "د بیا رغونې کوډ بیا تولید کړئ",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("!رايادوونی"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "له دې یادداشت څخه کوډونه لرې کړئ",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("پاسورډ بدل کړئ"),
     "resetPin": MessageLookupByLibrary.simpleMessage("پن کوډ نوی کړه"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -264,7 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("بدلونونه خوندي کړه"),
     "security": MessageLookupByLibrary.simpleMessage("سيکيورټي (حفاظت کول)"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("امنیتي امستنې"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("منتخب"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("غږ غوره کړئ"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("خپل نظرونه ولیږئ"),
     "settings": MessageLookupByLibrary.simpleMessage("تنظیمات"),
@@ -311,8 +352,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "غیر متوقع تېروتنه رامنځته شوه",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "کوډ شوي یادښتونه خلاص کړئ",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "دا یادداشت خلاص کړئ",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("ويډیو"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("نوي څه دي؟"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "د پاسپټ انکرپشن او بیا رغونې اختیارونو سره حساس یادښتونه خوندي کړئ.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "د کوډونې په اړه",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "د خپلو رنګونو او بصري طرز سره DiaryVault شخصي کړئ.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "د ویینو جوړول او تنظیم کول",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("ناسم پِن (PIN)."),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "تاسو نه خوندي شوي بدلونونه لرئ.",

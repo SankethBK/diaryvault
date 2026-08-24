@@ -28,65 +28,73 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(count) => "Импортировано ${count} заметок";
 
-  static String m3(time) => "You will be notified at ${time}";
+  static String m3(time) => "Вы получите уведомление в ${time}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "accent": MessageLookupByLibrary.simpleMessage("Акцент"),
     "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
-      "Account setup successful",
+      "Настройка аккаунта прошла успешно",
     ),
     "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage(
-      "Already have an account?",
+      "У вас уже есть учетная запись?",
     ),
     "appDescription": MessageLookupByLibrary.simpleMessage(
-      "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!",
+      "Discover diaryVault - приложение для ведения дневника, которое поможет вам легко запечатлеть свои мысли, воспоминания и моменты. Уже доступно в Play Маркете!",
     ),
-    "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
-    "appVersion": MessageLookupByLibrary.simpleMessage("App version"),
+    "appLanguage": MessageLookupByLibrary.simpleMessage("Язык Приложения"),
+    "appVersion": MessageLookupByLibrary.simpleMessage("Версия приложения"),
     "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
-      "Are you sure about logging out?",
+      "Вы уверены, что хотите выйти?",
     ),
-    "autoSync": MessageLookupByLibrary.simpleMessage("Auto sync"),
+    "autoSync": MessageLookupByLibrary.simpleMessage("Автосинхронизация"),
     "automaticallySave": MessageLookupByLibrary.simpleMessage(
-      "Automatically saves your notes after every 10 seconds",
+      "Автоматически сохраняет заметки каждые 10 секунд",
     ),
     "automaticallySyncNotesWithCloud": MessageLookupByLibrary.simpleMessage(
-      "Automatically sync notes with cloud",
+      "Автоматическая синхронизация заметок с облаком",
     ),
     "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
-      "Available platforms for sync",
+      "Доступные платформы для синхронизации",
     ),
     "byContinuingYouAgree": MessageLookupByLibrary.simpleMessage(
-      "By continuing, you agree to our",
+      "Продолжая, вы принимаете наши",
     ),
-    "camera": MessageLookupByLibrary.simpleMessage("Camera"),
-    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "camera": MessageLookupByLibrary.simpleMessage("Камера"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+    "change": MessageLookupByLibrary.simpleMessage("Изменение"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Изменить цвет фона",
     ),
-    "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
+    "changeEmail": MessageLookupByLibrary.simpleMessage(
+      "Изменить адрес электронной почты",
+    ),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Изменить парольную фразу шифрования",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Изменить изображение"),
-    "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Смена пароля"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
       "Выберите фоновое изображение",
     ),
     "chooseTheSyncSource": MessageLookupByLibrary.simpleMessage(
-      "Choose the Sync Source",
+      "Выбор источника синхронизации",
     ),
-    "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose Theme"),
-    "chooseTime": MessageLookupByLibrary.simpleMessage("Choose Time"),
-    "closeTheApp": MessageLookupByLibrary.simpleMessage("Close the App?"),
+    "chooseTheme": MessageLookupByLibrary.simpleMessage("Выберите тему"),
+    "chooseTime": MessageLookupByLibrary.simpleMessage("Выберите время"),
+    "closeTheApp": MessageLookupByLibrary.simpleMessage("Закрыть приложение?"),
     "cloudBackup": MessageLookupByLibrary.simpleMessage(
       "Удалённое резервное копирование данных",
     ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
-      "Confirm new password",
+      "Подтвердите новый пароль",
     ),
     "confirmNewPin": MessageLookupByLibrary.simpleMessage(
-      "Confirm your new PIN",
+      "Подтвердите новый ПИН-код",
     ),
-    "continueAsGues": MessageLookupByLibrary.simpleMessage("Continue as guest"),
+    "continueAsGues": MessageLookupByLibrary.simpleMessage(
+      "Продолжить В Качестве Гостя",
+    ),
     "create": MessageLookupByLibrary.simpleMessage("Создать"),
     "createYourTheme": MessageLookupByLibrary.simpleMessage(
       "Создать свою собственную тему",
@@ -97,63 +105,91 @@ class MessageLookup extends MessageLookupByLibrary {
     "customThemes": MessageLookupByLibrary.simpleMessage(
       "Пользовательская Теми",
     ),
-    "dailyReminders": MessageLookupByLibrary.simpleMessage("Daily Reminders"),
+    "dailyReminders": MessageLookupByLibrary.simpleMessage(
+      "Щоденні нагадування",
+    ),
     "darkLabel": MessageLookupByLibrary.simpleMessage("Темный"),
     "darkTheme": MessageLookupByLibrary.simpleMessage("Темная тема"),
-    "dateFilter": MessageLookupByLibrary.simpleMessage("Date Filter"),
+    "dateFilter": MessageLookupByLibrary.simpleMessage("Фильтр по дате"),
     "defaultThemeName": MessageLookupByLibrary.simpleMessage("Моя тема"),
-    "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-    "deletionFailed": MessageLookupByLibrary.simpleMessage("Deletion failed"),
-    "done": MessageLookupByLibrary.simpleMessage("Done"),
+    "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+    "deletionFailed": MessageLookupByLibrary.simpleMessage(
+      "Не удалось удалить",
+    ),
+    "done": MessageLookupByLibrary.simpleMessage("Готово"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
-      "Don\'t have an account?",
+      "Нет учетной записи?",
     ),
     "dropbox": MessageLookupByLibrary.simpleMessage("Dropbox"),
     "editTheme": MessageLookupByLibrary.simpleMessage("Редактировать тему"),
     "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Email updated successfully, please login again",
+      "Электронная почта успешно обновлена, пожалуйста, войдите снова",
     ),
-    "enableAutoSave": MessageLookupByLibrary.simpleMessage("Enable auto save"),
+    "enableAutoSave": MessageLookupByLibrary.simpleMessage("Включить"),
     "enableDailyReminders": MessageLookupByLibrary.simpleMessage(
-      "Enable Daily Reminders",
+      "Включить ежедневные напоминания",
     ),
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
-      "Enable fingerprint login",
+      "Включить вход по отпечатку пальца",
     ),
-    "enablePINLogin": MessageLookupByLibrary.simpleMessage("Enable PIN login"),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Включить шифрование заметок",
+    ),
+    "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+      "Включить PIN-КОД для входа",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Шифруйте конфиденциальные заметки парольной фразой, которую знаете только вы. Зашифрованные заметки защищены на этом устройстве и в вашей облачной резервной копии и находятся в отдельном заблокированном представлении.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Зашифровать это примечание",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Зашифрованные заметки",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Зашифрованные заметки заблокированы",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Шифрование"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Включен"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Настройте парольную фразу и код восстановления",
+    ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
-      "Enter current password",
+      "Ввести текущий пароль",
     ),
-    "enterNewEmail": MessageLookupByLibrary.simpleMessage("Enter new email"),
-    "enterPin": MessageLookupByLibrary.simpleMessage("Enter your PIN"),
+    "enterNewEmail": MessageLookupByLibrary.simpleMessage(
+      "Введите новый email",
+    ),
+    "enterPin": MessageLookupByLibrary.simpleMessage("Введите PIN-код"),
     "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage(
-      "Enter Registered Email",
+      "Введите свой зарегистрированный адрес электронной почты",
     ),
-    "exportNotes": MessageLookupByLibrary.simpleMessage("Export your notes"),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
-    "exportToPDF": MessageLookupByLibrary.simpleMessage("Export to PDF"),
+    "exportNotes": MessageLookupByLibrary.simpleMessage(
+      "Экспортировать заметки",
+    ),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("Экспорт в JSON"),
+    "exportToPDF": MessageLookupByLibrary.simpleMessage("Экспорт в PDF"),
     "exportToPlainText": MessageLookupByLibrary.simpleMessage(
-      "Export to Plain Text",
+      "Экспорт в обычный текст",
     ),
     "failedToFetchNote": MessageLookupByLibrary.simpleMessage(
-      "Failed to fetch note",
+      "Не удалось получить примечание",
     ),
-    "failedToSaveNote": MessageLookupByLibrary.simpleMessage(
-      "Failed to save note",
-    ),
+    "failedToSaveNote": MessageLookupByLibrary.simpleMessage("Сбой сохранения"),
     "fingerPrintAthShouldBeEnabledInDeviceSettings":
         MessageLookupByLibrary.simpleMessage(
-          "Fingerprint auth should be enabled in device settings",
+          "Аутентификация по отпечатку пальца должна быть включена в настройках устройства",
         ),
     "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
-      "Fingerprint login failed",
+      "Ошибка входа по отпечатку пальца",
     ),
-    "fontFamily": MessageLookupByLibrary.simpleMessage("Font Family"),
-    "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password"),
-    "from": MessageLookupByLibrary.simpleMessage("From"),
-    "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+    "fontFamily": MessageLookupByLibrary.simpleMessage("Шрифт"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
+    "from": MessageLookupByLibrary.simpleMessage("От"),
+    "gallery": MessageLookupByLibrary.simpleMessage("Галерея"),
     "getDailyReminders": MessageLookupByLibrary.simpleMessage(
-      "Get daily reminders at your chosen time to keep your journal up to date.",
+      "Получайте ежедневные напоминания в выбранное время, чтобы поддерживать свой журнал в актуальном состоянии.",
     ),
     "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
     "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
@@ -162,158 +198,199 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "Импорт из JSON файла",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Неверная парольная фраза",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
-      "Incorrect password",
+      "Неверный пароль",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Неверный код восстановления",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Неверный файл резервной копии.",
     ),
     "language": MessageLookupByLibrary.simpleMessage("Russian"),
-    "lastSynced": MessageLookupByLibrary.simpleMessage("Last synced: "),
-    "leave": MessageLookupByLibrary.simpleMessage("Leave"),
+    "lastSynced": MessageLookupByLibrary.simpleMessage(
+      "Последняя синхронизация: %@",
+    ),
+    "leave": MessageLookupByLibrary.simpleMessage("Выйти"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Легкий"),
-    "link": MessageLookupByLibrary.simpleMessage("Link"),
-    "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
-    "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
-    "logOut2": MessageLookupByLibrary.simpleMessage("Logout"),
+    "link": MessageLookupByLibrary.simpleMessage("Ссылки"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Блокировка зашифрованных заметок",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Заблокировать эту заметку",
+    ),
+    "logIn": MessageLookupByLibrary.simpleMessage("Войти в личный кабинет"),
+    "logOut": MessageLookupByLibrary.simpleMessage("Выйти из учетной записи"),
+    "logOut2": MessageLookupByLibrary.simpleMessage("Выйти"),
     "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
-      "Please login to enable auto-sync",
+      "Войдите, чтобы включить автоматическую синхронизацию",
     ),
-    "moreInfo": MessageLookupByLibrary.simpleMessage("More Info"),
+    "moreInfo": MessageLookupByLibrary.simpleMessage(
+      "Дополнительная информация",
+    ),
     "muted": MessageLookupByLibrary.simpleMessage("Приглушенный"),
-    "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
-    "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
-    "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Note saved successfully",
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "Пока нет зашифрованных заметок",
     ),
+    "notAvailable": MessageLookupByLibrary.simpleMessage("Нет данных"),
+    "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage("Сохранено"),
     "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Note updated successfully",
+      "Заметка успешно обновлена.",
     ),
     "notesImportPartialFailure": m0,
     "notesImportSkippedSummary": m1,
     "notesImportSuccess": m2,
     "notesSyncSuccessfull": MessageLookupByLibrary.simpleMessage(
-      "Notes sync successful",
+      "Синхронизация заметок выполнена успешно",
     ),
     "notificationDescription1": MessageLookupByLibrary.simpleMessage(
-      "Take a few minutes to reflect on your day in your diary",
+      "Потратьте несколько минут, чтобы поразмышлять о своем дне в дневнике",
     ),
     "notificationTimeNotEnabled": MessageLookupByLibrary.simpleMessage(
-      "You haven\'t selected a notification time",
+      "Вы не выбрали время уведомления",
     ),
     "notificationTitle1": MessageLookupByLibrary.simpleMessage(
-      "Time to Journal!",
+      "Время вести дневник!",
     ),
     "notificationsNotEnabled": MessageLookupByLibrary.simpleMessage(
-      "Notifications are not enabled",
+      "push-уведомления",
     ),
-    "pageNotFound": MessageLookupByLibrary.simpleMessage("Page not found"),
+    "pageNotFound": MessageLookupByLibrary.simpleMessage("Страница не найдена"),
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Палитра (коснитесь образца для редактирования)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Кодовая фраза"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
-      "Password reset email sent",
+      "Шаблон электронного сообщения о сбросе пароля",
     ),
     "passwordResetSuccessful": MessageLookupByLibrary.simpleMessage(
-      "Password reset successful",
+      "Восстановление пароля прошло успешно",
     ),
     "passwordVerified": MessageLookupByLibrary.simpleMessage(
-      "Password verified",
+      "Подтверждение пароля",
     ),
     "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
-      "Passwords don\'t match",
+      "Пароли не совпадают",
     ),
     "pickAColor": MessageLookupByLibrary.simpleMessage("Выбери цвет"),
     "pickBackgroundColorInstead": MessageLookupByLibrary.simpleMessage(
       "Выберите цвет фона",
     ),
-    "pickFromFileManager": MessageLookupByLibrary.simpleMessage(
-      "Pick From Files",
-    ),
-    "pinLoginFailed": MessageLookupByLibrary.simpleMessage("PIN login failed"),
+    "pickFromFileManager": MessageLookupByLibrary.simpleMessage("Из файлов"),
+    "pinLoginFailed": MessageLookupByLibrary.simpleMessage("Вход не выполнен"),
     "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
-      "An up 4 to digit PIN will be prompted on lock screen",
+      "На экране блокировки отобразится PIN-КОД до 4 цифр",
     ),
     "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
-      "Please enter a 4-digit PIN",
+      "Введите новый 4-значный ПИН-код.",
     ),
     "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
-      "PIN confirmation feeling",
+      "Ощущение подтверждения PIN-КОДА",
     ),
-    "pinsDontMatch": MessageLookupByLibrary.simpleMessage("PINs don\'t match"),
-    "pleaseSetupYourAccountToUseThisFeature":
-        MessageLookupByLibrary.simpleMessage(
-          "Please setup your account to use this feature",
-        ),
-    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-    "projectOnGithub": MessageLookupByLibrary.simpleMessage(
-      "Project on Github",
+    "pinsDontMatch": MessageLookupByLibrary.simpleMessage("не совпадают;"),
+    "pleaseSetupYourAccountToUseThisFeature": MessageLookupByLibrary.simpleMessage(
+      "Пожалуйста, настройте свою учетную запись, чтобы использовать эту функцию",
     ),
-    "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage(
+      "Политика конфиденциальности",
+    ),
+    "projectOnGithub": MessageLookupByLibrary.simpleMessage("Проект на GitHub"),
+    "recordAudio": MessageLookupByLibrary.simpleMessage("Запись аудио"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("Код восстановления"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Регенерировать код восстановления",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Напоминания"),
-    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
-    "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Удалить шифрование из этой заметки",
+    ),
+    "resetPassword": MessageLookupByLibrary.simpleMessage("Сброс пароля"),
+    "resetPin": MessageLookupByLibrary.simpleMessage("Сброс PIN-кода"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage("Применить тему"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Сохранить настройки"),
     "security": MessageLookupByLibrary.simpleMessage("Безопасность"),
     "securitySettings": MessageLookupByLibrary.simpleMessage(
-      "Security Settings",
+      "Настройки безопасности",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Выбрать"),
     "selectVoice": MessageLookupByLibrary.simpleMessage(
       "Выберите <bpt i=\"0\"/>Голосовой ввод<ept i=\"0\"/>.",
     ),
-    "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
-    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "sendFeedback": MessageLookupByLibrary.simpleMessage("Отправить отзыв"),
+    "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
     "setupYourAccount": MessageLookupByLibrary.simpleMessage(
-      "Setup your Account",
+      "ЗАРЕГИСТРИРОВАТЬСЯ",
     ),
     "shareWithFriends": MessageLookupByLibrary.simpleMessage(
-      "Share with Friends",
+      "Поделиться с друзьями",
     ),
-    "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "signIn": MessageLookupByLibrary.simpleMessage("Войти"),
     "signInWithEmail": MessageLookupByLibrary.simpleMessage(
-      "Sign in with Email",
+      "Войти с помощью электронной почты",
     ),
-    "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
-    "signedInAs": MessageLookupByLibrary.simpleMessage("Signed in as"),
-    "sortByAtoZ": MessageLookupByLibrary.simpleMessage("Sort by A-Z"),
+    "signUp": MessageLookupByLibrary.simpleMessage("Регистрация"),
+    "signedInAs": MessageLookupByLibrary.simpleMessage("Зарегистрировался как"),
+    "sortByAtoZ": MessageLookupByLibrary.simpleMessage("Сортировка А-Я"),
     "sortByLatestFirst": MessageLookupByLibrary.simpleMessage(
-      "Sort by Latest First",
+      "Сортировать по последним",
     ),
     "sortByOldestFirst": MessageLookupByLibrary.simpleMessage(
-      "Sort by Oldest First",
+      "Сортировать по дате (сначала старые)",
     ),
-    "stay": MessageLookupByLibrary.simpleMessage("Stay"),
-    "submit": MessageLookupByLibrary.simpleMessage("Submit"),
-    "syncNow": MessageLookupByLibrary.simpleMessage("Sync now"),
+    "stay": MessageLookupByLibrary.simpleMessage("Ждите"),
+    "submit": MessageLookupByLibrary.simpleMessage("Отправить"),
+    "syncNow": MessageLookupByLibrary.simpleMessage("Синхронизировать сейчас"),
     "tagAlreadyExists": MessageLookupByLibrary.simpleMessage(
-      "Tag already exists",
+      "Тег с таким именем уже существует",
     ),
     "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
-      "Tap here to expand title",
+      "Нажмите здесь, чтобы развернуть заголовок",
     ),
     "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
       "Настройка темы, шрифтов и языка",
     ),
     "themeName": MessageLookupByLibrary.simpleMessage("Название темы"),
     "themeNameHint": MessageLookupByLibrary.simpleMessage("Моя тема"),
-    "to": MessageLookupByLibrary.simpleMessage("To"),
+    "to": MessageLookupByLibrary.simpleMessage("Кому"),
     "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
-      "Too many wrong attempts, please login with password",
+      "Слишком много неправильных попыток, пожалуйста, войдите с паролем",
     ),
     "toolbarPosition": MessageLookupByLibrary.simpleMessage(
       "Блокировать позицию панели инструментов",
     ),
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
-      "Unexpected error occured",
+      "Неожиданная ошибка ...",
     ),
-    "video": MessageLookupByLibrary.simpleMessage("Video"),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Разблокировать зашифрованные заметки",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Разблокировать это примечание",
+    ),
+    "video": MessageLookupByLibrary.simpleMessage("Видео мониторинг"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
-    "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("Что нового"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Защитите конфиденциальные заметки с помощью параметров шифрования и восстановления на основе парольных фраз.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "О шифровании AES:",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Персонализируйте DiaryVault с помощью собственных цветов и визуального стиля.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Создание и настройка тем",
+    ),
+    "wrongPIN": MessageLookupByLibrary.simpleMessage("Неверный PIN-код"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
-      "You have unsaved changes",
+      "У вас есть несохраненные изменения",
     ),
     "youWillBeNotifiedAt": m3,
   };

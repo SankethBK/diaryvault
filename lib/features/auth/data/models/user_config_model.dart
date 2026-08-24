@@ -54,7 +54,7 @@ class UserConfigModel extends Equatable {
     this.isAutoSyncEnabled,
     this.isFingerPrintLoginEnabled,
     this.isPINLoginEnabled,
-    this.isAutoSaveEnabled,
+    this.isAutoSaveEnabled = true,
     this.isDailyReminderEnabled,
     this.reminderTime,
     this.noteSortType,
@@ -133,7 +133,9 @@ class UserConfigModel extends Equatable {
         isFingerPrintLoginEnabled:
             jsonMap[UserConfigConstants.isFingerPrintLoginEnabled],
         isPINLoginEnabled: jsonMap[UserConfigConstants.isPINLoginEnabled],
-        isAutoSaveEnabled: jsonMap[UserConfigConstants.isAutoSaveEnabled],
+        // Missing values are from older installs; auto-save is now enabled by default.
+        isAutoSaveEnabled:
+            jsonMap[UserConfigConstants.isAutoSaveEnabled] ?? true,
         isDailyReminderEnabled:
             jsonMap[UserConfigConstants.isDailyReminderEnabled],
         reminderTime: getTimeOfDayFromTimeString(

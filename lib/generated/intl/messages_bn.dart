@@ -28,63 +28,71 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(count) => "আমদানিকৃত ${count} টি নোট";
 
-  static String m3(time) => "You will be notified at ${time}";
+  static String m3(time) => "আপনাকে ${time} -এ জানানো হবে";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "accent": MessageLookupByLibrary.simpleMessage("অ্যাকসেন্ট"),
     "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
-      "Account setup successful",
+      "অ্যাকাউন্ট সেটআপ সফল হয়েছে",
     ),
     "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage(
-      "Already have an account?",
+      "আগে থেকেই একটি অ্যাকাউন্ট আছে কি?",
     ),
     "appDescription": MessageLookupByLibrary.simpleMessage(
-      "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!",
+      "DiaryVault আবিষ্কার করুন - একটি ডায়েরি অ্যাপ যা আপনাকে আপনার চিন্তাভাবনা, স্মৃতি এবং মুহূর্তগুলি অনায়াসে ক্যাপচার করতে সহায়তা করার জন্য ডিজাইন করা হয়েছে । এখন প্লে স্টোরে পাওয়া যাচ্ছে!",
     ),
-    "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
-    "appVersion": MessageLookupByLibrary.simpleMessage("App version"),
+    "appLanguage": MessageLookupByLibrary.simpleMessage("অ্যাপের ভাষা"),
+    "appVersion": MessageLookupByLibrary.simpleMessage("অ্যাপ সংস্করণ"),
     "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
-      "Are you sure about logging out?",
+      "আপনি কি লগ আউট করার ব্যাপারে নিশ্চিত?",
     ),
-    "autoSync": MessageLookupByLibrary.simpleMessage("Auto sync"),
+    "autoSync": MessageLookupByLibrary.simpleMessage("স্বয়ংক্রিয় সমলয়"),
     "automaticallySave": MessageLookupByLibrary.simpleMessage(
-      "Automatically saves your notes after every 10 seconds",
+      "প্রতি 10 সেকেন্ডে স্বয়ংক্রিয়ভাবে আপনার নোট সংরক্ষণ করে",
     ),
     "automaticallySyncNotesWithCloud": MessageLookupByLibrary.simpleMessage(
-      "Automatically sync notes with cloud",
+      "ক্লাউডের সাথে স্বয়ংক্রিয়ভাবে নোট সিঙ্ক করুন",
     ),
     "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
-      "Available platforms for sync",
+      "সিঙ্কের জন্য উপলব্ধ প্ল্যাটফর্ম",
     ),
     "byContinuingYouAgree": MessageLookupByLibrary.simpleMessage(
-      "By continuing, you agree to our",
+      "জারী রাখার মাধ্যমে, আপনি সম্মতি প্রকাশ করছেন আমাদের",
     ),
-    "camera": MessageLookupByLibrary.simpleMessage("Camera"),
-    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "camera": MessageLookupByLibrary.simpleMessage("ক্যামেরা"),
+    "cancel": MessageLookupByLibrary.simpleMessage("বাতিল করুন"),
+    "change": MessageLookupByLibrary.simpleMessage("চেঞ্জ"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "পটভূমির বিকল্প রং",
     ),
-    "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
+    "changeEmail": MessageLookupByLibrary.simpleMessage("ইমেইল পরিবর্তন করুন"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপশন পাসফ্রেজ পরিবর্তন করুন",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("ছবি পরিবর্তন করুন"),
-    "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
+    "changePassword": MessageLookupByLibrary.simpleMessage(
+      "পাসওয়ার্ড পরিবর্তন করুন",
+    ),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
       "ছবি নির্বাচন করুন",
     ),
     "chooseTheSyncSource": MessageLookupByLibrary.simpleMessage(
-      "Choose the Sync Source",
+      "সিঙ্ক উত্স নির্বাচন করুন",
     ),
-    "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose Theme"),
-    "chooseTime": MessageLookupByLibrary.simpleMessage("Choose Time"),
-    "closeTheApp": MessageLookupByLibrary.simpleMessage("Close the App?"),
+    "chooseTheme": MessageLookupByLibrary.simpleMessage("থিম বেছে নিন"),
+    "chooseTime": MessageLookupByLibrary.simpleMessage("সময় বেছে নিন"),
+    "closeTheApp": MessageLookupByLibrary.simpleMessage("অ্যাপটি বন্ধ করবেন?"),
     "cloudBackup": MessageLookupByLibrary.simpleMessage("ক্লাউড ব্যাকআপ"),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
-      "Confirm new password",
+      "নতুন পাসওয়ার্ড নিশ্চিত করুন",
     ),
     "confirmNewPin": MessageLookupByLibrary.simpleMessage(
-      "Confirm your new PIN",
+      "ᱱᱤᱥᱴᱟᱹᱭ ᱢᱮ ᱱᱟᱣᱟ PIN",
     ),
-    "continueAsGues": MessageLookupByLibrary.simpleMessage("Continue as guest"),
+    "continueAsGues": MessageLookupByLibrary.simpleMessage(
+      "অতিথি হিসাবে চালিয়ে যান",
+    ),
     "create": MessageLookupByLibrary.simpleMessage("তৈরি করুন"),
     "createYourTheme": MessageLookupByLibrary.simpleMessage(
       "আপনার থিম তৈরি করুন",
@@ -93,63 +101,95 @@ class MessageLookup extends MessageLookupByLibrary {
       "আপনার পছন্দের একটি ফটো বেছে নিন বা পটভূমির রঙ বেছে নিন এবং আমরা এর চারপাশে একটি থিম তৈরি করব ।",
     ),
     "customThemes": MessageLookupByLibrary.simpleMessage("কাস্টম থিম"),
-    "dailyReminders": MessageLookupByLibrary.simpleMessage("Daily Reminders"),
+    "dailyReminders": MessageLookupByLibrary.simpleMessage("দৈনিক অনুস্মারক"),
     "darkLabel": MessageLookupByLibrary.simpleMessage("অন্ধকার"),
     "darkTheme": MessageLookupByLibrary.simpleMessage("গাark় থিম"),
-    "dateFilter": MessageLookupByLibrary.simpleMessage("Date Filter"),
+    "dateFilter": MessageLookupByLibrary.simpleMessage("তারিখ ফিল্টার"),
     "defaultThemeName": MessageLookupByLibrary.simpleMessage("আমার থিম"),
-    "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-    "deletionFailed": MessageLookupByLibrary.simpleMessage("Deletion failed"),
-    "done": MessageLookupByLibrary.simpleMessage("Done"),
+    "delete": MessageLookupByLibrary.simpleMessage("মুছুন"),
+    "deletionFailed": MessageLookupByLibrary.simpleMessage(
+      "ব্যবহারকারী মুছে ফেলার ব্যর্থ হয়েছে",
+    ),
+    "done": MessageLookupByLibrary.simpleMessage("সম্পন্ন হয়েছে"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
-      "Don\'t have an account?",
+      "কোন অ্যাকাউন্ট নেই? ",
     ),
     "dropbox": MessageLookupByLibrary.simpleMessage("Dropbox"),
     "editTheme": MessageLookupByLibrary.simpleMessage("থিম এডিট করুন"),
     "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Email updated successfully, please login again",
+      "ইমেল সফলভাবে আপডেট করা হয়েছে, অনুগ্রহ করে আবার লগইন করুন",
     ),
-    "enableAutoSave": MessageLookupByLibrary.simpleMessage("Enable auto save"),
+    "enableAutoSave": MessageLookupByLibrary.simpleMessage(
+      "অটো সেভ সক্ষম করুন",
+    ),
     "enableDailyReminders": MessageLookupByLibrary.simpleMessage(
-      "Enable Daily Reminders",
+      "দৈনিক অনুস্মারক সক্ষম করুন",
     ),
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
-      "Enable fingerprint login",
+      "ফিঙ্গারপ্রিন্ট লগইন সক্রিয় করুন",
     ),
-    "enablePINLogin": MessageLookupByLibrary.simpleMessage("Enable PIN login"),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "নোট এনক্রিপশন সক্ষম করুন",
+    ),
+    "enablePINLogin": MessageLookupByLibrary.simpleMessage(
+      "পিন লগইন সক্ষম করুন",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "শুধুমাত্র আপনি জানেন এমন পাসফ্রেজ দিয়ে সংবেদনশীল নোট এনক্রিপ্ট করুন । এনক্রিপ্ট করা নোটগুলি এই ডিভাইসে এবং আপনার ক্লাউড ব্যাকআপে সুরক্ষিত থাকে এবং একটি পৃথক লক করা ভিউতে থাকে ।",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "এই নোটটি এনক্রিপ্ট করুন",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("এনক্রিপ্ট করা নোট"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট লক করা আছে",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("এনক্রিপশন প্রক্রিয়া"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("সক্রিয়"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "একটি পাসফ্রেজ এবং রিকভারি কোড সেট আপ করুন",
+    ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
-      "Enter current password",
+      "বর্তমান পাসওয়ার্ড লিখুন",
     ),
-    "enterNewEmail": MessageLookupByLibrary.simpleMessage("Enter new email"),
-    "enterPin": MessageLookupByLibrary.simpleMessage("Enter your PIN"),
+    "enterNewEmail": MessageLookupByLibrary.simpleMessage(
+      "নতুন ইমেল প্রবিষ্ট করুন",
+    ),
+    "enterPin": MessageLookupByLibrary.simpleMessage("আপনার পিন প্রবেশ করুন"),
     "enterRegisteredEmail": MessageLookupByLibrary.simpleMessage(
-      "Enter Registered Email",
+      "নিবন্ধিত ইমেল লিখুন",
     ),
-    "exportNotes": MessageLookupByLibrary.simpleMessage("Export your notes"),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
-    "exportToPDF": MessageLookupByLibrary.simpleMessage("Export to PDF"),
+    "exportNotes": MessageLookupByLibrary.simpleMessage(
+      "আপনার নোট এক্সপোর্ট করুন",
+    ),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("JSON-এ রপ্তানি করুন"),
+    "exportToPDF": MessageLookupByLibrary.simpleMessage(
+      "পিডিএফে এক্সপোর্ট করুন",
+    ),
     "exportToPlainText": MessageLookupByLibrary.simpleMessage(
-      "Export to Plain Text",
+      "প্লেইন টেক্সটে এক্সপোর্ট করুন",
     ),
     "failedToFetchNote": MessageLookupByLibrary.simpleMessage(
-      "Failed to fetch note",
+      "নোট আনতে ব্যর্থ হয়েছে",
     ),
     "failedToSaveNote": MessageLookupByLibrary.simpleMessage(
-      "Failed to save note",
+      "সংরক্ষণ করতে ব্যর্থ হয়েছে",
     ),
     "fingerPrintAthShouldBeEnabledInDeviceSettings":
         MessageLookupByLibrary.simpleMessage(
-          "Fingerprint auth should be enabled in device settings",
+          "ডিভাইস সেটিংসে ফিঙ্গারপ্রিন্ট অথ সক্রিয় করা উচিত",
         ),
     "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
-      "Fingerprint login failed",
+      "ফিঙ্গারপ্রিন্ট লগইন ব্যর্থ হয়েছে",
     ),
-    "fontFamily": MessageLookupByLibrary.simpleMessage("Font Family"),
-    "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password"),
-    "from": MessageLookupByLibrary.simpleMessage("From"),
-    "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+    "fontFamily": MessageLookupByLibrary.simpleMessage("ফন্ট ফ্যামিলি"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage(
+      "পাসওয়ার্ড ভুলে গেছেন?",
+    ),
+    "from": MessageLookupByLibrary.simpleMessage("থেকে"),
+    "gallery": MessageLookupByLibrary.simpleMessage("গ্যালারি"),
     "getDailyReminders": MessageLookupByLibrary.simpleMessage(
-      "Get daily reminders at your chosen time to keep your journal up to date.",
+      "আপনার জার্নাল আপ টু ডেট রাখতে আপনার বেছে নেওয়া সময়ে প্রতিদিনের অনুস্মারক পান ।",
     ),
     "googleDrive": MessageLookupByLibrary.simpleMessage("Google Drive"),
     "importAndExportNotes": MessageLookupByLibrary.simpleMessage(
@@ -158,98 +198,119 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "JSON থেকে আমদানি করুন",
     ),
-    "incorrectPassword": MessageLookupByLibrary.simpleMessage(
-      "Incorrect password",
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage("ভুল পাসফ্রেজ"),
+    "incorrectPassword": MessageLookupByLibrary.simpleMessage("ভুল পাসওয়ার্ড"),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "ভুল রিকভারি কোড",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "অবৈধ ব্যাকআপ ফাইল",
     ),
     "language": MessageLookupByLibrary.simpleMessage("Bengali/Bangla"),
-    "lastSynced": MessageLookupByLibrary.simpleMessage("Last synced: "),
-    "leave": MessageLookupByLibrary.simpleMessage("Leave"),
+    "lastSynced": MessageLookupByLibrary.simpleMessage("সর্বশেষ সিঙ্ক করা:"),
+    "leave": MessageLookupByLibrary.simpleMessage("ছেড়ে দিন"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("আলো"),
-    "link": MessageLookupByLibrary.simpleMessage("Link"),
-    "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
-    "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
-    "logOut2": MessageLookupByLibrary.simpleMessage("Logout"),
-    "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
-      "Please login to enable auto-sync",
+    "link": MessageLookupByLibrary.simpleMessage("সংযোগ করুন"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট লক করুন",
     ),
-    "moreInfo": MessageLookupByLibrary.simpleMessage("More Info"),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("এই নোটটি লক করুন"),
+    "logIn": MessageLookupByLibrary.simpleMessage("লগ ইন করুন"),
+    "logOut": MessageLookupByLibrary.simpleMessage("লগ আউট করুন"),
+    "logOut2": MessageLookupByLibrary.simpleMessage("লগআউট"),
+    "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
+      "অটো-সিঙ্ক সক্ষম করতে অনুগ্রহ করে লগইন করুন",
+    ),
+    "moreInfo": MessageLookupByLibrary.simpleMessage("আরও তথ্য"),
     "muted": MessageLookupByLibrary.simpleMessage("নিঃশব্দ"),
-    "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("নতুন পাসওয়ার্ড"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
-    "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "এখনও কোনও এনক্রিপ্ট করা নোট নেই",
+    ),
+    "notAvailable": MessageLookupByLibrary.simpleMessage("উপলব্ধ নয়"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Note saved successfully",
+      "সফলভাবে সেভ করা হয়েছে",
     ),
     "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Note updated successfully",
+      "আপডেট সফল হয়েছে",
     ),
     "notesImportPartialFailure": m0,
     "notesImportSkippedSummary": m1,
     "notesImportSuccess": m2,
     "notesSyncSuccessfull": MessageLookupByLibrary.simpleMessage(
-      "Notes sync successful",
+      "নোট সিঙ্ক সফল হয়েছে",
     ),
     "notificationDescription1": MessageLookupByLibrary.simpleMessage(
-      "Take a few minutes to reflect on your day in your diary",
+      "আপনার ডায়েরিতে আপনার দিনটি প্রতিফলিত করতে কয়েক মিনিট সময় নিন",
     ),
     "notificationTimeNotEnabled": MessageLookupByLibrary.simpleMessage(
-      "You haven\'t selected a notification time",
+      "আপনি কোনও নোটিফিকেশন সময় নির্বাচন করেননি",
     ),
     "notificationTitle1": MessageLookupByLibrary.simpleMessage(
-      "Time to Journal!",
+      "জার্নালের সময়!",
     ),
     "notificationsNotEnabled": MessageLookupByLibrary.simpleMessage(
-      "Notifications are not enabled",
+      "বিজ্ঞপ্তিগুলি সক্ষম করা নেই",
     ),
-    "pageNotFound": MessageLookupByLibrary.simpleMessage("Page not found"),
+    "pageNotFound": MessageLookupByLibrary.simpleMessage(
+      "পৃষ্ঠা খুজে পাওয়া যায়নি",
+    ),
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "প্যালেট (এডিট করতে একটি সোয়াচ ট্যাপ করুন)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("পাসফ্রেজ"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
-      "Password reset email sent",
+      "পাসওয়ার্ড রিসেট ইমেল",
     ),
     "passwordResetSuccessful": MessageLookupByLibrary.simpleMessage(
-      "Password reset successful",
+      "পাসওয়ার্ড রিসেট করা সফল",
     ),
     "passwordVerified": MessageLookupByLibrary.simpleMessage(
-      "Password verified",
+      "পাসওয়ার্ড যাচাই করা হয়েছে",
     ),
     "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
-      "Passwords don\'t match",
+      "পাসওয়ার্ড মেলে না",
     ),
     "pickAColor": MessageLookupByLibrary.simpleMessage("একটি রং নির্বাচন করুন"),
     "pickBackgroundColorInstead": MessageLookupByLibrary.simpleMessage(
       "পরিবর্তে একটি পটভূমির রঙ বেছে নিন",
     ),
-    "pickFromFileManager": MessageLookupByLibrary.simpleMessage(
-      "Pick From Files",
-    ),
-    "pinLoginFailed": MessageLookupByLibrary.simpleMessage("PIN login failed"),
+    "pickFromFileManager": MessageLookupByLibrary.simpleMessage("ফাইল থেকে"),
+    "pinLoginFailed": MessageLookupByLibrary.simpleMessage("লগইন ব্যর্থ হয়েছে"),
     "pinLoginSetupInstructions": MessageLookupByLibrary.simpleMessage(
-      "An up 4 to digit PIN will be prompted on lock screen",
+      "লক স্ক্রিনে একটি 4 থেকে ডিজিটের পিন প্রম্পট করা হবে",
     ),
     "pinMustBe4Digit": MessageLookupByLibrary.simpleMessage(
-      "Please enter a 4-digit PIN",
+      "অনুগ্রহ করে একটি 4-অঙ্কের বছর লিখুন",
     ),
     "pinResetSuccessful": MessageLookupByLibrary.simpleMessage(
-      "PIN confirmation feeling",
+      "পিন নিশ্চিতকরণ অনুভূতি",
     ),
-    "pinsDontMatch": MessageLookupByLibrary.simpleMessage("PINs don\'t match"),
+    "pinsDontMatch": MessageLookupByLibrary.simpleMessage(
+      "নতুন পিনটির মিল খুজে পাওয়া যাচ্ছে না",
+    ),
     "pleaseSetupYourAccountToUseThisFeature":
         MessageLookupByLibrary.simpleMessage(
-          "Please setup your account to use this feature",
+          "এই ফিচারটি ব্যবহার করতে অনুগ্রহ করে আপনার অ্যাকাউন্ট সেটআপ করুন",
         ),
-    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-    "projectOnGithub": MessageLookupByLibrary.simpleMessage(
-      "Project on Github",
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage(
+      "ব্যক্তিগত গোপনীয়তার নীতি",
     ),
-    "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
+    "projectOnGithub": MessageLookupByLibrary.simpleMessage("গিটহাবে প্রকল্প"),
+    "recordAudio": MessageLookupByLibrary.simpleMessage("অডিও রেকর্ড করুন"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("রিকভারি কোড"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "রিকভারি কোড পুনরায় জেনারেট করুন",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("স্মরণ রাখা জরুরী"),
-    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
-    "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "এই নোট থেকে এনক্রিপশন সরান",
+    ),
+    "resetPassword": MessageLookupByLibrary.simpleMessage(
+      "পাসওয়ার্ড রিসেট করুন",
+    ),
+    "resetPin": MessageLookupByLibrary.simpleMessage("পিন রিসেট করুন"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
       "থিম সেভ করুন এবং প্রয়োগ করুন",
     ),
@@ -257,59 +318,76 @@ class MessageLookup extends MessageLookupByLibrary {
       "পরিবর্তনগুলি সংরক্ষণ করুন",
     ),
     "security": MessageLookupByLibrary.simpleMessage("নিরাপত্তা"),
-    "securitySettings": MessageLookupByLibrary.simpleMessage(
-      "Security Settings",
-    ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "securitySettings": MessageLookupByLibrary.simpleMessage("সিকিউরিটি সেটিং"),
+    "select": MessageLookupByLibrary.simpleMessage("সিলেক্ট"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("ভয়েস নির্বাচন করুন"),
-    "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
-    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "sendFeedback": MessageLookupByLibrary.simpleMessage("মতামত পাঠান"),
+    "settings": MessageLookupByLibrary.simpleMessage("সেটিংস"),
     "setupYourAccount": MessageLookupByLibrary.simpleMessage(
-      "Setup your Account",
+      "আপনার অ্যাকাউন্ট সেটআপ করুন",
     ),
     "shareWithFriends": MessageLookupByLibrary.simpleMessage(
-      "Share with Friends",
+      "বন্ধুদের সাথে ভাগ করুন",
     ),
-    "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "signIn": MessageLookupByLibrary.simpleMessage("সাইন ইন করুন"),
     "signInWithEmail": MessageLookupByLibrary.simpleMessage(
-      "Sign in with Email",
+      "ইমেল দিয়ে সাইন ইন করুন",
     ),
-    "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
-    "signedInAs": MessageLookupByLibrary.simpleMessage("Signed in as"),
-    "sortByAtoZ": MessageLookupByLibrary.simpleMessage("Sort by A-Z"),
+    "signUp": MessageLookupByLibrary.simpleMessage("সাইন আপ করুন"),
+    "signedInAs": MessageLookupByLibrary.simpleMessage("হিসাবে সাইন ইন "),
+    "sortByAtoZ": MessageLookupByLibrary.simpleMessage("AZ দ্বারা সাজান"),
     "sortByLatestFirst": MessageLookupByLibrary.simpleMessage(
-      "Sort by Latest First",
+      "প্রথমে সর্বশেষ বাছাই করুন",
     ),
     "sortByOldestFirst": MessageLookupByLibrary.simpleMessage(
-      "Sort by Oldest First",
+      "বাছাই করুন প্রাচীনতম প্রথম",
     ),
-    "stay": MessageLookupByLibrary.simpleMessage("Stay"),
-    "submit": MessageLookupByLibrary.simpleMessage("Submit"),
-    "syncNow": MessageLookupByLibrary.simpleMessage("Sync now"),
+    "stay": MessageLookupByLibrary.simpleMessage("থাকুন"),
+    "submit": MessageLookupByLibrary.simpleMessage("জমা দিন"),
+    "syncNow": MessageLookupByLibrary.simpleMessage("এখন সিঙ্ক করুন"),
     "tagAlreadyExists": MessageLookupByLibrary.simpleMessage(
-      "Tag already exists",
+      "ট্যাগ আগে থেকেই আছে",
     ),
     "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
-      "Tap here to expand title",
+      "শিরোনাম প্রসারিত করতে এখানে ট্যাপ করুন",
     ),
     "themeFontsAndLanguage": MessageLookupByLibrary.simpleMessage(
       "থিম, ফন্ট এবং ভাষা কাস্টমাইজ করুন",
     ),
     "themeName": MessageLookupByLibrary.simpleMessage("থিমের নাম"),
     "themeNameHint": MessageLookupByLibrary.simpleMessage("আমার থিম"),
-    "to": MessageLookupByLibrary.simpleMessage("To"),
+    "to": MessageLookupByLibrary.simpleMessage("প্রতি"),
     "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
-      "Too many wrong attempts, please login with password",
+      "অনেক ভুল প্রচেষ্টা, অনুগ্রহ করে পাসওয়ার্ড দিয়ে লগইন করুন",
     ),
     "toolbarPosition": MessageLookupByLibrary.simpleMessage("টুলবারের অবস্থান"),
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
-      "Unexpected error occured",
+      "অপ্রত্যাশিত ত্রুটি ঘটেছে",
     ),
-    "video": MessageLookupByLibrary.simpleMessage("Video"),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট আনলক করুন",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "এই নোটটি আনলক করুন",
+    ),
+    "video": MessageLookupByLibrary.simpleMessage("ভিডিও"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
-    "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("নতুন কী?"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "পাসফ্রেজ-ভিত্তিক এনক্রিপশন এবং পুনরুদ্ধারের বিকল্পগুলির সাথে সংবেদনশীল নোটগুলি রক্ষা করুন ।",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপশন সম্পর্কে",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "আপনার নিজস্ব রঙ এবং ভিজ্যুয়াল স্টাইলের সাথে ডায়রিভোল্টকে ব্যক্তিগতকৃত করুন ।",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "থিম তৈরি এবং কাস্টমাইজ করা",
+    ),
+    "wrongPIN": MessageLookupByLibrary.simpleMessage("ᱵᱷᱩᱞ PIN।"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
-      "You have unsaved changes",
+      "আপনার পরিবর্তনগুলি সেভ করা নেই",
     ),
     "youWillBeNotifiedAt": m3,
   };

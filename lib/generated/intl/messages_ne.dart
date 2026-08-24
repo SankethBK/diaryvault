@@ -62,11 +62,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("क्यामेरा"),
     "cancel": MessageLookupByLibrary.simpleMessage("रद्द गर्नुहोस्"),
+    "change": MessageLookupByLibrary.simpleMessage("परिवर्तन गर्नुहोस्"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "पृष्ठभूमि रङ परिवर्तन गर्नुहोस्",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage(
       "इमेल परिवर्तन गर्नुहोस्",
+    ),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "गुप्तिकरण पासफ्रेज परिवर्तन गर्नुहोस्",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage(
       "छविको एकाइ परिवर्तन गर्नुहोस्",
@@ -132,8 +136,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "फिंगरप्रिन्ट लगइन सक्षम गर्नुहोस्",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "द्रष्टव्य गुप्तीकरण सक्षम गर्नुहोस्",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "पिन लगइन सक्षम गर्नुहोस्",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "तपाईंलाई थाहा भएको पासफ्रेजको साथ संवेदनशील नोटहरू गुप्तिकरण गर्नुहोस् । ईन्क्रिप्टेड नोटहरू यस उपकरणमा र तपाईंको क्लाउड ब्याकअपमा सुरक्षित छन्, र छुट्टै लक गरिएको दृश्यमा बस्छन् ।",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "यो द्रष्टव्य गुप्तिकरण गर्नुहोस्",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "गुप्तीकरण गरिएका नोटहरू",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "गुप्तीकरण गरिएका नोटहरू लक गरिएका छन्",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("गुप्तिकरण गर्दै"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("अक्षम पारियो"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "पासफ्रेज र रिकभरी कोड सेट अप गर्नुहोस्",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "हालको पासवर्ड लेख्नुहोस्",
@@ -150,7 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "exportNotes": MessageLookupByLibrary.simpleMessage(
       "तपाईंका नोटहरू निर्यात गर्नुहोस्",
     ),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage(
+      "SVG मा बाटो निर्यात गर्नुहोस्filters-action",
+    ),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "PDF मा निर्यात गर्नुहोस्",
     ),
@@ -186,7 +212,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "JSON बाट आयात गर्नुहोस्",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "गलत पासफ्रेज। ",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage("गलत पासवर्ड"),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "गलत रिकभरी कोड",
+    ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "अमान्य जगेडा फाइल",
     ),
@@ -195,6 +227,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("छोड्नुहोस्"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("उज्यालो"),
     "link": MessageLookupByLibrary.simpleMessage("लिंक"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "इन्क्रिप्टेड नोटहरू लक गर्नुहोस्",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("यो नोट लक गर्नुहोस्"),
     "logIn": MessageLookupByLibrary.simpleMessage("लग इन गर्नुहोस्"),
     "logOut": MessageLookupByLibrary.simpleMessage("लग आउट गर्नुहोस्"),
     "logOut2": MessageLookupByLibrary.simpleMessage("लग आउट गर्नुहोस्"),
@@ -205,6 +241,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("मौन"),
     "newPassword": MessageLookupByLibrary.simpleMessage("नयाँ पासवर्ड"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("नेक्स्टक्लाउड"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "अहिलेसम्म कुनै ईन्क्रिप्टेड नोटहरू छैनन्",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("उपलब्ध छैन"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "नोट सफलतापूर्वक सुरक्षित भयो",
@@ -234,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "रङदानी (सम्पादन गर्न स्वाच ट्याप गर्नुहोस्)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("पासफ्रेज"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "पासवर्ड रिसेट इमेल पठाइयो",
     ),
@@ -273,7 +313,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordAudio": MessageLookupByLibrary.simpleMessage(
       "अडियो रेकर्ड गर्नुहोस्",
     ),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("रिकभरी कोड"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "रिकभरी कोड पुन: उत्पन्न गर्नुहोस्",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("स्मरणपत्र"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "यस द्रष्टव्यबाट गुप्तिकरण हटाउनुहोस्",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "पासवर्ड रिसेट गर्नुहोस्",
     ),
@@ -288,10 +335,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "सुरक्षा सेटिङहरू",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
-    "selectVoice": MessageLookupByLibrary.simpleMessage(
-      "à¤¬à¥à¤²à¤¾à¤¯à¤¤à¥ à¤ªà¥à¤°à¥à¤·FestivalVoiceName",
-    ),
+    "select": MessageLookupByLibrary.simpleMessage("छनौट गर्नुहोस्"),
+    "selectVoice": MessageLookupByLibrary.simpleMessage("आवाज चयन गर्नुहोस्"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage(
       "प्रतिक्रिया पठाउनुहोस्",
     ),
@@ -341,8 +386,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "अनपेक्षित त्रुटि भयो",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "गुप्तिकरण गरिएको नोटहरू अनलक गर्नुहोस्",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "यो नोट अनलक गर्नुहोस्",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("भिडियो"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("वेबडेभ URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("यसमा नयाँ के छ?"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "पासफ्रेज - आधारित ईन्क्रिप्शन र रिकभरी विकल्पहरूको साथ संवेदनशील नोटहरू सुरक्षित गर्नुहोस् ।",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "गुप्तिकरणको बारेमा",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "आफ्नै रङ र दृश्य शैलीको साथ डायरीभल्ट निजीकृत गर्नुहोस् ।",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "विषयवस्तुहरू सिर्जना गर्ने र अनुकूलन गर्ने",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("गलत पिन"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "तपाईंसँग असुरक्षित परिवर्तनहरू छन्",

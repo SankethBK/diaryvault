@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Fotoaparát"),
     "cancel": MessageLookupByLibrary.simpleMessage("Zrušiť"),
+    "change": MessageLookupByLibrary.simpleMessage("Zmeniť"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Farba pozadia",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("Zmeniť email"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Zmeniť prístupovú frázu šifrovania",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Zmeniť obrázok"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Zmeniť heslo"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
@@ -122,8 +126,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Povoliť prihlásenie odtlačkom prsta",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Povoliť šifrovanie poznámok",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "Povoliť prihlásenie pomocou kódu PIN",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Šifrujte citlivé poznámky prístupovou frázou, ktorú poznáte len vy. Šifrované poznámky sú chránené na tomto zariadení a vo vašej cloudovej zálohe a žijú v samostatnom uzamknutom zobrazení.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Zašifrovať túto poznámku",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Šifrované poznámky",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Šifrované poznámky sú uzamknuté",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Šifrovanie"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Povolené"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Nastavenie prístupovej frázy a kódu na obnovenie",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Zadajte aktuálne heslo",
@@ -134,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zadajte registrovaný email",
     ),
     "exportNotes": MessageLookupByLibrary.simpleMessage("Exportovať poznámky"),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("Exportovať do"),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "Exportovať do formátu PDF",
     ),
@@ -168,8 +192,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Import a export poznámok",
     ),
     "importFromJSON": MessageLookupByLibrary.simpleMessage("Importovať z"),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Nesprávna prístupová fráza",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Nesprávne heslo",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Nesprávny kód obnovenia",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Neplatný záložný súbor",
@@ -181,6 +211,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Odísť"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Svetlo"),
     "link": MessageLookupByLibrary.simpleMessage("Odkaz"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Zamknúť šifrované poznámky",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Zamknúť túto poznámku",
+    ),
     "logIn": MessageLookupByLibrary.simpleMessage("Prihlásiť sa"),
     "logOut": MessageLookupByLibrary.simpleMessage("Odhlásiť sa"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Odhlásiť sa"),
@@ -191,6 +227,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("Stlmený zvuk"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Nové heslo"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "Zatiaľ žiadne šifrované poznámky",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Nie je k dispozícii"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Uloženie poznámky úspešné",
@@ -220,6 +259,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Paleta (upravte ťuknutím na vzorkovník)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Heslo:"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Email pre resetovanie hesla bol odoslaný",
     ),
@@ -263,7 +303,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Projekt na Githube",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Záznam zvuku"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage(
+      "\"Kód na obnovenie\",",
+    ),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Znovu vygenerovať kód na obnovenie",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Pripomenutie:"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Odstrániť šifrovanie z tejto poznámky",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Resetovať heslo"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Resetovať PIN kód"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -274,7 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Bezpečnostné nastavenia",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Vybrať"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Zvolte hlas:"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Poslať spätnú väzbu"),
     "settings": MessageLookupByLibrary.simpleMessage("Nastavenia"),
@@ -321,8 +370,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Vyskytla sa neočakávaná chyba",
     ),
-    "video": MessageLookupByLibrary.simpleMessage("Video"),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Odomknúť šifrované poznámky",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Odomknúť túto poznámku",
+    ),
+    "video": MessageLookupByLibrary.simpleMessage("Obraz"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("Čo je nové"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Chráňte citlivé poznámky pomocou šifrovania a možností obnovy založených na prístupových heslách.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "O šifrovaní",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Prispôsobte si DiaryVault svojimi vlastnými farbami a vizuálnym štýlom.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Vytváranie a prispôsobovanie motívov",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Nesprávny PIN kód"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Máte neuložené zmeny",

@@ -64,11 +64,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Kamera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Stornieren"),
+    "change": MessageLookupByLibrary.simpleMessage("Wechsel"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Hintergrundfarbe anpassen",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage(
       "Ändern Sie die E-Mail",
+    ),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Verschlüsselungspassphrase ändern",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Bild ändern"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Kennwort ändern"),
@@ -128,8 +132,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Aktivieren Sie die Anmeldung per Fingerabdruck",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Notenverschlüsselung aktivieren",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "PIN-Anmeldung aktivieren",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Verschlüsseln Sie sensible Notizen mit einer Passphrase, die nur Sie kennen. Verschlüsselte Notizen sind auf diesem Gerät und in Ihrem Cloud-Backup geschützt und befinden sich in einer separaten gesperrten Ansicht.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Diese Notiz verschlüsseln",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Verschlüsselte Notizen",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Verschlüsselte Notizen sind gesperrt",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Verschlüsselung"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Aktiviert"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Einrichten einer Passphrase und eines Wiederherstellungscodes",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Aktuelles Passwort eingeben",
@@ -144,12 +168,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "exportNotes": MessageLookupByLibrary.simpleMessage(
       "Exportieren Sie Ihre Notizen",
     ),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage(
+      "Nach JSON exportieren",
+    ),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "In einfachen Text exportieren",
     ),
     "exportToPlainText": MessageLookupByLibrary.simpleMessage(
-      "Export to Plain Text",
+      "In einfachen Text exportieren",
     ),
     "failedToFetchNote": MessageLookupByLibrary.simpleMessage(
       "Notiz konnte nicht abgerufen werden",
@@ -180,8 +206,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "importFromJSON": MessageLookupByLibrary.simpleMessage(
       "WPRM-Import aus JSON",
     ),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Falsche Passphrase",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Falsches Passwort",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Falscher Wiederherstellungscode.",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "Ungültige Backup-Datei",
@@ -193,6 +225,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Verlassen"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Licht"),
     "link": MessageLookupByLibrary.simpleMessage("Verknüpfung"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Verschlüsselte Notizen sperren",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("Diese Notiz sperren"),
     "logIn": MessageLookupByLibrary.simpleMessage("Anmeldung"),
     "logOut": MessageLookupByLibrary.simpleMessage("Ausloggen"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Ausloggen"),
@@ -203,6 +239,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("Stummgeschaltet"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Neues Kennwort"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "Noch keine verschlüsselten Notizen",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Nicht verfügbar"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Notiz erfolgreich gespeichert",
@@ -234,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Palette (zum Bearbeiten auf ein Muster tippen)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Passphrase"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "E-Mail zum Zurücksetzen des Passworts gesendet",
     ),
@@ -277,7 +317,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Projekt auf Github",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Audio aufnehmen"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Wiederherstellungscode",
+    ),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Wiederherstellungscode neu generieren",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Erinnerungen"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Verschlüsselung aus dieser Notiz entfernen",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "Passwort zurücksetzen",
     ),
@@ -288,7 +337,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Sicherheitseinstellungen",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Auswählen"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Stimme auswählen:"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Feedback abschicken"),
     "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
@@ -335,8 +384,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Es ist ein unerwarteter Fehler aufgetreten",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Entriegeln Sie verschlüsselte Notizen",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Diese Notiz entsperren",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV-URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("Was ist neu"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Schützen Sie sensible Notizen mit passphrasenbasierten Verschlüsselungs- und Wiederherstellungsoptionen.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "Was aber ist mit Verschlüsselung?",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Personalisieren Sie DiaryVault mit Ihren eigenen Farben und Ihrem eigenen visuellen Stil.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Erstellen und Anpassen von Designs",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Falsche PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Du hast nicht gespeicherte Änderungen",

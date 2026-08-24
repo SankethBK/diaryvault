@@ -487,8 +487,14 @@ class SyncRepository implements ISyncRepository {
 
       log.i("downloaded note assets = $assetPathMap");
 
-      String newNoteBody = notesRepository
-          .replaceOldAssetPathsWithNewAssetPaths(newNote["body"], assetPathMap);
+      // Encrypted bodies are ciphertext, not JSON deltas, so asset paths
+      // can't be rewritten; downloaded assets keep the same app-relative
+      // path, so paths embedded at encryption time still resolve
+      final bool isEncrypted = newNote["is_encrypted"] == 1;
+      String newNoteBody = isEncrypted
+          ? newNote["body"]
+          : notesRepository.replaceOldAssetPathsWithNewAssetPaths(
+              newNote["body"], assetPathMap);
 
       log.d("new note body = \n $newNoteBody");
       newNote["body"] = newNoteBody;

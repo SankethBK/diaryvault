@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("מצלמה"),
     "cancel": MessageLookupByLibrary.simpleMessage("בטל"),
+    "change": MessageLookupByLibrary.simpleMessage("החלפה"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "שנה צבע רקע.",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("לשנות אימייל"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "שנה משפט סיסמה להצפנה",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("שנה תמונה"),
     "changePassword": MessageLookupByLibrary.simpleMessage("לשנות סיסמה"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
@@ -114,8 +118,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "אפשר התחברות דרך טביעת אצבע",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "אפשר הצפנת פתק",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "אפשר כניסה באמצעות קוד PIN",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "הצפן פתקים רגישים עם משפט סיסמה שרק אתה מכיר. הערות מוצפנות מוגנות במכשיר זה ובגיבוי הענן שלך, וחיות בתצוגה נפרדת נעולה.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage("הצפנת ההערה הזו"),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("הערות מוצפנות"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "ההערות המוצפנות נעולות",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("הצפנה"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("פעיל"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "הגדרת משפט סיסמה וקוד שחזור",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "הכנס סיסמה עכשווית",
@@ -156,7 +176,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "ייבוא וייצוא הערות",
     ),
     "importFromJSON": MessageLookupByLibrary.simpleMessage("ייבוא מכתובת אתר"),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "משפט סיסמה שגוי",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage("סיסמה לא נכונה"),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "קוד שחזור שגוי",
+    ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "קובץ גיבוי לא חוקי",
     ),
@@ -167,6 +193,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("עזיבה"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("בהיר"),
     "link": MessageLookupByLibrary.simpleMessage("קישור"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "נעילת פתקים מוצפנים",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("נעילת ההערה הזו"),
     "logIn": MessageLookupByLibrary.simpleMessage("התחברות"),
     "logOut": MessageLookupByLibrary.simpleMessage("התנתק"),
     "logOut2": MessageLookupByLibrary.simpleMessage("התנתקות מהמערכת"),
@@ -177,6 +207,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("מושתק"),
     "newPassword": MessageLookupByLibrary.simpleMessage("סיסמה חדשה"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "עדיין אין הערות מוצפנות",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("לא זמין"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "פתק נשמר בהצלחה",
@@ -206,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "לוח צבעים (הקש על דוגמית כדי לערוך)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("מילת צופן"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "אימייל איפוס סיסמה נשלח",
     ),
@@ -245,7 +279,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "פרויקט ב - Github",
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("הקלט קול "),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("קוד שחזור"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "יצירת קוד שחזור מחדש",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("תזכורות"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "הסרת הצפנה מהפתק הזה",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("אפס סיסמה"),
     "resetPin": MessageLookupByLibrary.simpleMessage("איפוס מספר זיהוי אישי"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -254,7 +295,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("שמירת שינויים"),
     "security": MessageLookupByLibrary.simpleMessage("אבטחה"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("הגדרות אבטחה"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("בחר"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("בחר “Voice” (קול)."),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("שלח משוב"),
     "settings": MessageLookupByLibrary.simpleMessage("הגדרות"),
@@ -293,8 +334,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "בעיה לא צפויה קרתה",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "פתיחת ההערות המוצפנות",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "שחרור הנעילה של ההערה הזו",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("וידאו"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("כתובת WebDAV"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("מה חדש"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "הגנו על פתקים רגישים עם אפשרויות הצפנה ושחזור מבוססות סיסמאות.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "מידע על הצפנה",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "התאם אישית את DiaryVault עם הצבעים והסגנון החזותי שלך.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "יצירה והתאמה אישית של ערכות עיצוב",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("קוד PIN שגוי"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "יש לך שינויים שלא נשמרו",

@@ -6,6 +6,7 @@ import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/utils/utils.dart';
 import 'package:dairy_app/core/widgets/glass_app_bar.dart';
+import 'package:dairy_app/features/encryption/presentation/widgets/note_encrypt_toggle_button.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_title_input_field.dart';
@@ -28,7 +29,10 @@ class NoteCreatePage extends StatefulWidget {
   static String get routeThroughNoteReadOnly =>
       '/note-create-through-note-read-only';
 
-  const NoteCreatePage({Key? key}) : super(key: key);
+  /// Optional route arguments: {"encrypted": bool, "id": String?}
+  final Map<String, dynamic>? routeArgs;
+
+  const NoteCreatePage({Key? key, this.routeArgs}) : super(key: key);
 
   @override
   State<NoteCreatePage> createState() => _NoteCreatePageState();
@@ -51,7 +55,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
   void _initSaveTimer() {
     final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
     final isAutoSaveEnabled =
-        userConfigCubit.state.userConfigModel?.isAutoSaveEnabled ?? false;
+        userConfigCubit.state.userConfigModel?.isAutoSaveEnabled ?? true;
 
     if (isAutoSaveEnabled) {
       const int saveDelayInSeconds = 10; // delay in seconds
@@ -69,7 +73,9 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
       _initSaveTimer();
       // it is definitely a new note if we reached this page and the state is still NoteDummyState
       if (notesBloc.state is NoteDummyState) {
-        notesBloc.add(const InitializeNote());
+        final encrypted = widget.routeArgs?["encrypted"] == true;
+        final noteId = widget.routeArgs?["id"] as String?;
+        notesBloc.add(InitializeNote(id: noteId, encrypted: encrypted));
       }
 
       final backgroundImagePath = Theme.of(context)
@@ -112,6 +118,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
           leading: NotesCloseButton(onNotesClosed: _closeAfterAutoSave),
           actions: const [
             NoteSaveButton(),
+            NoteEncryptToggleButton(),
             DateTimePicker(),
             ToggleReadWriteButton(pageName: PageName.NoteCreatePage)
           ],
@@ -158,9 +165,11 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
 
                     if (!state.safe) {
                       return NoteTitleInputField(
+                          key: ValueKey(state.controller),
                           initialValue: "", onTitleChanged: _onTitleChanged);
                     }
                     return NoteTitleInputField(
+                      key: ValueKey(state.controller),
                       initialValue: state.title!,
                       onTitleChanged: _onTitleChanged,
                     );
@@ -169,7 +178,10 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
                 BlocBuilder<NotesBloc, NotesState>(
                   bloc: notesBloc,
                   buildWhen: (previousState, state) {
-                    return previousState is NoteDummyState;
+                    // Existing notes load asynchronously. Rebuild when the
+                    // loaded controller becomes available, not only when the
+                    // page starts from NoteDummyState.
+                    return previousState.controller != state.controller;
                   },
                   builder: (context, state) {
                     return RichTextEditor(

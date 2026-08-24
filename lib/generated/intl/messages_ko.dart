@@ -62,8 +62,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("카메라"),
     "cancel": MessageLookupByLibrary.simpleMessage("취소"),
+    "change": MessageLookupByLibrary.simpleMessage("변경"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage("배경색 변경..."),
     "changeEmail": MessageLookupByLibrary.simpleMessage("이메일 변경"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "암호화 암호 변경",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("이미지 변경"),
     "changePassword": MessageLookupByLibrary.simpleMessage("비밀번호 변경"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage("배경 이미지 선택"),
@@ -100,7 +104,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "지문 로그인 활성화",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage("메모 암호화 활성화"),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage("PIN 로그인 활성화"),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "나만 아는 암호로 민감한 메모를 암호화하세요. 암호화된 메모는 이 장치와 클라우드 백업에서 보호되며 별도의 잠긴 보기에서 사용할 수 있습니다.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage("이 메모 암호화"),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage("암호화된 메모"),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "암호화된 메모가 잠겨 있습니다",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("암호화 "),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("활성화됨"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "암호 및 복구 코드 설정",
+    ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage("현재 비밀번호 입력"),
     "enterNewEmail": MessageLookupByLibrary.simpleMessage("새 메일 입력"),
     "enterPin": MessageLookupByLibrary.simpleMessage("PIN 입력"),
@@ -126,13 +144,19 @@ class MessageLookup extends MessageLookupByLibrary {
       "노트 가져오기 및 내보내기",
     ),
     "importFromJSON": MessageLookupByLibrary.simpleMessage("가져오기"),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage("잘못된 암호"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage("잘못된 비밀번호"),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "유효하지 않은 복구 코드.",
+    ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage("유효하지 않은 백업 파일"),
     "language": MessageLookupByLibrary.simpleMessage("Korean"),
     "lastSynced": MessageLookupByLibrary.simpleMessage("마지막 동기화: "),
     "leave": MessageLookupByLibrary.simpleMessage("나가기"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("라이트"),
     "link": MessageLookupByLibrary.simpleMessage("링크"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage("암호화된 메모 잠금"),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("이 메모 잠그기"),
     "logIn": MessageLookupByLibrary.simpleMessage("로그인"),
     "logOut": MessageLookupByLibrary.simpleMessage("로그아웃"),
     "logOut2": MessageLookupByLibrary.simpleMessage("로그아웃"),
@@ -143,6 +167,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("뮤트 중"),
     "newPassword": MessageLookupByLibrary.simpleMessage("새 비밀번호"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "아직 암호화된 메모가 없습니다",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("사용 불가"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "노트가 성공적으로 저장되었습니다",
@@ -170,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "팔레트 (견본을 탭하여 수정)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Passphrase"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "비밀번호 초기화 메일이 전송되었습니다",
     ),
@@ -199,14 +227,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("개인정보 처리방침"),
     "projectOnGithub": MessageLookupByLibrary.simpleMessage("GitHub에서 프로젝트 보기"),
     "recordAudio": MessageLookupByLibrary.simpleMessage("오디오 녹음"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("복구 코드"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage("복구 코드 재생성"),
     "reminders": MessageLookupByLibrary.simpleMessage("알림"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "이 메모에서 암호화 제거",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("비밀번호 초기화"),
     "resetPin": MessageLookupByLibrary.simpleMessage("PIN 재설정"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage("테마 저장 및 적용"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("변경 사항 저장"),
     "security": MessageLookupByLibrary.simpleMessage("보안"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("보안 설정"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("선택"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("음성 선택"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("피드백 보내기"),
     "settings": MessageLookupByLibrary.simpleMessage("설정"),
@@ -237,8 +270,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "예기치 않은 오류 발생",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "암호화된 메모 잠금 해제",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage("이 메모 잠금 해제"),
     "video": MessageLookupByLibrary.simpleMessage("비디오"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("새로운 소식"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "암호 기반 암호화 및 복구 옵션으로 민감한 메모를 보호하세요.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage("암호화 정보"),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "자신만의 색상과 비주얼 스타일로 DiaryVault를 개인화하세요.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "테마 생성 및 사용자 정의",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("잘못된 PIN입니다"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "저장되지 않은 변경사항이 있습니다",

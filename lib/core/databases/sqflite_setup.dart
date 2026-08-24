@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -50,7 +50,13 @@ class DBProvider {
             ${Notes.LAST_MODIFIED} DATETIME, 
             ${Notes.PLAIN_TEXT} TEXT, 
             ${Notes.DELETED} INTEGER, 
-            ${Notes.AUTHOR_ID} TEXT
+            ${Notes.AUTHOR_ID} TEXT,
+            ${Notes.IS_ENCRYPTED} INTEGER NOT NULL DEFAULT 0,
+            ${Notes.ENCRYPTION_VERSION} INTEGER NOT NULL DEFAULT 1,
+            ${Notes.ENC_SALT} TEXT,
+            ${Notes.ENC_WRAPPED_MK_PASS} TEXT,
+            ${Notes.ENC_WRAPPED_MK_RECOVERY} TEXT,
+            ${Notes.WRAPPED_DEK} TEXT
           )
           """);
 
@@ -99,6 +105,20 @@ class DBProvider {
               ${Tags.NOTE_ID} TEXT,
               ${Tags.NAME} TEXT
             )""");
+        }
+        if (oldVersion < 3) {
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.IS_ENCRYPTED} INTEGER NOT NULL DEFAULT 0");
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.ENCRYPTION_VERSION} INTEGER NOT NULL DEFAULT 1");
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.ENC_SALT} TEXT");
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.ENC_WRAPPED_MK_PASS} TEXT");
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.ENC_WRAPPED_MK_RECOVERY} TEXT");
+          await db.execute(
+              "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.WRAPPED_DEK} TEXT");
         }
       },
     );

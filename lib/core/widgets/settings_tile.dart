@@ -4,11 +4,13 @@ class SettingsTile extends StatelessWidget {
   const SettingsTile({
     required this.child,
     this.onTap,
+    this.height = 30,
     Key? key,
   }) : super(key: key);
 
   final Widget child;
   final VoidCallback? onTap;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class SettingsTile extends StatelessWidget {
     );
 
     return SizedBox(
-      height: 30,
+      height: height,
       width: double.infinity,
       child: null == onTap
           ? widget

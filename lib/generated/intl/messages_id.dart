@@ -62,10 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("Kamera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Batal"),
+    "change": MessageLookupByLibrary.simpleMessage("Ganti"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "Ubah warna latar belakang",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("Ganti Email"),
+    "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Ubah frasa sandi enkripsi",
+    ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Ubah gambar"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Ganti kata sandi"),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
@@ -77,7 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "chooseTheme": MessageLookupByLibrary.simpleMessage("Pilih Tema"),
     "chooseTime": MessageLookupByLibrary.simpleMessage("PIlih waktu"),
     "closeTheApp": MessageLookupByLibrary.simpleMessage("Tutup aplikasi?"),
-    "cloudBackup": MessageLookupByLibrary.simpleMessage("Cloud Backup"),
+    "cloudBackup": MessageLookupByLibrary.simpleMessage("Cadangan Cloud"),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "Konfirmasi password baru",
     ),
@@ -116,8 +120,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "enableFingerPrintLogin": MessageLookupByLibrary.simpleMessage(
       "Aktifkan login sidik jari",
     ),
+    "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
+      "Aktifkan enkripsi catatan",
+    ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "Aktifkan login PIN",
+    ),
+    "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Enkripsi catatan sensitif dengan frasa sandi yang hanya Anda ketahui. Catatan terenkripsi dilindungi pada perangkat ini dan di cadangan cloud Anda, dan berada dalam tampilan terkunci yang terpisah.",
+    ),
+    "encryptThisNote": MessageLookupByLibrary.simpleMessage(
+      "Enkripsi catatan ini",
+    ),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Catatan terenkripsi",
+    ),
+    "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
+      "Catatan terenkripsi terkunci",
+    ),
+    "encryption": MessageLookupByLibrary.simpleMessage("Enkripsi"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Ya"),
+    "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
+      "Siapkan frasa sandi dan kode pemulihan",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Masukkan Password Saat ini",
@@ -160,8 +184,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Impor dan Ekspor Catatan",
     ),
     "importFromJSON": MessageLookupByLibrary.simpleMessage("Impor dari JSON"),
+    "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Frasa sandi salah",
+    ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Kata sandi salah",
+    ),
+    "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Kode pemulihan salah.",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "File cadangan tidak valid",
@@ -173,8 +203,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Keluar"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Lampu"),
     "link": MessageLookupByLibrary.simpleMessage("Link"),
-    "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
-    "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
+    "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Kunci catatan terenkripsi",
+    ),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("Kunci catatan ini"),
+    "logIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "logOut": MessageLookupByLibrary.simpleMessage("Keluar"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Keluar"),
     "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
       "Silakan login untuk mengaktifkan sinkronisasi otomatis",
@@ -183,6 +217,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "muted": MessageLookupByLibrary.simpleMessage("Dibisukan"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Kata Sandi Baru"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
+    "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
+      "Belum ada catatan terenkripsi",
+    ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Tidak tersedia"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Catatan berhasil disimpan",
@@ -214,6 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "Palet (ketuk swatch untuk mengedit)",
     ),
+    "passphrase": MessageLookupByLibrary.simpleMessage("Frasa sandi"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Email pengaturan ulang kata sandi terkirim",
     ),
@@ -248,19 +286,28 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Silakan siapkan akun Anda untuk menggunakan fitur ini",
         ),
-    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Kebijakan Privasi"),
     "projectOnGithub": MessageLookupByLibrary.simpleMessage("Proyek di Github"),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Rekam suara"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("Kode pemulihan"),
+    "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Buat ulang kode pemulihan",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Pengingat"),
-    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
-    "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
+    "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
+      "Hapus enkripsi dari catatan ini",
+    ),
+    "resetPassword": MessageLookupByLibrary.simpleMessage(
+      "Atur ulang kata sandi",
+    ),
+    "resetPin": MessageLookupByLibrary.simpleMessage("Atur Ulang PIN"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
       "Simpan & terapkan tema",
     ),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Simpan perubahan"),
     "security": MessageLookupByLibrary.simpleMessage("Keamanan"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("Keamanan"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Pilih"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Pilih Suara"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Kirim masukan"),
     "settings": MessageLookupByLibrary.simpleMessage("Pengaturan"),
@@ -270,7 +317,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shareWithFriends": MessageLookupByLibrary.simpleMessage(
       "Bagikan kepada Teman",
     ),
-    "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "signIn": MessageLookupByLibrary.simpleMessage("Masuk"),
     "signInWithEmail": MessageLookupByLibrary.simpleMessage(
       "Masuk dengan Email",
     ),
@@ -286,7 +333,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Urutkan berdasarkan Terlama Terlebih Dahulu",
     ),
     "stay": MessageLookupByLibrary.simpleMessage("Tinggal"),
-    "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+    "submit": MessageLookupByLibrary.simpleMessage("Kirim"),
     "syncNow": MessageLookupByLibrary.simpleMessage("Sinkron sekarang"),
     "tagAlreadyExists": MessageLookupByLibrary.simpleMessage("sudah ada"),
     "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(
@@ -307,8 +354,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Terjadi kesalahan tak terduga",
     ),
+    "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Buka catatan terenkripsi",
+    ),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "Buka kunci catatan ini",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("URL WebDAV"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("Apa yang baru?"),
+    "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Lindungi catatan sensitif dengan enkripsi berbasis frasa sandi dan opsi pemulihan.",
+    ),
+    "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
+      "Tentang enkripsi",
+    ),
+    "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Personalisasi DiaryVault dengan warna dan gaya visual Anda sendiri.",
+    ),
+    "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
+      "Membuat dan menyesuaikan tema",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("PIN SALAH"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Anda memiliki perubahan yang belum disimpan",

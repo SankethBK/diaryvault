@@ -10,9 +10,11 @@ import 'package:dairy_app/core/widgets/send_feedback.dart';
 import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/core/widgets/share_with_friends.dart';
 import 'package:dairy_app/core/widgets/version_number.dart';
+import 'package:dairy_app/core/widgets/whats_new_section.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/setup_account.dart';
+import 'package:dairy_app/features/encryption/presentation/pages/encryption_settings_page.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -155,6 +157,18 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
+                    S.current.encryption,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: mainTextColor,
+                    ),
+                  ),
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(EncryptionSettingsPage.route),
+                ),
+                const SizedBox(height: 15),
+                SettingsTile(
+                  child: Text(
                     S.current.reminders,
                     style: TextStyle(
                       fontSize: 16,
@@ -194,6 +208,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SendFeedBack(),
                 const SizedBox(height: 15),
                 const ShareWithFriends(),
+                const SizedBox(height: 15),
+                const WhatsNewSection(),
                 const SizedBox(height: 15),
                 const ProjectOnGithub(),
                 const SizedBox(height: 15),
