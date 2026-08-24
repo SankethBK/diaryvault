@@ -123,7 +123,6 @@
   "projectOnGithub": "ಗಿಥಬ್‌ನಲ್ಲಿ ಪ್ರಾಜೆಕ್ಟ್",
   "recordAudio": "ರೆಕಾರ್ಡ್ ಆಡಿಯೋ",
   "pickFromFileManager": "ಫೈಲ್‌ಗಳಿಂದ ಆರಿಸಿ",
-  "exportToJSON": "Export to JSON",
   "cloudBackup": "ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್",
   "importAndExportNotes": "ಟಿಪ್ಪಣಿಗಳನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ ಮತ್ತು ರಫ್ತು ಮಾಡಿ",
   "reminders": "ಜ್ಞಾಪನೆ",
@@ -157,7 +156,6 @@
   "saveChanges": "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸು",
   "themeName": "ಪರಿಸರವಿನ್ಯಾಸದ ಹೆಸರು",
   "themeNameHint": "ನನ್ನ ಪರಿಸರವಿನ್ಯಾಸ",
-  "select": "Select",
   "change": "ಬದಲಿಸು",
   "changeEncryptionPassphrase": "ಎನ್‌ಕ್ರಿಪ್ಷನ್ ಪಾಸ್‌ಫ್ರೇಸ್ ಬದಲಾಯಿಸಿ",
   "enableNoteEncryption": "ಟಿಪ್ಪಣಿ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ",
@@ -183,5 +181,7 @@
   "whatsNewEncryptionSubtitle": "ಪಾಸ್‌ಫ್ರೇಸ್ ಆಧಾರಿತ ಎನ್‌ಕ್ರಿಪ್ಷನ್ ಮತ್ತು ಮರುಪಡೆಯುವಿಕೆ ಆಯ್ಕೆಗಳೊಂದಿಗೆ ಸೂಕ್ಷ್ಮ ಟಿಪ್ಪಣಿಗಳನ್ನು ರಕ್ಷಿಸಿ.",
   "whatsNewEncryptionTitle": "ಗೂಢಲಿಪೀಕರಣದ ಬಗ್ಗೆ",
   "whatsNewThemesSubtitle": "ಡೈರಿವಾಲ್ಟ್ ಅನ್ನು ನಿಮ್ಮ ಸ್ವಂತ ಬಣ್ಣಗಳು ಮತ್ತು ದೃಶ್ಯ ಶೈಲಿಯೊಂದಿಗೆ ವೈಯಕ್ತೀಕರಿಸಿ.",
-  "whatsNewThemesTitle": "ಥೀಮ್‌ಗಳನ್ನು ರಚಿಸುವುದು ಮತ್ತು ಕಸ್ಟಮೈಸ್ ಮಾಡುವುದು"
+  "whatsNewThemesTitle": "ಥೀಮ್‌ಗಳನ್ನು ರಚಿಸುವುದು ಮತ್ತು ಕಸ್ಟಮೈಸ್ ಮಾಡುವುದು",
+  "exportToJSON": "JSON ಗೆ ರಫ್ತು ಮಾಡಿ",
+  "select": "ಆಯ್ಕೆಮಾಡಿ"
 }

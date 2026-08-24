@@ -157,7 +157,6 @@
   "saveChanges": "שמירת שינויים",
   "themeName": "שם ערכת עיצוב.",
   "themeNameHint": "ערכת נושא שלי",
-  "select": "Select",
   "change": "החלפה",
   "changeEncryptionPassphrase": "שנה משפט סיסמה להצפנה",
   "enableNoteEncryption": "אפשר הצפנת פתק",
@@ -183,5 +182,6 @@
   "whatsNewEncryptionSubtitle": "הגנו על פתקים רגישים עם אפשרויות הצפנה ושחזור מבוססות סיסמאות.",
   "whatsNewEncryptionTitle": "מידע על הצפנה",
   "whatsNewThemesSubtitle": "התאם אישית את DiaryVault עם הצבעים והסגנון החזותי שלך.",
-  "whatsNewThemesTitle": "יצירה והתאמה אישית של ערכות עיצוב"
+  "whatsNewThemesTitle": "יצירה והתאמה אישית של ערכות עיצוב",
+  "select": "בחר"
 }

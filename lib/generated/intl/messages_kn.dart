@@ -164,7 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "exportNotes": MessageLookupByLibrary.simpleMessage(
       "ನಿಮ್ಮ ಟಿಪ್ಪಣಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿ",
     ),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("JSON ಗೆ ರಫ್ತು ಮಾಡಿ"),
     "exportToPDF": MessageLookupByLibrary.simpleMessage("PDF ಗೆ ರಫ್ತು ಮಾಡಿ"),
     "exportToPlainText": MessageLookupByLibrary.simpleMessage(
       "ಸರಳ ಪಠ್ಯಕ್ಕೆ ರಫ್ತು ಮಾಡಿ",
@@ -329,7 +329,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "ಭದ್ರತಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("ಆಯ್ಕೆಮಾಡಿ"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("ಧ್ವನಿ ಆಯ್ಕೆಮಾಡಿ"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ"),
     "settings": MessageLookupByLibrary.simpleMessage("ಸಂಯೋಜನೆಗಳು"),

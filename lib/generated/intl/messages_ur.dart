@@ -311,7 +311,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("تبدیلیاں محفوظ کرو"),
     "security": MessageLookupByLibrary.simpleMessage("سکیورٹی"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("سلامتی سیٹنگیں"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("منتخب کریں"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("آواز منتخب کریں"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("تاثرات بھیجیں"),
     "settings": MessageLookupByLibrary.simpleMessage("ترتیبات"),

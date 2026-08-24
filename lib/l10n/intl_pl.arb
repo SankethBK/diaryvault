@@ -60,7 +60,6 @@
   "signUp": "Zarejestruj się",
   "tapToExpandTitle": "Dotknij tutaj, aby rozwinąć tytuł",
   "gallery": "Galeria",
-  "link": "Link",
   "camera": "Aparat",
   "video": "Kamera",
   "youHaveUnsavedChanges": "Masz niezapisane zmiany",
@@ -108,7 +107,6 @@
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV URL",
   "moreInfo": "Więcej informacji",
-  "resetPin": "Reset PIN",
   "enterPin": "Wprowadź PIN",
   "pinResetSuccessful": "PIN zresetowany pomyślnie",
   "confirmNewPin": "Potwierdź nowy PIN",
@@ -157,7 +155,6 @@
   "saveChanges": "Zapisz zmiany",
   "themeName": "Nazwa motywu",
   "themeNameHint": "Mój temat",
-  "select": "Select",
   "change": "Zmień",
   "changeEncryptionPassphrase": "Zmień hasło szyfrowania",
   "enableNoteEncryption": "Włącz szyfrowanie notatek",
@@ -183,5 +180,8 @@
   "whatsNewEncryptionSubtitle": "Chroń poufne notatki za pomocą opcji szyfrowania i odzyskiwania opartych na hasłach.",
   "whatsNewEncryptionTitle": "O szyfrowaniu",
   "whatsNewThemesSubtitle": "Spersonalizuj DiaryVault za pomocą własnych kolorów i stylu wizualnego.",
-  "whatsNewThemesTitle": "Tworzenie i dostosowywanie motywów"
+  "whatsNewThemesTitle": "Tworzenie i dostosowywanie motywów",
+  "link": "Łącze",
+  "resetPin": "Resetuj numer PIN",
+  "select": "Wybierz"
 }

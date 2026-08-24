@@ -109,7 +109,6 @@
   "webdavURL": "వెబ్DAV URL",
   "moreInfo": "మరింత సమాచారం",
   "fontFamily": "ఫాంట్ కుటుంబం",
-  "exportToJSON": "Export to JSON",
   "cloudBackup": "క్లౌడ్ బ్యాకప్",
   "confirmNewPin": "మీ కొత్త పిన్ ‌ ను నిర్ధారించండి",
   "enablePINLogin": "పిన్ లాగిన్ ‌ ను ప్రారంభించండి",
@@ -157,7 +156,6 @@
   "saveChanges": "మార్పులను దాచు",
   "themeName": "థీమ్ పేరు",
   "themeNameHint": "నా థీమ్",
-  "select": "Select",
   "change": "మార్చు",
   "changeEncryptionPassphrase": "ఎన్ ‌ క్రిప్షన్ పాస్ ‌ ఫ్రేజ్ ‌ ని మార్చండి",
   "enableNoteEncryption": "గమనిక గుప్తీకరణను ప్రారంభించండి",
@@ -183,5 +181,7 @@
   "whatsNewEncryptionSubtitle": "పాస్ ‌ ఫ్రేజ్ ఆధారిత ఎన్ ‌ క్రిప్షన్ మరియు రికవరీ ఎంపికలతో సున్నితమైన గమనికలను రక్షించండి.",
   "whatsNewEncryptionTitle": "గుప్తీకరణ గురించి",
   "whatsNewThemesSubtitle": "డైరీవాల్ట్ ‌ ను మీ స్వంత రంగులు మరియు దృశ్య శైలితో వ్యక్తిగతీకరించండి.",
-  "whatsNewThemesTitle": "థీమ్ ‌ లను సృష్టించడం మరియు అనుకూలీకరించడం"
+  "whatsNewThemesTitle": "థీమ్ ‌ లను సృష్టించడం మరియు అనుకూలీకరించడం",
+  "exportToJSON": "JSONకు ఎగుమతి చేయండి",
+  "select": "ఎంపిక చేయండి"
 }

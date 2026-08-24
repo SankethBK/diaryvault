@@ -108,7 +108,6 @@
   "nextCloud": "NextCloud",
   "webdavURL": "WebDAV URL",
   "moreInfo": "更多信息",
-  "exportToJSON": "Export to JSON",
   "cloudBackup": "云备份",
   "confirmNewPin": "确认新PIN码",
   "enablePINLogin": "启用PIN登录",
@@ -143,7 +142,6 @@
   "darkTheme": "深色主题",
   "defaultThemeName": "我的主题",
   "editTheme": "编辑主题",
-  "importFromJSON": "Import from JSON",
   "invalidBackupFile": "无效的备份文件。",
   "lightLabel": "亮",
   "muted": "已静音",
@@ -157,7 +155,6 @@
   "saveChanges": "保存修改",
   "themeName": "主题名称：",
   "themeNameHint": "我的主题",
-  "select": "Select",
   "change": "变动",
   "changeEncryptionPassphrase": "更改加密密码",
   "enableNoteEncryption": "启用笔记加密",
@@ -183,5 +180,8 @@
   "whatsNewEncryptionSubtitle": "使用基于密码的加密和恢复选项保护敏感笔记。",
   "whatsNewEncryptionTitle": "关于加密",
   "whatsNewThemesSubtitle": "使用您自己的颜色和视觉风格个性化DiaryVault。",
-  "whatsNewThemesTitle": "创建和自定义主题"
+  "whatsNewThemesTitle": "创建和自定义主题",
+  "select": "选择大奖",
+  "exportToJSON": "导出为 JSON",
+  "importFromJSON": "从 JSON 导入"
 }

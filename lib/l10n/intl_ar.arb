@@ -157,7 +157,6 @@
   "saveChanges": "حفظ التغييرات",
   "themeName": "اسم المحور",
   "themeNameHint": "سِمَتي",
-  "select": "Select",
   "change": "التغيير",
   "changeEncryptionPassphrase": "تغيير عبارة مرور التشفير",
   "enableNoteEncryption": "تمكين تشفير الملاحظات",
@@ -183,5 +182,6 @@
   "whatsNewEncryptionSubtitle": "قم بحماية الملاحظات الحساسة باستخدام خيارات التشفير والاسترداد المستندة إلى عبارة المرور.",
   "whatsNewEncryptionTitle": "حول التشفير",
   "whatsNewThemesSubtitle": "خصص DiaryVault بألوانك وأسلوبك المرئي.",
-  "whatsNewThemesTitle": "إنشاء وتخصيص القوالب"
+  "whatsNewThemesTitle": "إنشاء وتخصيص القوالب",
+  "select": "حدد"
 }

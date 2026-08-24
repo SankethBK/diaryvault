@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "accent": MessageLookupByLibrary.simpleMessage("Accent"),
+    "accent": MessageLookupByLibrary.simpleMessage("ټینګار رنګ"),
     "accountSetupSuccessful": MessageLookupByLibrary.simpleMessage(
       "د حساب تنظیم بریالی شو",
     ),
@@ -209,7 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lockThisNote": MessageLookupByLibrary.simpleMessage("دا یاداشت قلف کړئ"),
     "logIn": MessageLookupByLibrary.simpleMessage("ننوځه"),
     "logOut": MessageLookupByLibrary.simpleMessage("ووځه"),
-    "logOut2": MessageLookupByLibrary.simpleMessage("Logout"),
+    "logOut2": MessageLookupByLibrary.simpleMessage("وتل"),
     "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
       "مهرباني وکړئ د اتوماتیک همغږۍ فعالولو لپاره ننوځئ",
     ),
@@ -305,7 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("بدلونونه خوندي کړه"),
     "security": MessageLookupByLibrary.simpleMessage("سيکيورټي (حفاظت کول)"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("امنیتي امستنې"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("منتخب"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("غږ غوره کړئ"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("خپل نظرونه ولیږئ"),
     "settings": MessageLookupByLibrary.simpleMessage("تنظیمات"),

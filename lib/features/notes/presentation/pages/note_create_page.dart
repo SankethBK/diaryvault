@@ -56,7 +56,7 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
   void _initSaveTimer() {
     final userConfigCubit = BlocProvider.of<UserConfigCubit>(context);
     final isAutoSaveEnabled =
-        userConfigCubit.state.userConfigModel?.isAutoSaveEnabled ?? false;
+        userConfigCubit.state.userConfigModel?.isAutoSaveEnabled ?? true;
 
     if (isAutoSaveEnabled) {
       const int saveDelayInSeconds = 10; // delay in seconds

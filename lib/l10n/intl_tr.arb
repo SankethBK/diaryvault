@@ -62,7 +62,6 @@
   "gallery": "Galeri",
   "link": "Bağlantı",
   "camera": "Kamera",
-  "video": "Video",
   "youHaveUnsavedChanges": "Kaydedilmemiş değişiklikleriniz var",
   "dropbox": "Dropbox",
   "signedInAs": "Olarak giriş yapıldı",
@@ -128,7 +127,6 @@
   "reminders": "Hatırlatmalar",
   "themeFontsAndLanguage": "Temayı, Yazı Tiplerini ve Dili Özelleştir",
   "importAndExportNotes": "Notları İçe ve Dışa Aktar",
-  "exportToJSON": "Export to JSON",
   "selectVoice": "SeÃ§enekli. Buraya herhangi sunucu komut satÄ±r seÃ§enekleri girin. Mevcut seÃ§enekleri gÃ¶rmek iÃ§in, uÃ§birim iÃ§inde \"epos - h\" girin. \"- o\" kullanmayÄ±n.",
   "toolbarPosition": "Araç Çubuğu Konumu",
   "accent": "Şive",
@@ -157,7 +155,6 @@
   "saveChanges": "Değişiklikleri Kaydet",
   "themeName": "Tema adı",
   "themeNameHint": "Benim Temam",
-  "select": "Select",
   "change": "Değişim",
   "changeEncryptionPassphrase": "Şifreleme parolasını değiştir",
   "enableNoteEncryption": "Not şifrelemesini etkinleştir",
@@ -183,5 +180,8 @@
   "whatsNewEncryptionSubtitle": "Parola tabanlı şifreleme ve kurtarma seçenekleriyle hassas notları koruyun.",
   "whatsNewEncryptionTitle": "Şifreleme hakkında",
   "whatsNewThemesSubtitle": "DiaryVault'u kendi renkleriniz ve görsel tarzınızla kişiselleştirin.",
-  "whatsNewThemesTitle": "Tema oluşturma ve özelleştirme"
+  "whatsNewThemesTitle": "Tema oluşturma ve özelleştirme",
+  "exportToJSON": "JSON'a Çıktısı",
+  "select": "Seç",
+  "video": "Video"
 }

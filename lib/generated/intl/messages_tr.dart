@@ -158,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kayıtlı e-posta adresini girin",
     ),
     "exportNotes": MessageLookupByLibrary.simpleMessage("Notları dışa aktar"),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("JSON\'a Çıktısı"),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "PDF Olarak Dışa Aktar",
     ),
@@ -315,7 +315,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Güvenlik Ayarları",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Seç"),
     "selectVoice": MessageLookupByLibrary.simpleMessage(
       "SeÃ§enekli. Buraya herhangi sunucu komut satÄ±r seÃ§enekleri girin. Mevcut seÃ§enekleri gÃ¶rmek iÃ§in, uÃ§birim iÃ§inde \"epos - h\" girin. \"- o\" kullanmayÄ±n.",
     ),

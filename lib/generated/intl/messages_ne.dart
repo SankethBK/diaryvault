@@ -174,7 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "exportNotes": MessageLookupByLibrary.simpleMessage(
       "तपाईंका नोटहरू निर्यात गर्नुहोस्",
     ),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage(
+      "SVG मा बाटो निर्यात गर्नुहोस्filters-action",
+    ),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "PDF मा निर्यात गर्नुहोस्",
     ),
@@ -333,10 +335,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "सुरक्षा सेटिङहरू",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
-    "selectVoice": MessageLookupByLibrary.simpleMessage(
-      "à¤¬à¥à¤²à¤¾à¤¯à¤¤à¥ à¤ªà¥à¤°à¥à¤·FestivalVoiceName",
-    ),
+    "select": MessageLookupByLibrary.simpleMessage("छनौट गर्नुहोस्"),
+    "selectVoice": MessageLookupByLibrary.simpleMessage("आवाज चयन गर्नुहोस्"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage(
       "प्रतिक्रिया पठाउनुहोस्",
     ),

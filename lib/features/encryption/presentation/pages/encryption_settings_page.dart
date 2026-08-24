@@ -12,6 +12,7 @@ import 'package:dairy_app/features/encryption/presentation/widgets/change_passph
 import 'package:dairy_app/features/encryption/presentation/widgets/encryption_setup_dialog.dart';
 import 'package:dairy_app/features/encryption/presentation/widgets/regenerate_recovery_dialog.dart';
 import 'package:dairy_app/features/encryption/presentation/widgets/unlock_dialog.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

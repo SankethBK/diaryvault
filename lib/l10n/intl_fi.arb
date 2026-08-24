@@ -62,7 +62,6 @@
   "gallery": "Galleria",
   "link": "Linkki",
   "camera": "Kamera",
-  "video": "Video",
   "youHaveUnsavedChanges": "Muutoksia ei ole tallennettu",
   "dropbox": "Dropbox",
   "signedInAs": "Kirjautuneena:",
@@ -157,7 +156,6 @@
   "saveChanges": "Tallenna muutokset",
   "themeName": "Teema",
   "themeNameHint": "Oma teema",
-  "select": "Select",
   "change": "Muuta",
   "changeEncryptionPassphrase": "Vaihda salaussalasana",
   "enableNoteEncryption": "Ota muistiinpanojen salaus käyttöön",
@@ -183,5 +181,7 @@
   "whatsNewEncryptionSubtitle": "Suojaa arkaluonteiset muistiinpanot salasanafraasipohjaisella salauksella ja palautusvaihtoehdoilla.",
   "whatsNewEncryptionTitle": "Tietoja salauksesta",
   "whatsNewThemesSubtitle": "Tee DiaryVaultista yksilöllinen omilla väreilläsi ja visuaalisella tyylilläsi.",
-  "whatsNewThemesTitle": "Teemojen luominen ja muokkaaminen"
+  "whatsNewThemesTitle": "Teemojen luominen ja muokkaaminen",
+  "select": "Valitse",
+  "video": "Video"
 }

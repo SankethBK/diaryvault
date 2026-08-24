@@ -321,7 +321,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "mipangilio ya usalama",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Chagua"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Chagua Sauti"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Tuma maoni"),
     "settings": MessageLookupByLibrary.simpleMessage("Mipangilio"),

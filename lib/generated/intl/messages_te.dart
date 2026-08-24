@@ -166,7 +166,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "exportNotes": MessageLookupByLibrary.simpleMessage(
       "మీ గమనికలను ఎగుమతి చేయండి",
     ),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage(
+      "JSONకు ఎగుమతి చేయండి",
+    ),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "PDF (బీటా)కి ఎగుమతి చేయండి",
     ),
@@ -335,7 +337,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "భద్రతా సెట్టింగులు",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("ఎంపిక చేయండి"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("వాయిస్ ఎంచుకోండి"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage(
       "అభిప్రాయాన్ని పంపండి",

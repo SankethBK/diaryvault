@@ -81,7 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "chooseTheme": MessageLookupByLibrary.simpleMessage("Pilih Tema"),
     "chooseTime": MessageLookupByLibrary.simpleMessage("PIlih waktu"),
     "closeTheApp": MessageLookupByLibrary.simpleMessage("Tutup aplikasi?"),
-    "cloudBackup": MessageLookupByLibrary.simpleMessage("Cloud Backup"),
+    "cloudBackup": MessageLookupByLibrary.simpleMessage("Cadangan Cloud"),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "Konfirmasi password baru",
     ),
@@ -207,8 +207,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kunci catatan terenkripsi",
     ),
     "lockThisNote": MessageLookupByLibrary.simpleMessage("Kunci catatan ini"),
-    "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
-    "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
+    "logIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "logOut": MessageLookupByLibrary.simpleMessage("Keluar"),
     "logOut2": MessageLookupByLibrary.simpleMessage("Keluar"),
     "loginToEnableAutoSync": MessageLookupByLibrary.simpleMessage(
       "Silakan login untuk mengaktifkan sinkronisasi otomatis",
@@ -286,7 +286,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Silakan siapkan akun Anda untuk menggunakan fitur ini",
         ),
-    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Kebijakan Privasi"),
     "projectOnGithub": MessageLookupByLibrary.simpleMessage("Proyek di Github"),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Rekam suara"),
     "recoveryCode": MessageLookupByLibrary.simpleMessage("Kode pemulihan"),
@@ -297,15 +297,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
       "Hapus enkripsi dari catatan ini",
     ),
-    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
-    "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
+    "resetPassword": MessageLookupByLibrary.simpleMessage(
+      "Atur ulang kata sandi",
+    ),
+    "resetPin": MessageLookupByLibrary.simpleMessage("Atur Ulang PIN"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
       "Simpan & terapkan tema",
     ),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Simpan perubahan"),
     "security": MessageLookupByLibrary.simpleMessage("Keamanan"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("Keamanan"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Pilih"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Pilih Suara"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Kirim masukan"),
     "settings": MessageLookupByLibrary.simpleMessage("Pengaturan"),
@@ -315,7 +317,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shareWithFriends": MessageLookupByLibrary.simpleMessage(
       "Bagikan kepada Teman",
     ),
-    "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "signIn": MessageLookupByLibrary.simpleMessage("Masuk"),
     "signInWithEmail": MessageLookupByLibrary.simpleMessage(
       "Masuk dengan Email",
     ),
@@ -331,7 +333,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Urutkan berdasarkan Terlama Terlebih Dahulu",
     ),
     "stay": MessageLookupByLibrary.simpleMessage("Tinggal"),
-    "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+    "submit": MessageLookupByLibrary.simpleMessage("Kirim"),
     "syncNow": MessageLookupByLibrary.simpleMessage("Sinkron sekarang"),
     "tagAlreadyExists": MessageLookupByLibrary.simpleMessage("sudah ada"),
     "tapToExpandTitle": MessageLookupByLibrary.simpleMessage(

@@ -329,7 +329,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Suojausasetukset",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Valitse"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Valitse ääni"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Lähetä palautetta"),
     "settings": MessageLookupByLibrary.simpleMessage("Asetukset"),

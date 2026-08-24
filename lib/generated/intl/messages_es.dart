@@ -70,7 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
     "change": MessageLookupByLibrary.simpleMessage("Cambiar"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
-      "Change background color",
+      "Cambiar color de fondo",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage(
       "Cambiar correo electrónico",
@@ -172,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Introduce correo electrónico registrado",
     ),
     "exportNotes": MessageLookupByLibrary.simpleMessage("Exporta tus notas"),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("Exportar a JSON"),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "Exportar a PDF (beta)",
     ),
@@ -339,7 +339,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Configuraciones de seguridad",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Seleccionar"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Seleccionar voz"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Enviar comentarios"),
     "settings": MessageLookupByLibrary.simpleMessage("Configuraciones"),

@@ -60,7 +60,6 @@
   "signUp": "Cadastre-se",
   "tapToExpandTitle": "Clique aqui para expandir o título",
   "gallery": "Galeria",
-  "link": "Link",
   "camera": "Câmera",
   "video": "Vídeo",
   "youHaveUnsavedChanges": "Você possui alterações não salvas",
@@ -114,7 +113,6 @@
   "importAndExportNotes": "Importar e Exportar Notas",
   "projectOnGithub": "Visite nosso projeto no Github",
   "moreInfo": "Mais informações",
-  "exportToJSON": "Export to JSON",
   "confirmNewPin": "Confirmar o novo PIN",
   "enablePINLogin": "Ativar início DE sessão com PIN",
   "enterPin": "Insira seu PIN",
@@ -157,7 +155,6 @@
   "saveChanges": "Guardar as alterações",
   "themeName": "Nome do tema pai",
   "themeNameHint": "Temas próprios",
-  "select": "Select",
   "change": "Mudar",
   "changeEncryptionPassphrase": "Alterar frase secreta de encriptação",
   "enableNoteEncryption": "Ativar encriptação de notas",
@@ -183,5 +180,8 @@
   "whatsNewEncryptionSubtitle": "Proteja notas confidenciais com opções de criptografia e recuperação baseadas em senha.",
   "whatsNewEncryptionTitle": "Sobre encriptação",
   "whatsNewThemesSubtitle": "Personalize o DiaryVault com as suas próprias cores e estilo visual.",
-  "whatsNewThemesTitle": "Criação e personalização de temas"
+  "whatsNewThemesTitle": "Criação e personalização de temas",
+  "exportToJSON": "Exportar para JSON",
+  "link": "Ligação",
+  "select": "Selecione"
 }

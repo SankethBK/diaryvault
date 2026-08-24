@@ -157,7 +157,6 @@
   "saveChanges": "تبدیلیاں محفوظ کرو",
   "themeName": "تھیم کا نام",
   "themeNameHint": "میرا تھیم",
-  "select": "Select",
   "change": "تبدیل",
   "changeEncryptionPassphrase": "خفیہ کاری کا پاس فریز تبدیل کریں",
   "enableNoteEncryption": "نوٹ کی خفیہ کاری فعال کریں",
@@ -183,5 +182,6 @@
   "whatsNewEncryptionSubtitle": "پاس فریز پر مبنی خفیہ کاری اور بازیابی کے اختیارات کے ساتھ حساس نوٹوں کی حفاظت کریں ۔",
   "whatsNewEncryptionTitle": "خفیہ کاری کے بارے میں",
   "whatsNewThemesSubtitle": "اپنے رنگوں اور بصری انداز کے ساتھ ڈائری والٹ کو ذاتی بنائیں ۔",
-  "whatsNewThemesTitle": "تھیمز بنانا اور اپنی مرضی کے مطابق بنانا"
+  "whatsNewThemesTitle": "تھیمز بنانا اور اپنی مرضی کے مطابق بنانا",
+  "select": "منتخب کریں"
 }

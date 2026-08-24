@@ -170,9 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fingerprintLoginFailed": MessageLookupByLibrary.simpleMessage(
       "ਫਿੰਗਰਪ੍ਰਿੰਟ ਲਾਗਇਨ ਅਸਫਲ ਰਿਹਾ",
     ),
-    "fontFamily": MessageLookupByLibrary.simpleMessage(
-      "à¨¸à¨²à¨¾à¨à¨¡ à¨ªà¨¿à©±à¨ à¨­à©à¨®à©",
-    ),
+    "fontFamily": MessageLookupByLibrary.simpleMessage("ਫੌਂਟ ਫੈਮਿਲੀ"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ"),
     "from": MessageLookupByLibrary.simpleMessage("ਤੋਂ"),
     "gallery": MessageLookupByLibrary.simpleMessage("ਗੈਲਰੀ"),
@@ -303,7 +301,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("ਬਦਲਾਅ ਸੰਭਾਲੋ"),
     "security": MessageLookupByLibrary.simpleMessage("ਸੁਰੱਖਿਆ"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("ਸੁਰੱਖਿਆ ਸੈਟਿੰਗ"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("ਚੁਣੋ"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("ਆਵਾਜ਼ ਚੁਣੋ"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("ਫੀਡਬੈਕ ਭੇਜੋ"),
     "settings": MessageLookupByLibrary.simpleMessage("ਵਿਵਸਥਾ"),

@@ -86,9 +86,7 @@
   "enterPin": "ਆਪਣਾ ਪਿੰਨ ਦਰਜ ਕਰੋ",
   "exportNotes": "ਆਪਣੇ ਨੋਟ ਐਕਸਪੋਰਟ ਕਰੋ",
   "exportToJSON": "JSON ਨੂੰ ਐਕਸਪੋਰਟ ਕਰੋ",
-  "exportToPDF": "QPrintPreviewDialog",
   "exportToPlainText": "ਪਲੇਨ ਟੈਕਸਟ ਲਈ ਐਕਸਪੋਰਟ",
-  "fontFamily": "à¨¸à¨²à¨¾à¨à¨¡ à¨ªà¨¿à©±à¨ à¨­à©à¨®à©",
   "getDailyReminders": "ਆਪਣੇ ਜਰਨਲ ਨੂੰ ਅਪ ਟੂ ਡੇਟ ਰੱਖਣ ਲਈ ਆਪਣੇ ਚੁਣੇ ਹੋਏ ਸਮੇਂ ਤੇ ਰੋਜ਼ਾਨਾ ਰੀਮਾਈਂਡਰ ਪ੍ਰਾਪਤ ਕਰੋ.",
   "importAndExportNotes": "ਇੰਪੋਰਟ ਅਤੇ ਐਕਸਪੋਰਟ ਨੋਟਿਸ",
   "leave": "ਛੱਡੋ",
@@ -157,7 +155,6 @@
   "saveChanges": "ਬਦਲਾਅ ਸੰਭਾਲੋ",
   "themeName": "ਥੀਮ ਨਾਂ",
   "themeNameHint": "ਮੇਰਾ ਥੀਮ",
-  "select": "Select",
   "change": "ਬਦਲਾਅ",
   "changeEncryptionPassphrase": "ਇੰਕ੍ਰਿਪਸ਼ਨ ਪ੍ਹੈਰਾ ਬਦਲੋ",
   "enableNoteEncryption": "ਨੋਟ ਇੰਕ੍ਰਿਪਸ਼ਨ ਯੋਗ",
@@ -183,5 +180,8 @@
   "whatsNewEncryptionSubtitle": "ਪਾਸਫਰੇਸ-ਅਧਾਰਤ ਐਨਕ੍ਰਿਪਸ਼ਨ ਅਤੇ ਰਿਕਵਰੀ ਵਿਕਲਪਾਂ ਨਾਲ ਸੰਵੇਦਨਸ਼ੀਲ ਨੋਟਸ ਦੀ ਰੱਖਿਆ ਕਰੋ.",
   "whatsNewEncryptionTitle": "ਇੰਕ੍ਰਿਪਸ਼ਨ ਬਾਰੇ",
   "whatsNewThemesSubtitle": "ਆਪਣੇ ਖੁਦ ਦੇ ਰੰਗਾਂ ਅਤੇ ਵਿਜ਼ੂਅਲ ਸਟਾਈਲ ਨਾਲ ਡਾਇਰੀਵੈਲਟ ਨੂੰ ਨਿੱਜੀ ਬਣਾਓ.",
-  "whatsNewThemesTitle": "ਥੀਮ ਬਣਾਉਣਾ ਅਤੇ ਅਨੁਕੂਲਿਤ ਕਰਨਾ"
+  "whatsNewThemesTitle": "ਥੀਮ ਬਣਾਉਣਾ ਅਤੇ ਅਨੁਕੂਲਿਤ ਕਰਨਾ",
+  "select": "ਚੁਣੋ",
+  "exportToPDF": "QPrintPreviewDialog",
+  "fontFamily": "ਫੌਂਟ ਫੈਮਿਲੀ"
 }

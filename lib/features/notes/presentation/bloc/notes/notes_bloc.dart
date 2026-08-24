@@ -219,8 +219,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       Either<EncryptionFailure, void>? encryptedResult;
       bool saveFailed = false;
 
-      // For smooth UX, it displays CIrcularProgressindicator till then
-      await Future.delayed(const Duration(seconds: 1));
+      // Keep the progress indicator visible briefly without making saves feel slow.
+      await Future.delayed(const Duration(milliseconds: 500));
 
       // encrypted notes go through the encrypted notes repository, which
       // encrypts the content before persisting; the normal path is untouched
@@ -301,8 +301,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
       bool saveFailed = false;
 
-      // For smooth UX, it displays CIrcularProgressindicator till then
-      await Future.delayed(const Duration(seconds: 1));
+      // Keep the progress indicator visible briefly without making saves feel slow.
+      await Future.delayed(const Duration(milliseconds: 500));
 
       if (state.isEncrypted) {
         final result = state.newNote!

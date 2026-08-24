@@ -6,6 +6,8 @@ import 'package:dairy_app/features/encryption/domain/repositories/encrypted_note
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:path/path.dart' as p;
 
 mixin NoteHelperMixin {
@@ -120,6 +122,20 @@ mixin NoteHelperMixin {
 
         return true;
       } else {
+        final autoSaveEnabled =
+            context.read<UserConfigCubit>().state.userConfigModel?.isAutoSaveEnabled ?? true;
+        if (autoSaveEnabled) {
+          final saved = notesBloc.stream
+              .where((state) => state is NoteAutoSavedSuccesfully || state is NotesAutoSavingFailed)
+              .first;
+          notesBloc.add(AutoSaveNote());
+          final result = await saved;
+          if (result is NoteAutoSavedSuccesfully) {
+            notesBloc.add(RefreshNote());
+            return true;
+          }
+          return false;
+        }
         bool? result = await showCloseDialog(context);
 
         if (result == true) {

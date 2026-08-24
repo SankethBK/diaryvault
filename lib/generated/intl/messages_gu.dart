@@ -62,13 +62,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "camera": MessageLookupByLibrary.simpleMessage("કેમેરા"),
     "cancel": MessageLookupByLibrary.simpleMessage("રદ કરો"),
-    "change": MessageLookupByLibrary.simpleMessage("Change"),
+    "change": MessageLookupByLibrary.simpleMessage("ચેન્જ"),
     "changeBackgroundColor": MessageLookupByLibrary.simpleMessage(
       "પાશ્વ ભાગનો રંગ બદલો",
     ),
     "changeEmail": MessageLookupByLibrary.simpleMessage("ઈ - મેઈલ બદલો"),
     "changeEncryptionPassphrase": MessageLookupByLibrary.simpleMessage(
-      "Change encryption passphrase",
+      "એનક્રિપ્શન પાસફ્રેઝને બદલો",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("undo-type"),
     "changePassword": MessageLookupByLibrary.simpleMessage("પાસવર્ડ બદલો"),
@@ -121,25 +121,27 @@ class MessageLookup extends MessageLookupByLibrary {
       "ફિંગરપ્રિન્ટ લોગિન સક્ષમ કરો",
     ),
     "enableNoteEncryption": MessageLookupByLibrary.simpleMessage(
-      "Enable note encryption",
+      "નોંધ એન્ક્રિપ્શન સક્ષમ કરો",
     ),
     "enablePINLogin": MessageLookupByLibrary.simpleMessage(
       "PIN લૉગિન સક્ષમ કરો",
     ),
     "encryptSensitiveNotesDescription": MessageLookupByLibrary.simpleMessage(
-      "Encrypt sensitive notes with a passphrase only you know. Encrypted notes are protected on this device and in your cloud backup, and live in a separate locked view.",
+      "સંવેદનશીલ નોંધોને પાસફ્રેઝ સાથે એન્ક્રિપ્ટ કરો જે ફક્ત તમે જાણો છો. એન્ક્રિપ્ટેડ નોટ્સ આ ડિવાઇસ પર અને તમારા ક્લાઉડ બેકઅપમાં સુરક્ષિત છે, અને એક અલગ લોક દૃશ્યમાં રહે છે.",
     ),
     "encryptThisNote": MessageLookupByLibrary.simpleMessage(
-      "Encrypt this note",
+      "આ નોંધ એનક્રિપ્ટ કરો",
     ),
-    "encryptedNotes": MessageLookupByLibrary.simpleMessage("Encrypted notes"),
+    "encryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "એનક્રિપ્ટ થયેલ નોંધો",
+    ),
     "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
-      "Encrypted notes are locked",
+      "એન્ક્રિપ્ટેડ નોટ્સ લૉક છે",
     ),
-    "encryption": MessageLookupByLibrary.simpleMessage("Encryption"),
-    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Enabled"),
+    "encryption": MessageLookupByLibrary.simpleMessage("એનક્રિપ્શન"),
+    "encryptionEnabled": MessageLookupByLibrary.simpleMessage("સક્રિય"),
     "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
-      "Set up a passphrase and recovery code",
+      "પાસફ્રેઝ અને રિકવરી કોડ સેટ કરો",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "વર્તમાન પાસવર્ડ દાખલ કરો",
@@ -191,11 +193,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "JSON માંથી આયાત કરો",
     ),
     "incorrectPassphrase": MessageLookupByLibrary.simpleMessage(
-      "Incorrect passphrase",
+      "ખોટો પાસફ્રેઝ",
     ),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage("ખોટો પાસવર્ડ"),
     "incorrectRecoveryCode": MessageLookupByLibrary.simpleMessage(
-      "Incorrect recovery code",
+      "ખોટો રિકવરી કોડ",
     ),
     "invalidBackupFile": MessageLookupByLibrary.simpleMessage(
       "અમાન્ય બેકઅપ ફાઇલ",
@@ -206,9 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "lightLabel": MessageLookupByLibrary.simpleMessage("લાઈટ"),
     "link": MessageLookupByLibrary.simpleMessage("લિંક"),
     "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
-      "Lock encrypted notes",
+      "એનક્રિપ્ટ થયેલ નોંધોને તાળું મારો",
     ),
-    "lockThisNote": MessageLookupByLibrary.simpleMessage("Lock this note"),
+    "lockThisNote": MessageLookupByLibrary.simpleMessage("આ નોંધને લૉક કરો"),
     "logIn": MessageLookupByLibrary.simpleMessage("પ્રવેશ કરો"),
     "logOut": MessageLookupByLibrary.simpleMessage("લૉગ આઉટ"),
     "logOut2": MessageLookupByLibrary.simpleMessage("લોગ આઉટ"),
@@ -220,7 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPassword": MessageLookupByLibrary.simpleMessage("નવો પાસવર્ડ"),
     "nextCloud": MessageLookupByLibrary.simpleMessage("નેક્સ્ટક્લાઉડ"),
     "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
-      "No encrypted notes yet",
+      "હજુ સુધી કોઈ એનક્રિપ્ટ થયેલ નોંધો નથી",
     ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("ઉપલબ્ધ નથી"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -251,7 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paletteInstruction": MessageLookupByLibrary.simpleMessage(
       "પેલેટ (સંપાદિત કરવા માટે સ્વેચ ટેપ કરો)",
     ),
-    "passphrase": MessageLookupByLibrary.simpleMessage("Passphrase"),
+    "passphrase": MessageLookupByLibrary.simpleMessage("પાસફ્રેઝ"),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "પાસવર્ડ રીસેટ ઈમેલ મોકલ્યો",
     ),
@@ -293,13 +295,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "recordAudio": MessageLookupByLibrary.simpleMessage(
       "ગેમનો ઓડિયો રેકોર્ડ કરો",
     ),
-    "recoveryCode": MessageLookupByLibrary.simpleMessage("Recovery code"),
+    "recoveryCode": MessageLookupByLibrary.simpleMessage("રિકવરી કોડ"),
     "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
-      "Regenerate recovery code",
+      "પુનઃપ્રાપ્તિ કોડ ફરીથી જનરેટ કરો",
     ),
     "reminders": MessageLookupByLibrary.simpleMessage("યાદ અપાવનાર"),
     "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
-      "Remove encryption from this note",
+      "આ નોંધમાંથી એનક્રિપ્શન દૂર કરો",
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("પાસવર્ડ રીસેટ કરો"),
     "resetPin": MessageLookupByLibrary.simpleMessage("PIN રીસેટ કરો"),
@@ -311,7 +313,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "સુરક્ષા સેટિંગ્સ",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("સિલેકટ કરો"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("વૉઇસ પસંદ કરો"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("પ્રતિસાદ મોકલ"),
     "settings": MessageLookupByLibrary.simpleMessage("સેટિંગ્સ"),
@@ -359,23 +361,25 @@ class MessageLookup extends MessageLookupByLibrary {
       "અનપેક્ષિત ભૂલ આવી",
     ),
     "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
-      "Unlock encrypted notes",
+      "એનક્રિપ્ટ થયેલ નોંધો અનલૉક કરો",
     ),
-    "unlockThisNote": MessageLookupByLibrary.simpleMessage("Unlock this note"),
+    "unlockThisNote": MessageLookupByLibrary.simpleMessage(
+      "આ નોંધને અનલૉક કરો",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("વિડિયો"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
-    "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new"),
+    "whatsNew": MessageLookupByLibrary.simpleMessage("નવું શું છે! "),
     "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
-      "Protect sensitive notes with passphrase-based encryption and recovery options.",
+      "પાસફ્રેઝ-આધારિત એન્ક્રિપ્શન અને પુનઃપ્રાપ્તિ વિકલ્પો સાથે સંવેદનશીલ નોંધોને સુરક્ષિત કરો.",
     ),
     "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
-      "About encryption",
+      "એન્ક્રિપ્શન વિશે",
     ),
     "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
-      "Personalize DiaryVault with your own colors and visual style.",
+      "તમારા પોતાના રંગો અને વિઝ્યુઅલ સ્ટાઇલ સાથે ડાયરીવોલ્ટને વ્યક્તિગત કરો.",
     ),
     "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
-      "Creating and customizing themes",
+      "થીમ્સ બનાવવી અને કસ્ટમાઇઝ કરવી",
     ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("ખોટી પિન"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(

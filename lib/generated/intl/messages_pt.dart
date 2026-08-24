@@ -158,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Insira o email cadastrado",
     ),
     "exportNotes": MessageLookupByLibrary.simpleMessage("Exporte suas notas"),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("Exportar para JSON"),
     "exportToPDF": MessageLookupByLibrary.simpleMessage("Exportar para PDF"),
     "exportToPlainText": MessageLookupByLibrary.simpleMessage(
       "Exportar para texto simples",
@@ -208,7 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "leave": MessageLookupByLibrary.simpleMessage("Deixar"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Luz"),
-    "link": MessageLookupByLibrary.simpleMessage("Link"),
+    "link": MessageLookupByLibrary.simpleMessage("Ligação"),
     "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
       "Bloquear notas encriptadas",
     ),
@@ -323,7 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Configurações de segurança",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Selecione"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Escolha a voz:"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Mande um feedback"),
     "settings": MessageLookupByLibrary.simpleMessage("Configurações"),

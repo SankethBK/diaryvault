@@ -157,7 +157,6 @@
   "saveChanges": "변경 사항 저장",
   "themeName": "테마 이름",
   "themeNameHint": "고유 주제",
-  "select": "Select",
   "change": "변경",
   "changeEncryptionPassphrase": "암호화 암호 변경",
   "enableNoteEncryption": "메모 암호화 활성화",
@@ -173,7 +172,6 @@
   "lockEncryptedNotes": "암호화된 메모 잠금",
   "lockThisNote": "이 메모 잠그기",
   "noEncryptedNotesYet": "아직 암호화된 메모가 없습니다",
-  "passphrase": "Passphrase",
   "recoveryCode": "복구 코드",
   "regenerateRecoveryCode": "복구 코드 재생성",
   "removeEncryptionFromThisNote": "이 메모에서 암호화 제거",
@@ -183,5 +181,7 @@
   "whatsNewEncryptionSubtitle": "암호 기반 암호화 및 복구 옵션으로 민감한 메모를 보호하세요.",
   "whatsNewEncryptionTitle": "암호화 정보",
   "whatsNewThemesSubtitle": "자신만의 색상과 비주얼 스타일로 DiaryVault를 개인화하세요.",
-  "whatsNewThemesTitle": "테마 생성 및 사용자 정의"
+  "whatsNewThemesTitle": "테마 생성 및 사용자 정의",
+  "select": "선택",
+  "passphrase": "Passphrase"
 }

@@ -168,12 +168,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "exportNotes": MessageLookupByLibrary.simpleMessage(
       "Exportieren Sie Ihre Notizen",
     ),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage(
+      "Nach JSON exportieren",
+    ),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "In einfachen Text exportieren",
     ),
     "exportToPlainText": MessageLookupByLibrary.simpleMessage(
-      "Export to Plain Text",
+      "In einfachen Text exportieren",
     ),
     "failedToFetchNote": MessageLookupByLibrary.simpleMessage(
       "Notiz konnte nicht abgerufen werden",
@@ -335,7 +337,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Sicherheitseinstellungen",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Auswählen"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Stimme auswählen:"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Feedback abschicken"),
     "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),

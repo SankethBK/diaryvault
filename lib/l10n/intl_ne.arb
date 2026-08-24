@@ -128,8 +128,6 @@
   "reminders": "स्मरणपत्र",
   "themeFontsAndLanguage": "थिम, फन्ट र भाषा अनुकूलित गर्नुहोस्",
   "importAndExportNotes": "नोटहरू आयात र निर्यात गर्नुहोस्",
-  "exportToJSON": "Export to JSON",
-  "selectVoice": "à¤¬à¥à¤²à¤¾à¤¯à¤¤à¥ à¤ªà¥à¤°à¥à¤·FestivalVoiceName",
   "toolbarPosition": "उपकरणपट्टी स्थिति",
   "accent": "स्वर चिन्ह",
   "changeBackgroundColor": "पृष्ठभूमि रङ परिवर्तन गर्नुहोस्",
@@ -157,7 +155,6 @@
   "saveChanges": "परिवर्तनहरू बचत गर्नुहोस् ।",
   "themeName": "सारभूत छनौट नाम",
   "themeNameHint": "मेरो विषयवस्तु",
-  "select": "Select",
   "change": "परिवर्तन गर्नुहोस्",
   "changeEncryptionPassphrase": "गुप्तिकरण पासफ्रेज परिवर्तन गर्नुहोस्",
   "enableNoteEncryption": "द्रष्टव्य गुप्तीकरण सक्षम गर्नुहोस्",
@@ -183,5 +180,8 @@
   "whatsNewEncryptionSubtitle": "पासफ्रेज - आधारित ईन्क्रिप्शन र रिकभरी विकल्पहरूको साथ संवेदनशील नोटहरू सुरक्षित गर्नुहोस् ।",
   "whatsNewEncryptionTitle": "गुप्तिकरणको बारेमा",
   "whatsNewThemesSubtitle": "आफ्नै रङ र दृश्य शैलीको साथ डायरीभल्ट निजीकृत गर्नुहोस् ।",
-  "whatsNewThemesTitle": "विषयवस्तुहरू सिर्जना गर्ने र अनुकूलन गर्ने"
+  "whatsNewThemesTitle": "विषयवस्तुहरू सिर्जना गर्ने र अनुकूलन गर्ने",
+  "exportToJSON": "SVG मा बाटो निर्यात गर्नुहोस्filters-action",
+  "select": "छनौट गर्नुहोस्",
+  "selectVoice": "आवाज चयन गर्नुहोस्"
 }

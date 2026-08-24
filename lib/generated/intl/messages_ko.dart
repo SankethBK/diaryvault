@@ -239,7 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("변경 사항 저장"),
     "security": MessageLookupByLibrary.simpleMessage("보안"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("보안 설정"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("선택"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("음성 선택"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("피드백 보내기"),
     "settings": MessageLookupByLibrary.simpleMessage("설정"),

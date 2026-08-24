@@ -158,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zadajte registrovaný email",
     ),
     "exportNotes": MessageLookupByLibrary.simpleMessage("Exportovať poznámky"),
-    "exportToJSON": MessageLookupByLibrary.simpleMessage("Export to JSON"),
+    "exportToJSON": MessageLookupByLibrary.simpleMessage("Exportovať do"),
     "exportToPDF": MessageLookupByLibrary.simpleMessage(
       "Exportovať do formátu PDF",
     ),
@@ -323,7 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Bezpečnostné nastavenia",
     ),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("Vybrať"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Zvolte hlas:"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Poslať spätnú väzbu"),
     "settings": MessageLookupByLibrary.simpleMessage("Nastavenia"),
@@ -376,7 +376,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unlockThisNote": MessageLookupByLibrary.simpleMessage(
       "Odomknúť túto poznámku",
     ),
-    "video": MessageLookupByLibrary.simpleMessage("Video"),
+    "video": MessageLookupByLibrary.simpleMessage("Obraz"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
     "whatsNew": MessageLookupByLibrary.simpleMessage("Čo je nové"),
     "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(

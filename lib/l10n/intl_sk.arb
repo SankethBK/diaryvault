@@ -62,7 +62,6 @@
   "gallery": "Galéria",
   "link": "Odkaz",
   "camera": "Fotoaparát",
-  "video": "Video",
   "youHaveUnsavedChanges": "Máte neuložené zmeny",
   "dropbox": "Dropbox",
   "signedInAs": "Prihlásený ako",
@@ -123,7 +122,6 @@
   "projectOnGithub": "Projekt na Githube",
   "recordAudio": "Záznam zvuku",
   "pickFromFileManager": "Vybrať zo súborov",
-  "exportToJSON": "Export to JSON",
   "cloudBackup": "Zálohovanie do cloudu",
   "importAndExportNotes": "Import a export poznámok",
   "reminders": "Pripomenutie:",
@@ -157,7 +155,6 @@
   "saveChanges": "Uložiť zmeny",
   "themeName": "Názov témy",
   "themeNameHint": "Moja téma",
-  "select": "Select",
   "change": "Zmeniť",
   "changeEncryptionPassphrase": "Zmeniť prístupovú frázu šifrovania",
   "enableNoteEncryption": "Povoliť šifrovanie poznámok",
@@ -183,5 +180,8 @@
   "whatsNewEncryptionSubtitle": "Chráňte citlivé poznámky pomocou šifrovania a možností obnovy založených na prístupových heslách.",
   "whatsNewEncryptionTitle": "O šifrovaní",
   "whatsNewThemesSubtitle": "Prispôsobte si DiaryVault svojimi vlastnými farbami a vizuálnym štýlom.",
-  "whatsNewThemesTitle": "Vytváranie a prispôsobovanie motívov"
+  "whatsNewThemesTitle": "Vytváranie a prispôsobovanie motívov",
+  "exportToJSON": "Exportovať do",
+  "select": "Vybrať",
+  "video": "Obraz"
 }

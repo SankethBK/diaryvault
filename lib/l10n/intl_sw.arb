@@ -62,7 +62,6 @@
   "gallery": "Galeria",
   "link": "Kiungo",
   "camera": "Kamera",
-  "video": "Video",
   "youHaveUnsavedChanges": "Una mabadiliko ambayo hayajahifadhiwa",
   "dropbox": "Dropbox",
   "signedInAs": "Kusainiwa kama",
@@ -157,7 +156,6 @@
   "saveChanges": "Hifadhi mabadiliko",
   "themeName": "Jina la mada",
   "themeNameHint": "Mada Yangu",
-  "select": "Select",
   "change": "Badilisha",
   "changeEncryptionPassphrase": "Badilisha nenosiri la usimbaji fiche",
   "enableNoteEncryption": "Wezesha usimbaji fiche wa maelezo",
@@ -183,5 +181,7 @@
   "whatsNewEncryptionSubtitle": "Linda maelezo nyeti kwa kutumia usimbaji fiche unaotegemea maneno ya siri na machaguo ya kurejesha.",
   "whatsNewEncryptionTitle": "Kuhusu usimbaji fiche",
   "whatsNewThemesSubtitle": "Binafsisha DiaryVault na rangi zako mwenyewe na mtindo wa kuona.",
-  "whatsNewThemesTitle": "Kuunda na kufanya mada ziwe mahususi"
+  "whatsNewThemesTitle": "Kuunda na kufanya mada ziwe mahususi",
+  "select": "Chagua",
+  "video": "Video"
 }

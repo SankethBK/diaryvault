@@ -295,7 +295,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("שמירת שינויים"),
     "security": MessageLookupByLibrary.simpleMessage("אבטחה"),
     "securitySettings": MessageLookupByLibrary.simpleMessage("הגדרות אבטחה"),
-    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "select": MessageLookupByLibrary.simpleMessage("בחר"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("בחר “Voice” (קול)."),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("שלח משוב"),
     "settings": MessageLookupByLibrary.simpleMessage("הגדרות"),

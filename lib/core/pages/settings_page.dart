@@ -157,7 +157,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingsTile(
                   child: Text(
-                    "Encryption",
+                    S.current.encryption,
                     style: TextStyle(
                       fontSize: 16,
                       color: mainTextColor,
