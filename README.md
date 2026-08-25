@@ -10,13 +10,9 @@
 
 <div>
   <a href="https://apt.izzysoft.de/fdroid/index/apk/me.sankethbk.dairyapp/">
-    <img alt="Android App on Google Play" src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" height="65"/>
+    <img alt="Get it on IzzyOnDroid" src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" height="65"/>
   </a>
 </div>
-
-We are participating in [Hacktoberfest 2024](https://hacktoberfest.com/)! Contributions are welcome and greatly appreciated.
-
-[![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-2024-blueviolet?style=flat&logo=hackster&logoColor=white)](https://hacktoberfest.com/)
 
 ### Screenshots
 
@@ -49,22 +45,32 @@ Through my own experiences and by reading what others have shared in their revie
 
 ## Key Features
 
-1. Rich text editor with support for images, audio and videos
-2. Your data is securely preserved on your Google Drive / Dropbox account, ensuring complete ownership and privacy
-3. Sync data between multiple devices
-4. Notes can be organized by attaching tags
-5. Notes can be exported to text files and PDF files
-6. Secure your notes with PIN and Fingerprint lock
-7. Daily reminder notifications to stay on track with writing
-8. Multiple Themes and languages
+1. **Rich text editor** with support for images, videos and audio recordings
+2. **Cloud backups** to Google Drive, Dropbox or your own Nextcloud server — you keep full ownership of your data
+3. **Sync data** between multiple devices via your chosen cloud provider
+4. **Organize notes** with tags and flexible sorting (latest first, oldest first, A–Z)
+5. **Export notes** to text and PDF files
+6. **Secure your notes** with a PIN, fingerprint lock and optional end-to-end note encryption
+7. **Daily reminder notifications** to stay on track with writing
+8. **Automatic saving** so you never lose an entry to a call, notification or dead battery
+9. **Multiple built-in themes** plus a **custom theme builder** to design your own look
+10. **Font customization** for the overall app and per-note styling
+11. **24 interface languages** with community-reviewed translations
+12. **Read notes aloud** with text-to-speech and a selectable voice
 
 ## 🌍 Translations
 
-DiaryVault supports **22 languages** with automated translation management:
+DiaryVault supports **24 languages** with automated translation management:
 
-- **Complete Coverage**: Arabic, Bengali, German, Spanish, Finnish, French, Gujarati, Hebrew, Hindi, Indonesian, Kannada, Nepali, Punjabi, Polish, Portuguese, Russian, Slovak, Swahili, Telugu, Turkish, Chinese
-- **Automated System**: Missing translations are automatically generated using AI translation services
-- **Community Contributions**: Native speakers welcome to review and improve translations
+- **Arabic (ar)**, **Bengali (bn)**, **German (de)**, **Spanish (es)**
+- **Finnish (fi)**, **French (fr)**, **Gujarati (gu)**, **Hebrew (he)**
+- **Hindi (hi)**, **Indonesian (id)**, **Kannada (kn)**, **Korean (ko)**
+- **Nepali (ne)**, **Pashto (ps)**, **Punjabi (pa)**, **Polish (pl)**
+- **Portuguese (pt)**, **Russian (ru)**, **Slovak (sk)**, **Swahili (sw)**
+- **Telugu (te)**, **Turkish (tr)**, **Urdu (ur)**, **Chinese (zh)**
+
+- **Automated System**: Missing translations are automatically generated from `intl_en.arb` using AI translation services
+- **Community Contributions**: Native speakers are welcome to review and improve translations
 
 ### For Contributors: Adding/Updating Translations
 
@@ -78,13 +84,11 @@ python translate_all.py --dry-run  # Check what's missing
 python translate_all.py            # Generate all missing translations
 ```
 
-For detailed instructions, see [`python/README.md`](python/README.md).
+The script discovers all `intl_<code>.arb` files in `lib/l10n` automatically, so new languages are picked up as soon as the file is added. For detailed instructions, see [`python/README.md`](python/README.md).
 
 ### Features Planned for Future Releases
 
-- Add OneDrive and Nextcloud as cloud backup sources.
-- Add support for embedding audio files in the rich text editor.
-- Implement a simple to-do list within the rich text editor.
+- Add OneDrive as a cloud backup source.
 - Organize notes using smart folders.
 - Add support for stickers within the editor.
 
