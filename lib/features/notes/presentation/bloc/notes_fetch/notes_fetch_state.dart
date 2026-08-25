@@ -5,12 +5,14 @@ abstract class NotesFetchState extends Equatable {
   final bool safe;
   final bool isTagSearchEnabled;
   final List<String> tags;
+  final String searchText;
 
   const NotesFetchState({
     required this.notePreviewList,
     required this.safe,
     this.isTagSearchEnabled = false,
     this.tags = const [],
+    this.searchText = '',
   });
 
   @override
@@ -29,11 +31,13 @@ class NotesFetchLoadingState extends NotesFetchState {
   const NotesFetchLoadingState({
     bool isTagSearchEnabled = false,
     List<String> tags = const [],
+    String searchText = '',
   }) : super(
             notePreviewList: const [],
             safe: false,
             tags: tags,
-            isTagSearchEnabled: isTagSearchEnabled);
+            isTagSearchEnabled: isTagSearchEnabled,
+            searchText: searchText);
 }
 
 class NotesFetchFailed extends NotesFetchState {
@@ -45,11 +49,13 @@ class NotesFetchSuccessful extends NotesFetchState {
     required List<NotePreview> notePreviewList,
     bool isTagSearchEnabled = false,
     List<String> tags = const [],
+    String searchText = '',
   }) : super(
             notePreviewList: notePreviewList,
             safe: true,
             isTagSearchEnabled: isTagSearchEnabled,
-            tags: tags);
+            tags: tags,
+            searchText: searchText);
 
   @override
   List<Object> get props => [notePreviewList, isTagSearchEnabled, tags];
@@ -60,11 +66,13 @@ class NotesSortSuccessful extends NotesFetchState {
     required List<NotePreview> notePreviewList,
     bool isTagSearchEnabled = false,
     List<String> tags = const [],
+    String searchText = '',
   }) : super(
             notePreviewList: notePreviewList,
             safe: true,
             isTagSearchEnabled: isTagSearchEnabled,
-            tags: tags);
+            tags: tags,
+            searchText: searchText);
 
   @override
   List<Object> get props => [notePreviewList, isTagSearchEnabled, tags];

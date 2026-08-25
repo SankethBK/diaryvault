@@ -85,6 +85,7 @@ class RawEditor extends StatefulWidget {
     this.dialogTheme,
     this.contentInsertionConfiguration,
     this.searchText = '',
+    this.searchHighlightColor,
   })  : assert(maxHeight == null || maxHeight > 0, 'maxHeight cannot be null'),
         assert(minHeight == null || minHeight >= 0, 'minHeight cannot be null'),
         assert(maxHeight == null || minHeight == null || maxHeight >= minHeight,
@@ -95,6 +96,7 @@ class RawEditor extends StatefulWidget {
   /// Controls the document being edited.
   final QuillController controller;
   final String searchText;
+  final Color? searchHighlightColor;
 
   /// Controls whether this editor has keyboard focus.
   final FocusNode focusNode;
@@ -966,6 +968,7 @@ class RawEditorState extends EditorState
       readOnly: widget.readOnly,
       controller: controller,
       searchText: widget.searchText,
+      searchHighlightColor: widget.searchHighlightColor,
       linkActionPicker: _linkActionPicker,
       onLaunchUrl: widget.onLaunchUrl,
       customLinkPrefixes: widget.customLinkPrefixes,

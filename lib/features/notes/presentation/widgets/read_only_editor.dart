@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/utils/search_highlight_color.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,7 @@ class ReadOnlyEditor extends StatelessWidget {
       ],
       controller: controller!,
       searchText: searchText,
+      searchHighlightColor: searchHighlightColor(context),
       scrollController: ScrollController(),
       scrollable: true,
       focusNode: _focusNode,
@@ -60,8 +62,8 @@ class ReadOnlyEditor extends StatelessWidget {
       data: Theme.of(context).copyWith(
         // SearchButton uses the editor selection for the active match. Use a
         // warm, high-contrast color so the match is visible in read mode.
-        textSelectionTheme: const TextSelectionThemeData(
-          selectionColor: Color(0x66FFCA28),
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: searchHighlightColor(context).withValues(alpha: 0.7),
         ),
       ),
       child: DefaultTextStyle(

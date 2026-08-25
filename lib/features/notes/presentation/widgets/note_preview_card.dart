@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
+import 'package:dairy_app/core/utils/search_highlight_color.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
@@ -7,11 +8,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class NotePreviewCard extends StatelessWidget {
-  const NotePreviewCard({Key? key, required this.note, required this.first, required this.last, required this.index}) : super(key: key);
+  const NotePreviewCard(
+      {Key? key,
+      required this.note,
+      required this.first,
+      required this.last,
+      required this.index,
+      this.searchText = ''})
+      : super(key: key);
   final NotePreview note;
   final bool first;
   final bool last;
   final int index;
+  final String searchText;
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +32,39 @@ class NotePreviewCard extends StatelessWidget {
         final selecting = state is SelectableListEnabled;
         return GestureDetector(
           onLongPress: () {
-            if (state is SelectableListDisabled) cubit.enableSelectableList(note.id);
+            if (state is SelectableListDisabled)
+              cubit.enableSelectableList(note.id);
           },
           onTap: () {
             if (selecting) {
-              selected ? cubit.removeItemFromSelection(note.id) : cubit.addItemToSelection(note.id);
+              selected
+                  ? cubit.removeItemFromSelection(note.id)
+                  : cubit.addItemToSelection(note.id);
             } else {
-              Navigator.of(context).pushNamed(NotesReadOnlyPage.routeThroughHome, arguments: note.id);
+              Navigator.of(context).pushNamed(
+                  NotesReadOnlyPage.routeThroughHome,
+                  arguments: note.id);
             }
           },
           child: NoteTile(
             note: note,
             first: first,
             last: last,
-            gradientStartColor: selected ? theme.notePreviewSelectedGradientStartColor : theme.notePreviewUnselectedGradientStartColor,
-            gradientEndColor: selected ? theme.notePreviewSelectedGradientEndColor : theme.notePreviewUnselectedGradientEndColor,
+            gradientStartColor: selected
+                ? theme.notePreviewSelectedGradientStartColor
+                : theme.notePreviewUnselectedGradientStartColor,
+            gradientEndColor: selected
+                ? theme.notePreviewSelectedGradientEndColor
+                : theme.notePreviewUnselectedGradientEndColor,
             borderColor: theme.notePreviewBorderColor,
-            leading: selecting ? SelectBox(isSelected: selected, selectableListCubit: cubit, note: note) : null,
+            leading: selecting
+                ? SelectBox(
+                    isSelected: selected,
+                    selectableListCubit: cubit,
+                    note: note)
+                : null,
             selectModeEnabled: selecting,
+            searchText: searchText,
           ),
         );
       },
@@ -49,7 +73,18 @@ class NotePreviewCard extends StatelessWidget {
 }
 
 class NoteTile extends StatelessWidget {
-  const NoteTile({Key? key, required this.note, required this.first, required this.last, required this.gradientStartColor, required this.gradientEndColor, required this.borderColor, this.leading, this.selectModeEnabled = false}) : super(key: key);
+  const NoteTile(
+      {Key? key,
+      required this.note,
+      required this.first,
+      required this.last,
+      required this.gradientStartColor,
+      required this.gradientEndColor,
+      required this.borderColor,
+      this.leading,
+      this.selectModeEnabled = false,
+      this.searchText = ''})
+      : super(key: key);
   final NotePreview note;
   final bool first;
   final bool last;
@@ -58,6 +93,7 @@ class NoteTile extends StatelessWidget {
   final Color borderColor;
   final Widget? leading;
   final bool selectModeEnabled;
+  final String searchText;
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +110,24 @@ class NoteTile extends StatelessWidget {
             : Border(
                 top: BorderSide(width: 1.3, color: borderColor),
               ),
-        gradient: LinearGradient(colors: [gradientStartColor, gradientEndColor], begin: AlignmentDirectional.topStart, end: AlignmentDirectional.bottomEnd),
+        gradient: LinearGradient(
+            colors: [gradientStartColor, gradientEndColor],
+            begin: AlignmentDirectional.topStart,
+            end: AlignmentDirectional.bottomEnd),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (note.isEncrypted) Padding(padding: const EdgeInsets.only(left: 20, right: 10, top: 2), child: Icon(Icons.lock, size: 20, color: theme.previewTitleColor)),
+          if (note.isEncrypted)
+            Padding(
+                padding: const EdgeInsets.only(left: 20, right: 10, top: 2),
+                child:
+                    Icon(Icons.lock, size: 20, color: theme.previewTitleColor)),
           if (leading != null) leading!,
-          TitleAndDescription(note: note, selectModeEnabled: selectModeEnabled || note.isEncrypted),
+          TitleAndDescription(
+              note: note,
+              selectModeEnabled: selectModeEnabled || note.isEncrypted,
+              searchText: searchText),
           DisplayDate(note: note),
         ],
       ),
@@ -90,7 +136,12 @@ class NoteTile extends StatelessWidget {
 }
 
 class SelectBox extends StatelessWidget {
-  const SelectBox({Key? key, required this.isSelected, required this.selectableListCubit, required this.note}) : super(key: key);
+  const SelectBox(
+      {Key? key,
+      required this.isSelected,
+      required this.selectableListCubit,
+      required this.note})
+      : super(key: key);
   final bool isSelected;
   final SelectableListCubit selectableListCubit;
   final NotePreview note;
@@ -102,31 +153,108 @@ class SelectBox extends StatelessWidget {
       side: BorderSide(color: theme.previewTitleColor),
       value: isSelected,
       activeColor: theme.checkBoxSelectedColor,
-      onChanged: (value) => value! ? selectableListCubit.addItemToSelection(note.id) : selectableListCubit.removeItemFromSelection(note.id),
+      onChanged: (value) => value!
+          ? selectableListCubit.addItemToSelection(note.id)
+          : selectableListCubit.removeItemFromSelection(note.id),
     );
   }
 }
 
 class TitleAndDescription extends StatelessWidget {
-  const TitleAndDescription({Key? key, required this.note, required this.selectModeEnabled}) : super(key: key);
+  const TitleAndDescription(
+      {Key? key,
+      required this.note,
+      required this.selectModeEnabled,
+      this.searchText = ''})
+      : super(key: key);
   final NotePreview note;
   final bool selectModeEnabled;
+  final String searchText;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<HomePageThemeExtensions>()!;
+    final highlightColor = searchHighlightColor(context);
     return Expanded(
       child: Padding(
         padding: EdgeInsets.only(left: selectModeEnabled ? 0 : 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(note.title, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: theme.previewTitleColor), maxLines: 1, overflow: TextOverflow.ellipsis),
+            _highlightedText(
+              note.title,
+              searchText,
+              TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                  color: theme.previewTitleColor),
+              highlightColor,
+            ),
             const SizedBox(height: 8),
-            Text(note.plainText, style: TextStyle(fontSize: 15, color: theme.previewBodyColor), maxLines: 1, overflow: TextOverflow.ellipsis),
+            _highlightedText(
+              _bodySnippet(note.plainText, searchText),
+              searchText,
+              TextStyle(fontSize: 15, color: theme.previewBodyColor),
+              highlightColor,
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  String _bodySnippet(String body, String query) {
+    final normalizedQuery = query.trim();
+    if (normalizedQuery.isEmpty) return body;
+
+    final matchIndex =
+        body.toLowerCase().indexOf(normalizedQuery.toLowerCase());
+    if (matchIndex < 0) return body;
+
+    // Start the snippet at the match so the searched word is always visible.
+    const contextLength = 0;
+    final start = (matchIndex - contextLength).clamp(0, body.length);
+    final end = (start + 110).clamp(0, body.length);
+    final prefix = start > 0 ? '…' : '';
+    final suffix = end < body.length ? '…' : '';
+    return '$prefix${body.substring(start, end)}$suffix';
+  }
+
+  Widget _highlightedText(
+      String value, String query, TextStyle style, Color highlightColor) {
+    final normalizedQuery = query.trim();
+    if (normalizedQuery.isEmpty) {
+      return Text(value,
+          style: style, maxLines: 1, overflow: TextOverflow.ellipsis);
+    }
+
+    final lowerValue = value.toLowerCase();
+    final lowerQuery = normalizedQuery.toLowerCase();
+    final spans = <TextSpan>[];
+    var cursor = 0;
+    while (cursor < value.length) {
+      final match = lowerValue.indexOf(lowerQuery, cursor);
+      if (match < 0) {
+        spans.add(TextSpan(text: value.substring(cursor)));
+        break;
+      }
+      if (match > cursor) {
+        spans.add(TextSpan(text: value.substring(cursor, match)));
+      }
+      spans.add(TextSpan(
+        text: value.substring(match, match + normalizedQuery.length),
+        style: style.copyWith(
+          backgroundColor: highlightColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ));
+      cursor = match + normalizedQuery.length;
+    }
+
+    return RichText(
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      text: TextSpan(style: style, children: spans),
     );
   }
 }
@@ -137,7 +265,8 @@ class DisplayDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateColor = Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
+    final dateColor =
+        Theme.of(context).extension<HomePageThemeExtensions>()!.dateColor;
     final style = TextStyle(color: dateColor, fontStyle: FontStyle.italic);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

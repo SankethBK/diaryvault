@@ -54,9 +54,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
-    final backgroundColor = Theme.of(context)
-        .extension<AuthPageThemeExtensions>()!
-        .backgroundColor;
+    final backgroundColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundColor;
 
     final borderColor =
         Theme.of(context).extension<HomePageThemeExtensions>()!.borderColor;
@@ -137,6 +136,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           last: index == state.notePreviewList.length,
                           note: note,
                           index: index - 1,
+                          searchText: state.searchText,
                         );
                       },
                       itemCount: state.notePreviewList.length + 1,
@@ -157,7 +157,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () {
-                Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
+                Navigator.of(context)
+                    .pushNamed(NoteCreatePage.routeThroughHome);
               },
             ),
           ],

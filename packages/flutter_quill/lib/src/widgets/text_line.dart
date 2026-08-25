@@ -40,6 +40,7 @@ class TextLine extends StatefulWidget {
     required this.onLaunchUrl,
     required this.linkActionPicker,
     this.searchText = '',
+    this.searchHighlightColor,
     this.textDirection,
     this.customStyleBuilder,
     this.customRecognizerBuilder,
@@ -54,6 +55,7 @@ class TextLine extends StatefulWidget {
   final bool readOnly;
   final QuillController controller;
   final String searchText;
+  final Color? searchHighlightColor;
   final CustomStyleBuilder? customStyleBuilder;
   final CustomRecognizerBuilder? customRecognizerBuilder;
   final ValueChanged<String>? onLaunchUrl;
@@ -373,7 +375,10 @@ class _TextLineState extends State<TextLine> {
       }
       spans.add(TextSpan(
         text: value.substring(match, match + searchText.length),
-        style: style.copyWith(backgroundColor: const Color(0x66FFCA28)),
+        style: style.copyWith(
+          backgroundColor:
+              widget.searchHighlightColor ?? const Color(0x66FFCA28),
+        ),
         recognizer: recognizer,
         mouseCursor: (recognizer != null) ? SystemMouseCursors.click : null,
       ));
