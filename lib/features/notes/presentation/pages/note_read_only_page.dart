@@ -1,4 +1,5 @@
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/app/themes/theme_extensions/appbar_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/utils/utils.dart';
@@ -16,6 +17,8 @@ import 'package:dairy_app/features/notes/presentation/widgets/toggle_read_write_
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_quill/flutter_quill.dart'
+    show ChangeSource, QuillController;
 import 'package:intl/intl.dart';
 
 import '../widgets/notes_close_button.dart';
@@ -45,10 +48,17 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
   late Image neonImage;
   late double topPadding;
   late PageController _pageController;
+  late final TextEditingController _searchController;
+  late final FocusNode _searchFocusNode;
+  List<int> _searchMatches = const [];
+  int _searchMatchIndex = 0;
+  bool _isSearchEnabled = false;
 
   @override
   void initState() {
     super.initState();
+    _searchController = TextEditingController();
+    _searchFocusNode = FocusNode();
   }
 
   @override
@@ -80,7 +90,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
           .backgroundImage;
 
       if (backgroundImagePath != null) {
-        neonImage = Image(image: getBackgroundImageProvider(backgroundImagePath));
+        neonImage =
+            Image(image: getBackgroundImageProvider(backgroundImagePath));
         precacheImage(neonImage.image, context);
       }
 
@@ -103,9 +114,8 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
-    final backgroundColor = Theme.of(context)
-        .extension<AuthPageThemeExtensions>()!
-        .backgroundColor;
+    final backgroundColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundColor;
     return WillPopScope(
       onWillPop: () => handleWillPop(context, notesBloc),
       child: GestureDetector(
@@ -117,12 +127,23 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
           resizeToAvoidBottomInset: false,
           appBar: GlassAppBar(
             automaticallyImplyLeading: false,
-            actions: const <Widget>[
-              NoteSaveButton(),
-              NoteReadIconButton(),
-              ToggleReadWriteButton(pageName: PageName.NoteReadOnlyPage),
-            ],
-            leading: NotesCloseButton(onNotesClosed: _routeToHome),
+            title: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              switchInCurve: Curves.easeOut,
+              switchOutCurve: Curves.easeIn,
+              transitionBuilder: _toolbarTransition,
+              child: _isSearchEnabled
+                  ? _buildSearchField(notesBloc)
+                  : const SizedBox.shrink(),
+            ),
+            actions: [_buildToolbarActions()],
+            leading: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: _toolbarTransition,
+              child: _isSearchEnabled
+                  ? const SizedBox.shrink()
+                  : NotesCloseButton(onNotesClosed: _routeToHome),
+            ),
           ),
           body: Container(
             padding: EdgeInsets.only(
@@ -182,8 +203,9 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
         .extension<NoteCreatePageThemeExtensions>()!
         .mainTextColor;
 
-    final dateColor =
-        Theme.of(context).extension<NoteCreatePageThemeExtensions>()!.mainTextColor;
+    final dateColor = Theme.of(context)
+        .extension<NoteCreatePageThemeExtensions>()!
+        .mainTextColor;
 
     final borderColor = Theme.of(context)
         .extension<NoteCreatePageThemeExtensions>()!
@@ -285,6 +307,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                     const SizedBox(height: 20),
                     ReadOnlyEditor(
                       controller: state.controller,
+                      searchText: _searchController.text,
                     )
                   ],
                 );
@@ -299,8 +322,207 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
 
   @override
   void dispose() {
+    _searchController.dispose();
+    _searchFocusNode.dispose();
     _pageController.dispose();
     super.dispose();
+  }
+
+  Widget _buildSearchField(NotesBloc notesBloc) {
+    final searchBarFillColor = Theme.of(context)
+        .extension<AppbarThemeExtensions>()!
+        .searchBarFillColor;
+    final searchIconColor =
+        Theme.of(context).extension<AppbarThemeExtensions>()!.iconColor;
+
+    return SizedBox(
+      key: const ValueKey('read-mode-search-field'),
+      height: 38,
+      child: TextField(
+        controller: _searchController,
+        focusNode: _searchFocusNode,
+        autofocus: true,
+        onChanged: (value) => _searchInCurrentNote(value, notesBloc),
+        cursorColor: Colors.white,
+        style: const TextStyle(color: Colors.white, fontSize: 16),
+        decoration: InputDecoration(
+          hintText: 'Search in note',
+          hintStyle: const TextStyle(color: Colors.white),
+          suffixText: _searchMatches.isEmpty
+              ? null
+              : '${_searchMatchIndex + 1}/${_searchMatches.length}',
+          suffixStyle: TextStyle(color: searchIconColor, fontSize: 12),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          filled: true,
+          fillColor: searchBarFillColor,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(17),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildToolbarActions() {
+    final searchIconColor =
+        Theme.of(context).extension<AppbarThemeExtensions>()!.iconColor;
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      switchInCurve: Curves.easeOut,
+      switchOutCurve: Curves.easeIn,
+      transitionBuilder: _toolbarTransition,
+      child: _isSearchEnabled
+          ? Row(
+              key: const ValueKey('read-mode-search-actions'),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.keyboard_arrow_up),
+                  color: searchIconColor,
+                  disabledColor: searchIconColor.withValues(alpha: 0.35),
+                  iconSize: 30,
+                  padding: EdgeInsets.zero,
+                  constraints:
+                      const BoxConstraints.tightFor(width: 36, height: 48),
+                  onPressed:
+                      _searchMatches.isEmpty ? null : _selectPreviousMatch,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  color: searchIconColor,
+                  disabledColor: searchIconColor.withValues(alpha: 0.35),
+                  iconSize: 30,
+                  padding: EdgeInsets.zero,
+                  constraints:
+                      const BoxConstraints.tightFor(width: 36, height: 48),
+                  onPressed: _searchMatches.isEmpty ? null : _selectNextMatch,
+                ),
+                IconButton(
+                  key: const ValueKey('read-mode-search-close'),
+                  icon: const Icon(Icons.close),
+                  onPressed: _closeSearch,
+                ),
+              ],
+            )
+          : Row(
+              key: const ValueKey('read-mode-toolbar-actions'),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const NoteSaveButton(),
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: _openSearch,
+                ),
+                const NoteReadIconButton(),
+                const ToggleReadWriteButton(
+                    pageName: PageName.NoteReadOnlyPage),
+              ],
+            ),
+    );
+  }
+
+  Widget _toolbarTransition(Widget child, Animation<double> animation) {
+    return FadeTransition(
+      opacity: animation,
+      child: SizeTransition(
+        sizeFactor: animation,
+        axis: Axis.horizontal,
+        child: child,
+      ),
+    );
+  }
+
+  void _openSearch() {
+    setState(() {
+      _isSearchEnabled = true;
+    });
+  }
+
+  void _closeSearch() {
+    final controller = notesBloc.state.controller;
+    if (controller != null) {
+      controller.setSearchText('');
+      controller.updateSelection(
+        const TextSelection.collapsed(offset: 0),
+        ChangeSource.LOCAL,
+      );
+    }
+    _searchController.clear();
+    _searchMatches = const [];
+    _searchMatchIndex = 0;
+    setState(() {
+      _isSearchEnabled = false;
+    });
+  }
+
+  void _searchInCurrentNote(String query, NotesBloc notesBloc) {
+    final controller = notesBloc.state.controller;
+    if (controller == null) return;
+
+    controller.setSearchText(query);
+    if (query.isEmpty) {
+      setState(() {
+        _searchMatches = const [];
+        _searchMatchIndex = 0;
+      });
+      controller.updateSelection(
+        const TextSelection.collapsed(offset: 0),
+        ChangeSource.LOCAL,
+      );
+      return;
+    }
+    final matches = controller.document.search(query);
+    setState(() {
+      _searchMatches = matches;
+      _searchMatchIndex = 0;
+    });
+    if (matches.isEmpty) {
+      controller.updateSelection(
+        const TextSelection.collapsed(offset: 0),
+        ChangeSource.LOCAL,
+      );
+      return;
+    }
+
+    _selectMatch(0, query, controller);
+  }
+
+  void _selectPreviousMatch() {
+    final query = _searchController.text;
+    final controller = notesBloc.state.controller;
+    if (_searchMatches.isEmpty || controller == null || query.isEmpty) return;
+    final index =
+        (_searchMatchIndex - 1 + _searchMatches.length) % _searchMatches.length;
+    _selectMatch(index, query, controller);
+  }
+
+  void _selectNextMatch() {
+    final query = _searchController.text;
+    final controller = notesBloc.state.controller;
+    if (_searchMatches.isEmpty || controller == null || query.isEmpty) return;
+    final index = (_searchMatchIndex + 1) % _searchMatches.length;
+    _selectMatch(index, query, controller);
+  }
+
+  void _selectMatch(int index, String query, QuillController controller) {
+    setState(() {
+      _searchMatchIndex = index;
+    });
+    controller.updateSelection(
+      TextSelection(
+        baseOffset: _searchMatches[index],
+        extentOffset: _searchMatches[index] + query.length,
+      ),
+      ChangeSource.LOCAL,
+    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _isSearchEnabled && !_searchFocusNode.hasFocus) {
+        _searchFocusNode.requestFocus();
+      }
+    });
   }
 
   void _routeToHome() {

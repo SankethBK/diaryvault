@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +7,14 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 class ReadOnlyEditor extends StatelessWidget {
   final QuillController? controller;
+  final String searchText;
   final FocusNode _focusNode = FocusNode();
 
-  ReadOnlyEditor({Key? key, required this.controller}) : super(key: key);
+  ReadOnlyEditor({
+    Key? key,
+    required this.controller,
+    this.searchText = '',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class ReadOnlyEditor extends StatelessWidget {
         ...FlutterQuillEmbeds.builders(),
       ],
       controller: controller!,
+      searchText: searchText,
       scrollController: ScrollController(),
       scrollable: true,
       focusNode: _focusNode,
@@ -52,10 +56,19 @@ class ReadOnlyEditor extends StatelessWidget {
 
     final fontCubit = BlocProvider.of<FontCubit>(context);
 
-    return DefaultTextStyle(
-      style: fontCubit.state.currentFontFamily
-          .getGoogleFontFamilyTextStyle(mainTextColor),
-      child: quillEditor,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        // SearchButton uses the editor selection for the active match. Use a
+        // warm, high-contrast color so the match is visible in read mode.
+        textSelectionTheme: const TextSelectionThemeData(
+          selectionColor: Color(0x66FFCA28),
+        ),
+      ),
+      child: DefaultTextStyle(
+        style: fontCubit.state.currentFontFamily
+            .getGoogleFontFamilyTextStyle(mainTextColor),
+        child: quillEditor,
+      ),
     );
   }
 }

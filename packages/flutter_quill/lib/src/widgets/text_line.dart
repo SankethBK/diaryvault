@@ -39,6 +39,7 @@ class TextLine extends StatefulWidget {
     required this.controller,
     required this.onLaunchUrl,
     required this.linkActionPicker,
+    this.searchText = '',
     this.textDirection,
     this.customStyleBuilder,
     this.customRecognizerBuilder,
@@ -52,6 +53,7 @@ class TextLine extends StatefulWidget {
   final DefaultStyles styles;
   final bool readOnly;
   final QuillController controller;
+  final String searchText;
   final CustomStyleBuilder? customStyleBuilder;
   final CustomRecognizerBuilder? customRecognizerBuilder;
   final ValueChanged<String>? onLaunchUrl;
@@ -70,6 +72,20 @@ class _TextLineState extends State<TextLine> {
   final _linkRecognizers = <Node, GestureRecognizer>{};
 
   QuillPressedKeys? _pressedKeys;
+
+  void _controllerChanged() {
+    if (mounted) {
+      setState(() {
+        _richTextKey = UniqueKey();
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_controllerChanged);
+  }
 
   void _pressedKeysChanged() {
     final newValue = _pressedKeys!.metaPressed || _pressedKeys!.controlPressed;
@@ -115,6 +131,10 @@ class _TextLineState extends State<TextLine> {
   @override
   void didUpdateWidget(covariant TextLine oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      oldWidget.controller.removeListener(_controllerChanged);
+      widget.controller.addListener(_controllerChanged);
+    }
     if (oldWidget.readOnly != widget.readOnly) {
       _richTextKey = UniqueKey();
       _linkRecognizers
@@ -127,6 +147,7 @@ class _TextLineState extends State<TextLine> {
 
   @override
   void dispose() {
+    widget.controller.removeListener(_controllerChanged);
     _pressedKeys?.removeListener(_pressedKeysChanged);
     _linkRecognizers
       ..forEach((key, value) => value.dispose())
@@ -314,13 +335,51 @@ class _TextLineState extends State<TextLine> {
 
     final recognizer = _getRecognizer(node, isLink);
 
-    return TextSpan(
-      text: textNode.value,
-      style: _getInlineTextStyle(
-          textNode, defaultStyles, nodeStyle, lineStyle, isLink),
-      recognizer: recognizer,
-      mouseCursor: (recognizer != null) ? SystemMouseCursors.click : null,
-    );
+    final style = _getInlineTextStyle(
+        textNode, defaultStyles, nodeStyle, lineStyle, isLink);
+    final searchText = widget.searchText;
+    if (searchText.isEmpty) {
+      return TextSpan(
+        text: textNode.value,
+        style: style,
+        recognizer: recognizer,
+        mouseCursor: (recognizer != null) ? SystemMouseCursors.click : null,
+      );
+    }
+
+    final value = textNode.value;
+    final lowerValue = value.toLowerCase();
+    final lowerSearchText = searchText.toLowerCase();
+    final spans = <InlineSpan>[];
+    var cursor = 0;
+    while (cursor < value.length) {
+      final match = lowerValue.indexOf(lowerSearchText, cursor);
+      if (match < 0) {
+        spans.add(TextSpan(
+          text: value.substring(cursor),
+          style: style,
+          recognizer: recognizer,
+          mouseCursor: (recognizer != null) ? SystemMouseCursors.click : null,
+        ));
+        break;
+      }
+      if (match > cursor) {
+        spans.add(TextSpan(
+          text: value.substring(cursor, match),
+          style: style,
+          recognizer: recognizer,
+          mouseCursor: (recognizer != null) ? SystemMouseCursors.click : null,
+        ));
+      }
+      spans.add(TextSpan(
+        text: value.substring(match, match + searchText.length),
+        style: style.copyWith(backgroundColor: const Color(0x66FFCA28)),
+        recognizer: recognizer,
+        mouseCursor: (recognizer != null) ? SystemMouseCursors.click : null,
+      ));
+      cursor = match + searchText.length;
+    }
+    return TextSpan(children: spans);
   }
 
   TextStyle _getInlineTextStyle(leaf.Text textNode, DefaultStyles defaultStyles,
