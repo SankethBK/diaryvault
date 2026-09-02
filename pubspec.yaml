@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   audioplayers: ^5.2.1
+  cached_network_image: ^3.4.1
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   cryptography: ^2.9.0

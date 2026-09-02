@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   audioplayers: ^5.2.1
+  cached_network_image: ^3.4.1
   flutter:
     sdk: flutter
   flutter_quill:
