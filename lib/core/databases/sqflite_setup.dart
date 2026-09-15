@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -119,6 +119,24 @@ class DBProvider {
               "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.ENC_WRAPPED_MK_RECOVERY} TEXT");
           await db.execute(
               "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.WRAPPED_DEK} TEXT");
+        }
+        if (oldVersion < 4) {
+          log.i("Trimming whitespace from existing tags and removing duplicates");
+
+          // Strip leading/trailing whitespace from every tag name
+          await db.execute(
+              "UPDATE ${Tags.TABLE_NAME} SET ${Tags.NAME} = TRIM(${Tags.NAME})");
+
+          // Deduplicate rows that now share the same note_id + trimmed name,
+          // keeping the earliest inserted row for each combination
+          await db.execute("""
+            DELETE FROM ${Tags.TABLE_NAME}
+            WHERE rowid NOT IN (
+              SELECT MIN(rowid)
+              FROM ${Tags.TABLE_NAME}
+              GROUP BY ${Tags.NOTE_ID}, ${Tags.NAME}
+            )
+          """);
         }
       },
     );
