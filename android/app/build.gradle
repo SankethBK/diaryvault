@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
     id 'dev.flutter.flutter-gradle-plugin'
     id 'com.google.gms.google-services'
 }
@@ -43,8 +44,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     sourceSets {
-        main.kotlin.directories += 'src/main/kotlin'
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     flavorDimensions "environment"
