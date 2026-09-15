@@ -97,7 +97,7 @@ dependencies:
   stateless_dropbox_client:
     path: ./packages/stateless_dropbox_client/
   url_launcher: ^6.1.14
-  uuid: ^3.0.6
+  uuid: ^4.6.0
   webdav_client:
     path: ./packages/webdav_client
 
