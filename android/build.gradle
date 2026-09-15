@@ -10,7 +10,7 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
-    // Flutter 3.32 / AGP 8 require every Android module to declare a `namespace`.
+    // Flutter 3.32 / AGP 9 require every Android module to declare a `namespace`.
     // Several transitive plugins pinned in pub-cache (flutter_inappwebview via
     // youtube_player_flutter, flutter_sound, qr_code_scanner, ...) predate this
     // and only set the legacy `package` attribute in their AndroidManifest.xml.
