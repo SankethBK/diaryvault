@@ -5,6 +5,7 @@ import 'package:dairy_app/features/notes/data/models/todo_item_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/generated/l10n.dart';
+import 'package:uuid/uuid.dart';
 
 final log = printer("TodoRemindersRepository");
 
@@ -145,5 +146,128 @@ class TodoRemindersRepository implements ITodoRemindersRepository {
   Future<List<TodoItemModel>> getAllOpenTodos() async {
     final todos = await todosLocalDataSource.getAllTodos();
     return todos.where((todo) => !todo.isChecked).toList();
+  }
+
+  @override
+  Future<List<TodoItemModel>> getAllTodos() =>
+      todosLocalDataSource.getAllTodos();
+
+  @override
+  Future<void> setStandaloneTodoChecked(String id, bool isChecked) async {
+    final todos = await todosLocalDataSource.getAllTodos();
+    TodoItemModel? todo;
+    for (final item in todos) {
+      if (item.id == id && item.noteId == null) {
+        todo = item;
+        break;
+      }
+    }
+    if (todo == null) throw StateError('Standalone todo not found');
+
+    int? notificationId;
+    if (isChecked) {
+      if (todo.notificationId != null) {
+        await notificationsRepository.cancelNotification(todo.notificationId!);
+      }
+    } else if (todo.reminderAt != null &&
+        todo.reminderAt! > DateTime.now().millisecondsSinceEpoch) {
+      notificationId =
+          todo.notificationId ?? notificationIdForReminder(todo.id);
+      await notificationsRepository.scheduleOneTimeNotification(
+        id: notificationId,
+        title: S.current.todoReminderNotificationTitle,
+        body: todo.text,
+        dateTime: DateTime.fromMillisecondsSinceEpoch(todo.reminderAt!),
+      );
+    }
+
+    await todosLocalDataSource.setStandaloneTodoChecked(
+      id,
+      isChecked,
+      notificationId,
+    );
+  }
+
+  @override
+  Future<void> createStandaloneTodo(String text,
+      {DateTime? reminderAt}) async {
+    final id = const Uuid().v4();
+    final notificationId =
+        reminderAt == null ? null : notificationIdForReminder(id);
+    if (reminderAt != null) {
+      if (!reminderAt.isAfter(DateTime.now())) {
+        throw ArgumentError('Reminder must be in the future');
+      }
+      await notificationsRepository.scheduleOneTimeNotification(
+        id: notificationId!,
+        title: S.current.todoReminderNotificationTitle,
+        body: text.trim(),
+        dateTime: reminderAt,
+      );
+    }
+
+    try {
+      await todosLocalDataSource.insertStandaloneTodo(TodoItemModel(
+        id: id,
+        noteTitle: '',
+        text: text.trim(),
+        isChecked: false,
+        reminderAt: reminderAt?.millisecondsSinceEpoch,
+        notificationId: notificationId,
+      ));
+    } catch (_) {
+      if (notificationId != null) {
+        await notificationsRepository.cancelNotification(notificationId);
+      }
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateStandaloneTodo(
+    TodoItemModel todo, {
+    required String text,
+    required DateTime? reminderAt,
+  }) async {
+    final normalizedText = text.trim();
+    if (normalizedText.isEmpty) {
+      throw ArgumentError('Todo text cannot be empty');
+    }
+    final reminderWasUnchanged =
+        todo.reminderAt == reminderAt?.millisecondsSinceEpoch;
+    if (reminderAt != null &&
+        !reminderAt.isAfter(DateTime.now()) &&
+        !reminderWasUnchanged) {
+      throw ArgumentError('Reminder must be in the future');
+    }
+
+    final shouldSchedule = !todo.isChecked &&
+        reminderAt != null &&
+        reminderAt.isAfter(DateTime.now());
+    final notificationId = shouldSchedule
+        ? (todo.notificationId ?? notificationIdForReminder(todo.id))
+        : null;
+    if (shouldSchedule) {
+      await notificationsRepository.scheduleOneTimeNotification(
+        id: notificationId!,
+        title: S.current.todoReminderNotificationTitle,
+        body: normalizedText,
+        dateTime: reminderAt,
+      );
+    }
+
+    await todosLocalDataSource.updateStandaloneTodo(TodoItemModel(
+      id: todo.id,
+      noteId: null,
+      noteTitle: '',
+      text: normalizedText,
+      isChecked: todo.isChecked,
+      reminderAt: reminderAt?.millisecondsSinceEpoch,
+      notificationId: notificationId,
+    ));
+
+    if (!shouldSchedule && todo.notificationId != null) {
+      await notificationsRepository.cancelNotification(todo.notificationId!);
+    }
   }
 }

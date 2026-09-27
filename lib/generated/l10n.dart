@@ -1638,6 +1638,388 @@ class S {
     );
   }
 
+  /// `Today`
+  String get dashboardToday => Intl.message(
+        'Today',
+        name: 'dashboardToday',
+        desc: '',
+        args: [],
+      );
+
+  /// `Quick capture`
+  String get dashboardQuickCapture => Intl.message(
+        'Quick capture',
+        name: 'dashboardQuickCapture',
+        desc: '',
+        args: [],
+      );
+
+  /// `Todos`
+  String get dashboardTodos => Intl.message(
+        'Todos',
+        name: 'dashboardTodos',
+        desc: '',
+        args: [],
+      );
+
+  /// `Daily prompt`
+  String get dashboardDailyPrompt => Intl.message(
+        'Daily prompt',
+        name: 'dashboardDailyPrompt',
+        desc: '',
+        args: [],
+      );
+
+  /// `Mood check-in`
+  String get dashboardMoodCheckIn => Intl.message(
+        'Mood check-in',
+        name: 'dashboardMoodCheckIn',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardPromptSubtitle => Intl.message(
+        'A small question to reflect on',
+        name: 'dashboardPromptSubtitle',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardAnotherPrompt => Intl.message(
+        'Another prompt',
+        name: 'dashboardAnotherPrompt',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardWriteAboutPrompt => Intl.message(
+        'Write about this',
+        name: 'dashboardWriteAboutPrompt',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodSubtitle => Intl.message(
+        'How are you feeling today?',
+        name: 'dashboardMoodSubtitle',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodGreat => Intl.message(
+        'Great',
+        name: 'dashboardMoodGreat',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodGood => Intl.message(
+        'Good',
+        name: 'dashboardMoodGood',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodOkay => Intl.message(
+        'Okay',
+        name: 'dashboardMoodOkay',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodLow => Intl.message(
+        'Not great',
+        name: 'dashboardMoodLow',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodDifficult => Intl.message(
+        'Having a hard day',
+        name: 'dashboardMoodDifficult',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodContextPrompt => Intl.message(
+        'Want to add a little context?',
+        name: 'dashboardMoodContextPrompt',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodReflectionHint => Intl.message(
+        'Anything else on your mind? (optional)',
+        name: 'dashboardMoodReflectionHint',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodSaveToJournal => Intl.message(
+        "Add to today's note",
+        name: 'dashboardMoodSaveToJournal',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodNoteTitle => Intl.message(
+        "Today's reflection",
+        name: 'dashboardMoodNoteTitle',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodOpeningGreat => Intl.message(
+        "Today, I'm feeling great.",
+        name: 'dashboardMoodOpeningGreat',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodOpeningGood => Intl.message(
+        "Today, I'm feeling good.",
+        name: 'dashboardMoodOpeningGood',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodOpeningOkay => Intl.message(
+        "Today, I'm feeling okay.",
+        name: 'dashboardMoodOpeningOkay',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodOpeningLow => Intl.message(
+        "Today, I'm not feeling great.",
+        name: 'dashboardMoodOpeningLow',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardMoodOpeningDifficult => Intl.message(
+        'Today has been a hard day.',
+        name: 'dashboardMoodOpeningDifficult',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt1 => Intl.message(
+        'What felt like a small win for me today?',
+        name: 'dashboardDailyPrompt1',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt2 => Intl.message(
+        'What moment from today do I want to remember?',
+        name: 'dashboardDailyPrompt2',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt3 => Intl.message(
+        'What took more energy than I expected today?',
+        name: 'dashboardDailyPrompt3',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt4 => Intl.message(
+        'What can I let go of tonight?',
+        name: 'dashboardDailyPrompt4',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt5 => Intl.message(
+        'What did I learn about myself today?',
+        name: 'dashboardDailyPrompt5',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt6 => Intl.message(
+        'What made my day a little easier?',
+        name: 'dashboardDailyPrompt6',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt7 => Intl.message(
+        'What would make tomorrow feel gentler for me?',
+        name: 'dashboardDailyPrompt7',
+        desc: '',
+        args: [],
+      );
+
+  String get dashboardDailyPrompt8 => Intl.message(
+        'What made me feel grateful today?',
+        name: 'dashboardDailyPrompt8',
+        desc: '',
+        args: [],
+      );
+
+  /// `Coming soon`
+  String get dashboardComingSoon => Intl.message(
+        'Coming soon',
+        name: 'dashboardComingSoon',
+        desc: '',
+        args: [],
+      );
+
+  /// `Open`
+  String get dashboardOpenTodos => Intl.message(
+        'Open',
+        name: 'dashboardOpenTodos',
+        desc: '',
+        args: [],
+      );
+
+  /// `Completed`
+  String get dashboardCompletedTodos => Intl.message(
+        'Completed',
+        name: 'dashboardCompletedTodos',
+        desc: '',
+        args: [],
+      );
+
+  /// `Due today`
+  String get dashboardDueToday => Intl.message(
+        'Due today',
+        name: 'dashboardDueToday',
+        desc: '',
+        args: [],
+      );
+
+  /// `Overdue`
+  String get dashboardOverdue => Intl.message(
+        'Overdue',
+        name: 'dashboardOverdue',
+        desc: '',
+        args: [],
+      );
+
+  /// `Upcoming`
+  String get dashboardUpcoming => Intl.message(
+        'Upcoming',
+        name: 'dashboardUpcoming',
+        desc: '',
+        args: [],
+      );
+
+  /// `No due date`
+  String get dashboardNoDueDate => Intl.message(
+        'No due date',
+        name: 'dashboardNoDueDate',
+        desc: '',
+        args: [],
+      );
+
+  /// `Open in note`
+  String get dashboardOpenInNote => Intl.message(
+        'Open in note',
+        name: 'dashboardOpenInNote',
+        desc: '',
+        args: [],
+      );
+
+  /// `Todos can be added from a note or created directly here.`
+  String get dashboardTodoSourceHint => Intl.message(
+        'Todos can be added from a note or created directly here.',
+        name: 'dashboardTodoSourceHint',
+        desc: '',
+        args: [],
+      );
+
+  /// `Could not update this todo`
+  String get dashboardTodoUpdateFailed => Intl.message(
+        'Could not update this todo',
+        name: 'dashboardTodoUpdateFailed',
+        desc: '',
+        args: [],
+      );
+
+  /// `Could not load todos`
+  String get dashboardTodoLoadFailed => Intl.message(
+        'Could not load todos',
+        name: 'dashboardTodoLoadFailed',
+        desc: '',
+        args: [],
+      );
+
+  /// `Add a todo`
+  String get dashboardAddTodo => Intl.message(
+        'Add a todo',
+        name: 'dashboardAddTodo',
+        desc: '',
+        args: [],
+      );
+
+  /// `Edit todo`
+  String get dashboardEditTodo => Intl.message(
+        'Edit todo',
+        name: 'dashboardEditTodo',
+        desc: '',
+        args: [],
+      );
+
+  /// `Save`
+  String get dashboardSaveTodo => Intl.message(
+        'Save',
+        name: 'dashboardSaveTodo',
+        desc: '',
+        args: [],
+      );
+
+  /// `What needs doing?`
+  String get dashboardTodoTitle => Intl.message(
+        'What needs doing?',
+        name: 'dashboardTodoTitle',
+        desc: '',
+        args: [],
+      );
+
+  /// `Add`
+  String get dashboardCreateTodo => Intl.message(
+        'Add',
+        name: 'dashboardCreateTodo',
+        desc: '',
+        args: [],
+      );
+
+  /// `No reminder set`
+  String get dashboardReminderOptional => Intl.message(
+        'No reminder set',
+        name: 'dashboardReminderOptional',
+        desc: '',
+        args: [],
+      );
+
+  /// `Enter a todo first`
+  String get dashboardTodoRequired => Intl.message(
+        'Enter a todo first',
+        name: 'dashboardTodoRequired',
+        desc: '',
+        args: [],
+      );
+
+  /// `No todos here yet`
+  String get dashboardNoTodos => Intl.message(
+        'No todos here yet',
+        name: 'dashboardNoTodos',
+        desc: '',
+        args: [],
+      );
+
+  /// `Your open and completed tasks will appear here.`
+  String get dashboardNoTodosSubtitle => Intl.message(
+        'Your open and completed tasks will appear here.',
+        name: 'dashboardNoTodosSubtitle',
+        desc: '',
+        args: [],
+      );
+
   /// `Please pick a time in the future`
   String get reminderTimeMustBeInFuture {
     return Intl.message(

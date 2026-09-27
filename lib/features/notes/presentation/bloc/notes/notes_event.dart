@@ -13,8 +13,15 @@ class InitializeNote extends NotesEvent {
 
   // encrypted notes are loaded through the encrypted notes repository
   final bool encrypted;
+  final String? initialTitle;
+  final String? initialBody;
 
-  const InitializeNote({this.id, this.encrypted = false});
+  const InitializeNote({
+    this.id,
+    this.encrypted = false,
+    this.initialTitle,
+    this.initialBody,
+  });
 }
 
 class UpdateNote extends NotesEvent {

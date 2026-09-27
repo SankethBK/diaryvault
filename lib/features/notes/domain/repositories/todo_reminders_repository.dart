@@ -20,6 +20,23 @@ abstract class ITodoRemindersRepository {
   /// given notes (used when notes are deleted or encrypted)
   Future<void> purgeRemindersForNotes(List<String> noteIds);
 
-  /// All unchecked todos across notes (for the upcoming dashboard widget)
+  /// All unchecked todos, including standalone items.
   Future<List<TodoItemModel>> getAllOpenTodos();
+
+  /// Every todo, including completed and standalone items.
+  Future<List<TodoItemModel>> getAllTodos();
+
+  /// Updates a standalone todo. Note-backed todos must be changed in the note
+  /// body so the note and todo index remain consistent.
+  Future<void> setStandaloneTodoChecked(String id, bool isChecked);
+
+  /// Creates a todo that is not attached to a note.
+  Future<void> createStandaloneTodo(String text, {DateTime? reminderAt});
+
+  /// Updates a standalone todo and keeps its reminder notification in sync.
+  Future<void> updateStandaloneTodo(
+    TodoItemModel todo, {
+    required String text,
+    required DateTime? reminderAt,
+  });
 }

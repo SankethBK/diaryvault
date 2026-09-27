@@ -4,6 +4,7 @@ import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/background_image.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
+import 'package:dairy_app/core/widgets/today_dashboard_pane.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
 import 'package:dairy_app/features/encryption/presentation/widgets/encryption_fab.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selec
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/search_tag_list.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool _isInitialized = false;
   late final NotesFetchCubit notesFetchCubit;
   late final SelectableListCubit selectableListCubit;
+  final ScrollController _homeScrollController = ScrollController();
   late double topPadding = 0;
 
   @override
@@ -47,6 +50,24 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           MediaQuery.of(context).padding.top + AppBar().preferredSize.height;
       _isInitialized = true;
     }
+  }
+
+  void _scrollHomeToTop() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_homeScrollController.hasClients) {
+        _homeScrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _homeScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -86,7 +107,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
-        appBar: const HomePageAppBar(),
+        appBar: HomePageAppBar(onSearchClosed: _scrollHomeToTop),
         body: Container(
           decoration: getBackgroundDecoration(
             backgroundImagePath,
@@ -120,29 +141,57 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 builder: (context, state) {
                   if (state is NotesFetchDummyState) {
                     notesFetchCubit.fetchNotes();
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is NotesFetchSuccessful ||
-                      state is NotesSortSuccessful) {
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return const SearchTagList();
-                        }
-                        final note = state.notePreviewList[index - 1];
+                  }
 
+                  final noteList = state.notePreviewList;
+                  final isLoading = state is NotesFetchDummyState ||
+                      state is NotesFetchLoadingState;
+                  final isFailed = state is NotesFetchFailed;
+                  final showStatusRow = noteList.isEmpty && (isLoading || isFailed);
+
+                  return ListView.builder(
+                    controller: _homeScrollController,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TodayDashboardPane(),
+                            SearchTagList(),
+                          ],
+                        );
+                      }
+                      final noteIndex = index - 1;
+                      if (noteIndex < noteList.length) {
+                        final note = noteList[noteIndex];
                         return NotePreviewCard(
-                          first: index == 1,
-                          last: index == state.notePreviewList.length,
+                          first: noteIndex == 0,
+                          last: noteIndex == noteList.length - 1,
                           note: note,
-                          index: index - 1,
+                          index: noteIndex,
                           searchText: state.searchText,
                         );
-                      },
-                      itemCount: state.notePreviewList.length + 1,
-                    );
-                  }
-                  return Container();
+                      }
+                      if (isLoading) {
+                        return const Padding(
+                          padding: EdgeInsets.all(24),
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      }
+                      if (isFailed) {
+                        return Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Center(
+                            child: Text(S.of(context).failedToFetchNote),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                    itemCount:
+                        noteList.length + 1 + (showStatusRow ? 1 : 0),
+                  );
                 },
               ),
             ),

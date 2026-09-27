@@ -1,10 +1,10 @@
 import 'package:dairy_app/core/databases/db_schemas.dart';
 
-/// A single todo (check-list) line extracted from a note's quill body.
-/// Optionally carries a one-shot reminder.
+/// A todo item, optionally attached to a note and/or a one-shot reminder.
 class TodoItemModel {
   final String id;
-  final String noteId;
+  /// Null for a todo that was created outside a note.
+  final String? noteId;
   final String noteTitle;
   final String text;
   final bool isChecked;
@@ -17,7 +17,7 @@ class TodoItemModel {
 
   const TodoItemModel({
     required this.id,
-    required this.noteId,
+    this.noteId,
     required this.noteTitle,
     required this.text,
     required this.isChecked,
@@ -39,7 +39,7 @@ class TodoItemModel {
 
   factory TodoItemModel.fromMap(Map<String, dynamic> map) => TodoItemModel(
         id: map[Todos.ID] as String,
-        noteId: map[Todos.NOTE_ID] as String,
+        noteId: map[Todos.NOTE_ID] as String?,
         noteTitle: map[Todos.NOTE_TITLE] as String? ?? "",
         text: map[Todos.TEXT] as String? ?? "",
         isChecked: (map[Todos.IS_CHECKED] as int?) == 1,

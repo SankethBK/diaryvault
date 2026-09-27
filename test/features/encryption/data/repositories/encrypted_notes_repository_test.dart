@@ -38,6 +38,22 @@ class FakeTodoRemindersRepository implements ITodoRemindersRepository {
 
   @override
   Future<List<TodoItemModel>> getAllOpenTodos() async => [];
+
+  @override
+  Future<List<TodoItemModel>> getAllTodos() async => [];
+
+  @override
+  Future<void> setStandaloneTodoChecked(String id, bool isChecked) async {}
+
+  @override
+  Future<void> createStandaloneTodo(String text, {DateTime? reminderAt}) async {}
+
+  @override
+  Future<void> updateStandaloneTodo(
+    TodoItemModel todo, {
+    required String text,
+    required DateTime? reminderAt,
+  }) async {}
 }
 
 class TestCryptoService extends CryptoService {
