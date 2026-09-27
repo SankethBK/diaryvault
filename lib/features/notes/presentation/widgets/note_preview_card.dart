@@ -185,8 +185,8 @@ class TitleAndDescription extends StatelessWidget {
               note.title,
               searchText,
               TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600,
                   color: theme.previewTitleColor),
               highlightColor,
             ),

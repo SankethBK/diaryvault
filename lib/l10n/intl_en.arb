@@ -251,6 +251,8 @@
   "securityBackupSetupTitle": "Set up backup",
   "securityBackupSetupHint": "Enable cloud backup so you never lose your notes.",
   "securityStatsNotConfigured": "You haven't selected a cloud backup platform yet.",
+  "noteExpandPreview": "Expand preview",
+  "noteCollapsePreview": "Collapse preview",
   "dashboardComingSoon": "Coming soon",
   "dashboardOpenTodos": "Open",
   "dashboardCompletedTodos": "Completed",

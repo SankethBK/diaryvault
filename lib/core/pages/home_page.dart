@@ -10,7 +10,7 @@ import 'package:dairy_app/features/encryption/presentation/widgets/encryption_fa
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/rich_note_preview_card.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/search_tag_list.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -165,12 +165,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       final noteIndex = index - 1;
                       if (noteIndex < noteList.length) {
                         final note = noteList[noteIndex];
-                        return NotePreviewCard(
-                          first: noteIndex == 0,
-                          last: noteIndex == noteList.length - 1,
+                        return RichNotePreviewCard(
                           note: note,
                           index: noteIndex,
                           searchText: state.searchText,
+                          initiallyExpanded: noteIndex == 0,
                         );
                       }
                       if (isLoading) {

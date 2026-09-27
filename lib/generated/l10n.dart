@@ -2178,6 +2178,26 @@ class S {
     );
   }
 
+  /// `Expand preview`
+  String get noteExpandPreview {
+    return Intl.message(
+      'Expand preview',
+      name: 'noteExpandPreview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Collapse preview`
+  String get noteCollapsePreview {
+    return Intl.message(
+      'Collapse preview',
+      name: 'noteCollapsePreview',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Coming soon`
   String get dashboardComingSoon {
     return Intl.message(

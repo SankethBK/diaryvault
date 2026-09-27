@@ -335,6 +335,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "No encrypted notes yet",
     ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
+    "noteCollapsePreview": MessageLookupByLibrary.simpleMessage(
+      "Collapse preview",
+    ),
+    "noteExpandPreview": MessageLookupByLibrary.simpleMessage("Expand preview"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note saved successfully",
     ),
