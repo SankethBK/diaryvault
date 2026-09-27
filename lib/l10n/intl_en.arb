@@ -30,6 +30,7 @@
   "accountSetupSuccessful": "Account setup successful",
   "failedToFetchNote": "Failed to fetch note",
   "failedToSaveNote": "Failed to save note",
+  "reminderSchedulingFailed": "Could not schedule reminder. Please try again.",
   "noteSavedSuccessfully": "Note saved successfully",
   "noteUpdatedSuccessfully": "Note updated successfully",
   "notesSyncSuccessfull": "Notes sync successful",
@@ -184,5 +185,14 @@
   "lockThisNote": "Lock this note",
   "unlockThisNote": "Unlock this note",
   "encryptThisNote": "Encrypt this note",
-  "removeEncryptionFromThisNote": "Remove encryption from this note"
+  "removeEncryptionFromThisNote": "Remove encryption from this note",
+  "setTodoReminder": "Set to-do reminder",
+  "reminderSet": "Reminder set",
+  "reminderRemoved": "Reminder removed",
+  "changeReminderTime": "Change reminder time",
+  "removeReminder": "Remove reminder",
+  "todoReminderNotificationTitle": "To-do reminder",
+  "todoRemindersUnavailableInEncryptedNotes": "Reminders are not available in encrypted notes",
+  "todoRemindersNeedUncheckedTodo": "Place the cursor on a to-do item to set a reminder",
+  "reminderTimeMustBeInFuture": "Please pick a time in the future"
 }

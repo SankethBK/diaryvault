@@ -24,6 +24,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
     // Add a delay to navigate after displaying the quote
     Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
       Navigator.of(context).pushNamed(AuthPage.route);
     });
   }

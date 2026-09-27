@@ -14,6 +14,7 @@ import 'package:dairy_app/features/notes/core/failures/failure.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dartz/dartz.dart';
 
@@ -27,6 +28,7 @@ class EncryptedNotesRepository
   final IEncryptionSessionService sessionService;
   final CryptoService cryptoService;
   final AuthSessionBloc authSessionBloc;
+  final ITodoRemindersRepository todoRemindersRepository;
 
   /// Decrypted notes live only here, in memory. Cleared on lock().
   final Map<String, NoteModel> _decryptedCache = {};
@@ -37,6 +39,7 @@ class EncryptedNotesRepository
     required this.sessionService,
     required this.cryptoService,
     required this.authSessionBloc,
+    required this.todoRemindersRepository,
   }) {
     sessionService.state.listen((state) {
       if (state is EncryptionLocked) {
@@ -179,6 +182,10 @@ class EncryptedNotesRepository
       prepared["author_id"] = _userId;
       await notesLocalDataSource.saveNote(prepared);
       _decryptedCache.remove(noteMap["id"]);
+
+      // todo reminders are dropped when a note becomes encrypted so no
+      // plaintext todo content lingers in notifications or the todos table
+      await todoRemindersRepository.purgeRemindersForNotes([noteMap["id"]]);
       return const Right(null);
     } catch (e) {
       log.e("saving encrypted note failed: $e");
@@ -193,6 +200,7 @@ class EncryptedNotesRepository
       final prepared = await _encryptNoteMap(noteMap, isNew: false);
       await notesLocalDataSource.updateNote(prepared, _userId);
       _decryptedCache.remove(noteMap["id"]);
+      await todoRemindersRepository.purgeRemindersForNotes([noteMap["id"]]);
       return const Right(null);
     } catch (e) {
       log.e("updating encrypted note failed: $e");
@@ -383,6 +391,7 @@ class EncryptedNotesRepository
             hardDeletion: hardDeletion);
         _decryptedCache.remove(noteId);
       }
+      await todoRemindersRepository.purgeRemindersForNotes(noteList);
       return const Right(null);
     } catch (e) {
       log.e(e);

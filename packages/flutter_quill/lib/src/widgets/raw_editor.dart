@@ -869,29 +869,27 @@ class RawEditorState extends EditorState
   /// Updates the checkbox positioned at [offset] in document
   /// by changing its attribute according to [value].
   void _handleCheckboxTap(int offset, bool value) {
-    if (!widget.readOnly) {
-      final currentSelection = controller.selection.copyWith();
-      final attribute = value ? Attribute.checked : Attribute.unchecked;
+    final currentSelection = controller.selection.copyWith();
+    final attribute = value ? Attribute.checked : Attribute.unchecked;
 
-      _markNeedsBuild();
+    _markNeedsBuild();
+    controller
+      ..ignoreFocusOnTextChange = true
+      ..formatText(offset, 0, attribute)
+
+      // Checkbox tapping causes controller.selection to go to offset 0
+      // Stop toggling those two toolbar buttons
+      ..toolbarButtonToggler = {
+        Attribute.list.key: attribute,
+        Attribute.header.key: Attribute.header
+      };
+
+    // Go back from offset 0 to current selection
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       controller
-        ..ignoreFocusOnTextChange = true
-        ..formatText(offset, 0, attribute)
-
-        // Checkbox tapping causes controller.selection to go to offset 0
-        // Stop toggling those two toolbar buttons
-        ..toolbarButtonToggler = {
-          Attribute.list.key: attribute,
-          Attribute.header.key: Attribute.header
-        };
-
-      // Go back from offset 0 to current selection
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        controller
-          ..ignoreFocusOnTextChange = false
-          ..updateSelection(currentSelection, ChangeSource.LOCAL);
-      });
-    }
+        ..ignoreFocusOnTextChange = false
+        ..updateSelection(currentSelection, ChangeSource.LOCAL);
+    });
   }
 
   List<Widget> _buildChildren(Document doc, BuildContext context) {

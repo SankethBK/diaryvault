@@ -57,3 +57,21 @@ class Tags {
   static const NOTE_ID = "note_id";
   static const NAME = "name";
 }
+
+class Todos {
+  static const String TABLE_NAME = "Todos";
+
+  // Columns
+  static const ID = "id";
+  static const NOTE_ID = "note_id";
+  static const NOTE_TITLE = "note_title";
+  static const TEXT = "text";
+  static const IS_CHECKED = "is_checked";
+
+  /// epoch ms of the scheduled one-shot reminder, null when none is set
+  static const REMINDER_AT = "reminder_at";
+
+  /// id of the notification scheduled with the local notifications plugin,
+  /// null when nothing is scheduled
+  static const NOTIFICATION_ID = "notification_id";
+}

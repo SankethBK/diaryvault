@@ -1,6 +1,8 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/core/utils/search_highlight_color.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
+import 'package:dairy_app/features/notes/core/utils/todo_delta_parser.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/todo_reminder_embed_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -32,6 +34,9 @@ class ReadOnlyEditor extends StatelessWidget {
 
     var quillEditor = QuillEditor(
       embedBuilders: [
+        TodoReminderEmbedBuilder(),
+        TodoReminderEmbedBuilder(embedKey: kTodoReminderActionEmbedType),
+        TodoReminderEmbedBuilder(embedKey: BlockEmbed.customType),
         ...FlutterQuillEmbeds.builders(),
       ],
       controller: controller!,

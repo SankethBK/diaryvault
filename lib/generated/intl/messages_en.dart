@@ -72,6 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Change image"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
+    "changeReminderTime": MessageLookupByLibrary.simpleMessage(
+      "Change reminder time",
+    ),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
       "Choose background image",
     ),
@@ -285,10 +288,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
       "Regenerate recovery code",
     ),
+    "reminderRemoved": MessageLookupByLibrary.simpleMessage("Reminder removed"),
+    "reminderSchedulingFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not schedule reminder. Please try again.",
+    ),
+    "reminderSet": MessageLookupByLibrary.simpleMessage("Reminder set"),
+    "reminderTimeMustBeInFuture": MessageLookupByLibrary.simpleMessage(
+      "Please pick a time in the future",
+    ),
     "reminders": MessageLookupByLibrary.simpleMessage("Reminders"),
     "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
       "Remove encryption from this note",
     ),
+    "removeReminder": MessageLookupByLibrary.simpleMessage("Remove reminder"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
@@ -302,6 +314,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "select": MessageLookupByLibrary.simpleMessage("Select"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Select Voice"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
+    "setTodoReminder": MessageLookupByLibrary.simpleMessage(
+      "Set to-do reminder",
+    ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "setupYourAccount": MessageLookupByLibrary.simpleMessage(
       "Setup your Account",
@@ -337,6 +352,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeName": MessageLookupByLibrary.simpleMessage("Theme name"),
     "themeNameHint": MessageLookupByLibrary.simpleMessage("My Theme"),
     "to": MessageLookupByLibrary.simpleMessage("To"),
+    "todoReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
+      "To-do reminder",
+    ),
+    "todoRemindersNeedUncheckedTodo": MessageLookupByLibrary.simpleMessage(
+      "Place the cursor on a to-do item to set a reminder",
+    ),
+    "todoRemindersUnavailableInEncryptedNotes":
+        MessageLookupByLibrary.simpleMessage(
+          "Reminders are not available in encrypted notes",
+        ),
     "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
       "Too many wrong attempts, please login with password",
     ),

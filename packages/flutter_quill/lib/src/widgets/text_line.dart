@@ -309,6 +309,15 @@ class _TextLineState extends State<TextLine> {
     textStyle = textStyle.merge(toMerge);
     textStyle = _applyCustomAttributes(textStyle, widget.line.style.attributes);
 
+    if (widget.line.style.attributes[Attribute.list.key] == Attribute.checked) {
+      textStyle = textStyle.copyWith(
+        decoration: TextDecoration.lineThrough,
+        decorationColor: (textStyle.color ?? defaultStyles.color)
+            ?.withOpacity(0.5),
+        decorationThickness: 1,
+      );
+    }
+
     return textStyle;
   }
 

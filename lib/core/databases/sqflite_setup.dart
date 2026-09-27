@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 4,
+      version: 5,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -70,8 +70,19 @@ class DBProvider {
 
           await db.execute("""
             CREATE TABLE  ${Tags.TABLE_NAME} (
-              ${Tags.NOTE_ID} TEXT, 
+              ${Tags.NOTE_ID} TEXT,
               ${Tags.NAME} TEXT
+            )""");
+
+          await db.execute("""
+            CREATE TABLE  ${Todos.TABLE_NAME} (
+              ${Todos.ID} TEXT PRIMARY KEY,
+              ${Todos.NOTE_ID} TEXT,
+              ${Todos.NOTE_TITLE} TEXT,
+              ${Todos.TEXT} TEXT,
+              ${Todos.IS_CHECKED} INTEGER NOT NULL DEFAULT 0,
+              ${Todos.REMINDER_AT} INTEGER,
+              ${Todos.NOTIFICATION_ID} INTEGER
             )""");
 
           log.i("All create queries executed successfully");
@@ -137,6 +148,18 @@ class DBProvider {
               GROUP BY ${Tags.NOTE_ID}, ${Tags.NAME}
             )
           """);
+        }
+        if (oldVersion < 5) {
+          await db.execute("""
+            CREATE TABLE  ${Todos.TABLE_NAME} (
+              ${Todos.ID} TEXT PRIMARY KEY,
+              ${Todos.NOTE_ID} TEXT,
+              ${Todos.NOTE_TITLE} TEXT,
+              ${Todos.TEXT} TEXT,
+              ${Todos.IS_CHECKED} INTEGER NOT NULL DEFAULT 0,
+              ${Todos.REMINDER_AT} INTEGER,
+              ${Todos.NOTIFICATION_ID} INTEGER
+            )""");
         }
       },
     );

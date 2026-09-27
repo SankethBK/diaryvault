@@ -319,6 +319,16 @@ class S {
     );
   }
 
+  /// `Could not schedule reminder. Please try again.`
+  String get reminderSchedulingFailed {
+    return Intl.message(
+      'Could not schedule reminder. Please try again.',
+      name: 'reminderSchedulingFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Note saved successfully`
   String get noteSavedSuccessfully {
     return Intl.message(
@@ -1543,6 +1553,96 @@ class S {
     return Intl.message(
       'Remove encryption from this note',
       name: 'removeEncryptionFromThisNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set to-do reminder`
+  String get setTodoReminder {
+    return Intl.message(
+      'Set to-do reminder',
+      name: 'setTodoReminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminder set`
+  String get reminderSet {
+    return Intl.message(
+      'Reminder set',
+      name: 'reminderSet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminder removed`
+  String get reminderRemoved {
+    return Intl.message(
+      'Reminder removed',
+      name: 'reminderRemoved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change reminder time`
+  String get changeReminderTime {
+    return Intl.message(
+      'Change reminder time',
+      name: 'changeReminderTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove reminder`
+  String get removeReminder {
+    return Intl.message(
+      'Remove reminder',
+      name: 'removeReminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To-do reminder`
+  String get todoReminderNotificationTitle {
+    return Intl.message(
+      'To-do reminder',
+      name: 'todoReminderNotificationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminders are not available in encrypted notes`
+  String get todoRemindersUnavailableInEncryptedNotes {
+    return Intl.message(
+      'Reminders are not available in encrypted notes',
+      name: 'todoRemindersUnavailableInEncryptedNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Place the cursor on a to-do item to set a reminder`
+  String get todoRemindersNeedUncheckedTodo {
+    return Intl.message(
+      'Place the cursor on a to-do item to set a reminder',
+      name: 'todoRemindersNeedUncheckedTodo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please pick a time in the future`
+  String get reminderTimeMustBeInFuture {
+    return Intl.message(
+      'Please pick a time in the future',
+      name: 'reminderTimeMustBeInFuture',
       desc: '',
       args: [],
     );
