@@ -14,9 +14,27 @@ class DashboardPaneCarousel extends StatefulWidget {
 }
 
 class _DashboardPaneCarouselState extends State<DashboardPaneCarousel> {
-  static const _paneHeight = 300.0;
+  static const _paneHeight = 292.0;
+  static const _paneCount = 3;
 
   final PageController _pageController = PageController();
+
+  void _goToPane(int paneIndex) {
+    final current =
+        _pageController.page?.round() ?? _pageController.initialPage;
+    final base = current - (current % _paneCount) + paneIndex;
+    var nearest = base;
+    for (final candidate in [base - _paneCount, base + _paneCount]) {
+      if ((candidate - current).abs() < (nearest - current).abs()) {
+        nearest = candidate;
+      }
+    }
+    _pageController.animateToPage(
+      nearest,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOut,
+    );
+  }
   int _selectedPage = 0;
 
   @override
@@ -41,14 +59,20 @@ class _DashboardPaneCarouselState extends State<DashboardPaneCarousel> {
       children: [
         SizedBox(
           height: _paneHeight,
-          child: PageView(
+          child: PageView.builder(
             controller: _pageController,
-            onPageChanged: (page) => setState(() => _selectedPage = page),
-            children: [
-              const TodayDashboardPane(),
-              const WritingActivityPane(),
-              SecurityBackupPane(isActive: _selectedPage == 2),
-            ],
+            onPageChanged: (page) =>
+                setState(() => _selectedPage = page % _paneCount),
+            itemBuilder: (context, index) {
+              switch (index % _paneCount) {
+                case 0:
+                  return const TodayDashboardPane();
+                case 1:
+                  return const WritingActivityPane();
+                default:
+                  return SecurityBackupPane(isActive: _selectedPage == 2);
+              }
+            },
           ),
         ),
         Padding(
@@ -65,11 +89,7 @@ class _DashboardPaneCarouselState extends State<DashboardPaneCarousel> {
                   message: pageNames[index],
                   child: InkWell(
                     customBorder: const CircleBorder(),
-                    onTap: () => _pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 250),
-                      curve: Curves.easeInOut,
-                    ),
+                    onTap: () => _goToPane(index),
                     child: Padding(
                       padding: const EdgeInsets.all(6),
                       child: AnimatedContainer(

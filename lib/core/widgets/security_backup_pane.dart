@@ -108,7 +108,7 @@ class SecurityBackupPane extends StatelessWidget {
               : stats.isOffline
                   ? strings.securityBackupOffline
                   : !stats.isConfigured
-                      ? strings.securityBackupNotConfigured
+                      ? null
                       : syncState is NoteSyncFailed
                           ? syncState.errorMessage
                           : !stats.hasVerifiedSnapshot
@@ -462,12 +462,15 @@ class _SyncNowTileState extends State<_SyncNowTile>
                           ),
                         ),
                       ] else
-                        Text(
-                          widget.subtitle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: homeTheme.previewBodyColor,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            widget.subtitle,
+                            maxLines: 1,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: homeTheme.previewBodyColor,
+                            ),
                           ),
                         ),
                     ],

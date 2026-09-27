@@ -82,7 +82,7 @@ class WritingActivityPane extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
                               Expanded(
@@ -113,11 +113,11 @@ class WritingActivityPane extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 12),
                           _ActivityHeatmap(
                             dailyNoteCounts: stats.dailyNoteCounts,
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 8),
                           Text(
                             strings.writingActivityPrivacyNote,
                             style: theme.textTheme.bodySmall?.copyWith(
