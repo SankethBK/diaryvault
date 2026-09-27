@@ -462,15 +462,13 @@ class _SyncNowTileState extends State<_SyncNowTile>
                           ),
                         ),
                       ] else
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Text(
-                            widget.subtitle,
-                            maxLines: 1,
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: homeTheme.previewBodyColor,
-                            ),
+                        Text(
+                          widget.subtitle,
+                          maxLines: 2,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: homeTheme.previewBodyColor,
                           ),
                         ),
                     ],

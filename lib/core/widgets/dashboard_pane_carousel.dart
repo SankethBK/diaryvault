@@ -16,8 +16,11 @@ class DashboardPaneCarousel extends StatefulWidget {
 class _DashboardPaneCarouselState extends State<DashboardPaneCarousel> {
   static const _paneHeight = 292.0;
   static const _paneCount = 3;
+  static const _initialPage = 999999;
 
-  final PageController _pageController = PageController();
+  final PageController _pageController =
+      PageController(initialPage: _initialPage);
+  int _selectedPage = 0;
 
   void _goToPane(int paneIndex) {
     final current =
@@ -35,7 +38,6 @@ class _DashboardPaneCarouselState extends State<DashboardPaneCarousel> {
       curve: Curves.easeInOut,
     );
   }
-  int _selectedPage = 0;
 
   @override
   void dispose() {

@@ -29,7 +29,7 @@ class WritingActivityPane extends StatelessWidget {
               );
 
         return Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 14),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
