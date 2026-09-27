@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/widgets/dashboard_tile.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/features/notes/data/models/todo_item_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
@@ -58,7 +59,7 @@ class TodayDashboardPane extends StatelessWidget {
                   SizedBox(
                     width: tileWidth,
                     height: 100,
-                    child: _DashboardTile(
+                    child: DashboardTile(
                       icon: Icons.edit_note_rounded,
                       label: S.of(context).dashboardQuickCapture,
                       color: theme.colorScheme.primary,
@@ -84,11 +85,11 @@ class TodayDashboardPane extends StatelessWidget {
                   SizedBox(
                     width: tileWidth,
                     height: 100,
-                    child: _DashboardTile(
+                    child: DashboardTile(
                       icon: Icons.mood_rounded,
                       label: S.of(context).dashboardMoodCheckIn,
                       subtitle: S.of(context).dashboardMoodSubtitle,
-                      color: theme.colorScheme.secondary,
+                      color: theme.colorScheme.primary,
                       onTap: () => _openMoodCheckIn(context),
                     ),
                   ),
@@ -108,11 +109,11 @@ class _DailyPromptTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return _DashboardTile(
+    return DashboardTile(
       icon: Icons.lightbulb_outline_rounded,
       label: S.of(context).dashboardDailyPrompt,
       subtitle: S.of(context).dashboardPromptSubtitle,
-      color: theme.colorScheme.tertiary,
+      color: theme.colorScheme.primary,
       onTap: () => _openDailyPrompt(context),
     );
   }
@@ -428,7 +429,7 @@ class _TodosDashboardTileState extends State<_TodosDashboardTile> {
         final todos = snapshot.data ?? const <TodoItemModel>[];
         final openCount = todos.where((todo) => !todo.isChecked).length;
         final completedCount = todos.length - openCount;
-        return _DashboardTile(
+        return DashboardTile(
           icon: Icons.checklist_rounded,
           label: S.of(context).dashboardTodos,
           subtitle: snapshot.hasError
@@ -447,81 +448,6 @@ class _TodosDashboardTileState extends State<_TodosDashboardTile> {
           subtitleColor: homeTheme.previewBodyColor,
         );
       },
-    );
-  }
-}
-
-class _DashboardTile extends StatelessWidget {
-  const _DashboardTile({
-    required this.icon,
-    required this.label,
-    required this.color,
-    this.subtitle,
-    this.onTap,
-    this.titleColor,
-    this.subtitleColor,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color color;
-  final String? subtitle;
-  final VoidCallback? onTap;
-  final Color? titleColor;
-  final Color? subtitleColor;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final homeTheme = theme.extension<HomePageThemeExtensions>()!;
-    return Material(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            gradient: LinearGradient(
-              colors: [
-                homeTheme.notePreviewUnselectedGradientStartColor,
-                homeTheme.notePreviewUnselectedGradientEndColor,
-              ],
-              begin: AlignmentDirectional.topStart,
-              end: AlignmentDirectional.bottomEnd,
-            ),
-            border: Border.all(color: homeTheme.notePreviewBorderColor),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: color, size: 23),
-              const SizedBox(height: 6),
-              Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  color: titleColor ?? homeTheme.previewTitleColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              if (subtitle != null)
-                Text(
-                  subtitle!,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: subtitleColor ?? homeTheme.previewBodyColor,
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 5,
+      version: 6,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -84,6 +84,8 @@ class DBProvider {
               ${Todos.REMINDER_AT} INTEGER,
               ${Todos.NOTIFICATION_ID} INTEGER
             )""");
+
+          await db.execute(_createNoteSyncReceiptsTable);
 
           log.i("All create queries executed successfully");
           log.i("Inserting welcome note");
@@ -161,7 +163,19 @@ class DBProvider {
               ${Todos.NOTIFICATION_ID} INTEGER
             )""");
         }
+        if (oldVersion < 6) {
+          await db.execute(_createNoteSyncReceiptsTable);
+        }
       },
     );
   }
+
+  String get _createNoteSyncReceiptsTable => """
+    CREATE TABLE IF NOT EXISTS ${NoteSyncReceipts.TABLE_NAME} (
+      ${NoteSyncReceipts.SYNC_SCOPE} TEXT NOT NULL,
+      ${NoteSyncReceipts.NOTE_ID} TEXT NOT NULL,
+      ${NoteSyncReceipts.CONTENT_HASH} TEXT NOT NULL,
+      PRIMARY KEY (${NoteSyncReceipts.SYNC_SCOPE}, ${NoteSyncReceipts.NOTE_ID})
+    )
+  """;
 }

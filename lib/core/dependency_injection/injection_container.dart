@@ -47,6 +47,8 @@ import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dar
 import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
 import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/note_sync_receipts_local_data_source.dart';
+import 'package:dairy_app/features/sync/data/datasources/note_sync_receipts_local_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/repositories/sync_repository.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
@@ -224,6 +226,10 @@ Future<void> init() async {
 
   //* FEATURE: sync
 
+  sl.registerSingleton<INoteSyncReceiptsLocalDataSource>(
+    await NoteSyncReceiptsLocalDataSource.create(),
+  );
+
   //* Data sources
   sl.registerSingleton<GoogleDriveSyncClient>(
       GoogleDriveSyncClient(userConfigCubit: sl()));
@@ -236,7 +242,10 @@ Future<void> init() async {
 
   //* Repository
   sl.registerSingleton<ISyncRepository>(SyncRepository(
-      notesRepository: sl(), networkInfo: sl(), userConfigCubit: sl()));
+      notesRepository: sl(),
+      networkInfo: sl(),
+      userConfigCubit: sl(),
+      noteSyncReceipts: sl()));
 
   //* Cubit
   sl.registerLazySingleton(() => NoteSyncCubit(

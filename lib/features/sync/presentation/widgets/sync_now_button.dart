@@ -6,7 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dairy_app/generated/l10n.dart';
 
 class SyncNowButton extends StatefulWidget {
-  const SyncNowButton({Key? key}) : super(key: key);
+  const SyncNowButton({
+    Key? key,
+    this.cubit,
+    this.showFeedback = true,
+  }) : super(key: key);
+
+  final NoteSyncCubit? cubit;
+  final bool showFeedback;
 
   @override
   State<SyncNowButton> createState() => _SyncNowButtonState();
@@ -44,21 +51,25 @@ class _SyncNowButtonState extends State<SyncNowButton>
 
   @override
   Widget build(BuildContext context) {
-    final noteSyncCubit = BlocProvider.of<NoteSyncCubit>(context);
+    final noteSyncCubit =
+        widget.cubit ?? BlocProvider.of<NoteSyncCubit>(context);
 
-    final syncButtonColor = Theme.of(context)
+    final theme = Theme.of(context);
+    final syncButtonColor = theme
         .extension<SettingsPageThemeExtensions>()!
-        .syncButtonColor!;
+        .syncButtonColor ??
+        theme.colorScheme.primary;
 
     return BlocBuilder<NoteSyncCubit, NoteSyncState>(
-      builder: (contextn, state) {
-        if (state is NoteSyncSuccessful) {
+      bloc: noteSyncCubit,
+      builder: (context, state) {
+        if (widget.showFeedback && state is NoteSyncSuccessful) {
           showToast(
               '${S.current.notesSyncSuccessfull} (${_formatDuration(state.elapsed)})');
           if (_rotationAnimationController.isAnimating) {
             _rotationAnimationController.reset();
           }
-        } else if (state is NoteSyncFailed) {
+        } else if (widget.showFeedback && state is NoteSyncFailed) {
           showToast(state.errorMessage);
           if (_rotationAnimationController.isAnimating) {
             _rotationAnimationController.reset();
@@ -77,21 +88,26 @@ class _SyncNowButtonState extends State<SyncNowButton>
           onTap: () {
             noteSyncCubit.startNoteSync();
           },
-          child: Container(
-            padding: const EdgeInsets.all(5.0),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.1),
-              border: Border.all(
-                color: syncButtonColor,
-              ),
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            child: RotationTransition(
-              turns: Tween(begin: 1.0, end: 0.0)
-                  .animate(_rotationAnimationController),
-              child: Icon(
-                Icons.sync,
-                color: syncButtonColor,
+          child: Tooltip(
+            message: S.current.syncNow,
+            child: Semantics(
+              button: true,
+              label: S.current.syncNow,
+              child: Container(
+                padding: const EdgeInsets.all(5.0),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surface.withOpacity(0.1),
+                  border: Border.all(color: syncButtonColor),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: RotationTransition(
+                  turns: Tween(begin: 1.0, end: 0.0)
+                      .animate(_rotationAnimationController),
+                  child: Icon(
+                    Icons.sync,
+                    color: syncButtonColor,
+                  ),
+                ),
               ),
             ),
           ),

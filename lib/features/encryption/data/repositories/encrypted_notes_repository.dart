@@ -93,6 +93,10 @@ class EncryptedNotesRepository
   }
 
   @override
+  Future<int> countEncryptedNotes() =>
+      encryptedNotesLocalDataSource.countEncryptedNotes(_userId);
+
+  @override
   Future<Either<EncryptionFailure, NoteModel>> getEncryptedNote(
       String id) async {
     if (!sessionService.isUnlocked) {

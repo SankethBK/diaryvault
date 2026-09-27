@@ -75,3 +75,10 @@ class Todos {
   /// null when nothing is scheduled
   static const NOTIFICATION_ID = "notification_id";
 }
+
+class NoteSyncReceipts {
+  static const String TABLE_NAME = "note_sync_receipts";
+  static const String SYNC_SCOPE = "sync_scope";
+  static const String NOTE_ID = "note_id";
+  static const String CONTENT_HASH = "content_hash";
+}

@@ -362,7 +362,7 @@ class GoogleDriveSyncClient implements ISyncClient {
   Future<void> updateLastSynced() async {
     log.i("Updating last sync time");
     try {
-      userConfigCubit.setUserConfig(UserConfigConstants.lastGoogleDriveSync,
+      await userConfigCubit.setUserConfig(UserConfigConstants.lastGoogleDriveSync,
           DateTime.now().millisecondsSinceEpoch);
     } catch (e) {
       log.e(e);
@@ -387,6 +387,60 @@ class GoogleDriveSyncClient implements ISyncClient {
     }
 
     return cached.createdTime;
+  }
+
+  @override
+  Future<int> getFolderSize(String fullFolderPath) async {
+    final folderName = p.basename(fullFolderPath);
+    final files = <drive.File>[];
+    String? pageToken;
+    do {
+      final page = await driveApi.files.list(
+        q: 'trashed = false',
+        spaces: 'appDataFolder',
+        $fields: 'nextPageToken, files(id, name, size, mimeType, parents)',
+        pageSize: 1000,
+        pageToken: pageToken,
+      );
+      files.addAll(page.files ?? <drive.File>[]);
+      pageToken = page.nextPageToken;
+    } while (pageToken != null);
+
+    drive.File? rootFolder;
+    for (final file in files) {
+      if (file.name == folderName &&
+          file.mimeType == 'application/vnd.google-apps.folder') {
+        rootFolder = file;
+        break;
+      }
+    }
+    final rootFolderId = rootFolder?.id;
+    if (rootFolderId == null) {
+      throw StateError('Sync folder was not found in Google Drive');
+    }
+
+    final childrenByFolder = <String, List<drive.File>>{};
+    for (final file in files) {
+      for (final parentId in file.parents ?? const <String>[]) {
+        childrenByFolder.putIfAbsent(parentId, () => []).add(file);
+      }
+    }
+
+    var totalBytes = 0;
+    final pendingFolders = <String>[rootFolderId];
+    final visitedFolders = <String>{};
+    while (pendingFolders.isNotEmpty) {
+      final folderId = pendingFolders.removeLast();
+      if (!visitedFolders.add(folderId)) continue;
+      for (final file in childrenByFolder[folderId] ?? const <drive.File>[]) {
+        if (file.mimeType == 'application/vnd.google-apps.folder') {
+          if (file.id != null) pendingFolders.add(file.id!);
+        } else {
+          totalBytes += int.tryParse(file.size ?? '') ?? 0;
+        }
+      }
+    }
+    return totalBytes;
   }
 
   //* Private util methods

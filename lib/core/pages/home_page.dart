@@ -2,9 +2,9 @@ import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/background_image.dart';
+import 'package:dairy_app/core/widgets/dashboard_pane_carousel.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
-import 'package:dairy_app/core/widgets/today_dashboard_pane.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
 import 'package:dairy_app/features/encryption/presentation/widgets/encryption_fab.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         return const Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            TodayDashboardPane(),
+                            DashboardPaneCarousel(),
                             SearchTagList(),
                           ],
                         );

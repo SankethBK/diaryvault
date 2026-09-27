@@ -103,6 +103,125 @@ class MessageLookup extends MessageLookupByLibrary {
     "dailyReminders": MessageLookupByLibrary.simpleMessage("Daily Reminders"),
     "darkLabel": MessageLookupByLibrary.simpleMessage("Dark"),
     "darkTheme": MessageLookupByLibrary.simpleMessage("Dark theme"),
+    "dashboardAddTodo": MessageLookupByLibrary.simpleMessage("Add a todo"),
+    "dashboardAnotherPrompt": MessageLookupByLibrary.simpleMessage(
+      "Another prompt",
+    ),
+    "dashboardComingSoon": MessageLookupByLibrary.simpleMessage("Coming soon"),
+    "dashboardCompletedTodos": MessageLookupByLibrary.simpleMessage(
+      "Completed",
+    ),
+    "dashboardCreateTodo": MessageLookupByLibrary.simpleMessage("Add"),
+    "dashboardDailyPrompt": MessageLookupByLibrary.simpleMessage(
+      "Daily prompt",
+    ),
+    "dashboardDailyPrompt1": MessageLookupByLibrary.simpleMessage(
+      "What felt like a small win for me today?",
+    ),
+    "dashboardDailyPrompt2": MessageLookupByLibrary.simpleMessage(
+      "What moment from today do I want to remember?",
+    ),
+    "dashboardDailyPrompt3": MessageLookupByLibrary.simpleMessage(
+      "What took more energy than I expected today?",
+    ),
+    "dashboardDailyPrompt4": MessageLookupByLibrary.simpleMessage(
+      "What can I let go of tonight?",
+    ),
+    "dashboardDailyPrompt5": MessageLookupByLibrary.simpleMessage(
+      "What did I learn about myself today?",
+    ),
+    "dashboardDailyPrompt6": MessageLookupByLibrary.simpleMessage(
+      "What made my day a little easier?",
+    ),
+    "dashboardDailyPrompt7": MessageLookupByLibrary.simpleMessage(
+      "What would make tomorrow feel gentler for me?",
+    ),
+    "dashboardDailyPrompt8": MessageLookupByLibrary.simpleMessage(
+      "What made me feel grateful today?",
+    ),
+    "dashboardDueToday": MessageLookupByLibrary.simpleMessage("Due today"),
+    "dashboardEditTodo": MessageLookupByLibrary.simpleMessage("Edit todo"),
+    "dashboardMoodCheckIn": MessageLookupByLibrary.simpleMessage(
+      "Mood check-in",
+    ),
+    "dashboardMoodContextPrompt": MessageLookupByLibrary.simpleMessage(
+      "Want to add a little context?",
+    ),
+    "dashboardMoodDifficult": MessageLookupByLibrary.simpleMessage(
+      "Having a hard day",
+    ),
+    "dashboardMoodGood": MessageLookupByLibrary.simpleMessage("Good"),
+    "dashboardMoodGreat": MessageLookupByLibrary.simpleMessage("Great"),
+    "dashboardMoodLow": MessageLookupByLibrary.simpleMessage("Not great"),
+    "dashboardMoodNoteTitle": MessageLookupByLibrary.simpleMessage(
+      "Today\'s reflection",
+    ),
+    "dashboardMoodOkay": MessageLookupByLibrary.simpleMessage("Okay"),
+    "dashboardMoodOpeningDifficult": MessageLookupByLibrary.simpleMessage(
+      "Today has been a hard day.",
+    ),
+    "dashboardMoodOpeningGood": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m feeling good.",
+    ),
+    "dashboardMoodOpeningGreat": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m feeling great.",
+    ),
+    "dashboardMoodOpeningLow": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m not feeling great.",
+    ),
+    "dashboardMoodOpeningOkay": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m feeling okay.",
+    ),
+    "dashboardMoodReflectionHint": MessageLookupByLibrary.simpleMessage(
+      "Anything else on your mind? (optional)",
+    ),
+    "dashboardMoodSaveToJournal": MessageLookupByLibrary.simpleMessage(
+      "Add to today\'s note",
+    ),
+    "dashboardMoodSubtitle": MessageLookupByLibrary.simpleMessage(
+      "How are you feeling today?",
+    ),
+    "dashboardNoDueDate": MessageLookupByLibrary.simpleMessage("No due date"),
+    "dashboardNoTodos": MessageLookupByLibrary.simpleMessage(
+      "No todos here yet",
+    ),
+    "dashboardNoTodosSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Your open and completed tasks will appear here.",
+    ),
+    "dashboardOpenInNote": MessageLookupByLibrary.simpleMessage("Open in note"),
+    "dashboardOpenTodos": MessageLookupByLibrary.simpleMessage("Open"),
+    "dashboardOverdue": MessageLookupByLibrary.simpleMessage("Overdue"),
+    "dashboardPromptSubtitle": MessageLookupByLibrary.simpleMessage(
+      "A small question to reflect on",
+    ),
+    "dashboardQuickCapture": MessageLookupByLibrary.simpleMessage(
+      "Quick capture",
+    ),
+    "dashboardReminderOptional": MessageLookupByLibrary.simpleMessage(
+      "No reminder set",
+    ),
+    "dashboardSaveTodo": MessageLookupByLibrary.simpleMessage("Save"),
+    "dashboardToday": MessageLookupByLibrary.simpleMessage("Today"),
+    "dashboardTodoLoadFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not load todos",
+    ),
+    "dashboardTodoRequired": MessageLookupByLibrary.simpleMessage(
+      "Enter a todo first",
+    ),
+    "dashboardTodoSourceHint": MessageLookupByLibrary.simpleMessage(
+      "Todos can be added from a note or created directly here.",
+    ),
+    "dashboardTodoTitle": MessageLookupByLibrary.simpleMessage(
+      "What needs doing?",
+    ),
+    "dashboardTodoUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not update this todo",
+    ),
+    "dashboardTodos": MessageLookupByLibrary.simpleMessage("Todos"),
+    "dashboardUpcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
+    "dashboardWriteAboutPrompt": MessageLookupByLibrary.simpleMessage(
+      "Write about this",
+    ),
     "dateFilter": MessageLookupByLibrary.simpleMessage("Date Filter"),
     "defaultThemeName": MessageLookupByLibrary.simpleMessage("My Theme"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
@@ -308,9 +427,48 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
     "security": MessageLookupByLibrary.simpleMessage("Security"),
+    "securityBackedUpNotes": MessageLookupByLibrary.simpleMessage("Backed up"),
+    "securityBackupNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "Choose a cloud backup provider to see backup stats.",
+    ),
+    "securityBackupOffline": MessageLookupByLibrary.simpleMessage(
+      "Backup status isn\'t available offline.",
+    ),
+    "securityBackupSetupHint": MessageLookupByLibrary.simpleMessage(
+      "Enable cloud backup so you never lose your notes.",
+    ),
+    "securityBackupSetupTitle": MessageLookupByLibrary.simpleMessage(
+      "Set up backup",
+    ),
+    "securityBackupTitle": MessageLookupByLibrary.simpleMessage(
+      "Privacy & backup",
+    ),
+    "securityBackupUnverified": MessageLookupByLibrary.simpleMessage(
+      "Sync once to verify your backup status.",
+    ),
+    "securityEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Encrypted notes",
+    ),
+    "securityLastSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "Last successful sync",
+    ),
+    "securityLastSync": MessageLookupByLibrary.simpleMessage("Last sync"),
+    "securityMetricUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Unavailable",
+    ),
+    "securityNoSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "No successful sync yet.",
+    ),
+    "securityPendingBackup": MessageLookupByLibrary.simpleMessage(
+      "Needs backup",
+    ),
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Security Settings",
     ),
+    "securityStatsNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "You haven\'t selected a cloud backup platform yet.",
+    ),
+    "securitySyncedData": MessageLookupByLibrary.simpleMessage("Cloud data"),
     "select": MessageLookupByLibrary.simpleMessage("Select"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Select Voice"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
@@ -388,6 +546,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
       "Creating and customizing themes",
     ),
+    "writingActivity": MessageLookupByLibrary.simpleMessage("Writing activity"),
+    "writingActivityEmpty": MessageLookupByLibrary.simpleMessage(
+      "Your writing days will show here.",
+    ),
+    "writingActivityLess": MessageLookupByLibrary.simpleMessage("Less"),
+    "writingActivityMore": MessageLookupByLibrary.simpleMessage("More"),
+    "writingActivityPeriod": MessageLookupByLibrary.simpleMessage(
+      "Last 6 months",
+    ),
+    "writingActivityPrivacyNote": MessageLookupByLibrary.simpleMessage(
+      "Encrypted notes aren\'t included in these stats.",
+    ),
+    "writingCurrentStreak": MessageLookupByLibrary.simpleMessage(
+      "Current streak",
+    ),
+    "writingDay": MessageLookupByLibrary.simpleMessage("day"),
+    "writingDays": MessageLookupByLibrary.simpleMessage("days"),
+    "writingLongestStreak": MessageLookupByLibrary.simpleMessage(
+      "Longest streak",
+    ),
+    "writingTotalWords": MessageLookupByLibrary.simpleMessage("Total words"),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "You have unsaved changes",
