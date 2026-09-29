@@ -324,8 +324,10 @@ BoxDecoration _tileDecoration(HomePageThemeExtensions homeTheme) {
     borderRadius: BorderRadius.circular(16),
     gradient: LinearGradient(
       colors: [
-        homeTheme.notePreviewUnselectedGradientStartColor,
-        homeTheme.notePreviewUnselectedGradientEndColor,
+        homeTheme.glassPaneSurface(
+            homeTheme.notePreviewUnselectedGradientStartColor),
+        homeTheme.glassPaneSurface(
+            homeTheme.notePreviewUnselectedGradientEndColor),
       ],
       begin: AlignmentDirectional.topStart,
       end: AlignmentDirectional.bottomEnd,

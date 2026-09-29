@@ -37,8 +37,10 @@ class WritingActivityPane extends StatelessWidget {
               border: Border.all(color: homeTheme.notePreviewBorderColor),
               gradient: LinearGradient(
                 colors: [
-                  homeTheme.notePreviewUnselectedGradientStartColor,
-                  homeTheme.notePreviewUnselectedGradientEndColor,
+                  homeTheme.glassPaneSurface(
+                      homeTheme.notePreviewUnselectedGradientStartColor),
+                  homeTheme.glassPaneSurface(
+                      homeTheme.notePreviewUnselectedGradientEndColor),
                 ],
                 begin: AlignmentDirectional.topStart,
                 end: AlignmentDirectional.bottomEnd,

@@ -163,13 +163,16 @@ class _RichNotePreviewCardState extends State<RichNotePreviewCard>
                 width: selected ? 1.4 : 1.0,
               ),
               gradient: LinearGradient(
-                colors: [gradientStartColor, gradientEndColor],
+                colors: [
+                  homeTheme.glassPaneSurface(gradientStartColor),
+                  homeTheme.glassPaneSurface(gradientEndColor),
+                ],
                 begin: AlignmentDirectional.topStart,
                 end: AlignmentDirectional.bottomEnd,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: gradientEndColor.withOpacity(0.22),
+                  color: gradientEndColor.withValues(alpha: 0.22),
                   blurRadius: 8,
                   offset: const Offset(0, 3),
                 ),
@@ -200,8 +203,12 @@ class _RichNotePreviewCardState extends State<RichNotePreviewCard>
                       child: _highlightedText(
                         widget.note.title,
                         TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          fontWeight: FontWeight.lerp(
+                            FontWeight.w500,
+                            FontWeight.w600,
+                            0.5,
+                          )!,
                           color: homeTheme.previewTitleColor,
                         ),
                         maxLines: 2,

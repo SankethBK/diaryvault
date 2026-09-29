@@ -89,6 +89,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         .extension<HomePageThemeExtensions>()!
         .backgroundGradientEndColor;
 
+    // Keep the full-page glass layer as a frosted blur with only a faint tint
+    // so the wallpaper shows through the gaps between widgets, while each
+    // widget still carries its own translucent glass surface.
+    final homeBackdropGradient = [
+      backgroundGradientStartColor.withValues(alpha: 0.6),
+      backgroundGradientEndColor.withValues(alpha: 0.4),
+    ];
+
     final sigmaX =
         Theme.of(context).extension<HomePageThemeExtensions>()!.sigmaX;
 
@@ -119,8 +127,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             right: 5.0,
           ),
           child: GlassMorphismCover(
-            sigmaX: sigmaX,
-            sigmaY: sigmaY,
+            sigmaX: 3,
+            sigmaY: 2,
             borderRadius: BorderRadius.circular(0.0),
             child: Container(
               padding: const EdgeInsets.all(0.0),
@@ -128,10 +136,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 borderRadius: BorderRadius.circular(0.0),
                 border: Border.all(width: 1.0, color: borderColor),
                 gradient: LinearGradient(
-                  colors: [
-                    backgroundGradientStartColor,
-                    backgroundGradientEndColor,
-                  ],
+                  colors: homeBackdropGradient,
                   begin: AlignmentDirectional.topStart,
                   end: AlignmentDirectional.bottomEnd,
                 ),
