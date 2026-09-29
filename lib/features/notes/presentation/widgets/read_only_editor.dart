@@ -11,7 +11,7 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 class ReadOnlyEditor extends StatelessWidget {
   final QuillController? controller;
   final String searchText;
-  final FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode(canRequestFocus: false);
 
   ReadOnlyEditor({
     Key? key,
@@ -47,6 +47,9 @@ class ReadOnlyEditor extends StatelessWidget {
       focusNode: _focusNode,
       autoFocus: false,
       readOnly: true,
+      showCursor: false,
+      enableInteractiveSelection: false,
+      enableSelectionToolbar: false,
       placeholder: '',
       expands: false,
       padding: EdgeInsets.zero,

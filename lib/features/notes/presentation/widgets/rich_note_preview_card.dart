@@ -134,6 +134,7 @@ class _RichNotePreviewCardState extends State<RichNotePreviewCard>
             .trim();
 
         return GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onLongPress: () {
             if (state is SelectableListDisabled) {
               cubit.enableSelectableList(widget.note.id);
