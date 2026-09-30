@@ -12,6 +12,7 @@ import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/note_sync_receipts_local_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
 import 'package:dartz/dartz.dart';
@@ -28,11 +29,13 @@ class SyncRepository implements ISyncRepository {
   final UserConfigCubit userConfigCubit;
   late ISyncClient syncClient;
   final INetworkInfo networkInfo;
+  final INoteSyncReceiptsLocalDataSource noteSyncReceipts;
 
   SyncRepository({
     required this.notesRepository,
     required this.networkInfo,
     required this.userConfigCubit,
+    required this.noteSyncReceipts,
   });
 
   @override
@@ -207,6 +210,9 @@ class SyncRepository implements ISyncRepository {
             return false;
           }
 
+          await _recordSyncSnapshot(notesIndex);
+          await syncClient.updateLastSynced();
+
           log.i("Bulk initialization complete");
 
           return true;
@@ -252,6 +258,7 @@ class SyncRepository implements ISyncRepository {
         log.i("Local notes are empty, starting bulk parallel download");
         await _bulkDownloadNotes(globalNotesIndex, onProgress);
         await syncClient.updateLastSynced();
+        await _recordSyncSnapshot(globalNotesIndex);
         onProgress?.call(1.0);
         return true;
       }
@@ -391,6 +398,7 @@ class SyncRepository implements ISyncRepository {
       log.i("global notes index at end = \n $globalNotesIndexCopy");
 
       await syncClient.updateLastSynced();
+      await _recordSyncSnapshot(globalNotesIndexCopy);
       onProgress?.call(1.0);
       return true;
     } catch (e) {
@@ -401,39 +409,39 @@ class SyncRepository implements ISyncRepository {
 
   Future<void> _uploadSingleNote(String noteId) async {
     try {
-      // fetch the note from repository
-      var result = await notesRepository.getNote(noteId);
-      return result.fold((e) {
-        log.e(e);
-      }, (note) async {
-        // Create the parent folder for post
-        bool isPostParentFolderCreated = await syncClient.createFolder(note.id,
-            parentFolder: appFolderName,
-            fullFolderPath: "/$appFolderName/${note.id}");
-        if (!isPostParentFolderCreated) {
-          log.e("failed to create parent folder for note id ${note.id}");
-        }
+      final result = await notesRepository.getNote(noteId);
+      final note = result.fold(
+        (failure) => throw StateError('Could not read note $noteId: $failure'),
+        (value) => value,
+      );
 
-        await syncClient.uploadFile(
-          fileContent: jsonEncode(note.toJson()),
-          fileName: noteId + ".json",
+      await syncClient.createFolder(
+        note.id,
+        parentFolder: appFolderName,
+        fullFolderPath: "/$appFolderName/${note.id}",
+      );
+
+      final noteUploaded = await syncClient.uploadFile(
+        fileContent: jsonEncode(note.toJson()),
+        fileName: '$noteId.json',
+        parentFolder: note.id,
+        fullFilePath: "/$appFolderName/${note.id}/$noteId.json",
+      );
+      if (!noteUploaded) {
+        throw StateError('Note upload failed for $noteId');
+      }
+
+      for (final asset in note.assetDependencies) {
+        final assetUploaded = await syncClient.uploadFile(
+          file: io.File(asset.assetPath),
           parentFolder: note.id,
-          fullFilePath: "/$appFolderName/${note.id}/$noteId.json",
+          fullFilePath:
+              "/$appFolderName/${note.id}/${p.basename(asset.assetPath)}",
         );
-
-        // upload all the note assets
-        for (var asset in note.assetDependencies) {
-          bool isAssetUploaded = await syncClient.uploadFile(
-            file: io.File(asset.assetPath),
-            parentFolder: note.id,
-            fullFilePath:
-                "/$appFolderName/${note.id}/${p.basename(asset.assetPath)}",
-          );
-          if (!isAssetUploaded) {
-            log.e("Could not upload the asset");
-          }
+        if (!assetUploaded) {
+          throw StateError('Could not upload asset ${asset.assetPath}');
         }
-      });
+      }
     } catch (e) {
       log.e(e);
       rethrow;
@@ -454,10 +462,13 @@ class SyncRepository implements ISyncRepository {
       // update global index and update the file in cloud
       globalIndex.add(noteIndex);
 
-      await syncClient.updateFile(
+      final indexUpdated = await syncClient.updateFile(
           fileName: "index.json",
           fileContent: jsonEncode(globalIndex),
           fullFilePath: "/$appFolderName/index.json");
+      if (!indexUpdated) {
+        throw StateError('Cloud note index update failed');
+      }
 
       log.i("uploading ${noteIndex["id"]} to cloud successful");
       // return the updated global index array
@@ -597,10 +608,13 @@ class SyncRepository implements ISyncRepository {
             .toList();
       }
 
-      await syncClient.updateFile(
+      final indexUpdated = await syncClient.updateFile(
           fileName: "index.json",
           fileContent: jsonEncode(globalIndex),
           fullFilePath: "/$appFolderName/index.json");
+      if (!indexUpdated) {
+        throw StateError('Cloud note index update failed');
+      }
 
       // delete the note folder
       await syncClient.deleteFile(noteId,
@@ -692,6 +706,37 @@ class SyncRepository implements ISyncRepository {
     }
 
     return false;
+  }
+
+  Future<String> _currentSyncScope() async {
+    final provider = syncClient is GoogleDriveSyncClient
+        ? SyncConstants.googleDrive
+        : syncClient is DropboxSyncClient
+            ? SyncConstants.dropbox
+            : SyncConstants.nextCloud;
+    final account = (await syncClient.getSignedInUserInfo())
+            ?.trim()
+            .toLowerCase() ??
+        'unknown-account';
+    return '$provider|$account';
+  }
+
+  Future<void> _recordSyncSnapshot(
+    List<Map<String, dynamic>> notes,
+  ) async {
+    int? remoteFolderSizeBytes;
+    try {
+      remoteFolderSizeBytes =
+          await syncClient.getFolderSize('/$appFolderName');
+    } catch (e) {
+      // Sync receipts are still useful even if this provider cannot report size.
+      log.w('Could not read synced folder size: $e');
+    }
+    await noteSyncReceipts.replaceReceipts(
+      await _currentSyncScope(),
+      notes,
+      remoteFolderSizeBytes: remoteFolderSizeBytes,
+    );
   }
 
   Map<String, dynamic>? _findNoteWithGivenId(

@@ -28,7 +28,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(count) => "আমদানিকৃত ${count} টি নোট";
 
-  static String m3(time) => "আপনাকে ${time} -এ জানানো হবে";
+  static String m3(minLength) =>
+      "পাসফ্রেজ অবশ্যই কমপক্ষে ${minLength} অক্ষর হতে হবে";
+
+  static String m4(time) => "আপনাকে ${time} -এ জানানো হবে";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -43,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "DiaryVault আবিষ্কার করুন - একটি ডায়েরি অ্যাপ যা আপনাকে আপনার চিন্তাভাবনা, স্মৃতি এবং মুহূর্তগুলি অনায়াসে ক্যাপচার করতে সহায়তা করার জন্য ডিজাইন করা হয়েছে । এখন প্লে স্টোরে পাওয়া যাচ্ছে!",
     ),
     "appLanguage": MessageLookupByLibrary.simpleMessage("অ্যাপের ভাষা"),
+    "appTitle": MessageLookupByLibrary.simpleMessage("আমার দুগ্ধ"),
     "appVersion": MessageLookupByLibrary.simpleMessage("অ্যাপ সংস্করণ"),
     "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
       "আপনি কি লগ আউট করার ব্যাপারে নিশ্চিত?",
@@ -57,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
       "সিঙ্কের জন্য উপলব্ধ প্ল্যাটফর্ম",
     ),
+    "backAction": MessageLookupByLibrary.simpleMessage("পিছনে"),
     "byContinuingYouAgree": MessageLookupByLibrary.simpleMessage(
       "জারী রাখার মাধ্যমে, আপনি সম্মতি প্রকাশ করছেন আমাদের",
     ),
@@ -71,11 +76,23 @@ class MessageLookup extends MessageLookupByLibrary {
       "এনক্রিপশন পাসফ্রেজ পরিবর্তন করুন",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("ছবি পরিবর্তন করুন"),
+    "changePassphraseTitle": MessageLookupByLibrary.simpleMessage(
+      "পাসফ্রেজ পরিবর্তন করুন",
+    ),
     "changePassword": MessageLookupByLibrary.simpleMessage(
       "পাসওয়ার্ড পরিবর্তন করুন",
     ),
+    "changeReminderTime": MessageLookupByLibrary.simpleMessage(
+      "রিমাইন্ডার সময় পরিবর্তন করুন",
+    ),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
       "ছবি নির্বাচন করুন",
+    ),
+    "choosePassphraseHint": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট আনলক করতে আপনি এটি প্রবেশ করবেন । দীর্ঘ এবং স্মরণীয় কিছু ব্যবহার করুন ।",
+    ),
+    "choosePassphraseTitle": MessageLookupByLibrary.simpleMessage(
+      "একটি পাসফ্রেজ নির্বাচন করুন",
     ),
     "chooseTheSyncSource": MessageLookupByLibrary.simpleMessage(
       "সিঙ্ক উত্স নির্বাচন করুন",
@@ -84,18 +101,32 @@ class MessageLookup extends MessageLookupByLibrary {
     "chooseTime": MessageLookupByLibrary.simpleMessage("সময় বেছে নিন"),
     "closeTheApp": MessageLookupByLibrary.simpleMessage("অ্যাপটি বন্ধ করবেন?"),
     "cloudBackup": MessageLookupByLibrary.simpleMessage("ক্লাউড ব্যাকআপ"),
+    "confirmNewPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "নতুন পাসফ্রেজ নিশ্চিত করুন",
+    ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "নতুন পাসওয়ার্ড নিশ্চিত করুন",
     ),
     "confirmNewPin": MessageLookupByLibrary.simpleMessage(
       "ᱱᱤᱥᱴᱟᱹᱭ ᱢᱮ ᱱᱟᱣᱟ PIN",
     ),
+    "confirmPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "পাসফ্রেজ নিশ্চিত করুন",
+    ),
     "continueAsGues": MessageLookupByLibrary.simpleMessage(
       "অতিথি হিসাবে চালিয়ে যান",
     ),
+    "continueButton": MessageLookupByLibrary.simpleMessage("এগিয়ে যান"),
+    "copyButtonTooltip": MessageLookupByLibrary.simpleMessage("কপি করুন"),
     "create": MessageLookupByLibrary.simpleMessage("তৈরি করুন"),
     "createYourTheme": MessageLookupByLibrary.simpleMessage(
       "আপনার থিম তৈরি করুন",
+    ),
+    "currentPassphraseIncorrect": MessageLookupByLibrary.simpleMessage(
+      "বর্তমান পাসফ্রেজটি ভুল",
+    ),
+    "currentPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "বর্তমান পাসফ্রেজ",
     ),
     "customThemeIntro": MessageLookupByLibrary.simpleMessage(
       "আপনার পছন্দের একটি ফটো বেছে নিন বা পটভূমির রঙ বেছে নিন এবং আমরা এর চারপাশে একটি থিম তৈরি করব ।",
@@ -104,6 +135,129 @@ class MessageLookup extends MessageLookupByLibrary {
     "dailyReminders": MessageLookupByLibrary.simpleMessage("দৈনিক অনুস্মারক"),
     "darkLabel": MessageLookupByLibrary.simpleMessage("অন্ধকার"),
     "darkTheme": MessageLookupByLibrary.simpleMessage("গাark় থিম"),
+    "dashboardAddTodo": MessageLookupByLibrary.simpleMessage(
+      "একটি টডো যোগ করুন",
+    ),
+    "dashboardAnotherPrompt": MessageLookupByLibrary.simpleMessage(
+      "আরেকটি প্রম্পট",
+    ),
+    "dashboardComingSoon": MessageLookupByLibrary.simpleMessage(
+      "খুব শীঘ্রই আসছে",
+    ),
+    "dashboardCompletedTodos": MessageLookupByLibrary.simpleMessage("সম্পন্ন"),
+    "dashboardCreateTodo": MessageLookupByLibrary.simpleMessage("যোগ করুন"),
+    "dashboardDailyPrompt": MessageLookupByLibrary.simpleMessage(
+      "দৈনিক প্রম্পট",
+    ),
+    "dashboardDailyPrompt1": MessageLookupByLibrary.simpleMessage(
+      "আজ আমার জন্য একটি ছোট জয় কেমন লাগলো?",
+    ),
+    "dashboardDailyPrompt2": MessageLookupByLibrary.simpleMessage(
+      "আজ থেকে আমি কোন মুহূর্তটি মনে রাখতে চাই?",
+    ),
+    "dashboardDailyPrompt3": MessageLookupByLibrary.simpleMessage(
+      "আজ আমি যা আশা করেছিলাম তার চেয়ে বেশি শক্তি কী নিয়েছিল?",
+    ),
+    "dashboardDailyPrompt4": MessageLookupByLibrary.simpleMessage(
+      "আজ রাতে আমি কী ছেড়ে যেতে পারি?",
+    ),
+    "dashboardDailyPrompt5": MessageLookupByLibrary.simpleMessage(
+      "আজ আমি নিজের সম্পর্কে কী শিখলাম?",
+    ),
+    "dashboardDailyPrompt6": MessageLookupByLibrary.simpleMessage(
+      "আমার দিনটিকে কী কিছুটা সহজ করে তুলেছে?",
+    ),
+    "dashboardDailyPrompt7": MessageLookupByLibrary.simpleMessage(
+      "আগামীকাল কি আমার জন্য কোমল বোধ করবে?",
+    ),
+    "dashboardDailyPrompt8": MessageLookupByLibrary.simpleMessage(
+      "আজ কি আমাকে কৃতজ্ঞ করে তুলেছে?",
+    ),
+    "dashboardDueToday": MessageLookupByLibrary.simpleMessage(
+      "আজকে প্রদান করা বাকী আছেঃ",
+    ),
+    "dashboardEditTodo": MessageLookupByLibrary.simpleMessage("Todo এডিট করুন"),
+    "dashboardMoodCheckIn": MessageLookupByLibrary.simpleMessage("মুড চেক-ইন"),
+    "dashboardMoodContextPrompt": MessageLookupByLibrary.simpleMessage(
+      "একটু প্রসঙ্গ যোগ করতে চান?",
+    ),
+    "dashboardMoodDifficult": MessageLookupByLibrary.simpleMessage(
+      "একটি কঠিন দিন কাটাচ্ছি",
+    ),
+    "dashboardMoodGood": MessageLookupByLibrary.simpleMessage("ভালো"),
+    "dashboardMoodGreat": MessageLookupByLibrary.simpleMessage("বৃJ হেc"),
+    "dashboardMoodLow": MessageLookupByLibrary.simpleMessage("দুর্দান্ত নয়"),
+    "dashboardMoodNoteTitle": MessageLookupByLibrary.simpleMessage(
+      "আজকের প্রতিফলন",
+    ),
+    "dashboardMoodOkay": MessageLookupByLibrary.simpleMessage("ঠিক"),
+    "dashboardMoodOpeningDifficult": MessageLookupByLibrary.simpleMessage(
+      "আজ একটি কঠিন দিন ।",
+    ),
+    "dashboardMoodOpeningGood": MessageLookupByLibrary.simpleMessage(
+      "আজ, আমি ভালো বোধ করছি ।",
+    ),
+    "dashboardMoodOpeningGreat": MessageLookupByLibrary.simpleMessage(
+      "আজ, আমি দারুণ অনুভব করছি ।",
+    ),
+    "dashboardMoodOpeningLow": MessageLookupByLibrary.simpleMessage(
+      "আজ, আমি খুব ভালো বোধ করছি না ।",
+    ),
+    "dashboardMoodOpeningOkay": MessageLookupByLibrary.simpleMessage(
+      "আজ, আমি ভালো বোধ করছি ।",
+    ),
+    "dashboardMoodReflectionHint": MessageLookupByLibrary.simpleMessage(
+      "আপনার মনে অন্য কিছু আছে? (ঐচ্ছিক)",
+    ),
+    "dashboardMoodSaveToJournal": MessageLookupByLibrary.simpleMessage(
+      "আজকের নোটে যোগ করুন",
+    ),
+    "dashboardMoodSubtitle": MessageLookupByLibrary.simpleMessage(
+      "আপনার আজ কেমন লাগছে?",
+    ),
+    "dashboardNoDueDate": MessageLookupByLibrary.simpleMessage(
+      "দেয় তারিখ নাই",
+    ),
+    "dashboardNoTodos": MessageLookupByLibrary.simpleMessage(
+      "এখনও পর্যন্ত এখানে কোন টোডোস নেই",
+    ),
+    "dashboardNoTodosSubtitle": MessageLookupByLibrary.simpleMessage(
+      "আপনার খোলা এবং সম্পন্ন কাজগুলি এখানে দেখা যাবে ।",
+    ),
+    "dashboardOpenInNote": MessageLookupByLibrary.simpleMessage("নোটে খুলুন"),
+    "dashboardOpenTodos": MessageLookupByLibrary.simpleMessage("খুলুন"),
+    "dashboardOverdue": MessageLookupByLibrary.simpleMessage(
+      "সময়সীমা পার হয়ে গেছে:",
+    ),
+    "dashboardPromptSubtitle": MessageLookupByLibrary.simpleMessage(
+      "প্রতিফলিত করার জন্য একটি ছোট প্রশ্ন",
+    ),
+    "dashboardQuickCapture": MessageLookupByLibrary.simpleMessage(
+      "দ্রুত ক্যাপচার",
+    ),
+    "dashboardReminderOptional": MessageLookupByLibrary.simpleMessage(
+      "কোনও রিমাইন্ডার সেট নেই",
+    ),
+    "dashboardSaveTodo": MessageLookupByLibrary.simpleMessage("সংরক্ষণ করুন"),
+    "dashboardToday": MessageLookupByLibrary.simpleMessage("আজ"),
+    "dashboardTodoLoadFailed": MessageLookupByLibrary.simpleMessage(
+      "Todos লোড করা যায়নি",
+    ),
+    "dashboardTodoRequired": MessageLookupByLibrary.simpleMessage(
+      "প্রথমে একটি টডো লিখুন",
+    ),
+    "dashboardTodoSourceHint": MessageLookupByLibrary.simpleMessage(
+      "টডস একটি নোট থেকে যোগ করা যেতে পারে বা সরাসরি এখানে তৈরি করা যেতে পারে ।",
+    ),
+    "dashboardTodoTitle": MessageLookupByLibrary.simpleMessage("কী করা দরকার?"),
+    "dashboardTodoUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "এই টডো আপডেট করা যায়নি",
+    ),
+    "dashboardTodos": MessageLookupByLibrary.simpleMessage("Todos"),
+    "dashboardUpcoming": MessageLookupByLibrary.simpleMessage("আসন্ন"),
+    "dashboardWriteAboutPrompt": MessageLookupByLibrary.simpleMessage(
+      "এটি সম্পর্কে লিখুন",
+    ),
     "dateFilter": MessageLookupByLibrary.simpleMessage("তারিখ ফিল্টার"),
     "defaultThemeName": MessageLookupByLibrary.simpleMessage("আমার থিম"),
     "delete": MessageLookupByLibrary.simpleMessage("মুছুন"),
@@ -116,6 +270,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dropbox": MessageLookupByLibrary.simpleMessage("Dropbox"),
     "editTheme": MessageLookupByLibrary.simpleMessage("থিম এডিট করুন"),
+    "editorPlaceholder": MessageLookupByLibrary.simpleMessage(
+      "এখানে কিছু লিখুন...",
+    ),
     "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "ইমেল সফলভাবে আপডেট করা হয়েছে, অনুগ্রহ করে আবার লগইন করুন",
     ),
@@ -140,14 +297,35 @@ class MessageLookup extends MessageLookupByLibrary {
     "encryptThisNote": MessageLookupByLibrary.simpleMessage(
       "এই নোটটি এনক্রিপ্ট করুন",
     ),
+    "encryptYourNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "নোট করুন যে আপনি এনক্রিপ্ট করা হিসাবে চিহ্নিত করেছেন এই ডিভাইসে এবং আপনার ক্লাউড ব্যাকআপে শুধুমাত্র আপনি জানেন এমন একটি পাসফ্রেজ দিয়ে সুরক্ষিত । আমরা এবং আপনার ক্লাউড সরবরাহকারী সহ অন্য কেউ সেগুলি পড়তে পারবে না ।",
+    ),
+    "encryptYourNotesTitle": MessageLookupByLibrary.simpleMessage(
+      "আপনার নোট এনক্রিপ্ট করুন",
+    ),
     "encryptedNotes": MessageLookupByLibrary.simpleMessage("এনক্রিপ্ট করা নোট"),
     "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
       "এনক্রিপ্ট করা নোট লক করা আছে",
     ),
     "encryption": MessageLookupByLibrary.simpleMessage("এনক্রিপশন প্রক্রিয়া"),
     "encryptionEnabled": MessageLookupByLibrary.simpleMessage("সক্রিয়"),
+    "encryptionEnabledToast": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপশন সক্রিয় করা হয়েছে",
+    ),
+    "encryptionLossAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "আমি বুঝতে পারি যে আমি যদি এই পাসফ্রেজটি ভুলে যাই এবং পুনরুদ্ধার কোডটি হারিয়ে ফেলি তবে আমার নোটগুলি পুনরুদ্ধার করার কোনও উপায় নেই",
+    ),
+    "encryptionLossWarning": MessageLookupByLibrary.simpleMessage(
+      "আপনি ⚠️ যদি আপনার পাসফ্রেজ ভুলে যান এবং রিকভারি কোডটি হারিয়ে ফেলেন, তাহলে এনক্রিপ্ট করা নোটগুলি চিরতরে চলে যাবে । তাদের পুনরুদ্ধারের কোন উপায় নেই ।",
+    ),
+    "encryptionSeparateViewDescription": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোটগুলি একটি পৃথক লক করা ভিউতে থাকে এবং অনুসন্ধান থেকে বাদ দেওয়া হয় ।",
+    ),
     "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
       "একটি পাসফ্রেজ এবং রিকভারি কোড সেট আপ করুন",
+    ),
+    "encryptionStaysOnToast": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোটের জন্য এনক্রিপশন চালু থাকে । এনক্রিপ্ট করা নোট ভিউ থেকে যে কোনও সময় তাদের লক করুন ।",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "বর্তমান পাসওয়ার্ড লিখুন",
@@ -183,6 +361,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "ফিঙ্গারপ্রিন্ট লগইন ব্যর্থ হয়েছে",
     ),
     "fontFamily": MessageLookupByLibrary.simpleMessage("ফন্ট ফ্যামিলি"),
+    "forgotPassphraseUseRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "পাসফ্রেজ ভুলে গেছেন? রিকভারি কোড ব্যবহার করুন",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "পাসওয়ার্ড ভুলে গেছেন?",
     ),
@@ -211,6 +392,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("ছেড়ে দিন"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("আলো"),
     "link": MessageLookupByLibrary.simpleMessage("সংযোগ করুন"),
+    "lockAction": MessageLookupByLibrary.simpleMessage("লক"),
     "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
       "এনক্রিপ্ট করা নোট লক করুন",
     ),
@@ -223,17 +405,47 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "moreInfo": MessageLookupByLibrary.simpleMessage("আরও তথ্য"),
     "muted": MessageLookupByLibrary.simpleMessage("নিঃশব্দ"),
+    "newPassphraseLabel": MessageLookupByLibrary.simpleMessage("নতুন পাসফ্রেজ"),
+    "newPassphrasesDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "নতুন পাসফ্রেজ মিলছে না",
+    ),
     "newPassword": MessageLookupByLibrary.simpleMessage("নতুন পাসওয়ার্ড"),
+    "newRecoveryCodeAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "আমি নতুন কোডটি লিখেছি",
+    ),
+    "newRecoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "এটি নিচে লিখুন এবং এটি নিরাপদ রাখুন । এটি আর প্রদর্শিত হবে না ।",
+    ),
+    "newRecoveryCodeTitle": MessageLookupByLibrary.simpleMessage(
+      "নতুন রিকভারি কোড",
+    ),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
     "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
       "এখনও কোনও এনক্রিপ্ট করা নোট নেই",
     ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("উপলব্ধ নয়"),
+    "notNow": MessageLookupByLibrary.simpleMessage("এখন না"),
+    "noteCollapsePreview": MessageLookupByLibrary.simpleMessage(
+      "প্রিভিউ সঙ্কুচিত করুন",
+    ),
+    "noteDifferentPassphrase": MessageLookupByLibrary.simpleMessage(
+      "এই নোটটি একটি ভিন্ন পাসফ্রেজ দ্বারা সুরক্ষিত",
+    ),
+    "noteExpandPreview": MessageLookupByLibrary.simpleMessage(
+      "প্রিভিউ প্রসারিত করুন",
+    ),
+    "noteNoTitle": MessageLookupByLibrary.simpleMessage("শিরোনামহীন নোট"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "সফলভাবে সেভ করা হয়েছে",
     ),
     "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "আপডেট সফল হয়েছে",
+    ),
+    "noteWillBeSavedEncrypted": MessageLookupByLibrary.simpleMessage(
+      "নোট এনক্রিপ্ট করা সংরক্ষণ করা হবে",
+    ),
+    "noteWillBeSavedUnencrypted": MessageLookupByLibrary.simpleMessage(
+      "নোট এনক্রিপ্ট করা ছাড়াই সংরক্ষণ করা হবে",
     ),
     "notesImportPartialFailure": m0,
     "notesImportSkippedSummary": m1,
@@ -260,6 +472,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "প্যালেট (এডিট করতে একটি সোয়াচ ট্যাপ করুন)",
     ),
     "passphrase": MessageLookupByLibrary.simpleMessage("পাসফ্রেজ"),
+    "passphraseLabel": MessageLookupByLibrary.simpleMessage("পাসফ্রেজ"),
+    "passphraseMinLength": m3,
+    "passphrasesDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "পাসওয়ার্ড মিলছে না",
+    ),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "পাসওয়ার্ড রিসেট ইমেল",
     ),
@@ -300,12 +517,42 @@ class MessageLookup extends MessageLookupByLibrary {
     "projectOnGithub": MessageLookupByLibrary.simpleMessage("গিটহাবে প্রকল্প"),
     "recordAudio": MessageLookupByLibrary.simpleMessage("অডিও রেকর্ড করুন"),
     "recoveryCode": MessageLookupByLibrary.simpleMessage("রিকভারি কোড"),
+    "recoveryCodeAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "আমি আমার রিকভারি কোড লিখেছি",
+    ),
+    "recoveryCodeCopiedToast": MessageLookupByLibrary.simpleMessage(
+      "রিকভারি কোড কপি করা হয়েছে",
+    ),
+    "recoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "এটি নিচে লিখুন এবং এটি কোথাও নিরাপদ রাখুন । আপনি যদি পাসফ্রেজটি ভুলে যান তবে এটি আপনার নোটগুলি পুনরুদ্ধার করার একমাত্র উপায় । এটি আর প্রদর্শিত হবে না ।",
+    ),
+    "regenerateButton": MessageLookupByLibrary.simpleMessage(
+      "পুনর্নির্মাণ করুন",
+    ),
     "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
       "রিকভারি কোড পুনরায় জেনারেট করুন",
+    ),
+    "regenerateRecoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "এটি আপনার পুরানো রিকভারি কোডটি অবৈধ করে দেয় । চালিয়ে যেতে আপনার পাসফ্রেজ লিখুন ।",
+    ),
+    "reminderRemoved": MessageLookupByLibrary.simpleMessage(
+      "রিমাইন্ডার সরানো হয়েছে",
+    ),
+    "reminderSchedulingFailed": MessageLookupByLibrary.simpleMessage(
+      "রিমাইন্ডার সময় নির্ধারণ করা যায়নি । অনুগ্রহ করে আবার চেষ্টা করুন ।",
+    ),
+    "reminderSet": MessageLookupByLibrary.simpleMessage(
+      "রিমাইন্ডার সেট করা হয়েছে",
+    ),
+    "reminderTimeMustBeInFuture": MessageLookupByLibrary.simpleMessage(
+      "অনুগ্রহ করে ভবিষ্যতে একটি সময় বেছে নিন",
     ),
     "reminders": MessageLookupByLibrary.simpleMessage("স্মরণ রাখা জরুরী"),
     "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
       "এই নোট থেকে এনক্রিপশন সরান",
+    ),
+    "removeReminder": MessageLookupByLibrary.simpleMessage(
+      "স্মৃতিচিহ্ন অপসারণ",
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "পাসওয়ার্ড রিসেট করুন",
@@ -317,11 +564,55 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage(
       "পরিবর্তনগুলি সংরক্ষণ করুন",
     ),
+    "searchInNoteHint": MessageLookupByLibrary.simpleMessage("অনুসন্ধান"),
     "security": MessageLookupByLibrary.simpleMessage("নিরাপত্তা"),
+    "securityBackedUpNotes": MessageLookupByLibrary.simpleMessage(
+      "ব্যাক আপ করা হয়েছে",
+    ),
+    "securityBackupNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "ব্যাকআপ পরিসংখ্যান দেখতে একটি ক্লাউড ব্যাকআপ প্রদানকারী বেছে নিন ।",
+    ),
+    "securityBackupOffline": MessageLookupByLibrary.simpleMessage(
+      "ব্যাকআপের স্ট্যাটাস অফলাইনে পাওয়া যায় না ।",
+    ),
+    "securityBackupSetupHint": MessageLookupByLibrary.simpleMessage(
+      "ক্লাউড ব্যাকআপ সক্ষম করুন যাতে আপনি কখনই আপনার নোটগুলি হারাবেন না ।",
+    ),
+    "securityBackupSetupTitle": MessageLookupByLibrary.simpleMessage(
+      "ব্যাকআপ সেট আপ করুন",
+    ),
+    "securityBackupTitle": MessageLookupByLibrary.simpleMessage(
+      "গোপনীয়তা এবং ব্যাকআপ",
+    ),
+    "securityBackupUnverified": MessageLookupByLibrary.simpleMessage(
+      "আপনার ব্যাকআপ স্ট্যাটাস যাচাই করতে একবার সিঙ্ক করুন ।",
+    ),
+    "securityEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোট",
+    ),
+    "securityLastSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "সর্বশেষ সফল সিঙ্ক",
+    ),
+    "securityLastSync": MessageLookupByLibrary.simpleMessage("শেষ সিঙ্ক"),
+    "securityMetricUnavailable": MessageLookupByLibrary.simpleMessage(
+      "পাওয়া যাচ্ছে না",
+    ),
+    "securityNoSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "এখনও কোনও সফল সিঙ্ক নেই ।",
+    ),
+    "securityPendingBackup": MessageLookupByLibrary.simpleMessage(
+      "ব্যাকআপ প্রয়োজন",
+    ),
     "securitySettings": MessageLookupByLibrary.simpleMessage("সিকিউরিটি সেটিং"),
+    "securityStatsNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "আপনি এখনও কোনও ক্লাউড ব্যাকআপ প্ল্যাটফর্ম বেছে নেননি ।",
+    ),
+    "securitySyncedData": MessageLookupByLibrary.simpleMessage("ক্লাউড ডেটা"),
     "select": MessageLookupByLibrary.simpleMessage("সিলেক্ট"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("ভয়েস নির্বাচন করুন"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("মতামত পাঠান"),
+    "setPassphrase": MessageLookupByLibrary.simpleMessage("পাসফ্রেজ সেট করুন"),
+    "setTodoReminder": MessageLookupByLibrary.simpleMessage("করণীয়"),
     "settings": MessageLookupByLibrary.simpleMessage("সেটিংস"),
     "setupYourAccount": MessageLookupByLibrary.simpleMessage(
       "আপনার অ্যাকাউন্ট সেটআপ করুন",
@@ -345,6 +636,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "stay": MessageLookupByLibrary.simpleMessage("থাকুন"),
     "submit": MessageLookupByLibrary.simpleMessage("জমা দিন"),
     "syncNow": MessageLookupByLibrary.simpleMessage("এখন সিঙ্ক করুন"),
+    "syncSourceNone": MessageLookupByLibrary.simpleMessage("নেই"),
     "tagAlreadyExists": MessageLookupByLibrary.simpleMessage(
       "ট্যাগ আগে থেকেই আছে",
     ),
@@ -357,27 +649,66 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeName": MessageLookupByLibrary.simpleMessage("থিমের নাম"),
     "themeNameHint": MessageLookupByLibrary.simpleMessage("আমার থিম"),
     "to": MessageLookupByLibrary.simpleMessage("প্রতি"),
+    "todoReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
+      "করণীয়",
+    ),
+    "todoRemindersNeedUncheckedTodo": MessageLookupByLibrary.simpleMessage(
+      "একটি রিমাইন্ডার সেট করতে কার্সারটিকে একটি করণীয় আইটেমের উপর রাখুন",
+    ),
+    "todoRemindersUnavailableInEncryptedNotes":
+        MessageLookupByLibrary.simpleMessage(
+          "এনক্রিপ্ট করা নোটে রিমাইন্ডার পাওয়া যায় না",
+        ),
     "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
       "অনেক ভুল প্রচেষ্টা, অনুগ্রহ করে পাসওয়ার্ড দিয়ে লগইন করুন",
     ),
     "toolbarPosition": MessageLookupByLibrary.simpleMessage("টুলবারের অবস্থান"),
+    "toolbarPositionBottom": MessageLookupByLibrary.simpleMessage("নীচ"),
+    "toolbarPositionTop": MessageLookupByLibrary.simpleMessage("উপর"),
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "অপ্রত্যাশিত ত্রুটি ঘটেছে",
     ),
+    "unlockAction": MessageLookupByLibrary.simpleMessage("আনলক করুন"),
+    "unlockButton": MessageLookupByLibrary.simpleMessage("আনলক করুন"),
     "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
       "এনক্রিপ্ট করা নোট আনলক করুন",
     ),
+    "unlockNoteAction": MessageLookupByLibrary.simpleMessage("নোট আনলক করুন"),
     "unlockThisNote": MessageLookupByLibrary.simpleMessage(
       "এই নোটটি আনলক করুন",
     ),
+    "usePassphraseInstead": MessageLookupByLibrary.simpleMessage(
+      "পরিবর্তে পাসফ্রেজ ব্যবহার করুন",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("ভিডিও"),
+    "visitWebsite": MessageLookupByLibrary.simpleMessage(
+      "আমাদের ওয়েবসাইট ভিজিট করুন",
+    ),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
     "whatsNew": MessageLookupByLibrary.simpleMessage("নতুন কী?"),
+    "whatsNewCloudBackupSubtitle": MessageLookupByLibrary.simpleMessage(
+      "কোন নোটগুলি ব্যাক আপ করা হয়েছে, আপলোড মুলতুবি আছে এবং আপনার শেষ সিঙ্ক কখন হয়েছে তা দেখুন ।",
+    ),
+    "whatsNewCloudBackupTitle": MessageLookupByLibrary.simpleMessage(
+      "ক্লাউড ব্যাকআপ স্ট্যাটাস",
+    ),
     "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
       "পাসফ্রেজ-ভিত্তিক এনক্রিপশন এবং পুনরুদ্ধারের বিকল্পগুলির সাথে সংবেদনশীল নোটগুলি রক্ষা করুন ।",
     ),
     "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
       "এনক্রিপশন সম্পর্কে",
+    ),
+    "whatsNewHomeSearchSubtitle": MessageLookupByLibrary.simpleMessage(
+      "হোম পেজ থেকে নোট খুঁজুন এবং পড়ার সময় একটি নোটের ভিতরে অনুসন্ধান করুন ।",
+    ),
+    "whatsNewHomeSearchTitle": MessageLookupByLibrary.simpleMessage(
+      "সর্বত্র অনুসন্ধান করুন",
+    ),
+    "whatsNewStreakTrackingSubtitle": MessageLookupByLibrary.simpleMessage(
+      "আপনার বর্তমান স্ট্রেক, দীর্ঘতম স্ট্রাক, মোট শব্দ এবং একটি 6-মাসের অ্যাক্টিভিটি হিটম্যাপ ট্র্যাক করুন ।",
+    ),
+    "whatsNewStreakTrackingTitle": MessageLookupByLibrary.simpleMessage(
+      "পংক্তি এবং পরিসংখ্যান লেখা",
     ),
     "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
       "আপনার নিজস্ব রঙ এবং ভিজ্যুয়াল স্টাইলের সাথে ডায়রিভোল্টকে ব্যক্তিগতকৃত করুন ।",
@@ -385,10 +716,38 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
       "থিম তৈরি এবং কাস্টমাইজ করা",
     ),
+    "whatsNewTodosSubtitle": MessageLookupByLibrary.simpleMessage(
+      "নোটের ভিতরে চেকলিস্ট যোগ করুন, স্বতন্ত্র টডোস তৈরি করুন এবং অনুস্মারকগুলির সাথে বিজ্ঞপ্তি পান ।",
+    ),
+    "whatsNewTodosTitle": MessageLookupByLibrary.simpleMessage(
+      "রিমাইন্ডার সহ টডস",
+    ),
+    "writingActivity": MessageLookupByLibrary.simpleMessage("লিখন কার্যকলাপ"),
+    "writingActivityEmpty": MessageLookupByLibrary.simpleMessage(
+      "আপনার লেখার দিনগুলি এখানে প্রদর্শিত হবে ।",
+    ),
+    "writingActivityLess": MessageLookupByLibrary.simpleMessage("কম"),
+    "writingActivityMore": MessageLookupByLibrary.simpleMessage("আরও"),
+    "writingActivityPeriod": MessageLookupByLibrary.simpleMessage("গত 6 মাস"),
+    "writingActivityPrivacyNote": MessageLookupByLibrary.simpleMessage(
+      "এনক্রিপ্ট করা নোটগুলি এই পরিসংখ্যানগুলিতে অন্তর্ভুক্ত নয় ।",
+    ),
+    "writingCurrentStreak": MessageLookupByLibrary.simpleMessage(
+      "বর্তমান ধারা",
+    ),
+    "writingDay": MessageLookupByLibrary.simpleMessage("দিন"),
+    "writingDays": MessageLookupByLibrary.simpleMessage("দিন"),
+    "writingLongestStreak": MessageLookupByLibrary.simpleMessage(
+      "দীর্ঘতম উইন স্ট্রেক :",
+    ),
+    "writingTotalWords": MessageLookupByLibrary.simpleMessage("মোট শব্দ"),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("ᱵᱷᱩᱞ PIN।"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "আপনার পরিবর্তনগুলি সেভ করা নেই",
     ),
-    "youWillBeNotifiedAt": m3,
+    "youWillBeNotifiedAt": m4,
+    "yourRecoveryCodeTitle": MessageLookupByLibrary.simpleMessage(
+      "আপনার রিকভারি কোড",
+    ),
   };
 }

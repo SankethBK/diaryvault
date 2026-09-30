@@ -199,7 +199,7 @@ class EditableTextBlock extends StatelessWidget {
       return CheckboxPoint(
         size: fontSize,
         value: true,
-        enabled: !readOnly,
+        enabled: true,
         onChanged: (checked) => onCheckboxTap(line.documentOffset, checked),
         uiBuilder: defaultStyles.lists?.checkboxUIBuilder,
       );
@@ -209,7 +209,7 @@ class EditableTextBlock extends StatelessWidget {
       return CheckboxPoint(
         size: fontSize,
         value: false,
-        enabled: !readOnly,
+        enabled: true,
         onChanged: (checked) => onCheckboxTap(line.documentOffset, checked),
         uiBuilder: defaultStyles.lists?.checkboxUIBuilder,
       );

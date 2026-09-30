@@ -11,6 +11,8 @@ abstract class IEncryptedNotesRepository {
   Future<Either<EncryptionFailure, List<NotePreviewModel>>>
       fetchEncryptedNotePreviews();
 
+  Future<int> countEncryptedNotes();
+
   /// Full decrypted note for the editor/reader
   Future<Either<EncryptionFailure, NoteModel>> getEncryptedNote(String id);
 

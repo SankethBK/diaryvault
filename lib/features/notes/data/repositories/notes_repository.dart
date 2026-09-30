@@ -7,6 +7,7 @@ import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dartz/dartz.dart';
 import 'package:path/path.dart' as p;
@@ -16,10 +17,12 @@ final log = printer("NotesRepository");
 class NotesRepository with NoteHelperMixin implements INotesRepository {
   final INotesLocalDataSource notesLocalDataSource;
   final AuthSessionBloc authSessionBloc;
+  final ITodoRemindersRepository todoRemindersRepository;
 
   NotesRepository({
     required this.notesLocalDataSource,
     required this.authSessionBloc,
+    required this.todoRemindersRepository,
   });
 
   @override
@@ -54,6 +57,12 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
     Map<String, dynamic> noteMap, {
     bool dontModifyAnyParameters = false,
   }) async {
+    // capture todo-sync inputs before the data source mutates the map
+    final todoSyncId = noteMap["id"] as String;
+    final todoSyncTitle = (noteMap["title"] as String?) ?? "";
+    final todoSyncBody = noteMap["body"] as String;
+    final todoSyncEncrypted = noteMap["is_encrypted"] == 1;
+
     try {
       if (dontModifyAnyParameters == false) {
         List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
@@ -84,6 +93,14 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
       noteMap["author_id"] = authSessionBloc.state.user!.id;
 
       await notesLocalDataSource.saveNote(noteMap);
+
+      // extract todos + reminders from the freshly saved body
+      await todoRemindersRepository.syncTodosForNote(
+        noteId: todoSyncId,
+        noteTitle: todoSyncTitle,
+        body: todoSyncBody,
+        isEncrypted: todoSyncEncrypted,
+      );
       return const Right(null);
     } catch (e) {
       log.e(e);
@@ -94,6 +111,13 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
   @override
   Future<Either<NotesFailure, void>> updateNote(
       Map<String, dynamic> noteMap) async {
+    // capture todo-sync inputs before the data source mutates the map
+    // (it removes "id", "tags", "asset_dependencies")
+    final todoSyncId = noteMap["id"] as String;
+    final todoSyncTitle = (noteMap["title"] as String?) ?? "";
+    final todoSyncBody = noteMap["body"] as String;
+    final todoSyncEncrypted = noteMap["is_encrypted"] == 1;
+
     try {
       List<NoteAsset> allNoteAssets = noteMap["asset_dependencies"];
       List<String> usedNoteAssets = _parseAssets(noteMap["body"]);
@@ -120,6 +144,14 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
 
       await notesLocalDataSource.updateNote(
           noteMap, authSessionBloc.state.user!.id);
+
+      // extract todos + reminders from the freshly saved body
+      await todoRemindersRepository.syncTodosForNote(
+        noteId: todoSyncId,
+        noteTitle: todoSyncTitle,
+        body: todoSyncBody,
+        isEncrypted: todoSyncEncrypted,
+      );
       return const Right(null);
     } catch (e) {
       log.e(e);
@@ -164,6 +196,9 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
             noteId, authSessionBloc.state.user!.id,
             hardDeletion: hardDeletion);
       }
+
+      // cancel any pending todo reminder notifications of deleted notes
+      await todoRemindersRepository.purgeRemindersForNotes(noteList);
       return const Right(null);
     } catch (e) {
       log.e(e);
@@ -245,6 +280,10 @@ class NotesRepository with NoteHelperMixin implements INotesRepository {
         String? assetType = getAssetType(assetMap);
 
         if (assetType == null) {
+          // custom embeds (e.g. todo reminders) are not assets
+          if (assetMap.containsKey("custom")) {
+            continue;
+          }
           throw Exception("Invalid asset type");
         }
         noteAssets.add(assetMap[assetType]);

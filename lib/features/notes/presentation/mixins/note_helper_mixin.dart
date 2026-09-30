@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/features/encryption/domain/repositories/encrypted_notes_repository.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -54,6 +55,10 @@ mixin NoteHelperMixin {
         String? assetType = getAssetType(assetMap);
 
         if (assetType == null) {
+          // custom embeds (e.g. todo reminders) are not assets
+          if (assetMap.containsKey("custom")) {
+            continue;
+          }
           throw Exception("Invalid asset type");
         }
         noteAssets.add(assetMap[assetType]);
@@ -139,6 +144,11 @@ mixin NoteHelperMixin {
         bool? result = await showCloseDialog(context);
 
         if (result == true) {
+          if (notesBloc.state.newNote == true) {
+            // discarded before ever being saved; drop any todo reminders
+            await sl<ITodoRemindersRepository>()
+                .purgeRemindersForNotes([notesBloc.state.id]);
+          }
           notesBloc.add(RefreshNote());
           return true;
         }

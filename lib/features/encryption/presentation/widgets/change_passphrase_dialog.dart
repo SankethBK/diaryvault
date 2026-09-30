@@ -1,5 +1,6 @@
 import 'package:dairy_app/app/themes/theme_extensions/popup_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:dairy_app/core/widgets/cancel_button.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
@@ -45,12 +46,12 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
   Future<void> _submit() async {
     final newPassphrase = _newController.text;
     if (newPassphrase.length < minPassphraseLength) {
-      setState(() =>
-          _errorText = "Passphrase must be at least $minPassphraseLength characters");
+      setState(() => _errorText =
+          S.current.passphraseMinLength(minPassphraseLength));
       return;
     }
     if (newPassphrase != _confirmController.text) {
-      setState(() => _errorText = "New passphrases do not match");
+      setState(() => _errorText = S.current.newPassphrasesDoNotMatch);
       return;
     }
 
@@ -68,7 +69,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
       (failure) => setState(() {
         _isLoading = false;
         _errorText = failure.code == EncryptionFailure.WRONG_PASSPHRASE
-            ? "Current passphrase is incorrect"
+            ? S.current.currentPassphraseIncorrect
             : failure.message;
       }),
       (_) => Navigator.of(context).pop(true),
@@ -99,7 +100,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "Change passphrase",
+            S.current.changePassphraseTitle,
             style: TextStyle(fontSize: 19.0, color: mainTextColor),
           ),
           const SizedBox(height: 14),
@@ -111,7 +112,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
             autocorrect: false,
             enableSuggestions: false,
             autofocus: true,
-            decoration: inputDecoration("Current passphrase"),
+            decoration: inputDecoration(S.current.currentPassphraseLabel),
           ),
           const SizedBox(height: 10),
           TextField(
@@ -121,7 +122,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
             obscureText: true,
             autocorrect: false,
             enableSuggestions: false,
-            decoration: inputDecoration("New passphrase"),
+            decoration: inputDecoration(S.current.newPassphraseLabel),
           ),
           const SizedBox(height: 10),
           TextField(
@@ -133,7 +134,7 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
             enableSuggestions: false,
             onSubmitted: (_) => _submit(),
             decoration: inputDecoration(
-              "Confirm new passphrase",
+              S.current.confirmNewPassphraseLabel,
               errorText: _errorText,
             ),
           ),
@@ -142,14 +143,14 @@ class _ChangePassphraseDialogState extends State<ChangePassphraseDialog> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CancelButton(
-                buttonText: "Cancel",
+                buttonText: S.current.cancel,
                 onPressed: () => Navigator.of(context).pop(false),
               ),
               const SizedBox(width: 10),
               SubmitButton(
                 isLoading: _isLoading,
                 onSubmitted: _submit,
-                buttonText: "Change",
+                buttonText: S.current.change,
               ),
             ],
           ),

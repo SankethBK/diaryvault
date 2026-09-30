@@ -5,6 +5,7 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/encryption/core/failures/encryption_failure.dart';
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,11 +52,11 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
     final passphrase = _passphraseController.text;
     if (passphrase.length < minPassphraseLength) {
       setState(() => _errorText =
-          "Passphrase must be at least $minPassphraseLength characters");
+          S.current.passphraseMinLength(minPassphraseLength));
       return;
     }
     if (passphrase != _confirmController.text) {
-      setState(() => _errorText = "Passphrases do not match");
+      setState(() => _errorText = S.current.passphrasesDoNotMatch);
       return;
     }
 
@@ -111,7 +112,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
             const SizedBox(width: 8),
             Flexible(
               child: Text(
-                "Encrypt your notes",
+                S.current.encryptYourNotesTitle,
                 style: TextStyle(fontSize: 19.0, color: mainTextColor),
               ),
             ),
@@ -119,15 +120,12 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
         ),
         const SizedBox(height: 14),
         Text(
-          "Notes you mark as encrypted are protected on this device and in "
-          "your cloud backup with a passphrase only you know. Nobody else - "
-          "including us and your cloud provider - can read them.",
+          S.current.encryptYourNotesDescription,
           style: TextStyle(fontSize: 14.0, color: mainTextColor),
         ),
         const SizedBox(height: 12),
         Text(
-          "⚠️ If you forget your passphrase AND lose the recovery code, "
-          "encrypted notes are gone forever. There is no way to recover them.",
+          S.current.encryptionLossWarning,
           style: TextStyle(
               fontSize: 14.0,
               color: mainTextColor,
@@ -135,8 +133,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
         ),
         const SizedBox(height: 12),
         Text(
-          "Encrypted notes live in a separate locked view and are excluded "
-          "from search.",
+          S.current.encryptionSeparateViewDescription,
           style: TextStyle(fontSize: 13.0, color: mainTextColor),
         ),
         const SizedBox(height: 18),
@@ -145,13 +142,13 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
           children: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text("Not now", style: TextStyle(color: mainTextColor)),
+              child: Text(S.current.notNow, style: TextStyle(color: mainTextColor)),
             ),
             const SizedBox(width: 8),
             SubmitButton(
               isLoading: false,
               onSubmitted: () => setState(() => _step = 1),
-              buttonText: "Continue",
+              buttonText: S.current.continueButton,
             ),
           ],
         ),
@@ -167,12 +164,12 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Choose a passphrase",
+          S.current.choosePassphraseTitle,
           style: TextStyle(fontSize: 19.0, color: mainTextColor),
         ),
         const SizedBox(height: 6),
         Text(
-          "You'll enter this to unlock encrypted notes. Use something long and memorable.",
+          S.current.choosePassphraseHint,
           style: TextStyle(fontSize: 13.0, color: mainTextColor),
         ),
         const SizedBox(height: 14),
@@ -184,7 +181,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
           autocorrect: false,
           enableSuggestions: false,
           decoration: InputDecoration(
-            labelText: "Passphrase",
+            labelText: S.current.passphraseLabel,
             labelStyle: TextStyle(color: inputTextColor),
             floatingLabelStyle: TextStyle(color: inputTextColor),
             border: const OutlineInputBorder(),
@@ -200,7 +197,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
           enableSuggestions: false,
           onSubmitted: (_) => _trySubmit(),
           decoration: InputDecoration(
-            labelText: "Confirm passphrase",
+            labelText: S.current.confirmPassphraseLabel,
             labelStyle: TextStyle(color: inputTextColor),
             floatingLabelStyle: TextStyle(color: inputTextColor),
             errorText: _errorText,
@@ -220,7 +217,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Text(
-                  "I understand there is no way to recover my notes if I forget this passphrase and lose the recovery code",
+                  S.current.encryptionLossAcknowledgement,
                   style: TextStyle(fontSize: 13.0, color: mainTextColor),
                 ),
               ),
@@ -236,13 +233,13 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
                 _step = 0;
                 _errorText = null;
               }),
-              child: Text("Back", style: TextStyle(color: mainTextColor)),
+              child: Text(S.current.backAction, style: TextStyle(color: mainTextColor)),
             ),
             const SizedBox(width: 8),
             SubmitButton(
               isLoading: _isLoading,
               onSubmitted: _trySubmit,
-              buttonText: "Set passphrase",
+              buttonText: S.current.setPassphrase,
             ),
           ],
         ),
@@ -261,14 +258,12 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Your recovery code",
+          S.current.yourRecoveryCodeTitle,
           style: TextStyle(fontSize: 19.0, color: mainTextColor),
         ),
         const SizedBox(height: 8),
         Text(
-          "Write this down and keep it somewhere safe. It is the ONLY way to "
-          "recover your notes if you forget the passphrase. It will not be "
-          "shown again.",
+          S.current.recoveryCodeDescription,
           style: TextStyle(fontSize: 13.0, color: mainTextColor),
         ),
         const SizedBox(height: 14),
@@ -294,10 +289,10 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
               ),
               IconButton(
                 icon: Icon(Icons.copy, color: mainTextColor),
-                tooltip: "Copy",
+                tooltip: S.current.copyButtonTooltip,
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: _recoveryCode ?? ""));
-                  showToast("Recovery code copied", context: context);
+                  showToast(S.current.recoveryCodeCopiedToast, context: context);
                 },
               ),
             ],
@@ -316,7 +311,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: Text(
-                  "I have written down my recovery code",
+                  S.current.recoveryCodeAcknowledgement,
                   style: TextStyle(fontSize: 13.0, color: mainTextColor),
                 ),
               ),
@@ -332,7 +327,7 @@ class _EncryptionSetupDialogState extends State<EncryptionSetupDialog> {
               if (!_recoveryConfirmed) return;
               Navigator.of(context).pop(true);
             },
-            buttonText: "Done",
+            buttonText: S.current.done,
           ),
         ),
       ],

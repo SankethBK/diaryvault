@@ -8,6 +8,7 @@ import 'package:dairy_app/features/encryption/presentation/pages/encrypted_notes
 import 'package:dairy_app/features/encryption/presentation/pages/encryption_settings_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_read_only_page.dart';
+import 'package:dairy_app/features/notes/presentation/pages/todos_overview_page.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:dairy_app/core/pages/welcome_page.dart';
@@ -38,6 +39,8 @@ class RouteGenerator {
     } else if (settings.name == NotesReadOnlyPage.routeThoughNotesCreate) {
       return MaterialPageRoute(
           builder: (_) => const NotesReadOnlyPage(id: null));
+    } else if (settings.name == TodosOverviewPage.route) {
+      return MaterialPageRoute(builder: (_) => const TodosOverviewPage());
     } else if (settings.name == SettingsPage.route) {
       return MaterialPageRoute(builder: (_) => const SettingsPage());
     } else if (settings.name == PINAuthPage.route) {

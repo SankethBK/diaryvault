@@ -120,3 +120,21 @@ class HomePageThemeExtensions extends ThemeExtension<HomePageThemeExtensions> {
     );
   }
 }
+
+extension HomePageGlassSurface on HomePageThemeExtensions {
+  /// Blends a pane's gradient [tint] over a nearly-opaque base derived from
+  /// the page backdrop colors.
+  ///
+  /// Panes carrying readable text need to stay mostly opaque, so we raise
+  /// their opacity here while keeping the pane's hue. The faint tint is still
+  /// blended in, and the gaps between panes (which use the translucent page
+  /// backdrop) keep leaking the wallpaper through.
+  Color glassPaneSurface(Color tint) {
+    final base = Color.lerp(
+      backgroundGradientStartColor,
+      backgroundGradientEndColor,
+      0.5,
+    )!;
+    return Color.alphaBlend(tint, base.withValues(alpha: 0.4));
+  }
+}

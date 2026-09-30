@@ -38,7 +38,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    log.i("signUpWithEmailAndPassword - [$email, $password]");
+    log.i("signUpWithEmailAndPassword - [$email]");
 
     if (await networkInfo.isConnected) {
       late LoggedInUser user;
@@ -56,6 +56,8 @@ class AuthenticationRepository implements IAuthenticationRepository {
           case 'weak-password':
             return Left(SignUpFailure.invalidPassword(
                 "password must be atleast 6 characters"));
+          case 'network-request-failed':
+            return Left(SignUpFailure.noInternetConnection());
           default:
             return Left(SignUpFailure.unknownError());
         }
@@ -87,7 +89,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
   Future<Either<SignInFailure, LoggedInUser>> _remoteLogin(
       {required String email, required String password}) async {
     late LoggedInUser user;
-    log.i("signInWithEmailAndPassword - [$email, $password]");
+    log.i("signInWithEmailAndPassword - [$email]");
 
     if (await networkInfo.isConnected) {
       try {
@@ -120,6 +122,8 @@ class AuthenticationRepository implements IAuthenticationRepository {
             return Left(SignInFailure.emailDoesNotExists());
           case 'wrong-password':
             return Left(SignInFailure.wrongPassword());
+          case 'network-request-failed':
+            return Left(SignInFailure.noInternetConnection());
           default:
             return Left(SignInFailure.unknownError());
         }

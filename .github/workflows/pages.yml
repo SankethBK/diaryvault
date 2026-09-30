@@ -6,7 +6,7 @@ on:
     paths:
       - 'website/**'
       - 'readme_assets/**'
-      - 'assets/images/splash_icon_4.webp'
+      - 'assets/images/splash_icon_4.png'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -31,7 +31,7 @@ jobs:
           mkdir -p site/images
           cp -r website/* site/
           cp readme_assets/* site/images/
-          cp assets/images/splash_icon_4.webp site/icon.webp
+          cp assets/images/splash_icon_4.png site/icon.webp
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -26,7 +26,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, "prod.db");
     return await openDatabase(
       path,
-      version: 3,
+      version: 6,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         try {
@@ -70,9 +70,22 @@ class DBProvider {
 
           await db.execute("""
             CREATE TABLE  ${Tags.TABLE_NAME} (
-              ${Tags.NOTE_ID} TEXT, 
+              ${Tags.NOTE_ID} TEXT,
               ${Tags.NAME} TEXT
             )""");
+
+          await db.execute("""
+            CREATE TABLE  ${Todos.TABLE_NAME} (
+              ${Todos.ID} TEXT PRIMARY KEY,
+              ${Todos.NOTE_ID} TEXT,
+              ${Todos.NOTE_TITLE} TEXT,
+              ${Todos.TEXT} TEXT,
+              ${Todos.IS_CHECKED} INTEGER NOT NULL DEFAULT 0,
+              ${Todos.REMINDER_AT} INTEGER,
+              ${Todos.NOTIFICATION_ID} INTEGER
+            )""");
+
+          await db.execute(_createNoteSyncReceiptsTable);
 
           log.i("All create queries executed successfully");
           log.i("Inserting welcome note");
@@ -120,7 +133,49 @@ class DBProvider {
           await db.execute(
               "ALTER TABLE ${Notes.TABLE_NAME} ADD COLUMN ${Notes.WRAPPED_DEK} TEXT");
         }
+        if (oldVersion < 4) {
+          log.i("Trimming whitespace from existing tags and removing duplicates");
+
+          // Strip leading/trailing whitespace from every tag name
+          await db.execute(
+              "UPDATE ${Tags.TABLE_NAME} SET ${Tags.NAME} = TRIM(${Tags.NAME})");
+
+          // Deduplicate rows that now share the same note_id + trimmed name,
+          // keeping the earliest inserted row for each combination
+          await db.execute("""
+            DELETE FROM ${Tags.TABLE_NAME}
+            WHERE rowid NOT IN (
+              SELECT MIN(rowid)
+              FROM ${Tags.TABLE_NAME}
+              GROUP BY ${Tags.NOTE_ID}, ${Tags.NAME}
+            )
+          """);
+        }
+        if (oldVersion < 5) {
+          await db.execute("""
+            CREATE TABLE  ${Todos.TABLE_NAME} (
+              ${Todos.ID} TEXT PRIMARY KEY,
+              ${Todos.NOTE_ID} TEXT,
+              ${Todos.NOTE_TITLE} TEXT,
+              ${Todos.TEXT} TEXT,
+              ${Todos.IS_CHECKED} INTEGER NOT NULL DEFAULT 0,
+              ${Todos.REMINDER_AT} INTEGER,
+              ${Todos.NOTIFICATION_ID} INTEGER
+            )""");
+        }
+        if (oldVersion < 6) {
+          await db.execute(_createNoteSyncReceiptsTable);
+        }
       },
     );
   }
+
+  String get _createNoteSyncReceiptsTable => """
+    CREATE TABLE IF NOT EXISTS ${NoteSyncReceipts.TABLE_NAME} (
+      ${NoteSyncReceipts.SYNC_SCOPE} TEXT NOT NULL,
+      ${NoteSyncReceipts.NOTE_ID} TEXT NOT NULL,
+      ${NoteSyncReceipts.CONTENT_HASH} TEXT NOT NULL,
+      PRIMARY KEY (${NoteSyncReceipts.SYNC_SCOPE}, ${NoteSyncReceipts.NOTE_ID})
+    )
+  """;
 }

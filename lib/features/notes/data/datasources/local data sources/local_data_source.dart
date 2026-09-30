@@ -64,13 +64,16 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       }
     }
 
-    // Insert tags
-    log.i("Inserting tags $tags");
+    // Insert tags (trim whitespace and deduplicate, preserving order)
+    final seenTags = <String>{};
 
     for (String tag in tags) {
+      final trimmedTag = tag.trim();
+      if (trimmedTag.isEmpty || !seenTags.add(trimmedTag)) continue;
+
       try {
         var res = await database.insert(
-            Tags.TABLE_NAME, {Tags.NOTE_ID: noteMap["id"], Tags.NAME: tag});
+            Tags.TABLE_NAME, {Tags.NOTE_ID: noteMap["id"], Tags.NAME: trimmedTag});
         if (res == -1) {
           log.e("Insertion of $tag faied");
           throw const DatabaseInsertionException();
@@ -343,15 +346,17 @@ class NotesLocalDataSource implements INotesLocalDataSource {
       }
     }
 
-    // Insert new tags
+    // Insert new tags (trim whitespace and deduplicate, preserving order)
     final tags = noteMap["tags"] ?? [];
-
-    log.i("Inserting tags $tags");
+    final seenTags = <String>{};
 
     for (String tag in tags) {
+      final trimmedTag = tag.trim();
+      if (trimmedTag.isEmpty || !seenTags.add(trimmedTag)) continue;
+
       try {
         var res = await database
-            .insert(Tags.TABLE_NAME, {Tags.NOTE_ID: id, Tags.NAME: tag});
+            .insert(Tags.TABLE_NAME, {Tags.NOTE_ID: id, Tags.NAME: trimmedTag});
         if (res == -1) {
           log.e("Insertion of $tag faied");
           throw const DatabaseInsertionException();

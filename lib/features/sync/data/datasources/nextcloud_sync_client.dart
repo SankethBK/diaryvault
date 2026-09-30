@@ -155,6 +155,25 @@ class NextCloudSyncClient extends ISyncClient {
   }
 
   @override
+  Future<int> getFolderSize(String fullFolderPath) async {
+    Future<int> sizeOfDirectory(String path) async {
+      var totalBytes = 0;
+      final entries = await client.readDir(path);
+      for (final entry in entries) {
+        if (entry.isDir == true) {
+          final childPath = entry.path ?? p.join(path, entry.name ?? '');
+          totalBytes += await sizeOfDirectory(childPath);
+        } else {
+          totalBytes += entry.size ?? 0;
+        }
+      }
+      return totalBytes;
+    }
+
+    return sizeOfDirectory(fullFolderPath);
+  }
+
+  @override
   Future<String?> getSignedInUserInfo() async {
     final host = await secureStorage.read(key: WEBDAV_URL);
     final email = await secureStorage.read(key: NEXTCLOUD_USERNAME);
@@ -276,7 +295,7 @@ class NextCloudSyncClient extends ISyncClient {
   Future<void> updateLastSynced() async {
     log.i("Updating last sync time");
     try {
-      userConfigCubit.setUserConfig(UserConfigConstants.lastNextCloudSync,
+      await userConfigCubit.setUserConfig(UserConfigConstants.lastNextCloudSync,
           DateTime.now().millisecondsSinceEpoch);
     } catch (e) {
       log.e(e);

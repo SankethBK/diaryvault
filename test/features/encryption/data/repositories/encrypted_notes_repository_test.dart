@@ -7,6 +7,8 @@ import 'package:dairy_app/features/encryption/data/repositories/encryption_sessi
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
+import 'package:dairy_app/features/notes/data/models/todo_item_model.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,6 +22,38 @@ class InMemoryKeyValueDataSource implements IKeyValueDataSource {
   Future<void> setValue(String key, String value) async {
     store[key] = value;
   }
+}
+
+class FakeTodoRemindersRepository implements ITodoRemindersRepository {
+  @override
+  Future<void> syncTodosForNote({
+    required String noteId,
+    required String noteTitle,
+    required String body,
+    required bool isEncrypted,
+  }) async {}
+
+  @override
+  Future<void> purgeRemindersForNotes(List<String> noteIds) async {}
+
+  @override
+  Future<List<TodoItemModel>> getAllOpenTodos() async => [];
+
+  @override
+  Future<List<TodoItemModel>> getAllTodos() async => [];
+
+  @override
+  Future<void> setStandaloneTodoChecked(String id, bool isChecked) async {}
+
+  @override
+  Future<void> createStandaloneTodo(String text, {DateTime? reminderAt}) async {}
+
+  @override
+  Future<void> updateStandaloneTodo(
+    TodoItemModel todo, {
+    required String text,
+    required DateTime? reminderAt,
+  }) async {}
 }
 
 class TestCryptoService extends CryptoService {
@@ -62,6 +96,9 @@ class FakeEncryptedNotesLocalDataSource
       "encryption_version": row["encryption_version"],
     };
   }
+
+  @override
+  Future<int> countEncryptedNotes(String authorId) async => rows.length;
 
   @override
   Future<List<Map<String, dynamic>>> fetchDistinctKeychainRows() async {
@@ -204,6 +241,7 @@ void main() {
       sessionService: sessionService,
       cryptoService: TestCryptoService(),
       authSessionBloc: AuthSessionBloc(keyValueDataSource: kv),
+      todoRemindersRepository: FakeTodoRemindersRepository(),
     );
   });
 
@@ -379,6 +417,7 @@ void main() {
         sessionService: sessionB,
         cryptoService: TestCryptoService(),
         authSessionBloc: AuthSessionBloc(keyValueDataSource: kvB),
+        todoRemindersRepository: FakeTodoRemindersRepository(),
       );
 
       // B's own keychain differs from A's
@@ -439,6 +478,7 @@ void main() {
         sessionService: sessionB,
         cryptoService: TestCryptoService(),
         authSessionBloc: AuthSessionBloc(keyValueDataSource: kvB),
+        todoRemindersRepository: FakeTodoRemindersRepository(),
       );
       final result = await repoB.getEncryptedNote("n1");
       result.fold(
@@ -473,6 +513,7 @@ void main() {
         sessionService: sessionB,
         cryptoService: TestCryptoService(),
         authSessionBloc: AuthSessionBloc(keyValueDataSource: kvB),
+        todoRemindersRepository: FakeTodoRemindersRepository(),
       );
       expect((await sessionB.unlock("other passphrase")).isRight(), isTrue);
 

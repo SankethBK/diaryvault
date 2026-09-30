@@ -8,7 +8,7 @@ import 'package:dairy_app/features/sync/presentation/widgets/dropbox_user_info.d
 import 'package:dairy_app/features/sync/presentation/widgets/google_drive_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/nextcloud_user_info.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_now_button.dart';
-import 'package:dairy_app/features/sync/presentation/bloc/notes_sync/notesync_cubit.dart';
+import 'package:dairy_app/features/sync/presentation/widgets/sync_progress_indicator.dart';
 import 'package:dairy_app/features/sync/presentation/widgets/sync_source_dropdown.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -82,38 +82,7 @@ class SyncSettings extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        BlocBuilder<NoteSyncCubit, NoteSyncState>(
-          buildWhen: (previous, current) =>
-              current is NoteSyncOnGoing || previous is NoteSyncOnGoing,
-          builder: (context, state) {
-            if (state is NoteSyncOnGoing) {
-              return Row(
-                children: [
-                  Expanded(
-                    child: LinearProgressIndicator(
-                      value: state.progress,
-                      backgroundColor: inactiveTrackColor,
-                      valueColor: AlwaysStoppedAnimation<Color>(activeColor!),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  SizedBox(
-                    width: 40,
-                    child: Text(
-                      '${(state.progress * 100).toStringAsFixed(0)}%',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: mainTextColor,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                ],
-              );
-            }
-            return const SizedBox.shrink();
-          },
-        ),
+        const SyncProgressIndicator(),
         const SizedBox(height: 12),
         const SyncSourceDropdown(),
         const SizedBox(height: 20),

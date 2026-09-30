@@ -10,6 +10,7 @@ import 'package:dairy_app/core/widgets/send_feedback.dart';
 import 'package:dairy_app/core/widgets/settings_tile.dart';
 import 'package:dairy_app/core/widgets/share_with_friends.dart';
 import 'package:dairy_app/core/widgets/version_number.dart';
+import 'package:dairy_app/core/widgets/visit_website.dart';
 import 'package:dairy_app/core/widgets/whats_new_section.dart';
 import 'package:dairy_app/features/auth/core/constants.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/auth_session/auth_session_bloc.dart';
@@ -212,6 +213,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const WhatsNewSection(),
                 const SizedBox(height: 15),
                 const ProjectOnGithub(),
+                const SizedBox(height: 15),
+                const VisitWebsite(),
                 const SizedBox(height: 15),
                 const VersionNumber(),
                 const SizedBox(height: 15),

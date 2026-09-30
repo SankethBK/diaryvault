@@ -28,7 +28,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(count) => "Tuodut ${count} muistiinpanoa";
 
-  static String m3(time) => "Ilmoitusajankohta: ${time}";
+  static String m3(minLength) =>
+      "Tunnuslauseessa on oltava vähintään ${minLength} merkkiä";
+
+  static String m4(time) => "Ilmoitusajankohta: ${time}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -43,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tutustu diaryVaultiin – muistikirjasovellukseen, joka auttaa säilömään ajatukset, muistot ja hetket vaivattomasti. Saatavilla nyt Play Store -kaupasta!",
     ),
     "appLanguage": MessageLookupByLibrary.simpleMessage("Sovelluksen kieli"),
+    "appTitle": MessageLookupByLibrary.simpleMessage("Maitotuotteeni"),
     "appVersion": MessageLookupByLibrary.simpleMessage("Sovelluksen versio"),
     "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
       "Haluatko varmasti kirjautua ulos?",
@@ -59,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
       "Synkronointia tukevat alustat",
     ),
+    "backAction": MessageLookupByLibrary.simpleMessage("Takaisin"),
     "byContinuingYouAgree": MessageLookupByLibrary.simpleMessage(
       "Jos jatkat, hyväksyt",
     ),
@@ -75,9 +80,21 @@ class MessageLookup extends MessageLookupByLibrary {
       "Vaihda salaussalasana",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Vaihda kuva"),
+    "changePassphraseTitle": MessageLookupByLibrary.simpleMessage(
+      "Muuta salauslausetta...",
+    ),
     "changePassword": MessageLookupByLibrary.simpleMessage("Vaihda salasana"),
+    "changeReminderTime": MessageLookupByLibrary.simpleMessage(
+      "Muuta muistutusaikaa",
+    ),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
       "Valitse taustakuva",
+    ),
+    "choosePassphraseHint": MessageLookupByLibrary.simpleMessage(
+      "Syötät tämän avataksesi salattujen muistiinpanojen lukituksen. Käytä jotain pitkää ja mieleenpainuvaa.",
+    ),
+    "choosePassphraseTitle": MessageLookupByLibrary.simpleMessage(
+      "Valitse tunnuslause",
     ),
     "chooseTheSyncSource": MessageLookupByLibrary.simpleMessage(
       "Valitse synkronointilähde",
@@ -88,17 +105,31 @@ class MessageLookup extends MessageLookupByLibrary {
       "Suljetaanko sovellus?",
     ),
     "cloudBackup": MessageLookupByLibrary.simpleMessage("Pilvivarmennus"),
+    "confirmNewPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "Vahvista uusi tunnuslause",
+    ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "Vahvista uusi salasana",
     ),
     "confirmNewPin": MessageLookupByLibrary.simpleMessage(
       "Vahvista uusi PIN-koodi",
     ),
+    "confirmPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "Vahvista tunnuslause",
+    ),
     "continueAsGues": MessageLookupByLibrary.simpleMessage(
       "Jatka vieraskäyttäjänä",
     ),
+    "continueButton": MessageLookupByLibrary.simpleMessage("Jatka"),
+    "copyButtonTooltip": MessageLookupByLibrary.simpleMessage("Kopio"),
     "create": MessageLookupByLibrary.simpleMessage("Luo "),
     "createYourTheme": MessageLookupByLibrary.simpleMessage("Luo teemasi"),
+    "currentPassphraseIncorrect": MessageLookupByLibrary.simpleMessage(
+      "Nykyinen tunnuslause on virheellinen",
+    ),
+    "currentPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "Nykyinen tunnuslause",
+    ),
     "customThemeIntro": MessageLookupByLibrary.simpleMessage(
       "Valitse kuva, josta pidät, tai taustaväri, niin rakennamme teeman sen ympärille.",
     ),
@@ -108,6 +139,135 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "darkLabel": MessageLookupByLibrary.simpleMessage("Tumma"),
     "darkTheme": MessageLookupByLibrary.simpleMessage("Tumma teema"),
+    "dashboardAddTodo": MessageLookupByLibrary.simpleMessage("Lisää tehtävä"),
+    "dashboardAnotherPrompt": MessageLookupByLibrary.simpleMessage(
+      "Toinen kehote",
+    ),
+    "dashboardComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Tulossa lähiaikoina",
+    ),
+    "dashboardCompletedTodos": MessageLookupByLibrary.simpleMessage(
+      "Suoritettu",
+    ),
+    "dashboardCreateTodo": MessageLookupByLibrary.simpleMessage("Lisää"),
+    "dashboardDailyPrompt": MessageLookupByLibrary.simpleMessage(
+      "Päivittäinen kehote",
+    ),
+    "dashboardDailyPrompt1": MessageLookupByLibrary.simpleMessage(
+      "Mikä tuntui pieneltä voitolta minulle tänään?",
+    ),
+    "dashboardDailyPrompt2": MessageLookupByLibrary.simpleMessage(
+      "Minkä hetken tästä päivästä haluan muistaa?",
+    ),
+    "dashboardDailyPrompt3": MessageLookupByLibrary.simpleMessage(
+      "Mikä vaati tänään enemmän energiaa kuin odotin?",
+    ),
+    "dashboardDailyPrompt4": MessageLookupByLibrary.simpleMessage(
+      "Mistä voin luopua tänä iltana?",
+    ),
+    "dashboardDailyPrompt5": MessageLookupByLibrary.simpleMessage(
+      "Mitä opin itsestäni tänään?",
+    ),
+    "dashboardDailyPrompt6": MessageLookupByLibrary.simpleMessage(
+      "Mikä teki päivästäni hieman helpomman?",
+    ),
+    "dashboardDailyPrompt7": MessageLookupByLibrary.simpleMessage(
+      "Mikä saisi huomisen tuntumaan lempeämmältä?",
+    ),
+    "dashboardDailyPrompt8": MessageLookupByLibrary.simpleMessage(
+      "Mikä sai minut kiitolliseksi tänään?",
+    ),
+    "dashboardDueToday": MessageLookupByLibrary.simpleMessage(
+      "Erääntyy tänään",
+    ),
+    "dashboardEditTodo": MessageLookupByLibrary.simpleMessage(
+      "Muokkaa tehtävää",
+    ),
+    "dashboardMoodCheckIn": MessageLookupByLibrary.simpleMessage(
+      "lähtöselvitys",
+    ),
+    "dashboardMoodContextPrompt": MessageLookupByLibrary.simpleMessage(
+      "Haluatko lisätä pienen kontekstin?",
+    ),
+    "dashboardMoodDifficult": MessageLookupByLibrary.simpleMessage(
+      "Vaikea päivä",
+    ),
+    "dashboardMoodGood": MessageLookupByLibrary.simpleMessage("Hyvä"),
+    "dashboardMoodGreat": MessageLookupByLibrary.simpleMessage("Mahtavaa"),
+    "dashboardMoodLow": MessageLookupByLibrary.simpleMessage("Ei hyvä"),
+    "dashboardMoodNoteTitle": MessageLookupByLibrary.simpleMessage(
+      "Tämänpäiväinen pohdinta",
+    ),
+    "dashboardMoodOkay": MessageLookupByLibrary.simpleMessage("OK"),
+    "dashboardMoodOpeningDifficult": MessageLookupByLibrary.simpleMessage(
+      "Tänään on ollut rankka päivä.",
+    ),
+    "dashboardMoodOpeningGood": MessageLookupByLibrary.simpleMessage(
+      "Tänään voin hyvin.",
+    ),
+    "dashboardMoodOpeningGreat": MessageLookupByLibrary.simpleMessage(
+      "Tänään voin hyvin.",
+    ),
+    "dashboardMoodOpeningLow": MessageLookupByLibrary.simpleMessage(
+      "Tänään en voi hyvin.",
+    ),
+    "dashboardMoodOpeningOkay": MessageLookupByLibrary.simpleMessage(
+      "Tänään voin hyvin.",
+    ),
+    "dashboardMoodReflectionHint": MessageLookupByLibrary.simpleMessage(
+      "Onko sinulla muuta mielessäsi? (valinnainen)",
+    ),
+    "dashboardMoodSaveToJournal": MessageLookupByLibrary.simpleMessage(
+      "Lisää tämän päivän muistiinpanoon",
+    ),
+    "dashboardMoodSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Miten voit tänään?",
+    ),
+    "dashboardNoDueDate": MessageLookupByLibrary.simpleMessage("Ei eräpäivää"),
+    "dashboardNoTodos": MessageLookupByLibrary.simpleMessage(
+      "Ei vielä tehtäviä täällä",
+    ),
+    "dashboardNoTodosSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Avoimet ja suoritetut tehtäväsi näkyvät tässä.",
+    ),
+    "dashboardOpenInNote": MessageLookupByLibrary.simpleMessage(
+      "Avaa muistiinpanossa",
+    ),
+    "dashboardOpenTodos": MessageLookupByLibrary.simpleMessage("Auki"),
+    "dashboardOverdue": MessageLookupByLibrary.simpleMessage("Myöhässä"),
+    "dashboardPromptSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Pieni kysymys pohdittavaksi",
+    ),
+    "dashboardQuickCapture": MessageLookupByLibrary.simpleMessage(
+      "Nopea kaappaus",
+    ),
+    "dashboardReminderOptional": MessageLookupByLibrary.simpleMessage(
+      "Ei muistutusta",
+    ),
+    "dashboardSaveTodo": MessageLookupByLibrary.simpleMessage("Tallenna"),
+    "dashboardToday": MessageLookupByLibrary.simpleMessage("Tänään"),
+    "dashboardTodoLoadFailed": MessageLookupByLibrary.simpleMessage(
+      "Tehtäviä ei voitu ladata",
+    ),
+    "dashboardTodoRequired": MessageLookupByLibrary.simpleMessage(
+      "Syötä todo ensin",
+    ),
+    "dashboardTodoSourceHint": MessageLookupByLibrary.simpleMessage(
+      "Todoja voi lisätä muistiinpanosta tai luoda suoraan täältä.",
+    ),
+    "dashboardTodoTitle": MessageLookupByLibrary.simpleMessage(
+      "Mitä on tehtävä?",
+    ),
+    "dashboardTodoUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Tätä tehtävää ei voitu päivittää",
+    ),
+    "dashboardTodos": MessageLookupByLibrary.simpleMessage(
+      "TehtävätShort column header meaning default for new journals",
+    ),
+    "dashboardUpcoming": MessageLookupByLibrary.simpleMessage("Tulossa"),
+    "dashboardWriteAboutPrompt": MessageLookupByLibrary.simpleMessage(
+      "Kirjoita tästä",
+    ),
     "dateFilter": MessageLookupByLibrary.simpleMessage("Päivämääräsuodatin"),
     "defaultThemeName": MessageLookupByLibrary.simpleMessage("Oma teema"),
     "delete": MessageLookupByLibrary.simpleMessage("Poista"),
@@ -120,6 +280,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dropbox": MessageLookupByLibrary.simpleMessage("Dropbox"),
     "editTheme": MessageLookupByLibrary.simpleMessage("Muokkaa teemaa"),
+    "editorPlaceholder": MessageLookupByLibrary.simpleMessage(
+      "Kirjoita jotain...",
+    ),
     "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Sähköpostiosoite on päivitetty. Kirjaudu uudelleen sisään.",
     ),
@@ -144,6 +307,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "encryptThisNote": MessageLookupByLibrary.simpleMessage(
       "Salaa tämä huomautus",
     ),
+    "encryptYourNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Salatuiksi merkitsemäsi muistiinpanot on suojattu tällä laitteella ja pilvivarmistuksessasi tunnuslauseella, jonka vain sinä tiedät. Kukaan muu - mukaan lukien me ja pilvipalveluntarjoajasi - ei voi lukea niitä.",
+    ),
+    "encryptYourNotesTitle": MessageLookupByLibrary.simpleMessage(
+      "Salaa muistiinpanosi",
+    ),
     "encryptedNotes": MessageLookupByLibrary.simpleMessage(
       "Salatut muistiinpanot",
     ),
@@ -152,8 +321,23 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "encryption": MessageLookupByLibrary.simpleMessage("Salaus"),
     "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Käytössä"),
+    "encryptionEnabledToast": MessageLookupByLibrary.simpleMessage(
+      "Salaus käytössä",
+    ),
+    "encryptionLossAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "Ymmärrän, että muistiinpanojani ei voi palauttaa, jos unohdan tämän tunnuslauseen ja kadotan palautuskoodin",
+    ),
+    "encryptionLossWarning": MessageLookupByLibrary.simpleMessage(
+      "⚠️ Jos unohdat salasanasi JA kadotat palautuskoodin, salatut muistiinpanot katoavat lopullisesti. Niitä ei voi mitenkään palauttaa.",
+    ),
+    "encryptionSeparateViewDescription": MessageLookupByLibrary.simpleMessage(
+      "Salatut muistiinpanot näkyvät erillisessä lukitussa näkymässä, eikä niitä voi hakea.",
+    ),
     "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
       "Aseta tunnuslause ja palautuskoodi",
+    ),
+    "encryptionStaysOnToast": MessageLookupByLibrary.simpleMessage(
+      "Salattujen muistiinpanojen salaus pysyy päällä. Lukitse ne milloin tahansa salatusta muistiinpanonäkymästä.",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Anna nykyinen salasana",
@@ -185,6 +369,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sormenjälkitunnistus ei onnistunut",
     ),
     "fontFamily": MessageLookupByLibrary.simpleMessage("Fontti"),
+    "forgotPassphraseUseRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Unohditko tunnuslauseen? Käytä palautuskoodia",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Unohtuiko salasana?",
     ),
@@ -217,6 +404,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Poistu"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Kevyt"),
     "link": MessageLookupByLibrary.simpleMessage("Linkki"),
+    "lockAction": MessageLookupByLibrary.simpleMessage("Lukitse"),
     "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
       "Lukitse salatut muistiinpanot",
     ),
@@ -231,17 +419,49 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "moreInfo": MessageLookupByLibrary.simpleMessage("Lisätietoja"),
     "muted": MessageLookupByLibrary.simpleMessage("Mykistetty"),
+    "newPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "Uusi tunnuslause",
+    ),
+    "newPassphrasesDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Uudet tunnuslauseet eivät täsmää",
+    ),
     "newPassword": MessageLookupByLibrary.simpleMessage("Uusi salasana"),
+    "newRecoveryCodeAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "Olen kirjoittanut uuden koodin ylös",
+    ),
+    "newRecoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "Kirjoita se muistiin ja pidä se turvassa. Sitä ei näytetä uudelleen.",
+    ),
+    "newRecoveryCodeTitle": MessageLookupByLibrary.simpleMessage(
+      "Uusi palautuskoodi",
+    ),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
     "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
       "Ei vielä salattuja muistiinpanoja",
     ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Ei käytettävissä"),
+    "notNow": MessageLookupByLibrary.simpleMessage("Ei nyt"),
+    "noteCollapsePreview": MessageLookupByLibrary.simpleMessage(
+      "Pienennä esikatselu",
+    ),
+    "noteDifferentPassphrase": MessageLookupByLibrary.simpleMessage(
+      "Tämä huomautus on suojattu eri tunnuslauseella",
+    ),
+    "noteExpandPreview": MessageLookupByLibrary.simpleMessage(
+      "Laajenna esikatselu",
+    ),
+    "noteNoTitle": MessageLookupByLibrary.simpleMessage("Nimetön huomautus"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Muistiinpano on tallennettu",
     ),
     "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Muistiinpano on päivitetty",
+    ),
+    "noteWillBeSavedEncrypted": MessageLookupByLibrary.simpleMessage(
+      "Huomautus tallennetaan salattuna",
+    ),
+    "noteWillBeSavedUnencrypted": MessageLookupByLibrary.simpleMessage(
+      "Huomautus tallennetaan salaamattomana",
     ),
     "notesImportPartialFailure": m0,
     "notesImportSkippedSummary": m1,
@@ -266,6 +486,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Paletti (napauta värimallia muokataksesi)",
     ),
     "passphrase": MessageLookupByLibrary.simpleMessage("Salauslause:"),
+    "passphraseLabel": MessageLookupByLibrary.simpleMessage("Salauslause:"),
+    "passphraseMinLength": m3,
+    "passphrasesDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Salasanat eivät täsmää",
+    ),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Salasanan palautusviesti on lähetetty",
     ),
@@ -312,26 +537,98 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Nauhoita ääntä"),
     "recoveryCode": MessageLookupByLibrary.simpleMessage("Palautuskoodi"),
+    "recoveryCodeAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "Olen kirjoittanut ylös palautuskoodini",
+    ),
+    "recoveryCodeCopiedToast": MessageLookupByLibrary.simpleMessage(
+      "Palautuskoodi kopioitu",
+    ),
+    "recoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "Kirjoita tämä muistiin ja säilytä se turvallisessa paikassa. Se on AINOA tapa palauttaa muistiinpanot, jos unohdat tunnuslauseen. Sitä ei näytetä uudelleen.",
+    ),
+    "regenerateButton": MessageLookupByLibrary.simpleMessage("Luo uudestaan"),
     "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
       "Luo palautuskoodi uudelleen",
+    ),
+    "regenerateRecoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "Tämä mitätöi vanhan palautuskoodisi. Jatka kirjoittamalla tunnuslauseesi.",
+    ),
+    "reminderRemoved": MessageLookupByLibrary.simpleMessage(
+      "Muistutus poistettu",
+    ),
+    "reminderSchedulingFailed": MessageLookupByLibrary.simpleMessage(
+      "Muistutusta ei voitu ajoittaa. Yritä uudelleen.",
+    ),
+    "reminderSet": MessageLookupByLibrary.simpleMessage("Muistutus asetettu"),
+    "reminderTimeMustBeInFuture": MessageLookupByLibrary.simpleMessage(
+      "Valitse aika tulevaisuudesta",
     ),
     "reminders": MessageLookupByLibrary.simpleMessage("Muistutukset"),
     "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
       "Poista salaus tästä huomautuksesta",
     ),
+    "removeReminder": MessageLookupByLibrary.simpleMessage("Poista muistutus"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Nollaa salasana"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Nollaa PIN-koodi"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
       "Tallenna ja käytä teemaa",
     ),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Tallenna muutokset"),
+    "searchInNoteHint": MessageLookupByLibrary.simpleMessage("Etsi kohteesta"),
     "security": MessageLookupByLibrary.simpleMessage("Suojaus"),
+    "securityBackedUpNotes": MessageLookupByLibrary.simpleMessage(
+      "varmuuskopioitu",
+    ),
+    "securityBackupNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "Valitse pilvivarmuuskopioinnin tarjoaja nähdäksesi varmuuskopiointitilastot.",
+    ),
+    "securityBackupOffline": MessageLookupByLibrary.simpleMessage(
+      "Varmuuskopioinnin tila ei ole käytettävissä offline-tilassa.",
+    ),
+    "securityBackupSetupHint": MessageLookupByLibrary.simpleMessage(
+      "Ota pilvivarmuuskopiointi käyttöön, jotta et koskaan menetä muistiinpanojasi.",
+    ),
+    "securityBackupSetupTitle": MessageLookupByLibrary.simpleMessage(
+      "Määritä varmuuskopiointi",
+    ),
+    "securityBackupTitle": MessageLookupByLibrary.simpleMessage(
+      "Yksityisyys ja varmuuskopiointi",
+    ),
+    "securityBackupUnverified": MessageLookupByLibrary.simpleMessage(
+      "Vahvista varmuuskopiointitilasi synkronoimalla kerran.",
+    ),
+    "securityEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Salatut muistiinpanot",
+    ),
+    "securityLastSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "Viimeisin onnistunut synkronointi",
+    ),
+    "securityLastSync": MessageLookupByLibrary.simpleMessage(
+      "Viimeinen synkronointi",
+    ),
+    "securityMetricUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Varattu",
+    ),
+    "securityNoSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "Synkronointi ei vielä onnistunut.",
+    ),
+    "securityPendingBackup": MessageLookupByLibrary.simpleMessage(
+      "Tarvitsee varmuuskopion",
+    ),
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Suojausasetukset",
     ),
+    "securityStatsNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "Et ole vielä valinnut pilvivarmistusalustaa.",
+    ),
+    "securitySyncedData": MessageLookupByLibrary.simpleMessage("Pilvitiedot"),
     "select": MessageLookupByLibrary.simpleMessage("Valitse"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Valitse ääni"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Lähetä palautetta"),
+    "setPassphrase": MessageLookupByLibrary.simpleMessage("Aseta tunnuslause"),
+    "setTodoReminder": MessageLookupByLibrary.simpleMessage(
+      "Aseta tehtävämuistutus",
+    ),
     "settings": MessageLookupByLibrary.simpleMessage("Asetukset"),
     "setupYourAccount": MessageLookupByLibrary.simpleMessage("Määritä tilisi"),
     "shareWithFriends": MessageLookupByLibrary.simpleMessage(
@@ -353,6 +650,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "stay": MessageLookupByLibrary.simpleMessage("Jää"),
     "submit": MessageLookupByLibrary.simpleMessage("Lähetä"),
     "syncNow": MessageLookupByLibrary.simpleMessage("Synkronoi nyt"),
+    "syncSourceNone": MessageLookupByLibrary.simpleMessage("Ei ole"),
     "tagAlreadyExists": MessageLookupByLibrary.simpleMessage(
       "Tunniste on jo olemassa",
     ),
@@ -365,29 +663,70 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeName": MessageLookupByLibrary.simpleMessage("Teema"),
     "themeNameHint": MessageLookupByLibrary.simpleMessage("Oma teema"),
     "to": MessageLookupByLibrary.simpleMessage("Loppu"),
+    "todoReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
+      "Tehtävämuistutus",
+    ),
+    "todoRemindersNeedUncheckedTodo": MessageLookupByLibrary.simpleMessage(
+      "Aseta muistutus asettamalla kohdistin tehtävään",
+    ),
+    "todoRemindersUnavailableInEncryptedNotes":
+        MessageLookupByLibrary.simpleMessage(
+          "Muistutukset eivät ole käytettävissä salatuissa muistiinpanoissa",
+        ),
     "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
       "Tunnistus epäonnistui liian monta kertaa. Anna salasana.",
     ),
     "toolbarPosition": MessageLookupByLibrary.simpleMessage(
       "Työkalurivin sijainti",
     ),
+    "toolbarPositionBottom": MessageLookupByLibrary.simpleMessage("Alaosassa"),
+    "toolbarPositionTop": MessageLookupByLibrary.simpleMessage("Yläosa"),
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "On ilmennyt odottamaton virhe",
     ),
+    "unlockAction": MessageLookupByLibrary.simpleMessage("Avaa lukitus"),
+    "unlockButton": MessageLookupByLibrary.simpleMessage("Avaa lukitus"),
     "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
       "Avaa salattujen muistiinpanojen lukitus",
+    ),
+    "unlockNoteAction": MessageLookupByLibrary.simpleMessage(
+      "Avaa muistiinpano",
     ),
     "unlockThisNote": MessageLookupByLibrary.simpleMessage(
       "Avaa tämän muistiinpanon lukitus",
     ),
+    "usePassphraseInstead": MessageLookupByLibrary.simpleMessage(
+      "Käytä sen sijaan salasanaa",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
+    "visitWebsite": MessageLookupByLibrary.simpleMessage(
+      "Vieraile verkkosivustollamme.",
+    ),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV-URL-osoite"),
     "whatsNew": MessageLookupByLibrary.simpleMessage("Mitä uutta"),
+    "whatsNewCloudBackupSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Katso, mitkä muistiinpanot on varmuuskopioitu, odottavat latausta ja milloin viimeisin synkronointi tapahtui.",
+    ),
+    "whatsNewCloudBackupTitle": MessageLookupByLibrary.simpleMessage(
+      "Pilvivarmistuksen tila",
+    ),
     "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
       "Suojaa arkaluonteiset muistiinpanot salasanafraasipohjaisella salauksella ja palautusvaihtoehdoilla.",
     ),
     "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
       "Tietoja salauksesta",
+    ),
+    "whatsNewHomeSearchSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Etsi muistiinpanoja kotisivulta ja etsi muistiinpanon sisältä lukiessasi.",
+    ),
+    "whatsNewHomeSearchTitle": MessageLookupByLibrary.simpleMessage(
+      "Hae kaikkialta",
+    ),
+    "whatsNewStreakTrackingSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Seuraa nykyistä jaksoa, pisintä jaksoa, sanojen kokonaismäärää ja 6 kuukauden aktiviteettilämpökarttaa.",
+    ),
+    "whatsNewStreakTrackingTitle": MessageLookupByLibrary.simpleMessage(
+      "Juovien ja tilastojen kirjoittaminen",
     ),
     "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
       "Tee DiaryVaultista yksilöllinen omilla väreilläsi ja visuaalisella tyylilläsi.",
@@ -395,10 +734,42 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
       "Teemojen luominen ja muokkaaminen",
     ),
+    "whatsNewTodosSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Lisää muistiinpanoihin tarkistuslistoja, luo itsenäisiä tehtäviä ja saa muistutuksia.",
+    ),
+    "whatsNewTodosTitle": MessageLookupByLibrary.simpleMessage(
+      "Todot muistutuksilla",
+    ),
+    "writingActivity": MessageLookupByLibrary.simpleMessage(
+      "Kirjoitustoiminta",
+    ),
+    "writingActivityEmpty": MessageLookupByLibrary.simpleMessage(
+      "Kirjoituspäiväsi näkyvät tässä.",
+    ),
+    "writingActivityLess": MessageLookupByLibrary.simpleMessage("Vähemmän"),
+    "writingActivityMore": MessageLookupByLibrary.simpleMessage("Lisää"),
+    "writingActivityPeriod": MessageLookupByLibrary.simpleMessage(
+      "Viimeiset 6 kuukautta",
+    ),
+    "writingActivityPrivacyNote": MessageLookupByLibrary.simpleMessage(
+      "Salatut muistiinpanot eivät sisälly näihin tilastoihin.",
+    ),
+    "writingCurrentStreak": MessageLookupByLibrary.simpleMessage(
+      "Nykyinen: NAME OF TRANSLATORS",
+    ),
+    "writingDay": MessageLookupByLibrary.simpleMessage("päivä"),
+    "writingDays": MessageLookupByLibrary.simpleMessage("päivää"),
+    "writingLongestStreak": MessageLookupByLibrary.simpleMessage("Pisin putki"),
+    "writingTotalWords": MessageLookupByLibrary.simpleMessage(
+      "Sanoja yhteensä",
+    ),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Väärä PIN-koodi"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Muutoksia ei ole tallennettu",
     ),
-    "youWillBeNotifiedAt": m3,
+    "youWillBeNotifiedAt": m4,
+    "yourRecoveryCodeTitle": MessageLookupByLibrary.simpleMessage(
+      "Palautuskoodisi",
+    ),
   };
 }

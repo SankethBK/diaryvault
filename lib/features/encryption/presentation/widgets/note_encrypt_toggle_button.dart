@@ -48,20 +48,20 @@ class NoteEncryptToggleButton extends StatelessWidget {
 
                   BlocProvider.of<NotesBloc>(context)
                       .add(const ToggleNoteEncryption(encrypt: false));
-                  showToast("Note will be saved unencrypted", context: context);
+                  showToast(S.current.noteWillBeSavedUnencrypted, context: context);
                   return;
                 }
 
                   final verified = await showUnlockDialog(
                     context,
                     title: S.current.lockThisNote,
-                    actionLabel: "Lock",
+                    actionLabel: S.current.lockAction,
                   );
                 if (verified != true || !context.mounted) return;
 
                 BlocProvider.of<NotesBloc>(context)
                     .add(const ToggleNoteEncryption(encrypt: true));
-                showToast("Note will be saved encrypted", context: context);
+                showToast(S.current.noteWillBeSavedEncrypted, context: context);
               },
             );
           },

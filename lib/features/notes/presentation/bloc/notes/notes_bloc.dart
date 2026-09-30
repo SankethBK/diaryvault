@@ -25,15 +25,18 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       // if id is present, create a new note else fetch the existing note from database
       if (event.id == null) {
         var _id = _generateUniqueId();
+        final initialBody = event.initialBody ?? '';
+        final document = Document()..insert(0, initialBody);
         QuillController _controller = QuillController(
-            document: Document()..insert(0, ''),
-            selection: const TextSelection.collapsed(offset: 0));
+          document: document,
+          selection: TextSelection.collapsed(offset: initialBody.length),
+        );
 
         emit(
           NoteInitialState(
             newNote: true,
             id: _id,
-            title: "",
+            title: event.initialTitle ?? "",
             createdAt: DateTime.now(),
             controller: _controller,
             // ignore: prefer_const_literals_to_create_immutables

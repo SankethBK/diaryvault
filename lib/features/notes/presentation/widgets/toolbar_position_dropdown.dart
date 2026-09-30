@@ -31,7 +31,10 @@ class ToolbarPositionDropdown extends StatelessWidget {
             userConfigCubit.setUserConfig(
                 UserConfigConstants.toolbarPosition, value);
           },
-          itemBuilder: (context) => ["Top", "Bottom"].map((toolbarPosition) {
+          itemBuilder: (context) => [
+            S.current.toolbarPositionTop,
+            S.current.toolbarPositionBottom
+          ].map((toolbarPosition) {
             return PopupMenuItem<String>(
               value: toolbarPosition,
               child: Text(
@@ -44,7 +47,8 @@ class ToolbarPositionDropdown extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                userConfigCubit.state.userConfigModel?.toolbarPosition ?? 'Top',
+                userConfigCubit.state.userConfigModel?.toolbarPosition ??
+                    S.current.toolbarPositionTop,
                 style: TextStyle(
                   color: mainTextColor,
                   fontSize: 16,

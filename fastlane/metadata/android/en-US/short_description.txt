@@ -1,1 +1,1 @@
-Supports rich text, images, videos, audios, fingerprint lock and cloud backup.
+Private diary with rich text, cloud backup, sync, and fingerprint lock.

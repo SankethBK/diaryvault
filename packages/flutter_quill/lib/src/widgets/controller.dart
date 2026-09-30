@@ -59,6 +59,16 @@ class QuillController extends ChangeNotifier {
   TextSelection get selection => _selection;
   TextSelection _selection;
 
+  /// Text currently highlighted by the find field, without changing the
+  /// document's stored formatting.
+  String searchText = '';
+
+  void setSearchText(String value) {
+    if (searchText == value) return;
+    searchText = value;
+    notifyListeners();
+  }
+
   /// Custom [replaceText] handler
   /// Return false to ignore the event
   ReplaceTextCallback? onReplaceText;

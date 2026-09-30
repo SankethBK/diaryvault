@@ -168,6 +168,43 @@ class DropboxSyncClient implements ISyncClient {
   }
 
   @override
+  Future<int> getFolderSize(String fullFolderPath) async {
+    var totalBytes = 0;
+    String? cursor;
+    var hasMore = true;
+
+    while (hasMore) {
+      final response = await http.post(
+        Uri.parse(cursor == null
+            ? 'https://api.dropboxapi.com/2/files/list_folder'
+            : 'https://api.dropboxapi.com/2/files/list_folder/continue'),
+        headers: {
+          'Authorization': 'Bearer ${accessToken!}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(cursor == null
+            ? {'path': fullFolderPath, 'recursive': true}
+            : {'cursor': cursor}),
+      );
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        throw Exception('Dropbox folder size request failed');
+      }
+      final result = jsonDecode(response.body) as Map<String, dynamic>;
+      for (final entry in result['entries'] as List<dynamic>? ?? const []) {
+        if (entry is Map<String, dynamic> && entry['.tag'] == 'file') {
+          totalBytes += (entry['size'] as num?)?.toInt() ?? 0;
+        }
+      }
+      cursor = result['cursor'] as String?;
+      hasMore = result['has_more'] == true;
+      if (hasMore && cursor == null) {
+        throw StateError('Dropbox did not return a listing cursor');
+      }
+    }
+    return totalBytes;
+  }
+
+  @override
   Future<String?> getSignedInUserInfo() async {
     if (accessToken == null) {
       await signIn();
@@ -316,7 +353,7 @@ class DropboxSyncClient implements ISyncClient {
   Future<void> updateLastSynced() async {
     log.i("Updating last sync time");
     try {
-      userConfigCubit.setUserConfig(UserConfigConstants.lastDropboxSync,
+      await userConfigCubit.setUserConfig(UserConfigConstants.lastDropboxSync,
           DateTime.now().millisecondsSinceEpoch);
     } catch (e) {
       log.e(e);

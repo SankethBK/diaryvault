@@ -65,7 +65,7 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
   @override
   Future<void> cacheUser(
       {required id, required String email, required String password}) async {
-    log.i("Caching the new user $email, $password");
+    log.i("Caching the new user $email");
     // If we already have an entry with that email just change the password
     var result = await database.query(
       Users.TABLE_NAME,

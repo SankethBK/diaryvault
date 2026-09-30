@@ -156,6 +156,8 @@ class QuillEditor extends StatefulWidget {
     required this.autoFocus,
     required this.readOnly,
     required this.expands,
+    this.searchText = '',
+    this.searchHighlightColor,
     this.showCursor,
     this.paintCursorAboveText,
     this.placeholder,
@@ -231,6 +233,8 @@ class QuillEditor extends StatefulWidget {
   ///
   /// Must not be null.
   final QuillController controller;
+  final String searchText;
+  final Color? searchHighlightColor;
 
   /// Controls whether this editor has keyboard focus.
   final FocusNode focusNode;
@@ -505,6 +509,8 @@ class QuillEditorState extends State<QuillEditor>
     final child = RawEditor(
       key: _editorKey,
       controller: widget.controller,
+      searchText: widget.searchText,
+      searchHighlightColor: widget.searchHighlightColor,
       focusNode: widget.focusNode,
       scrollController: widget.scrollController,
       scrollable: widget.scrollable,
