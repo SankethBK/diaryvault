@@ -8,11 +8,11 @@
 
 1. **Version bump:** update `version` in `pubspec.yaml` (`versionName+versionCode`), e.g. `2.3.8+2032`.
 2. **Merge to `master`:** squash-merge the release branch into `master`.
-3. **Tag & GitHub release:**
-   - Tag the squashed commit: `git tag -a 2.3.8 -m "Release 2.3.8" <commit>` and push the tag.
-   - Create a GitHub release from that tag with notes that include the **exact commit SHA** for reproducible-build verification.
+3. **FOSS build:** `foss_master` is intentionally divergent (no proprietary dependencies such as Google Drive). Cherry-pick the squashed release commit onto `foss_master`, dropping the Google Drive and website-specific pieces. Resolve dependency versions in `pubspec.yaml` in favour of `foss_master`'s existing constraints.
+4. **Tag & GitHub release:**
+   - Create the release tag on the `foss_master` cherry-pick commit: `git tag -a 2.3.8 -m "Release 2.3.8" <foss_master-commit>` and push it.
+   - Create a GitHub release from that tag with notes that include the **exact `foss_master` commit SHA** for reproducible-build verification.
    - Let the existing GitHub Actions workflow build and attach the APKs.
-4. **FOSS build:** `foss_master` is intentionally divergent (no proprietary dependencies such as Google Drive). Cherry-pick the squashed release commit onto `foss_master`, dropping the Google Drive and website-specific pieces. Resolve dependency versions in `pubspec.yaml` in favour of `foss_master`'s existing constraints.
 
 ## Asset lessons
 
