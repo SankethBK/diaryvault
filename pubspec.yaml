@@ -17,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.3.8+2032
+version: 2.4.0+2033
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -93,7 +93,7 @@ dependencies:
   stateless_dropbox_client:
     path: ./packages/stateless_dropbox_client/
   url_launcher: ^6.3.2
-  uuid: ^3.0.6
+  uuid: ^4.6.0
   webdav_client:
     path: ./packages/webdav_client
 

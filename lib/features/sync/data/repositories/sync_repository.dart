@@ -10,7 +10,6 @@ import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/sync/core/failures.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
-import 'package:dairy_app/features/sync/data/datasources/google_drive_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/note_sync_receipts_local_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/sync_client_template.dart';
@@ -669,10 +668,7 @@ class SyncRepository implements ISyncRepository {
         userConfigCubit.state.userConfigModel?.preferredSyncOption;
 
     log.i("preferredSyncOption = $preferredSyncOption");
-    if (preferredSyncOption == SyncConstants.googleDrive) {
-      syncClient = sl<GoogleDriveSyncClient>();
-      return true;
-    } else if (preferredSyncOption == SyncConstants.dropbox) {
+    if (preferredSyncOption == SyncConstants.dropbox) {
       syncClient = sl<DropboxSyncClient>();
       return true;
     } else if (preferredSyncOption == SyncConstants.nextCloud) {
@@ -682,17 +678,6 @@ class SyncRepository implements ISyncRepository {
 
     // if preferred sync option is not set, check if user has logged into
     // any of the sync sources, if so set it as preferred sync source
-
-    final isLoggedIntoGoogleDrive =
-        userConfigCubit.state.userConfigModel?.googleDriveUserInfo?.isNotEmpty;
-
-    if (isLoggedIntoGoogleDrive == true) {
-      log.i("Setting google drive as sync source as user has logged in");
-      userConfigCubit.setUserConfig(
-          UserConfigConstants.preferredSyncOption, SyncConstants.googleDrive);
-      syncClient = sl<GoogleDriveSyncClient>();
-      return true;
-    }
 
     final isLoggedIntoDropBox =
         userConfigCubit.state.userConfigModel?.dropBoxUserInfo?.isNotEmpty;
@@ -709,11 +694,9 @@ class SyncRepository implements ISyncRepository {
   }
 
   Future<String> _currentSyncScope() async {
-    final provider = syncClient is GoogleDriveSyncClient
-        ? SyncConstants.googleDrive
-        : syncClient is DropboxSyncClient
-            ? SyncConstants.dropbox
-            : SyncConstants.nextCloud;
+    final provider = syncClient is DropboxSyncClient
+        ? SyncConstants.dropbox
+        : SyncConstants.nextCloud;
     final account = (await syncClient.getSignedInUserInfo())
             ?.trim()
             .toLowerCase() ??

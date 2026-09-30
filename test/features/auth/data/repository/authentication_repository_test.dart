@@ -8,7 +8,7 @@ import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources
 import 'package:dairy_app/features/auth/data/models/logged_in_user_model.dart';
 import 'package:dairy_app/features/auth/data/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -65,7 +65,7 @@ void main() {
         when(networkInfo.isConnected).thenAnswer((_) async => true);
         when(remoteDataSource.signUpUser(
                 email: anyNamed("email"), password: anyNamed("password")))
-            .thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
+            .thenThrow(AppwriteException('', null, 'user_already_exists'));
 
         // act
         var result = await authenticationRepository.signUpWithEmailAndPassword(
@@ -84,7 +84,7 @@ void main() {
         when(networkInfo.isConnected).thenAnswer((_) async => true);
         when(remoteDataSource.signUpUser(
                 email: anyNamed("email"), password: anyNamed("password")))
-            .thenThrow(FirebaseAuthException(code: 'invalid-email'));
+            .thenThrow(AppwriteException('', null, 'general_argument_invalid'));
 
         // act
         var result = await authenticationRepository.signUpWithEmailAndPassword(
@@ -103,7 +103,7 @@ void main() {
         when(networkInfo.isConnected).thenAnswer((_) async => true);
         when(remoteDataSource.signUpUser(
                 email: anyNamed("email"), password: anyNamed("password")))
-            .thenThrow(FirebaseAuthException(code: 'weak-password'));
+            .thenThrow(AppwriteException('', null, 'general_argument_invalid'));
 
         // act
         var result = await authenticationRepository.signUpWithEmailAndPassword(
@@ -176,7 +176,7 @@ void main() {
         when(
           remoteDataSource.signInUser(
               email: anyNamed("email"), password: anyNamed("password")),
-        ).thenThrow(FirebaseAuthException(code: 'wrong-password'));
+        ).thenThrow(AppwriteException('', null, 'user_invalid_credentials'));
         // act
         var result = await authenticationRepository.signInWithEmailAndPassword(
             email: testEmail, password: testPassword);
@@ -262,7 +262,7 @@ void main() {
         when(
           remoteDataSource.signInUser(
               email: anyNamed("email"), password: anyNamed("password")),
-        ).thenThrow(FirebaseAuthException(code: 'invalid-email'));
+        ).thenThrow(AppwriteException('', null, 'general_argument_invalid'));
 
         // act
         var result = await authenticationRepository.signInWithEmailAndPassword(
@@ -349,7 +349,7 @@ void main() {
         when(
           remoteDataSource.signInUser(
               email: anyNamed("email"), password: anyNamed("password")),
-        ).thenThrow(FirebaseAuthException(code: 'user-disabled'));
+        ).thenThrow(AppwriteException('', null, 'user_blocked'));
 
         // act
         var result = await authenticationRepository.signInWithEmailAndPassword(
@@ -387,7 +387,7 @@ void main() {
         when(
           remoteDataSource.signInUser(
               email: anyNamed("email"), password: anyNamed("password")),
-        ).thenThrow(FirebaseAuthException(code: 'user-not-found'));
+        ).thenThrow(AppwriteException('', null, 'user_invalid_credentials'));
 
         // act
         var result = await authenticationRepository.signInWithEmailAndPassword(
@@ -425,7 +425,7 @@ void main() {
         when(
           remoteDataSource.signInUser(
               email: anyNamed("email"), password: anyNamed("password")),
-        ).thenThrow(FirebaseAuthException(code: 'wrong-password'));
+        ).thenThrow(AppwriteException('', null, 'user_invalid_credentials'));
 
         // act
         var result = await authenticationRepository.signInWithEmailAndPassword(
