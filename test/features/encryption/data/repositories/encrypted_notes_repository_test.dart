@@ -98,6 +98,9 @@ class FakeEncryptedNotesLocalDataSource
   }
 
   @override
+  Future<int> countEncryptedNotes(String authorId) async => rows.length;
+
+  @override
   Future<List<Map<String, dynamic>>> fetchDistinctKeychainRows() async {
     final seen = <String>{};
     final result = <Map<String, dynamic>>[];

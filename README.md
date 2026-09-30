@@ -1,6 +1,6 @@
-# Diary Vault
+# DiaryVault: Private Journal
 
-**A FOSS, offline first personal diary application written in Flutter**
+**Private diary with rich text, cloud backup, sync, and fingerprint lock.**
 
 ### 🌐 [diaryvault.app](https://sankethbk.github.io/diaryvault/)
 

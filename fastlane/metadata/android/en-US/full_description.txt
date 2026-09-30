@@ -1,1 +1,40 @@
-<p><b>DiaryVault</b> is Your Personal Journal Companion, supporting rich text, images, videos, audios, fingerprint lock, cloud sync.<br></p><ul><li><b>Write with Ease:</b> DiaryVault offers a feature-rich text editor that includes support for embedding images, videos, and even emojis from Google Keyboards.</li><li><b>Seamless Cloud Backup:</b> DiaryVault provides hassle-free cloud backups to your Nextcloud safeguarding your notes. Rest assured, we don’t access your data. Sync across devices effortlessly and enable automatic backups.</li><li><b>Security at Its Best:</b> Your privacy is our priority. DiaryVault ensures your notes are kept safe with mandatory logins and optional fingerprint lock.</li><li><b>Multiple Themes:</b> Customize your journal with multiple theme options to suit your style.</li><li><b>Ad-Free Experience:</b> Enjoy an uninterrupted journaling experience - DiaryVault doesn’t display any ads.</li><li><b>Forgot Your Password?</b> Don’t worry; DiaryVault has you covered. Easily reset your password through a password reset email.</li><li><b>Open Source:</b> We are open source and committed to delivering the best possible experience at no cost to you.</li></ul><p>Download DiaryVault now and start documenting your life’s journey!</p>
+<p><b>DiaryVault: Your Private Journal</b></p>
+
+<p>DiaryVault is a private diary and journaling app designed to make writing, organizing, and protecting your personal memories simple.</p>
+
+<p>Write about your day, keep personal thoughts, save memories with photos and videos, and build a journaling habit — while keeping control of your data.</p>
+
+<p><b>✍️ Rich Text Journal</b></p>
+<p>Write naturally with a powerful rich text editor. Format your entries, add images and videos, create checklists, and use emojis to make every journal entry your own. DiaryVault also supports autosave and works offline, so you can write whenever inspiration strikes.</p>
+
+<p><b>🔐 Private &amp; Secure</b></p>
+<p>Your personal thoughts deserve privacy. Protect your diary with password, PIN, and fingerprint authentication. Individual notes can also be encrypted so that your private entries remain protected even when they are backed up to the cloud.</p>
+
+<p><b>☁️ Cloud Backup &amp; Sync</b></p>
+<p>Keep your diary safe with automatic cloud backup and sync across your devices. DiaryVault lets you use your own cloud storage, including Google Drive, Dropbox and Nextcloud. Your journal stays in your chosen cloud storage, giving you greater control over your data. DiaryVault does not use your cloud storage as a way to access or read your personal journal entries.</p>
+
+<p><b>🎨 Make Your Diary Yours</b></p>
+<p>Choose from multiple themes and customize your journaling experience to match your style.</p>
+
+<p><b>🏷️ Organize Your Journal</b></p>
+<p>Use tags to organize your diary entries and quickly find the notes you’re looking for. Whether you’re keeping a daily journal, writing personal reflections, recording memories, or simply taking private notes, tags make it easier to keep everything organized.</p>
+
+<p><b>📊 Build a Journaling Habit</b></p>
+<p>Stay consistent with daily reminders and journaling statistics. Track your writing activity, maintain your streak, and see your journaling history over time.</p>
+
+<p><b>📄 Export Your Entries</b></p>
+<p>Take your writing with you. Export journal entries as plain text or PDF files for saving, printing, sharing, or keeping an additional copy of your memories.</p>
+
+<p><b>🌍 Multiple Languages</b></p>
+<p>DiaryVault supports multiple languages, making the app accessible to journalers around the world.</p>
+
+<p><b>🚫 Ad-Free Journaling</b></p>
+<p>Enjoy your journal without advertisements interrupting your writing experience.</p>
+
+<p><b>🔑 Forgot Your Password?</b></p>
+<p>If you forget your password, you can reset it using the password reset email associated with your account.</p>
+
+<p><b>💻 Open Source</b></p>
+<p>DiaryVault is open-source and built with privacy and user ownership in mind. View the DiaryVault source code on GitHub: https://github.com/SankethBK/diaryvault</p>
+
+<p>Start writing, reflecting, and keeping your memories with DiaryVault — a private journal you can take with you.</p>

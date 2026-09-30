@@ -38,7 +38,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF9E8BD9), // Set background color
+      backgroundColor: const Color(0xFF271AA5), // Set background color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +52,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Transform.scale(
                   scale: 1.5, // Increase the scale to crop more from the image
                   child: Image.asset(
-                    'assets/images/splash_icon_4.webp',
+                    'assets/images/splash_icon_4.png',
                     errorBuilder: (context, error, stackTrace) {
                       return const Text(
                         'Error loading image',
