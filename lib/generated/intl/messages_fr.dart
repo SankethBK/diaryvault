@@ -28,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(count) => "${count} notes importées";
 
-  static String m3(time) => "Vous serez averti à ${time}";
+  static String m4(time) => "Vous serez averti à ${time}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -423,6 +423,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "Vous avez des changements non enregistrés",
     ),
-    "youWillBeNotifiedAt": m3,
+    "youWillBeNotifiedAt": m4,
   };
 }

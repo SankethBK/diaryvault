@@ -50,4 +50,7 @@ abstract class ISyncClient {
     bool folder = false,
     String? fullFilePath,
   });
+
+  /// Returns total bytes stored beneath the app's remote sync folder.
+  Future<int> getFolderSize(String fullFolderPath);
 }

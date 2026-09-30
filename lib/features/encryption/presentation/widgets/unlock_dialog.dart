@@ -5,6 +5,7 @@ import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/encryption/core/failures/encryption_failure.dart';
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,8 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// passphrase. The recovery-code toggle is hidden in that mode.
 Future<bool?> showUnlockDialog(
   BuildContext context, {
-  String title = "Unlock encrypted notes",
-  String actionLabel = "Unlock",
+  String? title,
+  String? actionLabel,
   Future<EncryptionFailure?> Function(String passphrase)? onSubmit,
 }) async {
   final result = await showCustomDialog(
@@ -31,14 +32,14 @@ Future<bool?> showUnlockDialog(
 class UnlockDialog extends StatefulWidget {
   const UnlockDialog({
     Key? key,
-    this.title = "Unlock encrypted notes",
-    this.actionLabel = "Unlock",
+    this.title,
+    this.actionLabel,
     this.onSubmit,
   })
       : super(key: key);
 
-  final String title;
-  final String actionLabel;
+  final String? title;
+  final String? actionLabel;
   final Future<EncryptionFailure?> Function(String passphrase)? onSubmit;
 
   @override
@@ -88,8 +89,8 @@ class _UnlockDialogState extends State<UnlockDialog> {
       _isLoading = false;
       _errorText = failure!.code == EncryptionFailure.WRONG_PASSPHRASE
           ? (_useRecoveryCode
-              ? "Incorrect recovery code"
-              : "Incorrect passphrase")
+              ? S.current.incorrectRecoveryCode
+              : S.current.incorrectPassphrase)
           : failure.message;
     });
   }
@@ -110,7 +111,7 @@ class _UnlockDialogState extends State<UnlockDialog> {
           Icon(Icons.lock_outline, size: 36, color: mainTextColor),
           const SizedBox(height: 12),
           Text(
-            widget.title,
+            widget.title ?? S.current.unlockEncryptedNotes,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 19.0, color: mainTextColor),
           ),
@@ -125,7 +126,9 @@ class _UnlockDialogState extends State<UnlockDialog> {
             enableSuggestions: false,
             onSubmitted: (_) => _submit(),
             decoration: InputDecoration(
-              labelText: _useRecoveryCode ? "Recovery code" : "Passphrase",
+              labelText: _useRecoveryCode
+                  ? S.current.recoveryCode
+                  : S.current.passphrase,
               hintText: _useRecoveryCode ? "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx" : null,
               labelStyle: TextStyle(color: inputTextColor),
               floatingLabelStyle: TextStyle(color: inputTextColor),
@@ -146,8 +149,8 @@ class _UnlockDialogState extends State<UnlockDialog> {
               },
               child: Text(
                 _useRecoveryCode
-                    ? "Use passphrase instead"
-                    : "Forgot passphrase? Use recovery code",
+                    ? S.current.usePassphraseInstead
+                    : S.current.forgotPassphraseUseRecoveryCode,
                 style: TextStyle(
                   fontSize: 13.0,
                   color: mainTextColor,
@@ -160,14 +163,14 @@ class _UnlockDialogState extends State<UnlockDialog> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CancelButton(
-                buttonText: "Cancel",
+                buttonText: S.current.cancel,
                 onPressed: () => Navigator.of(context).pop(false),
               ),
               const SizedBox(width: 10),
               SubmitButton(
                 isLoading: _isLoading,
                 onSubmitted: _submit,
-                buttonText: widget.actionLabel,
+                buttonText: widget.actionLabel ?? S.current.unlockButton,
               ),
             ],
           ),

@@ -1,4 +1,3 @@
-import 'package:appwrite/appwrite.dart';
 import 'package:dairy_app/core/errors/database_exceptions.dart';
 import 'package:dairy_app/core/errors/validation_exceptions.dart';
 import 'package:dairy_app/core/logger/logger.dart';
@@ -11,6 +10,7 @@ import 'package:dairy_app/features/auth/data/datasources/remote%20data%20sources
 import 'package:dairy_app/features/auth/domain/entities/logged_in_user.dart';
 import 'package:dairy_app/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -38,31 +38,32 @@ class AuthenticationRepository implements IAuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    log.i("signUpWithEmailAndPassword - [$email, $password]");
+    log.i("signUpWithEmailAndPassword - [$email]");
 
     if (await networkInfo.isConnected) {
       late LoggedInUser user;
       try {
         user =
             await remoteDataSource.signUpUser(email: email, password: password);
-      } on AppwriteException catch (e) {
-        log.w(
-            "signup failed because of remote exception ${e.code} ${e.message} ${e.type}");
+      } on FirebaseAuthException catch (e) {
+        log.w("signup failed because of remote exception ${e.code}");
 
-        switch (e.type) {
-          case 'user_already_exists':
-          case 'user_email_already_exists':
+        switch (e.code) {
+          case 'email-already-in-use':
             return Left(SignUpFailure.emailAlreadyExists());
-          case 'general_argument_invalid':
-            return Left(
-                SignUpFailure.invalidPassword("choose a strong password"));
-          case 'password_personal_data':
+          case 'invalid-email':
+            return Left(SignUpFailure.invalidEmail());
+          case 'weak-password':
             return Left(SignUpFailure.invalidPassword(
-                "password cannot be similar to email"));
-
+                "password must be atleast 6 characters"));
+          case 'network-request-failed':
+            return Left(SignUpFailure.noInternetConnection());
           default:
             return Left(SignUpFailure.unknownError());
         }
+      } catch (e, st) {
+        log.e("unexpected signup error: $e\n$st");
+        return Left(SignUpFailure.unknownError());
       }
 
       try {
@@ -88,7 +89,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
   Future<Either<SignInFailure, LoggedInUser>> _remoteLogin(
       {required String email, required String password}) async {
     late LoggedInUser user;
-    log.i("signInWithEmailAndPassword - [$email, $password]");
+    log.i("signInWithEmailAndPassword - [$email]");
 
     if (await networkInfo.isConnected) {
       try {
@@ -109,21 +110,26 @@ class AuthenticationRepository implements IAuthenticationRepository {
         }
 
         return Right(user);
-      } on AppwriteException catch (e) {
-        log.w("sign in failed because of remote database exception ${e.type}");
+      } on FirebaseAuthException catch (e) {
+        log.w("sign in failed because of remote database exception ${e.code}");
 
-        switch (e.type) {
-          case 'user_invalid_credentials':
-            return Left(
-                SignInFailure.wrongPassword("email or password is incorrect"));
-          case 'general_argument_invalid':
-            return Left(SignInFailure.wrongPassword(
-                "password must be atleast 8 characters"));
-          case 'user_blocked':
+        switch (e.code) {
+          case 'invalid-email':
+            return Left(SignInFailure.invalidEmail());
+          case 'user-disabled':
             return Left(SignInFailure.userDisabled());
+          case 'user-not-found':
+            return Left(SignInFailure.emailDoesNotExists());
+          case 'wrong-password':
+            return Left(SignInFailure.wrongPassword());
+          case 'network-request-failed':
+            return Left(SignInFailure.noInternetConnection());
           default:
             return Left(SignInFailure.unknownError());
         }
+      } catch (e, st) {
+        log.e("unexpected sign in error: $e\n$st");
+        return Left(SignInFailure.unknownError());
       }
     }
     log.w("sign in failed because of no internet");
@@ -271,10 +277,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
         return const Right(true);
       }
       return Left(ForgotPasswordFailure.noInternetConnection());
-    } on AppwriteException catch (e) {
+    } on FirebaseAuthException catch (e) {
       log.e(e);
 
-      if (e.type == "user_not_found") {
+      if (e.code == "user-not-found") {
         return Left(ForgotPasswordFailure.userNotFound());
       }
       return Left(ForgotPasswordFailure.unknownError());
@@ -314,10 +320,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
         password: password,
         newEmail: newEmail,
       );
-    } on AppwriteException catch (e) {
-      log.e(e.type);
+    } on FirebaseAuthException catch (e) {
+      log.e(e);
 
-      if (e.type == "user_email_already_exists") {
+      if (e.code == "email-already-in-use") {
         return Left(SignUpFailure.emailAlreadyExists());
       }
 

@@ -29,20 +29,25 @@ import 'package:dairy_app/features/encryption/presentation/bloc/encrypted_notes_
 import 'package:dairy_app/features/encryption/presentation/bloc/encryption_cubit.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
+import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/todos_local_data_source.dart';
 import 'package:dairy_app/features/notes/data/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/data/repositories/import_notes_repository.dart';
 import 'package:dairy_app/features/notes/data/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/data/repositories/notifications_repository.dart';
+import 'package:dairy_app/features/notes/data/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/export_notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/import_notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notes_repository.dart';
 import 'package:dairy_app/features/notes/domain/repositories/notifications_repository.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/sync/data/datasources/dropbox_sync_client.dart';
 import 'package:dairy_app/features/sync/data/datasources/key_value_data_source.dart';
 import 'package:dairy_app/features/sync/data/datasources/nextcloud_sync_client.dart';
+import 'package:dairy_app/features/sync/data/datasources/note_sync_receipts_local_data_source.dart';
+import 'package:dairy_app/features/sync/data/datasources/note_sync_receipts_local_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/datasources/temeplates/key_value_data_source_template.dart';
 import 'package:dairy_app/features/sync/data/repositories/sync_repository.dart';
 import 'package:dairy_app/features/sync/domain/repositories/sync_repository_template.dart';
@@ -143,10 +148,35 @@ Future<void> init() async {
   //* Data sources
   sl.registerSingleton<INotesLocalDataSource>(
       await NotesLocalDataSource.create());
+  sl.registerSingleton<ITodosLocalDataSource>(
+      await TodosLocalDataSource.create());
+
+  // the notifications plugin needs to be ready before the repositories
+  // that schedule/cancel notifications are constructed
+  sl.registerSingletonAsync<INotificationsRepository>(() async {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    return NotificationsRepository(
+        flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin);
+  });
+  await sl.getAsync<INotificationsRepository>();
 
   //* Repository
-  sl.registerSingleton<INotesRepository>(
-      NotesRepository(notesLocalDataSource: sl(), authSessionBloc: sl()));
+  sl.registerSingleton<ITodoRemindersRepository>(TodoRemindersRepository(
+      todosLocalDataSource: sl(), notificationsRepository: sl()));
+
+  sl.registerSingleton<INotesRepository>(NotesRepository(
+      notesLocalDataSource: sl(),
+      authSessionBloc: sl(),
+      todoRemindersRepository: sl()));
 
   //* FEATURE: encryption
 
@@ -168,7 +198,8 @@ Future<void> init() async {
       notesLocalDataSource: sl(),
       sessionService: sl(),
       cryptoService: sl(),
-      authSessionBloc: sl()));
+      authSessionBloc: sl(),
+      todoRemindersRepository: sl()));
 
   //* Blocs
   sl.registerLazySingleton<EncryptionCubit>(
@@ -182,21 +213,6 @@ Future<void> init() async {
   sl.registerSingleton<IImportNotesRepository>(
       ImportNotesRepository(notesRepository: sl()));
 
-  sl.registerSingletonAsync<INotificationsRepository>(() async {
-    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
-
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-    return NotificationsRepository(
-        flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin);
-  });
-
   //* Blocs
   sl.registerLazySingleton(
       () => NotesBloc(notesRepository: sl(), encryptedNotesRepository: sl()));
@@ -209,6 +225,10 @@ Future<void> init() async {
 
   //* FEATURE: sync
 
+  sl.registerSingleton<INoteSyncReceiptsLocalDataSource>(
+    await NoteSyncReceiptsLocalDataSource.create(),
+  );
+
   //* Data sources
 
   sl.registerSingleton<DropboxSyncClient>(
@@ -219,7 +239,10 @@ Future<void> init() async {
 
   //* Repository
   sl.registerSingleton<ISyncRepository>(SyncRepository(
-      notesRepository: sl(), networkInfo: sl(), userConfigCubit: sl()));
+      notesRepository: sl(),
+      networkInfo: sl(),
+      userConfigCubit: sl(),
+      noteSyncReceipts: sl()));
 
   //* Cubit
   sl.registerLazySingleton(() => NoteSyncCubit(

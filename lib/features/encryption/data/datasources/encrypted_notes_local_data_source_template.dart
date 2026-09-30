@@ -13,6 +13,8 @@ abstract class IEncryptedNotesLocalDataSource {
   /// All encrypted notes (ciphertext form) with tags and assets.
   Future<List<NoteModel>> fetchEncryptedNotes(String authorId);
 
+  Future<int> countEncryptedNotes(String authorId);
+
   /// Single encrypted note in raw (ciphertext) form, null if absent.
   Future<NoteModel?> getEncryptedNoteRaw(String id);
 

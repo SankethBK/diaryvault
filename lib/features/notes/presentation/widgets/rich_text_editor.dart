@@ -1,22 +1,28 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/core/logger/logger.dart';
 import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/user_config/user_config_cubit.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
+import 'package:dairy_app/features/notes/core/utils/todo_delta_parser.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/audio_recorder_popup.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/todo_reminder_embed_builder.dart';
 import 'package:dairy_app/generated/l10n.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' show basename;
 import 'package:path_provider/path_provider.dart';
 
 class RichTextEditor extends StatefulWidget {
@@ -28,13 +34,215 @@ class RichTextEditor extends StatefulWidget {
   State<RichTextEditor> createState() => _RichTextEditorState();
 }
 
+final log = printer("RichTextEditor");
+
 class _RichTextEditorState extends State<RichTextEditor> {
   late FocusNode _focusNode;
+
+  QuillController? _listenedController;
+  Timer? _todoSyncTimer;
+  bool _ensuringTodoReminderActions = false;
 
   @override
   void initState() {
     _focusNode = FocusNode();
+    _attachControllerListener();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant RichTextEditor oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      _attachControllerListener();
+    }
+  }
+
+  @override
+  void dispose() {
+    _todoSyncTimer?.cancel();
+    _listenedController?.removeListener(_onDocumentChanged);
+    super.dispose();
+  }
+
+  /// Watches edits so todo reminders are cancelled instantly when a todo
+  /// is checked off or deleted, instead of waiting for the next autosave.
+  void _attachControllerListener() {
+    _listenedController?.removeListener(_onDocumentChanged);
+    _listenedController = widget.controller;
+    _listenedController?.addListener(_onDocumentChanged);
+    Timer.run(_ensureTodoReminderActions);
+  }
+
+  void _onDocumentChanged() {
+    _ensureTodoReminderActions();
+    _todoSyncTimer?.cancel();
+    _todoSyncTimer = Timer(const Duration(seconds: 2), _syncTodos);
+  }
+
+  void _ensureTodoReminderActions() {
+    final controller = _listenedController;
+    if (controller == null || !mounted || _ensuringTodoReminderActions) return;
+    final noteState = BlocProvider.of<NotesBloc>(context, listen: false).state;
+    if (noteState.isEncrypted) return;
+
+    _ensuringTodoReminderActions = true;
+    try {
+
+    final insertOffsets = <int>[];
+    final removeOffsets = <int>[];
+    final actionRelocations = <({int from, int to})>[];
+    final actionLineStarts = <int>[];
+    for (final block in controller.document.root.children) {
+      if (block is! Block) continue;
+      for (final node in block.children) {
+        if (node is! Line) continue;
+        final isUnchecked =
+            node.style.attributes[Attribute.list.key] == Attribute.unchecked;
+
+        var hasReminderOrAction = false;
+        int? actionOffset;
+        for (final child in node.children) {
+          if (child is! Embed) continue;
+          if (child.value.type == kTodoReminderEmbedType) {
+            hasReminderOrAction = true;
+          } else if (child.value.type == kTodoReminderActionEmbedType) {
+            hasReminderOrAction = true;
+            actionOffset = child.documentOffset;
+            if (!isUnchecked) removeOffsets.add(child.documentOffset);
+          } else if (child.value.type == BlockEmbed.customType) {
+            try {
+              final custom =
+                  CustomBlockEmbed.fromJsonString(child.value.data);
+              if (custom.type == kTodoReminderEmbedType) {
+                hasReminderOrAction = true;
+              } else if (custom.type == kTodoReminderActionEmbedType) {
+                hasReminderOrAction = true;
+                actionOffset = child.documentOffset;
+                if (!isUnchecked) removeOffsets.add(child.documentOffset);
+              }
+            } catch (_) {}
+          }
+        }
+        if (isUnchecked &&
+            actionOffset != null &&
+            actionOffset != node.documentOffset) {
+          actionRelocations.add((from: actionOffset, to: node.documentOffset));
+        }
+        if (isUnchecked && actionOffset != null) {
+          actionLineStarts.add(node.documentOffset);
+        }
+        if (isUnchecked && !hasReminderOrAction) {
+          insertOffsets.add(node.documentOffset);
+        }
+      }
+    }
+
+    // Keep the clock embed before the todo text. If the user inserts text in
+    // the position immediately before it, relocate the marker to the start
+    // of the line so the inserted text ends up after the clock.
+    actionRelocations.sort((a, b) => b.from.compareTo(a.from));
+    for (final relocation in actionRelocations) {
+      var selection = controller.selection;
+      selection = TextSelection(
+        baseOffset: selection.baseOffset >= relocation.from + 1
+            ? selection.baseOffset - 1
+            : selection.baseOffset,
+        extentOffset: selection.extentOffset >= relocation.from + 1
+            ? selection.extentOffset - 1
+            : selection.extentOffset,
+        affinity: selection.affinity,
+        isDirectional: selection.isDirectional,
+      );
+      controller.replaceText(relocation.from, 1, '', selection);
+
+      selection = controller.selection;
+      selection = TextSelection(
+        baseOffset: selection.baseOffset >= relocation.to
+            ? selection.baseOffset + 1
+            : selection.baseOffset,
+        extentOffset: selection.extentOffset >= relocation.to
+            ? selection.extentOffset + 1
+            : selection.extentOffset,
+        affinity: selection.affinity,
+        isDirectional: selection.isDirectional,
+      );
+      controller.replaceText(
+        relocation.to,
+        0,
+        BlockEmbed.custom(
+          const CustomBlockEmbed(kTodoReminderActionEmbedType, ''),
+        ),
+        selection,
+      );
+    }
+
+    // Apply edits from the end so offsets collected from the original tree
+    // remain valid. The marker is rendered as an alarm button and is replaced
+    // with a date preview when the user sets a reminder.
+    final edits = <({int offset, bool insert})>[
+      ...removeOffsets.map((offset) => (offset: offset, insert: false)),
+      ...insertOffsets.map((offset) => (offset: offset, insert: true)),
+    ]..sort((a, b) => b.offset.compareTo(a.offset));
+    for (final edit in edits) {
+      final selection = controller.selection;
+      final shift = edit.insert ? 1 : -1;
+      final adjustedSelection = TextSelection(
+        baseOffset: selection.baseOffset >= edit.offset + (edit.insert ? 0 : 1)
+            ? selection.baseOffset + shift
+            : selection.baseOffset,
+        extentOffset:
+            selection.extentOffset >= edit.offset + (edit.insert ? 0 : 1)
+                ? selection.extentOffset + shift
+                : selection.extentOffset,
+        affinity: selection.affinity,
+        isDirectional: selection.isDirectional,
+      );
+      controller.replaceText(
+        edit.offset,
+        edit.insert ? 0 : 1,
+        edit.insert
+            ? BlockEmbed.custom(
+                const CustomBlockEmbed(kTodoReminderActionEmbedType, ''))
+            : '',
+        adjustedSelection,
+      );
+    }
+
+    // Do not leave the caret in the position before the inline clock. This
+    // also makes tapping or arrowing into that gap land after the clock.
+    final selection = controller.selection;
+    if (selection.isCollapsed) {
+      for (final lineStart in actionLineStarts) {
+        if (selection.extentOffset <= lineStart) {
+          controller.updateSelection(
+            TextSelection.collapsed(offset: lineStart + 1),
+            ChangeSource.LOCAL,
+          );
+          break;
+        }
+      }
+    }
+    } finally {
+      _ensuringTodoReminderActions = false;
+    }
+  }
+
+  Future<void> _syncTodos() async {
+    final controller = _listenedController;
+    if (controller == null || !mounted) return;
+    try {
+      final state = BlocProvider.of<NotesBloc>(context, listen: false).state;
+      if (!state.safe) return;
+      await sl<ITodoRemindersRepository>().syncTodosForNote(
+        noteId: state.id,
+        noteTitle: state.title ?? "",
+        body: jsonEncode(controller.document.toDelta().toJson()),
+        isEncrypted: state.isEncrypted,
+      );
+    } catch (e) {
+      log.w("live todo sync skipped: $e");
+    }
   }
 
   @override
@@ -50,6 +258,9 @@ class _RichTextEditorState extends State<RichTextEditor> {
     var quillEditor = QuillEditor(
       // scrollPhysics: const BouncingScrollPhysics(),
       embedBuilders: [
+        TodoReminderEmbedBuilder(),
+        TodoReminderEmbedBuilder(embedKey: kTodoReminderActionEmbedType),
+        TodoReminderEmbedBuilder(embedKey: BlockEmbed.customType),
         ...FlutterQuillEmbeds.builders(),
       ],
 
@@ -59,7 +270,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
       focusNode: _focusNode,
       autoFocus: false,
       readOnly: false,
-      placeholder: 'Write something here...',
+      placeholder: S.current.editorPlaceholder,
       expands: false,
       padding: EdgeInsets.zero,
       customStyles: DefaultStyles(
@@ -410,62 +621,58 @@ class Toolbar extends StatelessWidget {
         ),
       ),
       child: QuillToolbar.basic(
-      controller: controller,
-      color: Colors.transparent,
-      showSearchButton: true,
-      // provide a callback to enable picking images from device.
-      // if omit, "image" button only allows adding images from url.
-      // same goes for videos.
-      embedButtons: FlutterQuillEmbeds.buttons(
+        controller: controller,
+        color: Colors.transparent,
+        showSearchButton: true,
         // provide a callback to enable picking images from device.
         // if omit, "image" button only allows adding images from url.
         // same goes for videos.
-        onImagePickCallback: _onImagePickCallback,
-        onVideoPickCallback: _onVideoPickCallback,
-        onAudioPickCallback: _onAudioPickCallback,
-        mediaPickSettingSelector: _selectMediaPickSetting,
-        cameraPickSettingSelector: _selectCameraPickSetting,
-        audioPickSetting: _selectAudioPickSetting,
-        showImageButton: true,
-        showVideoButton: true,
-        showCameraButton: true,
-      ),
-      // uncomment to provide a custom "pick from" dialog.
-      showFontFamily: false,
-      showSubscript: true,
-      showSuperscript: true,
-      showFontSize: true,
-      toolbarIconSize: 23,
-      toolbarSectionSpacing: 4,
-      toolbarIconAlignment: WrapAlignment.center,
-      showDividers: true,
-      showBoldButton: true,
-      showItalicButton: true,
-      showSmallButton: false,
-      showUnderLineButton: true,
-      showStrikeThrough: true,
-      showInlineCode: false,
-      showColorButton: true,
-      showBackgroundColorButton: true,
-      showClearFormat: false,
-      showAlignmentButtons: false,
-      showLeftAlignment: true,
-      showCenterAlignment: true,
-      showRightAlignment: true,
-      showJustifyAlignment: true,
-      showHeaderStyle: true,
-      showListNumbers: true,
-      showListBullets: true,
-      showListCheck: true,
-      showCodeBlock: true,
-      showQuote: true,
-      showIndent: false,
-      showLink: true,
-      showUndo: true,
-      showRedo: true,
-      multiRowsDisplay: false,
-      showDirection: false,
-      iconTheme: quillIconTheme,
+        embedButtons: FlutterQuillEmbeds.buttons(
+          onImagePickCallback: _onImagePickCallback,
+          onVideoPickCallback: _onVideoPickCallback,
+          onAudioPickCallback: _onAudioPickCallback,
+          mediaPickSettingSelector: _selectMediaPickSetting,
+          cameraPickSettingSelector: _selectCameraPickSetting,
+          audioPickSetting: _selectAudioPickSetting,
+          showImageButton: true,
+          showVideoButton: true,
+          showCameraButton: true,
+        ),
+        showFontFamily: false,
+        showSubscript: true,
+        showSuperscript: true,
+        showFontSize: true,
+        toolbarIconSize: 23,
+        toolbarSectionSpacing: 4,
+        toolbarIconAlignment: WrapAlignment.center,
+        showDividers: true,
+        showBoldButton: true,
+        showItalicButton: true,
+        showSmallButton: false,
+        showUnderLineButton: true,
+        showStrikeThrough: true,
+        showInlineCode: false,
+        showColorButton: true,
+        showBackgroundColorButton: true,
+        showClearFormat: false,
+        showAlignmentButtons: false,
+        showLeftAlignment: true,
+        showCenterAlignment: true,
+        showRightAlignment: true,
+        showJustifyAlignment: true,
+        showHeaderStyle: true,
+        showListNumbers: true,
+        showListBullets: true,
+        showListCheck: true,
+        showCodeBlock: true,
+        showQuote: true,
+        showIndent: false,
+        showLink: true,
+        showUndo: true,
+        showRedo: true,
+        multiRowsDisplay: false,
+        showDirection: false,
+        iconTheme: quillIconTheme,
       ),
     );
   }

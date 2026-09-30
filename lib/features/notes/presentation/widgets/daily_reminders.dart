@@ -77,7 +77,10 @@ class DailyReminders extends StatelessWidget {
                         .zonedScheduleNotification(reminderTime);
                   }
                 } else {
-                  await notificationsRepository.cancelAllNotifications();
+                  // only cancel the daily reminder; scheduled to-do
+                  // reminders live under their own notification ids
+                  await notificationsRepository.cancelNotification(
+                      INotificationsRepository.dailyReminderNotificationId);
                 }
 
                 userConfigCubit.setUserConfig(

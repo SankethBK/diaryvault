@@ -84,6 +84,8 @@ class RawEditor extends StatefulWidget {
     this.customLinkPrefixes = const <String>[],
     this.dialogTheme,
     this.contentInsertionConfiguration,
+    this.searchText = '',
+    this.searchHighlightColor,
   })  : assert(maxHeight == null || maxHeight > 0, 'maxHeight cannot be null'),
         assert(minHeight == null || minHeight >= 0, 'minHeight cannot be null'),
         assert(maxHeight == null || minHeight == null || maxHeight >= minHeight,
@@ -93,6 +95,8 @@ class RawEditor extends StatefulWidget {
 
   /// Controls the document being edited.
   final QuillController controller;
+  final String searchText;
+  final Color? searchHighlightColor;
 
   /// Controls whether this editor has keyboard focus.
   final FocusNode focusNode;
@@ -865,30 +869,27 @@ class RawEditorState extends EditorState
   /// Updates the checkbox positioned at [offset] in document
   /// by changing its attribute according to [value].
   void _handleCheckboxTap(int offset, bool value) {
-    if (!widget.readOnly) {
-      _disableScrollControllerAnimateOnce = true;
-      final currentSelection = controller.selection.copyWith();
-      final attribute = value ? Attribute.checked : Attribute.unchecked;
+    final currentSelection = controller.selection.copyWith();
+    final attribute = value ? Attribute.checked : Attribute.unchecked;
 
-      _markNeedsBuild();
+    _markNeedsBuild();
+    controller
+      ..ignoreFocusOnTextChange = true
+      ..formatText(offset, 0, attribute)
+
+      // Checkbox tapping causes controller.selection to go to offset 0
+      // Stop toggling those two toolbar buttons
+      ..toolbarButtonToggler = {
+        Attribute.list.key: attribute,
+        Attribute.header.key: Attribute.header
+      };
+
+    // Go back from offset 0 to current selection
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       controller
-        ..ignoreFocusOnTextChange = true
-        ..formatText(offset, 0, attribute)
-
-        // Checkbox tapping causes controller.selection to go to offset 0
-        // Stop toggling those two toolbar buttons
-        ..toolbarButtonToggler = {
-          Attribute.list.key: attribute,
-          Attribute.header.key: Attribute.header
-        };
-
-      // Go back from offset 0 to current selection
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        controller
-          ..ignoreFocusOnTextChange = false
-          ..updateSelection(currentSelection, ChangeSource.LOCAL);
-      });
-    }
+        ..ignoreFocusOnTextChange = false
+        ..updateSelection(currentSelection, ChangeSource.LOCAL);
+    });
   }
 
   List<Widget> _buildChildren(Document doc, BuildContext context) {
@@ -964,6 +965,8 @@ class RawEditorState extends EditorState
       styles: _styles!,
       readOnly: widget.readOnly,
       controller: controller,
+      searchText: widget.searchText,
+      searchHighlightColor: widget.searchHighlightColor,
       linkActionPicker: _linkActionPicker,
       onLaunchUrl: widget.onLaunchUrl,
       customLinkPrefixes: widget.customLinkPrefixes,
@@ -1208,7 +1211,12 @@ class RawEditorState extends EditorState
       return;
     }
 
-    if (ignoreFocus || _keyboardVisible) {
+    if (widget.readOnly) {
+      _onChangeTextEditingValue(ignoreFocus);
+      if (mounted) {
+        _markNeedsBuild();
+      }
+    } else if (ignoreFocus || _keyboardVisible) {
       _onChangeTextEditingValue(ignoreFocus);
     } else {
       requestKeyboard();
@@ -1320,46 +1328,33 @@ class RawEditorState extends EditorState
   // https://github.com/singerdmx/flutter-quill/issues/619
   // We cannot treat {"list": "checked"} and {"list": "unchecked"} as
   // block of the same style
-  // This causes controller.selection to go to offset 0
-  bool _disableScrollControllerAnimateOnce = false;
-
   void _showCaretOnScreen() {
-    if (!widget.showCursor || _showCaretOnScreenScheduled) {
+    // Read-only find results still need to be brought into view even though
+    // the caret itself is hidden.
+    if ((!widget.showCursor && !widget.readOnly) ||
+        _showCaretOnScreenScheduled) {
       return;
     }
 
     _showCaretOnScreenScheduled = true;
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      if (widget.scrollable || _scrollController.hasClients) {
-        _showCaretOnScreenScheduled = false;
+      _showCaretOnScreenScheduled = false;
 
-        if (!mounted) {
-          return;
-        }
-
-        final viewport = RenderAbstractViewport.of(renderEditor);
-        final editorOffset =
-            renderEditor.localToGlobal(const Offset(0, 0), ancestor: viewport);
-        final offsetInViewport = _scrollController.offset + editorOffset.dy;
-
-        final offset = renderEditor.getOffsetToRevealCursor(
-          _scrollController.position.viewportDimension,
-          _scrollController.offset,
-          offsetInViewport,
-        );
-
-        if (offset != null) {
-          if (_disableScrollControllerAnimateOnce) {
-            _disableScrollControllerAnimateOnce = false;
-            return;
-          }
-          _scrollController.animateTo(
-            math.min(offset, _scrollController.position.maxScrollExtent),
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.fastOutSlowIn,
-          );
-        }
+      if (!mounted || !renderEditor.attached) {
+        return;
       }
+
+      // Use the exact rendered caret rectangle. showOnScreen propagates the
+      // request through both Quill's viewport and the note page's outer
+      // ListView, so no scroll-distance estimate is needed.
+      final matchRect = renderEditor.getLocalRectForCaret(
+        controller.selection.extent,
+      );
+      renderEditor.showOnScreen(
+        rect: matchRect,
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOut,
+      );
     });
   }
 

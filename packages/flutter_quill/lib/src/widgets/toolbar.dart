@@ -346,6 +346,16 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
             iconTheme: iconTheme,
             afterButtonPressed: afterButtonPressed,
           ),
+        if (showListCheck)
+          ToggleCheckListButton(
+            attribute: Attribute.unchecked,
+            tooltip: buttonTooltips[ToolbarButtons.listChecks],
+            controller: controller,
+            icon: Icons.check_box,
+            iconSize: toolbarIconSize,
+            iconTheme: iconTheme,
+            afterButtonPressed: afterButtonPressed,
+          ),
         if (embedButtons != null)
           for (final builder in embedButtons)
             builder(controller, toolbarIconSize, iconTheme, dialogTheme),
@@ -453,16 +463,6 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
             tooltip: buttonTooltips[ToolbarButtons.listBullets],
             controller: controller,
             icon: Icons.format_list_bulleted,
-            iconSize: toolbarIconSize,
-            iconTheme: iconTheme,
-            afterButtonPressed: afterButtonPressed,
-          ),
-        if (showListCheck)
-          ToggleCheckListButton(
-            attribute: Attribute.unchecked,
-            tooltip: buttonTooltips[ToolbarButtons.listChecks],
-            controller: controller,
-            icon: Icons.check_box,
             iconSize: toolbarIconSize,
             iconTheme: iconTheme,
             afterButtonPressed: afterButtonPressed,

@@ -1,3 +1,5 @@
+import 'package:dairy_app/core/dependency_injection/injection_container.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/notes/notes_bloc.dart';
 import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/show_notes_close_dialog.dart';
@@ -61,6 +63,11 @@ class NotesCloseButton extends StatelessWidget with NoteHelperMixin {
         }
         bool? result = await showCloseDialog(context);
         if (result != null && result == true) {
+          if (state.newNote == true) {
+            // discarded before ever being saved; drop any todo reminders
+            await sl<ITodoRemindersRepository>()
+                .purgeRemindersForNotes([state.id]);
+          }
           onNotesClosed();
         }
       }

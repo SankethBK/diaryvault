@@ -14,6 +14,7 @@ import 'package:dairy_app/features/notes/core/failures/failure.dart';
 import 'package:dairy_app/features/notes/data/datasources/local%20data%20sources/local_data_source_template.dart';
 import 'package:dairy_app/features/notes/data/models/notes_model.dart';
 import 'package:dairy_app/features/notes/domain/entities/notes.dart';
+import 'package:dairy_app/features/notes/domain/repositories/todo_reminders_repository.dart';
 import 'package:dairy_app/features/notes/presentation/mixins/note_helper_mixin.dart';
 import 'package:dartz/dartz.dart';
 
@@ -27,6 +28,7 @@ class EncryptedNotesRepository
   final IEncryptionSessionService sessionService;
   final CryptoService cryptoService;
   final AuthSessionBloc authSessionBloc;
+  final ITodoRemindersRepository todoRemindersRepository;
 
   /// Decrypted notes live only here, in memory. Cleared on lock().
   final Map<String, NoteModel> _decryptedCache = {};
@@ -37,6 +39,7 @@ class EncryptedNotesRepository
     required this.sessionService,
     required this.cryptoService,
     required this.authSessionBloc,
+    required this.todoRemindersRepository,
   }) {
     sessionService.state.listen((state) {
       if (state is EncryptionLocked) {
@@ -88,6 +91,10 @@ class EncryptedNotesRepository
       return Left(EncryptionFailure.unknownError(e.toString()));
     }
   }
+
+  @override
+  Future<int> countEncryptedNotes() =>
+      encryptedNotesLocalDataSource.countEncryptedNotes(_userId);
 
   @override
   Future<Either<EncryptionFailure, NoteModel>> getEncryptedNote(
@@ -174,11 +181,18 @@ class EncryptedNotesRepository
   @override
   Future<Either<EncryptionFailure, void>> saveEncryptedNote(
       Map<String, dynamic> noteMap) async {
+    // notesLocalDataSource.saveNote/updateNote mutate the shared map
+    // (stripping id/tags/asset_dependencies), so capture the id up front
+    final noteId = noteMap["id"] as String;
     try {
       final prepared = await _encryptNoteMap(noteMap, isNew: true);
       prepared["author_id"] = _userId;
       await notesLocalDataSource.saveNote(prepared);
-      _decryptedCache.remove(noteMap["id"]);
+      _decryptedCache.remove(noteId);
+
+      // todo reminders are dropped when a note becomes encrypted so no
+      // plaintext todo content lingers in notifications or the todos table
+      await todoRemindersRepository.purgeRemindersForNotes([noteId]);
       return const Right(null);
     } catch (e) {
       log.e("saving encrypted note failed: $e");
@@ -189,10 +203,14 @@ class EncryptedNotesRepository
   @override
   Future<Either<EncryptionFailure, void>> updateEncryptedNote(
       Map<String, dynamic> noteMap) async {
+    // notesLocalDataSource.saveNote/updateNote mutate the shared map
+    // (stripping id/tags/asset_dependencies), so capture the id up front
+    final noteId = noteMap["id"] as String;
     try {
       final prepared = await _encryptNoteMap(noteMap, isNew: false);
       await notesLocalDataSource.updateNote(prepared, _userId);
-      _decryptedCache.remove(noteMap["id"]);
+      _decryptedCache.remove(noteId);
+      await todoRemindersRepository.purgeRemindersForNotes([noteId]);
       return const Right(null);
     } catch (e) {
       log.e("updating encrypted note failed: $e");
@@ -245,9 +263,11 @@ class EncryptedNotesRepository
       dek = await cryptoService.unwrapKey(
           WrappedKey.fromBase64(raw.wrappedDek!), masterKey);
       wrappedDek = raw.wrappedDek!;
-      encSalt = raw.encSalt!;
+      // Notes encrypted before the recovery keychain feature have null
+      // salt/recovery material; carry "" through so hashing stays stable
+      encSalt = raw.encSalt ?? "";
       encWrappedMkPass = raw.encWrappedMkPass!;
-      encWrappedMkRecovery = raw.encWrappedMkRecovery!;
+      encWrappedMkRecovery = raw.encWrappedMkRecovery ?? "";
       hashKey = masterKey;
     } else {
       final masterKey = await sessionService.requireMasterKey();
@@ -294,7 +314,11 @@ class EncryptedNotesRepository
     noteMap["encryption_version"] = CryptoService.encryptionVersion;
     noteMap["enc_salt"] = encSalt;
     noteMap["enc_wrapped_mk_pass"] = encWrappedMkPass;
-    noteMap["enc_wrapped_mk_recovery"] = encWrappedMkRecovery;
+    // Only stamp recovery material when the keychain actually has one;
+    // legacy rows keep their NULL column instead of being rewritten to ""
+    if (encWrappedMkRecovery.isNotEmpty) {
+      noteMap["enc_wrapped_mk_recovery"] = encWrappedMkRecovery;
+    }
     noteMap["wrapped_dek"] = wrappedDek;
 
     return noteMap;
@@ -349,9 +373,9 @@ class EncryptedNotesRepository
         if (masterKey == null) return null;
         return _computeHash(
           noteMap,
-          encSalt: raw.encSalt!,
+          encSalt: raw.encSalt ?? "",
           encWrappedMkPass: raw.encWrappedMkPass!,
-          encWrappedMkRecovery: raw.encWrappedMkRecovery!,
+          encWrappedMkRecovery: raw.encWrappedMkRecovery ?? "",
           wrappedDek: raw.wrappedDek!,
           masterKey: masterKey,
         );
@@ -383,6 +407,7 @@ class EncryptedNotesRepository
             hardDeletion: hardDeletion);
         _decryptedCache.remove(noteId);
       }
+      await todoRemindersRepository.purgeRemindersForNotes(noteList);
       return const Right(null);
     } catch (e) {
       log.e(e);

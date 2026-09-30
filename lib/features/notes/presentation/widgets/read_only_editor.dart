@@ -1,7 +1,8 @@
-import 'dart:ui';
-
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
+import 'package:dairy_app/core/utils/search_highlight_color.dart';
 import 'package:dairy_app/features/auth/presentation/bloc/font/font_cubit.dart';
+import 'package:dairy_app/features/notes/core/utils/todo_delta_parser.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/todo_reminder_embed_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -9,9 +10,14 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 class ReadOnlyEditor extends StatelessWidget {
   final QuillController? controller;
-  final FocusNode _focusNode = FocusNode();
+  final String searchText;
+  final FocusNode _focusNode = FocusNode(canRequestFocus: false);
 
-  ReadOnlyEditor({Key? key, required this.controller}) : super(key: key);
+  ReadOnlyEditor({
+    Key? key,
+    required this.controller,
+    this.searchText = '',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +34,22 @@ class ReadOnlyEditor extends StatelessWidget {
 
     var quillEditor = QuillEditor(
       embedBuilders: [
+        TodoReminderEmbedBuilder(),
+        TodoReminderEmbedBuilder(embedKey: kTodoReminderActionEmbedType),
+        TodoReminderEmbedBuilder(embedKey: BlockEmbed.customType),
         ...FlutterQuillEmbeds.builders(),
       ],
       controller: controller!,
+      searchText: searchText,
+      searchHighlightColor: searchHighlightColor(context),
       scrollController: ScrollController(),
       scrollable: true,
       focusNode: _focusNode,
       autoFocus: false,
       readOnly: true,
+      showCursor: false,
+      enableInteractiveSelection: false,
+      enableSelectionToolbar: false,
       placeholder: '',
       expands: false,
       padding: EdgeInsets.zero,
@@ -52,10 +66,19 @@ class ReadOnlyEditor extends StatelessWidget {
 
     final fontCubit = BlocProvider.of<FontCubit>(context);
 
-    return DefaultTextStyle(
-      style: fontCubit.state.currentFontFamily
-          .getGoogleFontFamilyTextStyle(mainTextColor),
-      child: quillEditor,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        // SearchButton uses the editor selection for the active match. Use a
+        // warm, high-contrast color so the match is visible in read mode.
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: searchHighlightColor(context).withValues(alpha: 0.7),
+        ),
+      ),
+      child: DefaultTextStyle(
+        style: fontCubit.state.currentFontFamily
+            .getGoogleFontFamilyTextStyle(mainTextColor),
+        child: quillEditor,
+      ),
     );
   }
 }

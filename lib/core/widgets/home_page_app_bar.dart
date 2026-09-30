@@ -27,7 +27,10 @@ import 'package:share_plus/share_plus.dart';
 class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
   const HomePageAppBar({
     Key? key,
+    this.onSearchClosed,
   }) : super(key: key);
+
+  final VoidCallback? onSearchClosed;
 
   @override
   State<HomePageAppBar> createState() => _HomePageAppBarState();
@@ -62,6 +65,7 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
       });
 
       notesFetchCubit.fetchNotes();
+      widget.onSearchClosed?.call();
     }
 
     return AppBar(

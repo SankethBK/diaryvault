@@ -2,6 +2,7 @@ import 'package:dairy_app/app/themes/theme_extensions/auth_page_theme_extensions
 import 'package:dairy_app/app/themes/theme_extensions/home_page_theme_extensions.dart';
 import 'package:dairy_app/core/dependency_injection/injection_container.dart';
 import 'package:dairy_app/core/utils/background_image.dart';
+import 'package:dairy_app/core/widgets/dashboard_pane_carousel.dart';
 import 'package:dairy_app/core/widgets/glassmorphism_cover.dart';
 import 'package:dairy_app/core/widgets/home_page_app_bar.dart';
 import 'package:dairy_app/features/auth/presentation/widgets/quit_app_dialog.dart';
@@ -9,8 +10,9 @@ import 'package:dairy_app/features/encryption/presentation/widgets/encryption_fa
 import 'package:dairy_app/features/notes/presentation/bloc/notes_fetch/notes_fetch_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/bloc/selectable_list/selectable_list_cubit.dart';
 import 'package:dairy_app/features/notes/presentation/pages/note_create_page.dart';
-import 'package:dairy_app/features/notes/presentation/widgets/note_preview_card.dart';
+import 'package:dairy_app/features/notes/presentation/widgets/rich_note_preview_card.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/search_tag_list.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool _isInitialized = false;
   late final NotesFetchCubit notesFetchCubit;
   late final SelectableListCubit selectableListCubit;
+  final ScrollController _homeScrollController = ScrollController();
   late double topPadding = 0;
 
   @override
@@ -49,14 +52,31 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
+  void _scrollHomeToTop() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_homeScrollController.hasClients) {
+        _homeScrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _homeScrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final backgroundImagePath =
         Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundImage;
 
-    final backgroundColor = Theme.of(context)
-        .extension<AuthPageThemeExtensions>()!
-        .backgroundColor;
+    final backgroundColor =
+        Theme.of(context).extension<AuthPageThemeExtensions>()!.backgroundColor;
 
     final borderColor =
         Theme.of(context).extension<HomePageThemeExtensions>()!.borderColor;
@@ -68,6 +88,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final backgroundGradientEndColor = Theme.of(context)
         .extension<HomePageThemeExtensions>()!
         .backgroundGradientEndColor;
+
+    // Keep the full-page glass layer as a frosted blur with only a faint tint
+    // so the wallpaper shows through the gaps between widgets, while each
+    // widget still carries its own translucent glass surface.
+    final homeBackdropGradient = [
+      backgroundGradientStartColor.withValues(alpha: 0.6),
+      backgroundGradientEndColor.withValues(alpha: 0.4),
+    ];
 
     final sigmaX =
         Theme.of(context).extension<HomePageThemeExtensions>()!.sigmaX;
@@ -87,7 +115,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
-        appBar: const HomePageAppBar(),
+        appBar: HomePageAppBar(onSearchClosed: _scrollHomeToTop),
         body: Container(
           decoration: getBackgroundDecoration(
             backgroundImagePath,
@@ -99,8 +127,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             right: 5.0,
           ),
           child: GlassMorphismCover(
-            sigmaX: sigmaX,
-            sigmaY: sigmaY,
+            sigmaX: 3,
+            sigmaY: 2,
             borderRadius: BorderRadius.circular(0.0),
             child: Container(
               padding: const EdgeInsets.all(0.0),
@@ -108,10 +136,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 borderRadius: BorderRadius.circular(0.0),
                 border: Border.all(width: 1.0, color: borderColor),
                 gradient: LinearGradient(
-                  colors: [
-                    backgroundGradientStartColor,
-                    backgroundGradientEndColor,
-                  ],
+                  colors: homeBackdropGradient,
                   begin: AlignmentDirectional.topStart,
                   end: AlignmentDirectional.bottomEnd,
                 ),
@@ -121,28 +146,56 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 builder: (context, state) {
                   if (state is NotesFetchDummyState) {
                     notesFetchCubit.fetchNotes();
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is NotesFetchSuccessful ||
-                      state is NotesSortSuccessful) {
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return const SearchTagList();
-                        }
-                        final note = state.notePreviewList[index - 1];
-
-                        return NotePreviewCard(
-                          first: index == 1,
-                          last: index == state.notePreviewList.length,
-                          note: note,
-                          index: index - 1,
-                        );
-                      },
-                      itemCount: state.notePreviewList.length + 1,
-                    );
                   }
-                  return Container();
+
+                  final noteList = state.notePreviewList;
+                  final isLoading = state is NotesFetchDummyState ||
+                      state is NotesFetchLoadingState;
+                  final isFailed = state is NotesFetchFailed;
+                  final showStatusRow = noteList.isEmpty && (isLoading || isFailed);
+
+                  return ListView.builder(
+                    controller: _homeScrollController,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            DashboardPaneCarousel(),
+                            SearchTagList(),
+                          ],
+                        );
+                      }
+                      final noteIndex = index - 1;
+                      if (noteIndex < noteList.length) {
+                        final note = noteList[noteIndex];
+                        return RichNotePreviewCard(
+                          note: note,
+                          index: noteIndex,
+                          searchText: state.searchText,
+                          initiallyExpanded: noteIndex == 0,
+                        );
+                      }
+                      if (isLoading) {
+                        return const Padding(
+                          padding: EdgeInsets.all(24),
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      }
+                      if (isFailed) {
+                        return Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Center(
+                            child: Text(S.of(context).failedToFetchNote),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                    itemCount:
+                        noteList.length + 1 + (showStatusRow ? 1 : 0),
+                  );
                 },
               ),
             ),
@@ -157,7 +210,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () {
-                Navigator.of(context).pushNamed(NoteCreatePage.routeThroughHome);
+                Navigator.of(context)
+                    .pushNamed(NoteCreatePage.routeThroughHome);
               },
             ),
           ],

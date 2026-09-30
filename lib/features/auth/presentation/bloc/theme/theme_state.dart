@@ -42,7 +42,7 @@ Themes getThemeFromString(String? themeString) {
     case 'custom':
       return Themes.custom;
     default:
-      return Themes.coralBubbles;
+      return Themes.cosmic;
   }
 }
 

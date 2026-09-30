@@ -27,33 +27,40 @@ class NotificationsRepository implements INotificationsRepository {
     return scheduledDate;
   }
 
+  Future<void> _ensureTimeZoneInitialized() async {
+    tz.initializeTimeZones();
+    final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName!));
+  }
+
+  Future<void> _ensurePermissions() async {
+    final permissionsEnabled = await areNotificationsEnabled();
+
+    log.w("permissions enabled = $permissionsEnabled");
+
+    if (!permissionsEnabled) {
+      // We can request permission from within the App for >= Android 13
+      final arePermissionsGranted = await requestPermission();
+      if (!arePermissionsGranted) {
+        throw Exception("Notification permissions are not enabled");
+      }
+    }
+  }
+
   @override
   Future<void> zonedScheduleNotification(TimeOfDay time) async {
     try {
-      final permissionsEnabled = await areNotificationsEnabled();
-
-      log.w("permissions enabled = $permissionsEnabled");
-
-      if (!permissionsEnabled) {
-        // We can request permission from within the App for >= Android 13
-        final arePermissionsGranted = await requestPermission();
-        if (!arePermissionsGranted) {
-          throw Exception("Notification permissions are not enabled");
-        }
-      }
-
-      // inititalize time zones
-      tz.initializeTimeZones();
-      final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
-      tz.setLocalLocation(tz.getLocation(timeZoneName!));
+      await _ensurePermissions();
+      await _ensureTimeZoneInitialized();
 
       log.i("Local timezone = ${tz.local}");
 
-      // cancel all previously scheduled notifications before scheduling new ones
-      cancelAllNotifications();
+      // cancel the previously scheduled daily reminder before rescheduling
+      await cancelNotification(
+          INotificationsRepository.dailyReminderNotificationId);
 
       await flutterLocalNotificationsPlugin.zonedSchedule(
-          0,
+          INotificationsRepository.dailyReminderNotificationId,
           S.current.notificationTitle1,
           S.current.notificationDescription1,
           nextInstanceOfTime(time, tz.local),
@@ -75,6 +82,51 @@ class NotificationsRepository implements INotificationsRepository {
     }
   }
 
+  @override
+  Future<void> scheduleOneTimeNotification({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime dateTime,
+  }) async {
+    try {
+      await _ensurePermissions();
+      await _ensureTimeZoneInitialized();
+
+      final scheduledDate = tz.TZDateTime.from(dateTime, tz.local);
+
+      log.i("Scheduling one-shot notification $id at $scheduledDate");
+
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        scheduledDate,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'todo_reminders',
+            'To-do reminders',
+            importance: Importance.high,
+            channelDescription: 'One-shot reminders set on to-do items',
+          ),
+        ),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    } catch (e) {
+      log.e(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> cancelNotification(int id) async {
+    log.i("Cancelling notification $id");
+    await flutterLocalNotificationsPlugin.cancel(id);
+  }
+
+  @override
   Future<bool> areNotificationsEnabled() async {
     final bool notificationAllowed = await flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<
@@ -91,6 +143,7 @@ class NotificationsRepository implements INotificationsRepository {
     return notificationAllowed && scheduleAllowed;
   }
 
+  @override
   Future<bool> requestPermission() async {
     final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
         flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<

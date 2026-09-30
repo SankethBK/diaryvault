@@ -134,7 +134,7 @@ class _AppViewState extends State<AppView> {
         return MaterialApp(
           navigatorKey: _navigatorKey,
           debugShowCheckedModeBanner: false,
-          title: "My Dairy",
+          onGenerateTitle: (context) => S.of(context).appTitle,
           locale: localeCubit.currentLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [

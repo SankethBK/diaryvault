@@ -75,7 +75,12 @@ class _NoteCreatePageState extends State<NoteCreatePage> with NoteHelperMixin {
       if (notesBloc.state is NoteDummyState) {
         final encrypted = widget.routeArgs?["encrypted"] == true;
         final noteId = widget.routeArgs?["id"] as String?;
-        notesBloc.add(InitializeNote(id: noteId, encrypted: encrypted));
+        notesBloc.add(InitializeNote(
+          id: noteId,
+          encrypted: encrypted,
+          initialTitle: widget.routeArgs?["initialTitle"] as String?,
+          initialBody: widget.routeArgs?["initialBody"] as String?,
+        ));
       }
 
       final backgroundImagePath = Theme.of(context)

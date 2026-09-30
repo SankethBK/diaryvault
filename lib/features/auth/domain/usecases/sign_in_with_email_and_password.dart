@@ -45,7 +45,7 @@ class SignInParams extends Equatable {
 
   @override
   String toString() {
-    return "$email, $password";
+    return email;
   }
 
   @override

@@ -28,7 +28,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(count) => "Imported ${count} notes";
 
-  static String m3(time) => "You will be notified at ${time}";
+  static String m3(minLength) =>
+      "Passphrase must be at least ${minLength} characters";
+
+  static String m4(time) => "You will be notified at ${time}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -46,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Discover diaryVault - a diary app designed to help you capture your thoughts, memories, and moments effortlessly. Available now on the Play Store!",
     ),
     "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
+    "appTitle": MessageLookupByLibrary.simpleMessage("My Dairy"),
     "appVersion": MessageLookupByLibrary.simpleMessage("App version"),
     "areYouSureAboutLoggingOut": MessageLookupByLibrary.simpleMessage(
       "Are you sure about logging out?",
@@ -60,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "availablePlatformsForSync": MessageLookupByLibrary.simpleMessage(
       "Available platforms for sync",
     ),
+    "backAction": MessageLookupByLibrary.simpleMessage("Back"),
     "byContinuingYouAgree": MessageLookupByLibrary.simpleMessage(
       "By continuing, you agree to our",
     ),
@@ -74,9 +79,21 @@ class MessageLookup extends MessageLookupByLibrary {
       "Change encryption passphrase",
     ),
     "changeImage": MessageLookupByLibrary.simpleMessage("Change image"),
+    "changePassphraseTitle": MessageLookupByLibrary.simpleMessage(
+      "Change passphrase",
+    ),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
+    "changeReminderTime": MessageLookupByLibrary.simpleMessage(
+      "Change reminder time",
+    ),
     "chooseBackgroundImage": MessageLookupByLibrary.simpleMessage(
       "Choose background image",
+    ),
+    "choosePassphraseHint": MessageLookupByLibrary.simpleMessage(
+      "You\'ll enter this to unlock encrypted notes. Use something long and memorable.",
+    ),
+    "choosePassphraseTitle": MessageLookupByLibrary.simpleMessage(
+      "Choose a passphrase",
     ),
     "chooseTheSyncSource": MessageLookupByLibrary.simpleMessage(
       "Choose the Sync Source",
@@ -85,16 +102,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "chooseTime": MessageLookupByLibrary.simpleMessage("Choose Time"),
     "closeTheApp": MessageLookupByLibrary.simpleMessage("Close the App?"),
     "cloudBackup": MessageLookupByLibrary.simpleMessage("Cloud Backup"),
+    "confirmNewPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "Confirm new passphrase",
+    ),
     "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
       "Confirm new password",
     ),
     "confirmNewPin": MessageLookupByLibrary.simpleMessage(
       "Confirm your new PIN",
     ),
+    "confirmPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "Confirm passphrase",
+    ),
     "continueAsGues": MessageLookupByLibrary.simpleMessage("Continue as guest"),
+    "continueButton": MessageLookupByLibrary.simpleMessage("Continue"),
+    "copyButtonTooltip": MessageLookupByLibrary.simpleMessage("Copy"),
     "create": MessageLookupByLibrary.simpleMessage("Create"),
     "createYourTheme": MessageLookupByLibrary.simpleMessage(
       "Create your theme",
+    ),
+    "currentPassphraseIncorrect": MessageLookupByLibrary.simpleMessage(
+      "Current passphrase is incorrect",
+    ),
+    "currentPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "Current passphrase",
     ),
     "customThemeIntro": MessageLookupByLibrary.simpleMessage(
       "Pick a photo you love or choose a background color, and we\'ll build a theme around it.",
@@ -103,6 +134,125 @@ class MessageLookup extends MessageLookupByLibrary {
     "dailyReminders": MessageLookupByLibrary.simpleMessage("Daily Reminders"),
     "darkLabel": MessageLookupByLibrary.simpleMessage("Dark"),
     "darkTheme": MessageLookupByLibrary.simpleMessage("Dark theme"),
+    "dashboardAddTodo": MessageLookupByLibrary.simpleMessage("Add a todo"),
+    "dashboardAnotherPrompt": MessageLookupByLibrary.simpleMessage(
+      "Another prompt",
+    ),
+    "dashboardComingSoon": MessageLookupByLibrary.simpleMessage("Coming soon"),
+    "dashboardCompletedTodos": MessageLookupByLibrary.simpleMessage(
+      "Completed",
+    ),
+    "dashboardCreateTodo": MessageLookupByLibrary.simpleMessage("Add"),
+    "dashboardDailyPrompt": MessageLookupByLibrary.simpleMessage(
+      "Daily prompt",
+    ),
+    "dashboardDailyPrompt1": MessageLookupByLibrary.simpleMessage(
+      "What felt like a small win for me today?",
+    ),
+    "dashboardDailyPrompt2": MessageLookupByLibrary.simpleMessage(
+      "What moment from today do I want to remember?",
+    ),
+    "dashboardDailyPrompt3": MessageLookupByLibrary.simpleMessage(
+      "What took more energy than I expected today?",
+    ),
+    "dashboardDailyPrompt4": MessageLookupByLibrary.simpleMessage(
+      "What can I let go of tonight?",
+    ),
+    "dashboardDailyPrompt5": MessageLookupByLibrary.simpleMessage(
+      "What did I learn about myself today?",
+    ),
+    "dashboardDailyPrompt6": MessageLookupByLibrary.simpleMessage(
+      "What made my day a little easier?",
+    ),
+    "dashboardDailyPrompt7": MessageLookupByLibrary.simpleMessage(
+      "What would make tomorrow feel gentler for me?",
+    ),
+    "dashboardDailyPrompt8": MessageLookupByLibrary.simpleMessage(
+      "What made me feel grateful today?",
+    ),
+    "dashboardDueToday": MessageLookupByLibrary.simpleMessage("Due today"),
+    "dashboardEditTodo": MessageLookupByLibrary.simpleMessage("Edit todo"),
+    "dashboardMoodCheckIn": MessageLookupByLibrary.simpleMessage(
+      "Mood check-in",
+    ),
+    "dashboardMoodContextPrompt": MessageLookupByLibrary.simpleMessage(
+      "Want to add a little context?",
+    ),
+    "dashboardMoodDifficult": MessageLookupByLibrary.simpleMessage(
+      "Having a hard day",
+    ),
+    "dashboardMoodGood": MessageLookupByLibrary.simpleMessage("Good"),
+    "dashboardMoodGreat": MessageLookupByLibrary.simpleMessage("Great"),
+    "dashboardMoodLow": MessageLookupByLibrary.simpleMessage("Not great"),
+    "dashboardMoodNoteTitle": MessageLookupByLibrary.simpleMessage(
+      "Today\'s reflection",
+    ),
+    "dashboardMoodOkay": MessageLookupByLibrary.simpleMessage("Okay"),
+    "dashboardMoodOpeningDifficult": MessageLookupByLibrary.simpleMessage(
+      "Today has been a hard day.",
+    ),
+    "dashboardMoodOpeningGood": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m feeling good.",
+    ),
+    "dashboardMoodOpeningGreat": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m feeling great.",
+    ),
+    "dashboardMoodOpeningLow": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m not feeling great.",
+    ),
+    "dashboardMoodOpeningOkay": MessageLookupByLibrary.simpleMessage(
+      "Today, I\'m feeling okay.",
+    ),
+    "dashboardMoodReflectionHint": MessageLookupByLibrary.simpleMessage(
+      "Anything else on your mind? (optional)",
+    ),
+    "dashboardMoodSaveToJournal": MessageLookupByLibrary.simpleMessage(
+      "Add to today\'s note",
+    ),
+    "dashboardMoodSubtitle": MessageLookupByLibrary.simpleMessage(
+      "How are you feeling today?",
+    ),
+    "dashboardNoDueDate": MessageLookupByLibrary.simpleMessage("No due date"),
+    "dashboardNoTodos": MessageLookupByLibrary.simpleMessage(
+      "No todos here yet",
+    ),
+    "dashboardNoTodosSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Your open and completed tasks will appear here.",
+    ),
+    "dashboardOpenInNote": MessageLookupByLibrary.simpleMessage("Open in note"),
+    "dashboardOpenTodos": MessageLookupByLibrary.simpleMessage("Open"),
+    "dashboardOverdue": MessageLookupByLibrary.simpleMessage("Overdue"),
+    "dashboardPromptSubtitle": MessageLookupByLibrary.simpleMessage(
+      "A small question to reflect on",
+    ),
+    "dashboardQuickCapture": MessageLookupByLibrary.simpleMessage(
+      "Quick capture",
+    ),
+    "dashboardReminderOptional": MessageLookupByLibrary.simpleMessage(
+      "No reminder set",
+    ),
+    "dashboardSaveTodo": MessageLookupByLibrary.simpleMessage("Save"),
+    "dashboardToday": MessageLookupByLibrary.simpleMessage("Today"),
+    "dashboardTodoLoadFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not load todos",
+    ),
+    "dashboardTodoRequired": MessageLookupByLibrary.simpleMessage(
+      "Enter a todo first",
+    ),
+    "dashboardTodoSourceHint": MessageLookupByLibrary.simpleMessage(
+      "Todos can be added from a note or created directly here.",
+    ),
+    "dashboardTodoTitle": MessageLookupByLibrary.simpleMessage(
+      "What needs doing?",
+    ),
+    "dashboardTodoUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not update this todo",
+    ),
+    "dashboardTodos": MessageLookupByLibrary.simpleMessage("Todos"),
+    "dashboardUpcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
+    "dashboardWriteAboutPrompt": MessageLookupByLibrary.simpleMessage(
+      "Write about this",
+    ),
     "dateFilter": MessageLookupByLibrary.simpleMessage("Date Filter"),
     "defaultThemeName": MessageLookupByLibrary.simpleMessage("My Theme"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
@@ -113,6 +263,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dropbox": MessageLookupByLibrary.simpleMessage("Dropbox"),
     "editTheme": MessageLookupByLibrary.simpleMessage("Edit theme"),
+    "editorPlaceholder": MessageLookupByLibrary.simpleMessage(
+      "Write something here...",
+    ),
     "emailUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Email updated successfully, please login again",
     ),
@@ -133,14 +286,35 @@ class MessageLookup extends MessageLookupByLibrary {
     "encryptThisNote": MessageLookupByLibrary.simpleMessage(
       "Encrypt this note",
     ),
+    "encryptYourNotesDescription": MessageLookupByLibrary.simpleMessage(
+      "Notes you mark as encrypted are protected on this device and in your cloud backup with a passphrase only you know. Nobody else - including us and your cloud provider - can read them.",
+    ),
+    "encryptYourNotesTitle": MessageLookupByLibrary.simpleMessage(
+      "Encrypt your notes",
+    ),
     "encryptedNotes": MessageLookupByLibrary.simpleMessage("Encrypted notes"),
     "encryptedNotesLocked": MessageLookupByLibrary.simpleMessage(
       "Encrypted notes are locked",
     ),
     "encryption": MessageLookupByLibrary.simpleMessage("Encryption"),
     "encryptionEnabled": MessageLookupByLibrary.simpleMessage("Enabled"),
+    "encryptionEnabledToast": MessageLookupByLibrary.simpleMessage(
+      "Encryption enabled",
+    ),
+    "encryptionLossAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "I understand there is no way to recover my notes if I forget this passphrase and lose the recovery code",
+    ),
+    "encryptionLossWarning": MessageLookupByLibrary.simpleMessage(
+      "⚠️ If you forget your passphrase AND lose the recovery code, encrypted notes are gone forever. There is no way to recover them.",
+    ),
+    "encryptionSeparateViewDescription": MessageLookupByLibrary.simpleMessage(
+      "Encrypted notes live in a separate locked view and are excluded from search.",
+    ),
     "encryptionSetupPrompt": MessageLookupByLibrary.simpleMessage(
       "Set up a passphrase and recovery code",
+    ),
+    "encryptionStaysOnToast": MessageLookupByLibrary.simpleMessage(
+      "Encryption stays on for encrypted notes. Lock them anytime from the encrypted notes view.",
     ),
     "enterCurrentPassword": MessageLookupByLibrary.simpleMessage(
       "Enter current password",
@@ -173,6 +347,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "You are about to enable fingerprint without creating account, if there is any hardware damage to fingerprint sensor you will be locked out of the app. If this is not intentional, please setup your account from first option in settings menu, if this is intentional, please make sure to enable cloud backup for your notes",
     ),
     "fontFamily": MessageLookupByLibrary.simpleMessage("Font Family"),
+    "forgotPassphraseUseRecoveryCode": MessageLookupByLibrary.simpleMessage(
+      "Forgot passphrase? Use recovery code",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password"),
     "from": MessageLookupByLibrary.simpleMessage("From"),
     "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
@@ -201,6 +378,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "leave": MessageLookupByLibrary.simpleMessage("Leave"),
     "lightLabel": MessageLookupByLibrary.simpleMessage("Light"),
     "link": MessageLookupByLibrary.simpleMessage("Link"),
+    "lockAction": MessageLookupByLibrary.simpleMessage("Lock"),
     "lockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
       "Lock encrypted notes",
     ),
@@ -213,17 +391,47 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "moreInfo": MessageLookupByLibrary.simpleMessage("More Info"),
     "muted": MessageLookupByLibrary.simpleMessage("Muted"),
+    "newPassphraseLabel": MessageLookupByLibrary.simpleMessage(
+      "New passphrase",
+    ),
+    "newPassphrasesDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "New passphrases do not match",
+    ),
     "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
+    "newRecoveryCodeAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "I have written down the new code",
+    ),
+    "newRecoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "Write it down and keep it safe. It will not be shown again.",
+    ),
+    "newRecoveryCodeTitle": MessageLookupByLibrary.simpleMessage(
+      "New recovery code",
+    ),
     "nextCloud": MessageLookupByLibrary.simpleMessage("NextCloud"),
     "noEncryptedNotesYet": MessageLookupByLibrary.simpleMessage(
       "No encrypted notes yet",
     ),
     "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
+    "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
+    "noteCollapsePreview": MessageLookupByLibrary.simpleMessage(
+      "Collapse preview",
+    ),
+    "noteDifferentPassphrase": MessageLookupByLibrary.simpleMessage(
+      "This note is protected by a different passphrase",
+    ),
+    "noteExpandPreview": MessageLookupByLibrary.simpleMessage("Expand preview"),
+    "noteNoTitle": MessageLookupByLibrary.simpleMessage("Untitled note"),
     "noteSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note saved successfully",
     ),
     "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note updated successfully",
+    ),
+    "noteWillBeSavedEncrypted": MessageLookupByLibrary.simpleMessage(
+      "Note will be saved encrypted",
+    ),
+    "noteWillBeSavedUnencrypted": MessageLookupByLibrary.simpleMessage(
+      "Note will be saved unencrypted",
     ),
     "notesImportPartialFailure": m0,
     "notesImportSkippedSummary": m1,
@@ -248,6 +456,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Palette (tap a swatch to edit)",
     ),
     "passphrase": MessageLookupByLibrary.simpleMessage("Passphrase"),
+    "passphraseLabel": MessageLookupByLibrary.simpleMessage("Passphrase"),
+    "passphraseMinLength": m3,
+    "passphrasesDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Passphrases do not match",
+    ),
     "passwordResetMailSent": MessageLookupByLibrary.simpleMessage(
       "Password reset email sent",
     ),
@@ -291,26 +504,92 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "recordAudio": MessageLookupByLibrary.simpleMessage("Record Audio"),
     "recoveryCode": MessageLookupByLibrary.simpleMessage("Recovery code"),
+    "recoveryCodeAcknowledgement": MessageLookupByLibrary.simpleMessage(
+      "I have written down my recovery code",
+    ),
+    "recoveryCodeCopiedToast": MessageLookupByLibrary.simpleMessage(
+      "Recovery code copied",
+    ),
+    "recoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "Write this down and keep it somewhere safe. It is the ONLY way to recover your notes if you forget the passphrase. It will not be shown again.",
+    ),
+    "regenerateButton": MessageLookupByLibrary.simpleMessage("Regenerate"),
     "regenerateRecoveryCode": MessageLookupByLibrary.simpleMessage(
       "Regenerate recovery code",
+    ),
+    "regenerateRecoveryCodeDescription": MessageLookupByLibrary.simpleMessage(
+      "This invalidates your old recovery code. Enter your passphrase to continue.",
+    ),
+    "reminderRemoved": MessageLookupByLibrary.simpleMessage("Reminder removed"),
+    "reminderSchedulingFailed": MessageLookupByLibrary.simpleMessage(
+      "Could not schedule reminder. Please try again.",
+    ),
+    "reminderSet": MessageLookupByLibrary.simpleMessage("Reminder set"),
+    "reminderTimeMustBeInFuture": MessageLookupByLibrary.simpleMessage(
+      "Please pick a time in the future",
     ),
     "reminders": MessageLookupByLibrary.simpleMessage("Reminders"),
     "removeEncryptionFromThisNote": MessageLookupByLibrary.simpleMessage(
       "Remove encryption from this note",
     ),
+    "removeReminder": MessageLookupByLibrary.simpleMessage("Remove reminder"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "resetPin": MessageLookupByLibrary.simpleMessage("Reset PIN"),
     "saveAndApplyTheme": MessageLookupByLibrary.simpleMessage(
       "Save & apply theme",
     ),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
+    "searchInNoteHint": MessageLookupByLibrary.simpleMessage("Search in note"),
     "security": MessageLookupByLibrary.simpleMessage("Security"),
+    "securityBackedUpNotes": MessageLookupByLibrary.simpleMessage("Backed up"),
+    "securityBackupNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "Choose a cloud backup provider to see backup stats.",
+    ),
+    "securityBackupOffline": MessageLookupByLibrary.simpleMessage(
+      "Backup status isn\'t available offline.",
+    ),
+    "securityBackupSetupHint": MessageLookupByLibrary.simpleMessage(
+      "Enable cloud backup so you never lose your notes.",
+    ),
+    "securityBackupSetupTitle": MessageLookupByLibrary.simpleMessage(
+      "Set up backup",
+    ),
+    "securityBackupTitle": MessageLookupByLibrary.simpleMessage(
+      "Privacy & backup",
+    ),
+    "securityBackupUnverified": MessageLookupByLibrary.simpleMessage(
+      "Sync once to verify your backup status.",
+    ),
+    "securityEncryptedNotes": MessageLookupByLibrary.simpleMessage(
+      "Encrypted notes",
+    ),
+    "securityLastSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "Last successful sync",
+    ),
+    "securityLastSync": MessageLookupByLibrary.simpleMessage("Last sync"),
+    "securityMetricUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Unavailable",
+    ),
+    "securityNoSuccessfulSync": MessageLookupByLibrary.simpleMessage(
+      "No successful sync yet.",
+    ),
+    "securityPendingBackup": MessageLookupByLibrary.simpleMessage(
+      "Needs backup",
+    ),
     "securitySettings": MessageLookupByLibrary.simpleMessage(
       "Security Settings",
     ),
+    "securityStatsNotConfigured": MessageLookupByLibrary.simpleMessage(
+      "You haven\'t selected a cloud backup platform yet.",
+    ),
+    "securitySyncedData": MessageLookupByLibrary.simpleMessage("Cloud data"),
     "select": MessageLookupByLibrary.simpleMessage("Select"),
     "selectVoice": MessageLookupByLibrary.simpleMessage("Select Voice"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
+    "setPassphrase": MessageLookupByLibrary.simpleMessage("Set passphrase"),
+    "setTodoReminder": MessageLookupByLibrary.simpleMessage(
+      "Set to-do reminder",
+    ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "setupYourAccount": MessageLookupByLibrary.simpleMessage(
       "Setup your Account",
@@ -334,6 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "stay": MessageLookupByLibrary.simpleMessage("Stay"),
     "submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "syncNow": MessageLookupByLibrary.simpleMessage("Sync now"),
+    "syncSourceNone": MessageLookupByLibrary.simpleMessage("None"),
     "tagAlreadyExists": MessageLookupByLibrary.simpleMessage(
       "Tag already exists",
     ),
@@ -346,26 +626,63 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeName": MessageLookupByLibrary.simpleMessage("Theme name"),
     "themeNameHint": MessageLookupByLibrary.simpleMessage("My Theme"),
     "to": MessageLookupByLibrary.simpleMessage("To"),
+    "todoReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
+      "To-do reminder",
+    ),
+    "todoRemindersNeedUncheckedTodo": MessageLookupByLibrary.simpleMessage(
+      "Place the cursor on a to-do item to set a reminder",
+    ),
+    "todoRemindersUnavailableInEncryptedNotes":
+        MessageLookupByLibrary.simpleMessage(
+          "Reminders are not available in encrypted notes",
+        ),
     "tooManyWrongAttempts": MessageLookupByLibrary.simpleMessage(
       "Too many wrong attempts, please login with password",
     ),
     "toolbarPosition": MessageLookupByLibrary.simpleMessage("Toolbar Position"),
+    "toolbarPositionBottom": MessageLookupByLibrary.simpleMessage("Bottom"),
+    "toolbarPositionTop": MessageLookupByLibrary.simpleMessage("Top"),
     "unexpectedErrorOccured": MessageLookupByLibrary.simpleMessage(
       "Unexpected error occured",
     ),
+    "unlockAction": MessageLookupByLibrary.simpleMessage("Unlock"),
+    "unlockButton": MessageLookupByLibrary.simpleMessage("Unlock"),
     "unlockEncryptedNotes": MessageLookupByLibrary.simpleMessage(
       "Unlock encrypted notes",
     ),
+    "unlockNoteAction": MessageLookupByLibrary.simpleMessage("Unlock note"),
     "unlockThisNote": MessageLookupByLibrary.simpleMessage("Unlock this note"),
+    "usePassphraseInstead": MessageLookupByLibrary.simpleMessage(
+      "Use passphrase instead",
+    ),
     "video": MessageLookupByLibrary.simpleMessage("Video"),
+    "visitWebsite": MessageLookupByLibrary.simpleMessage("Visit our website"),
     "warning": MessageLookupByLibrary.simpleMessage("Warning"),
     "webdavURL": MessageLookupByLibrary.simpleMessage("WebDAV URL"),
     "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new"),
+    "whatsNewCloudBackupSubtitle": MessageLookupByLibrary.simpleMessage(
+      "See which notes are backed up, pending upload and when your last sync happened.",
+    ),
+    "whatsNewCloudBackupTitle": MessageLookupByLibrary.simpleMessage(
+      "Cloud backup status",
+    ),
     "whatsNewEncryptionSubtitle": MessageLookupByLibrary.simpleMessage(
       "Protect sensitive notes with passphrase-based encryption and recovery options.",
     ),
     "whatsNewEncryptionTitle": MessageLookupByLibrary.simpleMessage(
       "About encryption",
+    ),
+    "whatsNewHomeSearchSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Find notes from the home page and search inside a note while reading.",
+    ),
+    "whatsNewHomeSearchTitle": MessageLookupByLibrary.simpleMessage(
+      "Search everywhere",
+    ),
+    "whatsNewStreakTrackingSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Track your current streak, longest streak, total words and a 6-month activity heatmap.",
+    ),
+    "whatsNewStreakTrackingTitle": MessageLookupByLibrary.simpleMessage(
+      "Writing streaks & stats",
     ),
     "whatsNewThemesSubtitle": MessageLookupByLibrary.simpleMessage(
       "Personalize DiaryVault with your own colors and visual style.",
@@ -373,10 +690,40 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatsNewThemesTitle": MessageLookupByLibrary.simpleMessage(
       "Creating and customizing themes",
     ),
+    "whatsNewTodosSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Add checklists inside notes, create standalone todos and get notified with reminders.",
+    ),
+    "whatsNewTodosTitle": MessageLookupByLibrary.simpleMessage(
+      "Todos with reminders",
+    ),
+    "writingActivity": MessageLookupByLibrary.simpleMessage("Writing activity"),
+    "writingActivityEmpty": MessageLookupByLibrary.simpleMessage(
+      "Your writing days will show here.",
+    ),
+    "writingActivityLess": MessageLookupByLibrary.simpleMessage("Less"),
+    "writingActivityMore": MessageLookupByLibrary.simpleMessage("More"),
+    "writingActivityPeriod": MessageLookupByLibrary.simpleMessage(
+      "Last 6 months",
+    ),
+    "writingActivityPrivacyNote": MessageLookupByLibrary.simpleMessage(
+      "Encrypted notes aren\'t included in these stats.",
+    ),
+    "writingCurrentStreak": MessageLookupByLibrary.simpleMessage(
+      "Current streak",
+    ),
+    "writingDay": MessageLookupByLibrary.simpleMessage("day"),
+    "writingDays": MessageLookupByLibrary.simpleMessage("days"),
+    "writingLongestStreak": MessageLookupByLibrary.simpleMessage(
+      "Longest streak",
+    ),
+    "writingTotalWords": MessageLookupByLibrary.simpleMessage("Total words"),
     "wrongPIN": MessageLookupByLibrary.simpleMessage("Wrong PIN"),
     "youHaveUnsavedChanges": MessageLookupByLibrary.simpleMessage(
       "You have unsaved changes",
     ),
-    "youWillBeNotifiedAt": m3,
+    "youWillBeNotifiedAt": m4,
+    "yourRecoveryCodeTitle": MessageLookupByLibrary.simpleMessage(
+      "Your recovery code",
+    ),
   };
 }

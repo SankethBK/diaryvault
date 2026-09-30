@@ -63,6 +63,9 @@ class FakeEncryptedNotesLocalDataSource
       ];
 
   @override
+  Future<int> countEncryptedNotes(String authorId) async => 0;
+
+  @override
   Future<List<NoteModel>> fetchEncryptedNotes(String authorId) async => [];
 
   @override

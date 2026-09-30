@@ -107,6 +107,17 @@ class EncryptedNotesLocalDataSource implements IEncryptedNotesLocalDataSource {
     return notes;
   }
 
+  @override
+  Future<int> countEncryptedNotes(String authorId) async {
+    final result = await database.rawQuery(
+      'SELECT COUNT(*) AS count FROM ${Notes.TABLE_NAME} '
+      'WHERE ${Notes.DELETED} != 1 AND ${Notes.IS_ENCRYPTED} = 1 '
+      'AND (${Notes.AUTHOR_ID} = ? OR ${Notes.AUTHOR_ID} = ?)',
+      [authorId, GuestUserDetails.guestUserId],
+    );
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   /// Single encrypted note in raw (ciphertext) form.
   @override
   Future<NoteModel?> getEncryptedNoteRaw(String id) async {

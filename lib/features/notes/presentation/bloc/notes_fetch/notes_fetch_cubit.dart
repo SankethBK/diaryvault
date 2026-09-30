@@ -77,14 +77,16 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
     emit(NotesSortSuccessful(
         notePreviewList: notePreviewList,
         isTagSearchEnabled: state.isTagSearchEnabled,
-        tags: state.tags));
+        tags: state.tags,
+        searchText: state.searchText));
   }
 
   void toggleTagSearch() {
     if (state is NotesFetchSuccessful || state is NotesSortSuccessful) {
       emit(NotesFetchSuccessful(
           notePreviewList: state.notePreviewList,
-          isTagSearchEnabled: !state.isTagSearchEnabled));
+          isTagSearchEnabled: !state.isTagSearchEnabled,
+          searchText: state.searchText));
     }
   }
 
@@ -92,7 +94,8 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
     emit(NotesFetchSuccessful(
         notePreviewList: state.notePreviewList,
         tags: [newTag, ...state.tags],
-        isTagSearchEnabled: state.isTagSearchEnabled));
+        isTagSearchEnabled: state.isTagSearchEnabled,
+        searchText: state.searchText));
 
     fetchNotes();
   }
@@ -104,15 +107,19 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
     emit(NotesFetchSuccessful(
         notePreviewList: state.notePreviewList,
         tags: updatedTags,
-        isTagSearchEnabled: state.isTagSearchEnabled));
+        isTagSearchEnabled: state.isTagSearchEnabled,
+        searchText: state.searchText));
 
     fetchNotes();
   }
 
   void fetchNotes(
       {String? searchText, DateTime? startDate, DateTime? endDate}) async {
+    final activeSearchText = searchText ?? '';
     emit(NotesFetchLoadingState(
-        isTagSearchEnabled: state.isTagSearchEnabled, tags: state.tags));
+        isTagSearchEnabled: state.isTagSearchEnabled,
+        tags: state.tags,
+        searchText: activeSearchText));
 
     var result = await notesRepository.fetchNotesPreview(
       searchText: searchText,
@@ -130,7 +137,8 @@ class NotesFetchCubit extends Cubit<NotesFetchState> {
       emit(NotesFetchSuccessful(
           notePreviewList: data,
           tags: state.tags,
-          isTagSearchEnabled: state.isTagSearchEnabled));
+          isTagSearchEnabled: state.isTagSearchEnabled,
+          searchText: activeSearchText));
 
       if (preferredNoteSortType != null) {
         sortNotes(preferredNoteSortType);

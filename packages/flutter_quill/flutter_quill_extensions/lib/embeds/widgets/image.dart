@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io' as io;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:photo_view/photo_view.dart';
@@ -37,8 +38,18 @@ Image imageByUrl(String imageUrl,
   }
 
   if (imageUrl.startsWith('http')) {
-    return Image.network(imageUrl,
-        width: width, height: height, alignment: alignment);
+    return Image(
+      image: ResizeImage.resizeIfNeeded(
+        width?.round(),
+        height?.round(),
+        CachedNetworkImageProvider(imageUrl),
+      ),
+      width: width,
+      height: height,
+      alignment: alignment,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.broken_image),
+    );
   }
   return Image.file(io.File(imageUrl),
       width: width, height: height, alignment: alignment);
@@ -77,9 +88,13 @@ class ImageTapWrapper extends StatelessWidget {
 
   final String imageUrl;
 
-  ImageProvider _imageProviderByUrl(String imageUrl) {
+  ImageProvider _imageProviderByUrl(String imageUrl, Size viewportSize) {
     if (imageUrl.startsWith('http')) {
-      return NetworkImage(imageUrl);
+      return ResizeImage.resizeIfNeeded(
+        viewportSize.width.round(),
+        viewportSize.height.round(),
+        CachedNetworkImageProvider(imageUrl),
+      );
     }
 
     return FileImage(io.File(imageUrl));
@@ -95,7 +110,10 @@ class ImageTapWrapper extends StatelessWidget {
         child: Stack(
           children: [
             PhotoView(
-              imageProvider: _imageProviderByUrl(imageUrl),
+              imageProvider: _imageProviderByUrl(
+                imageUrl,
+                MediaQuery.of(context).size,
+              ),
               loadingBuilder: (context, event) {
                 return Container(
                   color: Colors.black,
