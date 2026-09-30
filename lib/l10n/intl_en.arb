@@ -164,6 +164,14 @@
   "whatsNewThemesSubtitle": "Personalize DiaryVault with your own colors and visual style.",
   "whatsNewEncryptionTitle": "About encryption",
   "whatsNewEncryptionSubtitle": "Protect sensitive notes with passphrase-based encryption and recovery options.",
+  "whatsNewStreakTrackingTitle": "Writing streaks & stats",
+  "whatsNewStreakTrackingSubtitle": "Track your current streak, longest streak, total words and a 6-month activity heatmap.",
+  "whatsNewTodosTitle": "Todos with reminders",
+  "whatsNewTodosSubtitle": "Add checklists inside notes, create standalone todos and get notified with reminders.",
+  "whatsNewHomeSearchTitle": "Search everywhere",
+  "whatsNewHomeSearchSubtitle": "Find notes from the home page and search inside a note while reading.",
+  "whatsNewCloudBackupTitle": "Cloud backup status",
+  "whatsNewCloudBackupSubtitle": "See which notes are backed up, pending upload and when your last sync happened.",
   "encryption": "Encryption",
   "encryptedNotes": "Encrypted notes",
   "unlockEncryptedNotes": "Unlock encrypted notes",
@@ -273,5 +281,72 @@
   "dashboardTodoRequired": "Enter a todo first",
   "dashboardNoTodos": "No todos here yet",
   "dashboardNoTodosSubtitle": "Your open and completed tasks will appear here.",
-  "reminderTimeMustBeInFuture": "Please pick a time in the future"
+  "reminderTimeMustBeInFuture": "Please pick a time in the future",
+
+  "appTitle": "My Dairy",
+
+  "noteDifferentPassphrase": "This note is protected by a different passphrase",
+  "unlockNoteAction": "Unlock note",
+  "lockAction": "Lock",
+  "unlockAction": "Unlock",
+
+  "encryptionStaysOnToast": "Encryption stays on for encrypted notes. Lock them anytime from the encrypted notes view.",
+  "encryptionEnabledToast": "Encryption enabled",
+
+  "passphraseMinLength": "Passphrase must be at least {minLength} characters",
+  "@passphraseMinLength": {
+    "description": "Validation error when passphrase is too short",
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "newPassphrasesDoNotMatch": "New passphrases do not match",
+  "currentPassphraseIncorrect": "Current passphrase is incorrect",
+  "changePassphraseTitle": "Change passphrase",
+  "currentPassphraseLabel": "Current passphrase",
+  "newPassphraseLabel": "New passphrase",
+  "confirmNewPassphraseLabel": "Confirm new passphrase",
+  "passphrasesDoNotMatch": "Passphrases do not match",
+
+  "encryptYourNotesTitle": "Encrypt your notes",
+  "encryptYourNotesDescription": "Notes you mark as encrypted are protected on this device and in your cloud backup with a passphrase only you know. Nobody else - including us and your cloud provider - can read them.",
+  "encryptionLossWarning": "⚠️ If you forget your passphrase AND lose the recovery code, encrypted notes are gone forever. There is no way to recover them.",
+  "encryptionSeparateViewDescription": "Encrypted notes live in a separate locked view and are excluded from search.",
+  "notNow": "Not now",
+  "continueButton": "Continue",
+  "choosePassphraseTitle": "Choose a passphrase",
+  "choosePassphraseHint": "You'll enter this to unlock encrypted notes. Use something long and memorable.",
+  "passphraseLabel": "Passphrase",
+  "confirmPassphraseLabel": "Confirm passphrase",
+  "encryptionLossAcknowledgement": "I understand there is no way to recover my notes if I forget this passphrase and lose the recovery code",
+  "backAction": "Back",
+  "setPassphrase": "Set passphrase",
+  "yourRecoveryCodeTitle": "Your recovery code",
+  "recoveryCodeDescription": "Write this down and keep it somewhere safe. It is the ONLY way to recover your notes if you forget the passphrase. It will not be shown again.",
+  "copyButtonTooltip": "Copy",
+  "recoveryCodeCopiedToast": "Recovery code copied",
+  "recoveryCodeAcknowledgement": "I have written down my recovery code",
+
+  "noteWillBeSavedUnencrypted": "Note will be saved unencrypted",
+  "noteWillBeSavedEncrypted": "Note will be saved encrypted",
+
+  "regenerateRecoveryCodeDescription": "This invalidates your old recovery code. Enter your passphrase to continue.",
+  "regenerateButton": "Regenerate",
+  "newRecoveryCodeTitle": "New recovery code",
+  "newRecoveryCodeDescription": "Write it down and keep it safe. It will not be shown again.",
+  "newRecoveryCodeAcknowledgement": "I have written down the new code",
+
+  "usePassphraseInstead": "Use passphrase instead",
+  "forgotPassphraseUseRecoveryCode": "Forgot passphrase? Use recovery code",
+  "unlockButton": "Unlock",
+
+  "editorPlaceholder": "Write something here...",
+  "searchInNoteHint": "Search in note",
+  "noteNoTitle": "Untitled note",
+  "toolbarPositionTop": "Top",
+  "toolbarPositionBottom": "Bottom",
+  "syncSourceNone": "None",
+  "visitWebsite": "Visit our website"
 }

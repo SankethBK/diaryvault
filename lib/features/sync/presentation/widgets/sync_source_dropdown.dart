@@ -40,7 +40,7 @@ class SyncSourceDropdown extends StatelessWidget {
                 SyncConstants.googleDrive,
                 SyncConstants.dropbox,
                 SyncConstants.nextCloud,
-                "None"
+                S.current.syncSourceNone
               ].map((item) {
                 return PopupMenuItem<String>(
                   value: item,

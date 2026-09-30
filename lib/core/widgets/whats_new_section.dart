@@ -56,6 +56,42 @@ class _WhatsNewSectionState extends State<WhatsNewSection> {
               color: mainTextColor,
             ),
           ),
+          const SizedBox(height: 6),
+          SettingsTile(
+            height: 64,
+            child: _UpdateTile(
+              title: S.current.whatsNewStreakTrackingTitle,
+              subtitle: S.current.whatsNewStreakTrackingSubtitle,
+              color: mainTextColor,
+            ),
+          ),
+          const SizedBox(height: 6),
+          SettingsTile(
+            height: 64,
+            child: _UpdateTile(
+              title: S.current.whatsNewTodosTitle,
+              subtitle: S.current.whatsNewTodosSubtitle,
+              color: mainTextColor,
+            ),
+          ),
+          const SizedBox(height: 6),
+          SettingsTile(
+            height: 64,
+            child: _UpdateTile(
+              title: S.current.whatsNewHomeSearchTitle,
+              subtitle: S.current.whatsNewHomeSearchSubtitle,
+              color: mainTextColor,
+            ),
+          ),
+          const SizedBox(height: 6),
+          SettingsTile(
+            height: 64,
+            child: _UpdateTile(
+              title: S.current.whatsNewCloudBackupTitle,
+              subtitle: S.current.whatsNewCloudBackupSubtitle,
+              color: mainTextColor,
+            ),
+          ),
         ],
       ],
     );

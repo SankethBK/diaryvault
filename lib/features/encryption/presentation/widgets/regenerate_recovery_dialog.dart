@@ -7,6 +7,7 @@ import 'package:dairy_app/core/widgets/glass_dialog.dart';
 import 'package:dairy_app/core/widgets/submit_button.dart';
 import 'package:dairy_app/features/encryption/core/failures/encryption_failure.dart';
 import 'package:dairy_app/features/encryption/domain/repositories/encrypted_notes_repository.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -88,12 +89,12 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Regenerate recovery code",
+          S.current.regenerateRecoveryCode,
           style: TextStyle(fontSize: 19.0, color: mainTextColor),
         ),
         const SizedBox(height: 8),
         Text(
-          "This invalidates your old recovery code. Enter your passphrase to continue.",
+          S.current.regenerateRecoveryCodeDescription,
           style: TextStyle(fontSize: 13.0, color: mainTextColor),
         ),
         const SizedBox(height: 14),
@@ -107,7 +108,7 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
           autofocus: true,
           onSubmitted: (_) => _submit(),
           decoration: InputDecoration(
-            labelText: "Passphrase",
+            labelText: S.current.passphraseLabel,
             labelStyle: TextStyle(color: inputTextColor),
             floatingLabelStyle: TextStyle(color: inputTextColor),
             errorText: _errorText,
@@ -119,14 +120,14 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CancelButton(
-              buttonText: "Cancel",
+              buttonText: S.current.cancel,
               onPressed: () => Navigator.of(context).pop(false),
             ),
             const SizedBox(width: 10),
             SubmitButton(
               isLoading: _isLoading,
               onSubmitted: _submit,
-              buttonText: "Regenerate",
+              buttonText: S.current.regenerateButton,
             ),
           ],
         ),
@@ -140,12 +141,12 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "New recovery code",
+          S.current.newRecoveryCodeTitle,
           style: TextStyle(fontSize: 19.0, color: mainTextColor),
         ),
         const SizedBox(height: 8),
         Text(
-          "Write it down and keep it safe. It will not be shown again.",
+          S.current.newRecoveryCodeDescription,
           style: TextStyle(fontSize: 13.0, color: mainTextColor),
         ),
         const SizedBox(height: 14),
@@ -171,10 +172,10 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
               ),
               IconButton(
                 icon: Icon(Icons.copy, color: mainTextColor),
-                tooltip: "Copy",
+                tooltip: S.current.copyButtonTooltip,
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: _newCode!));
-                  showToast("Recovery code copied", context: context);
+                  showToast(S.current.recoveryCodeCopiedToast, context: context);
                 },
               ),
             ],
@@ -189,7 +190,7 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
             ),
             Flexible(
               child: Text(
-                "I have written down the new code",
+                S.current.newRecoveryCodeAcknowledgement,
                 style: TextStyle(fontSize: 13.0, color: mainTextColor),
               ),
             ),
@@ -204,7 +205,7 @@ class _RegenerateRecoveryDialogState extends State<RegenerateRecoveryDialog> {
               if (!_confirmed) return;
               Navigator.of(context).pop(true);
             },
-            buttonText: "Done",
+            buttonText: S.current.done,
           ),
         ),
       ],

@@ -2,6 +2,8 @@
 
 **A FOSS, offline first personal diary application written in Flutter**
 
+### 🌐 [diaryvault.app](https://sankethbk.github.io/diaryvault/)
+
 <div>
   <a href="https://play.google.com/store/apps/details?id=me.sankethbk.dairyapp">
     <img alt="Android App on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
@@ -21,12 +23,12 @@ We are participating in [Hacktoberfest 2024](https://hacktoberfest.com/)! Contri
 ### Screenshots
 
 <div style="display:flex; flex-wrap: wrap;">
-  <img src="readme_assets/screenshot_1.webp" style = "padding: 1rem; height: 300px">
-  <img src="readme_assets/screenshot_2.webp" style = "padding: 1rem; height: 300px">
-  <img src="readme_assets/screenshot_3.webp" style = "padding: 1rem; height: 300px">
-  <img src="readme_assets/screenshot_4.webp" style = "padding: 1rem; height: 300px">
-  <img src="readme_assets/screenshot_5.webp" style = "padding: 1rem; height: 300px">
-  <img src="readme_assets/screenshot_6.webp" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_1.png" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_2.png" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_3.png" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_4.png" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_5.png" style = "padding: 1rem; height: 300px">
+  <img src="readme_assets/screenshot_6.png" style = "padding: 1rem; height: 300px">
   <img src="readme_assets/screenshot_7.webp" style = "padding: 1rem; height: 300px">
   <img src="readme_assets/screenshot_8.webp" style = "padding: 1rem; height: 300px">
 </div>

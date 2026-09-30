@@ -63,8 +63,8 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
   Future<void> _openLockedNote(NotePreviewModel note) async {
     final unlocked = await showUnlockDialog(
       context,
-      title: "This note is protected by a different passphrase",
-      actionLabel: "Unlock note",
+      title: S.current.noteDifferentPassphrase,
+      actionLabel: S.current.unlockNoteAction,
       onSubmit: (passphrase) => cubit.unlockNote(note.id, passphrase),
     );
     if (unlocked != true || !mounted) return;
@@ -118,7 +118,7 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.lock),
-            tooltip: "Lock",
+            tooltip: S.current.lockAction,
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -170,7 +170,7 @@ class _EncryptedNotesPageState extends State<EncryptedNotesPage> {
                         ElevatedButton.icon(
                           onPressed: _promptUnlock,
                           icon: const Icon(Icons.lock_open),
-                          label: const Text("Unlock"),
+                          label: Text(S.current.unlockAction),
                         ),
                       ],
                     ),

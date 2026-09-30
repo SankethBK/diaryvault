@@ -137,7 +137,7 @@ class EncryptionSettingsPage extends StatelessWidget {
                           // encrypted notes; they stay protected and can be
                           // unlocked anytime
                           showToast(
-                            "Encryption stays on for encrypted notes. Lock them anytime from the encrypted notes view.",
+                            S.current.encryptionStaysOnToast,
                             context: context,
                           );
                           return;
@@ -145,7 +145,7 @@ class EncryptionSettingsPage extends StatelessWidget {
                         final setupDone =
                             await showEncryptionSetupDialog(context);
                         if (setupDone == true && context.mounted) {
-                          showToast("Encryption enabled", context: context);
+                          showToast(S.current.encryptionEnabledToast, context: context);
                         }
                       },
                     ),

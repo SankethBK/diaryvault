@@ -273,7 +273,7 @@ class _NotesReadOnlyPageState extends State<NotesReadOnlyPage>
                 return ListView(
                   padding: const EdgeInsets.only(top: 10),
                   children: [
-                    Text(state.title ?? 'Null title',
+                    Text(state.title ?? S.current.noteNoTitle,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20.0,

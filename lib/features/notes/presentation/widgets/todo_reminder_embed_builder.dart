@@ -1,6 +1,7 @@
 import 'package:dairy_app/app/themes/theme_extensions/note_create_page_theme_extensions.dart';
 import 'package:dairy_app/features/notes/core/utils/todo_delta_parser.dart';
 import 'package:dairy_app/features/notes/presentation/widgets/todo_reminder_actions.dart';
+import 'package:dairy_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:intl/intl.dart';
@@ -33,7 +34,7 @@ class TodoReminderEmbedBuilder extends EmbedBuilder {
       return Padding(
         padding: const EdgeInsets.only(left: 3, right: 5),
         child: IconButton(
-          tooltip: 'Set reminder',
+          tooltip: S.current.setTodoReminder,
           visualDensity: VisualDensity.compact,
           constraints: const BoxConstraints(minWidth: 30, minHeight: 30),
           padding: EdgeInsets.zero,

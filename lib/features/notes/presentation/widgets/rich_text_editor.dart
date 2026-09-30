@@ -270,7 +270,7 @@ class _RichTextEditorState extends State<RichTextEditor> {
       focusNode: _focusNode,
       autoFocus: false,
       readOnly: false,
-      placeholder: 'Write something here...',
+      placeholder: S.current.editorPlaceholder,
       expands: false,
       padding: EdgeInsets.zero,
       customStyles: DefaultStyles(

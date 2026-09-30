@@ -1363,6 +1363,86 @@ class S {
     );
   }
 
+  /// `Writing streaks & stats`
+  String get whatsNewStreakTrackingTitle {
+    return Intl.message(
+      'Writing streaks & stats',
+      name: 'whatsNewStreakTrackingTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track your current streak, longest streak, total words and a 6-month activity heatmap.`
+  String get whatsNewStreakTrackingSubtitle {
+    return Intl.message(
+      'Track your current streak, longest streak, total words and a 6-month activity heatmap.',
+      name: 'whatsNewStreakTrackingSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Todos with reminders`
+  String get whatsNewTodosTitle {
+    return Intl.message(
+      'Todos with reminders',
+      name: 'whatsNewTodosTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add checklists inside notes, create standalone todos and get notified with reminders.`
+  String get whatsNewTodosSubtitle {
+    return Intl.message(
+      'Add checklists inside notes, create standalone todos and get notified with reminders.',
+      name: 'whatsNewTodosSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search everywhere`
+  String get whatsNewHomeSearchTitle {
+    return Intl.message(
+      'Search everywhere',
+      name: 'whatsNewHomeSearchTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Find notes from the home page and search inside a note while reading.`
+  String get whatsNewHomeSearchSubtitle {
+    return Intl.message(
+      'Find notes from the home page and search inside a note while reading.',
+      name: 'whatsNewHomeSearchSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cloud backup status`
+  String get whatsNewCloudBackupTitle {
+    return Intl.message(
+      'Cloud backup status',
+      name: 'whatsNewCloudBackupTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See which notes are backed up, pending upload and when your last sync happened.`
+  String get whatsNewCloudBackupSubtitle {
+    return Intl.message(
+      'See which notes are backed up, pending upload and when your last sync happened.',
+      name: 'whatsNewCloudBackupSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Encryption`
   String get encryption {
     return Intl.message('Encryption', name: 'encryption', desc: '', args: []);
@@ -2388,6 +2468,456 @@ class S {
     return Intl.message(
       'Please pick a time in the future',
       name: 'reminderTimeMustBeInFuture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Dairy`
+  String get appTitle {
+    return Intl.message('My Dairy', name: 'appTitle', desc: '', args: []);
+  }
+
+  /// `This note is protected by a different passphrase`
+  String get noteDifferentPassphrase {
+    return Intl.message(
+      'This note is protected by a different passphrase',
+      name: 'noteDifferentPassphrase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlock note`
+  String get unlockNoteAction {
+    return Intl.message(
+      'Unlock note',
+      name: 'unlockNoteAction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock`
+  String get lockAction {
+    return Intl.message('Lock', name: 'lockAction', desc: '', args: []);
+  }
+
+  /// `Unlock`
+  String get unlockAction {
+    return Intl.message('Unlock', name: 'unlockAction', desc: '', args: []);
+  }
+
+  /// `Encryption stays on for encrypted notes. Lock them anytime from the encrypted notes view.`
+  String get encryptionStaysOnToast {
+    return Intl.message(
+      'Encryption stays on for encrypted notes. Lock them anytime from the encrypted notes view.',
+      name: 'encryptionStaysOnToast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encryption enabled`
+  String get encryptionEnabledToast {
+    return Intl.message(
+      'Encryption enabled',
+      name: 'encryptionEnabledToast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passphrase must be at least {minLength} characters`
+  String passphraseMinLength(int minLength) {
+    return Intl.message(
+      'Passphrase must be at least $minLength characters',
+      name: 'passphraseMinLength',
+      desc: 'Validation error when passphrase is too short',
+      args: [minLength],
+    );
+  }
+
+  /// `New passphrases do not match`
+  String get newPassphrasesDoNotMatch {
+    return Intl.message(
+      'New passphrases do not match',
+      name: 'newPassphrasesDoNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current passphrase is incorrect`
+  String get currentPassphraseIncorrect {
+    return Intl.message(
+      'Current passphrase is incorrect',
+      name: 'currentPassphraseIncorrect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change passphrase`
+  String get changePassphraseTitle {
+    return Intl.message(
+      'Change passphrase',
+      name: 'changePassphraseTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current passphrase`
+  String get currentPassphraseLabel {
+    return Intl.message(
+      'Current passphrase',
+      name: 'currentPassphraseLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New passphrase`
+  String get newPassphraseLabel {
+    return Intl.message(
+      'New passphrase',
+      name: 'newPassphraseLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm new passphrase`
+  String get confirmNewPassphraseLabel {
+    return Intl.message(
+      'Confirm new passphrase',
+      name: 'confirmNewPassphraseLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passphrases do not match`
+  String get passphrasesDoNotMatch {
+    return Intl.message(
+      'Passphrases do not match',
+      name: 'passphrasesDoNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encrypt your notes`
+  String get encryptYourNotesTitle {
+    return Intl.message(
+      'Encrypt your notes',
+      name: 'encryptYourNotesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes you mark as encrypted are protected on this device and in your cloud backup with a passphrase only you know. Nobody else - including us and your cloud provider - can read them.`
+  String get encryptYourNotesDescription {
+    return Intl.message(
+      'Notes you mark as encrypted are protected on this device and in your cloud backup with a passphrase only you know. Nobody else - including us and your cloud provider - can read them.',
+      name: 'encryptYourNotesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `⚠️ If you forget your passphrase AND lose the recovery code, encrypted notes are gone forever. There is no way to recover them.`
+  String get encryptionLossWarning {
+    return Intl.message(
+      '⚠️ If you forget your passphrase AND lose the recovery code, encrypted notes are gone forever. There is no way to recover them.',
+      name: 'encryptionLossWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encrypted notes live in a separate locked view and are excluded from search.`
+  String get encryptionSeparateViewDescription {
+    return Intl.message(
+      'Encrypted notes live in a separate locked view and are excluded from search.',
+      name: 'encryptionSeparateViewDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not now`
+  String get notNow {
+    return Intl.message('Not now', name: 'notNow', desc: '', args: []);
+  }
+
+  /// `Continue`
+  String get continueButton {
+    return Intl.message('Continue', name: 'continueButton', desc: '', args: []);
+  }
+
+  /// `Choose a passphrase`
+  String get choosePassphraseTitle {
+    return Intl.message(
+      'Choose a passphrase',
+      name: 'choosePassphraseTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You'll enter this to unlock encrypted notes. Use something long and memorable.`
+  String get choosePassphraseHint {
+    return Intl.message(
+      'You\'ll enter this to unlock encrypted notes. Use something long and memorable.',
+      name: 'choosePassphraseHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passphrase`
+  String get passphraseLabel {
+    return Intl.message(
+      'Passphrase',
+      name: 'passphraseLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm passphrase`
+  String get confirmPassphraseLabel {
+    return Intl.message(
+      'Confirm passphrase',
+      name: 'confirmPassphraseLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I understand there is no way to recover my notes if I forget this passphrase and lose the recovery code`
+  String get encryptionLossAcknowledgement {
+    return Intl.message(
+      'I understand there is no way to recover my notes if I forget this passphrase and lose the recovery code',
+      name: 'encryptionLossAcknowledgement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get backAction {
+    return Intl.message('Back', name: 'backAction', desc: '', args: []);
+  }
+
+  /// `Set passphrase`
+  String get setPassphrase {
+    return Intl.message(
+      'Set passphrase',
+      name: 'setPassphrase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your recovery code`
+  String get yourRecoveryCodeTitle {
+    return Intl.message(
+      'Your recovery code',
+      name: 'yourRecoveryCodeTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write this down and keep it somewhere safe. It is the ONLY way to recover your notes if you forget the passphrase. It will not be shown again.`
+  String get recoveryCodeDescription {
+    return Intl.message(
+      'Write this down and keep it somewhere safe. It is the ONLY way to recover your notes if you forget the passphrase. It will not be shown again.',
+      name: 'recoveryCodeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy`
+  String get copyButtonTooltip {
+    return Intl.message('Copy', name: 'copyButtonTooltip', desc: '', args: []);
+  }
+
+  /// `Recovery code copied`
+  String get recoveryCodeCopiedToast {
+    return Intl.message(
+      'Recovery code copied',
+      name: 'recoveryCodeCopiedToast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I have written down my recovery code`
+  String get recoveryCodeAcknowledgement {
+    return Intl.message(
+      'I have written down my recovery code',
+      name: 'recoveryCodeAcknowledgement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note will be saved unencrypted`
+  String get noteWillBeSavedUnencrypted {
+    return Intl.message(
+      'Note will be saved unencrypted',
+      name: 'noteWillBeSavedUnencrypted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note will be saved encrypted`
+  String get noteWillBeSavedEncrypted {
+    return Intl.message(
+      'Note will be saved encrypted',
+      name: 'noteWillBeSavedEncrypted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This invalidates your old recovery code. Enter your passphrase to continue.`
+  String get regenerateRecoveryCodeDescription {
+    return Intl.message(
+      'This invalidates your old recovery code. Enter your passphrase to continue.',
+      name: 'regenerateRecoveryCodeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Regenerate`
+  String get regenerateButton {
+    return Intl.message(
+      'Regenerate',
+      name: 'regenerateButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New recovery code`
+  String get newRecoveryCodeTitle {
+    return Intl.message(
+      'New recovery code',
+      name: 'newRecoveryCodeTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write it down and keep it safe. It will not be shown again.`
+  String get newRecoveryCodeDescription {
+    return Intl.message(
+      'Write it down and keep it safe. It will not be shown again.',
+      name: 'newRecoveryCodeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I have written down the new code`
+  String get newRecoveryCodeAcknowledgement {
+    return Intl.message(
+      'I have written down the new code',
+      name: 'newRecoveryCodeAcknowledgement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use passphrase instead`
+  String get usePassphraseInstead {
+    return Intl.message(
+      'Use passphrase instead',
+      name: 'usePassphraseInstead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot passphrase? Use recovery code`
+  String get forgotPassphraseUseRecoveryCode {
+    return Intl.message(
+      'Forgot passphrase? Use recovery code',
+      name: 'forgotPassphraseUseRecoveryCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlock`
+  String get unlockButton {
+    return Intl.message('Unlock', name: 'unlockButton', desc: '', args: []);
+  }
+
+  /// `Write something here...`
+  String get editorPlaceholder {
+    return Intl.message(
+      'Write something here...',
+      name: 'editorPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search in note`
+  String get searchInNoteHint {
+    return Intl.message(
+      'Search in note',
+      name: 'searchInNoteHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Untitled note`
+  String get noteNoTitle {
+    return Intl.message(
+      'Untitled note',
+      name: 'noteNoTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top`
+  String get toolbarPositionTop {
+    return Intl.message('Top', name: 'toolbarPositionTop', desc: '', args: []);
+  }
+
+  /// `Bottom`
+  String get toolbarPositionBottom {
+    return Intl.message(
+      'Bottom',
+      name: 'toolbarPositionBottom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `None`
+  String get syncSourceNone {
+    return Intl.message('None', name: 'syncSourceNone', desc: '', args: []);
+  }
+
+  /// `Visit our website`
+  String get visitWebsite {
+    return Intl.message(
+      'Visit our website',
+      name: 'visitWebsite',
       desc: '',
       args: [],
     );
